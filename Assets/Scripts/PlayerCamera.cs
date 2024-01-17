@@ -10,7 +10,7 @@ public class PlayerCamera : MonoBehaviour
     private Volume volume;
     private Vignette vignette;
     private ChromaticAberration chromaticAberration;
-    private float followSpeed = 2.0f;
+    private float followSpeed = 1.0f;
 
     private void Awake()
     {

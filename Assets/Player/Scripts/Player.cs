@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public int maxCorupption = 100;
     public int currentCorupption = 0;
 
+    private int numberOfLives = 3;
     public int maxHealth = 100;
     public int currentHealth = 0;
     private Material material;
@@ -67,20 +68,21 @@ public class Player : MonoBehaviour
         StartCoroutine(FlashOnHit());   
         if (currentHealth > 0)
         {
+            
             controller.rb.velocity += controller.playerMovementManager.currentDirection * -5;
             currentHealth -= value;
-            if(currentHealth <=0)
+            Debug.Log(currentHealth);
+            if (currentHealth <=0)
             {
                 currentHealth = 0;
-                //Debug.Log("dEAD");
+                numberOfLives --;
+                healthBar.OnLifeLost();
             }
         }
         else
         {
             //Debug.Log("You are dead");
         }
-
-        healthBar.ChangeHealthBar();
        
     }
 
