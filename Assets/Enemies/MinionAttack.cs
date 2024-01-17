@@ -31,17 +31,9 @@ public class MinionAttack : MonoBehaviour
             parryShield.GetComponent<ParryShield>().OnSuccessfulParry();
             parryShield.GetComponent<ParryShield>().SpawnImpactEffect(hit.point);
             Vector3 scale = transform.localScale;
-            Vector2 launchVec = Vector2.zero;
-            if (scale.x == 1)
-            {
-                launchVec = new Vector2(7, 5);
-            }
-            if (scale.x == -1)
-            {
-                launchVec = new Vector2(-7, 5);
-            }
-            enemyAI.enemyCollision.OnEnemyHit(launchVec, 500);
-            
+
+            enemyAI.enemyCollision.OnEnemyParried(parryShield, hit.point, 50);
+
 
         }
 

@@ -42,6 +42,23 @@ public class EnemyCollision : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x + lanunchVector.x * luanchModifier, rb.velocity.y + lanunchVector.y * luanchModifier);
     }
 
+    public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
+    {
+        shield.GetComponent<ParryShield>().OnSuccessfulParry();
+        shield.GetComponent<ParryShield>().SpawnImpactEffect(hitLocation);
+        Vector3 scale = transform.localScale;
+        Vector2 launchVec = Vector2.zero;
+        if (scale.x == 1)
+        {
+            launchVec = new Vector2(7 * luanchModifier, 5 * luanchModifier);
+        }
+        if (scale.x == -1)
+        {
+            launchVec = new Vector2(-7 * luanchModifier, 5 * luanchModifier);
+        }
+        OnEnemyHit(launchVec, damage);
+    }
+
     private void SpawnDamagePopUp(int damage)
     {
         DamagePopUp obj = Instantiate(damagePopUp, new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity);

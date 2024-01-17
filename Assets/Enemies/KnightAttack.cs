@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class KnightAttack : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class KnightAttack : MonoBehaviour
         {
            
             GameObject parryShield = hit.collider.gameObject;
-            HandleCollisionOnParryShield(parryShield, hit.point);
+            knightAI.enemyCollision.OnEnemyParried(parryShield, hit.point, 100);
 
         }
 
@@ -65,7 +66,8 @@ public class KnightAttack : MonoBehaviour
         {
 
             GameObject parryShield = hit.collider.gameObject;
-            HandleCollisionOnParryShield(parryShield, hit.point);
+           
+            knightAI.enemyCollision.OnEnemyParried(parryShield, hit.point,100);
 
         }
 
@@ -83,22 +85,7 @@ public class KnightAttack : MonoBehaviour
 
     }
 
-    private void HandleCollisionOnParryShield(GameObject shield, Vector2 hitLocation)
-    {
-        shield.GetComponent<ParryShield>().OnSuccessfulParry();
-        shield.GetComponent<ParryShield>().SpawnImpactEffect(hitLocation);
-        Vector3 scale = transform.localScale;
-        Vector2 launchVec = Vector2.zero;
-        if (scale.x == 1)
-        {
-            launchVec = new Vector2(7, 5);
-        }
-        if (scale.x == -1)
-        {
-            launchVec = new Vector2(-7, 5);
-        }
-        knightAI.enemyCollision.OnEnemyHit(launchVec, 500);
-    }
+   
 
     void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
     {
