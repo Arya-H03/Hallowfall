@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public delegate void MyEventHandler();
 
     public static event MyEventHandler CorruptionEvent;
+
+    public static event MyEventHandler LosingHealthShieldEvent;
+
     private PlayerController controller;
 
     [SerializeField] PlayerHealthBar healthBar;
@@ -18,7 +21,7 @@ public class Player : MonoBehaviour
     public int maxCorupption = 100;
     public int currentCorupption = 0;
 
-    private int numberOfLives = 3;
+    public int numberOfHealthShield = 3;
     public int maxHealth = 100;
     public int currentHealth = 0;
     private Material material;
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        LosingHealthShieldEvent += OnHealthShieldLost;
     }
 
     public void OnGainCorruption(int value)
@@ -64,26 +68,33 @@ public class Player : MonoBehaviour
     }
     public void OnTakingDamage(int value)
     {
-
+        
         StartCoroutine(FlashOnHit());   
         if (currentHealth > 0)
         {
             
             controller.rb.velocity += controller.playerMovementManager.currentDirection * -5;
             currentHealth -= value;
-            Debug.Log(currentHealth);
+            
             if (currentHealth <=0)
             {
-                currentHealth = 0;
-                numberOfLives --;
-                healthBar.OnLifeLost();
+                //OnHealthShieldLost();
+                LosingHealthShieldEvent?.Invoke();
+
+
             }
         }
-        else
-        {
-            //Debug.Log("You are dead");
-        }
        
+    }
+
+    private void OnHealthShieldLost()
+    {
+        numberOfHealthShield--;
+        if (numberOfHealthShield <= 0)
+        {
+            Debug.Log("Death");
+        }
+        currentHealth = maxHealth;
     }
 
     public void OnKnockBack(Vector2 launchVector,float enemyXpos)

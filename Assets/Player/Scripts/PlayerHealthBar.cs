@@ -1,53 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    //[SerializeField] Image foreGround;
-    private Image [] healthImages;
+    [SerializeField] GameObject [] healthShields;
 
-    //private Image currentHealthImage;
-    private int currentImageIndex = 0;
+    private int currenthealthShieldsIndex = 0;
     private Player player;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
-        healthImages = GetComponentsInChildren<Image>();
-
-        // Additional null check for safety
-        if (healthImages == null || healthImages.Length == 0)
-        {
-            Debug.LogError("No Image components found in children.");
-        }
+     
     }
 
-    private void Update()
+    private void Start()
     {
-        Debug.Log(healthImages);
+
+        Player.LosingHealthShieldEvent += OnLifeLost;
     }
-
-
+   
     public void OnLifeLost()
     {
-        if (healthImages == null || currentImageIndex >= healthImages.Length)
+        if (currenthealthShieldsIndex < 3)
         {
-            Debug.LogError("Health images array is null or out of bounds.");
-            return;
-        }
-
-        // Perform your logic with healthImages[currentImageIndex]
-        healthImages[currentImageIndex].color = Color.black;
-        currentImageIndex++;
+            healthShields[currenthealthShieldsIndex].GetComponent<HealthShield>().PlayBreakAnimation();
+            currenthealthShieldsIndex++;
+        }              
     }
-    //public void ChangeHealthBar()
-    //{
-    //    if (player)
-    //    {
-    //        float ratio = 1-((float)player.currentHealth / player.maxHealth);
-    //        foreGround.transform.localScale = new Vector3(ratio, 1, 1);
-    //    }
-    //}
+
+ 
 }
