@@ -34,11 +34,13 @@ public class GameManager : MonoBehaviour
 
     private void CreateUpDialogeBox(string text)
     {
-        GameObject obj = Instantiate(dialogeBox, Vector3.zero, Quaternion.identity);
-        obj.transform.SetParent(canvas.transform, false);
-        obj.transform.position = new Vector3(220, 75, 0);
+        //GameObject obj = Instantiate(dialogeBox, Vector3.zero, Quaternion.identity);
+        //obj.transform.SetParent(canvas.transform, false);
+        //obj.transform.position = new Vector3(220, 75, 0);
+        dialogeBox.SetActive(true);
+        dialogeBox.GetComponent<Dialoge>().StartDialoge(text);
 
-        obj.GetComponent<Dialoge>().text[0] = text;
+        //obj.GetComponent<Dialoge>().text[0] = text;
         
     }   
 
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
     private void OnPlayerWakeUp()
     {
         playerCamera.GetComponent<PlayerCamera>().OnPlayerDistorted();
+
        
     }
 

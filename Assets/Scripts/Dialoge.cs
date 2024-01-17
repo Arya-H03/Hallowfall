@@ -2,52 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Dialoge : MonoBehaviour
 {
-    public TextMeshProUGUI textComponent;
-    public string[] text;
-    private int index;
-    private float textSpeed = 0.05f;
+    private TextMeshProUGUI textComponent;
+    private Color textColor;
+    public string text;
+    private float textSpeed = 0.1f;
 
+    private float duration = 5f;
+
+    private Image dialogeBox;
+    private Color dialogeColor;
+
+    private void Awake()
+    {
+        dialogeBox = GetComponent<Image>();
+        textComponent = GetComponentInChildren<TextMeshProUGUI>();
+        dialogeColor = dialogeBox.color;
+        textColor = textComponent.color;
+    }
 
     private void Start()
     {
         textComponent.text = string.Empty;
-        Invoke("StartDialoge", 0.5f);
-        Invoke("OnDestroy", 10f);
     }
-    private void StartDialoge()
+    public void StartDialoge(string inputext)
     {
-        index = 0;
+        text = inputext;
+        dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, 0.75f);
+        textComponent.color = new Color(textColor.r, textColor.g, textColor.b, 1f);
         StartCoroutine(TypeLine());
     }
 
-    IEnumerator TypeLine()
+    private IEnumerator EndDialoge()
     {
-        foreach(char c in text[index].ToCharArray())
+        yield return new WaitForSeconds(5f);
+        while (dialogeBox.color.a > 0f)
         {
-            textComponent.text += c;
+            dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, dialogeBox.color.a - (dialogeColor.a * textSpeed/ duration));
+            textComponent.color = new Color(textColor.r, textColor.g, textColor.b, textComponent.color.a - (textColor.a * textSpeed / duration));
             yield return new WaitForSeconds(textSpeed);
         }
     }
 
-    private void NextLine()
+
+    IEnumerator TypeLine()
     {
-        if (index < text.Length - 1)
+        int i = 0;
+        foreach(char c in text.ToCharArray())
         {
-            index++;
-            textComponent.text = string.Empty;
-            StartCoroutine (TypeLine());
-        }
-        else
-        {
-            gameObject.SetActive(false);
+            i++;    
+            textComponent.text += c;
+            yield return new WaitForSeconds(textSpeed);
+            if (i == text.ToCharArray().Length)
+            {
+                StartCoroutine(EndDialoge());
+            }
         }
     }
 
-    private void OnDestroy()
-    {
-        Destroy(gameObject);
-    }
+   
 }
