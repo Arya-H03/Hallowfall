@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        material = GetComponentInChildren<SpriteRenderer>().material;
+        material = GetComponent<SpriteRenderer>().material;
         controller = GetComponent<PlayerController>();
     }
 
@@ -55,11 +55,16 @@ public class Player : MonoBehaviour
         CorruptionEvent?.Invoke();
     }
 
+    private IEnumerator FlashOnHit()
+    {
+        material.SetFloat("_Flash", 1);
+        yield return new WaitForSeconds(0.5f);
+        material.SetFloat("_Flash", 0);
+    }
     public void OnTakingDamage(int value)
     {
 
-        //controller.animationController.SetTriggerForAnimations("Hit");
-        controller.animationController.SetBoolForAnimations("isHit", true);
+        StartCoroutine(FlashOnHit());   
         if (currentHealth > 0)
         {
             controller.rb.velocity += controller.playerMovementManager.currentDirection * -5;

@@ -56,10 +56,10 @@ public class PlayerAnimationController : MonoBehaviour
         //footSteps.PlayFootstepPSEffect();
     }
 
-    public void EndisHit()
-    {
-        SetBoolForAnimations("isHit", false);
-    }
+    //public void EndisHit()
+    //{
+    //    SetBoolForAnimations("isHit", false);
+    //}
 
 
     public void StopAttack()
