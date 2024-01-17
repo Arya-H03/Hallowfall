@@ -6,35 +6,35 @@ public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
     [SerializeField] PlayerFootSteps footSteps;
-    [SerializeField] PlayerController playerController;
-    [SerializeField] RuntimeAnimatorController OneHandAc;
-    [SerializeField] RuntimeAnimatorController TwoHandAc;
+    private PlayerController playerController;
+
+    [SerializeField] RuntimeAnimatorController withSwordAC;
+    [SerializeField] RuntimeAnimatorController withoutSwordAC;
 
 
     [SerializeField] GameObject LeftHand;
 
     private string [] animConditions = {"isRunning","isJumping","isHit"};   
 
-    private void OnEnable()
-    {
-        //PlayerController.ShootGunEvent += ChangeAnimatorAC;
-    }
-
-    private void OnDisable()
-    {
-        //PlayerController.ShootGunEvent -= ChangeAnimatorAC;
-    }
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
     }
 
-    //public void ChangeAnimatorAC()
-    //{
-    //    animator.runtimeAnimatorController = OneHandAc;
-    //    LeftHand.SetActive(true);
-    //}
+    public void ChangeAnimatorAC(bool hasSword)
+    {
+        if(hasSword)
+        {
+            animator.runtimeAnimatorController = withSwordAC;
+        }
+
+        if (!hasSword)
+        {
+            animator.runtimeAnimatorController = withoutSwordAC;
+        }
+        
+    }
 
     public void SetBoolForAnimations(string name,bool value)
     {
@@ -50,17 +50,6 @@ public class PlayerAnimationController : MonoBehaviour
     {
         SetBoolForAnimations("isParrySuccessful", false);
     }
-
-    public void CreateFootStepDust()
-    {
-        //footSteps.PlayFootstepPSEffect();
-    }
-
-    //public void EndisHit()
-    //{
-    //    SetBoolForAnimations("isHit", false);
-    //}
-
 
     public void StopAttack()
     {

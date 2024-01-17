@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool isPlayerJumping = false;
     public bool canPlayerAttack = true;
     public bool isParrying  = false;
+    public bool hasSword = false;
 
     private void Awake()
     {     
@@ -48,16 +49,44 @@ public class PlayerController : MonoBehaviour
 
     public void OnStartAttack(int attackIndex)
     {
-        playerAttacks.StartAttack(isPlayerJumping, attackIndex);
+        if (hasSword)
+        {
+            playerAttacks.StartAttack(isPlayerJumping, attackIndex);
+        }
+        
     }
 
     public void OnParry()
     {
-        isParrying = true;
-        playerParry.StartParry();
-        
-
+        if (hasSword)
+        {
+            isParrying = true;
+            playerParry.StartParry();
+        }
+       
+  
     }
 
+    private void HandelSwordEquipment(bool isEquiped)
+    {
+        animationController.ChangeAnimatorAC(isEquiped);
+        hasSword = isEquiped;
+    }
+   
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            HandelSwordEquipment(true);
 
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            HandelSwordEquipment(false);
+
+        }
+
+    }
 }
