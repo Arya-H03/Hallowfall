@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class PointOfInterest : MonoBehaviour
 {
+    private GameObject dialogeBox;
+    [SerializeField] GameObject interactIcon;
 
-    [SerializeField] GameObject intercatIcon;
+    public string interactionType;
+    public string dialogeText;
 
+    private bool isPlayerInRange = false;
+   
+    public delegate void InteractionEventHandler(string interactionType);
+    public static event InteractionEventHandler OnPointOfInterestInteraction;
+
+    private void Awake()
+    {
+        dialogeBox = GameObject.FindGameObjectWithTag("DialogeBox");
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
+            isPlayerInRange = true;
             ActivateInteractIcon();
         }
     }
@@ -21,17 +33,44 @@ public class PointOfInterest : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            isPlayerInRange = false;
             DeActivateInteractIcon();
         }
     }
 
+    private void Update()
+    {
+        if (isPlayerInRange)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Interaction();
+            }
+        }
+    }
     private void ActivateInteractIcon()
     {
-        intercatIcon.SetActive(true);
+        interactIcon.SetActive(true);
+        
+        
     }
 
     private void DeActivateInteractIcon()
     {
-        intercatIcon.SetActive(false);
+        interactIcon.SetActive(false);
+    }
+
+    private void Interaction()
+    {
+       
+        if (OnPointOfInterestInteraction != null)
+        {
+            if(dialogeText != "")
+            {
+                dialogeBox.GetComponent<Dialoge>().StartDialoge(dialogeText);
+            }
+           
+            OnPointOfInterestInteraction(interactionType);
+        }
     }
 }

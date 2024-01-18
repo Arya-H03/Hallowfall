@@ -67,26 +67,10 @@ public class PlayerController : MonoBehaviour
   
     }
 
-    private void HandelSwordEquipment(bool isEquiped)
+    public void HandelSwordEquipment(bool isEquiped)
     {
         animationController.ChangeAnimatorAC(isEquiped);
         hasSword = isEquiped;
     }
    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            HandelSwordEquipment(true);
-
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            HandelSwordEquipment(false);
-
-        }
-
-    }
 }

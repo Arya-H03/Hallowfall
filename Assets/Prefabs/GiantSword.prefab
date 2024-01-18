@@ -116,6 +116,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6258549683438450021}
     m_Modifications:
     - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
+      propertyPath: interactIcon
+      value: 
+      objectReference: {fileID: 5177344427993259787}
+    - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
       propertyPath: intercatIcon
       value: 
       objectReference: {fileID: 5177344427993259787}

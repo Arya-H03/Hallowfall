@@ -4900,9 +4900,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1045667633
+  m_SortingLayer: -1
+  m_SortingOrder: 12
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4982,7 +4982,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e3921e410b82c4293414b8c0841459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intercatIcon: {fileID: 6185841007119779443}
+  interactIcon: {fileID: 6185841007119779443}
+  interactionType: 
+  dialogeText: 
 --- !u!1001 &5721145564135005137
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,12 +9,12 @@ public class Dialoge : MonoBehaviour
     private TextMeshProUGUI textComponent;
     private Color textColor;
     public string text;
-    private float textSpeed = 0.1f;
-
-    private float duration = 5f;
+    private float textSpeed = 0.05f;
 
     private Image dialogeBox;
     private Color dialogeColor;
+
+    private bool canStartDialoge = true;
 
     private void Awake()
     {
@@ -30,10 +30,16 @@ public class Dialoge : MonoBehaviour
     }
     public void StartDialoge(string inputext)
     {
-        text = inputext;
-        dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, 0.75f);
-        textComponent.color = new Color(textColor.r, textColor.g, textColor.b, 1f);
-        StartCoroutine(TypeLine());
+        if(canStartDialoge)
+        {
+            canStartDialoge = false;
+            textComponent.text = string.Empty;
+            text = inputext;
+            dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, 0.75f);
+            textComponent.color = new Color(textColor.r, textColor.g, textColor.b, 1f);
+            StartCoroutine(TypeLine());
+        }
+       
     }
 
     private IEnumerator EndDialoge()
@@ -41,10 +47,11 @@ public class Dialoge : MonoBehaviour
         yield return new WaitForSeconds(5f);
         while (dialogeBox.color.a > 0f)
         {
-            dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, dialogeBox.color.a - (dialogeColor.a * textSpeed/ duration));
-            textComponent.color = new Color(textColor.r, textColor.g, textColor.b, textComponent.color.a - (textColor.a * textSpeed / duration));
-            yield return new WaitForSeconds(textSpeed);
+            dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, dialogeBox.color.a - 0.075f );
+            textComponent.color = new Color(textColor.r, textColor.g, textColor.b, textComponent.color.a - 0.1f);
+            yield return new WaitForSeconds(0.1f);
         }
+        canStartDialoge = true;
     }
 
 
