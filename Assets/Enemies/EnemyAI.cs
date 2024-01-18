@@ -24,6 +24,7 @@ public class EnemyAI : MonoBehaviour
     private MinionAttack minionAttack;
 
     [SerializeField] GameObject enemyStunEffect;
+    [SerializeField] GameObject essence;
     [SerializeField] private ParticleSystem deathEffectParticle;
 
     [SerializeField] protected float attackRange;
@@ -294,6 +295,7 @@ public class EnemyAI : MonoBehaviour
         animator.enabled = false;
         spriteRenderer.enabled = false;
         deathEffectParticle.Play();
+        Instantiate(essence,transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.55f);
         Destroy(this.gameObject);
         
