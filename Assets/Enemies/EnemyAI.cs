@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] GameObject enemyStunEffect;
     [SerializeField] GameObject essence;
+    [SerializeField] int numberOfEssence = 2;
     [SerializeField] private ParticleSystem deathEffectParticle;
 
     [SerializeField] protected float attackRange;
@@ -291,11 +292,15 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator  OnEnemyDeath()
     {
-        //Destroy(this.gameObject);
+        
         animator.enabled = false;
         spriteRenderer.enabled = false;
         deathEffectParticle.Play();
-        Instantiate(essence,transform.position, Quaternion.identity);
+        for(int i =0; i< numberOfEssence; i++)
+        {
+            Instantiate(essence, transform.position, Quaternion.identity);
+        }  
+        
         yield return new WaitForSeconds(0.55f);
         Destroy(this.gameObject);
         

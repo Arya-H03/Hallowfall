@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public int currentHealth = 0;
     private Material material;
 
+    private int essenceCounter = 0;
     private void Awake()
     {
         material = GetComponent<SpriteRenderer>().material;
@@ -123,5 +124,11 @@ public class Player : MonoBehaviour
 
         }
 
+    }
+
+    public void OnEssencePickUp()
+    {
+        essenceCounter++;
+        Debug.Log(essenceCounter);
     }
 }

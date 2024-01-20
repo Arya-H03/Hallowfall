@@ -256,11 +256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.6070256
+      value: 2.0669615
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3752532
+      value: -2.0937538
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.z
@@ -375,6 +375,7 @@ MonoBehaviour:
   enemyCollision: {fileID: 2195209108102777880}
   enemyStunEffect: {fileID: 7604435279269364004}
   essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
+  numberOfEssence: 3
   deathEffectParticle: {fileID: 5381627537282002416}
   attackRange: 1
   stunDuration: 2
