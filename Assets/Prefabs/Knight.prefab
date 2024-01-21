@@ -380,6 +380,7 @@ MonoBehaviour:
   enemyCollision: {fileID: 3533309788819302603}
   enemyStunEffect: {fileID: 2955511230812978916}
   essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
+  numberOfEssence: 2
   deathEffectParticle: {fileID: 8881646992603856853}
   attackRange: 2
   stunDuration: 5
@@ -388,6 +389,7 @@ MonoBehaviour:
   chaseSpeed: 2
   lightAttackCD: 3
   heavyAttackCD: 8
+  DashCD: 5
 --- !u!114 &5959510978628433173
 MonoBehaviour:
   m_ObjectHideFlags: 0

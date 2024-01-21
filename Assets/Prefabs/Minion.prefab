@@ -109,11 +109,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8131659664029685563, guid: af39729b2208f904b92696e781871dde, type: 3}
   m_PrefabInstance: {fileID: 7341629526560584719}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7604435279269364004 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 894761330805126443, guid: af39729b2208f904b92696e781871dde, type: 3}
-  m_PrefabInstance: {fileID: 7341629526560584719}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7704000046437739444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,11 +251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.0669615
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.0937538
+      value: -2.35
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.z
@@ -309,7 +304,7 @@ PrefabInstance:
       addedObject: {fileID: 6208665117328555405}
     - targetCorrespondingSourceObject: {fileID: 134401682909542051, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4446988666868647932}
+      addedObject: {fileID: 6776845147074375043}
     - targetCorrespondingSourceObject: {fileID: 134401682909542051, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4231059572398209741}
@@ -357,7 +352,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4446988666868647932
+--- !u!114 &6776845147074375043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,14 +361,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7725756556755213591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1fc35cfeb601064d9640cae39ed540d, type: 3}
+  m_Script: {fileID: 11500000, guid: ce011866b4b7d3642bf38cb88c342ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
   enemyCollision: {fileID: 2195209108102777880}
-  enemyStunEffect: {fileID: 7604435279269364004}
+  enemyStunEffect: {fileID: 894761330805126443, guid: af39729b2208f904b92696e781871dde, type: 3}
   essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
   numberOfEssence: 3
   deathEffectParticle: {fileID: 5381627537282002416}

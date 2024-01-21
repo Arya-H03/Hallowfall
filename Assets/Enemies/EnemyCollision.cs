@@ -10,6 +10,7 @@ public class EnemyCollision : MonoBehaviour
     private Rigidbody2D rb;
     public float luanchModifier;
     [SerializeField] DamagePopUp damagePopUp;
+    public bool isInvincible = false;
 
     private void Awake()
     {
@@ -22,11 +23,15 @@ public class EnemyCollision : MonoBehaviour
 
     public void OnEnemyHit(Vector2 lanunchVector, int damage)
     {
-        enemyAi.ManageStunValue(damage);
-        StartCoroutine(EnemyFlashOnHit());
-        SpawnDamagePopUp(damage);
-        enemy.OnEnemyDamage(damage);
-        LaunchEnemy(lanunchVector);
+        if (!isInvincible)
+        {
+            enemyAi.ManageStunValue(damage);
+            StartCoroutine(EnemyFlashOnHit());
+            SpawnDamagePopUp(damage);
+            enemy.OnEnemyDamage(damage);
+            LaunchEnemy(lanunchVector);
+        }
+        
         
 
     }

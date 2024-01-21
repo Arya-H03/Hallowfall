@@ -18,14 +18,14 @@ public class EnemyRangeBox : MonoBehaviour
             enemy.OnEnterChaseState();
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            enemy.OnExitChaseState();
-        }
-    }
+    
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //       //enemy.OnExitChaseState();
+    //    }
+    //}
 
 
 }

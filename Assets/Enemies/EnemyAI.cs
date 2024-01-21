@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
         Chase,
         Attack,
         Stun,
-        Death
+        Death,
+        Dash
     }
 
     public EnemyState currentState = EnemyState.Idle;
@@ -20,13 +21,14 @@ public class EnemyAI : MonoBehaviour
     public Animator animator;
     
     public EnemyCollision enemyCollision;
-    private EnemyMovement enemyMovement;
-    private MinionAttack minionAttack;
-
+    protected EnemyMovement enemyMovement;
+   
     [SerializeField] GameObject enemyStunEffect;
+
     [SerializeField] GameObject essence;
     [SerializeField] int numberOfEssence = 2;
-    [SerializeField] private ParticleSystem deathEffectParticle;
+
+    [SerializeField] protected ParticleSystem deathEffectParticle;
 
     [SerializeField] protected float attackRange;
 
@@ -55,12 +57,9 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyMovement = GetComponent<EnemyMovement>();
         animator = GetComponent<Animator>();
-        minionAttack = GetComponent<MinionAttack>();
         enemyCollision = GetComponent<EnemyCollision>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-
-
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -71,10 +70,7 @@ public class EnemyAI : MonoBehaviour
 
     protected virtual void Update()
     {
-
         ManageStates();
-
-
     }
 
     protected virtual void ManageStates()
@@ -109,7 +105,7 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(PauseBeforePatrolling());
     }
 
-    protected IEnumerator PauseBeforePatrolling()
+    private IEnumerator PauseBeforePatrolling()
     {
         yield return new WaitForSeconds(0);
         FindNextPatrolPoint();
@@ -138,14 +134,14 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    protected void FindNextPatrolPoint()
+    private void FindNextPatrolPoint()
     {
         int patrolDirection = GetPatrolPointDirection();
         int randomRange = Random.Range(2, 4);
         nextPatrollPosition = new Vector2(startPosition.x + (patrolDirection * randomRange), startPosition.y);
     }
 
-    protected int GetPatrolPointDirection()
+    private int GetPatrolPointDirection()
     {
         int direction = 0;
         int random = Random.Range(0, 2);
@@ -166,7 +162,7 @@ public class EnemyAI : MonoBehaviour
 
 
     #region "ChaseState"
-    protected void HandleChaseState()
+    protected virtual void HandleChaseState()
     {
         if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
         {
@@ -201,36 +197,12 @@ public class EnemyAI : MonoBehaviour
     #region "AttackState"
     protected virtual void HandleAttackState()
     {
-        if (!isDead)
-        {
-            if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
-            {
-                animator.SetBool("isRunning", false);
-                animator.SetBool("isHit", false);
-                animator.SetBool("isAttacking", true);
-                
-
-            }
-
-            else
-            {
-                EndAttackAnim();
-                currentState = EnemyState.Chase;
-                animator.SetBool("isRunning", true);
-            }
-        }
-       
-    }
-
-    public void BoxCastForAttack()
-    {
-        minionAttack.BoxCast();
-
+        
     }
 
     public virtual void EndAttackAnim()
     {
-        animator.SetBool("isAttacking", false);
+       
     }
     #endregion
 
@@ -265,14 +237,25 @@ public class EnemyAI : MonoBehaviour
             
     }
 
-    //public void EndHitAnim()
-    //{
-    //    animator.SetBool("isHit", false);
-    //}
+    public void ManageStunValue(int damage)
+    {
+        if (!isStuned)
+        {
+            int value = Random.Range(damage - damage / 2, damage + 1);
+            currentStunValue += 50;
+            if (currentStunValue >= stunTreshold)
+            {
+                isStuned = true;
+                currentStunValue = 0;
+                EnterStunState();
+            }
+        }
+        
+    }
     #endregion
 
     #region "DeathState"
-    protected void HandleDeathState()
+    protected virtual void HandleDeathState()
     {
         
 
@@ -283,11 +266,9 @@ public class EnemyAI : MonoBehaviour
         isDead = true;
         animator.SetBool("isRunning", false);
         EndAttackAnim();
-        //animator.SetBool("isHit", false);
         currentState = EnemyAI.EnemyState.Death;
         enemyStunEffect.SetActive(false);
         StartCoroutine(OnEnemyDeath());
-        //animator.SetTrigger("Death");
     }
 
     private IEnumerator  OnEnemyDeath()
@@ -308,17 +289,7 @@ public class EnemyAI : MonoBehaviour
     #endregion
 
 
-    public void ManageStunValue(int damage)
-    {
-        int value = Random.Range(damage - damage/2, damage +1);
-        currentStunValue += 50 ;
-        if (currentStunValue >= stunTreshold)
-        {
-            isStuned = true;
-            currentStunValue = 0;
-            EnterStunState();
-        }       
-    }
+   
 
    
 }
