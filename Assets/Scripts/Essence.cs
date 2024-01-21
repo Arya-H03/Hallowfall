@@ -5,27 +5,14 @@ using UnityEngine;
 public class Essence : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private GameObject player;
-    public bool isPlayerInRange = false;
-    public bool canBePicked = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
     }
     void Start()
     {
        StartCoroutine(LaunchEssence());
     }
-
-    private void Update()
-    {
-        if (isPlayerInRange)
-        {
-            SnapToPlayer(player);
-        }
-    }
-
 
     private IEnumerator LaunchEssence()
     {
@@ -36,18 +23,17 @@ public class Essence : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && canBePicked)
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().OnEssencePickUp();
             Destroy(this.gameObject);
         }
+        
     }
 
     public void SnapToPlayer(GameObject player )
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 3f * Time.deltaTime);
+        rb.velocity = new Vector2(player.transform.position.x - this.transform.position.x, player.transform.position.y - this.transform.position.y) * 2;
     }
-
-
 
 }
