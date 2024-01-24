@@ -28,7 +28,7 @@ public class MinionAI : EnemyAI
             else
             {
                 EndAttackAnim();
-                currentState = EnemyState.Chase;
+                ChangeState(EnemyState.Chase);
                 animator.SetBool("isRunning", true);
             }
         }

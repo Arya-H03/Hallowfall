@@ -93,13 +93,13 @@ public class KnightAI : EnemyAI
     protected override void HandleChaseState()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if(distanceToPlayer < 5  && distanceToPlayer > 2.5f && dashTimer >= DashCD && !isAttacking)
+        if(distanceToPlayer < 5  && distanceToPlayer > 2.5f && dashTimer >= DashCD && !isAttacking && !isStuned)
         {
             OnEnterDashState();
         }
-        else if (Vector2.Distance(transform.position, player.transform.position) < attackRange && !isDashing)
+        else if (Vector2.Distance(transform.position, player.transform.position) < attackRange && !isDashing && !isStuned)
         {
-            currentState = EnemyState.Attack;
+            ChangeState(EnemyState.Attack);
 
         }
         else
@@ -127,7 +127,7 @@ public class KnightAI : EnemyAI
 
             else
             {
-                currentState = EnemyState.Chase;
+                ChangeState(EnemyState.Chase);
                 animator.SetBool("isRunning", true);
             }
         }
@@ -187,7 +187,7 @@ public class KnightAI : EnemyAI
     {
         if(dashTimer >= DashCD)
         {
-            currentState = EnemyState.Dash;
+            ChangeState(EnemyState.Dash);
             EndAttackAnim();
             animator.SetBool("isRunning", false);
             isDashing = true;
@@ -203,7 +203,7 @@ public class KnightAI : EnemyAI
         animator.SetBool("isDashing", false);
         isDashing = false;
         enemyCollision.isInvincible = false;
-        currentState = EnemyState.Chase;
+        ChangeState(EnemyState.Chase);
     }
 
     private void StartDash()

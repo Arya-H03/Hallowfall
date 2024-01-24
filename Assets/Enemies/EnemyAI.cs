@@ -33,8 +33,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected float attackRange;
 
     private int stunTreshold = 100;
-    private int currentStunValue = 0;
-    private bool isStuned = false;
+    public int currentStunValue = 0;
+    protected bool isStuned = false;
 
     [SerializeField] float stunDuration = 2f;
     public float stunTimer = 0;
@@ -66,6 +66,7 @@ public class EnemyAI : MonoBehaviour
     protected virtual void Start()
     {
         startPosition = transform.position;
+        StartCoroutine(DecreaseStunValueOverTime());
     }
 
     protected virtual void Update()
@@ -73,6 +74,11 @@ public class EnemyAI : MonoBehaviour
         ManageStates();
     }
 
+    public void ChangeState(EnemyState state)
+    {
+        Debug.Log(currentState.ToString() + " to " + state.ToString());
+        currentState = state;       
+    }
     protected virtual void ManageStates()
     {
         switch (currentState)
@@ -97,6 +103,8 @@ public class EnemyAI : MonoBehaviour
                 HandleDeathState();
                 break;
         }
+
+        DecreaseStunValueOverTime();
     }
 
     #region "IdleState"
@@ -110,8 +118,7 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(0);
         FindNextPatrolPoint();
 
-
-        currentState = EnemyState.Patrol;
+        ChangeState(EnemyState.Patrol);
         animator.SetBool("isRunning", true);
 
     }
@@ -166,8 +173,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
         {
-            currentState = EnemyState.Attack;
-
+       
+            ChangeState(EnemyState.Attack);
         }
         else
         {
@@ -180,7 +187,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (!isDead)
         {
-            currentState = EnemyAI.EnemyState.Chase;
+            ChangeState(EnemyState.Chase);
             animator.SetBool("isRunning", true);
         }
        
@@ -188,7 +195,7 @@ public class EnemyAI : MonoBehaviour
 
     public void OnExitChaseState()
     {
-        currentState = EnemyAI.EnemyState.Idle;
+        ChangeState(EnemyState.Idle);
         animator.SetBool("isRunning", false);
     }
 
@@ -211,12 +218,8 @@ public class EnemyAI : MonoBehaviour
     {
        if(stunTimer >= stunDuration)
         {
-            
-            stunTimer = 0f;
-            isStuned = false;
-            enemyStunEffect.SetActive(false);
-            Debug.Log("StunOver");
-            currentState = EnemyAI.EnemyState.Chase;
+
+            OnExitStunState();
         }
 
         else
@@ -226,15 +229,26 @@ public class EnemyAI : MonoBehaviour
         
     }
 
-    protected virtual void EnterStunState()
+    protected virtual void OnEnterStunState()
     {
 
         Debug.Log("Stun");
         animator.SetBool("isRunning", false);
         EndAttackAnim();
-        currentState = EnemyAI.EnemyState.Stun;
+        ChangeState(EnemyState.Stun);
         enemyStunEffect.SetActive(true);
             
+    }
+
+    protected virtual void OnExitStunState()
+    {
+
+        stunTimer = 0f;
+        enemyStunEffect.SetActive(false);      
+        Debug.Log("StunOver");
+        isStuned = false;
+        ChangeState(EnemyState.Chase);
+
     }
 
     public void ManageStunValue(int damage)
@@ -247,8 +261,18 @@ public class EnemyAI : MonoBehaviour
             {
                 isStuned = true;
                 currentStunValue = 0;
-                EnterStunState();
+                OnEnterStunState();
             }
+        }
+        
+    }
+
+    private IEnumerator DecreaseStunValueOverTime() { 
+
+        while(currentStunValue > 0)
+        {
+            currentStunValue -= 5;
+            yield return new WaitForSeconds(0.5f);
         }
         
     }
@@ -266,7 +290,7 @@ public class EnemyAI : MonoBehaviour
         isDead = true;
         animator.SetBool("isRunning", false);
         EndAttackAnim();
-        currentState = EnemyAI.EnemyState.Death;
+        ChangeState(EnemyState.Death);
         enemyStunEffect.SetActive(false);
         StartCoroutine(OnEnemyDeath());
     }
