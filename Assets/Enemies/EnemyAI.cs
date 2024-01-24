@@ -185,7 +185,7 @@ public class EnemyAI : MonoBehaviour
 
     public void OnEnterChaseState()
     {
-        if (!isDead)
+        if (!isDead && !isStuned)
         {
             ChangeState(EnemyState.Chase);
             animator.SetBool("isRunning", true);
@@ -247,7 +247,7 @@ public class EnemyAI : MonoBehaviour
         enemyStunEffect.SetActive(false);      
         Debug.Log("StunOver");
         isStuned = false;
-        ChangeState(EnemyState.Chase);
+        OnEnterChaseState();
 
     }
 

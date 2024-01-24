@@ -54,11 +54,8 @@ public class KnightAI : EnemyAI
             heavyAttackTimer += Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            OnEnterDashState();
-
-        }
+        
+        
     }
 
     protected override void ManageStates()
@@ -127,7 +124,7 @@ public class KnightAI : EnemyAI
 
             else
             {
-                ChangeState(EnemyState.Chase);
+                OnEnterChaseState();
                 animator.SetBool("isRunning", true);
             }
         }
@@ -203,7 +200,7 @@ public class KnightAI : EnemyAI
         animator.SetBool("isDashing", false);
         isDashing = false;
         enemyCollision.isInvincible = false;
-        ChangeState(EnemyState.Chase);
+        OnEnterChaseState();
     }
 
     private void StartDash()
