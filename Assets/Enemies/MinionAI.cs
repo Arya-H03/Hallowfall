@@ -18,7 +18,7 @@ public class MinionAI : EnemyAI
     {
         if (!isDead)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
+            if (Vector2.Distance(transform.position, player.transform.position) < attackRange && canAttack)
             {
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isAttacking", true);
@@ -38,6 +38,7 @@ public class MinionAI : EnemyAI
     public void BoxCastForAttack()
     {
         minionAttack.BoxCast();
+        StartCoroutine(ManageAttackDelay());
 
     }
 

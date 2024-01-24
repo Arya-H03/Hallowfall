@@ -50,7 +50,8 @@ public class EnemyAI : MonoBehaviour
     public float patrolSpeed = 0.75f;
     public float chaseSpeed = 1.5f;
 
-   
+    protected bool canAttack = true;
+    [SerializeField] protected float attackDelay = 0.75f;
 
 
     protected virtual void Awake()
@@ -210,6 +211,13 @@ public class EnemyAI : MonoBehaviour
     public virtual void EndAttackAnim()
     {
        
+    }
+
+    protected IEnumerator ManageAttackDelay()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackDelay);
+        canAttack = true;
     }
     #endregion
 

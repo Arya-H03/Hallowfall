@@ -94,7 +94,7 @@ public class KnightAI : EnemyAI
         {
             OnEnterDashState();
         }
-        else if (Vector2.Distance(transform.position, player.transform.position) < attackRange && !isDashing && !isStuned)
+        else if (Vector2.Distance(transform.position, player.transform.position) < attackRange && !isDashing && !isStuned && canAttack)
         {
             ChangeState(EnemyState.Attack);
 
@@ -112,7 +112,7 @@ public class KnightAI : EnemyAI
     {
         if (!isDead)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
+            if (Vector2.Distance(transform.position, player.transform.position) < attackRange && canAttack )
             {
                 animator.SetBool("isRunning", false);
 
@@ -156,13 +156,13 @@ public class KnightAI : EnemyAI
     public void BoxCastForLightAttack()
     {
         knightAttack.LightAttackBoxCast();
-
+        StartCoroutine(ManageAttackDelay());
     }
 
     public void BoxCastForHeavyAttack()
     {
         knightAttack.HeavyAttackBoxCast();
-
+        StartCoroutine(ManageAttackDelay());
     }
 
     public override void EndAttackAnim()

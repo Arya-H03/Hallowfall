@@ -1230,6 +1230,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6776845147074375043, guid: ddd4583b90de80449bd7dd2d6ad3c289, type: 3}
+      propertyPath: attackDelay
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7725756556755213591, guid: ddd4583b90de80449bd7dd2d6ad3c289, type: 3}
       propertyPath: m_Name
       value: Minion (1)
@@ -1374,6 +1378,14 @@ PrefabInstance:
     - target: {fileID: 5509168769286105520, guid: f9a14b33e5e0e36438fc513726cc0728, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949810622088607081, guid: f9a14b33e5e0e36438fc513726cc0728, type: 3}
+      propertyPath: attackDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949810622088607081, guid: f9a14b33e5e0e36438fc513726cc0728, type: 3}
+      propertyPath: stunDuration
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8949810622088607081, guid: f9a14b33e5e0e36438fc513726cc0728, type: 3}
       propertyPath: heavyAttackCD
@@ -2770,7 +2782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_Size.y
-      value: 0.79630744
+      value: 1.7910029
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_Offset.x
@@ -2778,7 +2790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_Offset.y
-      value: -0.13309628
+      value: -0.6657519
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_AutoTiling

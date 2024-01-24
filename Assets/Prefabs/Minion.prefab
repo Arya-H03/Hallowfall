@@ -251,11 +251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.73
+      value: 20.388191
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.35
+      value: -0.9336998
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.z
@@ -373,10 +373,12 @@ MonoBehaviour:
   numberOfEssence: 3
   deathEffectParticle: {fileID: 5381627537282002416}
   attackRange: 1
+  currentStunValue: 0
   stunDuration: 2
   stunTimer: 0
   patrolSpeed: 1
   chaseSpeed: 1.5
+  attackDelay: 0.25
 --- !u!114 &4231059572398209741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   luanchModifier: 1
   damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
+  isInvincible: 0
 --- !u!114 &2299647230968706074
 MonoBehaviour:
   m_ObjectHideFlags: 0
