@@ -35,6 +35,7 @@ public class EnemyAI : MonoBehaviour
     private int stunTreshold = 100;
     public int currentStunValue = 0;
     protected bool isStuned = false;
+    private bool isStunedRecently = false;
 
     [SerializeField] float stunDuration = 2f;
     public float stunTimer = 0;
@@ -104,7 +105,6 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
-        DecreaseStunValueOverTime();
     }
 
     #region "IdleState"
@@ -253,20 +253,27 @@ public class EnemyAI : MonoBehaviour
 
     public void ManageStunValue(int damage)
     {
-        if (!isStuned)
+        if (!isStuned && !isStunedRecently)
         {
             int value = Random.Range(damage - damage / 2, damage + 1);
             currentStunValue += 50;
             if (currentStunValue >= stunTreshold)
-            {
-                isStuned = true;
-                currentStunValue = 0;
-                OnEnterStunState();
+            {               
+                StartCoroutine(ManageBeingStun());            
             }
         }
         
     }
 
+    private IEnumerator ManageBeingStun()
+    {
+        isStuned = true;
+        isStunedRecently = true;
+        currentStunValue = 0;
+        OnEnterStunState();
+        yield return new WaitForSeconds(stunDuration + 5f);
+        isStunedRecently = false;
+    }
     private IEnumerator DecreaseStunValueOverTime() { 
 
         while(currentStunValue > 0)
