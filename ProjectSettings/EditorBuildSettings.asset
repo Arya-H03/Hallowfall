@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RealmBeyond.unity
     guid: 84b4d0b68c51da547a267787466de3c6
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 46bdfddc2cc321446918d0e41c43b009
   m_configObjects: {}

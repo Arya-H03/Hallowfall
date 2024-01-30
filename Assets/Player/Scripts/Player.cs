@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     private PlayerController controller;
 
     [SerializeField] PlayerHealthBar healthBar;
+
+    [SerializeField] GameObject deathmenu;
   
     public int maxCorupption = 100;
     public int currentCorupption = 0;
@@ -150,5 +152,6 @@ public class Player : MonoBehaviour
         controller.spriteRenderer.enabled = false;
         yield return new WaitForSeconds(1f);
         controller.isDead = true;
+        deathmenu.SetActive(true);
     }
 }

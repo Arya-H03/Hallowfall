@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,12 +25,26 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
        
-        OnPlayerWakeUp();
+        //OnPlayerWakeUp();
 
 
-        MyFunction func = EndPlayerDistortion;
-        StartCoroutine(CallFunctionByDelay(func, 4));
+        //MyFunction func = EndPlayerDistortion;
+        //StartCoroutine(CallFunctionByDelay(func, 4));
    
+    }
+
+    public void OnReplayButtonClick()
+    {
+        SceneManager.LoadScene("RealmBeyond");
+    }
+    public void OnMainmenuButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnExitButtonClick()
+    {
+        Application.Quit();
     }
 
     private void CreateUpDialogeBox(string text)
