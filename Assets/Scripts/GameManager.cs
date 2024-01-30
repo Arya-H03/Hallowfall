@@ -9,7 +9,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject dialogeBox;
 
+    [SerializeField] GameObject pauseMenu;
+
     [SerializeField] string playerWakeUpDialoge;
+
+    [SerializeField] InputManager inputManager;
 
     private GameObject playerCamera;
 
@@ -39,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
     public void OnMainmenuButtonClick()
     {
+        OnGameUnPause();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -47,6 +52,19 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void OnGamePause()
+    {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+        inputManager.OnDisable();
+    }
+
+    public void OnGameUnPause()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+        inputManager.OnEnable();
+    }
     private void CreateUpDialogeBox(string text)
     {
         //GameObject obj = Instantiate(dialogeBox, Vector3.zero, Quaternion.identity);

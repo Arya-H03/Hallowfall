@@ -24,7 +24,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     ""name"": ""PlayerInputAction"",
     ""maps"": [
         {
-            ""name"": ""Shadow"",
+            ""name"": ""Guardian"",
             ""id"": ""3e2f7ad0-5769-4ce5-ad00-596f86153f64"",
             ""actions"": [
                 {
@@ -85,6 +85,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""name"": ""Parry"",
                     ""type"": ""Button"",
                     ""id"": ""a86e1ee8-2e44-4ce5-95de-be242767ae25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""03eeb33b-53a4-47a3-8659-55f0a29ea347"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -212,21 +221,33 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f08639e-da90-4c2e-9067-6987b41f9125"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Shadow
-        m_Shadow = asset.FindActionMap("Shadow", throwIfNotFound: true);
-        m_Shadow_Movement = m_Shadow.FindAction("Movement", throwIfNotFound: true);
-        m_Shadow_Jump = m_Shadow.FindAction("Jump", throwIfNotFound: true);
-        m_Shadow_Attack1 = m_Shadow.FindAction("Attack1", throwIfNotFound: true);
-        m_Shadow_Attack2 = m_Shadow.FindAction("Attack2", throwIfNotFound: true);
-        m_Shadow_Attack3 = m_Shadow.FindAction("Attack3", throwIfNotFound: true);
-        m_Shadow_Interact = m_Shadow.FindAction("Interact", throwIfNotFound: true);
-        m_Shadow_Parry = m_Shadow.FindAction("Parry", throwIfNotFound: true);
+        // Guardian
+        m_Guardian = asset.FindActionMap("Guardian", throwIfNotFound: true);
+        m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
+        m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
+        m_Guardian_Attack1 = m_Guardian.FindAction("Attack1", throwIfNotFound: true);
+        m_Guardian_Attack2 = m_Guardian.FindAction("Attack2", throwIfNotFound: true);
+        m_Guardian_Attack3 = m_Guardian.FindAction("Attack3", throwIfNotFound: true);
+        m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
+        m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
+        m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -285,36 +306,38 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Shadow
-    private readonly InputActionMap m_Shadow;
-    private List<IShadowActions> m_ShadowActionsCallbackInterfaces = new List<IShadowActions>();
-    private readonly InputAction m_Shadow_Movement;
-    private readonly InputAction m_Shadow_Jump;
-    private readonly InputAction m_Shadow_Attack1;
-    private readonly InputAction m_Shadow_Attack2;
-    private readonly InputAction m_Shadow_Attack3;
-    private readonly InputAction m_Shadow_Interact;
-    private readonly InputAction m_Shadow_Parry;
-    public struct ShadowActions
+    // Guardian
+    private readonly InputActionMap m_Guardian;
+    private List<IGuardianActions> m_GuardianActionsCallbackInterfaces = new List<IGuardianActions>();
+    private readonly InputAction m_Guardian_Movement;
+    private readonly InputAction m_Guardian_Jump;
+    private readonly InputAction m_Guardian_Attack1;
+    private readonly InputAction m_Guardian_Attack2;
+    private readonly InputAction m_Guardian_Attack3;
+    private readonly InputAction m_Guardian_Interact;
+    private readonly InputAction m_Guardian_Parry;
+    private readonly InputAction m_Guardian_Pause;
+    public struct GuardianActions
     {
         private @PlayerInputAction m_Wrapper;
-        public ShadowActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Shadow_Movement;
-        public InputAction @Jump => m_Wrapper.m_Shadow_Jump;
-        public InputAction @Attack1 => m_Wrapper.m_Shadow_Attack1;
-        public InputAction @Attack2 => m_Wrapper.m_Shadow_Attack2;
-        public InputAction @Attack3 => m_Wrapper.m_Shadow_Attack3;
-        public InputAction @Interact => m_Wrapper.m_Shadow_Interact;
-        public InputAction @Parry => m_Wrapper.m_Shadow_Parry;
-        public InputActionMap Get() { return m_Wrapper.m_Shadow; }
+        public GuardianActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Guardian_Movement;
+        public InputAction @Jump => m_Wrapper.m_Guardian_Jump;
+        public InputAction @Attack1 => m_Wrapper.m_Guardian_Attack1;
+        public InputAction @Attack2 => m_Wrapper.m_Guardian_Attack2;
+        public InputAction @Attack3 => m_Wrapper.m_Guardian_Attack3;
+        public InputAction @Interact => m_Wrapper.m_Guardian_Interact;
+        public InputAction @Parry => m_Wrapper.m_Guardian_Parry;
+        public InputAction @Pause => m_Wrapper.m_Guardian_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Guardian; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ShadowActions set) { return set.Get(); }
-        public void AddCallbacks(IShadowActions instance)
+        public static implicit operator InputActionMap(GuardianActions set) { return set.Get(); }
+        public void AddCallbacks(IGuardianActions instance)
         {
-            if (instance == null || m_Wrapper.m_ShadowActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ShadowActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_GuardianActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GuardianActionsCallbackInterfaces.Add(instance);
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
@@ -336,9 +359,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Parry.started += instance.OnParry;
             @Parry.performed += instance.OnParry;
             @Parry.canceled += instance.OnParry;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IShadowActions instance)
+        private void UnregisterCallbacks(IGuardianActions instance)
         {
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
@@ -361,24 +387,27 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Parry.started -= instance.OnParry;
             @Parry.performed -= instance.OnParry;
             @Parry.canceled -= instance.OnParry;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IShadowActions instance)
+        public void RemoveCallbacks(IGuardianActions instance)
         {
-            if (m_Wrapper.m_ShadowActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_GuardianActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IShadowActions instance)
+        public void SetCallbacks(IGuardianActions instance)
         {
-            foreach (var item in m_Wrapper.m_ShadowActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_GuardianActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_ShadowActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_GuardianActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public ShadowActions @Shadow => new ShadowActions(this);
-    public interface IShadowActions
+    public GuardianActions @Guardian => new GuardianActions(this);
+    public interface IGuardianActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
@@ -387,5 +416,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnAttack3(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

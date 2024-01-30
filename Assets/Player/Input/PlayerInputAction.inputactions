@@ -2,7 +2,7 @@
     "name": "PlayerInputAction",
     "maps": [
         {
-            "name": "Shadow",
+            "name": "Guardian",
             "id": "3e2f7ad0-5769-4ce5-ad00-596f86153f64",
             "actions": [
                 {
@@ -63,6 +63,15 @@
                     "name": "Parry",
                     "type": "Button",
                     "id": "a86e1ee8-2e44-4ce5-95de-be242767ae25",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "03eeb33b-53a4-47a3-8659-55f0a29ea347",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -188,6 +197,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7f08639e-da90-4c2e-9067-6987b41f9125",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

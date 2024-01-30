@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     PlayerInputAction inputActions;
 
     [SerializeField] PlayerController player;
+    [SerializeField] GameManager gameManager;
 
     private void Awake()
     {
@@ -16,31 +17,35 @@ public class InputManager : MonoBehaviour
 
     public void OnEnable()
     {
-        inputActions.Shadow.Movement.performed += StartMove;
-        inputActions.Shadow.Movement.canceled += StopMove;
+        inputActions.Guardian.Movement.performed += StartMove;
+        inputActions.Guardian.Movement.canceled += StopMove;
 
-        inputActions.Shadow.Jump.performed += Jump;
+        inputActions.Guardian.Jump.performed += Jump;
 
-        inputActions.Shadow.Attack1.performed += Attack1;
-        inputActions.Shadow.Attack2.performed += Attack2;
-        inputActions.Shadow.Attack3.performed += Attack3;
+        inputActions.Guardian.Attack1.performed += Attack1;
+        inputActions.Guardian.Attack2.performed += Attack2;
+        inputActions.Guardian.Attack3.performed += Attack3;
 
-        inputActions.Shadow.Parry.performed += Parry;
+        inputActions.Guardian.Parry.performed += Parry;
+
+        inputActions.Guardian.Pause.performed += Pause;   
 
         inputActions.Enable();
     }
 
     public void OnDisable()
     {
-        inputActions.Shadow.Movement.performed -= StartMove;
-        inputActions.Shadow.Movement.canceled -= StopMove;
+        inputActions.Guardian.Movement.performed -= StartMove;
+        inputActions.Guardian.Movement.canceled -= StopMove;
 
-        inputActions.Shadow.Jump.performed -= Jump;
+        inputActions.Guardian.Jump.performed -= Jump;
 
-        inputActions.Shadow.Attack1.performed -= Attack1;
-        inputActions.Shadow.Attack2.performed -= Attack2;
-        inputActions.Shadow.Attack3.performed -= Attack3;
-        inputActions.Shadow.Parry.performed -= Parry;
+        inputActions.Guardian.Attack1.performed -= Attack1;
+        inputActions.Guardian.Attack2.performed -= Attack2;
+        inputActions.Guardian.Attack3.performed -= Attack3;
+        inputActions.Guardian.Parry.performed -= Parry;
+
+        inputActions.Guardian.Pause.performed -= Pause;
 
         inputActions.Disable();
     }
@@ -77,6 +82,11 @@ public class InputManager : MonoBehaviour
     public void Parry(InputAction.CallbackContext ctx)
     {
         player.OnParry();
+    }
+
+    public void Pause(InputAction.CallbackContext ctx)
+    {
+        gameManager.OnGamePause();
     }
 
 
