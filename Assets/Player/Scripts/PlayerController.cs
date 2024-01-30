@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {     
         animationController = GetComponentInChildren<PlayerAnimationController>();
         playerMovementManager = GetComponent<PlayerMovementManager>();
-        playerJump = GetComponent<PlayerJump>();
+        playerJump = GetComponentInChildren<PlayerJump>();
         playerAttacks = GetComponentInChildren<PlayerAttacks>();
         playerParry = GetComponent<PlayerParry>();
         rb = GetComponent<Rigidbody2D>();

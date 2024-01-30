@@ -5,15 +5,25 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     private PlayerController playerController;
+    private AudioSource audioSource;
 
     [SerializeField] float jumpSpeed;
 
+    [SerializeField] GameManager gameManager;
+
     private float jumpDirectionX;
 
+    [SerializeField] AudioClip jumpUpAC;
+    [SerializeField] AudioClip groundHitAC;
+
     // Start is called before the first frame update
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void Start()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     public void StartJump()
@@ -21,10 +31,8 @@ public class PlayerJump : MonoBehaviour
         jumpDirectionX = playerController.playerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
         playerController.playerMovementManager.StopRunning();
-        //playerController.animationController.SetBoolForAnimations("isRunning", false);
-        //footSteps.OnEndPlayerFootstep();
-        //footSteps.StopFootstepPSEffect();
         playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
+        gameManager.PlayAudio(audioSource, jumpUpAC);
         playerController.animationController.SetBoolForAnimations("isJumping", true);
     }
 
@@ -33,6 +41,7 @@ public class PlayerJump : MonoBehaviour
         playerController.isPlayerGrounded = true;
         playerController.isPlayerJumping = false;
         playerController.canPlayerJump = true;
+        gameManager.PlayAudio(audioSource, groundHitAC);
         playerController.animationController.SetBoolForAnimations("isJumping", false);
         if (playerController.playerMovementManager.currentDirection.x != 0)
         {

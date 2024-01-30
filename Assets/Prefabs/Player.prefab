@@ -5452,7 +5452,6 @@ GameObject:
   - component: {fileID: 2907225944193828139}
   - component: {fileID: 486006166923256573}
   - component: {fileID: 512415577026503544}
-  - component: {fileID: 7883492139796465358}
   - component: {fileID: 4784462438261045610}
   - component: {fileID: 6546526773060207497}
   - component: {fileID: 2938119461531993230}
@@ -5572,12 +5571,16 @@ MonoBehaviour:
   playerAttacks: {fileID: 0}
   playerParry: {fileID: 0}
   rb: {fileID: 0}
+  inputManager: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  deathEffectParticle: {fileID: 0}
   canPlayerJump: 1
   isPlayerGrounded: 1
   isPlayerJumping: 0
   canPlayerAttack: 1
   isParrying: 0
   hasSword: 0
+  isDead: 0
 --- !u!114 &3351232539448357342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5606,6 +5609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
+  deathmenu: {fileID: 0}
   maxCorupption: 100
   currentCorupption: 0
   numberOfHealthShield: 3
@@ -5678,19 +5682,6 @@ MonoBehaviour:
   currentDirection: {x: 0, y: 0}
   speed: 3
   footSteps: {fileID: 6489539805827609009}
---- !u!114 &7883492139796465358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5478323056235678100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3add2f1f6077b844784aeb03b451889f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpSpeed: 13
 --- !u!114 &4784462438261045610
 MonoBehaviour:
   m_ObjectHideFlags: 0

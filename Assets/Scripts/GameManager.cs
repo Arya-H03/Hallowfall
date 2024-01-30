@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
    
     }
 
+    public void PlayAudio(AudioSource source, AudioClip clip)
+    {
+        source.volume = 0.5f;
+        source.PlayOneShot(clip);   
+    }
     public void OnReplayButtonClick()
     {
         SceneManager.LoadScene("RealmBeyond");
