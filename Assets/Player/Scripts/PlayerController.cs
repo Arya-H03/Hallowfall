@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public PlayerAttacks playerAttacks;
     public PlayerParry playerParry;
     public Rigidbody2D rb;
+    public InputManager inputManager;
+    public SpriteRenderer spriteRenderer;
+    public ParticleSystem deathEffectParticle;
 
 
 
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public bool canPlayerAttack = true;
     public bool isParrying  = false;
     public bool hasSword = false;
+    public bool isDead = false;
 
     private void Awake()
     {     
@@ -29,6 +33,8 @@ public class PlayerController : MonoBehaviour
         playerAttacks = GetComponentInChildren<PlayerAttacks>();
         playerParry = GetComponent<PlayerParry>();
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        deathEffectParticle = GetComponent<ParticleSystem>();
 
     }
     public void OnMove(Vector2 dir)

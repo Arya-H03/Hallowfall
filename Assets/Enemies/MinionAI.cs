@@ -16,7 +16,7 @@ public class MinionAI : EnemyAI
     #region AttackState
     protected override void HandleAttackState()
     {
-        if (!isDead)
+        if (!isDead &&!player.GetComponent<PlayerController>().isDead)
         {
             if (Vector2.Distance(transform.position, player.transform.position) < attackRange && canAttack)
             {
@@ -31,6 +31,10 @@ public class MinionAI : EnemyAI
                 OnEnterChaseState();
                 animator.SetBool("isRunning", true);
             }
+        }
+        else
+        {
+            ChangeState(EnemyState.Patrol);
         }
 
     }

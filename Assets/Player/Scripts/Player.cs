@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -79,7 +79,6 @@ public class Player : MonoBehaviour
             
             if (currentHealth <=0)
             {
-                //OnHealthShieldLost();
                 LosingHealthShieldEvent?.Invoke();
 
 
@@ -93,7 +92,8 @@ public class Player : MonoBehaviour
         numberOfHealthShield--;
         if (numberOfHealthShield <= 0)
         {
-            Debug.Log("Death");
+            
+            OnPlayerDeath();
         }
         currentHealth = maxHealth;
     }
@@ -124,11 +124,31 @@ public class Player : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            OnPlayerDeath();
+
+        }
+
     }
 
     public void OnEssencePickUp()
     {
         essenceCounter++;
         Debug.Log(essenceCounter);
+    }
+
+    private void OnPlayerDeath()
+    {
+        StartCoroutine(PlayerDeath());
+    }
+
+    private IEnumerator PlayerDeath()
+    {
+        controller.inputManager.OnDisable();
+        controller.deathEffectParticle.Play();
+        controller.spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(1f);
+        controller.isDead = true;
     }
 }

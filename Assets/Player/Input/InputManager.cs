@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
         inputActions = new PlayerInputAction();
     }
 
-    private void OnEnable()
+    public void OnEnable()
     {
         inputActions.Shadow.Movement.performed += StartMove;
         inputActions.Shadow.Movement.canceled += StopMove;
@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
         inputActions.Enable();
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         inputActions.Shadow.Movement.performed -= StartMove;
         inputActions.Shadow.Movement.canceled -= StopMove;

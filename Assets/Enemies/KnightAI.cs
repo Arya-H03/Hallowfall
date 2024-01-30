@@ -89,28 +89,35 @@ public class KnightAI : EnemyAI
 
     protected override void HandleChaseState()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if(distanceToPlayer < 5  && distanceToPlayer > 2.5f && dashTimer >= DashCD && !isAttacking && !isStuned)
+        if (!player.GetComponent<PlayerController>().isDead)
         {
-            OnEnterDashState();
-        }
-        else if (Vector2.Distance(transform.position, player.transform.position) < attackRange && !isDashing && !isStuned && canAttack)
-        {
-            ChangeState(EnemyState.Attack);
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer < 5 && distanceToPlayer > 2.5f && dashTimer >= DashCD && !isAttacking && !isStuned)
+            {
+                OnEnterDashState();
+            }
+            else if (Vector2.Distance(transform.position, player.transform.position) < attackRange && !isDashing && !isStuned && canAttack)
+            {
+                ChangeState(EnemyState.Attack);
+
+            }
+            else
+            {
+                enemyMovement.MoveTo(transform.position, player.transform.position, chaseSpeed);
+            }
 
         }
         else
         {
-            enemyMovement.MoveTo(transform.position, player.transform.position, chaseSpeed);
+            OnExitChaseState();
         }
-
     }
 
     #region AttackState
 
     protected override void HandleAttackState()
     {
-        if (!isDead)
+        if (!isDead &&!player.GetComponent<PlayerController>().isDead)
         {
             if (Vector2.Distance(transform.position, player.transform.position) < attackRange && canAttack )
             {
@@ -127,6 +134,10 @@ public class KnightAI : EnemyAI
                 OnEnterChaseState();
                 animator.SetBool("isRunning", true);
             }
+        }
+        else
+        {
+            ChangeState(EnemyState.Patrol);
         }
 
 

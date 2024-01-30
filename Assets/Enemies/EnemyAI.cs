@@ -172,14 +172,22 @@ public class EnemyAI : MonoBehaviour
     #region "ChaseState"
     protected virtual void HandleChaseState()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
+        if(!player.GetComponent<PlayerController>().isDead)
         {
-       
-            ChangeState(EnemyState.Attack);
+            if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
+            {
+
+                ChangeState(EnemyState.Attack);
+            }
+            else
+            {
+                enemyMovement.MoveTo(transform.position, player.transform.position, chaseSpeed);
+            }
+
         }
         else
         {
-            enemyMovement.MoveTo(transform.position, player.transform.position, chaseSpeed);
+            OnExitChaseState();
         }
 
     }

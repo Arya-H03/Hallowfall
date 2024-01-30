@@ -10,6 +10,7 @@ public class MinionAttack : MonoBehaviour
     [SerializeField] float distance; // Distance for the boxcast in 2D
     [SerializeField] Transform loc; // Distance for the boxcast in 2D
     [SerializeField] LayerMask layerMask; // Layer mask for the boxcast; // Distance for the boxcast in 2D
+    [SerializeField] int damage = 50; // Layer mask for the boxcast; // Distance for the boxcast in 2D
 
 
     private EnemyAI enemyAI;
@@ -31,7 +32,7 @@ public class MinionAttack : MonoBehaviour
             parryShield.GetComponent<ParryShield>().SpawnImpactEffect(hit.point);
             Vector3 scale = transform.localScale;
 
-            enemyAI.enemyCollision.OnEnemyParried(parryShield, hit.point, 50);
+            enemyAI.enemyCollision.OnEnemyParried(parryShield, hit.point, damage);
 
 
         }
