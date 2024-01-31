@@ -9,6 +9,7 @@ TagManager:
   - EnemyCollisionAttack
   - ParryShield
   - DialogeBox
+  - Mist
   layers:
   - Default
   - TransparentFX

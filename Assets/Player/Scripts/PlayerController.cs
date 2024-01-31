@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public InputManager inputManager;
     public SpriteRenderer spriteRenderer;
     public ParticleSystem deathEffectParticle;
+    public Player player;
 
 
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
+        player = GetComponent<Player>();
 
     }
     public void OnMove(Vector2 dir)

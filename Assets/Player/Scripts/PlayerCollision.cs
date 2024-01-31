@@ -25,6 +25,16 @@ public class PlayerCollision : MonoBehaviour
 
         }
 
+        if (collision.CompareTag("Mist"))
+        {
+
+            playerController.player.OnPlayerDeath();
+
+        }
+
+
+
+
     }
 
     //private void CheckPlayerIsGrounded()

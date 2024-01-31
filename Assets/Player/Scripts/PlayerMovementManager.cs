@@ -19,7 +19,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!playerController.isPlayerJumping)
+        if (!playerController.isPlayerJumping && !playerController.player.isPlayerDead)
         {
 
             transform.position += new Vector3(currentDirection.x, 0,0) * speed * Time.deltaTime;

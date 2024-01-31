@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public int numberOfHealthShield = 3;
     public int maxHealth = 100;
     public int currentHealth = 0;
+    public bool isPlayerDead = false;
     private Material material;
 
     private int essenceCounter = 0;
@@ -126,12 +127,6 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            OnPlayerDeath();
-
-        }
-
     }
 
     public void OnEssencePickUp()
@@ -140,7 +135,7 @@ public class Player : MonoBehaviour
         Debug.Log(essenceCounter);
     }
 
-    private void OnPlayerDeath()
+    public void OnPlayerDeath()
     {
         StartCoroutine(PlayerDeath());
     }
@@ -150,8 +145,10 @@ public class Player : MonoBehaviour
         controller.inputManager.OnDisable();
         controller.deathEffectParticle.Play();
         controller.spriteRenderer.enabled = false;
+        controller.playerMovementManager.StopRunning();
         yield return new WaitForSeconds(1f);
         controller.isDead = true;
+        isPlayerDead = true;
         deathmenu.SetActive(true);
     }
 }
