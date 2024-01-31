@@ -10,7 +10,7 @@ public class PlayerCamera : MonoBehaviour
     private Volume volume;
     private Vignette vignette;
     private ChromaticAberration chromaticAberration;
-    private float followSpeed = 1.0f;
+    private float followSpeed = 2f;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class PlayerCamera : MonoBehaviour
         {
 
             Vector3 currentPosition = transform.position;
-            Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+            Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y + 1, transform.position.z);
 
             transform.position = Vector3.Lerp(currentPosition, targetPosition, followSpeed * Time.deltaTime);
         }
