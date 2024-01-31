@@ -25,15 +25,4 @@ public class PlayerFootSteps : MonoBehaviour
         footstepPS.Stop();
         //runEffect.SetActive(true);
     }
-
-    //public void PlayFootstepPSEffect()
-    //{
-    //    footstepPS.Play();
-    //}
-
-    //public void StopFootstepPSEffect()
-    //{
-    //    footstepPS.Stop();
-
-    //}
 }

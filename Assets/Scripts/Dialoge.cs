@@ -44,14 +44,16 @@ public class Dialoge : MonoBehaviour
 
     private IEnumerator EndDialoge()
     {
+        canStartDialoge = true;
         yield return new WaitForSeconds(5f);
+        
         while (dialogeBox.color.a > 0f)
         {
             dialogeBox.color = new Color(dialogeColor.r, dialogeColor.g, dialogeColor.b, dialogeBox.color.a - 0.075f );
             textComponent.color = new Color(textColor.r, textColor.g, textColor.b, textComponent.color.a - 0.1f);
             yield return new WaitForSeconds(0.1f);
         }
-        canStartDialoge = true;
+        
     }
 
 
