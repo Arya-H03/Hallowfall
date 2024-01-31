@@ -4,27 +4,44 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private BoxCollider2D boxCollider2D;
-    private Rigidbody2D rb;
     private PlayerController playerController;
 
-    [SerializeField] LayerMask GroundLayer;
+    //[SerializeField] LayerMask groundLayer;
     void Awake()
     {
-        boxCollider2D = GetComponent<BoxCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(playerController.isPlayerJumping == true)
+        if (playerController.isPlayerJumping == true)
         {
             if (collision.CompareTag("Ground"))
             {
+
                 playerController.playerJump.EndJump();
+
             }
+
+
         }
-       
 
     }
+
+    //private void CheckPlayerIsGrounded()
+    //{
+    //    RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, Vector2.down, 0.1f, groundLayer);
+    //    if (raycastHit2D.collider)
+    //    {
+    //        playerController.isPlayerGrounded = true;
+    //    }
+    //    else
+    //    {
+    //        playerController.isPlayerGrounded = false;
+    //    }
+    //}
+
+    //private void FixedUpdate()
+    //{
+    //    CheckPlayerIsGrounded();
+    //}
 }

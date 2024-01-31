@@ -20,10 +20,11 @@ public class PlayerJump : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        playerController = GetComponentInParent<PlayerController>();
     }
     void Start()
     {
-        playerController = GetComponentInParent<PlayerController>();
+        
     }
 
     public void StartJump()
@@ -33,7 +34,7 @@ public class PlayerJump : MonoBehaviour
         playerController.playerMovementManager.StopRunning();
         playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
         gameManager.PlayAudio(audioSource, jumpUpAC);
-        playerController.animationController.SetBoolForAnimations("isJumping", true);
+        //playerController.animationController.SetBoolForAnimations("isJumping", true);
     }
 
     public void EndJump()
@@ -42,7 +43,7 @@ public class PlayerJump : MonoBehaviour
         playerController.isPlayerJumping = false;
         playerController.canPlayerJump = true;
         gameManager.PlayAudio(audioSource, groundHitAC);
-        playerController.animationController.SetBoolForAnimations("isJumping", false);
+        //playerController.animationController.SetBoolForAnimations("isJumping", false);
         if (playerController.playerMovementManager.currentDirection.x != 0)
         {
             playerController.playerMovementManager.StartRunning();

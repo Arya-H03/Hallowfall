@@ -19,10 +19,10 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!playerController.isPlayerJumping /*&& !playerController.isParrying*/)
+        if (!playerController.isPlayerJumping)
         {
-            
-            transform.position += new Vector3(currentDirection.x,transform.position.y,transform.position.z) * speed * Time.deltaTime;
+
+            transform.position += new Vector3(currentDirection.x, 0,0) * speed * Time.deltaTime;
 
         }
     }

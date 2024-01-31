@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
         if (isPlayerGrounded && canPlayerJump )
         {
             isPlayerJumping = true;
+            isPlayerGrounded = false;
             canPlayerJump = false;
             canPlayerAttack = false;
             playerJump.StartJump();
@@ -78,5 +79,6 @@ public class PlayerController : MonoBehaviour
         animationController.ChangeAnimatorAC(isEquiped);
         hasSword = isEquiped;
     }
-   
+
+
 }
