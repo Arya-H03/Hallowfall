@@ -195,4 +195,9 @@ public class PlayerAttacks : MonoBehaviour
         obj.GetComponent<Rigidbody2D>().velocity = launchVec * 5;
         Destroy(obj, 0.5f);
     }
+
+    //private void Update()
+    //{
+    //    VisualizeBoxCast(attack3BoxCastPosition.position, new Vector2(1.75f, 0.35f), transform.right, distance);
+    //}
 }

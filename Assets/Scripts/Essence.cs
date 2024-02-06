@@ -23,9 +23,9 @@ public class Essence : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("PlayerPickUpBox"))
         {
-            collision.GetComponent<Player>().OnEssencePickUp();
+            collision.GetComponentInParent<Player>().OnEssencePickUp();
             Destroy(this.gameObject);
         }
         

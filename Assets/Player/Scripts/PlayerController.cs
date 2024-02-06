@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isPlayerGrounded && canPlayerJump )
         {
+            
             isPlayerJumping = true;
             isPlayerGrounded = false;
             canPlayerJump = false;

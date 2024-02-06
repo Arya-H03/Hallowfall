@@ -10,6 +10,8 @@ TagManager:
   - ParryShield
   - DialogeBox
   - Mist
+  - Grass
+  - PlayerPickUpBox
   layers:
   - Default
   - TransparentFX
