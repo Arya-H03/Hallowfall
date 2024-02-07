@@ -19,6 +19,8 @@ public class KnightAttack : MonoBehaviour
     [SerializeField] int lightAttackDamage = 20;
     [SerializeField] int HeavyAttackDamage = 50;
 
+    [SerializeField] int parryDamage = 100;
+
 
 
 
@@ -35,24 +37,29 @@ public class KnightAttack : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.BoxCast(new Vector2(lightAttackPoint.position.x, lightAttackPoint.position.y), lightAttackSize, 0f, direction, distance, layerMask);
 
-        if (hit.collider.CompareTag("ParryShield") == true)
+        if (hit)
         {
-           
-            GameObject parryShield = hit.collider.gameObject;
-            knightAI.enemyCollision.OnEnemyParried(parryShield, hit.point, 100);
+            if (hit.collider.CompareTag("ParryShield") == true)
+            {
 
+                GameObject parryShield = hit.collider.gameObject;
+                knightAI.enemyCollision.OnEnemyParried(parryShield, hit.point, parryDamage);
+
+            }
+
+
+            if (hit.collider.CompareTag("Player"))
+            {
+
+
+                GameObject player = hit.collider.gameObject;
+                player.GetComponent<Player>().OnTakingDamage(lightAttackDamage);
+
+
+            }
         }
 
-
-        if (hit.collider.CompareTag("Player"))
-        {
-
-
-            GameObject player = hit.collider.gameObject;
-            player.GetComponent<Player>().OnTakingDamage(lightAttackDamage);
-
-
-        }
+       
 
     }
 

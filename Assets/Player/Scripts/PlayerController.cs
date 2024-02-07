@@ -83,5 +83,10 @@ public class PlayerController : MonoBehaviour
         hasSword = isEquiped;
     }
 
+    public void RestoreHealth()
+    {
+
+    }
+
 
 }

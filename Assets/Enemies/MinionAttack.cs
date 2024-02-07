@@ -10,7 +10,7 @@ public class MinionAttack : MonoBehaviour
     [SerializeField] float distance; // Distance for the boxcast in 2D
     [SerializeField] Transform loc; // Distance for the boxcast in 2D
     [SerializeField] LayerMask layerMask; // Layer mask for the boxcast; // Distance for the boxcast in 2D
-    [SerializeField] int damage = 50; // Layer mask for the boxcast; // Distance for the boxcast in 2D
+    [SerializeField] int parryDamage = 50; // Layer mask for the boxcast; // Distance for the boxcast in 2D
 
 
     private EnemyAI enemyAI;
@@ -24,29 +24,33 @@ public class MinionAttack : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.BoxCast(new Vector2(loc.position.x, loc.position.y), size, 0f, direction, distance, layerMask);
 
-        if (hit.collider.CompareTag("ParryShield") == true)
+        if (hit)
         {
-            
-            GameObject parryShield = hit.collider.gameObject;
-            parryShield.GetComponent<ParryShield>().OnSuccessfulParry();
-            parryShield.GetComponent<ParryShield>().SpawnImpactEffect(hit.point);
-            Vector3 scale = transform.localScale;
+            if (hit.collider.CompareTag("ParryShield") == true)
+            {
 
-            enemyAI.enemyCollision.OnEnemyParried(parryShield, hit.point, damage);
+                GameObject parryShield = hit.collider.gameObject;
+                parryShield.GetComponent<ParryShield>().OnSuccessfulParry();
+                parryShield.GetComponent<ParryShield>().SpawnImpactEffect(hit.point);
+                Vector3 scale = transform.localScale;
+
+                enemyAI.enemyCollision.OnEnemyParried(parryShield, hit.point, parryDamage);
 
 
+            }
+
+
+            if (hit.collider.CompareTag("Player"))
+            {
+
+
+                GameObject player = hit.collider.gameObject;
+                player.GetComponent<Player>().OnTakingDamage(50);
+
+
+            }
         }
-
-
-        if (hit.collider.CompareTag("Player"))
-        {
-            
-
-            GameObject player = hit.collider.gameObject;
-            player.GetComponent<Player>().OnTakingDamage(50);
-            
-
-        }
+       
         
     }
 

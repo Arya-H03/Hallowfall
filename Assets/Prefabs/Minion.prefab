@@ -109,6 +109,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8131659664029685563, guid: af39729b2208f904b92696e781871dde, type: 3}
   m_PrefabInstance: {fileID: 7341629526560584719}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7604435279269364004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 894761330805126443, guid: af39729b2208f904b92696e781871dde, type: 3}
+  m_PrefabInstance: {fileID: 7341629526560584719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7704000046437739444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,11 +256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.388191
+      value: 78.8421
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9336998
+      value: 6.6736
       objectReference: {fileID: 0}
     - target: {fileID: 8694348190140774032, guid: b0ef411e1dc4e6843b3ba42b12324f06, type: 3}
       propertyPath: m_LocalPosition.z
@@ -368,7 +373,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   animator: {fileID: 0}
   enemyCollision: {fileID: 2195209108102777880}
-  enemyStunEffect: {fileID: 894761330805126443, guid: af39729b2208f904b92696e781871dde, type: 3}
+  enemyStunEffect: {fileID: 7604435279269364004}
   essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
   numberOfEssence: 3
   deathEffectParticle: {fileID: 5381627537282002416}
@@ -424,6 +429,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+  parryDamage: 50
 --- !u!198 &5381627537282002416
 ParticleSystem:
   m_ObjectHideFlags: 0

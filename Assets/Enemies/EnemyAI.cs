@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
 
     public void ChangeState(EnemyState state)
     {
-        Debug.Log(currentState.ToString() + " to " + state.ToString());
+        //Debug.Log(currentState.ToString() + " to " + state.ToString());
         currentState = state;       
     }
     protected virtual void ManageStates()
@@ -248,10 +248,11 @@ public class EnemyAI : MonoBehaviour
     protected virtual void OnEnterStunState()
     {
 
-        Debug.Log("Stun");
+        
         animator.SetBool("isRunning", false);
         EndAttackAnim();
         ChangeState(EnemyState.Stun);
+        Debug.Log("Stun");
         enemyStunEffect.SetActive(true);
             
     }
@@ -261,8 +262,8 @@ public class EnemyAI : MonoBehaviour
 
         stunTimer = 0f;
         enemyStunEffect.SetActive(false);      
-        Debug.Log("StunOver");
         isStuned = false;
+        Debug.Log("StunOver");
         OnEnterChaseState();
 
     }

@@ -9,7 +9,8 @@ public class PlayerFootSteps : MonoBehaviour
     private enum FloorType
     {
         ground,
-        grass
+        grass,
+        wood
     }
 
     private FloorType currentFloorType = FloorType.ground;
@@ -24,6 +25,7 @@ public class PlayerFootSteps : MonoBehaviour
     [SerializeField] AudioSource footstepAudioSource;
     [SerializeField] AudioClip groundClip;
     [SerializeField] AudioClip grassClip;
+    [SerializeField] AudioClip woodClip;
 
     [SerializeField] GameObject rayCatPosition;
 
@@ -62,6 +64,11 @@ public class PlayerFootSteps : MonoBehaviour
                 playerController.playerJump.EndJump();
             }
 
+            else if (currentFloorType == FloorType.wood && collision.CompareTag("Wood"))
+            {
+                playerController.playerJump.EndJump();
+            }
+
 
         }
     }
@@ -91,6 +98,17 @@ public class PlayerFootSteps : MonoBehaviour
                     footstepAudioSource.Stop();
                     currentFloorType = FloorType.ground;
                     footstepAudioSource.clip = groundClip;
+                    footstepAudioSource.Play();
+                }
+            }
+
+            else if (currentFloorType == FloorType.wood)
+            {
+                if (rayCast.collider.CompareTag("Wood"))
+                {
+                    footstepAudioSource.Stop();
+                    currentFloorType = FloorType.wood;
+                    footstepAudioSource.clip = woodClip;
                     footstepAudioSource.Play();
                 }
             }

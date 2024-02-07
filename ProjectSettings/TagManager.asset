@@ -12,6 +12,7 @@ TagManager:
   - Mist
   - Grass
   - PlayerPickUpBox
+  - Wood
   layers:
   - Default
   - TransparentFX

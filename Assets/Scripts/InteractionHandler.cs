@@ -30,7 +30,9 @@ public class InteractionHandler : MonoBehaviour
                 break;
             case "Dialoge":
                 break;
-               
+            case "Restore":
+                break;
+
         }
     }
 }

@@ -28,6 +28,8 @@ public class Dialoge : MonoBehaviour
     {
         textComponent.text = string.Empty;
     }
+
+
     public void StartDialoge(string inputext)
     {
         if(canStartDialoge)
@@ -60,6 +62,7 @@ public class Dialoge : MonoBehaviour
     IEnumerator TypeLine()
     {
         int i = 0;
+        
         foreach(char c in text.ToCharArray())
         {
             i++;    

@@ -117,7 +117,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
       propertyPath: dialogeText
-      value: A Sworddddddddddddddddd
+      value: As your hand closes around the hilt, a surge of mystical energy courses
+        through you. The blade, now in your possession, whispers secrets of ancient
+        power
       objectReference: {fileID: 0}
     - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
       propertyPath: interactIcon

@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6538b45598e84a44493fefee30471d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 250
   currentHealth: 0
 --- !u!114 &3533309788819302603
 MonoBehaviour:
@@ -414,6 +414,7 @@ MonoBehaviour:
   heavyAttackPoint: {fileID: 3967174157131103278}
   lightAttackDamage: 20
   HeavyAttackDamage: 50
+  parryDamage: 50
 --- !u!95 &4805755699271619040
 Animator:
   serializedVersion: 5
@@ -5369,7 +5370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7816824396077366251
 Transform:
   m_ObjectHideFlags: 0
