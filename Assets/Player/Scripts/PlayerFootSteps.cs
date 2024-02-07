@@ -80,37 +80,31 @@ public class PlayerFootSteps : MonoBehaviour
 
         if (rayCast)
         {
-            if (currentFloorType == FloorType.ground)
+            if (currentFloorType != FloorType.grass && rayCast.collider.CompareTag("Grass"))
             {
-                if (rayCast.collider.CompareTag("Grass"))
-                {
-                    footstepAudioSource.Stop();
-                    currentFloorType = FloorType.grass;
-                    footstepAudioSource.clip = grassClip;
-                    footstepAudioSource.Play();
-                }
+                footstepAudioSource.Stop();
+                currentFloorType = FloorType.grass;
+                footstepAudioSource.clip = grassClip;
+                footstepAudioSource.Play();
+                
             }
 
-            else if (currentFloorType == FloorType.grass)
+            else if (currentFloorType != FloorType.ground && rayCast.collider.CompareTag("Ground"))
             {
-                if (rayCast.collider.CompareTag("Ground"))
-                {
-                    footstepAudioSource.Stop();
-                    currentFloorType = FloorType.ground;
-                    footstepAudioSource.clip = groundClip;
-                    footstepAudioSource.Play();
-                }
+
+                footstepAudioSource.Stop();
+                currentFloorType = FloorType.ground;
+                footstepAudioSource.clip = groundClip;
+                footstepAudioSource.Play();
             }
 
-            else if (currentFloorType == FloorType.wood)
+            else if (currentFloorType != FloorType.wood && rayCast.collider.CompareTag("Wood"))
             {
-                if (rayCast.collider.CompareTag("Wood"))
-                {
-                    footstepAudioSource.Stop();
-                    currentFloorType = FloorType.wood;
-                    footstepAudioSource.clip = woodClip;
-                    footstepAudioSource.Play();
-                }
+                footstepAudioSource.Stop();
+                currentFloorType = FloorType.wood;
+                footstepAudioSource.clip = woodClip;
+                footstepAudioSource.Play();
+              
             }
         }
         
@@ -121,5 +115,6 @@ public class PlayerFootSteps : MonoBehaviour
     private void FixedUpdate()
     {
         CheckGround();
+
     }
 }
