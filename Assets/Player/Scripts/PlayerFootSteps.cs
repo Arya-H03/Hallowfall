@@ -22,6 +22,7 @@ public class PlayerFootSteps : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer;
 
+    private float footstepStartPosition;
     [SerializeField] AudioSource footstepAudioSource;
     [SerializeField] AudioClip groundClip;
     [SerializeField] AudioClip grassClip;
@@ -36,17 +37,31 @@ public class PlayerFootSteps : MonoBehaviour
     }
     public void OnStartPlayerFootstep()
     {
-        footstepAudioSource.Play();
-        footstepPS.Play();
+        if (!footstepAudioSource.isPlaying)
+        {
+            footstepAudioSource.time = footstepStartPosition;
+            footstepAudioSource.Play();
+            footstepPS.Play();
+        }
         //runEffect.SetActive(true);
+
+        
     }
 
     public void OnEndPlayerFootstep()
     {
+        footstepStartPosition = footstepAudioSource.time;
         footstepAudioSource.Stop();
         footstepPS.Stop();
         //runEffect.SetActive(true);
     }
+
+    //public void ResumeFootsteps()
+    //{
+    //    footstepAudioSource.time = footstepStartPosition;
+    //    footstepAudioSource.Play();
+    //    footstepPS.Play();
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -83,6 +98,7 @@ public class PlayerFootSteps : MonoBehaviour
             if (currentFloorType != FloorType.grass && rayCast.collider.CompareTag("Grass"))
             {
                 footstepAudioSource.Stop();
+                footstepStartPosition = 0;
                 currentFloorType = FloorType.grass;
                 footstepAudioSource.clip = grassClip;
                 footstepAudioSource.Play();
@@ -93,6 +109,7 @@ public class PlayerFootSteps : MonoBehaviour
             {
 
                 footstepAudioSource.Stop();
+                footstepStartPosition = 0;
                 currentFloorType = FloorType.ground;
                 footstepAudioSource.clip = groundClip;
                 footstepAudioSource.Play();
@@ -101,6 +118,7 @@ public class PlayerFootSteps : MonoBehaviour
             else if (currentFloorType != FloorType.wood && rayCast.collider.CompareTag("Wood"))
             {
                 footstepAudioSource.Stop();
+                footstepStartPosition = 0;
                 currentFloorType = FloorType.wood;
                 footstepAudioSource.clip = woodClip;
                 footstepAudioSource.Play();
