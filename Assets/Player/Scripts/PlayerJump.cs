@@ -29,7 +29,7 @@ public class PlayerJump : MonoBehaviour
 
     public void StartJump()
     {
-        Debug.Log("Start");
+        //Debug.Log("Start");
         jumpDirectionX = playerController.playerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
         playerController.playerMovementManager.StopRunning();
@@ -40,7 +40,7 @@ public class PlayerJump : MonoBehaviour
 
     public void EndJump()
     {
-        Debug.Log("End");
+        //Debug.Log("End");
         playerController.isPlayerGrounded = true;
         playerController.isPlayerJumping = false;
         playerController.canPlayerJump = true;

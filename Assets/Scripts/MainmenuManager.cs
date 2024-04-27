@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainmenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject creditsPannel;
+    [SerializeField] GameObject creditsPanel;
    public void OnButtonStartClick()
     {
         SceneManager.LoadScene("RealmBeyond");
@@ -21,23 +21,23 @@ public class MainmenuManager : MonoBehaviour
         
     }
 
-    private void OpenPannel(GameObject pannel)
+    private void OpenPanel(GameObject pannel)
     {
         pannel.SetActive(true);
     }
 
-    private void ClosePannel(GameObject pannel)
+    private void ClosePanel(GameObject pannel)
     {
         pannel.SetActive(false);
     }
 
-    public void OnCreditButtonClickOpen()
+    public void OnCreditButtonOpenClick()
     {
-        OpenPannel(creditsPannel);
+        OpenPanel(creditsPanel);
     }
 
-    public void OnCreditButtonClickClose()
+    public void OnCreditButtonCloseClick()
     {
-        ClosePannel(creditsPannel);
+        ClosePanel(creditsPanel);
     }
 }
