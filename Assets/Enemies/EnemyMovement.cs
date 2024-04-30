@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private EnemyAI enemy;
+    //private EnemyAI enemy;
 
     private void Awake()
     {
-        enemy = GetComponent<EnemyAI>();
+        //enemy = GetComponent<EnemyAI>();
     }
 
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)

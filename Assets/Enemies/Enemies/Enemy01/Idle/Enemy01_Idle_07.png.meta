@@ -3,7 +3,7 @@ guid: f9f694d48e808ab4da116bfa43cf27df
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -121,7 +121,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Enemy01_Idle_07_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2
+        width: 37
+        height: 27
+      alignment: 9
+      pivot: {x: 0.7817041, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c153b2c76040440be5d278d6463619
+      internalID: 1190970286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +153,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Enemy01_Idle_07_0: 1190970286
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
