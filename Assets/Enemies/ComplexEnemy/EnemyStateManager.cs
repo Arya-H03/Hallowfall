@@ -23,6 +23,8 @@ public class EnemyStatesManager : MonoBehaviour
 
     public GameObject player;
 
+    public bool hasSeenPlayer = false;
+
     public void ChangeState(EnemyStateEnum stateEnum)
     {
         if(currentStateEnum != stateEnum)
@@ -88,9 +90,9 @@ public class EnemyStatesManager : MonoBehaviour
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
 
-        currentStateEnum = EnemyStateEnum.Patrol;
+        currentStateEnum = EnemyStateEnum.Idle;
 
-        currentState = patrolState;
+        currentState = idleState;
     }
     private void Start()
     {

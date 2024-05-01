@@ -13,7 +13,7 @@ public class PatrolState : EnemyBaseState
 
     private float patrolDelay = 0f;
     private float patrolDelayTimer = 0f;
-
+    private int patrolDirection = 1;
 
     public PatrolState() : base()
     {
@@ -57,9 +57,7 @@ public class PatrolState : EnemyBaseState
 
             else
             {
-                SetNextPatrolPoint();
-                RandomizePatrolDelay();
-                patrolDelayTimer = 0;
+                OnPatrolPointReached();
             }
             
         }
@@ -68,10 +66,21 @@ public class PatrolState : EnemyBaseState
 
     private void SetNextPatrolPoint()
     {
-        int patrolDirection = GetPatrolPointDirection();
+        //int patrolDirection = GetPatrolPointDirection();
         int randomRange = Random.Range(4, 7);
         nextPatrollPosition = new Vector2(startPosition.x + (patrolDirection * randomRange), startPosition.y);
         
+    }
+
+    private void OnPatrolPointReached()
+    {
+        SetNextPatrolPoint();
+        RandomizePatrolDelay();
+        patrolDelayTimer = 0;
+    }
+    public void SetPatrolDirection(int dir)
+    {
+        patrolDirection = dir;  
     }
     private int GetPatrolPointDirection()
     {

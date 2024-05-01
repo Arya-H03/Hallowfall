@@ -23,6 +23,10 @@ public class ChaseState : EnemyBaseState
 
     public override void HandleState()
     {
-        statesManager.enemyMovement.MoveTo(transform.position, statesManager.player.transform.position, chaseSpeed);
+        if (statesManager.hasSeenPlayer)
+        {
+            statesManager.enemyMovement.MoveTo(transform.position, statesManager.player.transform.position, chaseSpeed);
+        }
+        
     }
 }

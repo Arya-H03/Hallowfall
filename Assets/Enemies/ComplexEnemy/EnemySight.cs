@@ -20,7 +20,7 @@ public class EnemySight : MonoBehaviour
 
     private void Update()
     {
-        if(statesManager.player == null)
+        if(!statesManager.hasSeenPlayer)
         {
             // Calculate the start direction of the cone of vision
             Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x, 0, 0);
@@ -38,7 +38,7 @@ public class EnemySight : MonoBehaviour
                     if (hit.collider.CompareTag("Player"))
                     {
                         statesManager.player = hit.collider.gameObject;
-                        statesManager.ChangeState(EnemyStateEnum.Chase);
+                        statesManager.hasSeenPlayer = true;
                     }
                 }
 
