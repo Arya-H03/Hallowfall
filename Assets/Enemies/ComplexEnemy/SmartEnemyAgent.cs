@@ -13,12 +13,17 @@ public class SmartEnemyAgent : Agent
     [SerializeField] Transform [] PspawnPos;
 
     private EnemyStatesManager statesManager;
-    private PatrolState patrolState;
+    public PatrolState patrolState;
 
     private void Awake()
     {
         statesManager = GetComponent<EnemyStatesManager>();
-        patrolState = GetComponent<PatrolState>();  
+        
+    }
+
+    private void Start()
+    {
+        patrolState = gameObject.GetComponent<PatrolState>();
     }
 
     public override void OnEpisodeBegin()

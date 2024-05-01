@@ -66,7 +66,7 @@ public class PatrolState : EnemyBaseState
 
     private void SetNextPatrolPoint()
     {
-        //int patrolDirection = GetPatrolPointDirection();
+        int patrolDirection = GetPatrolPointDirection();
         int randomRange = Random.Range(4, 7);
         nextPatrollPosition = new Vector2(startPosition.x + (patrolDirection * randomRange), startPosition.y);
         
