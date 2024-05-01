@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemyAnimationManager : MonoBehaviour
 {
     private Animator animator;
+    private EnemyStatesManager statesManager;
+
 
     private void Awake()
     {
+        statesManager = GetComponent<EnemyStatesManager>(); 
         animator = GetComponent<Animator>();
     }
     public void SetBoolForAnimation(string name, bool value)
@@ -20,5 +23,12 @@ public class EnemyAnimationManager : MonoBehaviour
     {
         animator.SetTrigger(name);
 
+    }
+
+    public void EndTurningAnimation()
+    {
+
+        statesManager.enemyMovement.OnEnemyEndTurning(false);
+        
     }
 }

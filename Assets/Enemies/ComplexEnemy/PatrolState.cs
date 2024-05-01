@@ -74,6 +74,7 @@ public class PatrolState : EnemyBaseState
 
     private void OnPatrolPointReached()
     {
+        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
         SetNextPatrolPoint();
         RandomizePatrolDelay();
         patrolDelayTimer = 0;
