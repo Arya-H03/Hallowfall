@@ -112,10 +112,10 @@ public class KnightAttack : MonoBehaviour
         Debug.DrawRay(origin, direction * distance, Color.red);
     }
 
-    //private void Update()
-    //{
-    //    VisualizeBoxCast(loc.position, size, transform.right, distance);
-    //}
+    private void Update()
+    {
+        //VisualizeBoxCast(loc.position, size, transform.right, distance);
+    }
 
 
 }

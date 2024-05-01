@@ -11,7 +11,7 @@ public class PatrolState : EnemyBaseState
     private Vector3 startPosition;
     private float patrolSpeed = 1f;
 
-    private float patrolDelay = 0f;
+    private float patrolDelayCooldown = 0f;
     private float patrolDelayTimer = 0f;
     private int patrolDirection = 1;
 
@@ -42,12 +42,8 @@ public class PatrolState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (patrolDelayTimer < patrolDelay)
-        {
-            patrolDelayTimer += Time.deltaTime;
-        }
 
-        else if (patrolDelayTimer >= patrolDelay)
+        if (patrolDelayTimer >= patrolDelayCooldown)
         {
 
             if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.25f)
@@ -62,6 +58,11 @@ public class PatrolState : EnemyBaseState
             
         }
       
+    }
+
+    public void ManagePatrolDelayCooldown()
+    {
+        patrolDelayTimer += Time.deltaTime;
     }
 
     private void SetNextPatrolPoint()
@@ -102,7 +103,7 @@ public class PatrolState : EnemyBaseState
 
     private void RandomizePatrolDelay()
     {
-        patrolDelay = Random.Range(2, 5);
+        patrolDelayCooldown = Random.Range(2, 5);
     }
 
 }

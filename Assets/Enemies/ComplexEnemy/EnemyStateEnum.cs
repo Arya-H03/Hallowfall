@@ -6,5 +6,6 @@ public enum EnemyStateEnum
 {
     Idle,
     Patrol,
-    Chase
+    Chase,
+    Attack
 }

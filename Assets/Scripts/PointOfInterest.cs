@@ -67,7 +67,7 @@ public class PointOfInterest : MonoBehaviour
         {
             if(dialogeText != "")
             {
-                dialogeBox.GetComponent<Dialoge>().StartDialoge(dialogeText);
+             //dialogeBox.GetComponent<Dialoge>().StartDialoge(dialogeText);
             }
            
             OnPointOfInterestInteraction(interactionType);

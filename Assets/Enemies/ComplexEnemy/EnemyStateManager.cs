@@ -17,6 +17,7 @@ public class EnemyStatesManager : MonoBehaviour
     private EnemyBaseState idleState;
     private EnemyBaseState patrolState;
     private EnemyBaseState chaseState;
+    private EnemyBaseState attackState;
 
     public EnemyAnimationManager animationManager;
     public EnemyMovement enemyMovement;
@@ -24,6 +25,24 @@ public class EnemyStatesManager : MonoBehaviour
     public GameObject player;
 
     public bool hasSeenPlayer = false;
+
+    public EnemyBaseState GetState(EnemyStateEnum stateEnum)
+    {
+        switch (stateEnum)
+        {
+
+            case EnemyStateEnum.Idle:
+                return idleState;            
+            case EnemyStateEnum.Patrol:
+                return patrolState;
+            case EnemyStateEnum.Chase:
+                return chaseState;
+            case EnemyStateEnum.Attack:
+                return attackState;
+        }
+
+        return currentState;
+    }
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
@@ -47,6 +66,9 @@ public class EnemyStatesManager : MonoBehaviour
                     break;
                 case EnemyStateEnum.Chase:
                     currentState = chaseState;
+                    break;
+                case EnemyStateEnum.Attack:
+                    currentState = attackState;
                     break;
             }
 
@@ -87,6 +109,9 @@ public class EnemyStatesManager : MonoBehaviour
         chaseState = gameObject.AddComponent<ChaseState>();
         chaseState.SetStatesManager(this);
 
+        attackState = gameObject.AddComponent<AttackState>();
+        attackState.SetStatesManager(this);
+
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
 
@@ -101,20 +126,26 @@ public class EnemyStatesManager : MonoBehaviour
 
     private void Update()
     {
-        
-        switch (currentStateEnum)
-        {
-            
-            case EnemyStateEnum.Idle:
-                idleState.HandleState();
-                break;
-            case EnemyStateEnum.Patrol:
-                patrolState.HandleState();
-                break;
-            case EnemyStateEnum.Chase:
-                chaseState.HandleState();
-                break;
-        }
+        handleCooldowns();
+
+        //switch (currentStateEnum)
+        //{
+
+        //    case EnemyStateEnum.Idle:
+        //        idleState.HandleState();
+        //        break;
+        //    case EnemyStateEnum.Patrol:
+        //        patrolState.HandleState();
+        //        break;
+        //    case EnemyStateEnum.Chase:
+        //        chaseState.HandleState();
+        //        break;
+        //    case EnemyStateEnum.Attack:
+        //        attackState.HandleState();
+        //        break;
+        //}
+
+        currentState.HandleState();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -130,6 +161,12 @@ public class EnemyStatesManager : MonoBehaviour
         {
             ChangeState(EnemyStateEnum.Idle);
         }
+    }
+
+    private void handleCooldowns()
+    {
+        attackState.GetComponent<AttackState>().ManageSwordAttackCooldown();
+        patrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
 
 
