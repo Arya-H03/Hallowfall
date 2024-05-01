@@ -5,8 +5,7 @@ using static EnemyAI;
 
 public class IdleState : EnemyBaseState
 {
-    private float patrolDelay = 0f;
-    private float patrolDelayTimer = 0f;
+    
     public IdleState() : base()
     {
         stateEnum = EnemyStateEnum.Idle;
@@ -15,39 +14,28 @@ public class IdleState : EnemyBaseState
 
     private void Start()
     {
-        RandomizePatrolDelay();
+        
     }
 
     public override void OnEnterState()
     {
-        RandomizePatrolDelay();
+        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        
+        
     }
     
     public override void OnExitState()
     {
-        patrolDelayTimer = 0f;
+        
     }
 
     public override void HandleState()
     {
 
-        if(patrolDelayTimer < patrolDelay)
-        {
-            patrolDelayTimer += Time.deltaTime;
-        }
-
-        else if(patrolDelayTimer >= patrolDelay)
-        {
-            
-            statesManager.ChangeState(EnemyStateEnum.Patrol);
-
-        }
+        
     }
 
-    private void RandomizePatrolDelay()
-    {
-        patrolDelay = Random.Range(2, 5);
-    }
+
 
    
 }

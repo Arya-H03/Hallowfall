@@ -19,6 +19,9 @@ public class EnemyStatesManager : MonoBehaviour
     private EnemyBaseState chaseState;
 
     public EnemyAnimationManager animationManager;
+    public EnemyMovement enemyMovement;
+
+    public GameObject player;
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
@@ -83,10 +86,11 @@ public class EnemyStatesManager : MonoBehaviour
         chaseState.SetStatesManager(this);
 
         animationManager = GetComponent<EnemyAnimationManager>();
+        enemyMovement = GetComponent<EnemyMovement>();
 
-        currentStateEnum = EnemyStateEnum.Idle;
+        currentStateEnum = EnemyStateEnum.Patrol;
 
-        currentState = idleState;
+        currentState = patrolState;
     }
     private void Start()
     {

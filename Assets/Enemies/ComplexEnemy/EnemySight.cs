@@ -20,29 +20,34 @@ public class EnemySight : MonoBehaviour
 
     private void Update()
     {
-        // Calculate the start direction of the cone of vision
-        Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x,0,0);
-
-        // Cast rays within the cone of vision
-        for (float angle = 0f; angle <= visionAngle; angle += 5f)
+        if(statesManager.player == null)
         {
-            Vector2 direction = Quaternion.Euler(0f, 0f, angle) * startDirection;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, visionRange, targetLayer);
+            // Calculate the start direction of the cone of vision
+            Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x, 0, 0);
 
-            // Check for collisions with the player or other objects
-            if (hit.collider != null)
+            // Cast rays within the cone of vision
+            for (float angle = 0f; angle <= visionAngle; angle += 5f)
             {
-                
-                if (hit.collider.CompareTag("Player"))
+                Vector2 direction = Quaternion.Euler(0f, 0f, angle) * startDirection;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, visionRange, targetLayer);
+
+                // Check for collisions with the player or other objects
+                if (hit.collider != null)
                 {
-                    statesManager.ChangeState(EnemyStateEnum.Chase);
+
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        statesManager.player = hit.collider.gameObject;
+                        statesManager.ChangeState(EnemyStateEnum.Chase);
+                    }
                 }
+
+                // Visualize the cone of vision 
+                //Debug.DrawRay(transform.position, direction * visionRange, Color.red);
+
             }
-
-            // Visualize the cone of vision 
-            //Debug.DrawRay(transform.position, direction * visionRange, Color.red);
-
         }
+       
     }
 
 

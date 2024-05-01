@@ -11,8 +11,9 @@ public class PatrolState : EnemyBaseState
     private Vector3 startPosition;
     private float patrolSpeed = 1f;
 
-    private EnemyMovement enemyMovement;
-   
+    private float patrolDelay = 0f;
+    private float patrolDelayTimer = 0f;
+
 
     public PatrolState() : base()
     {
@@ -20,12 +21,13 @@ public class PatrolState : EnemyBaseState
     }
     private void Awake()
     {
-        enemyMovement = GetComponent<EnemyMovement>();
+        
     }
 
     private void Start()
     {
         startPosition = this.transform.position;
+        SetNextPatrolPoint();
     }
     public override void OnEnterState()
     {
@@ -40,14 +42,28 @@ public class PatrolState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (Vector2.Distance(transform.position, nextPatrollPosition) < 0.25f)
+        if (patrolDelayTimer < patrolDelay)
         {
-            statesManager.ChangeState(EnemyStateEnum.Idle);
+            patrolDelayTimer += Time.deltaTime;
         }
-        else
+
+        else if (patrolDelayTimer >= patrolDelay)
         {
-            enemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
+
+            if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.25f)
+            {
+                statesManager.enemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
+            }
+
+            else
+            {
+                SetNextPatrolPoint();
+                RandomizePatrolDelay();
+                patrolDelayTimer = 0;
+            }
+            
         }
+      
     }
 
     private void SetNextPatrolPoint()
@@ -55,6 +71,7 @@ public class PatrolState : EnemyBaseState
         int patrolDirection = GetPatrolPointDirection();
         int randomRange = Random.Range(4, 7);
         nextPatrollPosition = new Vector2(startPosition.x + (patrolDirection * randomRange), startPosition.y);
+        
     }
     private int GetPatrolPointDirection()
     {
@@ -73,5 +90,9 @@ public class PatrolState : EnemyBaseState
 
     }
 
+    private void RandomizePatrolDelay()
+    {
+        patrolDelay = Random.Range(2, 5);
+    }
 
 }
