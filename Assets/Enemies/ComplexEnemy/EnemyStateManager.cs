@@ -9,6 +9,8 @@ using UnityEngine.InputSystem.LowLevel;
 public class EnemyStatesManager : MonoBehaviour
 {
 
+    private float maxHealth = 100;
+    private float currentHealth;
 
     private EnemyStateEnum currentStateEnum;
     private EnemyBaseState currentState;
@@ -21,6 +23,7 @@ public class EnemyStatesManager : MonoBehaviour
 
     public EnemyAnimationManager animationManager;
     public EnemyMovement enemyMovement;
+    public EnemyCollisionManager collisionManager;
 
     public GameObject player;
 
@@ -114,6 +117,7 @@ public class EnemyStatesManager : MonoBehaviour
 
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
+        collisionManager = GetComponent<EnemyCollisionManager>();
 
         currentStateEnum = EnemyStateEnum.Idle;
 
@@ -169,6 +173,23 @@ public class EnemyStatesManager : MonoBehaviour
         patrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
 
+    public void OnEnemyDamage(float value)
+    {
+        if (currentHealth > 0)
+        {
+            currentHealth -= value;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                Debug.Log("I died");
 
-    
+            }
+        }
+        else
+        {
+            //Debug.Log("You are dead");
+        }
+    }
+
+
 }

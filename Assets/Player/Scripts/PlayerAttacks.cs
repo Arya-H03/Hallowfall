@@ -91,8 +91,14 @@ public class PlayerAttacks : MonoBehaviour
         {
             Vector2 launchVector = new Vector2(hit.point.x - this.transform.position.x, 10f);
             GameObject enemy = hit.collider.gameObject;
-            enemy.GetComponent<EnemyCollision>().OnEnemyHit(launchVector, attack1Damage);
-
+            enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack1Damage);
+            
+            if(!enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer)
+            {
+                enemy.GetComponent<EnemyStatesManager>().player = parent;
+                enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
+                enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+            }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
         else
@@ -124,7 +130,14 @@ public class PlayerAttacks : MonoBehaviour
             }
 
             GameObject enemy = hit.collider.gameObject;
-            enemy.GetComponent<EnemyCollision>().OnEnemyHit(launchVector, attack2Damage);
+            enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack2Damage);
+
+            if (!enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer)
+            {
+                enemy.GetComponent<EnemyStatesManager>().player = parent;
+                enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
+                enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+            }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
 
@@ -145,7 +158,14 @@ public class PlayerAttacks : MonoBehaviour
         {
             Vector2 launchVector = new Vector2(4f, 0);
             GameObject enemy = hit.collider.gameObject;
-            enemy.GetComponent<EnemyCollision>().OnEnemyHit(launchVector, attack3Damage);
+            enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack3Damage);
+
+            if (!enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer)
+            {
+                enemy.GetComponent<EnemyStatesManager>().player = parent;
+                enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
+                enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+            }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
 

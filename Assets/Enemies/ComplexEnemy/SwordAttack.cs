@@ -9,6 +9,7 @@ public class SwordAttack : MonoBehaviour
 {
     //[SerializeField] Vector2 size = new Vector2(1.75f, 0.5f);// Size of the box in 2D
     //[SerializeField] Transform loc ; // Distance for the boxcast in 2D
+    private EnemyStatesManager enemyStatesManager;
 
     private Vector2 swordAttackSize = new Vector2(1.75f, 0.5f);
     [SerializeField] Transform swordAttackPoint;
@@ -17,9 +18,14 @@ public class SwordAttack : MonoBehaviour
 
     private int swordAttackDamage = 50;
 
-    //private int parryDamage = 100;
+    private int parryDamage = 100;
 
     private float distance = 0;
+
+    private void Awake()
+    {
+        enemyStatesManager = GetComponentInParent<EnemyStatesManager>();    
+    }
     public void SwordAttackBoxCast()
     {
         Vector2 direction = transform.right;
@@ -31,6 +37,8 @@ public class SwordAttack : MonoBehaviour
             if (hit.collider.CompareTag("ParryShield") == true)
             {
                 Debug.Log("Parry");
+                GameObject parryShield = hit.collider.gameObject;
+                enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
             }
 
             if (hit.collider.CompareTag("Player"))

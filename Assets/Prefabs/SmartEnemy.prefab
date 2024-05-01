@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 876881759318574121}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SwordAttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,8 @@ GameObject:
   - component: {fileID: 6821075965711832479}
   - component: {fileID: 4090830394988071039}
   - component: {fileID: 5072981847562456079}
-  m_Layer: 0
+  - component: {fileID: 8146356046688022743}
+  m_Layer: 6
   m_Name: SmartEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +98,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ebdf870bf83537d408e0fcc5ac76969a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -287,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationManager: {fileID: 0}
   enemyMovement: {fileID: 0}
+  collisionManager: {fileID: 0}
   player: {fileID: 0}
   hasSeenPlayer: 0
 --- !u!114 &6821075965711832479
@@ -335,6 +337,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cf5214787a53b4084b0c5c17432809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8146356046688022743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6279323142800752389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94e938cb9a259d479b0f211c7732122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luanchModifier: 1
+  damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
+  isInvincible: 0
 --- !u!1 &6806204468716761585
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6779956071032558063}
   - component: {fileID: 817626097529889913}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: feetbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198414959534646347}
   - component: {fileID: 944143867892814222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SightManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1731281239740750729}
   - component: {fileID: 5780727649045431404}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,8 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ac5e43e45766f408dbe26105116cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 1.75, y: 0.5}
-  loc: {fileID: 876881759318574121}
   swordAttackPoint: {fileID: 876881759318574121}
   layerMask:
     serializedVersion: 2
