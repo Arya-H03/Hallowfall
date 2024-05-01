@@ -13,7 +13,7 @@ public class EnemyAnimationManager : MonoBehaviour
     public void SetBoolForAnimation(string name, bool value)
     {
         animator.SetBool(name, value);
-        Debug.Log(value);
+        
     }
 
     public void SetTriggerForAnimation(string name)
