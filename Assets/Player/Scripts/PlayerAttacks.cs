@@ -97,7 +97,7 @@ public class PlayerAttacks : MonoBehaviour
             {
                 enemy.GetComponent<EnemyStatesManager>().player = parent;
                 enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
-                enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+               // enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
@@ -136,7 +136,7 @@ public class PlayerAttacks : MonoBehaviour
             {
                 enemy.GetComponent<EnemyStatesManager>().player = parent;
                 enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
-                enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+               // enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
@@ -164,7 +164,7 @@ public class PlayerAttacks : MonoBehaviour
             {
                 enemy.GetComponent<EnemyStatesManager>().player = parent;
                 enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
-                enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+               // enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }

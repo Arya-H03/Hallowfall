@@ -1,0 +1,29 @@
+{
+    "SmartEnemy": {
+        "checkpoints": [
+            {
+                "steps": 40551,
+                "file_path": "results\\test02\\SmartEnemy\\SmartEnemy-40551.onnx",
+                "reward": null,
+                "creation_time": 1714675567.0181518,
+                "auxillary_file_paths": [
+                    "results\\test02\\SmartEnemy\\SmartEnemy-40551.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 40551,
+            "file_path": "results\\test02\\SmartEnemy.onnx",
+            "reward": null,
+            "creation_time": 1714675567.0181518,
+            "auxillary_file_paths": [
+                "results\\test02\\SmartEnemy\\SmartEnemy-40551.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

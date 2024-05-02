@@ -30,7 +30,7 @@ public class AttackState : EnemyBaseState
 
     public override void OnExitState()
     {
-
+        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
     }
 
     public override void HandleState()
@@ -60,7 +60,11 @@ public class AttackState : EnemyBaseState
 
     public void ManageSwordAttackCooldown()
     {
-        swordAttackTimer += Time.deltaTime;
+        if(swordAttackTimer < swordAttackCooldown)
+        {
+            swordAttackTimer += Time.deltaTime;
+        }
+        
     }
 
     public void EnableBoxCastingForSwordAttack()

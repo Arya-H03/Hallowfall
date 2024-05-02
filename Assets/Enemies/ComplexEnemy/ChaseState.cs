@@ -25,9 +25,15 @@ public class ChaseState : EnemyBaseState
     {
         if (statesManager.hasSeenPlayer)
         {
-            if(Vector2.Distance(statesManager.player.transform.position, gameObject.transform.position) < 1)
+            if(Vector2.Distance(statesManager.player.transform.position, gameObject.transform.position) < 1.25f)
             {
-                statesManager.ChangeState(EnemyStateEnum.Attack);
+                //statesManager.ChangeState(EnemyStateEnum.Attack);
+                statesManager.canAttack = true;
+            }
+
+            else
+            {
+                statesManager.canAttack = false;
             }
             
             statesManager.enemyMovement.MoveTo(transform.position, statesManager.player.transform.position, chaseSpeed);

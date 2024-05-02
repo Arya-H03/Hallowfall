@@ -13,7 +13,7 @@ public class SmartEnemyAgent : Agent
     [SerializeField] Transform [] PspawnPos;
 
     private EnemyStatesManager statesManager;
-    public PatrolState patrolState;
+    private PatrolState patrolState;
 
     private void Awake()
     {
@@ -31,28 +31,35 @@ public class SmartEnemyAgent : Agent
         player.transform.position = spawnPos[Random.Range(0, 4)].position;
         this.transform.position = PspawnPos[Random.Range(0,3)].position;
         statesManager.hasSeenPlayer = false;
+        statesManager.canAttack = false;
         statesManager.ChangeState(EnemyStateEnum.Idle);
-       
-
+      
     }
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(statesManager.hasSeenPlayer);
+        sensor.AddObservation(player.transform.position);
+        sensor.AddObservation(statesManager.canAttack);
+        sensor.AddObservation(player.GetComponent<Player>().currentHealth);
+        sensor.AddObservation(player.GetComponent<Player>().numberOfHealthShield);
+
  
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
         int stateAction = actions.DiscreteActions[0];
+        
 
         switch (stateAction)
         {
             case 0:
+                AddReward(-1f / MaxStep);
                 break;
+            //case 0:
+            //    AddReward(-1f / MaxStep);
+            //    statesManager.ChangeState(EnemyStateEnum.Idle);
+            //    break;
             case 1:
-                AddReward(-1f/MaxStep);
-                statesManager.ChangeState(EnemyStateEnum.Idle);
-                break;               
-            case 2:
                 if (!statesManager.hasSeenPlayer)
                 {
                     switch (actions.DiscreteActions[1])
@@ -68,12 +75,18 @@ public class SmartEnemyAgent : Agent
                 }
                 
                 break;
-            case 3:
-                if (statesManager.hasSeenPlayer)
+            case 2:
+                if (statesManager.hasSeenPlayer && !statesManager.canAttack)
                 {
                     statesManager.ChangeState(EnemyStateEnum.Chase);
                 }
                 
+                break;
+            case 3:
+                if(statesManager.canAttack)
+                {
+                    statesManager.ChangeState(EnemyStateEnum.Attack);
+                }
                 break;
         }
 
@@ -84,29 +97,37 @@ public class SmartEnemyAgent : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        ActionSegment<float> ca = actionsOut.ContinuousActions;
+        
+        ActionSegment<int> da = actionsOut.DiscreteActions;
 
-        ca[0] = Input.GetAxisRaw("Horizontal");
+
+        if (!statesManager.hasSeenPlayer)
+        {
+            da[0] = 1;
+
+            da[1] = Random.Range(-1, 2);
+        }
+        if (statesManager.hasSeenPlayer)
+        {
+            da[0] = 2;
+        }
+
+        if (statesManager.canAttack)
+        {
+            da[0] = 3;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision != null )
         {
-            
-            if(collision.CompareTag("Player"))
-            {
-                SetReward(2f);
-                EndEpisode();
-            }
-
+     
             if (collision.CompareTag("Mist"))
             {
                 SetReward(-1f);
                 EndEpisode();
             }
-
-
 
         }
         

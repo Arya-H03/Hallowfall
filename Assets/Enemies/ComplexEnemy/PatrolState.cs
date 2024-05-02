@@ -32,6 +32,7 @@ public class PatrolState : EnemyBaseState
     public override void OnEnterState()
     {
         SetNextPatrolPoint();
+        patrolDelayTimer = patrolDelayCooldown;
         statesManager.animationManager.SetBoolForAnimation("isRunning", true);
     }
 
@@ -62,7 +63,11 @@ public class PatrolState : EnemyBaseState
 
     public void ManagePatrolDelayCooldown()
     {
-        patrolDelayTimer += Time.deltaTime;
+        if (patrolDelayTimer < patrolDelayCooldown)
+        {
+            patrolDelayTimer += Time.deltaTime;
+        }
+        
     }
 
     private void SetNextPatrolPoint()
@@ -103,7 +108,11 @@ public class PatrolState : EnemyBaseState
 
     private void RandomizePatrolDelay()
     {
-        patrolDelayCooldown = Random.Range(2, 5);
+        if (patrolDelayTimer < patrolDelayCooldown)
+        {
+            patrolDelayCooldown = Random.Range(2, 5);
+        }
+       
     }
 
 }

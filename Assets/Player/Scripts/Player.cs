@@ -29,11 +29,14 @@ public class Player : MonoBehaviour
     public bool isPlayerDead = false;
     private Material material;
 
+    private SmartEnemyAgent agent;
+
     private int essenceCounter = 0;
     private void Awake()
     {
         material = GetComponent<SpriteRenderer>().material;
         controller = GetComponent<PlayerController>();
+        agent = FindAnyObjectByType<SmartEnemyAgent>();  
     }
 
     private void Start()
@@ -95,8 +98,12 @@ public class Player : MonoBehaviour
         numberOfHealthShield--;
         if (numberOfHealthShield <= 0)
         {
-            
-            OnPlayerDeath();
+
+            //OnPlayerDeath();
+            //agent.SetReward(3f);
+            //agent.EndEpisode();
+            //currentHealth = maxHealth;
+            //numberOfHealthShield = 3;
         }
         currentHealth = maxHealth;
     }

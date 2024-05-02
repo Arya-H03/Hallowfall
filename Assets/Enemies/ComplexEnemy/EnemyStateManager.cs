@@ -12,7 +12,7 @@ public class EnemyStatesManager : MonoBehaviour
     private float maxHealth = 100;
     private float currentHealth;
 
-    private EnemyStateEnum currentStateEnum;
+    public EnemyStateEnum currentStateEnum;
     private EnemyBaseState currentState;
 
 
@@ -21,13 +21,21 @@ public class EnemyStatesManager : MonoBehaviour
     private EnemyBaseState chaseState;
     private EnemyBaseState attackState;
 
+    [HideInInspector]
+    public SmartEnemyAgent agent;
+    [HideInInspector]
     public EnemyAnimationManager animationManager;
+    [HideInInspector]
     public EnemyMovement enemyMovement;
+    [HideInInspector]
     public EnemyCollisionManager collisionManager;
 
+
+    [HideInInspector]
     public GameObject player;
 
     public bool hasSeenPlayer = false;
+    public bool canAttack = false;
 
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
@@ -118,6 +126,7 @@ public class EnemyStatesManager : MonoBehaviour
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
         collisionManager = GetComponent<EnemyCollisionManager>();
+        agent = GetComponent<SmartEnemyAgent>();
 
         currentStateEnum = EnemyStateEnum.Idle;
 
@@ -151,20 +160,20 @@ public class EnemyStatesManager : MonoBehaviour
 
         currentState.HandleState();
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ChangeState(EnemyStateEnum.Chase);
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    ChangeState(EnemyStateEnum.Chase);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ChangeState(EnemyStateEnum.Patrol);
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    ChangeState(EnemyStateEnum.Patrol);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ChangeState(EnemyStateEnum.Idle);
-        }
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    ChangeState(EnemyStateEnum.Idle);
+        //}
     }
 
     private void handleCooldowns()

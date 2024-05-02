@@ -6,7 +6,7 @@ public class EnemySight : MonoBehaviour
 {
     [SerializeField] LayerMask targetLayer;
     private float visionAngle = 90f; 
-    private float visionRange = 20f;
+    private float visionRange = 10f;
 
     private Transform enemyTransform;
 
@@ -20,7 +20,7 @@ public class EnemySight : MonoBehaviour
 
     private void Update()
     {
-        if(!statesManager.hasSeenPlayer)
+        if (!statesManager.hasSeenPlayer)
         {
             // Calculate the start direction of the cone of vision
             Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x, 0, 0);
@@ -39,16 +39,16 @@ public class EnemySight : MonoBehaviour
                     {
                         statesManager.player = hit.collider.gameObject;
                         statesManager.hasSeenPlayer = true;
-                        statesManager.ChangeState(EnemyStateEnum.Chase);
+                        //statesManager.ChangeState(EnemyStateEnum.Chase);
                     }
                 }
 
                 // Visualize the cone of vision 
-                //Debug.DrawRay(transform.position, direction * visionRange, Color.red);
+                Debug.DrawRay(transform.position, direction * visionRange, Color.red);
 
             }
         }
-       
+
     }
 
 
