@@ -26,6 +26,8 @@ public class PlayerParry : MonoBehaviour
             playerController.rb.gravityScale = 0.2f;
             playerController.rb.velocity = Vector2.zero;
         }
+
+        playerController.isParrying = true;
     }
 
     public void ActivateParryShield()
@@ -35,12 +37,13 @@ public class PlayerParry : MonoBehaviour
 
     public void OnParryEnd()
     {
-        playerController.isParrying = false;
+        
         parryShield.GetComponent<BoxCollider2D>().enabled = false;
         playerController.rb.gravityScale = 3;
         if (playerController.playerMovementManager.currentDirection.x != 0)
         {
             playerController.animationController.SetBoolForAnimations("isRunning", true);
         }
+        playerController.isParrying = false;
     }
 }

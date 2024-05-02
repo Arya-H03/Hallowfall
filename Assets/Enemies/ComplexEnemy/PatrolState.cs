@@ -108,11 +108,9 @@ public class PatrolState : EnemyBaseState
 
     private void RandomizePatrolDelay()
     {
-        if (patrolDelayTimer < patrolDelayCooldown)
-        {
-            patrolDelayCooldown = Random.Range(2, 5);
-        }
        
+            patrolDelayCooldown = Random.Range(2, 5);
+              
     }
 
 }

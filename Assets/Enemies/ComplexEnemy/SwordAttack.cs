@@ -39,13 +39,16 @@ public class SwordAttack : MonoBehaviour
                 Debug.Log("Parry");
                 GameObject parryShield = hit.collider.gameObject;
                 enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
+                enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
+                enemyStatesManager.agent.SetReward(-1f);
+                
             }
 
             if (hit.collider.CompareTag("Player"))
             {
                 GameObject player = hit.collider.gameObject;
-                player.GetComponent<Player>().OnTakingDamage(0);
-                enemyStatesManager.agent.SetReward(2f);
+                player.GetComponent<Player>().OnTakingDamage(swordAttackDamage);
+                enemyStatesManager.agent.SetReward(1f);
                 enemyStatesManager.agent.EndEpisode();
             }
         }

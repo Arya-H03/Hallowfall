@@ -14,16 +14,23 @@ public class SmartEnemyAgent : Agent
 
     private EnemyStatesManager statesManager;
     private PatrolState patrolState;
+    private AttackState attackState;
+    private PlayerController playerController;
 
     private void Awake()
     {
         statesManager = GetComponent<EnemyStatesManager>();
-        
+
+        patrolState = statesManager.patrolState.GetComponent<PatrolState>();
+        attackState = statesManager.attackState.GetComponent<AttackState>();
+
+        playerController = player.GetComponent<PlayerController>();
+
     }
 
     private void Start()
     {
-        patrolState = gameObject.GetComponent<PatrolState>();
+        
     }
 
     public override void OnEpisodeBegin()
@@ -42,55 +49,72 @@ public class SmartEnemyAgent : Agent
         sensor.AddObservation(statesManager.canAttack);
         sensor.AddObservation(player.GetComponent<Player>().currentHealth);
         sensor.AddObservation(player.GetComponent<Player>().numberOfHealthShield);
+        sensor.AddObservation(playerController.isParrying);
 
  
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
         int stateAction = actions.DiscreteActions[0];
-        
-
-        switch (stateAction)
+        int patrolDirAction = actions.DiscreteActions[1];
+        int cancelSwordAttack = actions.DiscreteActions[2];
+        if (!statesManager.isStuned)
         {
-            case 0:
-                AddReward(-1f / MaxStep);
-                break;
-            //case 0:
-            //    AddReward(-1f / MaxStep);
-            //    statesManager.ChangeState(EnemyStateEnum.Idle);
-            //    break;
-            case 1:
-                if (!statesManager.hasSeenPlayer)
-                {
-                    switch (actions.DiscreteActions[1])
-                    {
-                        case 0:
-                            patrolState.SetPatrolDirection(1);
-                            break;
-                        case 1:
-                            patrolState.SetPatrolDirection(-1);
-                            break;
-                    }
-                    statesManager.ChangeState(EnemyStateEnum.Patrol);
-                }
-                
-                break;
-            case 2:
-                if (statesManager.hasSeenPlayer && !statesManager.canAttack)
-                {
-                    statesManager.ChangeState(EnemyStateEnum.Chase);
-                }
-                
-                break;
-            case 3:
-                if(statesManager.canAttack)
-                {
-                    statesManager.ChangeState(EnemyStateEnum.Attack);
-                }
-                break;
-        }
+            switch (stateAction)
+            {
 
-        AddReward(-1f/MaxStep);
+                //Take no action
+                case 0:
+                    AddReward(-1f / MaxStep);
+                    break;
+                //case 0:
+                //    AddReward(-1f / MaxStep);
+                //    statesManager.ChangeState(EnemyStateEnum.Idle);
+                //    break;
+
+                //Patrol state acions
+                case 1:
+                    if (!statesManager.hasSeenPlayer)
+                    {
+                        switch (patrolDirAction)
+                        {
+                            case 0:
+                                patrolState.SetPatrolDirection(1);
+                                break;
+                            case 1:
+                                patrolState.SetPatrolDirection(-1);
+                                break;
+                        }
+                        statesManager.ChangeState(EnemyStateEnum.Patrol);
+                    }
+
+                    break;
+                //Chase state acions
+                case 2:
+                    if (statesManager.hasSeenPlayer && !statesManager.canAttack)
+                    {
+                        statesManager.ChangeState(EnemyStateEnum.Chase);
+                    }
+
+                    break;
+                //Attack state acions
+                case 3:
+                    if (statesManager.canAttack)
+                    {
+                        statesManager.ChangeState(EnemyStateEnum.Attack);
+                    }
+
+                    if (cancelSwordAttack == 1 /*&& playerController.isParrying*/)
+                    {
+                        attackState.CancelSwordAttack();
+                        AddReward(1f);
+                    }
+                    break;
+            }
+
+            AddReward(-1f / MaxStep);
+        }
+            
 
 
     }
@@ -115,6 +139,11 @@ public class SmartEnemyAgent : Agent
         if (statesManager.canAttack)
         {
             da[0] = 3;
+
+            if (playerController.isParrying)
+            {
+                da[2] = 1;
+            }
         }
     }
 

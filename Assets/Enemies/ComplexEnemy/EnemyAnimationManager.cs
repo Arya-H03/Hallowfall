@@ -34,7 +34,7 @@ public class EnemyAnimationManager : MonoBehaviour
 
     public void EndSwordAttaking()
     {
-        statesManager.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>().OnEndSwordAttack();
+        statesManager.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>().EndSwordAttack();
     }
 
     public void BoxCastSwordAttack()

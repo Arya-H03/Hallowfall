@@ -6808,6 +6808,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1156641051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2338119507021082465, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+  m_PrefabInstance: {fileID: 3733793677168445349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1229911849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8220,6 +8225,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2338119507021082465, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3243358591539427851, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: stunEffect
+      value: 
+      objectReference: {fileID: 1156641051}
     - target: {fileID: 4329073678638493511, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: deathmenu
       value: 
@@ -8236,6 +8249,14 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1769239232}
+    - target: {fileID: 6683634990881607025, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683634990881607025, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7199637767830300432, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.6782547
@@ -8283,7 +8304,15 @@ PrefabInstance:
     - target: {fileID: 8411370962647909247, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: cfc53cfc8bf850f47b5850abc245907e, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8411370962647909247, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8411370962647909247, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8626989651469322110, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: m_Name
       value: Environment

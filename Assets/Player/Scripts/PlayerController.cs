@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [HideInInspector]
     public PlayerAnimationController animationController;
+    [HideInInspector]
     public PlayerMovementManager playerMovementManager;
+    [HideInInspector]
     public PlayerJump playerJump;
+    [HideInInspector]
     public PlayerAttacks playerAttacks;
+    [HideInInspector]
     public PlayerParry playerParry;
+    [HideInInspector]
     public Rigidbody2D rb;
     public InputManager inputManager;
+    [HideInInspector]
     public SpriteRenderer spriteRenderer;
+    [HideInInspector]
     public ParticleSystem deathEffectParticle;
+    [HideInInspector]
     public Player player;
 
 
@@ -70,7 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         if (hasSword)
         {
-            isParrying = true;
+            
             playerParry.StartParry();
         }
        

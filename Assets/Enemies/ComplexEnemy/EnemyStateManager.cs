@@ -12,14 +12,20 @@ public class EnemyStatesManager : MonoBehaviour
     private float maxHealth = 100;
     private float currentHealth;
 
+    
     public EnemyStateEnum currentStateEnum;
     private EnemyBaseState currentState;
 
-
-    private EnemyBaseState idleState;
-    private EnemyBaseState patrolState;
-    private EnemyBaseState chaseState;
-    private EnemyBaseState attackState;
+    [HideInInspector]
+    public EnemyBaseState idleState;
+    [HideInInspector]
+    public EnemyBaseState patrolState;
+    [HideInInspector]
+    public EnemyBaseState chaseState;
+    [HideInInspector]
+    public EnemyBaseState attackState;
+    [HideInInspector]
+    public EnemyBaseState stunState;
 
     [HideInInspector]
     public SmartEnemyAgent agent;
@@ -34,8 +40,11 @@ public class EnemyStatesManager : MonoBehaviour
     [HideInInspector]
     public GameObject player;
 
+    [SerializeField] public GameObject stunEffect;
+
     public bool hasSeenPlayer = false;
     public bool canAttack = false;
+    public bool isStuned = false;
 
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
@@ -50,6 +59,8 @@ public class EnemyStatesManager : MonoBehaviour
                 return chaseState;
             case EnemyStateEnum.Attack:
                 return attackState;
+            case EnemyStateEnum.Stun:
+                return stunState;
         }
 
         return currentState;
@@ -80,6 +91,9 @@ public class EnemyStatesManager : MonoBehaviour
                     break;
                 case EnemyStateEnum.Attack:
                     currentState = attackState;
+                    break;
+                case EnemyStateEnum.Stun:
+                    currentState = stunState;
                     break;
             }
 
@@ -122,6 +136,9 @@ public class EnemyStatesManager : MonoBehaviour
 
         attackState = gameObject.AddComponent<AttackState>();
         attackState.SetStatesManager(this);
+
+        stunState = gameObject.AddComponent<StunState>();
+        stunState.SetStatesManager(this);
 
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
