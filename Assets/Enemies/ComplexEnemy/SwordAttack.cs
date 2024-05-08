@@ -39,8 +39,8 @@ public class SwordAttack : MonoBehaviour
                 Debug.Log("Parry");
                 GameObject parryShield = hit.collider.gameObject;
                 enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
-                enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
-                enemyStatesManager.agent.SetReward(-1f);
+                //enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
+                //enemyStatesManager.agent.SetReward(-1f);
                 
             }
 
@@ -48,8 +48,8 @@ public class SwordAttack : MonoBehaviour
             {
                 GameObject player = hit.collider.gameObject;
                 player.GetComponent<Player>().OnTakingDamage(swordAttackDamage);
-                enemyStatesManager.agent.SetReward(1f);
-                enemyStatesManager.agent.EndEpisode();
+                //enemyStatesManager.agent.SetReward(1f);
+                //enemyStatesManager.agent.EndEpisode();
             }
         }
 

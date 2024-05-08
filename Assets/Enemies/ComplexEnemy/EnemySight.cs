@@ -39,7 +39,7 @@ public class EnemySight : MonoBehaviour
                     {
                         statesManager.player = hit.collider.gameObject;
                         statesManager.hasSeenPlayer = true;
-                        //statesManager.ChangeState(EnemyStateEnum.Chase);
+                        statesManager.ChangeState(EnemyStateEnum.Chase);
                     }
                 }
 

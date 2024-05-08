@@ -26,6 +26,10 @@ public class EnemyStatesManager : MonoBehaviour
     public EnemyBaseState attackState;
     [HideInInspector]
     public EnemyBaseState stunState;
+    [HideInInspector]
+    public EnemyBaseState jumpState;
+    [HideInInspector]
+    public EnemyBaseState turnState;
 
     [HideInInspector]
     public SmartEnemyAgent agent;
@@ -61,6 +65,11 @@ public class EnemyStatesManager : MonoBehaviour
                 return attackState;
             case EnemyStateEnum.Stun:
                 return stunState;
+            case EnemyStateEnum.Jump:
+                return jumpState;
+            case EnemyStateEnum.Turn:
+                return turnState;
+             
         }
 
         return currentState;
@@ -70,7 +79,7 @@ public class EnemyStatesManager : MonoBehaviour
     {
         if(currentStateEnum != stateEnum)
         {
-            //Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
+            Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
 
             if (currentState != null)
             {
@@ -94,6 +103,12 @@ public class EnemyStatesManager : MonoBehaviour
                     break;
                 case EnemyStateEnum.Stun:
                     currentState = stunState;
+                    break;
+                case EnemyStateEnum.Jump:
+                    currentState = jumpState;
+                    break;
+                case EnemyStateEnum.Turn:
+                    currentState = turnState;
                     break;
             }
 
@@ -140,6 +155,12 @@ public class EnemyStatesManager : MonoBehaviour
         stunState = gameObject.AddComponent<StunState>();
         stunState.SetStatesManager(this);
 
+        jumpState = gameObject.AddComponent<JumpState>();
+        jumpState.SetStatesManager(this);
+
+        turnState = gameObject.AddComponent<TurnState>();
+        turnState.SetStatesManager(this);
+
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
         collisionManager = GetComponent<EnemyCollisionManager>();
@@ -151,7 +172,7 @@ public class EnemyStatesManager : MonoBehaviour
     }
     private void Start()
     {
-        
+        ChangeState(EnemyStateEnum.Patrol);
     }
 
     private void Update()
@@ -177,10 +198,10 @@ public class EnemyStatesManager : MonoBehaviour
 
         currentState.HandleState();
 
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    ChangeState(EnemyStateEnum.Chase);
-        //}
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            ChangeState(EnemyStateEnum.Jump);
+        }
 
         //if (Input.GetKeyDown(KeyCode.P))
         //{

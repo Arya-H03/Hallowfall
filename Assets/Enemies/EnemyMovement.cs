@@ -8,7 +8,9 @@ public class EnemyMovement : MonoBehaviour
     private EnemyStatesManager statesManager;
 
     private int currentDir = 1;
-    private bool isTurning = false; 
+    private bool isTurning = false;
+
+    EnemyStateEnum lastState;
 
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class EnemyMovement : MonoBehaviour
         if(direction.x < 0 && currentDir != 1)
         {
             OnEnemyBeginTurning(1);
+
         }
         if(direction.x >= 0 && currentDir != -1)
         {
@@ -46,14 +49,15 @@ public class EnemyMovement : MonoBehaviour
         currentDir = dir;
         isTurning = true;
 
-        statesManager.animationManager.SetBoolForAnimation("isTurning", isTurning);
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        lastState = statesManager.currentStateEnum;
+        statesManager.ChangeState(EnemyStateEnum.Turn);
+      
     }
     public void OnEnemyEndTurning(bool value)
     {
         isTurning = value;
-        statesManager.animationManager.SetBoolForAnimation("isTurning", isTurning);
+        statesManager.ChangeState(lastState);
         transform.localScale = new Vector3(currentDir, 1, 1);
-        statesManager.animationManager.SetBoolForAnimation("isRunning", true);
+  
     }
 }

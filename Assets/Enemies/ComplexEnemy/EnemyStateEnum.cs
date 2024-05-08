@@ -8,5 +8,7 @@ public enum EnemyStateEnum
     Patrol,
     Chase,
     Attack,
-    Stun
+    Stun,
+    Turn,
+    Jump
 }
