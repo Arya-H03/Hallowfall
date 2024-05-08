@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] InputManager inputManager;
 
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Transform enemySpawnTransform;
+
     private GameObject playerCamera;
 
     public delegate void MyFunction();
@@ -28,13 +31,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-       
+
         //OnPlayerWakeUp();
-
-
         //MyFunction func = EndPlayerDistortion;
         //StartCoroutine(CallFunctionByDelay(func, 4));
-   
+
+
+    }
+
+    private void SpawnEnemy()
+    {
+        Instantiate(enemyPrefab,enemySpawnTransform.position,Quaternion.identity);
+
     }
 
     public void PlayAudio(AudioSource source, AudioClip clip)

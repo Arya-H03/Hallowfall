@@ -70,7 +70,7 @@ public class EnemyStatesManager : MonoBehaviour
     {
         if(currentStateEnum != stateEnum)
         {
-            Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
 
             if (currentState != null)
             {

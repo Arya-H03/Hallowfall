@@ -6,11 +6,11 @@ using Unity.MLAgents.Actuators;
 using System.Runtime.CompilerServices;
 using Unity.MLAgents.Sensors;
 
-public class SmartEnemyAgent : Agent
+public class FirstStageBrain : Agent
 {
     [SerializeField] GameObject player;
-    [SerializeField] Transform [] spawnPos;
-    [SerializeField] Transform [] PspawnPos;
+    [SerializeField] Transform[] spawnPos;
+    [SerializeField] Transform[] PspawnPos;
 
     private EnemyStatesManager statesManager;
     private PatrolState patrolState;
@@ -30,7 +30,7 @@ public class SmartEnemyAgent : Agent
 
     private void Start()
     {
-        
+
     }
 
     public override void OnEpisodeBegin()
@@ -41,7 +41,7 @@ public class SmartEnemyAgent : Agent
         statesManager.canAttack = false;
         statesManager.isStuned = false;
         statesManager.ChangeState(EnemyStateEnum.Patrol);
-      
+
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -50,9 +50,7 @@ public class SmartEnemyAgent : Agent
         sensor.AddObservation(statesManager.canAttack);
         sensor.AddObservation(player.GetComponent<Player>().currentHealth);
         sensor.AddObservation(player.GetComponent<Player>().numberOfHealthShield);
-        sensor.AddObservation(playerController.isParrying);
 
- 
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -105,25 +103,19 @@ public class SmartEnemyAgent : Agent
                         statesManager.ChangeState(EnemyStateEnum.Attack);
                     }
 
-                    if (cancelSwordAttack == 1 /*&& playerController.isParrying*/)
-                    {
-                        Debug.Log("cancel");
-                        attackState.CancelSwordAttack();
-                        AddReward(1f);
-                    }
                     break;
             }
 
             AddReward(-1f / MaxStep);
         }
-            
+
 
 
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        
+
         ActionSegment<int> da = actionsOut.DiscreteActions;
 
 
@@ -141,19 +133,14 @@ public class SmartEnemyAgent : Agent
         if (statesManager.canAttack)
         {
             da[0] = 3;
-
-            if (playerController.isParrying)
-            {
-                da[2] = 1;
-            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null )
+        if (collision != null)
         {
-     
+
             if (collision.CompareTag("Mist"))
             {
                 SetReward(-1f);
@@ -161,6 +148,6 @@ public class SmartEnemyAgent : Agent
             }
 
         }
-        
+
     }
 }

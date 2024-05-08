@@ -35,7 +35,7 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
           deterministic: false
-    init_path: results\test01\SmartEnemy\checkpoint.pt
+    init_path: null
     keep_checkpoints: 5
     even_checkpoints: false
     max_steps: 500000
@@ -65,8 +65,8 @@ engine_settings:
   no_graphics: false
 environment_parameters: null
 checkpoint_settings:
-  run_id: test02
-  initialize_from: test01
+  run_id: SmartEnemyTest00
+  initialize_from: null
   load_model: false
   resume: false
   force: false

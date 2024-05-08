@@ -10,6 +10,8 @@ public class AttackState : EnemyBaseState
     public float swordAttackTimer = 0f;
     private float swordAttackCooldown = 2f;
 
+    private bool canCancelSwordAttack = true;    
+
     private SwordAttack swordAttack;
 
     public AttackState() : base()
@@ -42,6 +44,7 @@ public class AttackState : EnemyBaseState
 
         if (Vector2.Distance(statesManager.player.transform.position, gameObject.transform.position) >= 2)
         {
+            CancelSwordAttack();
             statesManager.ChangeState(EnemyStateEnum.Chase);
         }
      // swordAttack.DrawCast();
@@ -50,6 +53,7 @@ public class AttackState : EnemyBaseState
     private void BeginSwordAttack()
     {
         statesManager.animationManager.SetBoolForAnimation("isAttackingSword", true);
+        canCancelSwordAttack = true;
     }
 
     public void EndSwordAttack()
@@ -60,8 +64,13 @@ public class AttackState : EnemyBaseState
 
     public void CancelSwordAttack()
     {
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        swordAttackTimer = 1f;
+        if(canCancelSwordAttack) 
+        {
+            canCancelSwordAttack = false;
+            statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+            swordAttackTimer = 0f;
+        } 
+        
     }
 
 
