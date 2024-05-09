@@ -7,6 +7,7 @@ public class EnemyCollisionManager : MonoBehaviour
     private Material material;
 
     private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     private EnemyStatesManager statesManager;
 
     [SerializeField] float luanchModifier = 1f;
@@ -19,6 +20,7 @@ public class EnemyCollisionManager : MonoBehaviour
     {
         statesManager = GetComponent<EnemyStatesManager>();
         rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         material = GetComponent<SpriteRenderer>().material;
 
     }
@@ -69,5 +71,15 @@ public class EnemyCollisionManager : MonoBehaviour
     {
         DamagePopUp obj = Instantiate(damagePopUp, new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity);
         obj.SetText(damage.ToString());
+    }
+
+    public void ApplyVelocity(float x, float y)
+    {
+        rb.velocity = new Vector2(x, y);
+    }
+
+    public void SetColliderIsTrigger(bool value)
+    {
+        boxCollider.isTrigger = value;
     }
 }

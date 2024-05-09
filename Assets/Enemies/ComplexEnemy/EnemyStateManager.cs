@@ -16,6 +16,9 @@ public class EnemyStatesManager : MonoBehaviour
     public EnemyStateEnum currentStateEnum;
     private EnemyBaseState currentState;
 
+    public EnemyStateEnum previousStateEnum;
+    private EnemyBaseState previousState;
+
     [HideInInspector]
     public EnemyBaseState idleState;
     [HideInInspector]
@@ -40,7 +43,6 @@ public class EnemyStatesManager : MonoBehaviour
     [HideInInspector]
     public EnemyCollisionManager collisionManager;
 
-
     [HideInInspector]
     public GameObject player;
 
@@ -49,6 +51,7 @@ public class EnemyStatesManager : MonoBehaviour
     public bool hasSeenPlayer = false;
     public bool canAttack = false;
     public bool isStuned = false;
+    public bool isJumping = false;
 
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
@@ -85,6 +88,9 @@ public class EnemyStatesManager : MonoBehaviour
             {
                 currentState.OnExitState();
             }
+
+            previousState = currentState;
+            previousStateEnum = currentStateEnum;
 
             switch (stateEnum)
             {
