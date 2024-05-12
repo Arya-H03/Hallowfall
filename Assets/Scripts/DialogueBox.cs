@@ -6,41 +6,44 @@ using UnityEngine;
 public class DialogueBox : MonoBehaviour
 {
     private TextMeshProUGUI textComponent;
-    [SerializeField] private string text;
-    private float textSpeed = 0.05f;
+    private string text;
+    [SerializeField] private float textSpeed = 0.05f;
 
     private void Awake()
     {
         textComponent = GetComponentInChildren<TextMeshProUGUI>();  
     }
 
-    public void SetText(string text)
+    private void Start()
     {
-        this.text = text;
+       
+    }
+    public void StartDialouge(string inputText)
+    {
+        StartCoroutine(ClearText(0));
+        StartCoroutine(TypeLetters(inputText));
     }
 
-    public string GetText()
+    private IEnumerator ClearText(float delay)
     {
-        return this.text;
+        yield return new WaitForSeconds(delay);
+        this.text = string.Empty;
+        textComponent.text = string.Empty;
     }
-
-    public void StartDialouge()
-    {
-
-    }
-
-     private IEnumerator TypeLetters()
+     private IEnumerator TypeLetters(string inputText)
      {
-        int i = 0;
-        foreach (char c in text.ToCharArray())
-        {
-            i++;
-            textComponent.text += c;
+        this.text = inputText;
+        char[] textChar = this.text.ToCharArray();
+
+        for(int i = 0; i< textChar.Length; i++)
+        {          
+            textComponent.text += textChar[i];
             yield return new WaitForSeconds(textSpeed);
-            if (i == text.ToCharArray().Length)
+            if (i == textChar.Length -1)
             {
-                //End 
+                StartCoroutine(ClearText(4));
             }
         }
+     
      }
 }
