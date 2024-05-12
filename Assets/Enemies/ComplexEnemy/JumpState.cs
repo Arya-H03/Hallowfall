@@ -7,6 +7,7 @@ public class JumpState : EnemyBaseState
     private float jumpSpeedY = 15;
     private float jumpSpeedX = 10;
     private int jumpDirectionX = 0;
+    public bool canJump = true;
     public JumpState() : base()
     {
         stateEnum = EnemyStateEnum.Jump;
@@ -20,18 +21,25 @@ public class JumpState : EnemyBaseState
 
     public override void OnEnterState()
     {
+
         statesManager.animationManager.SetBoolForAnimation("isRunning", false);
         statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
         statesManager.animationManager.SetBoolForAnimation("isTurning", false);
 
-        statesManager.isJumping = true;
-        statesManager.collisionManager.ApplyVelocity(jumpSpeedX * jumpDirectionX, jumpSpeedY);
-        statesManager.collisionManager.SetColliderIsTrigger(true);
+        
+        
+       
+            
+            statesManager.isJumping = true;
+            statesManager.collisionManager.ApplyVelocity(jumpSpeedX * jumpDirectionX, jumpSpeedY);
+            statesManager.collisionManager.SetColliderIsTrigger(true);
+        
+       
     }
 
     public override void OnExitState()
     {
-
+        canJump = true;
     }
 
     public override void HandleState()
@@ -42,9 +50,11 @@ public class JumpState : EnemyBaseState
 
     public void OnGroundReached()
     {
+        canJump = true;
         statesManager.collisionManager.SetColliderIsTrigger(false);
         statesManager.isJumping = false;
         statesManager.ChangeState(statesManager.previousStateEnum);
+        
     }
 
     public void SetJumpDirectionX(int dir)

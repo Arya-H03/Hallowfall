@@ -185,22 +185,20 @@ public class EnemyStatesManager : MonoBehaviour
     {
         handleCooldowns();
 
-        //switch (currentStateEnum)
-        //{
-
-        //    case EnemyStateEnum.Idle:
-        //        idleState.HandleState();
-        //        break;
-        //    case EnemyStateEnum.Patrol:
-        //        patrolState.HandleState();
-        //        break;
-        //    case EnemyStateEnum.Chase:
-        //        chaseState.HandleState();
-        //        break;
-        //    case EnemyStateEnum.Attack:
-        //        attackState.HandleState();
-        //        break;
-        //}
+        if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
+        {
+            jumpState.GetComponent<JumpState>().canJump = false;
+            int randomNumber = UnityEngine.Random.Range(1, 101);
+            if (randomNumber <= 100 * 0.33)
+            {
+                ChangeState(EnemyStateEnum.Jump);
+            }
+            else
+            {
+                jumpState.GetComponent<JumpState>().canJump = true;
+            }
+          
+        }
 
         currentState.HandleState();
 

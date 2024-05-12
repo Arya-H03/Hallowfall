@@ -11,6 +11,9 @@ public class AttackState : EnemyBaseState
     private float swordAttackCooldown = 2f;
 
     private bool canCancelSwordAttack = true;    
+    private bool isAttacking = false;
+
+    private float attackCancelingChance = 0.33f;    
 
     private SwordAttack swordAttack;
 
@@ -37,6 +40,17 @@ public class AttackState : EnemyBaseState
 
     public override void HandleState()
     {
+        
+        if(statesManager.player.GetComponent<PlayerController>().isParrying && canCancelSwordAttack &&isAttacking)
+        {
+            canCancelSwordAttack = false;
+            int randomNumber = Random.Range(1, 101);
+            if (randomNumber <= 100 * attackCancelingChance)
+            {              
+                CancelSwordAttack();
+            }
+            
+        }
         if (swordAttackTimer >= swordAttackCooldown)
         {
             BeginSwordAttack();
@@ -52,25 +66,31 @@ public class AttackState : EnemyBaseState
 
     private void BeginSwordAttack()
     {
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", true);
-        canCancelSwordAttack = true;
+        if(!isAttacking)
+        {
+            statesManager.animationManager.SetBoolForAnimation("isAttackingSword", true);
+            canCancelSwordAttack = true;
+            isAttacking = true;
+        }
+        
     }
 
     public void EndSwordAttack()
     {
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        swordAttackTimer = 0f;
+        if (isAttacking)
+        {
+            statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+            swordAttackTimer = 0f;
+            isAttacking = false;
+        }
+       
     }
 
     public void CancelSwordAttack()
     {
-        if(canCancelSwordAttack) 
-        {
-            canCancelSwordAttack = false;
-            statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
-            swordAttackTimer = 0f;
-        } 
-        
+        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        isAttacking = false;
+        swordAttackTimer = 0f;
     }
 
 
@@ -86,6 +106,7 @@ public class AttackState : EnemyBaseState
 
     public void EnableBoxCastingForSwordAttack()
     {
+        
         swordAttack.SwordAttackBoxCast();
     }
 

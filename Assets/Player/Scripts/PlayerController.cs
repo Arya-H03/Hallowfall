@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public bool isParrying  = false;
     public bool hasSword = false;
     public bool isDead = false;
+    public bool isAttacking = false;
 
     private void Awake()
     {     
