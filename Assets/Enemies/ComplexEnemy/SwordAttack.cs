@@ -7,8 +7,8 @@ using static UnityEngine.UI.Image;
 
 public class SwordAttack : MonoBehaviour
 {
-    //[SerializeField] Vector2 size = new Vector2(1.75f, 0.5f);// Size of the box in 2D
-    //[SerializeField] Transform loc ; // Distance for the boxcast in 2D
+    [SerializeField] Vector2 size = new Vector2(1.75f, 0.5f);// Size of the box in 2D
+    [SerializeField] Transform loc; // Distance for the boxcast in 2D
     private EnemyStatesManager enemyStatesManager;
 
     private Vector2 swordAttackSize = new Vector2(1.75f, 0.5f);
@@ -73,9 +73,9 @@ public class SwordAttack : MonoBehaviour
         Debug.DrawRay(origin, direction * distance, Color.red);
     }
 
-    //public void DrawCast()
-    //{
-    //    VisualizeBoxCast(loc.position, size, transform.right, distance);
-    //}
+    public void DrawCast()
+    {
+        VisualizeBoxCast(loc.position, size, transform.right, distance);
+    }
 
 }

@@ -41,16 +41,16 @@ public class AttackState : EnemyBaseState
     public override void HandleState()
     {
         
-        if(statesManager.player.GetComponent<PlayerController>().isParrying && canCancelSwordAttack &&isAttacking)
-        {
-            canCancelSwordAttack = false;
-            int randomNumber = Random.Range(1, 101);
-            if (randomNumber <= 100 * attackCancelingChance)
-            {              
-                CancelSwordAttack();
-            }
+        //if(statesManager.player.GetComponent<PlayerController>().isParrying && canCancelSwordAttack &&isAttacking)
+        //{
+        //    canCancelSwordAttack = false;
+        //    int randomNumber = Random.Range(1, 101);
+        //    if (randomNumber <= 100 * attackCancelingChance)
+        //    {              
+        //        CancelSwordAttack();
+        //    }
             
-        }
+        //}
         if (swordAttackTimer >= swordAttackCooldown)
         {
             BeginSwordAttack();
@@ -61,7 +61,7 @@ public class AttackState : EnemyBaseState
             CancelSwordAttack();
             statesManager.ChangeState(EnemyStateEnum.Chase);
         }
-     // swordAttack.DrawCast();
+        swordAttack.DrawCast();
     }
 
     private void BeginSwordAttack()

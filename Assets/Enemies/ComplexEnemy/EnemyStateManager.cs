@@ -185,20 +185,20 @@ public class EnemyStatesManager : MonoBehaviour
     {
         handleCooldowns();
 
-        if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
-        {
-            jumpState.GetComponent<JumpState>().canJump = false;
-            int randomNumber = UnityEngine.Random.Range(1, 101);
-            if (randomNumber <= 100 * 0.33)
-            {
-                ChangeState(EnemyStateEnum.Jump);
-            }
-            else
-            {
-                jumpState.GetComponent<JumpState>().canJump = true;
-            }
+        //if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
+        //{
+        //    jumpState.GetComponent<JumpState>().canJump = false;
+        //    int randomNumber = UnityEngine.Random.Range(1, 101);
+        //    if (randomNumber <= 100 * 0.33)
+        //    {
+        //        ChangeState(EnemyStateEnum.Jump);
+        //    }
+        //    else
+        //    {
+        //        jumpState.GetComponent<JumpState>().canJump = true;
+        //    }
           
-        }
+        //}
 
         currentState.HandleState();
 

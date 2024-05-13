@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
             Vector2 direction = endPoint - startPoint;
             transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
             TurnEnemy(direction);
+            Debug.Log(direction);
             //enemy.rb.velocity = direction * enemySpeed;
         }
 

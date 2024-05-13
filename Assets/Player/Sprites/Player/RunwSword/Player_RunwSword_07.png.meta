@@ -3,7 +3,7 @@ guid: 118848765b6aef24e83306109df9577c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -131,7 +131,7 @@ TextureImporter:
         width: 34
         height: 32
       alignment: 9
-      pivot: {x: 0.7937107, y: 0.5}
+      pivot: {x: 0.7941176, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
