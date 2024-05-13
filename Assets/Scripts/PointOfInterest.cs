@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static InteractionHandler;
 
 public class PointOfInterest : MonoBehaviour
 {
-    private GameObject dialogeBox;
-    [SerializeField] GameObject interactIcon;
+    public enum InteractionTypeEnum
+    {
 
-    public string interactionType;
-    public string dialogeText;
+        None,
+        Weapon
+    }
+
+
+    [SerializeField] private DialogueBox dialogueBox;
+    [SerializeField] GameObject interactIcon;
+    [SerializeField] private InteractionTypeEnum interactionType;
+    [SerializeField] private string dialogueText;
+    [SerializeField] private bool hasDialouge;
+    
+
 
     private bool isPlayerInRange = false;
-   
-    public delegate void InteractionEventHandler(string interactionType);
-    public static event InteractionEventHandler OnPointOfInterestInteraction;
-
-    private void Awake()
-    {
-        dialogeBox = GameObject.FindGameObjectWithTag("DialogeBox");
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +47,7 @@ public class PointOfInterest : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Interaction();
+                HandleInteraction();
             }
         }
     }
@@ -60,17 +63,21 @@ public class PointOfInterest : MonoBehaviour
         interactIcon.SetActive(false);
     }
 
-    private void Interaction()
+    private void HandleInteraction()
     {
-       
-        if (OnPointOfInterestInteraction != null)
+        if (hasDialouge)
         {
-            if(dialogeText != "")
-            {
-             //dialogeBox.GetComponent<Dialoge>().StartDialoge(dialogeText);
-            }
-           
-            OnPointOfInterestInteraction(interactionType);
+            dialogueBox.StartDialouge(dialogueText);
+        }
+
+        switch (interactionType)
+        {
+            case InteractionTypeEnum.Weapon:
+                GameObject player;
+                player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<PlayerController>().HandelSwordEquipment(true);
+                break;
         }
     }
+
 }
