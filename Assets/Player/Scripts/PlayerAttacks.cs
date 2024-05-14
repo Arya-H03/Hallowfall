@@ -102,6 +102,7 @@ public class PlayerAttacks : MonoBehaviour
                // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
+            enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
         }
         else
         {
@@ -141,6 +142,7 @@ public class PlayerAttacks : MonoBehaviour
                // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
+            enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
         }
 
         else
@@ -169,6 +171,8 @@ public class PlayerAttacks : MonoBehaviour
                // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
+            enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
+            
         }
 
         else

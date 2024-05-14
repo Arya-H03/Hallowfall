@@ -25,7 +25,7 @@ public class ChaseState : EnemyBaseState
     {
         if (enemyController.hasSeenPlayer)
         {
-            if(Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) < 2f)
+            if(Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f)
             {
                 enemyController.ChangeState(EnemyStateEnum.Attack);
                 enemyController.canAttack = true;

@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     private EnemyBaseState previousState;
 
     private DialogueBox dialogueBox;
+    private ParticleSystem bloodParticles;
 
     [HideInInspector]
     public EnemyBaseState idleState;
@@ -174,6 +175,7 @@ public class EnemyController : MonoBehaviour
         collisionManager = GetComponent<EnemyCollisionManager>();
         agent = GetComponent<SmartEnemyAgent>();
         dialogueBox = GetComponentInChildren<DialogueBox>();
+        bloodParticles = GetComponent<ParticleSystem>();    
 
         currentStateEnum = EnemyStateEnum.Idle;
 
@@ -249,6 +251,15 @@ public class EnemyController : MonoBehaviour
     public DialogueBox GetDialogueBox()
     {
         return dialogueBox; 
+    }
+
+    public void PlayBloodEffect(Vector2 hitPoint)
+    {
+        Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);
+        //Debug.Log(distance);
+        var shape = bloodParticles.shape;
+        shape.position = (distance);
+        bloodParticles.Play();
     }
 
 
