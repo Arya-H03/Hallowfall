@@ -46,4 +46,10 @@ public class DialogueBox : MonoBehaviour
         }
      
      }
+
+    public void PlayRandomDialogue(string [] dialogues)
+    {
+        int randomIndex = Random.Range(0, dialogues.Length);
+        StartDialouge(dialogues[randomIndex]);
+    }
 }

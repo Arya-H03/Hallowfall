@@ -12,14 +12,14 @@ public class FirstStageBrain : Agent
     [SerializeField] Transform[] spawnPos;
     [SerializeField] Transform[] PspawnPos;
 
-    private EnemyStatesManager statesManager;
+    private EnemyController statesManager;
     private PatrolState patrolState;
     private AttackState attackState;
     private PlayerController playerController;
 
     private void Awake()
     {
-        statesManager = GetComponent<EnemyStatesManager>();
+        statesManager = GetComponent<EnemyController>();
 
         patrolState = statesManager.patrolState.GetComponent<PatrolState>();
         attackState = statesManager.attackState.GetComponent<AttackState>();
@@ -68,7 +68,7 @@ public class FirstStageBrain : Agent
                     break;
                 //case 0:
                 //    AddReward(-1f / MaxStep);
-                //    statesManager.ChangeState(EnemyStateEnum.Idle);
+                //    enemyController.ChangeState(EnemyStateEnum.Idle);
                 //    break;
 
                 //Patrol state acions

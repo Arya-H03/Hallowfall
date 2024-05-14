@@ -22,17 +22,17 @@ public class JumpState : EnemyBaseState
     public override void OnEnterState()
     {
 
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        statesManager.animationManager.SetBoolForAnimation("isTurning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.animationManager.SetBoolForAnimation("isTurning", false);
 
         
         
        
             
-            statesManager.isJumping = true;
-            statesManager.collisionManager.ApplyVelocity(jumpSpeedX * jumpDirectionX, jumpSpeedY);
-            statesManager.collisionManager.SetColliderIsTrigger(true);
+            enemyController.isJumping = true;
+            enemyController.collisionManager.ApplyVelocity(jumpSpeedX * jumpDirectionX, jumpSpeedY);
+            enemyController.collisionManager.SetColliderIsTrigger(true);
         
        
     }
@@ -51,9 +51,9 @@ public class JumpState : EnemyBaseState
     public void OnGroundReached()
     {
         canJump = true;
-        statesManager.collisionManager.SetColliderIsTrigger(false);
-        statesManager.isJumping = false;
-        statesManager.ChangeState(statesManager.previousStateEnum);
+        enemyController.collisionManager.SetColliderIsTrigger(false);
+        enemyController.isJumping = false;
+        enemyController.ChangeState(enemyController.previousStateEnum);
         
     }
 

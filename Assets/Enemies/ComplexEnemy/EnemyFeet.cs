@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyFeet : MonoBehaviour
 {
-    private EnemyStatesManager enemyStatesManager;
+    private EnemyController enemyStatesManager;
 
     private void Awake()
     {
-        enemyStatesManager = GetComponentInParent<EnemyStatesManager>();
+        enemyStatesManager = GetComponentInParent<EnemyController>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

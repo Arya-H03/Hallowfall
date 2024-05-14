@@ -6,16 +6,16 @@ using UnityEngine;
 public class EnemyBaseState : MonoBehaviour , IEnemyState
 {
     protected EnemyStateEnum stateEnum;
-    protected EnemyStatesManager statesManager;
+    protected EnemyController enemyController;
 
     public EnemyBaseState()
     {
         
     }
 
-    public void SetStatesManager(EnemyStatesManager statesManagerRef)
+    public void SetStatesController(EnemyController statesManagerRef)
     {
-        this.statesManager = statesManagerRef;  
+        this.enemyController = statesManagerRef;  
     }
     public EnemyStateEnum GetStateEnum()
     {
@@ -40,15 +40,15 @@ public class EnemyBaseState : MonoBehaviour , IEnemyState
 
     //public void ChangeState(EnemyBaseState newState)
     //{
-    //    Debug.Log(statesManager.GetCurrentStateEnum().ToString() + " to " + newState.GetStateEnum().ToString());
+    //    Debug.Log(enemyController.GetCurrentStateEnum().ToString() + " to " + newState.GetStateEnum().ToString());
 
-    //    if (statesManager.GetCurrentState() != null)
+    //    if (enemyController.GetCurrentState() != null)
     //    {
-    //        statesManager.GetCurrentState().OnExitState();
+    //        enemyController.GetCurrentState().OnExitState();
     //    }
 
-    //    statesManager.SetCurrentState(newState);
-    //    statesManager.SetCurrentStateEnum(newState.GetStateEnum());
-    //    statesManager.GetCurrentState().OnEnterState();
+    //    enemyController.SetCurrentState(newState);
+    //    enemyController.SetCurrentStateEnum(newState.GetStateEnum());
+    //    enemyController.GetCurrentState().OnEnterState();
     //}
 }

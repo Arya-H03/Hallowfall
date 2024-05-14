@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     //private EnemyAI enemy;
-    private EnemyStatesManager statesManager;
+    private EnemyController enemyController;
 
     private int currentDir = 1;
     private bool isTurning = false;
@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         //enemy = GetComponent<EnemyAI>();
-        statesManager = GetComponent<EnemyStatesManager>();
+        enemyController = GetComponent<EnemyController>();
     }
 
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
@@ -25,7 +25,6 @@ public class EnemyMovement : MonoBehaviour
             Vector2 direction = endPoint - startPoint;
             transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
             TurnEnemy(direction);
-            Debug.Log(direction);
             //enemy.rb.velocity = direction * enemySpeed;
         }
 
@@ -50,15 +49,17 @@ public class EnemyMovement : MonoBehaviour
         currentDir = dir;
         isTurning = true;
 
-        lastState = statesManager.currentStateEnum;
-        statesManager.ChangeState(EnemyStateEnum.Turn);
+        lastState = enemyController.currentStateEnum;
+        enemyController.ChangeState(EnemyStateEnum.Turn);
       
     }
     public void OnEnemyEndTurning(bool value)
     {
         isTurning = value;
-        statesManager.ChangeState(lastState);
+        enemyController.ChangeState(lastState);
         transform.localScale = new Vector3(currentDir, 1, 1);
-  
+        enemyController.GetDialogueBox().transform.localScale = new Vector3(currentDir, 1, 1);
+
+
     }
 }

@@ -17,17 +17,17 @@ public class TurnState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isTurning", true);
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.animationManager.SetBoolForAnimation("isTurning", true);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
 
 
     }
 
     public override void OnExitState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isTurning", false);
-        statesManager.animationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.animationManager.SetBoolForAnimation("isTurning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void HandleState()

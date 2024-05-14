@@ -13,30 +13,30 @@ public class ChaseState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void OnExitState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
     }
 
     public override void HandleState()
     {
-        if (statesManager.hasSeenPlayer)
+        if (enemyController.hasSeenPlayer)
         {
-            if(Vector2.Distance(statesManager.player.transform.position, gameObject.transform.position) < 2f)
+            if(Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) < 2f)
             {
-                statesManager.ChangeState(EnemyStateEnum.Attack);
-                statesManager.canAttack = true;
+                enemyController.ChangeState(EnemyStateEnum.Attack);
+                enemyController.canAttack = true;
             }
 
             else
             {
-                statesManager.canAttack = false;
+                enemyController.canAttack = false;
             }
             
-            statesManager.enemyMovement.MoveTo(transform.position, statesManager.player.transform.position, chaseSpeed);
+            enemyController.enemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
         }
         
     }

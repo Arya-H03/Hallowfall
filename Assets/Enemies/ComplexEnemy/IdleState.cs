@@ -19,7 +19,7 @@ public class IdleState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
         
         
     }

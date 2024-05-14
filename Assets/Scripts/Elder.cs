@@ -8,7 +8,7 @@ public class Elder : MonoBehaviour
     private DialogueBox dialogueBox;
     private bool isPlayerInRange = false;
 
-    private string[] OnEnterRangeDialogues = {
+    private string[] onEnterRangeDialogues = {
         " He... is waiting for you",
         " Well Well Well...",
         " Help Him...",
@@ -54,7 +54,8 @@ public class Elder : MonoBehaviour
     private void ActivateInteractIcon()
     {
         interactIcon.SetActive(true);
-        PlayRandomDialogue(OnEnterRangeDialogues);
+        dialogueBox.PlayRandomDialogue(onEnterRangeDialogues);
+       
     }
 
     private void DeActivateInteractIcon()

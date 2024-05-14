@@ -8,7 +8,7 @@ public class EnemyCollisionManager : MonoBehaviour
 
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-    private EnemyStatesManager statesManager;
+    private EnemyController statesManager;
 
     [SerializeField] float luanchModifier = 1f;
 
@@ -18,7 +18,7 @@ public class EnemyCollisionManager : MonoBehaviour
 
     private void Awake()
     {
-        statesManager = GetComponent<EnemyStatesManager>();
+        statesManager = GetComponent<EnemyController>();
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         material = GetComponent<SpriteRenderer>().material;

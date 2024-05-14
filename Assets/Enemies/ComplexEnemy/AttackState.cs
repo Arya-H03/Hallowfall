@@ -30,18 +30,18 @@ public class AttackState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
     }
 
     public override void OnExitState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
     }
 
     public override void HandleState()
     {
         
-        //if(statesManager.player.GetComponent<PlayerController>().isParrying && canCancelSwordAttack &&isAttacking)
+        //if(enemyController.player.GetComponent<PlayerController>().isParrying && canCancelSwordAttack &&isAttacking)
         //{
         //    canCancelSwordAttack = false;
         //    int randomNumber = Random.Range(1, 101);
@@ -56,19 +56,19 @@ public class AttackState : EnemyBaseState
             BeginSwordAttack();
         }
 
-        if (Vector2.Distance(statesManager.player.transform.position, gameObject.transform.position) >= 2)
+        if (Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) >= 2)
         {
             CancelSwordAttack();
-            statesManager.ChangeState(EnemyStateEnum.Chase);
+            enemyController.ChangeState(EnemyStateEnum.Chase);
         }
-        swordAttack.DrawCast();
+        //swordAttack.DrawCast();
     }
 
     private void BeginSwordAttack()
     {
         if(!isAttacking)
         {
-            statesManager.animationManager.SetBoolForAnimation("isAttackingSword", true);
+            enemyController.animationManager.SetBoolForAnimation("isAttackingSword", true);
             canCancelSwordAttack = true;
             isAttacking = true;
         }
@@ -79,7 +79,7 @@ public class AttackState : EnemyBaseState
     {
         if (isAttacking)
         {
-            statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+            enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
             swordAttackTimer = 0f;
             isAttacking = false;
         }
@@ -88,7 +88,7 @@ public class AttackState : EnemyBaseState
 
     public void CancelSwordAttack()
     {
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
         isAttacking = false;
         swordAttackTimer = 0f;
     }

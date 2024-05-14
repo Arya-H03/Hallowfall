@@ -10,12 +10,12 @@ public class EnemySight : MonoBehaviour
 
     private Transform enemyTransform;
 
-    private EnemyStatesManager statesManager;
+    private EnemyController statesManager;
 
     private void Awake()
     {
         enemyTransform = transform.parent;
-        statesManager = GetComponentInParent<EnemyStatesManager>();
+        statesManager = GetComponentInParent<EnemyController>();
     }
 
     private void Update()
@@ -44,7 +44,7 @@ public class EnemySight : MonoBehaviour
                 }
 
                 // Visualize the cone of vision 
-                Debug.DrawRay(transform.position, direction * visionRange, Color.red);
+                //Debug.DrawRay(transform.position, direction * visionRange, Color.red);
 
             }
         }

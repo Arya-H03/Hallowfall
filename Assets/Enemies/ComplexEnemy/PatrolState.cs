@@ -15,6 +15,13 @@ public class PatrolState : EnemyBaseState
     private float patrolDelayTimer = 0f;
     private int patrolDirection = 1;
 
+    [SerializeField] private string[] patrolDialogues = {
+        " More... More...",
+        " It hurts",
+        " Help me...",
+        " Please make it ... end",
+    };
+
     public PatrolState() : base()
     {
         stateEnum = EnemyStateEnum.Patrol;
@@ -33,12 +40,12 @@ public class PatrolState : EnemyBaseState
     {
         SetNextPatrolPoint();
         patrolDelayTimer = patrolDelayCooldown;
-        statesManager.animationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void OnExitState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
     }
 
     public override void HandleState()
@@ -47,9 +54,9 @@ public class PatrolState : EnemyBaseState
         if (patrolDelayTimer >= patrolDelayCooldown)
         {
 
-            if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.25f)
+            if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {
-                statesManager.enemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
+                enemyController.enemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
             }
 
             else
@@ -75,12 +82,13 @@ public class PatrolState : EnemyBaseState
         int patrolDirection = GetPatrolPointDirection();
         int randomRange = Random.Range(4, 7);
         nextPatrollPosition = new Vector2(startPosition.x + (patrolDirection * randomRange), startPosition.y);
+        enemyController.GetDialogueBox().PlayRandomDialogue(patrolDialogues);
         
     }
 
     private void OnPatrolPointReached()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
         SetNextPatrolPoint();
         RandomizePatrolDelay();
         patrolDelayTimer = 0;

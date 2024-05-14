@@ -15,18 +15,18 @@ public class StunState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        statesManager.animationManager.SetBoolForAnimation("isRunning", false);
-        statesManager.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        statesManager.animationManager.SetBoolForAnimation("isTurning", false);
-        statesManager.isStuned = true;
-        statesManager.stunEffect.SetActive(true);
+        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.animationManager.SetBoolForAnimation("isTurning", false);
+        enemyController.isStuned = true;
+        enemyController.stunEffect.SetActive(true);
     }
 
     public override void OnExitState()
     {
         stunTimer = 0f;
-        statesManager.isStuned = false;
-        statesManager.stunEffect.SetActive(false);
+        enemyController.isStuned = false;
+        enemyController.stunEffect.SetActive(false);
     }
 
     public override void HandleState()
@@ -39,7 +39,7 @@ public class StunState : EnemyBaseState
 
        else if(stunTimer >= stunDuration)
         {
-            statesManager.ChangeState(EnemyStateEnum.Chase);
+            enemyController.ChangeState(EnemyStateEnum.Chase);
            
         }
         

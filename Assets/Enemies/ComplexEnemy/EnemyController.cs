@@ -6,7 +6,7 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
-public class EnemyStatesManager : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 
     private float maxHealth = 100;
@@ -18,6 +18,8 @@ public class EnemyStatesManager : MonoBehaviour
 
     public EnemyStateEnum previousStateEnum;
     private EnemyBaseState previousState;
+
+    private DialogueBox dialogueBox;
 
     [HideInInspector]
     public EnemyBaseState idleState;
@@ -147,30 +149,31 @@ public class EnemyStatesManager : MonoBehaviour
     private void Awake()
     {
         idleState = gameObject.AddComponent<IdleState>();
-        idleState.SetStatesManager(this);
+        idleState.SetStatesController(this);
 
         patrolState = gameObject.AddComponent<PatrolState>();
-        patrolState.SetStatesManager(this);
+        patrolState.SetStatesController(this);
 
         chaseState = gameObject.AddComponent<ChaseState>();
-        chaseState.SetStatesManager(this);
+        chaseState.SetStatesController(this);
 
         attackState = gameObject.AddComponent<AttackState>();
-        attackState.SetStatesManager(this);
+        attackState.SetStatesController(this);
 
         stunState = gameObject.AddComponent<StunState>();
-        stunState.SetStatesManager(this);
+        stunState.SetStatesController(this);
 
         jumpState = gameObject.AddComponent<JumpState>();
-        jumpState.SetStatesManager(this);
+        jumpState.SetStatesController(this);
 
         turnState = gameObject.AddComponent<TurnState>();
-        turnState.SetStatesManager(this);
+        turnState.SetStatesController(this);
 
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
         collisionManager = GetComponent<EnemyCollisionManager>();
         agent = GetComponent<SmartEnemyAgent>();
+        dialogueBox = GetComponentInChildren<DialogueBox>();
 
         currentStateEnum = EnemyStateEnum.Idle;
 
@@ -179,6 +182,7 @@ public class EnemyStatesManager : MonoBehaviour
     private void Start()
     {
         ChangeState(EnemyStateEnum.Patrol);
+            
     }
 
     private void Update()
@@ -240,6 +244,11 @@ public class EnemyStatesManager : MonoBehaviour
         {
             //Debug.Log("You are dead");
         }
+    }
+
+    public DialogueBox GetDialogueBox()
+    {
+        return dialogueBox; 
     }
 
 

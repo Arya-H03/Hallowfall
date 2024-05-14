@@ -95,11 +95,11 @@ public class PlayerAttacks : MonoBehaviour
             GameObject enemy = hit.collider.gameObject;
             enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack1Damage);
             
-            if(!enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer)
+            if(!enemy.GetComponent<EnemyController>().hasSeenPlayer)
             {
-                enemy.GetComponent<EnemyStatesManager>().player = parent;
-                enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
-               // enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+                enemy.GetComponent<EnemyController>().player = parent;
+                enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
+               // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
@@ -134,11 +134,11 @@ public class PlayerAttacks : MonoBehaviour
             GameObject enemy = hit.collider.gameObject;
             enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack2Damage);
 
-            if (!enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer)
+            if (!enemy.GetComponent<EnemyController>().hasSeenPlayer)
             {
-                enemy.GetComponent<EnemyStatesManager>().player = parent;
-                enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
-               // enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+                enemy.GetComponent<EnemyController>().player = parent;
+                enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
+               // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }
@@ -162,11 +162,11 @@ public class PlayerAttacks : MonoBehaviour
             GameObject enemy = hit.collider.gameObject;
             enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack3Damage);
 
-            if (!enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer)
+            if (!enemy.GetComponent<EnemyController>().hasSeenPlayer)
             {
-                enemy.GetComponent<EnemyStatesManager>().player = parent;
-                enemy.GetComponent<EnemyStatesManager>().hasSeenPlayer = true;
-               // enemy.GetComponent<EnemyStatesManager>().ChangeState(EnemyStateEnum.Chase);
+                enemy.GetComponent<EnemyController>().player = parent;
+                enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
+               // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
         }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyAnimationManager : MonoBehaviour
 {
     private Animator animator;
-    private EnemyStatesManager statesManager;
+    private EnemyController statesManager;
 
 
     private void Awake()
     {
-        statesManager = GetComponent<EnemyStatesManager>(); 
+        statesManager = GetComponent<EnemyController>(); 
         animator = GetComponent<Animator>();
     }
     public void SetBoolForAnimation(string name, bool value)
