@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.22, y: -2.59, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3955766, y: 1.5034958, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3939478265363031471}
@@ -51,6 +51,8 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -88,7 +90,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &1540259466258781766
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,6 +104,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -122,6 +125,14 @@ PrefabInstance:
         power
       objectReference: {fileID: 0}
     - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
+      propertyPath: hasDialouge
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
+      propertyPath: dialogueText
+      value: The sword fiils you with energy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
       propertyPath: interactIcon
       value: 
       objectReference: {fileID: 5177344427993259787}
@@ -131,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 5177344427993259787}
     - target: {fileID: 1028925593827181211, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
       propertyPath: interactionType
-      value: Weapon
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2642148777579543767, guid: 08e9385840ea11e4ca2274660eb0466d, type: 3}
       propertyPath: m_LocalPosition.x

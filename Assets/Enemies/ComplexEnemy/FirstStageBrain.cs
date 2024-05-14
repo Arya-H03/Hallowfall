@@ -21,8 +21,8 @@ public class FirstStageBrain : Agent
     {
         statesManager = GetComponent<EnemyController>();
 
-        patrolState = statesManager.patrolState.GetComponent<PatrolState>();
-        attackState = statesManager.attackState.GetComponent<AttackState>();
+        patrolState = statesManager.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
+        attackState = statesManager.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>();
 
         playerController = player.GetComponent<PlayerController>();
 

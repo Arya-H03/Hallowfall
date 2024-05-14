@@ -10,17 +10,17 @@ public class EnemySight : MonoBehaviour
 
     private Transform enemyTransform;
 
-    private EnemyController statesManager;
+    private EnemyController enemyController;
 
     private void Awake()
     {
         enemyTransform = transform.parent;
-        statesManager = GetComponentInParent<EnemyController>();
+        enemyController = GetComponentInParent<EnemyController>();
     }
 
     private void Update()
     {
-        if (!statesManager.hasSeenPlayer)
+        if (!enemyController.hasSeenPlayer)
         {
             // Calculate the start direction of the cone of vision
             Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x, 0, 0);
@@ -37,9 +37,9 @@ public class EnemySight : MonoBehaviour
 
                     if (hit.collider.CompareTag("Player"))
                     {
-                        statesManager.player = hit.collider.gameObject;
-                        statesManager.hasSeenPlayer = true;
-                        statesManager.ChangeState(EnemyStateEnum.Chase);
+                        enemyController.player = hit.collider.gameObject;
+                        enemyController.hasSeenPlayer = true;
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
                     }
                 }
 

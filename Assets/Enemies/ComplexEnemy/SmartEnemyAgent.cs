@@ -12,17 +12,17 @@ public class SmartEnemyAgent : Agent
     [SerializeField] Transform [] spawnPos;
     [SerializeField] Transform [] PspawnPos;
 
-    private EnemyController statesManager;
+    private EnemyController enemyController;
     private PatrolState patrolState;
     private AttackState attackState;
     private PlayerController playerController;
 
     private void Awake()
     {
-        statesManager = GetComponent<EnemyController>();
+        enemyController = GetComponent<EnemyController>();
 
-        patrolState = statesManager.patrolState.GetComponent<PatrolState>();
-        attackState = statesManager.attackState.GetComponent<AttackState>();
+        patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
+        attackState = enemyController.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>();
 
         playerController = player.GetComponent<PlayerController>();
 
@@ -35,19 +35,19 @@ public class SmartEnemyAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        //player.transform.position = spawnPos[Random.Range(0, 4)].position;
-        //this.transform.position = PspawnPos[Random.Range(0,3)].position;
-        statesManager.hasSeenPlayer = false;
-        statesManager.canAttack = false;
-        statesManager.isStuned = false;
-        statesManager.ChangeState(EnemyStateEnum.Patrol);
+        player.transform.position = spawnPos[Random.Range(0, 4)].position;
+        this.transform.position = PspawnPos[Random.Range(0, 3)].position;
+        enemyController.hasSeenPlayer = false;
+        enemyController.canAttack = false;
+        enemyController.isStuned = false;
+        enemyController.ChangeState(EnemyStateEnum.Patrol);
       
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(statesManager.hasSeenPlayer);
+        sensor.AddObservation(enemyController.hasSeenPlayer);
         sensor.AddObservation(player.transform.position);
-        sensor.AddObservation(statesManager.canAttack);
+        sensor.AddObservation(enemyController.canAttack);
         sensor.AddObservation(player.GetComponent<Player>().currentHealth);
         sensor.AddObservation(player.GetComponent<Player>().numberOfHealthShield);
         sensor.AddObservation(playerController.isParrying);
@@ -59,7 +59,7 @@ public class SmartEnemyAgent : Agent
         int stateAction = actions.DiscreteActions[0];
         int patrolDirAction = actions.DiscreteActions[1];
         int cancelSwordAttack = actions.DiscreteActions[2];
-        if (!statesManager.isStuned)
+        if (!enemyController.isStuned)
         {
             switch (stateAction)
             {
@@ -75,7 +75,7 @@ public class SmartEnemyAgent : Agent
 
                 //Patrol state acions
                 case 1:
-                    if (!statesManager.hasSeenPlayer)
+                    if (!enemyController.hasSeenPlayer)
                     {
                         switch (patrolDirAction)
                         {
@@ -86,26 +86,26 @@ public class SmartEnemyAgent : Agent
                                 patrolState.SetPatrolDirection(-1);
                                 break;
                         }
-                        statesManager.ChangeState(EnemyStateEnum.Patrol);
+                        enemyController.ChangeState(EnemyStateEnum.Patrol);
                     }
 
                     break;
                 //Chase state acions
                 case 2:
-                    if (statesManager.hasSeenPlayer && !statesManager.canAttack)
+                    if (enemyController.hasSeenPlayer && !enemyController.canAttack)
                     {
-                        statesManager.ChangeState(EnemyStateEnum.Chase);
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
                     }
 
                     break;
                 //Attack state acions
                 case 3:
-                    if (statesManager.canAttack)
+                    if (enemyController.canAttack)
                     {
-                        statesManager.ChangeState(EnemyStateEnum.Attack);
+                        enemyController.ChangeState(EnemyStateEnum.Attack);
                     }
 
-                    if (cancelSwordAttack == 1 /*&& playerController.isParrying*/)
+                    if (cancelSwordAttack == 1 && playerController.isParrying)
                     {
                         Debug.Log("cancel");
                         attackState.CancelSwordAttack();
@@ -127,18 +127,18 @@ public class SmartEnemyAgent : Agent
         ActionSegment<int> da = actionsOut.DiscreteActions;
 
 
-        if (!statesManager.hasSeenPlayer)
+        if (!enemyController.hasSeenPlayer)
         {
             da[0] = 1;
 
             da[1] = Random.Range(-1, 2);
         }
-        if (statesManager.hasSeenPlayer)
+        if (enemyController.hasSeenPlayer && !enemyController.canAttack)
         {
             da[0] = 2;
         }
 
-        if (statesManager.canAttack)
+        if (enemyController.canAttack)
         {
             da[0] = 3;
 
@@ -154,11 +154,11 @@ public class SmartEnemyAgent : Agent
         if (collision != null )
         {
      
-            if (collision.CompareTag("Mist"))
-            {
-                SetReward(-1f);
-                EndEpisode();
-            }
+            //if (collision.CompareTag("Mist"))
+            //{
+            //    SetReward(-1f);
+            //    EndEpisode();
+            //}
 
         }
         

@@ -8,9 +8,6 @@ public class EnemyMovement : MonoBehaviour
     private EnemyController enemyController;
 
     private int currentDir = 1;
-    private bool isTurning = false;
-
-    EnemyStateEnum lastState;
 
     private void Awake()
     {
@@ -20,13 +17,13 @@ public class EnemyMovement : MonoBehaviour
 
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
     {
-        if (!isTurning)
-        {
+        //if ()
+        //{
             Vector2 direction = endPoint - startPoint;
             transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
             TurnEnemy(direction);
             //enemy.rb.velocity = direction * enemySpeed;
-        }
+        //}
 
     }
 
@@ -47,19 +44,18 @@ public class EnemyMovement : MonoBehaviour
     private void OnEnemyBeginTurning(int dir)
     {
         currentDir = dir;
-        isTurning = true;
-
-        lastState = enemyController.currentStateEnum;
         enemyController.ChangeState(EnemyStateEnum.Turn);
       
     }
-    public void OnEnemyEndTurning(bool value)
+
+    //Gets called from animation manager in the second to last frame of the turn animation.
+    public void OnEnemyEndTurning()
     {
-        isTurning = value;
-        enemyController.ChangeState(lastState);
         transform.localScale = new Vector3(currentDir, 1, 1);
         enemyController.GetDialogueBox().transform.localScale = new Vector3(currentDir, 1, 1);
-
-
+        enemyController.SetIsTurning(false);
+        enemyController.SetCanChangeState(true);
+        enemyController.ChangeState(enemyController.previousStateEnum);
+   
     }
 }

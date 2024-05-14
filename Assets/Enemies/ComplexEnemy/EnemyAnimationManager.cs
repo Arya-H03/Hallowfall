@@ -28,7 +28,7 @@ public class EnemyAnimationManager : MonoBehaviour
     public void EndTurningAnimation()
     {
 
-        statesManager.enemyMovement.OnEnemyEndTurning(false);
+        statesManager.enemyMovement.OnEnemyEndTurning();
         
     }
 
@@ -40,5 +40,10 @@ public class EnemyAnimationManager : MonoBehaviour
     public void BoxCastSwordAttack()
     {
         statesManager.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>().EnableBoxCastingForSwordAttack();
+    }
+
+    public void BeginBlockingSword()
+    {
+        statesManager.GetState(EnemyStateEnum.Block).GetComponent<BlockState>().BeginBlockingSword();
     }
 }

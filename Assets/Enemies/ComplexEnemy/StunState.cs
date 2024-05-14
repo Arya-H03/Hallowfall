@@ -39,7 +39,7 @@ public class StunState : EnemyBaseState
 
        else if(stunTimer >= stunDuration)
         {
-            enemyController.ChangeState(EnemyStateEnum.Chase);
+            enemyController.ChangeState(enemyController.previousStateEnum);
            
         }
         

@@ -23,19 +23,21 @@ public class EnemyController : MonoBehaviour
     private ParticleSystem bloodParticles;
 
     [HideInInspector]
-    public EnemyBaseState idleState;
+    private EnemyBaseState idleState;
     [HideInInspector]
-    public EnemyBaseState patrolState;
+    private EnemyBaseState patrolState;
     [HideInInspector]
-    public EnemyBaseState chaseState;
+    private EnemyBaseState chaseState;
     [HideInInspector]
-    public EnemyBaseState attackState;
+    private EnemyBaseState attackState;
     [HideInInspector]
-    public EnemyBaseState stunState;
+    private EnemyBaseState stunState;
     [HideInInspector]
-    public EnemyBaseState jumpState;
+    private EnemyBaseState jumpState;
     [HideInInspector]
-    public EnemyBaseState turnState;
+    private EnemyBaseState turnState;
+    [HideInInspector]
+    private EnemyBaseState blockState;
 
     [HideInInspector]
     public SmartEnemyAgent agent;
@@ -55,11 +57,14 @@ public class EnemyController : MonoBehaviour
     public bool canAttack = false;
     public bool isStuned = false;
     public bool isJumping = false;
+    private bool isTurning = false;
+    private bool canChangeState = true;
 
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
         switch (stateEnum)
         {
+            default: return null;
 
             case EnemyStateEnum.Idle:
                 return idleState;            
@@ -75,15 +80,15 @@ public class EnemyController : MonoBehaviour
                 return jumpState;
             case EnemyStateEnum.Turn:
                 return turnState;
+            case EnemyStateEnum.Block:
+                return blockState;
              
         }
-
-        return currentState;
     }
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
-        if(currentStateEnum != stateEnum)
+        if(currentStateEnum != stateEnum && canChangeState)
         {
             Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
 
@@ -119,6 +124,9 @@ public class EnemyController : MonoBehaviour
                 case EnemyStateEnum.Turn:
                     currentState = turnState;
                     break;
+                case EnemyStateEnum.Block:
+                    currentState = blockState;
+                    break;
             }
 
             currentStateEnum = stateEnum;
@@ -149,26 +157,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        idleState = gameObject.AddComponent<IdleState>();
-        idleState.SetStatesController(this);
-
-        patrolState = gameObject.AddComponent<PatrolState>();
-        patrolState.SetStatesController(this);
-
-        chaseState = gameObject.AddComponent<ChaseState>();
-        chaseState.SetStatesController(this);
-
-        attackState = gameObject.AddComponent<AttackState>();
-        attackState.SetStatesController(this);
-
-        stunState = gameObject.AddComponent<StunState>();
-        stunState.SetStatesController(this);
-
-        jumpState = gameObject.AddComponent<JumpState>();
-        jumpState.SetStatesController(this);
-
-        turnState = gameObject.AddComponent<TurnState>();
-        turnState.SetStatesController(this);
+        InitialzieEnemyState();
 
         animationManager = GetComponent<EnemyAnimationManager>();
         enemyMovement = GetComponent<EnemyMovement>();
@@ -213,15 +202,15 @@ public class EnemyController : MonoBehaviour
             ChangeState(EnemyStateEnum.Jump);
         }
 
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    ChangeState(EnemyStateEnum.Patrol);
-        //}
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ChangeState(EnemyStateEnum.Block);
+        }
 
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    ChangeState(EnemyStateEnum.Idle);
-        //}
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ChangeState(EnemyStateEnum.Idle);
+        }
     }
 
     private void handleCooldowns()
@@ -262,5 +251,51 @@ public class EnemyController : MonoBehaviour
         bloodParticles.Play();
     }
 
+    public void SetIsTurning(bool value)
+    {
+        this.isTurning = value;
+    }
 
+    public bool GetIsTurning()
+    {
+        return this.isTurning;
+    }
+
+    public void SetCanChangeState(bool value)
+    {
+        this.canChangeState = value;
+    }
+
+    public bool GetCanChangeState()
+    {
+        return this.canChangeState;
+    }
+
+    private void InitialzieEnemyState()
+    {
+        idleState = gameObject.AddComponent<IdleState>();
+        idleState.SetStatesController(this);
+
+        patrolState = gameObject.AddComponent<PatrolState>();
+        patrolState.SetStatesController(this);
+
+        chaseState = gameObject.AddComponent<ChaseState>();
+        chaseState.SetStatesController(this);
+
+        attackState = gameObject.AddComponent<AttackState>();
+        attackState.SetStatesController(this);
+
+        stunState = gameObject.AddComponent<StunState>();
+        stunState.SetStatesController(this);
+
+        jumpState = gameObject.AddComponent<JumpState>();
+        jumpState.SetStatesController(this);
+
+        turnState = gameObject.AddComponent<TurnState>();
+        turnState.SetStatesController(this);
+
+
+        blockState = gameObject.AddComponent<BlockState>();
+        blockState.SetStatesController(this);
+    }
 }

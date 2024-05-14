@@ -10,5 +10,6 @@ public enum EnemyStateEnum
     Attack,
     Stun,
     Turn,
-    Jump
+    Jump,
+    Block
 }

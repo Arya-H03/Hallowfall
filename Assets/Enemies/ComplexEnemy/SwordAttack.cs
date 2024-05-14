@@ -41,7 +41,7 @@ public class SwordAttack : MonoBehaviour
                 enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
                 enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
                 //enemyStatesManager.agent.SetReward(-1f);
-                
+
             }
 
             if (hit.collider.CompareTag("Player"))

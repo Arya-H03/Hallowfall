@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 329902425346472460}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.501745, y: -2.3569503, z: -0.026105152}
+  m_LocalPosition: {x: -15.501745, y: -1.29, z: -0.026105152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 664150007920640641}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.831745, y: -2.0169501, z: -0.07570185}
+  m_LocalPosition: {x: -11.831745, y: -0.9499999, z: -0.07570185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 2668491831451513449}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4082546, y: -2.3569503, z: -0.026105152}
+  m_LocalPosition: {x: 3.4082546, y: -1.2900001, z: -0.026105152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 3037781906803802463}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.2117453, y: -2.3569503, z: -0.026105152}
+  m_LocalPosition: {x: -6.2117453, y: -1.2900001, z: -0.026105152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 4386546001570579458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.0482545, y: -2.0169501, z: -0.07570185}
+  m_LocalPosition: {x: 4.0482545, y: -0.9499999, z: -0.07570185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -180,38 +180,7 @@ Transform:
   m_GameObject: {fileID: 5380616364651488013}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6617455, y: -2.0169501, z: -0.07570185}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7199637767830300432}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7366249341732792099
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7031871357264363926}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7031871357264363926
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7366249341732792099}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 56.558254, y: 8.78305, z: -0.026105152}
+  m_LocalPosition: {x: -3.6617455, y: -0.9499999, z: -0.07570185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -291,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 8612216632477038662}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.631744, y: -2.0169501, z: -0.07570185}
+  m_LocalPosition: {x: -18.631744, y: -0.9499999, z: -0.07570185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -332,7 +301,6 @@ Transform:
   - {fileID: 1331056733256660297}
   - {fileID: 7060141099129194144}
   - {fileID: 2352154742012099495}
-  - {fileID: 7031871357264363926}
   - {fileID: 6438855891260056541}
   - {fileID: 2789317424510175275}
   - {fileID: 4082380612163579238}
@@ -393,6 +361,10 @@ PrefabInstance:
         through you. The blade, now in your possession, whispers secrets of ancient
         power.
       objectReference: {fileID: 0}
+    - target: {fileID: 2037422177114463203, guid: 5ccf31248c23e354da11ff186866383d, type: 3}
+      propertyPath: dialogueBox
+      value: 
+      objectReference: {fileID: 2016593068703503176}
     - target: {fileID: 6258549683438450021, guid: 5ccf31248c23e354da11ff186866383d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0930068
@@ -513,6 +485,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 408932475434728368, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
   m_PrefabInstance: {fileID: 1462402162671004268}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2016593068703503176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1132408684904904996, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+  m_PrefabInstance: {fileID: 1462402162671004268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93952c12c7102eb47bdf7d40a4113eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6362907666544993272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5478323056235678100, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
@@ -606,6 +589,10 @@ PrefabInstance:
       propertyPath: 'PspawnPos.Array.data[2]'
       value: 
       objectReference: {fileID: 4082380612163579238}
+    - target: {fileID: 7679884485118258257, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

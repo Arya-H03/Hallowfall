@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnState : EnemyBaseState
+public class BlockState : EnemyBaseState
 {
-    [SerializeField] private bool isTurning = false;
-    public TurnState() : base()
+    public BlockState() : base()
     {
-        stateEnum = EnemyStateEnum.Turn;
+        stateEnum = EnemyStateEnum.Block;
 
     }
 
@@ -18,27 +17,28 @@ public class TurnState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        
         enemyController.animationManager.SetBoolForAnimation("isRunning", false);
         enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        enemyController.SetIsTurning(true);
-        enemyController.SetCanChangeState(false);
-        enemyController.animationManager.SetBoolForAnimation("isTurning", true);
 
-
+        enemyController.animationManager.SetTriggerForAnimation("Block");
+        
+        
     }
 
     public override void OnExitState()
     {
-        
-        enemyController.animationManager.SetBoolForAnimation("isTurning", false);
-        
+        enemyController.animationManager.SetBoolForAnimation("isBlocking", false);
     }
 
     public override void HandleState()
     {
 
 
+    }
+
+    public void BeginBlockingSword()
+    {
+        enemyController.animationManager.SetBoolForAnimation("isBlocking", true);
     }
 
 

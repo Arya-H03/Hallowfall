@@ -15,7 +15,7 @@ public class EnemyFeet : MonoBehaviour
 
         if( collision.CompareTag("Ground") && enemyStatesManager.isJumping) 
         {
-            enemyStatesManager.jumpState.GetComponent<JumpState>().OnGroundReached();
+            enemyStatesManager.GetState(EnemyStateEnum.Jump).GetComponent<JumpState>().OnGroundReached();
             
         }
     }

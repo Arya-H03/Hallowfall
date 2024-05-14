@@ -99,7 +99,11 @@ public class PlayerAttacks : MonoBehaviour
             {
                 enemy.GetComponent<EnemyController>().player = parent;
                 enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
-               // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                if(enemy.GetComponent<EnemyController>().currentStateEnum != EnemyStateEnum.Chase)
+                {
+                    enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                }
+               
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
             enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
@@ -139,7 +143,10 @@ public class PlayerAttacks : MonoBehaviour
             {
                 enemy.GetComponent<EnemyController>().player = parent;
                 enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
-               // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                if (enemy.GetComponent<EnemyController>().currentStateEnum != EnemyStateEnum.Chase)
+                {
+                    enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                }
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
             enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
@@ -168,7 +175,10 @@ public class PlayerAttacks : MonoBehaviour
             {
                 enemy.GetComponent<EnemyController>().player = parent;
                 enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
-               // enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                if (enemy.GetComponent<EnemyController>().currentStateEnum != EnemyStateEnum.Chase)
+                {
+                    enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                }
             }
             audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
             enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);

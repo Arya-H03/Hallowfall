@@ -3,7 +3,7 @@ guid: 2b400e23cc5caad46926c6fa7236a89a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -121,7 +121,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Player_Parry_04_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 13
+        width: 24
+        height: 34
+      alignment: 9
+      pivot: {x: 0.4166667, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e079a93bcfd7f084bb52b4601cc5386c
+      internalID: 149048676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +153,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Player_Parry_04_0: 149048676
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
