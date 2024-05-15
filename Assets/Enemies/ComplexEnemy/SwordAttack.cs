@@ -34,13 +34,32 @@ public class SwordAttack : MonoBehaviour
 
         if (hit)
         {
+            //if (hit.collider.CompareTag("TADShield") == true)
+            //{
+            //    Debug.Log("Parry");
+            //    GameObject parryShield = hit.collider.gameObject;
+            //    enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
+            //    enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
+            //    enemyStatesManager.agent.SetReward(-1f);
+
+            //}
+
+            if (hit.collider.CompareTag("TAD"))
+            {
+                GameObject tad = hit.collider.gameObject;
+                tad.GetComponent<TAD>().TakeDamage(20);
+                enemyStatesManager.agent.SetReward(1f);
+                //enemyStatesManager.agent.EndEpisode();
+            }
+
+
             if (hit.collider.CompareTag("ParryShield") == true)
             {
                 Debug.Log("Parry");
                 GameObject parryShield = hit.collider.gameObject;
                 enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
                 enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
-                //enemyStatesManager.agent.SetReward(-1f);
+                enemyStatesManager.agent.SetReward(-1f);
 
             }
 
@@ -48,7 +67,7 @@ public class SwordAttack : MonoBehaviour
             {
                 GameObject player = hit.collider.gameObject;
                 player.GetComponent<Player>().OnTakingDamage(swordAttackDamage);
-                //enemyStatesManager.agent.SetReward(1f);
+                enemyStatesManager.agent.SetReward(1f);
                 //enemyStatesManager.agent.EndEpisode();
             }
         }

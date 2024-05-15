@@ -100,8 +100,8 @@ public class Player : MonoBehaviour
         {
 
             //OnPlayerDeath();
-            //agent.SetReward(3f);
-            //agent.EndEpisode();
+            agent.SetReward(3f);
+            agent.EndEpisode();
             //currentHealth = maxHealth;
             //numberOfHealthShield = 3;
         }

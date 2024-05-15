@@ -228,9 +228,12 @@ public class EnemyController : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= value;
+            agent.AddReward(-1);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
+                agent.AddReward(-3);
+                agent.EndEpisode();  
                 Debug.Log("I died");
 
             }

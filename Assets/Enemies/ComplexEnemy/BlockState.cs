@@ -43,6 +43,7 @@ public class BlockState : EnemyBaseState
     {
         enemyController.animationManager.SetBoolForAnimation("isBlocking", false);
         swordBlockObj.GetComponent<BoxCollider2D>().enabled = false;
+        Debug.Log("End block");
     }
 
     public override void HandleState()
@@ -57,12 +58,13 @@ public class BlockState : EnemyBaseState
         canBlock = false;
         blockTimer = 0f;
         swordBlockObj.GetComponent<BoxCollider2D>().enabled = true;
-        StartCoroutine(EndBlockByDuration(blockDuration, enemyController.previousStateEnum));
+        StartCoroutine(EndBlockByDuration(blockDuration, EnemyStateEnum.Chase));
     }
 
     public void OnAttackBlocked(float value, Vector2 knockBackVel,GameObject player)
     {
         enemyController.collisionManager.LaunchEnemy(knockBackVel);
+        enemyController.agent.SetReward(1);
         if(blockMeter > 0)
         {
             blockMeter -= value;
@@ -71,7 +73,7 @@ public class BlockState : EnemyBaseState
                 enemyController.collisionManager.LaunchEnemy(knockBackVel * 5);
                 player.GetComponent<PlayerCollision>().KnockPlayer(new Vector2(-knockBackVel.x * 5, knockBackVel.y * 5));
                 blockMeter = blockMeterMax;
-                StartCoroutine(EndBlockByDuration(0, enemyController.previousStateEnum));
+                StartCoroutine(EndBlockByDuration(0, EnemyStateEnum.Chase));
                 //enemyController.ChangeState(enemyController.previousStateEnum);
             }
         }
@@ -92,6 +94,11 @@ public class BlockState : EnemyBaseState
     public bool GetCanBlock()
     {
         return canBlock;
+    }
+
+    public float GetBlockTimer()
+    {
+        return blockTimer;
     }
 
     private IEnumerator EndBlockByDuration(float duration,EnemyStateEnum stateToGoBack)

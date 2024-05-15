@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnState : EnemyBaseState
 {
-    [SerializeField] private bool isTurning = false;
+    //[SerializeField] private bool isTurning = false;
     public TurnState() : base()
     {
         stateEnum = EnemyStateEnum.Turn;

@@ -15,6 +15,7 @@ TagManager:
   - Wood
   - EnemySwordBlock
   - Enemy
+  - TAD
   layers:
   - Default
   - TransparentFX

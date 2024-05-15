@@ -48,6 +48,8 @@ public class SmartEnemyAgent : Agent
         sensor.AddObservation(enemyController.hasSeenPlayer);
         sensor.AddObservation(player.transform.position);
         sensor.AddObservation(enemyController.canAttack);
+        sensor.AddObservation(enemyController.GetComponent<BlockState>().GetCanBlock());
+        sensor.AddObservation(enemyController.GetComponent<BlockState>().GetBlockTimer());
         sensor.AddObservation(player.GetComponent<Player>().currentHealth);
         sensor.AddObservation(player.GetComponent<Player>().numberOfHealthShield);
         sensor.AddObservation(playerController.isParrying);
@@ -56,66 +58,48 @@ public class SmartEnemyAgent : Agent
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
-        int stateAction = actions.DiscreteActions[0];
-        int patrolDirAction = actions.DiscreteActions[1];
-        int cancelSwordAttack = actions.DiscreteActions[2];
-        if (!enemyController.isStuned)
-        {
-            switch (stateAction)
-            {
+        //int stateAction = actions.DiscreteActions[0];
+        //int cancelSwordAttack = actions.DiscreteActions[2];
+        //if (!enemyController.isStuned)
+        //{
+        //    switch (stateAction)
+        //    {
 
-                //Take no action
-                case 0:
-                    AddReward(-1f / MaxStep);
-                    break;
-                //case 0:
-                //    AddReward(-1f / MaxStep);
-                //    enemyController.ChangeState(EnemyStateEnum.Idle);
-                //    break;
+        //        //Take no action
+        //        case 0:
+        //            AddReward(-1f / MaxStep);
+        //            break;
+        //        //Chase state acions
+        //        case 1:
+        //            if (enemyController.hasSeenPlayer /*&& !enemyController.canAttack*/)
+        //            {
+        //                enemyController.ChangeState(EnemyStateEnum.Chase);
+        //            }
+        //            break;
+        //        //Attack state acions
+        //        case 2:
+        //            if (enemyController.canAttack && enemyController.hasSeenPlayer)
+        //            {
+        //                enemyController.ChangeState(EnemyStateEnum.Attack);
+        //            }
 
-                //Patrol state acions
-                case 1:
-                    if (!enemyController.hasSeenPlayer)
-                    {
-                        switch (patrolDirAction)
-                        {
-                            case 0:
-                                patrolState.SetPatrolDirection(1);
-                                break;
-                            case 1:
-                                patrolState.SetPatrolDirection(-1);
-                                break;
-                        }
-                        enemyController.ChangeState(EnemyStateEnum.Patrol);
-                    }
+        //            if (cancelSwordAttack == 1 && playerController.isParrying)
+        //            {
+        //                Debug.Log("canceled sword attack");
+        //                attackState.CancelSwordAttack();
+        //                AddReward(1f);
+        //            }
+        //            break;
+        //        case 3:
+        //            if (playerController.isAttacking && enemyController.hasSeenPlayer)
+        //            {
+        //                enemyController.ChangeState(EnemyStateEnum.Block);
+        //            }
+        //            break;
+        //    }
 
-                    break;
-                //Chase state acions
-                case 2:
-                    if (enemyController.hasSeenPlayer && !enemyController.canAttack)
-                    {
-                        enemyController.ChangeState(EnemyStateEnum.Chase);
-                    }
-
-                    break;
-                //Attack state acions
-                case 3:
-                    if (enemyController.canAttack)
-                    {
-                        enemyController.ChangeState(EnemyStateEnum.Attack);
-                    }
-
-                    if (cancelSwordAttack == 1 && playerController.isParrying)
-                    {
-                        Debug.Log("cancel");
-                        attackState.CancelSwordAttack();
-                        AddReward(1f);
-                    }
-                    break;
-            }
-
-            AddReward(-1f / MaxStep);
-        }
+        //    AddReward(-1f / MaxStep);
+        //}
             
 
 
@@ -124,29 +108,29 @@ public class SmartEnemyAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         
-        ActionSegment<int> da = actionsOut.DiscreteActions;
+        //ActionSegment<int> da = actionsOut.DiscreteActions;
 
 
-        if (!enemyController.hasSeenPlayer)
-        {
-            da[0] = 1;
+        //if (enemyController.hasSeenPlayer)
+        //{
+        //    da[0] = 1;
+        //}
+        //if (enemyController.canAttack && enemyController.hasSeenPlayer)
+        //{
+        //    da[0] = 2;
 
-            da[1] = Random.Range(-1, 2);
-        }
-        if (enemyController.hasSeenPlayer && !enemyController.canAttack)
-        {
-            da[0] = 2;
-        }
+        //    if (playerController.isParrying)
+        //    {
+        //        da[2] = 1;
+        //    }
+        //}
 
-        if (enemyController.canAttack)
-        {
-            da[0] = 3;
+        //if (playerController.isAttacking && enemyController.hasSeenPlayer)
+        //{
+        //    da[0] = 3;
 
-            if (playerController.isParrying)
-            {
-                da[2] = 1;
-            }
-        }
+            
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
