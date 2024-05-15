@@ -14,6 +14,8 @@ public class EnemyCollisionManager : MonoBehaviour
 
     [SerializeField] DamagePopUp damagePopUp;
 
+    [SerializeField] GameObject impactEffect;
+
     public bool isInvincible = false;
 
     private void Awake()
@@ -45,7 +47,7 @@ public class EnemyCollisionManager : MonoBehaviour
         material.SetFloat("_Flash", 0);
         isInvincible = false;
     }
-    private void LaunchEnemy(Vector2 lanunchVector)
+    public void LaunchEnemy(Vector2 lanunchVector)
     {
         rb.velocity = new Vector2(rb.velocity.x + lanunchVector.x * luanchModifier, rb.velocity.y + lanunchVector.y * luanchModifier);
     }
@@ -81,5 +83,11 @@ public class EnemyCollisionManager : MonoBehaviour
     public void SetColliderIsTrigger(bool value)
     {
         boxCollider.isTrigger = value;
+    }
+
+    public void SpawnImpactEffect(Vector3 position)
+    {
+        GameObject obj = Instantiate(impactEffect, position, Quaternion.identity);
+        Destroy(obj, 0.5f);
     }
 }

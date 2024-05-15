@@ -7268,7 +7268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1464656876}
   - component: {fileID: 1464656877}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SwordBlock
   m_TagString: EnemySwordBlock
   m_Icon: {fileID: 0}
@@ -7297,7 +7297,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464656875}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -7324,7 +7324,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.3922906, y: -0.14328796}
+  m_Offset: {x: -0.3922906, y: -0.04452014}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7334,7 +7334,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.39903355, y: 1.3918489}
+  m_Size: {x: 0.39903355, y: 1.5893846}
   m_EdgeRadius: 0
 --- !u!1001 &1478630766
 PrefabInstance:
@@ -8340,6 +8340,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1504177517}
+    - target: {fileID: 4363199764456697570, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9bd9d84d02b4ce345814eee399ca7728, type: 2}
     - target: {fileID: 4525079952692908823, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: inputManager
       value: 
@@ -8404,6 +8408,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8008232215128973305, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: impactEffect
+      value: 
+      objectReference: {fileID: 1916495257564162046, guid: c503dc455835bb14e99d9413ecb4db9c, type: 3}
     - target: {fileID: 8405660440157209461, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: gameManager
       value: 

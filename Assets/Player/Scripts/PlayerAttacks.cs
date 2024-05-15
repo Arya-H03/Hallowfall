@@ -28,7 +28,7 @@ public class PlayerAttacks : MonoBehaviour
     public LayerMask layerMask; // Layer mask for the boxcast
 
     [SerializeField] Transform attack1BoxCastPosition;
-    private Vector2 attack1BoxCastSize = new Vector2(1.3f, 1.5f);
+    private Vector2 attack1BoxCastSize = new Vector2(1.5f, 1.5f);
 
     [SerializeField] Transform attack2BoxCastPosition;
     private Vector2 attack2BoxCastSize = new Vector2(1.75f, 0.35f);
@@ -86,12 +86,26 @@ public class PlayerAttacks : MonoBehaviour
     public void Attack1()
     {
         RaycastHit2D hitResult = AttackBoxCast(attack1BoxCastPosition, attack1BoxCastSize);
-
         if (hitResult.collider != null)
         {
-            if (hitResult.collider != null)
+            if (hitResult.collider.CompareTag("EnemySwordBlock"))
             {
+                Vector2 launchVector;
+                if (hitResult.point.x >= this.transform.position.x)
+                {
+                    launchVector = new Vector2(1.5f, 0);
+                }
+                else
+                {
+                    launchVector = new Vector2(-1.5f, 0);
+                }
+                hitResult.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, parent);
+                hitResult.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hitResult.point);
 
+            }
+
+            else if (hitResult.collider.CompareTag("Enemy"))
+            {
                 Vector2 launchVector = new Vector2(hitResult.point.x - this.transform.position.x, 10f);
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
@@ -111,11 +125,8 @@ public class PlayerAttacks : MonoBehaviour
                 enemyController.PlayBloodEffect(hitResult.point);
             }
 
-                else if (hitResult.collider.CompareTag("EnemySwordBlock"))
-                {
-                    Debug.Log("Block");
-                }
-            }
+
+        }
         else
         {
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
@@ -131,8 +142,26 @@ public class PlayerAttacks : MonoBehaviour
         RaycastHit2D hitResult = AttackBoxCast(attack2BoxCastPosition, attack2BoxCastSize);
 
         if (hitResult.collider != null)
-        {         
-            if (hitResult.collider.CompareTag("Enemy"))
+        {
+            if (hitResult.collider.CompareTag("EnemySwordBlock"))
+            {
+                Debug.Log("Block");
+                Vector2 launchVector;
+                if (hitResult.point.x >= this.transform.position.x)
+                {
+                    launchVector = new Vector2(1.5f, 0);
+                }
+                else
+                {
+                    launchVector = new Vector2(-1.5f, 0);
+                }
+                //hitResult.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().OnEnemyHit(launchVector, 0);
+                hitResult.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, parent);
+                hitResult.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hitResult.point);
+
+            }
+
+            else if (hitResult.collider.CompareTag("Enemy"))
             {
                 Vector2 launchVector;
                 if (hitResult.point.x >= this.transform.position.x)
@@ -160,11 +189,6 @@ public class PlayerAttacks : MonoBehaviour
                 audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
                 enemyController.PlayBloodEffect(hitResult.point);
             }
-
-            else if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                Debug.Log("Block");
-            }
         }
 
         else
@@ -180,7 +204,24 @@ public class PlayerAttacks : MonoBehaviour
 
         if (hitResult.collider != null)
         {
-            if (hitResult.collider.CompareTag("Enemy"))
+            if (hitResult.collider.CompareTag("EnemySwordBlock"))
+            {
+                Debug.Log("Block");
+                Vector2 launchVector;
+                if (hitResult.point.x >= this.transform.position.x)
+                {
+                    launchVector = new Vector2(1.5f, 0);
+                }
+                else
+                {
+                    launchVector = new Vector2(-1.5f, 0);
+                }
+                hitResult.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, parent);
+                hitResult.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hitResult.point);
+
+            }
+
+            else if (hitResult.collider.CompareTag("Enemy"))
             {
 
                 Vector2 launchVector = new Vector2(4f, 0);
@@ -202,10 +243,7 @@ public class PlayerAttacks : MonoBehaviour
                 enemyController.PlayBloodEffect(hitResult.point);
             }
 
-            else if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                Debug.Log("Block");
-            }
+           
            
             
         }
@@ -222,10 +260,25 @@ public class PlayerAttacks : MonoBehaviour
     private RaycastHit2D AttackBoxCast(Transform centerPoint, Vector2 boxSize)
     {
         Vector2 direction = transform.right;
+        RaycastHit2D closestHit;
 
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(centerPoint.position.x, centerPoint.position.y), boxSize, 0f, direction, distance, layerMask);
+        RaycastHit2D []hits = Physics2D.BoxCastAll(new Vector2(centerPoint.position.x, centerPoint.position.y), boxSize, 0f, direction, distance, layerMask);
+        if (hits.Length > 0)
+        {
+            closestHit = hits[0];
 
-        return hit;
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (Vector2.Distance(hit.point, this.transform.position) < Vector2.Distance(closestHit.point, this.transform.position))
+                {
+                    closestHit = hit;
+                }
+            }
+            return closestHit;
+        }
+
+        return new RaycastHit2D();
+        
     }
     void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
     {
@@ -265,8 +318,8 @@ public class PlayerAttacks : MonoBehaviour
         Destroy(obj, 0.5f);
     }
 
-    //private void Update()
-    //{
-    //    VisualizeBoxCast(attack3BoxCastPosition.position, new Vector2(1.75f, 0.35f), transform.right, distance);
-    //}
+    private void Update()
+    {
+        //VisualizeBoxCast(attack1BoxCastPosition.position, attack1BoxCastSize, transform.right, distance);
+    }
 }

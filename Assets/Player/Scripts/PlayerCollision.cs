@@ -27,5 +27,9 @@ public class PlayerCollision : MonoBehaviour
 
     }
 
+    public void KnockPlayer(Vector2 launchVel)
+    {
+        playerController.rb.velocity += launchVel;
+    }
 
 }
