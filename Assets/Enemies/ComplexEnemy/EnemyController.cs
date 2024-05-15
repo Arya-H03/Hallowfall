@@ -125,7 +125,10 @@ public class EnemyController : MonoBehaviour
                     currentState = turnState;
                     break;
                 case EnemyStateEnum.Block:
-                    currentState = blockState;
+                    if (blockState.GetComponent<BlockState>().GetCanBlock())
+                    {
+                        currentState = blockState;
+                    }
                     break;
             }
 
@@ -217,6 +220,7 @@ public class EnemyController : MonoBehaviour
     {
         attackState.GetComponent<AttackState>().ManageSwordAttackCooldown();
         patrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
+        blockState.GetComponent<BlockState>().ManageBlockCooldown();
     }
 
     public void OnEnemyDamage(float value)
