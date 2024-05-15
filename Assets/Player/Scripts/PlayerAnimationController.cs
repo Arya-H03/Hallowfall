@@ -59,17 +59,17 @@ public class PlayerAnimationController : MonoBehaviour
    
     public void BoxCastForAttack1()
     {
-        playerController.playerAttacks.Attack1BoxCast();
+        playerController.playerAttacks.Attack1();
     }
 
     public void BoxCastForAttack2()
     {
-        playerController.playerAttacks.Attack2BoxCast();
+        playerController.playerAttacks.Attack2();
     }
 
     public void BoxCastForAttack3()
     {
-        playerController.playerAttacks.Attack3BoxCast();
+        playerController.playerAttacks.Attack3();
     }
     public void OnParryEnd()
     {

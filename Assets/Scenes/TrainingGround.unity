@@ -7270,7 +7270,7 @@ GameObject:
   - component: {fileID: 1464656877}
   m_Layer: 0
   m_Name: SwordBlock
-  m_TagString: Untagged
+  m_TagString: EnemySwordBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8344,6 +8344,10 @@ PrefabInstance:
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 1255824257}
+    - target: {fileID: 5263578001075654699, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5639638228959501277, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: gameManager
       value: 

@@ -83,31 +83,39 @@ public class PlayerAttacks : MonoBehaviour
         footSteps.OnStartPlayerFootstep();
 
     }
-    public void Attack1BoxCast()
-    {      
-        Vector2 direction = transform.right;
+    public void Attack1()
+    {
+        RaycastHit2D hitResult = AttackBoxCast(attack1BoxCastPosition, attack1BoxCastSize);
 
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(attack1BoxCastPosition.position.x, attack1BoxCastPosition.position.y), attack1BoxCastSize, 0f, direction, distance, layerMask);
-
-        if (hit.collider != null)
+        if (hitResult.collider != null)
         {
-            Vector2 launchVector = new Vector2(hit.point.x - this.transform.position.x, 10f);
-            GameObject enemy = hit.collider.gameObject;
-            enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack1Damage);
-            
-            if(!enemy.GetComponent<EnemyController>().hasSeenPlayer)
+            if (hitResult.collider != null)
             {
-                enemy.GetComponent<EnemyController>().player = parent;
-                enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
-                if(enemy.GetComponent<EnemyController>().currentStateEnum != EnemyStateEnum.Chase)
+
+                Vector2 launchVector = new Vector2(hitResult.point.x - this.transform.position.x, 10f);
+                GameObject enemy = hitResult.collider.gameObject;
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack1Damage);
+
+                if (!enemyController.hasSeenPlayer)
                 {
-                    enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                    enemyController.player = parent;
+                    enemyController.hasSeenPlayer = true;
+                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
+                    }
+
                 }
-               
+                audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
+                enemyController.PlayBloodEffect(hitResult.point);
             }
-            audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
-            enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
-        }
+
+                else if (hitResult.collider.CompareTag("EnemySwordBlock"))
+                {
+                    Debug.Log("Block");
+                }
+            }
         else
         {
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
@@ -117,39 +125,46 @@ public class PlayerAttacks : MonoBehaviour
 
     }
 
-    public void Attack2BoxCast()
+    public void Attack2()
     {
 
-        Vector2 direction = transform.right;
+        RaycastHit2D hitResult = AttackBoxCast(attack2BoxCastPosition, attack2BoxCastSize);
 
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(attack2BoxCastPosition.position.x, attack2BoxCastPosition.position.y), attack2BoxCastSize, 0f, direction, distance, layerMask);
-
-        if (hit.collider != null)
-        {
-            Vector2 launchVector;
-            if (hit.point.x >= this.transform.position.x)
+        if (hitResult.collider != null)
+        {         
+            if (hitResult.collider.CompareTag("Enemy"))
             {
-                launchVector = new Vector2(4f, 0);
-            }
-            else
-            {
-                launchVector = new Vector2(-4f, 0);
-            }
-
-            GameObject enemy = hit.collider.gameObject;
-            enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack2Damage);
-
-            if (!enemy.GetComponent<EnemyController>().hasSeenPlayer)
-            {
-                enemy.GetComponent<EnemyController>().player = parent;
-                enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
-                if (enemy.GetComponent<EnemyController>().currentStateEnum != EnemyStateEnum.Chase)
+                Vector2 launchVector;
+                if (hitResult.point.x >= this.transform.position.x)
                 {
-                    enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                    launchVector = new Vector2(4f, 0);
                 }
+                else
+                {
+                    launchVector = new Vector2(-4f, 0);
+                }
+
+                GameObject enemy = hitResult.collider.gameObject;
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack2Damage);
+
+                if (!enemyController.hasSeenPlayer)
+                {
+                    enemyController.player = parent;
+                    enemyController.hasSeenPlayer = true;
+                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
+                    }
+                }
+                audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
+                enemyController.PlayBloodEffect(hitResult.point);
             }
-            audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
-            enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
+
+            else if (hitResult.collider.CompareTag("EnemySwordBlock"))
+            {
+                Debug.Log("Block");
+            }
         }
 
         else
@@ -159,29 +174,39 @@ public class PlayerAttacks : MonoBehaviour
         HandelSlashEffect(slash2, attack2BoxCastPosition.position + new Vector3(1,0.35f,0));
     }
 
-    public void Attack3BoxCast()
+    public void Attack3()
     {
-        Vector2 direction = transform.right;
+        RaycastHit2D hitResult = AttackBoxCast(attack3BoxCastPosition, attack3BoxCastSize);
 
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(attack3BoxCastPosition.position.x, attack3BoxCastPosition.position.y), attack3BoxCastSize, 0f, direction, distance, layerMask);
-
-        if (hit.collider != null)
+        if (hitResult.collider != null)
         {
-            Vector2 launchVector = new Vector2(4f, 0);
-            GameObject enemy = hit.collider.gameObject;
-            enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack3Damage);
-
-            if (!enemy.GetComponent<EnemyController>().hasSeenPlayer)
+            if (hitResult.collider.CompareTag("Enemy"))
             {
-                enemy.GetComponent<EnemyController>().player = parent;
-                enemy.GetComponent<EnemyController>().hasSeenPlayer = true;
-                if (enemy.GetComponent<EnemyController>().currentStateEnum != EnemyStateEnum.Chase)
+
+                Vector2 launchVector = new Vector2(4f, 0);
+
+                GameObject enemy = hitResult.collider.gameObject;
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();    
+                enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, attack3Damage);
+
+                if (!enemyController.hasSeenPlayer)
                 {
-                    enemy.GetComponent<EnemyController>().ChangeState(EnemyStateEnum.Chase);
+                    enemyController.player = parent;
+                    enemyController.hasSeenPlayer = true;
+                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
+                    }
                 }
+                audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
+                enemyController.PlayBloodEffect(hitResult.point);
             }
-            audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
-            enemy.GetComponent<EnemyController>().PlayBloodEffect(hit.point);
+
+            else if (hitResult.collider.CompareTag("EnemySwordBlock"))
+            {
+                Debug.Log("Block");
+            }
+           
             
         }
 
@@ -194,6 +219,14 @@ public class PlayerAttacks : MonoBehaviour
 
     }
 
+    private RaycastHit2D AttackBoxCast(Transform centerPoint, Vector2 boxSize)
+    {
+        Vector2 direction = transform.right;
+
+        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(centerPoint.position.x, centerPoint.position.y), boxSize, 0f, direction, distance, layerMask);
+
+        return hit;
+    }
     void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
     {
         // Define the corners of the box for visualization in 2D
