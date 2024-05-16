@@ -8,8 +8,6 @@ public class BlockState : EnemyBaseState
 
     [SerializeField]private float blockMeter;
     private float blockMeterMax = 100;
-
-    [SerializeField] private bool  canBlock = true;
     [SerializeField] private float blockTimer = 0f;
     private float blockTimerCooldown = 10f;
 
@@ -55,7 +53,7 @@ public class BlockState : EnemyBaseState
     public void BeginBlockingSword()
     {
         enemyController.animationManager.SetBoolForAnimation("isBlocking", true);
-        canBlock = false;
+        enemyController.SetCanBlock(false);
         blockTimer = 0f;
         swordBlockObj.GetComponent<BoxCollider2D>().enabled = true;
         StartCoroutine(EndBlockByDuration(blockDuration, EnemyStateEnum.Chase));
@@ -64,7 +62,7 @@ public class BlockState : EnemyBaseState
     public void OnAttackBlocked(float value, Vector2 knockBackVel,GameObject player)
     {
         enemyController.collisionManager.LaunchEnemy(knockBackVel);
-        enemyController.agent.SetReward(1f);
+        //enemyController.agent.SetReward(1f);
         if(blockMeter > 0)
         {
             blockMeter -= value;
@@ -86,14 +84,9 @@ public class BlockState : EnemyBaseState
             blockTimer += Time.deltaTime;
             if(blockTimer >= blockTimerCooldown) 
             {
-                canBlock = true;
+                enemyController.SetCanBlock(true);
             }
         }
-    }
-
-    public bool GetCanBlock()
-    {
-        return canBlock;
     }
 
     public float GetBlockTimer()

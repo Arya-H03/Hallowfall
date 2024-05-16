@@ -35,11 +35,11 @@ public class EnemySight : MonoBehaviour
                 if (hit.collider != null)
                 {
 
-                    if (hit.collider.CompareTag("TAD"))
+                    if (hit.collider.CompareTag("Player"))
                     {
                         enemyController.player = hit.collider.gameObject;
                         enemyController.hasSeenPlayer = true;
-                        enemyController.ChangeState(EnemyStateEnum.Chase);
+                        enemyController.ChangeState(EnemyStateEnum.Combat);
                     }
                 }
 

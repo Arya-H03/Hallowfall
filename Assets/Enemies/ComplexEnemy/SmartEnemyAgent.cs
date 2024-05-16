@@ -14,7 +14,7 @@ public class SmartEnemyAgent : Agent
 
     private EnemyController enemyController;
     private PatrolState patrolState;
-    private AttackState attackState;
+    private CombatState attackState;
     private TAD tad;
     //private PlayerController playerController;
 
@@ -23,7 +23,7 @@ public class SmartEnemyAgent : Agent
         enemyController = GetComponent<EnemyController>();
 
         patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
-        attackState = enemyController.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>();
+        attackState = enemyController.GetState(EnemyStateEnum.Combat).GetComponent<CombatState>();
 
         //playerController = target.GetComponent<PlayerController>();
         tad = target.GetComponent<TAD>();
@@ -52,7 +52,7 @@ public class SmartEnemyAgent : Agent
         sensor.AddObservation(enemyController.hasSeenPlayer);
         sensor.AddObservation(target.transform.position);
         sensor.AddObservation(enemyController.canAttack);
-        sensor.AddObservation(enemyController.GetComponent<BlockState>().GetCanBlock());
+        sensor.AddObservation(enemyController.GetCanBlock());
         sensor.AddObservation(enemyController.GetComponent<BlockState>().GetBlockTimer());
         sensor.AddObservation(enemyController.currentHealth);
         sensor.AddObservation(tad.currentHealth);
@@ -88,13 +88,13 @@ public class SmartEnemyAgent : Agent
                 case 2:
                     if (enemyController.canAttack && enemyController.hasSeenPlayer)
                     {
-                        enemyController.ChangeState(EnemyStateEnum.Attack);
+                        enemyController.ChangeState(EnemyStateEnum.Combat);
                     }
 
                     //if (cancelSwordAttack == 1 && playerController.isParrying)
                     //{
                     //    Debug.Log("canceled sword attack");
-                    //    attackState.CancelSwordAttack();
+                    //    combatState.CancelSwordAttack();
                     //    AddReward(1f);
                     //}
                     break;
@@ -142,7 +142,7 @@ public class SmartEnemyAgent : Agent
         //            if (cancelSwordAttack == 1 && playerController.isParrying)
         //            {
         //                Debug.Log("canceled sword attack");
-        //                attackState.CancelSwordAttack();
+        //                combatState.CancelSwordAttack();
         //                AddReward(1f);
         //            }
         //            break;

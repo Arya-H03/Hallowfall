@@ -7,8 +7,7 @@ public class ChaseState : EnemyBaseState
     private float chaseSpeed = 2f;
     public ChaseState() : base()
     {
-        stateEnum = EnemyStateEnum.Chase;
-       
+        stateEnum = EnemyStateEnum.Chase;    
     }
 
     public override void OnEnterState()
@@ -27,7 +26,7 @@ public class ChaseState : EnemyBaseState
         {
             if(Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f)
             {
-                enemyController.ChangeState(EnemyStateEnum.Attack);
+                enemyController.ChangeState(EnemyStateEnum.Combat);
                 enemyController.canAttack = true;
             }
 

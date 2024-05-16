@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     private EnemyBaseState chaseState;
     [HideInInspector]
-    private EnemyBaseState attackState;
+    private EnemyBaseState combatState;
     [HideInInspector]
     private EnemyBaseState stunState;
     [HideInInspector]
@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
     public bool isJumping = false;
     private bool isTurning = false;
     private bool canChangeState = true;
+    private bool canBlock = true;
 
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
@@ -72,8 +73,8 @@ public class EnemyController : MonoBehaviour
                 return patrolState;
             case EnemyStateEnum.Chase:
                 return chaseState;
-            case EnemyStateEnum.Attack:
-                return attackState;
+            case EnemyStateEnum.Combat:
+                return combatState;
             case EnemyStateEnum.Stun:
                 return stunState;
             case EnemyStateEnum.Jump:
@@ -112,8 +113,8 @@ public class EnemyController : MonoBehaviour
                 case EnemyStateEnum.Chase:
                     currentState = chaseState;
                     break;
-                case EnemyStateEnum.Attack:
-                    currentState = attackState;
+                case EnemyStateEnum.Combat:
+                    currentState = combatState;
                     break;
                 case EnemyStateEnum.Stun:
                     currentState = stunState;
@@ -125,7 +126,7 @@ public class EnemyController : MonoBehaviour
                     currentState = turnState;
                     break;
                 case EnemyStateEnum.Block:
-                    if (blockState.GetComponent<BlockState>().GetCanBlock())
+                    if (GetCanBlock())
                     {
                         currentState = blockState;
                     }
@@ -218,7 +219,7 @@ public class EnemyController : MonoBehaviour
 
     private void handleCooldowns()
     {
-        attackState.GetComponent<AttackState>().ManageSwordAttackCooldown();
+        combatState.GetComponent<CombatState>().ManageSwordAttackCooldown();
         patrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
         blockState.GetComponent<BlockState>().ManageBlockCooldown();
     }
@@ -228,19 +229,19 @@ public class EnemyController : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= value;
-            agent.AddReward(-1);
+            //agent.AddReward(-1);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                agent.AddReward(-3);
-                agent.EndEpisode();  
+                //.AddReward(-3);
+                //agent.EndEpisode();  
                 Debug.Log("I died");
 
             }
         }
         else
         {
-            agent.EndEpisode();
+           // agent.EndEpisode();
             //Debug.Log("You are dead");
         }
     }
@@ -284,6 +285,18 @@ public class EnemyController : MonoBehaviour
         return this.canChangeState;
     }
 
+    public void SetCanBlock(bool value)
+    {
+        this.canBlock = value;
+    }
+
+    public bool GetCanBlock()
+    {
+        return this.canBlock;
+    }
+
+
+
     private void InitialzieEnemyState()
     {
         idleState = gameObject.AddComponent<IdleState>();
@@ -295,8 +308,8 @@ public class EnemyController : MonoBehaviour
         chaseState = gameObject.AddComponent<ChaseState>();
         chaseState.SetStatesController(this);
 
-        attackState = gameObject.AddComponent<AttackState>();
-        attackState.SetStatesController(this);
+        combatState = gameObject.AddComponent<CombatState>();
+        combatState.SetStatesController(this);
 
         stunState = gameObject.AddComponent<StunState>();
         stunState.SetStatesController(this);

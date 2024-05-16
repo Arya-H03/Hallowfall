@@ -16,15 +16,11 @@ public class EnemyMovement : MonoBehaviour
     }
 
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
-    {
-        //if ()
-        //{
+    {      
             Vector2 direction = endPoint - startPoint;
             transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
             TurnEnemy(direction);
-            //enemy.rb.velocity = direction * enemySpeed;
-        //}
-
+          
     }
 
     private void TurnEnemy(Vector2 direction)
