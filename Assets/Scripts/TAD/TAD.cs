@@ -12,17 +12,24 @@ public class TAD : MonoBehaviour
 
     public GameObject enemy;
 
+    [SerializeField] Animator animator;
+
     [SerializeField] Vector2 size;
     [SerializeField] Transform loc;
     [SerializeField] DamagePopUp damagePopUp;
 
     [SerializeField] LayerMask layerMask;
 
-    private bool canAttack = true;
+    public bool canAttack = true;
+    public bool isAttaking = false;
 
     private float attackTimerCooldown = 3f;
-    private float attackTimer = 0f;
+    public float attackTimer = 0f;
     // Start is called before the first frame update
+
+    private float maxHealth = 100;
+    public float currentHealth;
+    
     void Start()
     {
         attackTimer = attackTimerCooldown;
@@ -43,7 +50,7 @@ public class TAD : MonoBehaviour
 
         if (Vector2.Distance(enemy.transform.position, this.transform.position) <= 2 && canAttack)
         {
-            Attack();
+            StartAttack();
         }
 
         Vector2 dir = enemy.transform.position - this.transform.position;
@@ -52,9 +59,21 @@ public class TAD : MonoBehaviour
 
     }
 
-    private void Attack()
+    private void StartAttack()
     {
-        canAttack = false;
+        canAttack = false;       
+        animator.SetBool("isAttacking",true);
+        isAttaking = true;
+        attackTimer = 0;
+    }
+
+    public void EndAttack()
+    {
+        isAttaking = false;
+        animator.SetBool("isAttacking",false);
+    }
+    public void CastAttack()
+    {
         //RaycastHit2D hit = Physics2D.BoxCast(new Vector2(loc.position.x, loc.position.y), size, 0f, transform.right, 0, layerMask);
         RaycastHit2D hitResult = AttackBoxCast(loc, size);
         if (hitResult.collider != null)
@@ -72,6 +91,8 @@ public class TAD : MonoBehaviour
                 }
                 hitResult.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, this.gameObject);
                 hitResult.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hitResult.point);
+                hitResult.collider.gameObject.GetComponentInParent<EnemyController>().agent.SetReward(1f);
+
 
             }
 
@@ -95,11 +116,12 @@ public class TAD : MonoBehaviour
                 enemyController.PlayBloodEffect(hitResult.point);
             }
         }
-            attackTimer = 0;
+           
 
         dialogueBox.StartDialouge(" Attack");
     }
 
+    
     private RaycastHit2D AttackBoxCast(Transform centerPoint, Vector2 boxSize)
     {
         Vector2 direction = transform.right;
@@ -171,6 +193,28 @@ public class TAD : MonoBehaviour
     public void TakeDamage(int amount)
     {
         SpawnDamagePopUp(amount);
+        if (currentHealth > 0)
+        {
+            currentHealth -= amount;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                enemy.GetComponent<EnemyController>().agent.AddReward(3);
+                enemy.GetComponent<EnemyController>().agent.EndEpisode();
+                Debug.Log("TAD died");
+
+            }
+        }
+        else
+        {
+            enemy.GetComponent<EnemyController>().agent.EndEpisode();
+            //Debug.Log("You are dead");
+        }
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     private void SpawnDamagePopUp(int damage)

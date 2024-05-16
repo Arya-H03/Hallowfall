@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
 {
 
     private float maxHealth = 100;
-    private float currentHealth;
+    public float currentHealth;
 
     
     public EnemyStateEnum currentStateEnum;
@@ -240,8 +240,14 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            agent.EndEpisode();
             //Debug.Log("You are dead");
         }
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     public DialogueBox GetDialogueBox()

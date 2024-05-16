@@ -64,7 +64,7 @@ public class BlockState : EnemyBaseState
     public void OnAttackBlocked(float value, Vector2 knockBackVel,GameObject player)
     {
         enemyController.collisionManager.LaunchEnemy(knockBackVel);
-        enemyController.agent.SetReward(1);
+        enemyController.agent.SetReward(1f);
         if(blockMeter > 0)
         {
             blockMeter -= value;

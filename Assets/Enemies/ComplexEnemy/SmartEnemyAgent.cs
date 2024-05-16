@@ -8,14 +8,15 @@ using Unity.MLAgents.Sensors;
 
 public class SmartEnemyAgent : Agent
 {
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject target;
     [SerializeField] Transform [] spawnPos;
     [SerializeField] Transform [] PspawnPos;
 
     private EnemyController enemyController;
     private PatrolState patrolState;
     private AttackState attackState;
-    private PlayerController playerController;
+    private TAD tad;
+    //private PlayerController playerController;
 
     private void Awake()
     {
@@ -24,7 +25,8 @@ public class SmartEnemyAgent : Agent
         patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
         attackState = enemyController.GetState(EnemyStateEnum.Attack).GetComponent<AttackState>();
 
-        playerController = player.GetComponent<PlayerController>();
+        //playerController = target.GetComponent<PlayerController>();
+        tad = target.GetComponent<TAD>();
 
     }
 
@@ -35,29 +37,83 @@ public class SmartEnemyAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        player.transform.position = spawnPos[Random.Range(0, 4)].position;
+        target.transform.position = spawnPos[Random.Range(0, 4)].position;
         this.transform.position = PspawnPos[Random.Range(0, 3)].position;
         enemyController.hasSeenPlayer = false;
         enemyController.canAttack = false;
         enemyController.isStuned = false;
         enemyController.ChangeState(EnemyStateEnum.Patrol);
+        enemyController.ResetHealth();
+        tad.ResetHealth();
       
     }
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(enemyController.hasSeenPlayer);
-        sensor.AddObservation(player.transform.position);
+        sensor.AddObservation(target.transform.position);
         sensor.AddObservation(enemyController.canAttack);
         sensor.AddObservation(enemyController.GetComponent<BlockState>().GetCanBlock());
         sensor.AddObservation(enemyController.GetComponent<BlockState>().GetBlockTimer());
-        sensor.AddObservation(player.GetComponent<Player>().currentHealth);
-        sensor.AddObservation(player.GetComponent<Player>().numberOfHealthShield);
-        sensor.AddObservation(playerController.isParrying);
+        sensor.AddObservation(enemyController.currentHealth);
+        sensor.AddObservation(tad.currentHealth);
+        sensor.AddObservation(tad.isAttaking);
+        
+        //sensor.AddObservation(target.GetComponent<Player>().currentHealth);
+        //sensor.AddObservation(target.GetComponent<Player>().numberOfHealthShield);
+        //sensor.AddObservation(playerController.isParrying);
 
  
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
+        int stateAction = actions.DiscreteActions[0];
+        int cancelSwordAttack = actions.DiscreteActions[2];
+        if (!enemyController.isStuned)
+        {
+            switch (stateAction)
+            {
+
+                //Take no action
+                case 0:
+                    AddReward(-1f / MaxStep);
+                    break;
+                //Chase state acions
+                case 1:
+                    if (enemyController.hasSeenPlayer /*&& !enemyController.canAttack*/)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
+                    }
+                    break;
+                //Attack state acions
+                case 2:
+                    if (enemyController.canAttack && enemyController.hasSeenPlayer)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Attack);
+                    }
+
+                    //if (cancelSwordAttack == 1 && playerController.isParrying)
+                    //{
+                    //    Debug.Log("canceled sword attack");
+                    //    attackState.CancelSwordAttack();
+                    //    AddReward(1f);
+                    //}
+                    break;
+                case 3:
+                    if (tad.isAttaking && enemyController.hasSeenPlayer)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Block);
+                    }
+                    break;
+            }
+
+            AddReward(-1f / MaxStep);
+        }
+
+
+
+
+
+
         //int stateAction = actions.DiscreteActions[0];
         //int cancelSwordAttack = actions.DiscreteActions[2];
         //if (!enemyController.isStuned)
@@ -100,7 +156,7 @@ public class SmartEnemyAgent : Agent
 
         //    AddReward(-1f / MaxStep);
         //}
-            
+
 
 
     }
