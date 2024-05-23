@@ -22,9 +22,9 @@ public class InputManager : MonoBehaviour
 
         inputActions.Guardian.Jump.performed += Jump;
 
-        inputActions.Guardian.Attack1.performed += Attack1;
-        inputActions.Guardian.Attack2.performed += Attack2;
-        inputActions.Guardian.Attack3.performed += Attack3;
+        inputActions.Guardian.Attack1.performed += SlashAttack;
+        inputActions.Guardian.Attack2.performed += StabAttack;
+        inputActions.Guardian.Attack3.performed += ChopAttack;
 
         inputActions.Guardian.Parry.performed += Parry;
 
@@ -40,9 +40,9 @@ public class InputManager : MonoBehaviour
 
         inputActions.Guardian.Jump.performed -= Jump;
 
-        inputActions.Guardian.Attack1.performed -= Attack1;
-        inputActions.Guardian.Attack2.performed -= Attack2;
-        inputActions.Guardian.Attack3.performed -= Attack3;
+        inputActions.Guardian.Attack1.performed -= SlashAttack;
+        inputActions.Guardian.Attack2.performed -= StabAttack;
+        inputActions.Guardian.Attack3.performed -= ChopAttack;
         inputActions.Guardian.Parry.performed -= Parry;
 
         inputActions.Guardian.Pause.performed -= Pause;
@@ -65,18 +65,18 @@ public class InputManager : MonoBehaviour
         player.OnJumpStart();
     }
 
-    public void Attack1(InputAction.CallbackContext ctx)
+    public void SlashAttack(InputAction.CallbackContext ctx)
     {
-        player.OnStartAttack(1);
+        player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Slash);
     }
-    public void Attack2(InputAction.CallbackContext ctx)
+    public void StabAttack(InputAction.CallbackContext ctx)
     {
-        player.OnStartAttack(2);
+        player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Stab);
     }
 
-    public void Attack3(InputAction.CallbackContext ctx)
+    public void ChopAttack(InputAction.CallbackContext ctx)
     {
-        player.OnStartAttack(3);
+        player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Chop);
     }
 
     public void Parry(InputAction.CallbackContext ctx)

@@ -7,7 +7,7 @@ public enum PlayerStateEnum
    Idle,
    Run,
    Jump,
-   Attack,
+   SwordAttack,
    Parry
     
 }

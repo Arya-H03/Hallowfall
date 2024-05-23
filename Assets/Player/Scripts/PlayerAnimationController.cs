@@ -51,25 +51,25 @@ public class PlayerAnimationController : MonoBehaviour
         SetBoolForAnimations("isParrySuccessful", false);
     }
 
-    public void StopAttack()
+    public void EndSwordAttack()
     {
-        playerController.playerAttacks.EndAttack();
+        playerController.PlayerSwordAttackState.EndAttack();
     }
 
    
-    public void BoxCastForAttack1()
+    public void BoxCastForSlash()
     {
-        playerController.playerAttacks.Attack1();
+        playerController.PlayerSwordAttackState.SlashAttack();
     }
 
-    public void BoxCastForAttack2()
+    public void BoxCastForStab()
     {
-        playerController.playerAttacks.Attack2();
+        playerController.PlayerSwordAttackState.StabAttack();
     }
 
-    public void BoxCastForAttack3()
+    public void BoxCastForChop()
     {
-        playerController.playerAttacks.Attack3();
+        playerController.PlayerSwordAttackState.ChopAttack();
     }
     public void OnParryEnd()
     {

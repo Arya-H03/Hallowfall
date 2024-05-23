@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAttack3
+  m_Name: PlayerChopAttack
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -42,6 +42,8 @@ AnimationClip:
       value: {fileID: -1268532519, guid: 898d2b29b3dd4c5438b9d5d7a14f7975, type: 3}
     - time: 1
       value: {fileID: 1594611045, guid: 7fba08eb80d88e24e8c2c2bf0b0de076, type: 3}
+    - time: 1.1
+      value: {fileID: 1594611045, guid: 7fba08eb80d88e24e8c2c2bf0b0de076, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -75,12 +77,13 @@ AnimationClip:
     - {fileID: 242875666, guid: 238e9ffab694c8747a01b118e6e1792d, type: 3}
     - {fileID: -1268532519, guid: 898d2b29b3dd4c5438b9d5d7a14f7975, type: 3}
     - {fileID: 1594611045, guid: 7fba08eb80d88e24e8c2c2bf0b0de076, type: 3}
+    - {fileID: 1594611045, guid: 7fba08eb80d88e24e8c2c2bf0b0de076, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.1
+    m_StopTime: 1.2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -101,7 +104,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.7
-    functionName: BoxCastForAttack3
+    functionName: BoxCastForChop
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
+    functionName: EndSwordAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

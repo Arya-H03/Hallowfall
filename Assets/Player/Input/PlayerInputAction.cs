@@ -46,7 +46,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack1"",
+                    ""name"": ""SlashAttack"",
                     ""type"": ""Button"",
                     ""id"": ""76f069b6-837a-4ffc-a19c-bfa507f23bee"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack2"",
+                    ""name"": ""StabAttack"",
                     ""type"": ""Button"",
                     ""id"": ""55693191-f4d4-4db1-9aeb-453e367276d6"",
                     ""expectedControlType"": ""Button"",
@@ -64,7 +64,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack3"",
+                    ""name"": ""ChopAttack"",
                     ""type"": ""Button"",
                     ""id"": ""54a9dbae-d651-4470-abfa-41d7d33feae2"",
                     ""expectedControlType"": ""Button"",
@@ -174,7 +174,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack1"",
+                    ""action"": ""SlashAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -196,7 +196,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack2"",
+                    ""action"": ""StabAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -207,7 +207,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack3"",
+                    ""action"": ""ChopAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -242,9 +242,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian = asset.FindActionMap("Guardian", throwIfNotFound: true);
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
-        m_Guardian_Attack1 = m_Guardian.FindAction("Attack1", throwIfNotFound: true);
-        m_Guardian_Attack2 = m_Guardian.FindAction("Attack2", throwIfNotFound: true);
-        m_Guardian_Attack3 = m_Guardian.FindAction("Attack3", throwIfNotFound: true);
+        m_Guardian_Attack1 = m_Guardian.FindAction("SlashAttack", throwIfNotFound: true);
+        m_Guardian_Attack2 = m_Guardian.FindAction("StabAttack", throwIfNotFound: true);
+        m_Guardian_Attack3 = m_Guardian.FindAction("ChopAttack", throwIfNotFound: true);
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
         m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);

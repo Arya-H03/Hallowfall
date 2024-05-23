@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private PlayerIdleState playerIdleState;
     private PlayerRunState playerRunState;
     private PlayerJumpState playerJumpState;
+    private PlayerSwordAttackState playerSwordAttackState;
 
 
     [SerializeField] PlayerFootSteps footSteps;
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour
     public bool HasSword { get => hasSword; set => hasSword = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
+    public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
 
     #endregion
     private void Awake()
@@ -94,13 +96,12 @@ public class PlayerController : MonoBehaviour
         PlayerJumpState = GetComponentInChildren<PlayerJumpState>();
         PlayerJumpState.SetOnInitializeVariables(this);
 
+        PlayerSwordAttackState = GetComponentInChildren<PlayerSwordAttackState>();
+        PlayerSwordAttackState.SetOnInitializeVariables(this);
+
 
         CurrentStateEnum = PlayerStateEnum.Idle;
         CurrentState = PlayerIdleState;
-    }
-    public void OnMove(Vector2 dir)
-    {
-        PlayerMovementManager.HandleMovement(dir);
     }
 
     public void ChangeState(PlayerStateEnum stateEnum)
@@ -126,6 +127,9 @@ public class PlayerController : MonoBehaviour
                 case PlayerStateEnum.Jump:
                     CurrentState = PlayerJumpState;
                     break;
+                case PlayerStateEnum.SwordAttack:
+                    CurrentState = PlayerSwordAttackState;
+                    break;
             }
 
             CurrentStateEnum = stateEnum;
@@ -133,6 +137,13 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void OnMove(Vector2 dir)
+    {
+        PlayerMovementManager.HandleMovement(dir);
+    }
+
+
     public void OnJumpStart()
     {
         if (IsPlayerGrounded && CanPlayerJump && !IsPlayerJumping)
@@ -141,11 +152,12 @@ public class PlayerController : MonoBehaviour
         }     
     }
 
-    public void OnStartAttack(int attackIndex)
+    public void OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum attackType)
     {
-        if (HasSword)
+        if (HasSword && !IsAttacking)
         {
-            playerAttacks.StartAttack(IsPlayerJumping, attackIndex);
+            PlayerSwordAttackState.AttackType = attackType;
+            ChangeState(PlayerStateEnum.SwordAttack);
         }
         
     }

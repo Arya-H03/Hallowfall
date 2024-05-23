@@ -50,14 +50,17 @@ public class PlayerAttacks : MonoBehaviour
         {
 
             case 1:
-                playerController.AnimationController.SetTriggerForAnimations("Attack1");
+                //Slash
+                playerController.AnimationController.SetTriggerForAnimations("SlashAttack");
                 
                 break;
+                //stab
             case 2:
-                playerController.AnimationController.SetTriggerForAnimations("Attack2");
+                playerController.AnimationController.SetTriggerForAnimations("StabAttack");
                 break;
+                //Chop
             case 3:
-                playerController.AnimationController.SetTriggerForAnimations("Attack3");
+                playerController.AnimationController.SetTriggerForAnimations("ChopAttack");
                 break;
                 
         }
