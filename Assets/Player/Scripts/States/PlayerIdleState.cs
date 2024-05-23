@@ -10,7 +10,7 @@ public class PlayerIdleState : PlayerBaseState
     }
     public override void OnEnterState()
     {
-       playerController.AnimationController.SetBoolForAnimations("isRunning",false);
+      
     }
 
     public override void OnExitState()

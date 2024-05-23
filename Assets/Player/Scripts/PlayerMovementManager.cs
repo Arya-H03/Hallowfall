@@ -18,7 +18,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!playerController.isPlayerJumping && !playerController.player.isPlayerDead)
+        if (!playerController.IsPlayerJumping && !playerController.player.isPlayerDead)
         {
 
             transform.position += new Vector3(currentDirection.x, 0,0) * speed * Time.deltaTime;
@@ -49,7 +49,7 @@ public class PlayerMovementManager : MonoBehaviour
     }
     private void ManageRunState()
     {
-        if (currentDirection.x != 0 && !playerController.isPlayerJumping)
+        if (currentDirection.x != 0 && !playerController.IsPlayerJumping)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }
@@ -58,22 +58,6 @@ public class PlayerMovementManager : MonoBehaviour
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
     }
-
-    //public void StartRunning()
-    //{
-    //    playerController.AnimationController.SetBoolForAnimations("isRunning", true);
-    //    footSteps.OnStartPlayerFootstep();
-        
-    //}
-
-    //public void StopRunning()
-    //{
-    //    playerController.AnimationController.SetBoolForAnimations("isRunning", false);
-    //    footSteps.OnEndPlayerFootstep();
-       
-    //}
-
-
     public void HandleMovement(Vector2 dir)
     {
         currentDirection = dir;

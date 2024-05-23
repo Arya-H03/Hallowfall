@@ -16,7 +16,7 @@ public class MinionAI : EnemyAI
     #region AttackState
     protected override void HandleAttackState()
     {
-        if (!isDead &&!player.GetComponent<PlayerController>().isDead)
+        if (!isDead &&!player.GetComponent<PlayerController>().IsDead)
         {
             if (Vector2.Distance(transform.position, player.transform.position) < attackRange && canAttack)
             {

@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
         controller.spriteRenderer.enabled = false;
         //controller.PlayerMovementManager.StopRunning();
         yield return new WaitForSeconds(1f);
-        controller.isDead = true;
+        controller.IsDead = true;
         isPlayerDead = true;
         deathmenu.SetActive(true);
     }

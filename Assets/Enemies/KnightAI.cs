@@ -89,7 +89,7 @@ public class KnightAI : EnemyAI
 
     protected override void HandleChaseState()
     {
-        if (!player.GetComponent<PlayerController>().isDead)
+        if (!player.GetComponent<PlayerController>().IsDead)
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
             if (distanceToPlayer < 5 && distanceToPlayer > 2.5f && dashTimer >= DashCD && !isAttacking && !isStuned)
@@ -117,7 +117,7 @@ public class KnightAI : EnemyAI
 
     protected override void HandleAttackState()
     {
-        if (!isDead &&!player.GetComponent<PlayerController>().isDead)
+        if (!isDead &&!player.GetComponent<PlayerController>().IsDead)
         {
             if (Vector2.Distance(transform.position, player.transform.position) < attackRange && canAttack )
             {

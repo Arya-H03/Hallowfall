@@ -94,7 +94,7 @@ public class CombatState : EnemyBaseState
     public override void HandleState()
     {
 
-        if (enemyController.player.GetComponent<PlayerController>().isAttacking && enemyController.GetCanBlock())
+        if (enemyController.player.GetComponent<PlayerController>().IsAttacking && enemyController.GetCanBlock())
         {
             ChangeAction(CombatActionEnum.Block);
         }

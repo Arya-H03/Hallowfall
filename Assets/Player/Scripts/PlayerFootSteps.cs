@@ -65,23 +65,23 @@ public class PlayerFootSteps : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerController.isPlayerJumping == true)
+        if (playerController.IsPlayerJumping == true)
         {
             if (currentFloorType == FloorType.grass && collision.CompareTag("Grass"))
             {
 
-                playerController.playerJump.EndJump();
+                playerController.PlayerJumpState.EndJump();
 
             }
 
             else if(currentFloorType == FloorType.ground && collision.CompareTag("Ground"))
             {
-                playerController.playerJump.EndJump();
+                playerController.PlayerJumpState.EndJump();
             }
 
             else if (currentFloorType == FloorType.wood && collision.CompareTag("Wood"))
             {
-                playerController.playerJump.EndJump();
+                playerController.PlayerJumpState.EndJump();
             }
 
 

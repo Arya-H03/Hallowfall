@@ -172,7 +172,7 @@ public class EnemyAI : MonoBehaviour
     #region "ChaseState"
     protected virtual void HandleChaseState()
     {
-        if(!player.GetComponent<PlayerController>().isDead)
+        if(!player.GetComponent<PlayerController>().IsDead)
         {
             if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
             {

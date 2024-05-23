@@ -16,6 +16,7 @@ TagManager:
   - EnemySwordBlock
   - Enemy
   - TAD
+  - GameManager
   layers:
   - Default
   - TransparentFX

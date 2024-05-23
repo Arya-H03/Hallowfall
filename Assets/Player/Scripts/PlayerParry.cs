@@ -21,13 +21,13 @@ public class PlayerParry : MonoBehaviour
         playerController.AnimationController.SetBoolForAnimations("isJumping", false);
         playerController.AnimationController.SetTriggerForAnimations("Parry");
 
-        if (playerController.isPlayerJumping)
+        if (playerController.IsPlayerJumping)
         {
             playerController.rb.gravityScale = 0.2f;
             playerController.rb.velocity = Vector2.zero;
         }
 
-        playerController.isParrying = true;
+        playerController.IsParrying = true;
     }
 
     public void ActivateParryShield()
@@ -44,6 +44,6 @@ public class PlayerParry : MonoBehaviour
         {
             playerController.AnimationController.SetBoolForAnimations("isRunning", true);
         }
-        playerController.isParrying = false;
+        playerController.IsParrying = false;
     }
 }

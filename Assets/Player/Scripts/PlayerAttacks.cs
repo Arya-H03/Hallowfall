@@ -62,7 +62,7 @@ public class PlayerAttacks : MonoBehaviour
                 
         }
 
-        playerController.isAttacking = true;
+        playerController.IsAttacking = true;
 
         if (isJumping)
         {
@@ -79,7 +79,7 @@ public class PlayerAttacks : MonoBehaviour
         {
             playerController.AnimationController.SetBoolForAnimations("isRunning", true);
         }
-        playerController.isAttacking = false;
+        playerController.IsAttacking = false;
         footSteps.OnStartPlayerFootstep();
 
     }

@@ -1989,7 +1989,7 @@ GameObject:
   - component: {fileID: 363676781}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5740,6 +5740,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 624294701}
     - target: {fileID: 3064469993984113019, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 363676779}
+    - target: {fileID: 3064469993984113019, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 292055181}
@@ -5755,10 +5759,14 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 363676779}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4221249453095740652, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8314963742382542295, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1713557094}
   m_SourcePrefab: {fileID: 100100000, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
 --- !u!1 &1347798383
 GameObject:
@@ -7030,6 +7038,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1713557091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8314963742382542295, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+  m_PrefabInstance: {fileID: 1346318322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1713557094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713557091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fb0aa168eced942bec3c1d81251101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpUpAC: {fileID: 8300000, guid: 0994a47ac31396b48a1d363eef3dcbdc, type: 3}
+  groundHitAC: {fileID: 8300000, guid: 8c3c96f9e2d8a59468f65b020f52245e, type: 3}
+  jumpSpeed: 13
 --- !u!1 &1714034320
 GameObject:
   m_ObjectHideFlags: 0

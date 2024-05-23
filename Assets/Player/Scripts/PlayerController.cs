@@ -11,9 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerAnimationController animationController;
     private PlayerMovementManager playerMovementManager;
+    [SerializeField] private GameManager gameManager;
 
-    [HideInInspector]
-    public PlayerJump playerJump;
     [HideInInspector]
     public PlayerAttacks playerAttacks;
     [HideInInspector]
@@ -30,14 +29,14 @@ public class PlayerController : MonoBehaviour
 
 
 
-    public bool canPlayerJump = true;
-    public bool isPlayerGrounded = true;
-    public bool isPlayerJumping = false;
-    public bool canPlayerAttack = true;
-    public bool isParrying  = false;
-    public bool hasSword = false;
-    public bool isDead = false;
-    public bool isAttacking = false;
+    [SerializeField] private bool canPlayerJump = true;
+    [SerializeField] private bool isPlayerGrounded = true;
+    [SerializeField] private bool isPlayerJumping = false;
+    [SerializeField] private bool canPlayerAttack = true;
+    [SerializeField] private bool isParrying  = false;
+    [SerializeField] private bool hasSword = false;
+    [SerializeField] private bool isDead = false;
+    [SerializeField] private bool isAttacking = false;
 
 
     private PlayerStateEnum currentStateEnum;
@@ -45,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerIdleState playerIdleState;
     private PlayerRunState playerRunState;
+    private PlayerJumpState playerJumpState;
 
 
     [SerializeField] PlayerFootSteps footSteps;
@@ -57,15 +57,25 @@ public class PlayerController : MonoBehaviour
     public PlayerIdleState PlayerIdleState { get => playerIdleState; set => playerIdleState = value; }
     public PlayerRunState PlayerRunState { get => playerRunState; set => playerRunState = value; }
     public PlayerMovementManager PlayerMovementManager { get => playerMovementManager; set => playerMovementManager = value; }
+    public GameManager GameManager { get => gameManager;}
+    public PlayerJumpState PlayerJumpState { get => playerJumpState; set => playerJumpState = value; }
+    public bool CanPlayerJump { get => canPlayerJump; set => canPlayerJump = value; }
+    public bool IsPlayerGrounded { get => isPlayerGrounded; set => isPlayerGrounded = value; }
+    public bool IsPlayerJumping { get => isPlayerJumping; set => isPlayerJumping = value; }
+    public bool CanPlayerAttack { get => canPlayerAttack; set => canPlayerAttack = value; }
+    public bool IsParrying { get => isParrying; set => isParrying = value; }
+    public bool HasSword { get => hasSword; set => hasSword = value; }
+    public bool IsDead { get => isDead; set => isDead = value; }
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
 
     #endregion
     private void Awake()
     {
+        
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
 
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
 
-        playerJump = GetComponentInChildren<PlayerJump>();
         playerAttacks = GetComponentInChildren<PlayerAttacks>();
         playerParry = GetComponent<PlayerParry>();
         rb = GetComponent<Rigidbody2D>();
@@ -75,11 +85,15 @@ public class PlayerController : MonoBehaviour
 
         
        
-        PlayerIdleState = gameObject.AddComponent<PlayerIdleState>();
+        PlayerIdleState = GetComponentInChildren<PlayerIdleState>();
         PlayerIdleState.SetOnInitializeVariables(this);
 
-        PlayerRunState = gameObject.AddComponent<PlayerRunState>();
+        PlayerRunState = GetComponentInChildren<PlayerRunState>();
         PlayerRunState.SetOnInitializeVariables(this,footSteps);
+
+        PlayerJumpState = GetComponentInChildren<PlayerJumpState>();
+        PlayerJumpState.SetOnInitializeVariables(this);
+
 
         CurrentStateEnum = PlayerStateEnum.Idle;
         CurrentState = PlayerIdleState;
@@ -109,6 +123,9 @@ public class PlayerController : MonoBehaviour
                 case PlayerStateEnum.Run:
                     CurrentState = PlayerRunState;
                     break;
+                case PlayerStateEnum.Jump:
+                    CurrentState = PlayerJumpState;
+                    break;
             }
 
             CurrentStateEnum = stateEnum;
@@ -118,29 +135,24 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJumpStart()
     {
-        if (isPlayerGrounded && canPlayerJump )
+        if (IsPlayerGrounded && CanPlayerJump && !IsPlayerJumping)
         {
-            
-            isPlayerJumping = true;
-            isPlayerGrounded = false;
-            canPlayerJump = false;
-            canPlayerAttack = false;
-            playerJump.StartJump();
+            ChangeState(PlayerStateEnum.Jump);
         }     
     }
 
     public void OnStartAttack(int attackIndex)
     {
-        if (hasSword)
+        if (HasSword)
         {
-            playerAttacks.StartAttack(isPlayerJumping, attackIndex);
+            playerAttacks.StartAttack(IsPlayerJumping, attackIndex);
         }
         
     }
 
     public void OnParry()
     {
-        if (hasSword)
+        if (HasSword)
         {
             
             playerParry.StartParry();
@@ -152,7 +164,7 @@ public class PlayerController : MonoBehaviour
     public void HandelSwordEquipment(bool isEquiped)
     {
         animationController.ChangeAnimatorAC(isEquiped);
-        hasSword = isEquiped;
+        HasSword = isEquiped;
     }
 
     public void RestoreHealth()
