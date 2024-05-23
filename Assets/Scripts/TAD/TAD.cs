@@ -102,6 +102,7 @@ public class TAD : MonoBehaviour
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, 20);
+                hitResult.collider.gameObject.GetComponentInParent<EnemyController>().agent.SetReward(-1f);
 
                 if (!enemyController.hasSeenPlayer)
                 {
@@ -199,7 +200,6 @@ public class TAD : MonoBehaviour
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                enemy.GetComponent<EnemyController>().agent.AddReward(3);
                 enemy.GetComponent<EnemyController>().agent.EndEpisode();
                 Debug.Log("TAD died");
 

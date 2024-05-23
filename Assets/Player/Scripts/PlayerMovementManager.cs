@@ -10,8 +10,6 @@ public class PlayerMovementManager : MonoBehaviour
     public Vector2 currentDirection;
 
     [SerializeField] float speed;
-    [SerializeField] PlayerFootSteps footSteps;
-    
 
     private void Start()
     {
@@ -49,37 +47,37 @@ public class PlayerMovementManager : MonoBehaviour
         transform.localScale = new Vector3(scaleX, 1, 1);
         dialogueBox.transform.localScale = new Vector3(scaleX, 1, 1);
     }
-    private void ManageRunningAnimation()
+    private void ManageRunState()
     {
         if (currentDirection.x != 0 && !playerController.isPlayerJumping)
         {
-            StartRunning();
+            playerController.ChangeState(PlayerStateEnum.Run);
         }
         else
         {
-            StopRunning();
+            playerController.ChangeState(PlayerStateEnum.Idle);
         }
     }
 
-    public void StartRunning()
-    {
-        playerController.animationController.SetBoolForAnimations("isRunning", true);
-        footSteps.OnStartPlayerFootstep();
+    //public void StartRunning()
+    //{
+    //    playerController.AnimationController.SetBoolForAnimations("isRunning", true);
+    //    footSteps.OnStartPlayerFootstep();
         
-    }
+    //}
 
-    public void StopRunning()
-    {
-        playerController.animationController.SetBoolForAnimations("isRunning", false);
-        footSteps.OnEndPlayerFootstep();
+    //public void StopRunning()
+    //{
+    //    playerController.AnimationController.SetBoolForAnimations("isRunning", false);
+    //    footSteps.OnEndPlayerFootstep();
        
-    }
+    //}
 
 
     public void HandleMovement(Vector2 dir)
     {
         currentDirection = dir;
         OnPlayerTurning();
-        ManageRunningAnimation();
+        ManageRunState();
     }
 }

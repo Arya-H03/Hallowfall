@@ -44,13 +44,13 @@ public class SwordAttack : MonoBehaviour
 
             //}
 
-            if (hit.collider.CompareTag("TAD"))
-            {
-                GameObject tad = hit.collider.gameObject;
-                tad.GetComponent<TAD>().TakeDamage(20);
-                //enemyStatesManager.agent.SetReward(1f);
-                //enemyStatesManager.agent.EndEpisode();
-            }
+            //if (hit.collider.CompareTag("TAD"))
+            //{
+            //    GameObject tad = hit.collider.gameObject;
+            //    tad.GetComponent<TAD>().TakeDamage(20);
+            //    enemyStatesManager.agent.SetReward(1.5f);
+        
+            //}
 
 
             if (hit.collider.CompareTag("ParryShield") == true)

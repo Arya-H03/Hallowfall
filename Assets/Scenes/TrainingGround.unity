@@ -8238,6 +8238,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1769239232}
+    - target: {fileID: 6362907666544993272, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6470177869696764319, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8289,7 +8293,15 @@ PrefabInstance:
     - target: {fileID: 8411370962647909247, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 30d307fd6daea2b4592e604f4f3f72e7, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8411370962647909247, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: 'm_BrainParameters.VectorActionSize.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8411370962647909247, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
+      propertyPath: 'm_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8626989651469322110, guid: ec672e0c5df79494e8406b892624e6ae, type: 3}
       propertyPath: m_Name
       value: Environment

@@ -28,7 +28,7 @@ public class ParryShield : MonoBehaviour
 
     public void OnSuccessfulParry()
     {
-        controller.animationController.SetBoolForAnimations("isParrySuccessful", true);
+        controller.AnimationController.SetBoolForAnimations("isParrySuccessful", true);
         audioSource.Play();
     }
 

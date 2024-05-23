@@ -2558,6 +2558,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &624294701 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6489539805827609009, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+  m_PrefabInstance: {fileID: 1346318322}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b2785f425341548a327699d86ad401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &690309545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5385,10 +5396,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmartEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6279323142800752389, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7220434330974837463, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1937053140}
+    - target: {fileID: 7220434330974837463, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679884485118258257, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423489180160604014, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5708,6 +5735,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1861004914}
+    - target: {fileID: 3064469993984113019, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+      propertyPath: footSteps
+      value: 
+      objectReference: {fileID: 624294701}
     - target: {fileID: 3064469993984113019, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
       propertyPath: inputManager
       value: 

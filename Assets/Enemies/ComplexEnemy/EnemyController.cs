@@ -91,7 +91,7 @@ public class EnemyController : MonoBehaviour
     {
         if(currentStateEnum != stateEnum && canChangeState)
         {
-            Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
 
             if (currentState != null)
             {
@@ -229,11 +229,11 @@ public class EnemyController : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= value;
-            //agent.AddReward(-1);
+       
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                //.AddReward(-3);
+                //agent.AddReward(-3);
                 //agent.EndEpisode();  
                 Debug.Log("I died");
 
@@ -241,8 +241,9 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-           // agent.EndEpisode();
-            //Debug.Log("You are dead");
+            //agent.AddReward(-3);
+            //agent.EndEpisode();
+           Debug.Log("You are dead");
         }
     }
 

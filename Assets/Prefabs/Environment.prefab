@@ -273,7 +273,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4940262346425530863, guid: 176a60d4f9419dc4aabd3bc8a27468aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.8
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4940262346425530863, guid: 176a60d4f9419dc4aabd3bc8a27468aa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5478323056235678100, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -497,7 +501,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5694514087690277655, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.001745
+      value: -8.9
       objectReference: {fileID: 0}
     - target: {fileID: 5694514087690277655, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -539,18 +543,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmartEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6279323142800752389, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 7220434330974837463, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 6470177869696764319}
-    - target: {fileID: 7220434330974837463, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7220434330974837463, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
       propertyPath: 'spawnPos.Array.data[0]'
       value: 
@@ -580,19 +576,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4082380612163579238}
     - target: {fileID: 7679884485118258257, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679884485118258257, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7679884485118258257, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8146356046688022743, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
-      propertyPath: impactEffect
-      value: 
-      objectReference: {fileID: 1916495257564162046, guid: c503dc455835bb14e99d9413ecb4db9c, type: 3}
-    - target: {fileID: 8423489180160604014, guid: f2a63a05bd1f6ba4d94b11d4d87c1b5c, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

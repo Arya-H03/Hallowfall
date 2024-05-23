@@ -1,13 +1,17 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class PlayerController : MonoBehaviour
 {
-    [HideInInspector]
-    public PlayerAnimationController animationController;
-    [HideInInspector]
-    public PlayerMovementManager playerMovementManager;
+
+    private PlayerAnimationController animationController;
+    private PlayerMovementManager playerMovementManager;
+
     [HideInInspector]
     public PlayerJump playerJump;
     [HideInInspector]
@@ -35,10 +39,32 @@ public class PlayerController : MonoBehaviour
     public bool isDead = false;
     public bool isAttacking = false;
 
+
+    private PlayerStateEnum currentStateEnum;
+    private PlayerBaseState currentState;
+
+    private PlayerIdleState playerIdleState;
+    private PlayerRunState playerRunState;
+
+
+    [SerializeField] PlayerFootSteps footSteps;
+
+    #region Getters / Setters
+
+    public PlayerAnimationController AnimationController { get => animationController; set => animationController = value; }
+    public PlayerStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
+    public PlayerBaseState CurrentState { get => currentState; set => currentState = value; }
+    public PlayerIdleState PlayerIdleState { get => playerIdleState; set => playerIdleState = value; }
+    public PlayerRunState PlayerRunState { get => playerRunState; set => playerRunState = value; }
+    public PlayerMovementManager PlayerMovementManager { get => playerMovementManager; set => playerMovementManager = value; }
+
+    #endregion
     private void Awake()
-    {     
-        animationController = GetComponentInChildren<PlayerAnimationController>();
-        playerMovementManager = GetComponent<PlayerMovementManager>();
+    {
+        AnimationController = GetComponentInChildren<PlayerAnimationController>();
+
+        PlayerMovementManager = GetComponent<PlayerMovementManager>();
+
         playerJump = GetComponentInChildren<PlayerJump>();
         playerAttacks = GetComponentInChildren<PlayerAttacks>();
         playerParry = GetComponent<PlayerParry>();
@@ -47,12 +73,49 @@ public class PlayerController : MonoBehaviour
         deathEffectParticle = GetComponent<ParticleSystem>();
         player = GetComponent<Player>();
 
+        
+       
+        PlayerIdleState = gameObject.AddComponent<PlayerIdleState>();
+        PlayerIdleState.SetOnInitializeVariables(this);
+
+        PlayerRunState = gameObject.AddComponent<PlayerRunState>();
+        PlayerRunState.SetOnInitializeVariables(this,footSteps);
+
+        CurrentStateEnum = PlayerStateEnum.Idle;
+        CurrentState = PlayerIdleState;
     }
     public void OnMove(Vector2 dir)
     {
-        playerMovementManager.HandleMovement(dir);
+        PlayerMovementManager.HandleMovement(dir);
     }
 
+    public void ChangeState(PlayerStateEnum stateEnum)
+    {
+        if (currentStateEnum != stateEnum /*&& canChangeState*/)
+        {
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+
+            if (CurrentState != null)
+            {
+                CurrentState.OnExitState();
+            }
+
+            switch (stateEnum)
+            {
+
+                case PlayerStateEnum.Idle:
+                    CurrentState = PlayerIdleState;
+                    break;
+                case PlayerStateEnum.Run:
+                    CurrentState = PlayerRunState;
+                    break;
+            }
+
+            CurrentStateEnum = stateEnum;
+            CurrentState.OnEnterState();
+        }
+
+    }
     public void OnJumpStart()
     {
         if (isPlayerGrounded && canPlayerJump )

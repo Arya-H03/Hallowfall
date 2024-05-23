@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class CombatState : EnemyBaseState
 {
     public enum CombatActionEnum
     {
+        None,
         Move,
         SwordAttack,
         CancelAttack,
@@ -19,7 +21,7 @@ public class CombatState : EnemyBaseState
 
     public void ChangeAction(CombatActionEnum actionEnum)
     {
-        if (currentActionEnum != actionEnum /*&& canChangeState*/)
+        if (currentActionEnum != actionEnum && !isAttacking)
         {
             Debug.Log(currentActionEnum + " to " + actionEnum.ToString());
 
@@ -52,14 +54,15 @@ public class CombatState : EnemyBaseState
 
     }
 
-    [SerializedField] private CombatActionEnum currentActionEnum;
+    [SerializeField] private CombatActionEnum currentActionEnum;
 
     public float swordAttackTimer = 0f;
     private float swordAttackCooldown = 2f;
-    private bool  canSwordAttack = true;
+    [SerializeField]  private bool  canSwordAttack = true;
+    [SerializeField]  private bool isInAttackRange = false;   
 
-    private bool canCancelSwordAttack = true;    
-    private bool isAttacking = false;
+    private bool canCancelSwordAttack = true;
+    [SerializeField]  private bool isAttacking = false;
 
     private float attackCancelingChance = 0.33f;    
 
@@ -90,8 +93,8 @@ public class CombatState : EnemyBaseState
 
     public override void HandleState()
     {
-     
-        if(enemyController.player.GetComponent<PlayerController>().isAttacking && enemyController.GetCanBlock())
+
+        if (enemyController.player.GetComponent<PlayerController>().isAttacking && enemyController.GetCanBlock())
         {
             ChangeAction(CombatActionEnum.Block);
         }
@@ -100,9 +103,10 @@ public class CombatState : EnemyBaseState
             case CombatActionEnum.Move:
                 if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f)
                 {
+                    isInAttackRange = true;
                     enemyController.canAttack = true;
-                    ChangeAction(CombatActionEnum.SwordAttack);  
-                    
+                    ChangeAction(CombatActionEnum.SwordAttack);
+
                 }
 
                 else
@@ -124,13 +128,13 @@ public class CombatState : EnemyBaseState
 
 
         }
-        
+
 
         if (Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) >= 2)
         {
             CancelSwordAttack();
             ChangeAction(CombatActionEnum.Move);
-            
+            isInAttackRange = false;
         }
         //swordAttack.DrawCast();
     }
@@ -139,6 +143,7 @@ public class CombatState : EnemyBaseState
     {
         if(!isAttacking)
         {
+            Debug.Log("Attack");
             canSwordAttack = false;
             enemyController.animationManager.SetBoolForAnimation("isAttackingSword", true);
             canCancelSwordAttack = true;
@@ -206,5 +211,27 @@ public class CombatState : EnemyBaseState
     {
         
     }
+
+    public bool GetIsInAttackRange()
+    {
+        return this.isInAttackRange;
+    }
+
+    public bool GetCanSwordAttack()
+    {
+        return this.canSwordAttack;
+    }
+
+    public void SetIsAttacking( bool value )
+    {
+        this.isAttacking = value;
+    }
+
+    public bool GetIsAttacking()
+    {
+        return this.isAttacking;
+    }
+
+
 
 }

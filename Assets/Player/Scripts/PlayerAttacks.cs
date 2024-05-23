@@ -45,19 +45,19 @@ public class PlayerAttacks : MonoBehaviour
     }
     public void StartAttack(bool isJumping, int attackIndex)
     {
-        playerController.animationController.EndAnimations("");
+        playerController.AnimationController.EndAnimations("");
         switch (attackIndex)
         {
 
             case 1:
-                playerController.animationController.SetTriggerForAnimations("Attack1");
+                playerController.AnimationController.SetTriggerForAnimations("Attack1");
                 
                 break;
             case 2:
-                playerController.animationController.SetTriggerForAnimations("Attack2");
+                playerController.AnimationController.SetTriggerForAnimations("Attack2");
                 break;
             case 3:
-                playerController.animationController.SetTriggerForAnimations("Attack3");
+                playerController.AnimationController.SetTriggerForAnimations("Attack3");
                 break;
                 
         }
@@ -75,9 +75,9 @@ public class PlayerAttacks : MonoBehaviour
     public void EndAttack()
     {
         playerController.rb.gravityScale = 3;
-        if (playerController.playerMovementManager.currentDirection.x != 0)
+        if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
-            playerController.animationController.SetBoolForAnimations("isRunning", true);
+            playerController.AnimationController.SetBoolForAnimations("isRunning", true);
         }
         playerController.isAttacking = false;
         footSteps.OnStartPlayerFootstep();

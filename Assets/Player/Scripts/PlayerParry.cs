@@ -17,9 +17,9 @@ public class PlayerParry : MonoBehaviour
 
     public void StartParry()
     {
-        playerController.animationController.SetBoolForAnimations("isRunning", false);
-        playerController.animationController.SetBoolForAnimations("isJumping", false);
-        playerController.animationController.SetTriggerForAnimations("Parry");
+        playerController.AnimationController.SetBoolForAnimations("isRunning", false);
+        playerController.AnimationController.SetBoolForAnimations("isJumping", false);
+        playerController.AnimationController.SetTriggerForAnimations("Parry");
 
         if (playerController.isPlayerJumping)
         {
@@ -40,9 +40,9 @@ public class PlayerParry : MonoBehaviour
         
         parryShield.GetComponent<BoxCollider2D>().enabled = false;
         playerController.rb.gravityScale = 3;
-        if (playerController.playerMovementManager.currentDirection.x != 0)
+        if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
-            playerController.animationController.SetBoolForAnimations("isRunning", true);
+            playerController.AnimationController.SetBoolForAnimations("isRunning", true);
         }
         playerController.isParrying = false;
     }

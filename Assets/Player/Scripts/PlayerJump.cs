@@ -30,9 +30,9 @@ public class PlayerJump : MonoBehaviour
     public void StartJump()
     {
         //Debug.Log("Start");
-        jumpDirectionX = playerController.playerMovementManager.currentDirection.x;
+        jumpDirectionX = playerController.PlayerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
-        playerController.playerMovementManager.StopRunning();
+        //playerController.PlayerMovementManager.StopRunning();
         playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
         gameManager.PlayAudio(audioSource, jumpUpAC);
         //playerController.animationController.SetBoolForAnimations("isJumping", true);
@@ -46,9 +46,9 @@ public class PlayerJump : MonoBehaviour
         playerController.canPlayerJump = true;
         gameManager.PlayAudio(audioSource, groundHitAC);
         //playerController.animationController.SetBoolForAnimations("isJumping", false);
-        if (playerController.playerMovementManager.currentDirection.x != 0)
+        if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
-            playerController.playerMovementManager.StartRunning();
+            //playerController.PlayerMovementManager.StartRunning();
         }
     }
 }

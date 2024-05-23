@@ -5,6 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using System.Runtime.CompilerServices;
 using Unity.MLAgents.Sensors;
+using static CombatState;
 
 public class SmartEnemyAgent : Agent
 {
@@ -14,7 +15,7 @@ public class SmartEnemyAgent : Agent
 
     private EnemyController enemyController;
     private PatrolState patrolState;
-    private CombatState attackState;
+    private CombatState combatState;
     private TAD tad;
     //private PlayerController playerController;
 
@@ -23,7 +24,7 @@ public class SmartEnemyAgent : Agent
         enemyController = GetComponent<EnemyController>();
 
         patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
-        attackState = enemyController.GetState(EnemyStateEnum.Combat).GetComponent<CombatState>();
+        combatState = enemyController.GetState(EnemyStateEnum.Combat).GetComponent<CombatState>();
 
         //playerController = target.GetComponent<PlayerController>();
         tad = target.GetComponent<TAD>();
@@ -42,6 +43,7 @@ public class SmartEnemyAgent : Agent
         enemyController.hasSeenPlayer = false;
         enemyController.canAttack = false;
         enemyController.isStuned = false;
+        combatState.SetIsAttacking(false);
         enemyController.ChangeState(EnemyStateEnum.Patrol);
         enemyController.ResetHealth();
         tad.ResetHealth();
@@ -49,7 +51,7 @@ public class SmartEnemyAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(enemyController.hasSeenPlayer);
+        //sensor.AddObservation(enemyController.hasSeenPlayer);
         sensor.AddObservation(target.transform.position);
         sensor.AddObservation(enemyController.canAttack);
         sensor.AddObservation(enemyController.GetCanBlock());
@@ -67,42 +69,42 @@ public class SmartEnemyAgent : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         int stateAction = actions.DiscreteActions[0];
-        int cancelSwordAttack = actions.DiscreteActions[2];
-        if (!enemyController.isStuned)
+        if (!enemyController.isStuned && enemyController.currentStateEnum == EnemyStateEnum.Combat)
         {
+            if(stateAction == 2 || stateAction == 3)
+            {
+                Debug.Log(stateAction);
+            }
+           
             switch (stateAction)
             {
-
                 //Take no action
                 case 0:
                     AddReward(-1f / MaxStep);
+                    combatState.ChangeAction(CombatActionEnum.None);
                     break;
-                //Chase state acions
+                //Move action
                 case 1:
-                    if (enemyController.hasSeenPlayer /*&& !enemyController.canAttack*/)
+                    if (!combatState.GetIsInAttackRange())
                     {
-                        enemyController.ChangeState(EnemyStateEnum.Chase);
+                        combatState.ChangeAction(CombatActionEnum.Move);
                     }
+                    
                     break;
-                //Attack state acions
+                //Sword Attack state acions
                 case 2:
-                    if (enemyController.canAttack && enemyController.hasSeenPlayer)
+                    if (combatState.GetIsInAttackRange() && combatState.GetCanSwordAttack())
                     {
-                        enemyController.ChangeState(EnemyStateEnum.Combat);
+                        combatState.ChangeAction(CombatActionEnum.SwordAttack);
                     }
-
-                    //if (cancelSwordAttack == 1 && playerController.isParrying)
-                    //{
-                    //    Debug.Log("canceled sword attack");
-                    //    combatState.CancelSwordAttack();
-                    //    AddReward(1f);
-                    //}
+                    
                     break;
                 case 3:
-                    if (tad.isAttaking && enemyController.hasSeenPlayer)
+                    if(/*enemyController.player.GetComponent<PlayerController>().isAttacking*/ tad.isAttaking && enemyController.GetCanBlock())
                     {
-                        enemyController.ChangeState(EnemyStateEnum.Block);
+                        combatState.ChangeAction(CombatActionEnum.Block);
                     }
+                   
                     break;
             }
 
@@ -193,12 +195,12 @@ public class SmartEnemyAgent : Agent
     {
         if (collision != null )
         {
-     
-            //if (collision.CompareTag("Mist"))
-            //{
-            //    SetReward(-1f);
-            //    EndEpisode();
-            //}
+
+            if (collision.CompareTag("TAD"))
+            {
+                SetReward(-1f);
+                EndEpisode();
+            }
 
         }
         

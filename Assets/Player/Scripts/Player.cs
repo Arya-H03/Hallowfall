@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
         if (currentHealth > 0)
         {
             
-            controller.rb.velocity += controller.playerMovementManager.currentDirection * -5;
+            controller.rb.velocity += controller.PlayerMovementManager.currentDirection * -5;
             currentHealth -= value;
             
             if (currentHealth <=0)
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
         controller.inputManager.OnDisable();
         controller.deathEffectParticle.Play();
         controller.spriteRenderer.enabled = false;
-        controller.playerMovementManager.StopRunning();
+        //controller.PlayerMovementManager.StopRunning();
         yield return new WaitForSeconds(1f);
         controller.isDead = true;
         isPlayerDead = true;
