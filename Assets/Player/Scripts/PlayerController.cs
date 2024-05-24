@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private PlayerRunState playerRunState;
     private PlayerJumpState playerJumpState;
     private PlayerSwordAttackState playerSwordAttackState;
+    private PlayerParryState playerParryState;
 
 
     [SerializeField] PlayerFootSteps footSteps;
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
+    public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
 
     #endregion
     private void Awake()
@@ -99,6 +101,9 @@ public class PlayerController : MonoBehaviour
         PlayerSwordAttackState = GetComponentInChildren<PlayerSwordAttackState>();
         PlayerSwordAttackState.SetOnInitializeVariables(this);
 
+        PlayerParryState = GetComponentInChildren<PlayerParryState>();
+        PlayerParryState.SetOnInitializeVariables(this);
+
 
         CurrentStateEnum = PlayerStateEnum.Idle;
         CurrentState = PlayerIdleState;
@@ -122,13 +127,20 @@ public class PlayerController : MonoBehaviour
                     CurrentState = PlayerIdleState;
                     break;
                 case PlayerStateEnum.Run:
-                    CurrentState = PlayerRunState;
+                    if(!IsAttacking && !IsParrying && !IsPlayerJumping)
+                    {
+                        CurrentState = PlayerRunState;
+                    }
+                    
                     break;
                 case PlayerStateEnum.Jump:
                     CurrentState = PlayerJumpState;
                     break;
                 case PlayerStateEnum.SwordAttack:
                     CurrentState = PlayerSwordAttackState;
+                    break;
+                 case PlayerStateEnum.Parry:
+                    CurrentState = PlayerParryState;
                     break;
             }
 
@@ -168,6 +180,7 @@ public class PlayerController : MonoBehaviour
         {
             
             playerParry.StartParry();
+            ChangeState(PlayerStateEnum.Parry);
         }
        
   

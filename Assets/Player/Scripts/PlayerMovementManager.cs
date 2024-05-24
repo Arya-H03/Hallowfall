@@ -9,19 +9,21 @@ public class PlayerMovementManager : MonoBehaviour
 
     public Vector2 currentDirection;
 
-    [SerializeField] float speed;
+    private float moveSpeed;
+
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!playerController.IsPlayerJumping && !playerController.player.isPlayerDead)
         {
 
-            transform.position += new Vector3(currentDirection.x, 0,0) * speed * Time.deltaTime;
+            transform.position += new Vector3(currentDirection.x, 0,0) * MoveSpeed * Time.deltaTime;
 
         }
     }
@@ -51,6 +53,7 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (currentDirection.x != 0 && !playerController.IsPlayerJumping)
         {
+           
             playerController.ChangeState(PlayerStateEnum.Run);
         }
         else

@@ -19,7 +19,7 @@ public class PlayerParry : MonoBehaviour
     {
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);
         playerController.AnimationController.SetBoolForAnimations("isJumping", false);
-        playerController.AnimationController.SetTriggerForAnimations("Parry");
+        
 
         if (playerController.IsPlayerJumping)
         {
@@ -28,6 +28,7 @@ public class PlayerParry : MonoBehaviour
         }
 
         playerController.IsParrying = true;
+        playerController.AnimationController.SetTriggerForAnimations("Parry");
     }
 
     public void ActivateParryShield()

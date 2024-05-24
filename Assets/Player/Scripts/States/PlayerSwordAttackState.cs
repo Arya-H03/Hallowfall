@@ -45,6 +45,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] Transform attack3BoxCastPosition;
     private Vector2 attack3BoxCastSize = new Vector2(1.75f, 0.35f);
 
+
+    [SerializeField] private float moveSpeedWhileAttaking = 2;
     public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
 
     public PlayerSwordAttackState()
@@ -53,7 +55,9 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
     public override void OnEnterState()
     {
+        playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
         StartAttack(playerController.IsPlayerJumping, AttackType);
+        
     }
 
     public override void OnExitState()

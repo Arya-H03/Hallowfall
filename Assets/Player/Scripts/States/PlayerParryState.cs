@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerParryState : MonoBehaviour
+public class PlayerParryState : PlayerBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float moveSpeedWhileParrying = 2;
+    public PlayerParryState()
     {
-        
+        this.stateEnum = PlayerStateEnum.Parry;
+    }
+    public override void OnEnterState()
+    {
+        playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileParrying;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnExitState()
     {
-        
+
+    }
+
+    public override void HandleState()
+    {
+
+
     }
 }
