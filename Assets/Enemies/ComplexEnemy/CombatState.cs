@@ -94,10 +94,10 @@ public class CombatState : EnemyBaseState
     public override void HandleState()
     {
 
-        if (enemyController.player.GetComponent<PlayerController>().IsAttacking && enemyController.GetCanBlock())
-        {
-            ChangeAction(CombatActionEnum.Block);
-        }
+        //if (enemyController.player.GetComponent<PlayerController>().IsAttacking && enemyController.GetCanBlock())
+        //{
+        //    ChangeAction(CombatActionEnum.Block);
+        //}
         switch (currentActionEnum)
         {
             case CombatActionEnum.Move:
