@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public PlayerAttacks playerAttacks;
     [HideInInspector]
-    public PlayerParry playerParry;
-    [HideInInspector]
     public Rigidbody2D rb;
     public InputManager inputManager;
     [HideInInspector]
@@ -81,7 +79,6 @@ public class PlayerController : MonoBehaviour
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
 
         playerAttacks = GetComponentInChildren<PlayerAttacks>();
-        playerParry = GetComponent<PlayerParry>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
@@ -178,12 +175,8 @@ public class PlayerController : MonoBehaviour
     {
         if (HasSword)
         {
-            
-            playerParry.StartParry();
             ChangeState(PlayerStateEnum.Parry);
         }
-       
-  
     }
 
     public void HandelSwordEquipment(bool isEquiped)

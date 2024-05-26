@@ -73,11 +73,11 @@ public class PlayerAnimationController : MonoBehaviour
     }
     public void OnParryEnd()
     {
-        playerController.playerParry.OnParryEnd();
+        playerController.PlayerParryState.OnParryEnd();
     }
     public void ActivateParryShield()
     {
-        playerController.playerParry.ActivateParryShield();
+        playerController.PlayerParryState.ActivateParryShield();
     }
 
     public void EndAnimations(string name)
