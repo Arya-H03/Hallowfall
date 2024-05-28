@@ -17,13 +17,13 @@ public class PlayerHealthBar : MonoBehaviour
      
     }
 
-    private void Start()
+    private void OnEnable()
     {
-
         Player.LosingHealthShieldEvent += OnLifeLost;
+        Player.PlayerRespawnEvent += ResetHealthShields;
     }
-   
-    public void OnLifeLost()
+ 
+    private void OnLifeLost()
     {
         if (currenthealthShieldsIndex < 3)
         {
@@ -31,6 +31,16 @@ public class PlayerHealthBar : MonoBehaviour
             currenthealthShieldsIndex++;
         }              
     }
+
+    private void ResetHealthShields()
+    {
+        foreach (var healthShield in healthShields)
+        {
+            healthShield.GetComponent<HealthShield>().ShowHealthShield(); 
+        }
+    }
+
+    
 
  
 }

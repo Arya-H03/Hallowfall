@@ -21,12 +21,12 @@ public class HealthShield : MonoBehaviour
         animator.SetTrigger("Break");
     }
 
-    public void DeActivateHealthShield()
+    public void HideHealthShield()
     {
         image.color = new Color(image.color.r, image.color.g, image.color.b,0f);
     }
 
-    public void ReActivateHealthShield()
+    public void ShowHealthShield()
     {
         image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }

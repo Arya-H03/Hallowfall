@@ -13,6 +13,7 @@ public class BridgeTrigger: MonoBehaviour
     private AudioSource audioSource;
 
     private BoxCollider2D bridgeCollider;
+
     private void Awake()
     {
         currentSpriterenderer = bridge.GetComponent<SpriteRenderer>();
@@ -20,7 +21,12 @@ public class BridgeTrigger: MonoBehaviour
         audioSource = bridge.GetComponent<AudioSource>();
         
     }
-  
+
+    private void OnEnable()
+    {
+        Player.PlayerRespawnEvent += ResetBridge;
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !isBridgeBroken)
@@ -37,7 +43,7 @@ public class BridgeTrigger: MonoBehaviour
         audioSource.Play();
     }
 
-    public void ResetBridge()
+    private void ResetBridge()
     {
         isBridgeBroken = false;
         currentSpriterenderer.sprite = Bridge;

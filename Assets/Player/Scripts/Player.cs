@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     {
         PlayerDeathEvent += PlayerDeathCoroutine;
         PlayerRespawnEvent += PlayerRespawn;
+        LosingHealthShieldEvent += OnHealthShieldLost;
     }
 
     private void OnDisable()
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        LosingHealthShieldEvent += OnHealthShieldLost;
+        
     }
 
     public void OnGainCorruption(int value)
@@ -105,7 +106,6 @@ public class Player : MonoBehaviour
             if (currentHealth <=0)
             {
                 LosingHealthShieldEvent?.Invoke();
-
 
             }
         }

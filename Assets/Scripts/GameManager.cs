@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] InputManager inputManager;
 
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject enemy;
     [SerializeField] Transform enemySpawnTransform;
+
 
     private GameObject playerCamera;
 
@@ -29,6 +31,10 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        Player.PlayerRespawnEvent += SpawnEnemy;
+    }
     private void Start()
     {
 
@@ -36,14 +42,20 @@ public class GameManager : MonoBehaviour
         //MyFunction func = EndPlayerDistortion;
         //StartCoroutine(CallFunctionByDelay(func, 4));
 
+        SpawnEnemy();
 
     }
 
     private void SpawnEnemy()
     {
-        Instantiate(enemyPrefab,enemySpawnTransform.position,Quaternion.identity);
-
+        if (enemy)
+        {
+            Destroy(enemy);
+        }
+        enemy = Instantiate(enemyPrefab, enemySpawnTransform.position, Quaternion.identity);
     }
+
+  
 
     public void PlayAudio(AudioSource source, AudioClip clip)
     {
