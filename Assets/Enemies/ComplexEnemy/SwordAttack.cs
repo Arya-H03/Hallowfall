@@ -16,7 +16,7 @@ public class SwordAttack : MonoBehaviour
 
     [SerializeField] LayerMask layerMask;
 
-    private int swordAttackDamage = 50;
+    [SerializeField] private int swordAttackDamage = 50;
 
     private int parryDamage = 100;
 

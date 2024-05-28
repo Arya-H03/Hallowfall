@@ -14,11 +14,17 @@ public class Player : MonoBehaviour
 
     public static event MyEventHandler LosingHealthShieldEvent;
 
+
+    public static event MyEventHandler PlayerDeathEvent;
+    public static event MyEventHandler PlayerRespawnEvent;
+
     private PlayerController controller;
 
     [SerializeField] PlayerHealthBar healthBar;
 
     [SerializeField] GameObject deathmenu;
+
+    [SerializeField] Transform respawnTransform;
   
     public int maxCorupption = 100;
     public int currentCorupption = 0;
@@ -32,6 +38,19 @@ public class Player : MonoBehaviour
     private SmartEnemyAgent agent;
 
     private int essenceCounter = 0;
+
+
+    private void OnEnable()
+    {
+        PlayerDeathEvent += PlayerDeathCoroutine;
+        PlayerRespawnEvent += PlayerRespawn;
+    }
+
+    private void OnDisable()
+    {
+        PlayerDeathEvent -= PlayerDeathCoroutine;
+        PlayerRespawnEvent -= PlayerRespawn;
+    }
     private void Awake()
     {
         material = GetComponent<SpriteRenderer>().material;
@@ -99,11 +118,9 @@ public class Player : MonoBehaviour
         if (numberOfHealthShield <= 0)
         {
 
-            //OnPlayerDeath();
-            agent.SetReward(3f);
-            agent.EndEpisode();
-            //currentHealth = maxHealth;
-            //numberOfHealthShield = 3;
+            PlayerDeathEvent?.Invoke();
+            //agent.SetReward(3f);
+            //agent.EndEpisode();
         }
         currentHealth = maxHealth;
     }
@@ -142,7 +159,7 @@ public class Player : MonoBehaviour
         Debug.Log(essenceCounter);
     }
 
-    public void OnPlayerDeath()
+    private void PlayerDeathCoroutine()
     {
         StartCoroutine(PlayerDeath());
     }
@@ -156,6 +173,28 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1f);
         controller.IsDead = true;
         isPlayerDead = true;
-        deathmenu.SetActive(true);
+        //deathmenu.SetActive(true);
+        OnPlayerRespawn();
+
+
+    }
+
+    public void OnPlayerDeath()
+    {
+        PlayerDeathEvent?.Invoke();
+    }
+
+    private void PlayerRespawn()
+    {
+        this.transform.position = respawnTransform.position;
+        controller.inputManager.OnEnable();
+        controller.spriteRenderer.enabled = true;
+        controller.IsDead = false;
+        isPlayerDead = false;
+    }
+
+    private void OnPlayerRespawn()
+    {
+        PlayerRespawnEvent?.Invoke();
     }
 }

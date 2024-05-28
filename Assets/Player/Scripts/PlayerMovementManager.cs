@@ -20,7 +20,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void Update()
     {
-        if (!playerController.IsPlayerJumping && !playerController.player.isPlayerDead)
+        if (!playerController.IsPlayerJumping && !playerController.Player.isPlayerDead)
         {
 
             transform.position += new Vector3(currentDirection.x, 0,0) * MoveSpeed * Time.deltaTime;

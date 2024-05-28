@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [HideInInspector]
     public ParticleSystem deathEffectParticle;
-    [HideInInspector]
-    public Player player;
+
+    private Player player;
 
 
 
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
     public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
+    public Player Player { get => player; set => player = value; }
 
     #endregion
     private void Awake()
@@ -82,7 +83,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
-        player = GetComponent<Player>();
+        Player = GetComponent<Player>();
 
         
        

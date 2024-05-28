@@ -2563,6 +2563,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &656046859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 656046860}
+  m_Layer: 0
+  m_Name: PlayerSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &656046860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656046859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -102.79, y: -6.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1714034321}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &690309545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5683,11 +5714,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 408932475434728368, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.65
+      value: -1.66
       objectReference: {fileID: 0}
     - target: {fileID: 408932475434728368, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.64
+      value: -1.72
       objectReference: {fileID: 0}
     - target: {fileID: 408932475434728368, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5729,6 +5760,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1861004914}
+    - target: {fileID: 2907225944193828139, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
+      propertyPath: respawnTransform
+      value: 
+      objectReference: {fileID: 656046860}
     - target: {fileID: 2938119461531993230, guid: 89c96266cb522c940b13ccbd276e93c0, type: 3}
       propertyPath: m_Controller
       value: 
@@ -7086,6 +7121,7 @@ Transform:
   - {fileID: 821730488}
   - {fileID: 1607377150}
   - {fileID: 347450825}
+  - {fileID: 656046860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1733912231 stripped
