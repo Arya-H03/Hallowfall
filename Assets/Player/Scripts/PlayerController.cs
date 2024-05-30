@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum /*&& canChangeState*/)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {

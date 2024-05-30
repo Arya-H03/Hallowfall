@@ -143,7 +143,6 @@ public class CombatState : EnemyBaseState
     {
         if(!isAttacking)
         {
-            Debug.Log("Attack");
             canSwordAttack = false;
             enemyController.animationManager.SetBoolForAnimation("isAttackingSword", true);
             canCancelSwordAttack = true;
@@ -168,7 +167,7 @@ public class CombatState : EnemyBaseState
     {
         enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
         isAttacking = false;
-        swordAttackTimer = 0f;
+        //swordAttackTimer = 0f;
     }
 
 
@@ -178,12 +177,14 @@ public class CombatState : EnemyBaseState
         if(swordAttackTimer < swordAttackCooldown)
         {
             swordAttackTimer += Time.deltaTime;
-            if(swordAttackTimer >= swordAttackCooldown)
-            {
-                canSwordAttack = true;
-            }
         }
-        
+
+        if (swordAttackTimer >= swordAttackCooldown)
+        {
+            canSwordAttack = true;
+
+        }
+
     }
 
     public void EnableBoxCastingForSwordAttack()
