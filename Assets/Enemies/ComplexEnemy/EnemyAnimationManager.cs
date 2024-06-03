@@ -28,7 +28,7 @@ public class EnemyAnimationManager : MonoBehaviour
     public void EndTurningAnimation()
     {
 
-        statesManager.enemyMovement.OnEnemyEndTurning();
+        statesManager.EnemyMovement.OnEnemyEndTurning();
         
     }
 

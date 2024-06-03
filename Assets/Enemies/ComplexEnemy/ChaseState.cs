@@ -22,21 +22,21 @@ public class ChaseState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController.hasSeenPlayer)
-        {
-            if(Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f)
-            {
-                enemyController.ChangeState(EnemyStateEnum.Combat);
-                enemyController.canAttack = true;
-            }
+        //if (enemyController.hasSeenPlayer)
+        //{
+        //    if(Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f)
+        //    {
+        //        enemyController.ChangeState(EnemyStateEnum.Combat);
+        //        enemyController.canAttack = true;
+        //    }
 
-            else
-            {
-                enemyController.canAttack = false;
-            }
+        //    else
+        //    {
+        //        enemyController.canAttack = false;
+        //    }
             
-            enemyController.enemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
-        }
+        //    enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+        //}
         
     }
 }

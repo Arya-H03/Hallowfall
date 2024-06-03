@@ -16,7 +16,10 @@ public class CombatState : EnemyBaseState
         Move,
         SwordAttack,
         CancelAttack,
-        Block
+        Block,
+        Roll,
+
+        RangeAttack
     }
 
     public void ChangeAction(CombatActionEnum actionEnum)
@@ -34,6 +37,16 @@ public class CombatState : EnemyBaseState
                 case CombatActionEnum.SwordAttack:
                     OnExitSwordAttackAction();
                     break;
+                case CombatActionEnum.Block:
+                    OnExitSwordAttackAction();
+                    break;
+                case CombatActionEnum.Roll:
+                    
+                    break;
+                case CombatActionEnum.RangeAttack:
+
+                    break;
+
 
             }
 
@@ -48,6 +61,15 @@ public class CombatState : EnemyBaseState
                 case CombatActionEnum.SwordAttack:
                     OnEnterSwordAttackAction();
                     break;
+                case CombatActionEnum.Block:
+                    OnEnterSwordAttackAction();
+                    break;
+                case CombatActionEnum.Roll:
+
+                    break;
+                case CombatActionEnum.RangeAttack:
+
+                    break;
 
             }
         }
@@ -57,9 +79,10 @@ public class CombatState : EnemyBaseState
     [SerializeField] private CombatActionEnum currentActionEnum;
 
     public float swordAttackTimer = 0f;
-    private float swordAttackCooldown = 2f;
-    [SerializeField]  private bool  canSwordAttack = true;
-    [SerializeField]  private bool isInAttackRange = false;   
+    private float swordAttackCooldown = 4f;
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private bool  canSwordAttack = true;
+    [SerializeField] private bool isInAttackRange = false;   
 
     private bool canCancelSwordAttack = true;
     [SerializeField]  private bool isAttacking = false;
@@ -83,7 +106,7 @@ public class CombatState : EnemyBaseState
 
     public override void OnEnterState()
     {
-       
+        BeginSwordAttack();
     }
 
     public override void OnExitState()
@@ -98,68 +121,98 @@ public class CombatState : EnemyBaseState
         //{
         //    ChangeAction(CombatActionEnum.Block);
         //}
-        switch (currentActionEnum)
-        {
-            case CombatActionEnum.Move:
-                if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f)
-                {
-                    isInAttackRange = true;
-                    enemyController.canAttack = true;
-                    ChangeAction(CombatActionEnum.SwordAttack);
+        //switch (currentActionEnum)
+        //{
+        //    case CombatActionEnum.None:
 
-                }
+        //        break;
+        //    case CombatActionEnum.Move:
+        //        if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < 2f && canSwordAttack)
+        //        {
+        //            isInAttackRange = true;
+        //            enemyController.canAttack = true;
+        //            ChangeAction(CombatActionEnum.SwordAttack);
 
-                else
-                {
-                    enemyController.canAttack = false;
-                }
-                enemyController.enemyMovement.MoveTo(transform.position, enemyController.player.transform.position, moveSpeed);
-                break;
-            case CombatActionEnum.SwordAttack:
-                if (canSwordAttack)
-                {
-                    BeginSwordAttack();
-                }
+        //        }
 
-                break;
-            case CombatActionEnum.Block:
-                enemyController.ChangeState(EnemyStateEnum.Block);
-                break;
+        //        else
+        //        {
+        //            enemyController.canAttack = false;
+        //        }
+        //        enemyController.MoveToPlayer(enemyController.player, moveSpeed);
+        //        break;
+        //    case CombatActionEnum.SwordAttack:
+        //        BeginSwordAttack();
+        //        break;
+        //    case CombatActionEnum.Block:
+        //        enemyController.ChangeState(EnemyStateEnum.Block);
+        //        break;
 
-
-        }
+        //}
 
 
-        if (Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) >= 2)
-        {
-            CancelSwordAttack();
-            ChangeAction(CombatActionEnum.Move);
-            isInAttackRange = false;
-        }
+        //if (Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) >= attackRange)
+        //{
+        //    if(isAttacking)
+        //    { 
+        //        CancelSwordAttack();
+        //    }
+
+        //    isInAttackRange = false;
+        //    enemyController.MoveToPlayer(enemyController.player,3);
+        //    //ChangeAction(CombatActionEnum.Move);
+            
+        //}
+        //if(Vector2.Distance(enemyController.player.transform.position, gameObject.transform.position) < attackRange && canSwordAttack && !isAttacking)
+        //{
+        //    Debug.Log("a");
+            
+        //    isInAttackRange = true;
+        //    enemyController.canAttack = true;
+        //    StartCoroutine(attack());
+        //    canCancelSwordAttack = true;
+        //}
+        //else
+        //{
+        //    enemyController.canAttack = false;
+        //}
+
+
         //swordAttack.DrawCast();
+    }
+
+    private IEnumerator attack()
+    {
+        canSwordAttack = false;
+        isAttacking = true;
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", true);
+       
+        yield return new WaitForSeconds(4);
+        canSwordAttack = true;
     }
 
     private void BeginSwordAttack()
     {
-        if(!isAttacking)
-        {
-            canSwordAttack = false;
-            enemyController.animationManager.SetBoolForAnimation("isAttackingSword", true);
-            canCancelSwordAttack = true;
-            isAttacking = true;
-            
-        }
-        
+        //if(!isAttacking)
+        //{
+           
+        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", true);
+        canSwordAttack = false;
+        isAttacking = true;
+
+        //}
+
     }
 
     public void EndSwordAttack()
     {
-        if (isAttacking)
-        {
+        //if (isAttacking)
+        //{
             enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
             swordAttackTimer = 0f;
             isAttacking = false;
-        }
+            //ChangeAction(CombatActionEnum.None);
+        //}
        
     }
 
@@ -181,7 +234,7 @@ public class CombatState : EnemyBaseState
 
         if (swordAttackTimer >= swordAttackCooldown)
         {
-            canSwordAttack = true;
+            //canSwordAttack = true;
 
         }
 
@@ -210,6 +263,8 @@ public class CombatState : EnemyBaseState
     
     private void OnEnterSwordAttackAction()
     {
+       
+           
         
     }
 

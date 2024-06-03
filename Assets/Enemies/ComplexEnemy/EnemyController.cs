@@ -22,29 +22,20 @@ public class EnemyController : MonoBehaviour
     private DialogueBox dialogueBox;
     private ParticleSystem bloodParticles;
 
-    [HideInInspector]
-    private EnemyBaseState idleState;
-    [HideInInspector]
-    private EnemyBaseState patrolState;
-    [HideInInspector]
-    private EnemyBaseState chaseState;
-    [HideInInspector]
-    private EnemyBaseState combatState;
-    [HideInInspector]
-    private EnemyBaseState stunState;
-    [HideInInspector]
-    private EnemyBaseState jumpState;
-    [HideInInspector]
-    private EnemyBaseState turnState;
-    [HideInInspector]
-    private EnemyBaseState blockState;
+    private IdleState idleState;
+    private PatrolState patrolState;
+    private ChaseState chaseState;
+    private CombatState combatState;
+    private StunState stunState;
+    private JumpState jumpState;
+    private TurnState turnState;
+    private BlockState blockState;
 
     [HideInInspector]
     public SmartEnemyAgent agent;
     [HideInInspector]
     public EnemyAnimationManager animationManager;
-    [HideInInspector]
-    public EnemyMovement enemyMovement;
+    private EnemyMovement enemyMovement;
     [HideInInspector]
     public EnemyCollisionManager collisionManager;
 
@@ -61,6 +52,18 @@ public class EnemyController : MonoBehaviour
     private bool canChangeState = true;
     private bool canBlock = true;
 
+    public EnemyMovement EnemyMovement { get => enemyMovement; set => enemyMovement = value; }
+    public EnemyBaseState CurrentState { get => currentState; set => currentState = value; }
+    public EnemyBaseState PreviousState { get => previousState; set => previousState = value; }
+    public PatrolState PatrolState { get => patrolState; set => patrolState = value; }
+    public IdleState IdleState { get => idleState; set => idleState = value; }
+    public ChaseState ChaseState { get => chaseState; set => chaseState = value; }
+    public CombatState CombatState { get => combatState; set => combatState = value; }
+    public StunState StunState { get => stunState; set => stunState = value; }
+    public JumpState JumpState { get => jumpState; set => jumpState = value; }
+    public TurnState TurnState { get => turnState; set => turnState = value; }
+    public BlockState BlockState { get => blockState; set => blockState = value; }
+
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
         switch (stateEnum)
@@ -68,21 +71,21 @@ public class EnemyController : MonoBehaviour
             default: return null;
 
             case EnemyStateEnum.Idle:
-                return idleState;            
+                return IdleState;            
             case EnemyStateEnum.Patrol:
-                return patrolState;
+                return PatrolState;
             case EnemyStateEnum.Chase:
-                return chaseState;
+                return ChaseState;
             case EnemyStateEnum.Combat:
-                return combatState;
+                return CombatState;
             case EnemyStateEnum.Stun:
-                return stunState;
+                return StunState;
             case EnemyStateEnum.Jump:
-                return jumpState;
+                return JumpState;
             case EnemyStateEnum.Turn:
-                return turnState;
+                return TurnState;
             case EnemyStateEnum.Block:
-                return blockState;
+                return BlockState;
              
         }
     }
@@ -91,62 +94,63 @@ public class EnemyController : MonoBehaviour
     {
         if(currentStateEnum != stateEnum && canChangeState)
         {
-            //Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
+            Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
 
-            if (currentState != null)
+            if (CurrentState != null)
             {
-                currentState.OnExitState();
+                CurrentState.OnExitState();
             }
 
-            previousState = currentState;
+            PreviousState = CurrentState;
             previousStateEnum = currentStateEnum;
 
             switch (stateEnum)
             {
 
                 case EnemyStateEnum.Idle:
-                    currentState = idleState;
+                    CurrentState = IdleState;
                     break;
                 case EnemyStateEnum.Patrol:
-                    currentState = patrolState;
+                    CurrentState = PatrolState;
                     break;
                 case EnemyStateEnum.Chase:
-                    currentState = chaseState;
+                    CurrentState = ChaseState;
                     break;
                 case EnemyStateEnum.Combat:
-                    currentState = combatState;
+                   
+                    CurrentState = CombatState;
                     break;
                 case EnemyStateEnum.Stun:
-                    currentState = stunState;
+                    CurrentState = StunState;
                     break;
                 case EnemyStateEnum.Jump:
-                    currentState = jumpState;
+                    CurrentState = JumpState;
                     break;
                 case EnemyStateEnum.Turn:
-                    currentState = turnState;
+                    CurrentState = TurnState;
                     break;
                 case EnemyStateEnum.Block:
                     if (GetCanBlock())
                     {
-                        currentState = blockState;
+                        CurrentState = BlockState;
                     }
                     break;
             }
 
             currentStateEnum = stateEnum;
-            currentState.OnEnterState();
+            CurrentState.OnEnterState();
         }
         
     }
 
     public void SetCurrentState(EnemyBaseState newState)
     {
-        currentState = newState;
+        CurrentState = newState;
     }
 
     public EnemyBaseState GetCurrentState()
     {
-        return currentState;    
+        return CurrentState;    
     }
 
     public void SetCurrentStateEnum(EnemyStateEnum newStateEnum)
@@ -161,29 +165,46 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        InitialzieEnemyState();
 
+        
         animationManager = GetComponent<EnemyAnimationManager>();
-        enemyMovement = GetComponent<EnemyMovement>();
+        EnemyMovement = GetComponent<EnemyMovement>();
         collisionManager = GetComponent<EnemyCollisionManager>();
         agent = GetComponent<SmartEnemyAgent>();
         dialogueBox = GetComponentInChildren<DialogueBox>();
-        bloodParticles = GetComponent<ParticleSystem>();    
+        bloodParticles = GetComponent<ParticleSystem>();
+
+        InitializeEnemyState();
 
         currentStateEnum = EnemyStateEnum.Idle;
+        CurrentState = IdleState;
 
-        currentState = idleState;
+
     }
     private void Start()
     {
+
+
         ChangeState(EnemyStateEnum.Patrol);
-            
+
     }
 
     private void Update()
     {
         handleCooldowns();
 
+        if (hasSeenPlayer)
+        {
+            if(Vector2.Distance(player.transform.position,this.transform.position) < 2)
+            {
+                ChangeState(EnemyStateEnum.Combat);
+            }
+            else
+            {
+                MoveToPlayer(3);
+            }
+            
+        }
         //if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
         //{
         //    jumpState.GetComponent<JumpState>().canJump = false;
@@ -199,7 +220,7 @@ public class EnemyController : MonoBehaviour
           
         //}
 
-        currentState.HandleState();
+        CurrentState.HandleState();
 
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -219,9 +240,9 @@ public class EnemyController : MonoBehaviour
 
     private void handleCooldowns()
     {
-        combatState.GetComponent<CombatState>().ManageSwordAttackCooldown();
-        patrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
-        blockState.GetComponent<BlockState>().ManageBlockCooldown();
+        CombatState.GetComponent<CombatState>().ManageSwordAttackCooldown();
+        PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
+        BlockState.GetComponent<BlockState>().ManageBlockCooldown();
     }
 
     public void OnEnemyDamage(float value)
@@ -296,33 +317,35 @@ public class EnemyController : MonoBehaviour
         return this.canBlock;
     }
 
-
-
-    private void InitialzieEnemyState()
+    public void MoveToPlayer(float speed)
     {
-        idleState = gameObject.AddComponent<IdleState>();
-        idleState.SetStatesController(this);
+        EnemyMovement.MoveTo(this.gameObject.transform.position, player.transform.position, speed);
+    }
 
-        patrolState = gameObject.AddComponent<PatrolState>();
-        patrolState.SetStatesController(this);
+    private void InitializeEnemyState()
+    {
+        IdleState = GetComponentInChildren<IdleState>();
+        IdleState.SetStatesController(this);
 
-        chaseState = gameObject.AddComponent<ChaseState>();
-        chaseState.SetStatesController(this);
+        PatrolState = GetComponentInChildren<PatrolState>();
+        PatrolState.SetStatesController(this);
 
-        combatState = gameObject.AddComponent<CombatState>();
-        combatState.SetStatesController(this);
+        //ChaseState = GetComponentInChildren<ChaseState>();
+        //ChaseState.SetStatesController(this);
 
-        stunState = gameObject.AddComponent<StunState>();
-        stunState.SetStatesController(this);
+        CombatState = GetComponentInChildren<CombatState>();
+        CombatState.SetStatesController(this);
 
-        jumpState = gameObject.AddComponent<JumpState>();
-        jumpState.SetStatesController(this);
+        StunState = GetComponentInChildren<StunState>();
+        StunState.SetStatesController(this);
 
-        turnState = gameObject.AddComponent<TurnState>();
-        turnState.SetStatesController(this);
+        JumpState = GetComponentInChildren<JumpState>();
+        JumpState.SetStatesController(this);
 
+        TurnState = GetComponentInChildren<TurnState>();
+        TurnState.SetStatesController(this);
 
-        blockState = gameObject.AddComponent<BlockState>();
-        blockState.SetStatesController(this);
+        BlockState = GetComponentInChildren<BlockState>();
+        BlockState.SetStatesController(this);
     }
 }

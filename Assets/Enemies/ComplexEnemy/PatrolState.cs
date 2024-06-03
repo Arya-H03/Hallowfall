@@ -56,7 +56,7 @@ public class PatrolState : EnemyBaseState
 
             if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {
-                enemyController.enemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
+                enemyController.EnemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
             }
 
             else
