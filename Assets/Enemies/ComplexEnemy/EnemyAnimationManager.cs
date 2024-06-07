@@ -34,12 +34,12 @@ public class EnemyAnimationManager : MonoBehaviour
 
     public void EndSwordAttaking()
     {
-        statesManager.GetState(EnemyStateEnum.Combat).GetComponent<CombatState>().EndSwordAttack();
+        statesManager.GetState(EnemyStateEnum.SwordAttack).GetComponent<SwordAttackState>().EndSwordAttack();
     }
 
     public void BoxCastSwordAttack()
     {
-        statesManager.GetState(EnemyStateEnum.Combat).GetComponent<CombatState>().EnableBoxCastingForSwordAttack();
+        statesManager.GetState(EnemyStateEnum.SwordAttack).GetComponent<SwordAttackState>().EnableBoxCastingForSwordAttack();
     }
 
     public void BeginBlockingSword()

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class EnemyController : MonoBehaviour
 {
-
+    #region Variables
     private float maxHealth = 100;
     public float currentHealth;
 
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     private IdleState idleState;
     private PatrolState patrolState;
     private ChaseState chaseState;
-    private CombatState combatState;
+    private SwordAttackState swordAttackState;
     private StunState stunState;
     private JumpState jumpState;
     private TurnState turnState;
@@ -51,18 +51,33 @@ public class EnemyController : MonoBehaviour
     private bool isTurning = false;
     private bool canChangeState = true;
     private bool canBlock = true;
+    private bool canMove = true;
 
+    #endregion
+
+
+
+
+
+    #region Getters / Setters
     public EnemyMovement EnemyMovement { get => enemyMovement; set => enemyMovement = value; }
+
+    //Eenemy States
     public EnemyBaseState CurrentState { get => currentState; set => currentState = value; }
     public EnemyBaseState PreviousState { get => previousState; set => previousState = value; }
     public PatrolState PatrolState { get => patrolState; set => patrolState = value; }
     public IdleState IdleState { get => idleState; set => idleState = value; }
     public ChaseState ChaseState { get => chaseState; set => chaseState = value; }
-    public CombatState CombatState { get => combatState; set => combatState = value; }
+    public SwordAttackState SwordAttackState { get => swordAttackState; set => swordAttackState = value; }
     public StunState StunState { get => stunState; set => stunState = value; }
     public JumpState JumpState { get => jumpState; set => jumpState = value; }
     public TurnState TurnState { get => turnState; set => turnState = value; }
     public BlockState BlockState { get => blockState; set => blockState = value; }
+
+   
+    public bool CanMove { get => canMove; set => canMove = value; }
+
+    #endregion
 
     public EnemyBaseState GetState(EnemyStateEnum stateEnum)
     {
@@ -76,8 +91,8 @@ public class EnemyController : MonoBehaviour
                 return PatrolState;
             case EnemyStateEnum.Chase:
                 return ChaseState;
-            case EnemyStateEnum.Combat:
-                return CombatState;
+            case EnemyStateEnum.SwordAttack:
+                return SwordAttackState;
             case EnemyStateEnum.Stun:
                 return StunState;
             case EnemyStateEnum.Jump:
@@ -106,7 +121,6 @@ public class EnemyController : MonoBehaviour
 
             switch (stateEnum)
             {
-
                 case EnemyStateEnum.Idle:
                     CurrentState = IdleState;
                     break;
@@ -116,9 +130,9 @@ public class EnemyController : MonoBehaviour
                 case EnemyStateEnum.Chase:
                     CurrentState = ChaseState;
                     break;
-                case EnemyStateEnum.Combat:
+                case EnemyStateEnum.SwordAttack:
                    
-                    CurrentState = CombatState;
+                    CurrentState = SwordAttackState;
                     break;
                 case EnemyStateEnum.Stun:
                     CurrentState = StunState;
@@ -195,15 +209,20 @@ public class EnemyController : MonoBehaviour
 
         if (hasSeenPlayer)
         {
-            if(Vector2.Distance(player.transform.position,this.transform.position) < 2)
+            if(Vector2.Distance(player.transform.position,this.transform.position) < swordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
             {
-                ChangeState(EnemyStateEnum.Combat);
+                ChangeState(EnemyStateEnum.SwordAttack);
             }
+
             else
             {
-                MoveToPlayer(3);
+                if (CanMove && !isTurning)
+                {
+                    MoveToPlayer(3);
+                }
+                
             }
-            
+
         }
         //if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
         //{
@@ -240,7 +259,6 @@ public class EnemyController : MonoBehaviour
 
     private void handleCooldowns()
     {
-        CombatState.GetComponent<CombatState>().ManageSwordAttackCooldown();
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
         BlockState.GetComponent<BlockState>().ManageBlockCooldown();
     }
@@ -333,8 +351,8 @@ public class EnemyController : MonoBehaviour
         //ChaseState = GetComponentInChildren<ChaseState>();
         //ChaseState.SetStatesController(this);
 
-        CombatState = GetComponentInChildren<CombatState>();
-        CombatState.SetStatesController(this);
+        SwordAttackState = GetComponentInChildren<SwordAttackState>();
+        SwordAttackState.SetStatesController(this);
 
         StunState = GetComponentInChildren<StunState>();
         StunState.SetStatesController(this);

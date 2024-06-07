@@ -39,7 +39,7 @@ public class EnemySight : MonoBehaviour
                     {
                         enemyController.player = hit.collider.gameObject;
                         enemyController.hasSeenPlayer = true;
-                        enemyController.ChangeState(EnemyStateEnum.Combat);
+                        enemyController.ChangeState(EnemyStateEnum.SwordAttack);
                     }
                 }
 

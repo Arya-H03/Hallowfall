@@ -5,7 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using System.Runtime.CompilerServices;
 using Unity.MLAgents.Sensors;
-using static CombatState;
+using static SwordAttackState;
 
 public class SmartEnemyAgent : Agent
 {
@@ -15,7 +15,7 @@ public class SmartEnemyAgent : Agent
 
     //private EnemyController enemyController;
     //private PatrolState patrolState;
-    //private CombatState combatState;
+    //private SwordAttackState swordAttackState;
     //private TAD tad;
     //private PlayerController playerController;
 
@@ -24,7 +24,7 @@ public class SmartEnemyAgent : Agent
     //    enemyController = GetComponent<EnemyController>();
 
     //    patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
-    //    combatState = enemyController.GetState(EnemyStateEnum.Combat).GetComponent<CombatState>();
+    //    swordAttackState = enemyController.GetState(EnemyStateEnum.Combat).GetComponent<SwordAttackState>();
 
     //    playerController = target.GetComponent<PlayerController>();
     //    tad = target.GetComponent<TAD>();
@@ -43,7 +43,7 @@ public class SmartEnemyAgent : Agent
     //    enemyController.hasSeenPlayer = false;
     //    enemyController.canAttack = false;
     //    enemyController.isStuned = false;
-    //    combatState.SetIsAttacking(false);
+    //    swordAttackState.SetIsAttacking(false);
     //    enemyController.ChangeState(EnemyStateEnum.Patrol);
     //    enemyController.ResetHealth();
     //    tad.ResetHealth();
@@ -81,28 +81,28 @@ public class SmartEnemyAgent : Agent
     //            Take no action
     //            case 0:
     //            AddReward(-1f / MaxStep);
-    //            combatState.ChangeAction(CombatActionEnum.None);
+    //            swordAttackState.ChangeAction(CombatActionEnum.None);
     //            break;
     //            Move action
     //            case 1:
-    //            if (!combatState.GetIsInAttackRange())
+    //            if (!swordAttackState.GetIsInAttackRange())
     //            {
-    //                combatState.ChangeAction(CombatActionEnum.Move);
+    //                swordAttackState.ChangeAction(CombatActionEnum.Move);
     //            }
 
     //            break;
     //            Sword Attack state acions
     //            case 2:
-    //            if (combatState.GetIsInAttackRange() && combatState.GetCanSwordAttack())
+    //            if (swordAttackState.GetIsInAttackRange() && swordAttackState.GetCanSwordAttack())
     //            {
-    //                combatState.ChangeAction(CombatActionEnum.SwordAttack);
+    //                swordAttackState.ChangeAction(CombatActionEnum.SwordAttack);
     //            }
 
     //            break;
     //        case 3:
     //            if (/*enemyController.player.GetComponent<PlayerController>().isAttacking*/ tad.isAttaking && enemyController.GetCanBlock())
     //            {
-    //                combatState.ChangeAction(CombatActionEnum.Block);
+    //                swordAttackState.ChangeAction(CombatActionEnum.Block);
     //            }
 
     //            break;
@@ -144,7 +144,7 @@ public class SmartEnemyAgent : Agent
     //                if (cancelSwordAttack == 1 && playerController.isParrying)
     //                {
     //                    Debug.Log("canceled sword attack");
-    //                    combatState.CancelSwordAttack();
+    //                    swordAttackState.CancelSwordAttack();
     //                    AddReward(1f);
     //                }
     //                break;
