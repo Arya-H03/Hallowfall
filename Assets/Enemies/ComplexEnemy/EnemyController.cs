@@ -30,6 +30,7 @@ public class EnemyController : MonoBehaviour
     private JumpState jumpState;
     private TurnState turnState;
     private BlockState blockState;
+    private EnemyRangeAttackState rangeAttackState;
 
     [HideInInspector]
     public SmartEnemyAgent agent;
@@ -76,34 +77,9 @@ public class EnemyController : MonoBehaviour
 
    
     public bool CanMove { get => canMove; set => canMove = value; }
+    public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
 
     #endregion
-
-    public EnemyBaseState GetState(EnemyStateEnum stateEnum)
-    {
-        switch (stateEnum)
-        {
-            default: return null;
-
-            case EnemyStateEnum.Idle:
-                return IdleState;            
-            case EnemyStateEnum.Patrol:
-                return PatrolState;
-            case EnemyStateEnum.Chase:
-                return ChaseState;
-            case EnemyStateEnum.SwordAttack:
-                return SwordAttackState;
-            case EnemyStateEnum.Stun:
-                return StunState;
-            case EnemyStateEnum.Jump:
-                return JumpState;
-            case EnemyStateEnum.Turn:
-                return TurnState;
-            case EnemyStateEnum.Block:
-                return BlockState;
-             
-        }
-    }
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
@@ -142,6 +118,9 @@ public class EnemyController : MonoBehaviour
                     break;
                 case EnemyStateEnum.Turn:
                     CurrentState = TurnState;
+                    break;
+                case EnemyStateEnum.RangeAttack:
+                    CurrentState = RangeAttackState;
                     break;
                 case EnemyStateEnum.Block:
                     if (GetCanBlock())
@@ -209,7 +188,7 @@ public class EnemyController : MonoBehaviour
 
         if (hasSeenPlayer)
         {
-            if(Vector2.Distance(player.transform.position,this.transform.position) < swordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
+            if(Vector2.Distance(player.transform.position,this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
             {
                 ChangeState(EnemyStateEnum.SwordAttack);
             }
@@ -253,7 +232,7 @@ public class EnemyController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ChangeState(EnemyStateEnum.Idle);
+            ChangeState(EnemyStateEnum.RangeAttack);
         }
     }
 
@@ -365,5 +344,8 @@ public class EnemyController : MonoBehaviour
 
         BlockState = GetComponentInChildren<BlockState>();
         BlockState.SetStatesController(this);
+
+        RangeAttackState = GetComponentInChildren<EnemyRangeAttackState>();
+        RangeAttackState.SetStatesController(this);
     }
 }

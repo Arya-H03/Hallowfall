@@ -85,7 +85,7 @@ public class KnightAttack : MonoBehaviour
 
             GameObject player = hit.collider.gameObject;
             player.GetComponent<Player>().OnTakingDamage(HeavyAttackDamage);
-            player.GetComponent<Player>().OnKnockBack(new Vector2(10, 10),this.transform.position.x);
+            //player.GetComponent<Player>().OnKnockBack(new Vector2(10, 10),this.transform.position.x);
 
 
         }

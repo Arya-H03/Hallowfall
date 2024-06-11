@@ -45,12 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c63a5a0612ca9347912d9a9e943a92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentActionEnum: 0
-  swordAttackTimer: 0
   attackRange: 2
   canSwordAttack: 1
-  isInAttackRange: 0
-  isAttacking: 0
+  isSwordAttaking: 0
 --- !u!1 &562305948115728679
 GameObject:
   m_ObjectHideFlags: 0
@@ -5607,6 +5604,7 @@ Transform:
   - {fileID: 6430879234964166417}
   - {fileID: 432148715196767428}
   - {fileID: 5747743646683356573}
+  - {fileID: 2258809130816478191}
   m_Father: {fileID: 5694514087690277655}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6806204468716761585
@@ -5700,6 +5698,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc17df7a2170448a93af05ea255478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6837410964766635505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2258809130816478191}
+  - component: {fileID: 189630703437402519}
+  m_Layer: 6
+  m_Name: RangeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2258809130816478191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837410964766635505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2073937387420834073}
+  m_Father: {fileID: 4565898346902885754}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &189630703437402519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837410964766635505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b46b23e9888fb340a715e34555dbc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeAttackCooldown: 6
+  attackRange: 2
+  canRangeAttack: 1
+  isRangeAttaking: 0
+  projectilePrefab: {fileID: 4695792340402279350, guid: a3f9f1f2fa7562147b8c8bfb57593bd7, type: 3}
+  projectileSpawnTransform: {fileID: 2073937387420834073}
+--- !u!1 &7175009753310620142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2073937387420834073}
+  m_Layer: 6
+  m_Name: ProjectileSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2073937387420834073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175009753310620142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.484, y: 0.173, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2258809130816478191}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7988220005301885324
 GameObject:
   m_ObjectHideFlags: 0

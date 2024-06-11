@@ -19,11 +19,7 @@ public class ParryShield : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (collision.CompareTag("Projectile"))
-        {
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = collision.gameObject.GetComponent<Rigidbody2D>().velocity * -1; 
-            playerRB.velocity = new Vector2(playerRB.velocity.x - 3f, playerRB.velocity.y);
-        }
+
     }
 
     public void OnSuccessfulParry()

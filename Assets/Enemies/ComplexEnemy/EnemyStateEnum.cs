@@ -9,8 +9,10 @@ public enum EnemyStateEnum
     Patrol,
     Chase,
     SwordAttack,
+    RangeAttack,
     Stun,
     Turn,
     Jump,
-    Block
+    Block,
+
 }

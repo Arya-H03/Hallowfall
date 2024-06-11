@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyAnimationManager : MonoBehaviour
 {
     private Animator animator;
-    private EnemyController statesManager;
+    private EnemyController enemyController;
 
 
     private void Awake()
     {
-        statesManager = GetComponent<EnemyController>(); 
+        enemyController = GetComponent<EnemyController>(); 
         animator = GetComponent<Animator>();
     }
     public void SetBoolForAnimation(string name, bool value)
@@ -28,22 +28,22 @@ public class EnemyAnimationManager : MonoBehaviour
     public void EndTurningAnimation()
     {
 
-        statesManager.EnemyMovement.OnEnemyEndTurning();
+        enemyController.EnemyMovement.OnEnemyEndTurning();
         
     }
 
     public void EndSwordAttaking()
     {
-        statesManager.GetState(EnemyStateEnum.SwordAttack).GetComponent<SwordAttackState>().EndSwordAttack();
+        enemyController.SwordAttackState.EndSwordAttack();
     }
 
     public void BoxCastSwordAttack()
     {
-        statesManager.GetState(EnemyStateEnum.SwordAttack).GetComponent<SwordAttackState>().EnableBoxCastingForSwordAttack();
+        enemyController.SwordAttackState.EnableBoxCastingForSwordAttack();
     }
 
     public void BeginBlockingSword()
     {
-        statesManager.GetState(EnemyStateEnum.Block).GetComponent<BlockState>().BeginBlockingSword();
+        enemyController.BlockState.BeginBlockingSword();
     }
 }

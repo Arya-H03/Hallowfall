@@ -55,7 +55,7 @@ public class SwordAttack : MonoBehaviour
 
             if (hit.collider.CompareTag("ParryShield") == true)
             {
-                Debug.Log("Parry");
+
                 GameObject parryShield = hit.collider.gameObject;
                 enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
                 enemyStatesManager.ChangeState(EnemyStateEnum.Stun);

@@ -125,18 +125,18 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void OnKnockBack(Vector2 launchVector,float enemyXpos)
-    {
-        if(this.transform.position.x - enemyXpos < 0)
-        {
-            controller.rb.velocity += new Vector2(- launchVector.x, launchVector.y);
-        }
-        else
-        {
-            controller.rb.velocity += new Vector2(launchVector.x, launchVector.y);
-        }
+    //public void OnKnockBack(Vector2 launchVector,float enemyXpos)
+    //{
+    //    if(this.transform.position.x - enemyXpos < 0)
+    //    {
+    //        controller.rb.velocity += new Vector2(- launchVector.x, launchVector.y);
+    //    }
+    //    else
+    //    {
+    //        controller.rb.velocity += new Vector2(launchVector.x, launchVector.y);
+    //    }
         
-    }
+    //}
 
     private void ChangeShader()
     {
