@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c63a5a0612ca9347912d9a9e943a92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesEnum: 0
   attackRange: 2
   canSwordAttack: 1
   isSwordAttaking: 0
@@ -691,6 +692,8 @@ MonoBehaviour:
   canAttack: 0
   isStuned: 0
   isJumping: 0
+  enemyAbilities: 0000000001000000
+  availableAbilities: 
 --- !u!114 &6821075965711832479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5743,6 +5746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b46b23e9888fb340a715e34555dbc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesEnum: 1
   rangeAttackCooldown: 6
   attackRange: 2
   canRangeAttack: 1

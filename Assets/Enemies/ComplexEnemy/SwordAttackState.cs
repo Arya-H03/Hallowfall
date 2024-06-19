@@ -10,7 +10,9 @@ using UnityEngine;
 
 public class SwordAttackState : EnemyBaseState
 {
-  
+
+    [SerializeField] private EnemyAbilitiesEnum abilitiesEnum;
+
     private float swordAttackCooldown = 4f;
 
     [SerializeField] private float attackRange = 2f;
@@ -58,7 +60,8 @@ public class SwordAttackState : EnemyBaseState
 
     private IEnumerator SwordAttackCoroutine()
     {
-        
+
+        enemyController.MakeAbilityUnavailable(abilitiesEnum);
         CanSwordAttack = false;
         IsSwordAttaking = true;
         enemyController.CanMove = false;

@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Barracuda;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
@@ -54,6 +56,12 @@ public class EnemyController : MonoBehaviour
     private bool canBlock = true;
     private bool canMove = true;
 
+    [SerializeField] private List<EnemyAbilitiesEnum> enemyAbilities = new List<EnemyAbilitiesEnum>();
+
+    [SerializeField] private List<EnemyAbilitiesEnum> availableAbilities = new List<EnemyAbilitiesEnum>();
+
+    private Dictionary<EnemyAbilitiesEnum,bool> enemyAbilityDictionary = new Dictionary<EnemyAbilitiesEnum, bool>();
+
     #endregion
 
 
@@ -78,6 +86,7 @@ public class EnemyController : MonoBehaviour
    
     public bool CanMove { get => canMove; set => canMove = value; }
     public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
+    public Dictionary<EnemyAbilitiesEnum, bool> EnemyAbilityDictionary { get => enemyAbilityDictionary; set => enemyAbilityDictionary = value; }
 
     #endregion
 
@@ -169,6 +178,8 @@ public class EnemyController : MonoBehaviour
 
         InitializeEnemyState();
 
+
+     
         currentStateEnum = EnemyStateEnum.Idle;
         CurrentState = IdleState;
 
@@ -177,30 +188,84 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
 
-
+        foreach (var ability in enemyAbilities)
+        {
+            EnemyAbilityDictionary.Add(ability,true);
+            MakeAbilityAvailable(ability);
+        }
         ChangeState(EnemyStateEnum.Patrol);
 
     }
 
+    private void HandleAbilityAvailabilityChecks()
+    {
+        if(Vector2.Distance(player.transform.position, this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
+        {
+            Debug.Log("Sword Attack is available");
+            MakeAbilityAvailable(EnemyAbilitiesEnum.SwordAttack);
+            
+        }
+
+        else if (Vector2.Distance(player.transform.position, this.transform.position) < RangeAttackState.AttackRange && Vector2.Distance(player.transform.position, this.transform.position) > 5 && RangeAttackState.CanRangeAttack && !RangeAttackState.IsRangeAttaking)
+        {
+            MakeAbilityAvailable(EnemyAbilitiesEnum.RangeAttack);
+        }
+    }
+
+    private void MakeAbilityAvailable(EnemyAbilitiesEnum abilitiesEnum)
+    {
+        enemyAbilityDictionary[abilitiesEnum] = true;
+        availableAbilities.Add(abilitiesEnum);
+    }
+
+    public void MakeAbilityUnavailable(EnemyAbilitiesEnum abilitiesEnum)
+    {
+        enemyAbilityDictionary[abilitiesEnum] = false;
+        availableAbilities.Remove(abilitiesEnum);   
+    }
+
+    private EnemyAbilitiesEnum GetAttack()
+    {
+        return availableAbilities[availableAbilities.Count - 1];
+    }
     private void Update()
     {
         handleCooldowns();
 
+
         if (hasSeenPlayer)
         {
-            if(Vector2.Distance(player.transform.position,this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
-            {
-                ChangeState(EnemyStateEnum.SwordAttack);
-            }
 
-            else
+            HandleAbilityAvailabilityChecks();
+            //if(Vector2.Distance(player.transform.position,this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
+            //{
+            //    ChangeState(EnemyStateEnum.SwordAttack);
+            //}
+
+            //else
+            //{
+
+            if (availableAbilities.Count > 0)
             {
-                if (CanMove && !isTurning)
+                int index = Random.Range(0, availableAbilities.Count);
+
+                if (availableAbilities[index] == EnemyAbilitiesEnum.SwordAttack)
+                {
+                    ChangeState(EnemyStateEnum.SwordAttack);
+                }
+                else if (availableAbilities[index] == EnemyAbilitiesEnum.RangeAttack)
+                {
+                    ChangeState(EnemyStateEnum.RangeAttack);
+                }
+            }
+           
+
+            else if (CanMove && !isTurning)
                 {
                     MoveToPlayer(3);
                 }
                 
-            }
+            //}
 
         }
         //if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)

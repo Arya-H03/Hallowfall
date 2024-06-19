@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyRangeAttackState : EnemyBaseState
 {
+    [SerializeField] private EnemyAbilitiesEnum abilitiesEnum;
+
     [SerializeField] private float rangeAttackCooldown = 6f;
 
     [SerializeField] private float attackRange = 2f;
@@ -33,7 +35,8 @@ public class EnemyRangeAttackState : EnemyBaseState
 
     public override void OnExitState()
     {
-
+        IsRangeAttaking = false;
+        enemyController.CanMove = true;
     }
 
     public override void HandleState()
@@ -44,7 +47,7 @@ public class EnemyRangeAttackState : EnemyBaseState
 
     private IEnumerator RangeAttackCoroutine()
     {
-
+        enemyController.MakeAbilityUnavailable(abilitiesEnum);
         CanRangeAttack = false;
         IsRangeAttaking = true;
         enemyController.CanMove = false;
@@ -54,11 +57,11 @@ public class EnemyRangeAttackState : EnemyBaseState
         proj.EnemyController = enemyController;
         proj.SetVelocity(enemyController.player.transform.position);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.25f);
         enemyController.ChangeState(EnemyStateEnum.Idle);
 
         yield return new WaitForSeconds(rangeAttackCooldown);
         CanRangeAttack = true;
-        enemyController.CanMove = true;
+        //enemyController.CanMove = true;
     }
 }
