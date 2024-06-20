@@ -91,8 +91,8 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-    public void PlayRunningSound()
+    public void SetPlayerFallStatus()
     {
-        //playerController.FootSteps.PlayRunSFX();
+        playerController.PlayerJumpState.SetPlayerFallStatus();
     }
 }

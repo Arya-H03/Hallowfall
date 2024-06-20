@@ -81,28 +81,35 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         if (isJumping)
         {
-            playerController.rb.gravityScale = 0.2f;
+            playerController.rb.gravityScale = 0.5f;
             playerController.rb.velocity = Vector2.zero;
             playerController.AnimationController.SetBoolForAnimations("isJumping",false);
+            playerController.AnimationController.SetBoolForAnimations("isFalling", false);
+            playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
+        }
+
+        else
+        {
+            switch (attackType)
+            {
+
+                case SwordAttackTypeEnum.Slash:
+                    playerController.AnimationController.SetTriggerForAnimations("Slash");
+
+                    break;
+                case SwordAttackTypeEnum.Stab:
+                    playerController.AnimationController.SetTriggerForAnimations("Stab");
+                    break;
+                case SwordAttackTypeEnum.Chop:
+                    playerController.AnimationController.SetTriggerForAnimations("Chop");
+                    break;
+
+            }
         }
 
         playerController.IsAttacking = true;
 
-        switch (attackType)
-        {
-
-            case SwordAttackTypeEnum.Slash:
-                playerController.AnimationController.SetTriggerForAnimations("Slash");
-
-                break;
-            case SwordAttackTypeEnum.Stab:
-                playerController.AnimationController.SetTriggerForAnimations("Stab");
-                break;
-            case SwordAttackTypeEnum.Chop:
-                playerController.AnimationController.SetTriggerForAnimations("Chop");
-                break;
-
-        }
+        
 
         
 

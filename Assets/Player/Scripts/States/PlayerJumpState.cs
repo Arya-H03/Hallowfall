@@ -29,6 +29,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void OnExitState()
     {
         playerController.AnimationController.SetBoolForAnimations("isJumping", false);
+        playerController.AnimationController.SetBoolForAnimations("isLanding", false);
     }
 
     public override void HandleState()
@@ -69,5 +70,10 @@ public class PlayerJumpState : PlayerBaseState
         {
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
+    }
+
+    public void SetPlayerFallStatus()
+    {
+        playerController.AnimationController.SetBoolForAnimations("isFalling", true);
     }
 }

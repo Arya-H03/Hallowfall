@@ -254,6 +254,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Size.x
+      value: 0.84375
+      objectReference: {fileID: 0}
+    - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5625
+      objectReference: {fileID: 0}
+    - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4723107735738678597, guid: 221e8f1fbdfe8044d8fbed4b0a7c4989, type: 3}
@@ -9187,15 +9195,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_Size.y
-      value: 0.66728663
+      value: 0.54835916
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_Offset.x
-      value: 0.011174202
+      value: 0.011173248
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_Offset.y
-      value: 0.04112947
+      value: -0.01833427
       objectReference: {fileID: 0}
     - target: {fileID: 2125026987991123641, guid: 61f2b58eeb6349d48862de5965f8a612, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -12570,7 +12578,7 @@ MonoBehaviour:
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000cf60acc1
-  m_LightCookieSprite: {fileID: 0}
+  m_LightCookieSprite: {fileID: -9037724387597929990, guid: 3437e9f21c60751479b164931268acb8, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
@@ -12585,8 +12593,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0, y: -0.00000011920929, z: 0}
-    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0.11, y: 0.27, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
