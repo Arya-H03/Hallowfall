@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,13 +8,13 @@ public class PlayerFootSteps : MonoBehaviour
     [SerializeField] GameManager gameManager;
     private enum FloorType
     {
-        ground,
-        grass,
-        wood
+        Ground,
+        Grass,
+        Wood
     }
 
-    private FloorType currentFloorType = FloorType.ground;
-    
+    private FloorType currentFloorType = FloorType.Ground;
+
     [SerializeField] GameObject runEffect;
     private ParticleSystem footstepPS;
 
@@ -23,7 +22,8 @@ public class PlayerFootSteps : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer;
 
-    private float footstepStartPosition;
+    private float footstepStartTime;
+
     [SerializeField] AudioSource footstepAudioSource;
     [SerializeField] AudioClip groundClip;
     [SerializeField] AudioClip grassClip;
@@ -33,108 +33,88 @@ public class PlayerFootSteps : MonoBehaviour
 
     [SerializeField] private string[] floorTags = { "Ground", "Grass", "Wood" };
 
+    private Dictionary<string, (FloorType floorType, AudioClip clip)> floorTypeMapping;
+
     private void Awake()
     {
         footstepPS = GetComponent<ParticleSystem>();
         playerController = GetComponentInParent<PlayerController>();
+
+        // Initialize the floor type mapping
+        floorTypeMapping = new Dictionary<string, (FloorType, AudioClip)>
+        {
+            { "Grass", (FloorType.Grass, grassClip) },
+            { "Ground", (FloorType.Ground, groundClip) },
+            { "Wood", (FloorType.Wood, woodClip) }
+        };
+    }
+
+    private void FixedUpdate()
+    {
+        GroundCheckForFloorType();
+        EndingJumpGroundCheck();
     }
     public void OnStartPlayerFootstep()
     {
         if (!footstepAudioSource.isPlaying)
         {
-            footstepAudioSource.time = footstepStartPosition;
+            footstepAudioSource.time = footstepStartTime;
             footstepAudioSource.Play();
             footstepPS.Play();
         }
-        //runEffect.SetActive(true);
-
-        
     }
 
     public void OnEndPlayerFootstep()
     {
-        footstepStartPosition = footstepAudioSource.time;
+        footstepStartTime = footstepAudioSource.time;
         footstepAudioSource.Stop();
         footstepPS.Stop();
-        //runEffect.SetActive(true);
     }
-
-    //public void ResumeFootsteps()
-    //{
-    //    footstepAudioSource.time = footstepStartPosition;
-    //    footstepAudioSource.Play();
-    //    footstepPS.Play();
-    //}
 
     private void EndingJumpGroundCheck()
     {
-      
-        if (playerController.IsPlayerJumping && playerController.rb.velocity.y <0)
+        if (playerController.IsPlayerJumping && playerController.rb.velocity.y < 0)
         {
-            RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down, 0.1f, groundLayer);
-            Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 0.1f, Color.red);
-            if(rayCast)
+            RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down, 0.25f, groundLayer);
+            //Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 0.1f, Color.red);
+            if (rayCast)
             {
-                foreach(string tag in floorTags)
+                
+                foreach (string tag in floorTags)
                 {
-                    if(rayCast.collider.CompareTag(tag))
+                    
+                    if (rayCast.collider.CompareTag(tag))
                     {
                         playerController.AnimationController.SetTriggerForAnimations("Land");
                         playerController.PlayerJumpState.EndJump();
                         return;
                     }
                 }
-                
             }
         }
-        
     }
-    private void CheckGround()
+
+    private void GroundCheckForFloorType()
     {
-        
-        RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down,1f, groundLayer);
-        //Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down *1f, Color.red);
+        RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down, 1f, groundLayer);
+        // Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 1f, Color.red);
 
         if (rayCast)
         {
-            if (currentFloorType != FloorType.grass && rayCast.collider.CompareTag("Grass"))
+            var tag = rayCast.collider.tag;
+            if (floorTypeMapping.TryGetValue(tag, out var floorInfo))
             {
-                footstepAudioSource.Stop();
-                footstepStartPosition = 0;
-                currentFloorType = FloorType.grass;
-                footstepAudioSource.clip = grassClip;
-                footstepAudioSource.Play();
-                
-            }
-
-            else if (currentFloorType != FloorType.ground && rayCast.collider.CompareTag("Ground"))
-            {
-
-                footstepAudioSource.Stop();
-                footstepStartPosition = 0;
-                currentFloorType = FloorType.ground;
-                footstepAudioSource.clip = groundClip;
-                footstepAudioSource.Play();
-            }
-
-            else if (currentFloorType != FloorType.wood && rayCast.collider.CompareTag("Wood"))
-            {
-                footstepAudioSource.Stop();
-                footstepStartPosition = 0;
-                currentFloorType = FloorType.wood;
-                footstepAudioSource.clip = woodClip;
-                footstepAudioSource.Play();
-              
+                if (currentFloorType != floorInfo.floorType)
+                {
+                    footstepAudioSource.Stop();
+                    footstepStartTime = 0;
+                    currentFloorType = floorInfo.floorType;
+                    footstepAudioSource.clip = floorInfo.clip;
+                    footstepAudioSource.Play();
+                }
             }
         }
-        
-        
-        
     }
 
-    private void FixedUpdate()
-    {
-        CheckGround();
-        EndingJumpGroundCheck();
-    }
+   
 }

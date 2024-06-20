@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private PlayerParryState playerParryState;
 
 
-    [SerializeField] PlayerFootSteps footSteps;
+    private PlayerFootSteps footSteps;
 
     #region Getters / Setters
 
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
     public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
     public Player Player { get => player; set => player = value; }
+    public PlayerFootSteps FootSteps { get => footSteps; set => footSteps = value; }
 
     #endregion
     private void Awake()
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
         Player = GetComponent<Player>();
+        footSteps = GetComponentInChildren<PlayerFootSteps>();  
 
         
        

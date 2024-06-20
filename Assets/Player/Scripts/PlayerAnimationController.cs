@@ -90,4 +90,9 @@ public class PlayerAnimationController : MonoBehaviour
             }      
         }
     }
+
+    public void PlayRunningSound()
+    {
+        //playerController.FootSteps.PlayRunSFX();
+    }
 }
