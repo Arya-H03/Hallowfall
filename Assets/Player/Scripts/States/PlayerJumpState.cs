@@ -48,7 +48,8 @@ public class PlayerJumpState : PlayerBaseState
         playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
 
         playerController.GameManager.PlayAudio(audioSource, jumpUpAC);
-        playerController.AnimationController.SetBoolForAnimations("isJumping", true);
+        //playerController.AnimationController.SetBoolForAnimations("isJumping", true);
+        playerController.AnimationController.SetTriggerForAnimations("JumpUp");
     }
 
     public void EndJump()
@@ -58,7 +59,7 @@ public class PlayerJumpState : PlayerBaseState
         playerController.CanPlayerJump = true;
 
         playerController.GameManager.PlayAudio(audioSource, groundHitAC);
-        playerController.AnimationController.SetBoolForAnimations("isJumping", false);
+        //playerController.AnimationController.SetBoolForAnimations("isJumping", false);
 
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {

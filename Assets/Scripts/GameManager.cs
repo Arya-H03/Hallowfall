@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         //MyFunction func = EndPlayerDistortion;
         //StartCoroutine(CallFunctionByDelay(func, 4));
 
-        SpawnEnemy();
+        //SpawnEnemy();
 
     }
 

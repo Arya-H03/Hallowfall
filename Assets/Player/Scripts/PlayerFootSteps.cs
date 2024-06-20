@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerFootSteps : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class PlayerFootSteps : MonoBehaviour
     [SerializeField] AudioClip woodClip;
 
     [SerializeField] GameObject rayCatPosition;
+
+    [SerializeField] private string[] floorTags = { "Ground", "Grass", "Wood" };
 
     private void Awake()
     {
@@ -63,35 +66,34 @@ public class PlayerFootSteps : MonoBehaviour
     //    footstepPS.Play();
     //}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void EndingJumpGroundCheck()
     {
-        if (playerController.IsPlayerJumping == true)
+      
+        if (playerController.IsPlayerJumping && playerController.rb.velocity.y <0)
         {
-            if (currentFloorType == FloorType.grass && collision.CompareTag("Grass"))
+            RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down, 0.1f, groundLayer);
+            Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 0.1f, Color.red);
+            if(rayCast)
             {
-
-                playerController.PlayerJumpState.EndJump();
-
+                foreach(string tag in floorTags)
+                {
+                    if(rayCast.collider.CompareTag(tag))
+                    {
+                        playerController.AnimationController.SetTriggerForAnimations("Land");
+                        playerController.PlayerJumpState.EndJump();
+                        return;
+                    }
+                }
+                
             }
-
-            else if(currentFloorType == FloorType.ground && collision.CompareTag("Ground"))
-            {
-                playerController.PlayerJumpState.EndJump();
-            }
-
-            else if (currentFloorType == FloorType.wood && collision.CompareTag("Wood"))
-            {
-                playerController.PlayerJumpState.EndJump();
-            }
-
-
         }
+        
     }
     private void CheckGround()
     {
         
         RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down,1f, groundLayer);
-        Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 1f, Color.red);
+        //Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down *1f, Color.red);
 
         if (rayCast)
         {
@@ -133,6 +135,6 @@ public class PlayerFootSteps : MonoBehaviour
     private void FixedUpdate()
     {
         CheckGround();
-
+        EndingJumpGroundCheck();
     }
 }

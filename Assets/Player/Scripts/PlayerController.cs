@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerJumping = false;
     [SerializeField] private bool canPlayerAttack = true;
     [SerializeField] private bool isParrying  = false;
-    [SerializeField] private bool hasSword = false;
+    [SerializeField] private bool hasSword = true;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
 
@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviour
     {
         if (HasSword && !IsAttacking)
         {
+            Debug.Log("Attack");
             PlayerSwordAttackState.AttackType = attackType;
             ChangeState(PlayerStateEnum.SwordAttack);
         }
