@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack1",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "76f069b6-837a-4ffc-a19c-bfa507f23bee",
                     "expectedControlType": "Button",
@@ -72,6 +72,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "03eeb33b-53a4-47a3-8659-55f0a29ea347",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondAttack",
+                    "type": "Button",
+                    "id": "b5ac8a19-383a-4e98-92c6-31cf981ed85c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -148,11 +157,11 @@
                 {
                     "name": "",
                     "id": "5444f798-8cf7-4f6d-a1df-7314df091f50",
-                    "path": "<Keyboard>/1",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack1",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -208,6 +217,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1e6c1e1-5c3e-4c35-b197-55f7a0ce93c7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap(tapDelay=0.7)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

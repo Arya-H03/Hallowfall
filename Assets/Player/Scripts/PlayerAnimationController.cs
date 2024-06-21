@@ -57,19 +57,14 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
    
-    public void BoxCastForSlash()
+    public void BoxCastForFirstAttackSwing()
     {
-        playerController.PlayerSwordAttackState.SlashAttack();
+        playerController.PlayerSwordAttackState.FirstSwingAttack();
     }
 
-    public void BoxCastForStab()
+    public void BoxCastForSecondAttackSwing()
     {
-        playerController.PlayerSwordAttackState.StabAttack();
-    }
-
-    public void BoxCastForChop()
-    {
-        playerController.PlayerSwordAttackState.ChopAttack();
+        playerController.PlayerSwordAttackState.SecondSwingAttack();
     }
     public void OnParryEnd()
     {
@@ -95,4 +90,6 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerController.PlayerJumpState.SetPlayerFallStatus();
     }
+
+    
 }

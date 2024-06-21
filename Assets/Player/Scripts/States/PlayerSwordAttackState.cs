@@ -6,8 +6,8 @@ public class PlayerSwordAttackState : PlayerBaseState
 {
     public enum SwordAttackTypeEnum
     {
-        Slash,
-        Stab,
+        firstSwing,
+        secondSwing,
         Chop
     }
 
@@ -24,12 +24,12 @@ public class PlayerSwordAttackState : PlayerBaseState
     //[SerializeField] Vector2 size; // Size of the box in 2D
     //[SerializeField] Transform loc; // Distance for the boxcast in 2D
 
-    [SerializeField] GameObject slashEffect;
-    [SerializeField] GameObject stabEffect;
+    [SerializeField] GameObject firstSwingEffect;
+    [SerializeField] GameObject secondSwingEffect;
     [SerializeField] GameObject chopEffect;
 
-    [SerializeField] int slashDamage = 10;
-    [SerializeField] int stabDamage = 20;
+    [SerializeField] int firstSwingDamage = 10;
+    [SerializeField] int secondSwingDamage = 20;
     [SerializeField] int chopDamage = 30;
 
 
@@ -56,7 +56,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
-        StartAttack(playerController.IsPlayerJumping, AttackType);
+        StartAttack(playerController.IsPlayerJumping);
         
     }
 
@@ -77,11 +77,11 @@ public class PlayerSwordAttackState : PlayerBaseState
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void StartAttack(bool isJumping, SwordAttackTypeEnum attackType)
+    public void StartAttack(bool isJumping)
     {
         if (isJumping)
         {
-            playerController.rb.gravityScale = 0.5f;
+            playerController.rb.gravityScale = 0.75f;
             playerController.rb.velocity = Vector2.zero;
             playerController.AnimationController.SetBoolForAnimations("isJumping",false);
             playerController.AnimationController.SetBoolForAnimations("isFalling", false);
@@ -89,22 +89,8 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
 
         else
-        {
-            switch (attackType)
-            {
-
-                case SwordAttackTypeEnum.Slash:
-                    playerController.AnimationController.SetTriggerForAnimations("Slash");
-
-                    break;
-                case SwordAttackTypeEnum.Stab:
-                    playerController.AnimationController.SetTriggerForAnimations("Stab");
-                    break;
-                case SwordAttackTypeEnum.Chop:
-                    playerController.AnimationController.SetTriggerForAnimations("Chop");
-                    break;
-
-            }
+        {            
+                    playerController.AnimationController.SetTriggerForAnimations("Attack");         
         }
 
         playerController.IsAttacking = true;
@@ -115,6 +101,11 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         
 
+    }
+
+    public void DoubleSwing()
+    {
+        playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
     }
 
     public void EndAttack()
@@ -191,12 +182,12 @@ public class PlayerSwordAttackState : PlayerBaseState
         return launchVector;
     }
 
-    private Vector2 ChopLaunchVector(RaycastHit2D hit)
-    {
-        Vector2 launchVector = new Vector2(4f, 0);
-        return launchVector;
-    }
-    public void SlashAttack()
+    //private Vector2 ChopLaunchVector(RaycastHit2D hit)
+    //{
+    //    Vector2 launchVector = new Vector2(4f, 0);
+    //    return launchVector;
+    //}
+    public void FirstSwingAttack()
     {
         RaycastHit2D hitResult = BoxCastForAttack(attack1BoxCastPosition, attack1BoxCastSize);
         if (hitResult.collider != null)
@@ -209,7 +200,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
             else if (hitResult.collider.CompareTag("Enemy"))
             {
-                OnEnemyHit(hitResult, SlashLaunchVector(hitResult), slashDamage);
+                OnEnemyHit(hitResult, SlashLaunchVector(hitResult), firstSwingDamage);
             }
 
 
@@ -219,11 +210,11 @@ public class PlayerSwordAttackState : PlayerBaseState
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
         }
 
-        HandelSlashEffect(slashEffect, attack1BoxCastPosition.position);
+        HandelSlashEffect(firstSwingEffect, attack1BoxCastPosition.position);
 
     }
 
-    public void StabAttack()
+    public void SecondSwingAttack()
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(attack2BoxCastPosition, attack2BoxCastSize);
@@ -237,7 +228,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
             else if (hitResult.collider.CompareTag("Enemy"))
             {
-                OnEnemyHit(hitResult, StabLaunchVector(hitResult), stabDamage);
+                OnEnemyHit(hitResult, StabLaunchVector(hitResult), secondSwingDamage);
             }
         }
 
@@ -245,35 +236,35 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
         }
-        HandelSlashEffect(stabEffect, attack2BoxCastPosition.position + new Vector3(1, 0.35f, 0));
+        HandelSlashEffect(secondSwingEffect, attack2BoxCastPosition.position + new Vector3(1, 0.35f, 0));
     }
 
-    public void ChopAttack()
-    {
-        RaycastHit2D hitResult = BoxCastForAttack(attack3BoxCastPosition, attack3BoxCastSize);
+    //public void ChopAttack()
+    //{
+    //    RaycastHit2D hitResult = BoxCastForAttack(attack3BoxCastPosition, attack3BoxCastSize);
 
-        if (hitResult.collider != null)
-        {
-            if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                OnSwordAttackBlockedByEnemy(hitResult);
-            }
+    //    if (hitResult.collider != null)
+    //    {
+    //        if (hitResult.collider.CompareTag("EnemySwordBlock"))
+    //        {
+    //            OnSwordAttackBlockedByEnemy(hitResult);
+    //        }
 
-            else if (hitResult.collider.CompareTag("Enemy"))
-            {
+    //        else if (hitResult.collider.CompareTag("Enemy"))
+    //        {
 
-                OnEnemyHit(hitResult, ChopLaunchVector(hitResult), chopDamage);
-            }
-        }
+    //            OnEnemyHit(hitResult, ChopLaunchVector(hitResult), chopDamage);
+    //        }
+    //    }
 
-        else
-        {
-            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
-        }
+    //    else
+    //    {
+    //        audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+    //    }
 
-        HandelSlashEffect(chopEffect, attack3BoxCastPosition.position);
+    //    HandelSlashEffect(chopEffect, attack3BoxCastPosition.position);
 
-    }
+    //}
 
     private RaycastHit2D BoxCastForAttack(Transform centerPoint, Vector2 boxSize)
     {

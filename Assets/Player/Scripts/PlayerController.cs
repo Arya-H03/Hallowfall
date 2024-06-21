@@ -164,12 +164,11 @@ public class PlayerController : MonoBehaviour
         }     
     }
 
-    public void OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum attackType)
+    public void OnSwordAttack()
     {
         if (HasSword && !IsAttacking)
         {
-            Debug.Log("Attack");
-            PlayerSwordAttackState.AttackType = attackType;
+    
             ChangeState(PlayerStateEnum.SwordAttack);
         }
         

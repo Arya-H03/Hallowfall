@@ -3,7 +3,7 @@ guid: 40ee457f9cb391c4097ce83aa9993dd6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -126,10 +126,10 @@ TextureImporter:
       name: vSlash1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 48
+        x: 11
+        y: 8
+        width: 41
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: vSlash1_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 48
+        x: 76
+        y: 9
+        width: 38
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: vSlash1_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 48
+        x: 136
+        y: 9
+        width: 39
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +189,10 @@ TextureImporter:
       name: vSlash1_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 48
+        x: 201
+        y: 9
+        width: 34
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,6 +221,7 @@ TextureImporter:
       vSlash1_1: 957089480
       vSlash1_2: -2103022931
       vSlash1_3: 481236314
+      vSlash1_4: 1934999387
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

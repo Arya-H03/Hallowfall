@@ -265,6 +265,26 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4723107735738678597, guid: 221e8f1fbdfe8044d8fbed4b0a7c4989, type: 3}
+    - target: {fileID: 722425004839453545, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020154551230330201, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: slash1
+      value: 
+      objectReference: {fileID: 6442735963225259504, guid: a36c0c10653f5f843b84197939211636, type: 3}
+    - target: {fileID: 2020154551230330201, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: slash2
+      value: 
+      objectReference: {fileID: 3155597501727793528, guid: 359778928ef60ce428bd37d5238ffdce, type: 3}
+    - target: {fileID: 2351773160595559634, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385162578094108744, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2938119461531993230, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Controller
       value: 
@@ -310,6 +330,14 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5528537192904865389, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.84375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528537192904865389, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.5625
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528537192904865389, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.84375
       objectReference: {fileID: 0}
@@ -317,6 +345,14 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.5625
       objectReference: {fileID: 0}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: firstSwingEffect
+      value: 
+      objectReference: {fileID: 6442735963225259504, guid: a36c0c10653f5f843b84197939211636, type: 3}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: secondSwingEffect
+      value: 
+      objectReference: {fileID: 3155597501727793528, guid: 359778928ef60ce428bd37d5238ffdce, type: 3}
     - target: {fileID: 6489539805827609009, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: gameManager
       value: 
@@ -353,6 +389,10 @@ PrefabInstance:
       propertyPath: 'footstepAudios.Array.data[6]'
       value: 
       objectReference: {fileID: 8300000, guid: 69984784aa3bde74f9cebef0ffc5a280, type: 3}
+    - target: {fileID: 7664782605408640168, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8173873571902966786, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -376,7 +416,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4784462438261045610, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
     - {fileID: 5292242841778244287, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5149124623370532217, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}

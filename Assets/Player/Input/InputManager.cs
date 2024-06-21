@@ -22,9 +22,9 @@ public class InputManager : MonoBehaviour
 
         inputActions.Guardian.Jump.performed += Jump;
 
-        inputActions.Guardian.Attack1.performed += SlashAttack;
-        inputActions.Guardian.Attack2.performed += StabAttack;
-        inputActions.Guardian.Attack3.performed += ChopAttack;
+        inputActions.Guardian.Attack.performed += FirstSwing;
+        
+        inputActions.Guardian.SecondAttack.performed += DoubleSwing;
 
         inputActions.Guardian.Parry.performed += Parry;
 
@@ -40,12 +40,13 @@ public class InputManager : MonoBehaviour
 
         inputActions.Guardian.Jump.performed -= Jump;
 
-        inputActions.Guardian.Attack1.performed -= SlashAttack;
-        inputActions.Guardian.Attack2.performed -= StabAttack;
-        inputActions.Guardian.Attack3.performed -= ChopAttack;
+        inputActions.Guardian.Attack.performed -= FirstSwing;
+    
         inputActions.Guardian.Parry.performed -= Parry;
 
         inputActions.Guardian.Pause.performed -= Pause;
+
+        inputActions.Guardian.SecondAttack.performed -= DoubleSwing;
 
         inputActions.Disable();
     }
@@ -65,19 +66,19 @@ public class InputManager : MonoBehaviour
         player.OnJumpStart();
     }
 
-    public void SlashAttack(InputAction.CallbackContext ctx)
+    public void FirstSwing(InputAction.CallbackContext ctx)
     {
-        player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Slash);
+        player.OnSwordAttack();
     }
-    public void StabAttack(InputAction.CallbackContext ctx)
-    {
-        player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Stab);
-    }
+    //public void StabAttack(InputAction.CallbackContext ctx)
+    //{
+    //    player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Stab);
+    //}
 
-    public void ChopAttack(InputAction.CallbackContext ctx)
-    {
-        player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Chop);
-    }
+    //public void ChopAttack(InputAction.CallbackContext ctx)
+    //{
+    //    player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Chop);
+    //}
 
     public void Parry(InputAction.CallbackContext ctx)
     {
@@ -87,6 +88,12 @@ public class InputManager : MonoBehaviour
     public void Pause(InputAction.CallbackContext ctx)
     {
         gameManager.OnGamePause();
+    }
+
+
+    public void DoubleSwing(InputAction.CallbackContext ctx)
+    {
+        player.PlayerSwordAttackState.DoubleSwing();
     }
 
 

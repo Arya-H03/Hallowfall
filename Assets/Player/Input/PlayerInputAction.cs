@@ -46,7 +46,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SlashAttack"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""76f069b6-837a-4ffc-a19c-bfa507f23bee"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""StabAttack"",
+                    ""name"": ""Attack2"",
                     ""type"": ""Button"",
                     ""id"": ""55693191-f4d4-4db1-9aeb-453e367276d6"",
                     ""expectedControlType"": ""Button"",
@@ -64,7 +64,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ChopAttack"",
+                    ""name"": ""Attack3"",
                     ""type"": ""Button"",
                     ""id"": ""54a9dbae-d651-4470-abfa-41d7d33feae2"",
                     ""expectedControlType"": ""Button"",
@@ -94,6 +94,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""03eeb33b-53a4-47a3-8659-55f0a29ea347"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5ac8a19-383a-4e98-92c6-31cf981ed85c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -170,11 +179,11 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5444f798-8cf7-4f6d-a1df-7314df091f50"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SlashAttack"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -196,7 +205,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""StabAttack"",
+                    ""action"": ""Attack2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -207,7 +216,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChopAttack"",
+                    ""action"": ""Attack3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -232,6 +241,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1e6c1e1-5c3e-4c35-b197-55f7a0ce93c7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""MultiTap(tapDelay=0.7)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -242,12 +262,13 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian = asset.FindActionMap("Guardian", throwIfNotFound: true);
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
-        m_Guardian_Attack1 = m_Guardian.FindAction("SlashAttack", throwIfNotFound: true);
-        m_Guardian_Attack2 = m_Guardian.FindAction("StabAttack", throwIfNotFound: true);
-        m_Guardian_Attack3 = m_Guardian.FindAction("ChopAttack", throwIfNotFound: true);
+        m_Guardian_Attack = m_Guardian.FindAction("Attack", throwIfNotFound: true);
+        m_Guardian_Attack2 = m_Guardian.FindAction("Attack2", throwIfNotFound: true);
+        m_Guardian_Attack3 = m_Guardian.FindAction("Attack3", throwIfNotFound: true);
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
         m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
+        m_Guardian_SecondAttack = m_Guardian.FindAction("SecondAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -311,24 +332,26 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private List<IGuardianActions> m_GuardianActionsCallbackInterfaces = new List<IGuardianActions>();
     private readonly InputAction m_Guardian_Movement;
     private readonly InputAction m_Guardian_Jump;
-    private readonly InputAction m_Guardian_Attack1;
+    private readonly InputAction m_Guardian_Attack;
     private readonly InputAction m_Guardian_Attack2;
     private readonly InputAction m_Guardian_Attack3;
     private readonly InputAction m_Guardian_Interact;
     private readonly InputAction m_Guardian_Parry;
     private readonly InputAction m_Guardian_Pause;
+    private readonly InputAction m_Guardian_SecondAttack;
     public struct GuardianActions
     {
         private @PlayerInputAction m_Wrapper;
         public GuardianActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Guardian_Movement;
         public InputAction @Jump => m_Wrapper.m_Guardian_Jump;
-        public InputAction @Attack1 => m_Wrapper.m_Guardian_Attack1;
+        public InputAction @Attack => m_Wrapper.m_Guardian_Attack;
         public InputAction @Attack2 => m_Wrapper.m_Guardian_Attack2;
         public InputAction @Attack3 => m_Wrapper.m_Guardian_Attack3;
         public InputAction @Interact => m_Wrapper.m_Guardian_Interact;
         public InputAction @Parry => m_Wrapper.m_Guardian_Parry;
         public InputAction @Pause => m_Wrapper.m_Guardian_Pause;
+        public InputAction @SecondAttack => m_Wrapper.m_Guardian_SecondAttack;
         public InputActionMap Get() { return m_Wrapper.m_Guardian; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -344,9 +367,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Attack1.started += instance.OnAttack1;
-            @Attack1.performed += instance.OnAttack1;
-            @Attack1.canceled += instance.OnAttack1;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
             @Attack2.started += instance.OnAttack2;
             @Attack2.performed += instance.OnAttack2;
             @Attack2.canceled += instance.OnAttack2;
@@ -362,6 +385,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @SecondAttack.started += instance.OnSecondAttack;
+            @SecondAttack.performed += instance.OnSecondAttack;
+            @SecondAttack.canceled += instance.OnSecondAttack;
         }
 
         private void UnregisterCallbacks(IGuardianActions instance)
@@ -372,9 +398,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Attack1.started -= instance.OnAttack1;
-            @Attack1.performed -= instance.OnAttack1;
-            @Attack1.canceled -= instance.OnAttack1;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
             @Attack2.started -= instance.OnAttack2;
             @Attack2.performed -= instance.OnAttack2;
             @Attack2.canceled -= instance.OnAttack2;
@@ -390,6 +416,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @SecondAttack.started -= instance.OnSecondAttack;
+            @SecondAttack.performed -= instance.OnSecondAttack;
+            @SecondAttack.canceled -= instance.OnSecondAttack;
         }
 
         public void RemoveCallbacks(IGuardianActions instance)
@@ -411,11 +440,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnAttack1(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
         void OnAttack2(InputAction.CallbackContext context);
         void OnAttack3(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnSecondAttack(InputAction.CallbackContext context);
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7584500335427638721}
   - component: {fileID: 4482378442460427541}
   m_Layer: 7
-  m_Name: SlashEffect
+  m_Name: SecondSwingEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 2, y: 1.5, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 923731560, guid: 40ee457f9cb391c4097ce83aa9993dd6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.47450984, g: 0.13725491, b: 0.23137257, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -51,12 +51,12 @@ public class PlayerAttacks : MonoBehaviour
 
             case 1:
                 //Slash
-                playerController.AnimationController.SetTriggerForAnimations("SlashAttack");
+                playerController.AnimationController.SetTriggerForAnimations("FirstSwingAttack");
                 
                 break;
                 //stab
             case 2:
-                playerController.AnimationController.SetTriggerForAnimations("StabAttack");
+                playerController.AnimationController.SetTriggerForAnimations("SecondSwingAttack");
                 break;
                 //Chop
             case 3:

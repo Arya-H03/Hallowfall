@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5530247014518663422}
   - component: {fileID: 1952124325945906896}
   m_Layer: 0
-  m_Name: ChopEffect
+  m_Name: FirstSwingEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,6 +51,8 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -144547107, guid: afa0041332c552f4f973a8ec19e12de4, type: 3}
-  m_Color: {r: 0.30588236, g: 0.8000001, b: 0.6392157, a: 1}
+  m_Color: {r: 0.5686275, g: 0.15294118, b: 0.2627451, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -115,7 +117,7 @@ Rigidbody2D:
   m_Constraints: 0
 --- !u!95 &1952124325945906896
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -129,6 +131,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
