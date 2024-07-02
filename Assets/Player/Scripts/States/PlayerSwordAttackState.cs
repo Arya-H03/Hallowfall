@@ -20,6 +20,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] PlayerFootSteps footSteps;
     private GameObject parent;
 
+    private bool canDoubleSwing =true;
+
     //For Debuging
     //[SerializeField] Vector2 size; // Size of the box in 2D
     //[SerializeField] Transform loc; // Distance for the boxcast in 2D
@@ -48,6 +50,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     [SerializeField] private float moveSpeedWhileAttaking = 2;
     public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
+    public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
 
     public PlayerSwordAttackState()
     {
@@ -90,7 +93,8 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         else
         {            
-                    playerController.AnimationController.SetTriggerForAnimations("Attack");         
+                    playerController.AnimationController.SetTriggerForAnimations("Attack");
+                    CanDoubleSwing = true;
         }
 
         playerController.IsAttacking = true;
@@ -105,7 +109,11 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     public void DoubleSwing()
     {
-        playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+        if(CanDoubleSwing) {
+            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+            CanDoubleSwing = false;
+        }
+
     }
 
     public void EndAttack()
@@ -210,7 +218,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
         }
 
-        HandelSlashEffect(firstSwingEffect, attack1BoxCastPosition.position);
+        //HandelSlashEffect(firstSwingEffect, attack1BoxCastPosition.position);
 
     }
 
@@ -236,7 +244,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
         }
-        HandelSlashEffect(secondSwingEffect, attack2BoxCastPosition.position + new Vector3(1, 0.35f, 0));
+        //HandelSlashEffect(secondSwingEffect, attack2BoxCastPosition.position + new Vector3(1, 0.35f, 0));
     }
 
     //public void ChopAttack()
