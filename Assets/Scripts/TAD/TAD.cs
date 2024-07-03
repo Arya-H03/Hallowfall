@@ -149,7 +149,7 @@ public class TAD : MonoBehaviour
 
     private void Parry()
     {
-        dialogueBox.StartDialouge(" Parry");
+        dialogueBox.StartDialouge(" Roll");
     }
 
 

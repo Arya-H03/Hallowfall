@@ -42,7 +42,9 @@ public class PlayerParryState : PlayerBaseState
         }
 
         playerController.IsParrying = true;
-        playerController.AnimationController.SetTriggerForAnimations("Parry");
+        playerController.AnimationController.SetTriggerForAnimations("Roll");
+       
+        
     }
 
     public void ActivateParryShield()

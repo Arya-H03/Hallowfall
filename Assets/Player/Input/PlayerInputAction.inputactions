@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Parry",
+                    "name": "Roll",
                     "type": "Button",
                     "id": "a86e1ee8-2e44-4ce5-95de-be242767ae25",
                     "expectedControlType": "Button",
@@ -201,11 +201,11 @@
                 {
                     "name": "",
                     "id": "ffd8e4bb-50e6-40c3-9df5-15db76b4eb8a",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Parry",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

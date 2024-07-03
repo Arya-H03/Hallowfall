@@ -36,7 +36,7 @@ public class SwordAttack : MonoBehaviour
         {
             //if (hit.collider.CompareTag("TADShield") == true)
             //{
-            //    Debug.Log("Parry");
+            //    Debug.Log("Roll");
             //    GameObject parryShield = hit.collider.gameObject;
             //    enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
             //    enemyStatesManager.ChangeState(EnemyStateEnum.Stun);

@@ -85,9 +85,8 @@ public class PlayerFootSteps : MonoBehaviour
                     
                     if (rayCast.collider.CompareTag(tag))
                     {
-                        Debug.Log("land");
+                        
                         playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-                        playerController.AnimationController.SetTriggerForAnimations("Land");
                         playerController.PlayerJumpState.EndJump();
                         return;
                     }

@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
         
         inputActions.Guardian.SecondAttack.performed += DoubleSwing;
 
-        inputActions.Guardian.Parry.performed += Parry;
+        inputActions.Guardian.Roll.performed += Roll;
 
         inputActions.Guardian.Pause.performed += Pause;   
 
@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
 
         inputActions.Guardian.Attack.performed -= FirstSwing;
     
-        inputActions.Guardian.Parry.performed -= Parry;
+        inputActions.Guardian.Roll.performed -= Roll;
 
         inputActions.Guardian.Pause.performed -= Pause;
 
@@ -80,9 +80,9 @@ public class InputManager : MonoBehaviour
     //    player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Chop);
     //}
 
-    public void Parry(InputAction.CallbackContext ctx)
+    public void Roll(InputAction.CallbackContext ctx)
     {
-        player.OnParry();
+        player.OnRoll();
     }
 
     public void Pause(InputAction.CallbackContext ctx)

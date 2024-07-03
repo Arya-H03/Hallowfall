@@ -14,7 +14,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     [SerializeField] GameObject LeftHand;
 
-    private string [] animConditions = {"isRunning","isJumping","isHit"};   
+    private string[] animConditions = { "isRunning", "isJumping", "isHit" };
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void ChangeAnimatorAC(bool hasSword)
     {
-        if(hasSword)
+        if (hasSword)
         {
             animator.runtimeAnimatorController = withSwordAC;
         }
@@ -33,12 +33,12 @@ public class PlayerAnimationController : MonoBehaviour
         {
             animator.runtimeAnimatorController = withoutSwordAC;
         }
-        
+
     }
 
-    public void SetBoolForAnimations(string name,bool value)
+    public void SetBoolForAnimations(string name, bool value)
     {
-        animator.SetBool(name,value);
+        animator.SetBool(name, value);
     }
 
     public void SetTriggerForAnimations(string name)
@@ -56,7 +56,7 @@ public class PlayerAnimationController : MonoBehaviour
         playerController.PlayerSwordAttackState.EndAttack();
     }
 
-   
+
     public void BoxCastForFirstAttackSwing()
     {
         playerController.PlayerSwordAttackState.FirstSwingAttack();
@@ -77,12 +77,12 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void EndAnimations(string name)
     {
-        foreach(string condition in animConditions)
+        foreach (string condition in animConditions)
         {
-            if(condition != name)
+            if (condition != name)
             {
                 animator.SetBool(condition, false);
-            }      
+            }
         }
     }
 
@@ -91,5 +91,10 @@ public class PlayerAnimationController : MonoBehaviour
         playerController.PlayerJumpState.SetPlayerFallStatus();
     }
 
-    
+    public void OnRollEnd()
+    {
+        playerController.PlayerRollState.OnRollEnd();
+    }
+
+
 }

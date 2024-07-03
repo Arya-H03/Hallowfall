@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem deathEffectParticle;
 
     private Player player;
+    private PlayerCollision playerCollision;
 
 
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool hasSword = true;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
+    [SerializeField] private bool isRolling = false;
 
 
     private PlayerStateEnum currentStateEnum;
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private PlayerJumpState playerJumpState;
     private PlayerSwordAttackState playerSwordAttackState;
     private PlayerParryState playerParryState;
+    private PlayerRollState playerRollState;
 
 
     private PlayerFootSteps footSteps;
@@ -71,6 +74,9 @@ public class PlayerController : MonoBehaviour
     public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
     public Player Player { get => player; set => player = value; }
     public PlayerFootSteps FootSteps { get => footSteps; set => footSteps = value; }
+    public PlayerRollState PlayerRollState { get => playerRollState; set => playerRollState = value; }
+    public PlayerCollision PlayerCollision { get => playerCollision; set => playerCollision = value; }
+    public bool IsRolling { get => isRolling; set => isRolling = value; }
 
     #endregion
     private void Awake()
@@ -79,6 +85,8 @@ public class PlayerController : MonoBehaviour
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
 
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
+
+        PlayerCollision = GetComponent<PlayerCollision>();
 
         playerAttacks = GetComponentInChildren<PlayerAttacks>();
         rb = GetComponent<Rigidbody2D>();
@@ -104,11 +112,18 @@ public class PlayerController : MonoBehaviour
         PlayerParryState = GetComponentInChildren<PlayerParryState>();
         PlayerParryState.SetOnInitializeVariables(this);
 
+        PlayerRollState = GetComponentInChildren<PlayerRollState>();    
+        PlayerRollState.SetOnInitializeVariables(this);
+
 
         CurrentStateEnum = PlayerStateEnum.Idle;
         CurrentState = PlayerIdleState;
     }
 
+    private void Update()
+    {
+        currentState.HandleState();
+    }
     public void ChangeState(PlayerStateEnum stateEnum)
     {
         if (currentStateEnum != stateEnum /*&& canChangeState*/)
@@ -142,6 +157,9 @@ public class PlayerController : MonoBehaviour
                  case PlayerStateEnum.Parry:
                     CurrentState = PlayerParryState;
                     break;
+                case PlayerStateEnum.Roll:
+                    CurrentState = PlayerRollState;
+                    break;
             }
 
             CurrentStateEnum = stateEnum;
@@ -174,12 +192,13 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void OnParry()
+    public void OnRoll()
     {
-        if (HasSword)
+        if(IsPlayerGrounded && !isPlayerJumping && !isRolling)
         {
-            ChangeState(PlayerStateEnum.Parry);
+            ChangeState(PlayerStateEnum.Roll);
         }
+        
     }
 
     public void HandelSwordEquipment(bool isEquiped)

@@ -8,6 +8,7 @@ public enum PlayerStateEnum
    Run,
    Jump,
    SwordAttack,
-   Parry
+   Parry,
+   Roll
     
 }
