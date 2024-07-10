@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         currentState.HandleState();
+        PlayerRollState.HandleRollCooldown();
     }
     public void ChangeState(PlayerStateEnum stateEnum)
     {

@@ -7,11 +7,15 @@ public class PlayerRollState : PlayerBaseState
 {
     [SerializeField] float rollDuration = 0.5f; // Duration of the roll in seconds
     [SerializeField] float rollDistance = 1f;  // Distance to roll
+
+    [SerializeField] float rollCooldown = 1f;
+    private float rollCooldownTimer = 0;
     private float rollStartTime;
 
     private Vector3 currentPosition;
     private Vector3 targetPosition;
 
+    private bool isRollBlocked = false;
     public PlayerRollState()
     {
         this.stateEnum = PlayerStateEnum.Roll;
@@ -34,13 +38,14 @@ public class PlayerRollState : PlayerBaseState
 
         playerController.IsRolling = true;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
-
         playerController.PlayerMovementManager.MoveSpeed = 0;
+        rollCooldownTimer = 0;
+        playerController.CanRoll = false;
     }
 
     public override void OnExitState()
     {
-        playerController.CanRoll = true;
+        isRollBlocked = false;
         playerController.PlayerMovementManager.MoveSpeed = playerController.PlayerMovementManager.MoveSpeed;
         playerController.IsRolling = false;
     }
@@ -48,7 +53,7 @@ public class PlayerRollState : PlayerBaseState
     public override void HandleState()
     {
         CheckForRolling();
-        if (playerController.CanRoll)
+        if (!isRollBlocked)
         {
             float elapsed = Time.time - rollStartTime;
             float t = elapsed / rollDuration;
@@ -82,10 +87,23 @@ public class PlayerRollState : PlayerBaseState
         {
             if (hit.collider.CompareTag("BlockObject"))
             {
-                Debug.Log("hit");
-                playerController.CanRoll = false;
+
+                isRollBlocked = true;
             }
             
+        }
+    }
+
+    public void HandleRollCooldown()
+    {
+        if(rollCooldownTimer < rollCooldown)
+        {
+            rollCooldownTimer += Time.deltaTime;
+
+            if(rollCooldownTimer >= rollCooldown)
+            {
+                playerController.CanRoll = true;
+            }
         }
     }
 }
