@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isRolling = false;
+    [SerializeField] private bool canRoll = true;
 
 
     private PlayerStateEnum currentStateEnum;
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour
     public PlayerRollState PlayerRollState { get => playerRollState; set => playerRollState = value; }
     public PlayerCollision PlayerCollision { get => playerCollision; set => playerCollision = value; }
     public bool IsRolling { get => isRolling; set => isRolling = value; }
+    public bool CanRoll { get => canRoll; set => canRoll = value; }
 
     #endregion
     private void Awake()
@@ -194,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnRoll()
     {
-        if(IsPlayerGrounded && !isPlayerJumping && !isRolling)
+        if(IsPlayerGrounded && !isPlayerJumping && !isRolling && CanRoll)
         {
             ChangeState(PlayerStateEnum.Roll);
         }

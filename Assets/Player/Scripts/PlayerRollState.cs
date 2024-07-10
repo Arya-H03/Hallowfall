@@ -23,20 +23,16 @@ public class PlayerRollState : PlayerBaseState
         if (playerController.transform.localScale.x < 0)
         {
             targetPosition = currentPosition + Vector3.left * rollDistance;
-            //playerController.PlayerCollision.Rb.velocity += new Vector2(-5, 0 );
         }
         else
         {
             targetPosition = currentPosition + Vector3.right * rollDistance;
-            //playerController.PlayerCollision.Rb.velocity += new Vector2(5, 0);
         }
 
         rollStartTime = Time.time;
 
 
         playerController.IsRolling = true;
-        //playerController.PlayerCollision.BoxCollider2D.isTrigger = true;
-        //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Kinematic;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
 
         playerController.PlayerMovementManager.MoveSpeed = 0;
@@ -44,20 +40,24 @@ public class PlayerRollState : PlayerBaseState
 
     public override void OnExitState()
     {
-        //playerController.PlayerCollision.BoxCollider2D.isTrigger = false;
-        //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
+        playerController.CanRoll = true;
         playerController.PlayerMovementManager.MoveSpeed = playerController.PlayerMovementManager.MoveSpeed;
         playerController.IsRolling = false;
     }
 
     public override void HandleState()
     {
-        float elapsed = Time.time - rollStartTime;
-        float t = elapsed / rollDuration;
-
-        if (t < 1)
+        CheckForRolling();
+        if (playerController.CanRoll)
         {
-            playerController.transform.position = Vector3.Lerp(currentPosition, targetPosition, t);
+            float elapsed = Time.time - rollStartTime;
+            float t = elapsed / rollDuration;
+
+            if (t < 1)
+            {
+                playerController.transform.position = Vector3.Lerp(currentPosition, targetPosition, t);
+            }
+
         }
 
     }
@@ -71,6 +71,21 @@ public class PlayerRollState : PlayerBaseState
         else
         {
             playerController.ChangeState(PlayerStateEnum.Idle);
+        }
+    }
+
+    private void CheckForRolling()
+    {       
+       Vector3 rollDirection = playerController.transform.localScale.x < 0 ? Vector3.left : Vector3.right;      
+       RaycastHit2D []hits = Physics2D.RaycastAll(transform.position, rollDirection, 0.25f);  
+       foreach(var hit in hits)
+        {
+            if (hit.collider.CompareTag("BlockObject"))
+            {
+                Debug.Log("hit");
+                playerController.CanRoll = false;
+            }
+            
         }
     }
 }
