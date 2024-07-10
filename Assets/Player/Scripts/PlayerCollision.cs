@@ -20,18 +20,13 @@ public class PlayerCollision : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-
-        if (collision.CompareTag("Mist"))
+        switch (collision.tag)
         {
-
-            //playerController.player.OnPlayerDeath();
-            playerController.Player.OnPlayerDeath();
-
+            case "Mist":
+                playerController.Player.OnPlayerDeath();
+                break;
         }
-
-
-
-
+      
     }
 
     public void KnockPlayer(Vector2 launchVel)

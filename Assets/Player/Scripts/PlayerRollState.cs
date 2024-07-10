@@ -23,18 +23,20 @@ public class PlayerRollState : PlayerBaseState
         if (playerController.transform.localScale.x < 0)
         {
             targetPosition = currentPosition + Vector3.left * rollDistance;
+            //playerController.PlayerCollision.Rb.velocity += new Vector2(-5, 0 );
         }
         else
         {
             targetPosition = currentPosition + Vector3.right * rollDistance;
+            //playerController.PlayerCollision.Rb.velocity += new Vector2(5, 0);
         }
 
         rollStartTime = Time.time;
 
 
         playerController.IsRolling = true;
-        playerController.PlayerCollision.BoxCollider2D.isTrigger = true;
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Kinematic;
+        //playerController.PlayerCollision.BoxCollider2D.isTrigger = true;
+        //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Kinematic;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
 
         playerController.PlayerMovementManager.MoveSpeed = 0;
@@ -42,8 +44,8 @@ public class PlayerRollState : PlayerBaseState
 
     public override void OnExitState()
     {
-        playerController.PlayerCollision.BoxCollider2D.isTrigger = false;
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
+        //playerController.PlayerCollision.BoxCollider2D.isTrigger = false;
+        //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
         playerController.PlayerMovementManager.MoveSpeed = playerController.PlayerMovementManager.MoveSpeed;
         playerController.IsRolling = false;
     }
@@ -57,7 +59,7 @@ public class PlayerRollState : PlayerBaseState
         {
             playerController.transform.position = Vector3.Lerp(currentPosition, targetPosition, t);
         }
-        
+
     }
 
     public void OnRollEnd()
