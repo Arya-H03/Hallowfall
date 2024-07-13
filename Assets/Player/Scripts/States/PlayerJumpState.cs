@@ -28,7 +28,11 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void OnExitState()
     {
-        playerController.AnimationController.SetBoolForAnimations("isJumping", false);
+        //playerController.IsPlayerGrounded = true;
+        playerController.IsPlayerJumping = false;
+        playerController.CanPlayerJump = true;
+        playerController.AnimationController.SetBoolForAnimations("isFalling", false);
+        //playerController.AnimationController.SetBoolForAnimations("isJumping", false);
     }
 
     public override void HandleState()
@@ -52,13 +56,13 @@ public class PlayerJumpState : PlayerBaseState
         playerController.AnimationController.SetTriggerForAnimations("JumpUp");
     }
 
-    public void EndJump()
+    public void OnPlayerGrounded()
     {
-        playerController.IsPlayerGrounded = true;
-        playerController.IsPlayerJumping = false;
-        playerController.CanPlayerJump = true;
 
-        playerController.GameManager.PlayAudio(audioSource, groundHitAC);
+        playerController.IsPlayerGrounded = true;
+       
+
+        //playerController.GameManager.PlayAudio(audioSource, groundHitAC);
         //playerController.AnimationController.SetBoolForAnimations("isJumping", false);
 
         if (playerController.PlayerMovementManager.currentDirection.x != 0)

@@ -73,7 +73,7 @@ public class PlayerFootSteps : MonoBehaviour
 
     private void EndingJumpGroundCheck()
     {
-        if (playerController.IsPlayerJumping && playerController.rb.velocity.y < 0)
+        if (/*playerController.IsPlayerJumping &&*/ playerController.rb.velocity.y < 0)
         {
             RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down, 0.25f, groundLayer);
             //Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 0.1f, Color.red);
@@ -85,9 +85,9 @@ public class PlayerFootSteps : MonoBehaviour
                     
                     if (rayCast.collider.CompareTag(tag))
                     {
-                        
-                        playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-                        playerController.PlayerJumpState.EndJump();
+
+                        //playerController.AnimationController.SetBoolForAnimations("isFalling", false);
+                        playerController.PlayerJumpState.OnPlayerGrounded();
                         return;
                     }
                 }

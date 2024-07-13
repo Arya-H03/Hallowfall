@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator PlayerDeath()
     {
-        controller.inputManager.OnDisable();
+        controller.InputManager.OnDisable();
         controller.deathEffectParticle.Play();
         controller.spriteRenderer.enabled = false;
         //controller.PlayerMovementManager.StopRunning();
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
     private void PlayerRespawn()
     {
         this.transform.position = respawnTransform.position;
-        controller.inputManager.OnEnable();
+        controller.InputManager.OnEnable();
         controller.spriteRenderer.enabled = true;
         controller.IsDead = false;
         isPlayerDead = false;

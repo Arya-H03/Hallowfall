@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAttacks playerAttacks;
     [HideInInspector]
     public Rigidbody2D rb;
-    public InputManager inputManager;
+    private InputManager inputManager;
     [HideInInspector]
     public SpriteRenderer spriteRenderer;
     [HideInInspector]
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private PlayerSwordAttackState playerSwordAttackState;
     private PlayerParryState playerParryState;
     private PlayerRollState playerRollState;
+    private PlayerHangingState playerHangingState;
 
 
     private PlayerFootSteps footSteps;
@@ -79,6 +80,8 @@ public class PlayerController : MonoBehaviour
     public PlayerCollision PlayerCollision { get => playerCollision; set => playerCollision = value; }
     public bool IsRolling { get => isRolling; set => isRolling = value; }
     public bool CanRoll { get => canRoll; set => canRoll = value; }
+    public PlayerHangingState PlayerHangingState { get => playerHangingState; set => playerHangingState = value; }
+    public InputManager InputManager { get => inputManager; set => inputManager = value; }
 
     #endregion
     private void Awake()
@@ -117,6 +120,9 @@ public class PlayerController : MonoBehaviour
         PlayerRollState = GetComponentInChildren<PlayerRollState>();    
         PlayerRollState.SetOnInitializeVariables(this);
 
+        PlayerHangingState = GetComponentInChildren<PlayerHangingState>();
+        PlayerHangingState.SetOnInitializeVariables(this);
+
 
         CurrentStateEnum = PlayerStateEnum.Idle;
         CurrentState = PlayerIdleState;
@@ -131,7 +137,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum /*&& canChangeState*/)
         {
-            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -162,6 +168,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case PlayerStateEnum.Roll:
                     CurrentState = PlayerRollState;
+                    break;
+                 case PlayerStateEnum.Hang:
+                    CurrentState = PlayerHangingState;
                     break;
             }
 
@@ -215,5 +224,16 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //public void OnPlayerHang(Transform hagningPoint)
+    //{
+    //    animationController.SetBoolForAnimations("isHanging", true);
+    //    PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
+    //    transform.position = hagningPoint.position;
+    //    inputManager.DisablePlayerMovement();
+    //    isPlayerJumping = false;
+    //    CanPlayerJump = true;
+    //    isPlayerGrounded = true;
+
+    //}
     
 }

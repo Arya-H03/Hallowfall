@@ -10,47 +10,62 @@ public class InputManager : MonoBehaviour
     [SerializeField] PlayerController player;
     [SerializeField] GameManager gameManager;
 
+    public PlayerInputAction InputActions { get => inputActions; set => inputActions = value; }
+
     private void Awake()
     {
-        inputActions = new PlayerInputAction();
+        InputActions = new PlayerInputAction();
     }
 
     public void OnEnable()
     {
-        inputActions.Guardian.Movement.performed += StartMove;
-        inputActions.Guardian.Movement.canceled += StopMove;
+        InputActions.Guardian.Movement.performed += StartMove;
+        InputActions.Guardian.Movement.canceled += StopMove;
 
-        inputActions.Guardian.Jump.performed += Jump;
+        InputActions.Guardian.Jump.performed += Jump;
 
-        inputActions.Guardian.Attack.performed += FirstSwing;
+        InputActions.Guardian.Attack.performed += FirstSwing;
         
-        inputActions.Guardian.SecondAttack.performed += DoubleSwing;
+        InputActions.Guardian.SecondAttack.performed += DoubleSwing;
 
-        inputActions.Guardian.Roll.performed += Roll;
+        InputActions.Guardian.Roll.performed += Roll;
 
-        inputActions.Guardian.Pause.performed += Pause;   
+        InputActions.Guardian.Pause.performed += Pause;   
 
-        inputActions.Enable();
+        InputActions.Enable();
     }
 
     public void OnDisable()
     {
-        inputActions.Guardian.Movement.performed -= StartMove;
-        inputActions.Guardian.Movement.canceled -= StopMove;
+        InputActions.Guardian.Movement.performed -= StartMove;
+        InputActions.Guardian.Movement.canceled -= StopMove;
 
-        inputActions.Guardian.Jump.performed -= Jump;
+        InputActions.Guardian.Jump.performed -= Jump;
 
-        inputActions.Guardian.Attack.performed -= FirstSwing;
+        InputActions.Guardian.Attack.performed -= FirstSwing;
     
-        inputActions.Guardian.Roll.performed -= Roll;
+        InputActions.Guardian.Roll.performed -= Roll;
 
-        inputActions.Guardian.Pause.performed -= Pause;
+        InputActions.Guardian.Pause.performed -= Pause;
 
-        inputActions.Guardian.SecondAttack.performed -= DoubleSwing;
+        InputActions.Guardian.SecondAttack.performed -= DoubleSwing;
 
-        inputActions.Disable();
+        InputActions.Disable();
     }
 
+    public void DisablePlayerMovement()
+    {
+        //InputActions.Guardian.Movement.performed -= StartMove;
+        //InputActions.Guardian.Movement.canceled -= StopMove;
+        InputActions.Guardian.Jump.performed -= Jump;
+    }
+
+    public void EnablePlayerMovement()
+    {
+        //InputActions.Guardian.Movement.performed += StartMove;
+        //InputActions.Guardian.Movement.canceled += StopMove;
+        InputActions.Guardian.Jump.performed += Jump;
+    }
     public void StartMove(InputAction.CallbackContext ctx)
     {
         player.OnMove(ctx.ReadValue<Vector2>());
@@ -70,16 +85,7 @@ public class InputManager : MonoBehaviour
     {
         player.OnSwordAttack();
     }
-    //public void StabAttack(InputAction.CallbackContext ctx)
-    //{
-    //    player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Stab);
-    //}
-
-    //public void ChopAttack(InputAction.CallbackContext ctx)
-    //{
-    //    player.OnSwordAttack(PlayerSwordAttackState.SwordAttackTypeEnum.Chop);
-    //}
-
+   
     public void Roll(InputAction.CallbackContext ctx)
     {
         player.OnRoll();
@@ -95,6 +101,7 @@ public class InputManager : MonoBehaviour
     {
         player.PlayerSwordAttackState.DoubleSwing();
     }
+
 
 
 }

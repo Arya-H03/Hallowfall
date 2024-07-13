@@ -4,26 +4,36 @@ using UnityEngine;
 
 public class HangingPoint : MonoBehaviour
 {
-    GameObject player;
     [SerializeField] Transform hangingPoint;
+    private bool isHanging = false;
+  
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && isHanging == false)
         {
-            player = collision.gameObject; 
-            player.GetComponent<PlayerCollision>().Rb.bodyType = RigidbodyType2D.Static;
-            player.GetComponent<PlayerAnimationController>().SetBoolForAnimations("isHanging", true);
-            
-
-        }
-    }
-
-    private void Update()
-    {
-        if (player)
-        {
+            GameObject player = collision.gameObject;
+            player.GetComponent<PlayerController>().ChangeState(PlayerStateEnum.Hang);
             player.transform.position = hangingPoint.position;
+            isHanging = true;
+
+
         }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && isHanging == true)
+        {
+            StartCoroutine(test());
+
+        }
+    }
+
+    private IEnumerator test()
+    {
+        yield return new WaitForSeconds(1);
+        isHanging = false;
+
 
     }
+
 }
