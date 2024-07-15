@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAttacks playerAttacks;
     [HideInInspector]
     public Rigidbody2D rb;
-    private InputManager inputManager;
+    [SerializeField] private InputManager inputManager;
     [HideInInspector]
     public SpriteRenderer spriteRenderer;
     [HideInInspector]
@@ -37,10 +37,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isRolling = false;
+    [SerializeField] private bool isHanging = false;
     [SerializeField] private bool canRoll = true;
+    [SerializeField] private bool canHang = true;
+
+    [SerializeField] private bool isFacingWall = false;
+    [SerializeField] private bool isFacingLedge = false;
 
 
-    private PlayerStateEnum currentStateEnum;
+    [SerializeField] private PlayerStateEnum currentStateEnum;
     private PlayerBaseState currentState;
 
     private PlayerIdleState playerIdleState;
@@ -82,6 +87,10 @@ public class PlayerController : MonoBehaviour
     public bool CanRoll { get => canRoll; set => canRoll = value; }
     public PlayerHangingState PlayerHangingState { get => playerHangingState; set => playerHangingState = value; }
     public InputManager InputManager { get => inputManager; set => inputManager = value; }
+    public bool CanHang { get => canHang; set => canHang = value; }
+    public bool IsHanging { get => isHanging; set => isHanging = value; }
+    public bool IsFacingWall { get => isFacingWall; set => isFacingWall = value; }
+    public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
 
     #endregion
     private void Awake()
@@ -137,7 +146,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum /*&& canChangeState*/)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {

@@ -53,19 +53,6 @@ public class InputManager : MonoBehaviour
         InputActions.Disable();
     }
 
-    public void DisablePlayerMovement()
-    {
-        //InputActions.Guardian.Movement.performed -= StartMove;
-        //InputActions.Guardian.Movement.canceled -= StopMove;
-        InputActions.Guardian.Jump.performed -= Jump;
-    }
-
-    public void EnablePlayerMovement()
-    {
-        //InputActions.Guardian.Movement.performed += StartMove;
-        //InputActions.Guardian.Movement.canceled += StopMove;
-        InputActions.Guardian.Jump.performed += Jump;
-    }
     public void StartMove(InputAction.CallbackContext ctx)
     {
         player.OnMove(ctx.ReadValue<Vector2>());
@@ -102,6 +89,5 @@ public class InputManager : MonoBehaviour
         player.PlayerSwordAttackState.DoubleSwing();
     }
 
-
-
+   
 }

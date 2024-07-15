@@ -60,7 +60,7 @@ public class PlayerJumpState : PlayerBaseState
     {
 
         playerController.IsPlayerGrounded = true;
-       
+        playerController.AnimationController.SetBoolForAnimations("isFalling", false);
 
         //playerController.GameManager.PlayAudio(audioSource, groundHitAC);
         //playerController.AnimationController.SetBoolForAnimations("isJumping", false);

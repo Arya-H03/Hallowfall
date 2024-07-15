@@ -59,7 +59,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
-        StartAttack(playerController.IsPlayerJumping);
+        StartAttack(playerController.IsPlayerGrounded);
         
     }
 
@@ -82,7 +82,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     public void StartAttack(bool isJumping)
     {
-        if (isJumping)
+        if (!isJumping)
         {
             playerController.rb.gravityScale = 0.75f;
             playerController.rb.velocity = Vector2.zero;
