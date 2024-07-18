@@ -37,30 +37,51 @@ public class PlayerHangingState : PlayerBaseState
     private void ChangePlayerInputActionsWhileHanging()
     {
         playerController.InputManager.InputActions.Guardian.Movement.performed -= playerController.InputManager.StartMove;
-        //playerController.InputManager.InputActions.Guardian.Movement.canceled -= playerController.InputManager.StopMove;
+        playerController.InputManager.InputActions.Guardian.Movement.performed += JumpAway;
         playerController.InputManager.InputActions.Guardian.Jump.performed -= playerController.InputManager.Jump;
-
-        playerController.InputManager.InputActions.Guardian.Jump.performed += JumpUp;
     }
 
     private void ResetPlayerInputActions()
     {
         playerController.InputManager.InputActions.Guardian.Movement.performed += playerController.InputManager.StartMove;
-        //playerController.InputManager.InputActions.Guardian.Movement.canceled += playerController.InputManager.StopMove;
-        playerController.InputManager.InputActions.Guardian.Jump.performed += playerController.InputManager.Jump;
-        playerController.InputManager.InputActions.Guardian.Jump.performed -= JumpUp;
+        playerController.InputManager.InputActions.Guardian.Movement.performed -= JumpAway;
+        playerController.InputManager.InputActions.Guardian.Jump.performed += playerController.InputManager.Jump;     
     }
 
-
-
-    private void JumpUp(InputAction.CallbackContext ctx)
+    private void JumpAway(InputAction.CallbackContext ctx)
     {
+        Vector2 dir = ctx.ReadValue<Vector2>();
         playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
-        playerController.PlayerCollision.Rb.velocity += new Vector2(0, 10);
+
+        if(dir == Vector2.up)
+        {
+            playerController.PlayerCollision.Rb.velocity += new Vector2(0, 10);
+        }
+
+        else if(dir == Vector2.right)
+        {
+            if(playerController.gameObject.transform.localScale.x < 0)
+            {
+                playerController.PlayerCollision.Rb.velocity += new Vector2(5, 5);
+
+            }
+           
+        }
+
+        else if (dir == Vector2.left)
+        {
+            if (playerController.gameObject.transform.localScale.x > 0)
+            {
+                playerController.PlayerCollision.Rb.velocity += new Vector2(-5, 5);
+
+            }
+        }
+        
+        
         StartCoroutine(HandleHangingCooldown());
+
         playerController.ChangeState(PlayerStateEnum.Idle);
     }
-
     private IEnumerator HandleHangingCooldown()
     {
         playerController.CanHang = false;
