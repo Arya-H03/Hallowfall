@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isHanging = false;
     [SerializeField] private bool canRoll = true;
     [SerializeField] private bool canHang = true;
+    [SerializeField] private bool isFalling = false;
 
     [SerializeField] private bool isFacingWall = false;
     [SerializeField] private bool isFacingLedge = false;
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private PlayerParryState playerParryState;
     private PlayerRollState playerRollState;
     private PlayerHangingState playerHangingState;
+    private PlayerFallState playerFallState;
 
 
     private PlayerFootSteps footSteps;
@@ -91,6 +93,8 @@ public class PlayerController : MonoBehaviour
     public bool IsHanging { get => isHanging; set => isHanging = value; }
     public bool IsFacingWall { get => isFacingWall; set => isFacingWall = value; }
     public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
+    public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
+    public bool IsFalling { get => isFalling; set => isFalling = value; }
 
     #endregion
     private void Awake()
@@ -131,6 +135,9 @@ public class PlayerController : MonoBehaviour
 
         PlayerHangingState = GetComponentInChildren<PlayerHangingState>();
         PlayerHangingState.SetOnInitializeVariables(this);
+
+        PlayerFallState = GetComponentInChildren<PlayerFallState>(); 
+        PlayerFallState.SetOnInitializeVariables(this);
 
 
         CurrentStateEnum = PlayerStateEnum.Idle;
@@ -180,6 +187,9 @@ public class PlayerController : MonoBehaviour
                     break;
                  case PlayerStateEnum.Hang:
                     CurrentState = PlayerHangingState;
+                    break;
+                case PlayerStateEnum.Fall:
+                    CurrentState = PlayerFallState;
                     break;
             }
 

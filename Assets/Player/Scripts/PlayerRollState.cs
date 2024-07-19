@@ -53,7 +53,7 @@ public class PlayerRollState : PlayerBaseState
     public override void HandleState()
     {
         CheckForRolling();
-        if (!isRollBlocked)
+        if (!isRollBlocked && playerController.IsPlayerGrounded)
         {
             float elapsed = Time.time - rollStartTime;
             float t = elapsed / rollDuration;
@@ -64,19 +64,24 @@ public class PlayerRollState : PlayerBaseState
             }
 
         }
+       
 
     }
 
     public void OnRollEnd()
     {
-        if (playerController.PlayerMovementManager.currentDirection.x != 0)
+        if(playerController.CurrentStateEnum == PlayerStateEnum.Roll) 
         {
-            playerController.ChangeState(PlayerStateEnum.Run);
+            if (playerController.PlayerMovementManager.currentDirection.x != 0)
+            {
+                playerController.ChangeState(PlayerStateEnum.Run);
+            }
+            else
+            {
+                playerController.ChangeState(PlayerStateEnum.Idle);
+            }
         }
-        else
-        {
-            playerController.ChangeState(PlayerStateEnum.Idle);
-        }
+       
     }
 
     private void CheckForRolling()

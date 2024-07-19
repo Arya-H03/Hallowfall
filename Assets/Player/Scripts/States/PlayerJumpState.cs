@@ -24,55 +24,39 @@ public class PlayerJumpState : PlayerBaseState
     {
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);
         StartJump();
+
+        playerController.InputManager.InputActions.Guardian.Movement.performed -= playerController.InputManager.StartMove;
     }
 
     public override void OnExitState()
     {
-        //playerController.IsPlayerGrounded = true;
         playerController.IsPlayerJumping = false;
         playerController.CanPlayerJump = true;
-        playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-        //playerController.AnimationController.SetBoolForAnimations("isJumping", false);
+        
+        playerController.InputManager.InputActions.Guardian.Movement.performed += playerController.InputManager.StartMove;
     }
 
     public override void HandleState()
     {
 
-
+        if(playerController.PlayerCollision.Rb.velocityY < 0 && !playerController.IsHanging)
+        {
+            playerController.ChangeState(PlayerStateEnum.Fall); 
+        }
     }
     private void StartJump()
     {
         playerController.IsPlayerJumping = true;
-        playerController.IsPlayerGrounded = false;
         playerController.CanPlayerJump = false;
         playerController.CanPlayerAttack = false;
 
         jumpDirectionX = playerController.PlayerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
-        playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
+        playerController.rb.velocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
 
         playerController.GameManager.PlayAudio(audioSource, jumpUpAC);
-        //playerController.AnimationController.SetBoolForAnimations("isJumping", true);
+
         playerController.AnimationController.SetTriggerForAnimations("JumpUp");
-    }
-
-    public void OnPlayerGrounded()
-    {
-
-        playerController.IsPlayerGrounded = true;
-        playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-
-        //playerController.GameManager.PlayAudio(audioSource, groundHitAC);
-        //playerController.AnimationController.SetBoolForAnimations("isJumping", false);
-
-        if (playerController.PlayerMovementManager.currentDirection.x != 0)
-        {
-            playerController.ChangeState(PlayerStateEnum.Run);
-        }
-        else
-        {
-            playerController.ChangeState(PlayerStateEnum.Idle);
-        }
     }
 
     public void SetPlayerFallStatus()

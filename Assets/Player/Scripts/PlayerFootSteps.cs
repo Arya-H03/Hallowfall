@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -52,7 +53,6 @@ public class PlayerFootSteps : MonoBehaviour
     private void FixedUpdate()
     {
         GroundCheckForFloorType();
-        EndingJumpGroundCheck();
     }
     public void OnStartPlayerFootstep()
     {
@@ -71,29 +71,7 @@ public class PlayerFootSteps : MonoBehaviour
         footstepPS.Stop();
     }
 
-    private void EndingJumpGroundCheck()
-    {
-        if (/*playerController.IsPlayerJumping &&*/ playerController.rb.velocity.y < 0)
-        {
-            RaycastHit2D rayCast = Physics2D.Raycast(rayCatPosition.transform.position, Vector2.down, 0.25f, groundLayer);
-            //Debug.DrawLine(rayCatPosition.transform.position, rayCatPosition.transform.position + Vector3.down * 0.1f, Color.red);
-            if (rayCast)
-            {
-                
-                foreach (string tag in floorTags)
-                {
-                    
-                    if (rayCast.collider.CompareTag(tag))
-                    {
-
-                        //playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-                        playerController.PlayerJumpState.OnPlayerGrounded();
-                        return;
-                    }
-                }
-            }
-        }
-    }
+    
 
     private void GroundCheckForFloorType()
     {
