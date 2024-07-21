@@ -53,21 +53,24 @@ public class PlayerRollState : PlayerBaseState
     public override void HandleState()
     {
         CheckForRolling();
-        if (!isRollBlocked && playerController.IsPlayerGrounded)
+        if (!isRollBlocked)
         {
-            float elapsed = Time.time - rollStartTime;
-            float t = elapsed / rollDuration;
+           
+                float elapsed = Time.time - rollStartTime;
+                float t = elapsed / rollDuration;
 
-            if (t < 1)
-            {
-                playerController.transform.position = Vector3.Lerp(currentPosition, targetPosition, t);
-            }
+                if (t < 1)
+                {
+                    playerController.transform.position = Vector3.Lerp(currentPosition, targetPosition, t);
+                }
+            
 
         }
        
 
     }
 
+    
     public void OnRollEnd()
     {
         if(playerController.CurrentStateEnum == PlayerStateEnum.Roll) 
@@ -110,5 +113,20 @@ public class PlayerRollState : PlayerBaseState
                 playerController.CanRoll = true;
             }
         }
+    }
+
+    public IEnumerator OnReachingLedgeWhileRolling(float delay)
+    {
+        if (playerController.transform.localScale.x < 0)
+        {
+            playerController.PlayerCollision.Rb.velocity += new Vector2(-3,-1);
+        }
+        else
+        {
+            playerController.PlayerCollision.Rb.velocity += new Vector2(3, -1);
+        }      
+        playerController.PlayerCollision.BoxCollider2D.isTrigger = true;
+        yield return new WaitForSeconds(delay);
+        playerController.PlayerCollision.BoxCollider2D.isTrigger =false;
     }
 }

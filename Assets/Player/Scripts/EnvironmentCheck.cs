@@ -15,6 +15,8 @@ public class EnvironmentCheck : MonoBehaviour
 
     PlayerController playerController;
 
+
+
     private void Awake()
     {
         playerController = GetComponentInParent<PlayerController>();
@@ -47,7 +49,7 @@ public class EnvironmentCheck : MonoBehaviour
             {           
                 playerController.IsPlayerGrounded = true;               
 
-             }
+            }
 
             else
             {
@@ -55,8 +57,12 @@ public class EnvironmentCheck : MonoBehaviour
 
                 if (!playerController.IsHanging)
                 {
+                    if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
+                    {
+                    StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
+                    }
                     playerController.ChangeState(PlayerStateEnum.Fall);
-                }
+            }
             }
 
     }
