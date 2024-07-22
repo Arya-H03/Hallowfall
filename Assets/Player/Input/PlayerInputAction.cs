@@ -107,6 +107,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8cb68fb-fd70-4084-83c4-565d995c73fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +261,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""SecondAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f6e7c99-94c6-4735-ae76-610d8f85623b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +289,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian_Roll = m_Guardian.FindAction("Roll", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
         m_Guardian_SecondAttack = m_Guardian.FindAction("SecondAttack", throwIfNotFound: true);
+        m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +360,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guardian_Roll;
     private readonly InputAction m_Guardian_Pause;
     private readonly InputAction m_Guardian_SecondAttack;
+    private readonly InputAction m_Guardian_Parry;
     public struct GuardianActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -352,6 +374,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Roll => m_Wrapper.m_Guardian_Roll;
         public InputAction @Pause => m_Wrapper.m_Guardian_Pause;
         public InputAction @SecondAttack => m_Wrapper.m_Guardian_SecondAttack;
+        public InputAction @Parry => m_Wrapper.m_Guardian_Parry;
         public InputActionMap Get() { return m_Wrapper.m_Guardian; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +411,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @SecondAttack.started += instance.OnSecondAttack;
             @SecondAttack.performed += instance.OnSecondAttack;
             @SecondAttack.canceled += instance.OnSecondAttack;
+            @Parry.started += instance.OnParry;
+            @Parry.performed += instance.OnParry;
+            @Parry.canceled += instance.OnParry;
         }
 
         private void UnregisterCallbacks(IGuardianActions instance)
@@ -419,6 +445,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @SecondAttack.started -= instance.OnSecondAttack;
             @SecondAttack.performed -= instance.OnSecondAttack;
             @SecondAttack.canceled -= instance.OnSecondAttack;
+            @Parry.started -= instance.OnParry;
+            @Parry.performed -= instance.OnParry;
+            @Parry.canceled -= instance.OnParry;
         }
 
         public void RemoveCallbacks(IGuardianActions instance)
@@ -447,5 +476,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnRoll(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnSecondAttack(InputAction.CallbackContext context);
+        void OnParry(InputAction.CallbackContext context);
     }
 }

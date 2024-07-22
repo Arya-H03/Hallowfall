@@ -233,42 +233,42 @@ public class EnemyController : MonoBehaviour
         handleCooldowns();
 
 
-        //if (hasSeenPlayer)
-        //{
+        if (hasSeenPlayer)
+        {
 
-        //    HandleAbilityAvailabilityChecks();
-        //    //if(Vector2.Distance(player.transform.position,this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
-        //    //{
-        //    //    ChangeState(EnemyStateEnum.SwordAttack);
-        //    //}
+            HandleAbilityAvailabilityChecks();
+            if (Vector2.Distance(player.transform.position, this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
+            {
+                ChangeState(EnemyStateEnum.SwordAttack);
+            }
 
-        //    //else
-        //    //{
+            else
+            {
 
-        //    if (availableAbilities.Count > 0)
-        //    {
-        //        int index = Random.Range(0, availableAbilities.Count);
+                if (availableAbilities.Count > 0)
+                {
+                    int index = Random.Range(0, availableAbilities.Count);
 
-        //        if (availableAbilities[index] == EnemyAbilitiesEnum.SwordAttack)
-        //        {
-        //            ChangeState(EnemyStateEnum.SwordAttack);
-        //        }
-        //        else if (availableAbilities[index] == EnemyAbilitiesEnum.RangeAttack)
-        //        {
-        //            ChangeState(EnemyStateEnum.RangeAttack);
-        //        }
-        //    }
-           
+                    if (availableAbilities[index] == EnemyAbilitiesEnum.SwordAttack)
+                    {
+                        ChangeState(EnemyStateEnum.SwordAttack);
+                    }
+                    else if (availableAbilities[index] == EnemyAbilitiesEnum.RangeAttack)
+                    {
+                        ChangeState(EnemyStateEnum.RangeAttack);
+                    }
+                }
 
-        //    else if (CanMove && !isTurning)
-        //        {
-        //            MoveToPlayer(3);
-        //        }
-                
-            //}
 
-        //}
-        //if(player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
+                else if (CanMove && !isTurning)
+                {
+                    MoveToPlayer(3);
+                }
+
+            }
+
+        }
+        //if (player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
         //{
         //    jumpState.GetComponent<JumpState>().canJump = false;
         //    int randomNumber = UnityEngine.Random.Range(1, 101);
@@ -280,7 +280,7 @@ public class EnemyController : MonoBehaviour
         //    {
         //        jumpState.GetComponent<JumpState>().canJump = true;
         //    }
-          
+
         //}
 
         CurrentState.HandleState();

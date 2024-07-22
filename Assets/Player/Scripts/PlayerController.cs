@@ -223,6 +223,14 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void OnParry()
+    {
+        if(isPlayerGrounded && !isRolling)
+        {
+            ChangeState(PlayerStateEnum.Parry);
+        }
+        
+    }
     public void OnRoll()
     {
         if(IsPlayerGrounded && !isPlayerJumping && !isRolling && CanRoll)
