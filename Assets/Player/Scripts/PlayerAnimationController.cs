@@ -66,6 +66,12 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerController.PlayerSwordAttackState.SecondSwingAttack();
     }
+
+    public void BoxCastForJumpAttack()
+    {
+        playerController.PlayerSwordAttackState.JumpAttack();
+    }
+
     public void OnParryEnd()
     {
         playerController.PlayerParryState.OnParryEnd();
