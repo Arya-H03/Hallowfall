@@ -42,7 +42,7 @@ public class EnemyCollisionManager : MonoBehaviour
         material.SetFloat("_Flash", 1);
         SpawnDamagePopUp(damage);
         statesManager.OnEnemyDamage(damage);
-        LaunchEnemy(lanunchVector);
+        //LaunchEnemy(lanunchVector);
         yield return new WaitForSeconds(0.25f);
         material.SetFloat("_Flash", 0);
         isInvincible = false;

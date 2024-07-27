@@ -255,7 +255,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d1e6c1e1-5c3e-4c35-b197-55f7a0ce93c7"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""MultiTap(tapDelay=0.7)"",
+                    ""interactions"": ""MultiTap(tapDelay=0.5)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SecondAttack"",
@@ -265,7 +265,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5f6e7c99-94c6-4735-ae76-610d8f85623b"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

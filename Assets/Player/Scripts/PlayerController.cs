@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwordAttack()
     {
-        if (HasSword && !IsAttacking)
+        if (HasSword && !IsAttacking && CanPlayerAttack)
         {
     
             ChangeState(PlayerStateEnum.SwordAttack);
