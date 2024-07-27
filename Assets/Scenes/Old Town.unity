@@ -281,9 +281,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4723107735738678597, guid: 221e8f1fbdfe8044d8fbed4b0a7c4989, type: 3}
+    - target: {fileID: 909008120018297734, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2351773160595559634, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495416885279188156, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495416885279188156, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 2519911673010284400, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_SizeDelta.y
@@ -309,6 +321,10 @@ PrefabInstance:
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 1687623676}
+    - target: {fileID: 3228750813879065389, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Name
+      value: FirstSwingCastCenter
+      objectReference: {fileID: 0}
     - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Size.y
       value: 0.99314064
@@ -316,6 +332,14 @@ PrefabInstance:
     - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Offset.y
       value: -0.051076442
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522458437887298580, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: jumpSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4641465282700383999, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Name
+      value: JumpAttackCastCenter
       objectReference: {fileID: 0}
     - target: {fileID: 5250267040566624394, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.y
@@ -369,17 +393,53 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.5625
       objectReference: {fileID: 0}
+    - target: {fileID: 5647746929411258524, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647746929411258524, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: firstSwingCenter
+      value: 
+      objectReference: {fileID: 1353837302}
     - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: firstSwingEffect
       value: 
       objectReference: {fileID: 6442735963225259504, guid: a36c0c10653f5f843b84197939211636, type: 3}
     - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: secondSwingCenter
+      value: 
+      objectReference: {fileID: 2058880047}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: secondSwingEffect
       value: 
       objectReference: {fileID: 3155597501727793528, guid: 359778928ef60ce428bd37d5238ffdce, type: 3}
     - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: firstSwingCastSize.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: jumpAttackSwingCenter
+      value: 
+      objectReference: {fileID: 1526703407}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: moveSpeedWhileAttaking
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: jumpAttackSwingCastSize.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: jumpAttackSwingCastSize.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735726719305553250, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Name
+      value: SecondSwingCastCenter
       objectReference: {fileID: 0}
     - target: {fileID: 6489539805827609009, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: gameManager
@@ -11108,6 +11168,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5023540659964510968, guid: 6200d76b490e27d4b9dc2a8640ce3d45, type: 3}
   m_PrefabInstance: {fileID: 1338635990}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1353837302 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2495416885279188156, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+  m_PrefabInstance: {fileID: 9580125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1387161966
 GameObject:
   m_ObjectHideFlags: 0
@@ -11623,6 +11688,11 @@ Transform:
   - {fileID: 2047540979}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1526703407 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 909008120018297734, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+  m_PrefabInstance: {fileID: 9580125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1560009374
 GameObject:
   m_ObjectHideFlags: 0
@@ -14310,6 +14380,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &2058880047 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5647746929411258524, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+  m_PrefabInstance: {fileID: 9580125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2087087209
 PrefabInstance:
   m_ObjectHideFlags: 0
