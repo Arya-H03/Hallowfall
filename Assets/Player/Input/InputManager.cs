@@ -90,7 +90,7 @@ public class InputManager : MonoBehaviour
 
     public void DoubleSwing(InputAction.CallbackContext ctx)
     {
-        player.PlayerSwordAttackState.DoubleSwing();
+        //player.PlayerSwordAttackState.DoubleSwing();
     }
 
     public void Parry(InputAction.CallbackContext ctx)
