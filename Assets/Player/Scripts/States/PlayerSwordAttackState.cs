@@ -23,8 +23,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     private bool canDoubleSwing =true;
 
     //For Debuging
-    [SerializeField] Vector2 size; // Size of the box in 2D
-    [SerializeField] Transform loc; // Distance for the boxcast in 2D
+    //[SerializeField] Vector2 size; // Size of the box in 2D
+    //[SerializeField] Transform loc; // Distance for the boxcast in 2D
 
     [SerializeField] GameObject firstSwingEffect;
     [SerializeField] GameObject secondSwingEffect;
@@ -32,20 +32,20 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     [SerializeField] int firstSwingDamage = 10;
     [SerializeField] int secondSwingDamage = 20;
-    [SerializeField] int jumpAttackDamage = 15;
+    [SerializeField] int chopDamage = 30;
 
 
     [SerializeField] LayerMask layerMask; // Layer mask for the boxcast
     [SerializeField] float distance; // Distance for the boxcast in 2D
 
-    [SerializeField] Transform firstSwingCenter;
-     private Vector2 firstSwingCastSize = new Vector2(1.1f, 1.5f);
+    [SerializeField] Transform attack1BoxCastPosition;
+    private Vector2 attack1BoxCastSize = new Vector2(1.5f, 1.5f);
 
-    [SerializeField] Transform secondSwingCenter;
-     private Vector2 secondSwingCastSize = new Vector2(1.3f, 0.8f);
+    [SerializeField] Transform attack2BoxCastPosition;
+    private Vector2 attack2BoxCastSize = new Vector2(1.75f, 0.35f);
 
-    [SerializeField] Transform jumpAttackSwingCenter;
-     private Vector2 jumpAttackSwingCastSize = new Vector2(1.2f, 2f);
+    [SerializeField] Transform attack3BoxCastPosition;
+    private Vector2 attack3BoxCastSize = new Vector2(1.75f, 0.35f);
 
 
     [SerializeField] private float moveSpeedWhileAttaking = 2;
@@ -66,7 +66,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void OnExitState()
     {
         playerController.IsAttacking = false;
-        StartCoroutine(HandleAttackCooldownCoroutine());    
     }
 
     public override void HandleState()
@@ -81,18 +80,12 @@ public class PlayerSwordAttackState : PlayerBaseState
         audioSource = GetComponent<AudioSource>();
     }
 
-    private IEnumerator HandleAttackCooldownCoroutine()
+    public void StartAttack(bool isJumping)
     {
-        yield return new WaitForSeconds(0.25f);
-        playerController.CanPlayerAttack = true;
-    }
-
-    public void StartAttack(bool isGrounded)
-    {
-        if (!isGrounded)
+        if (!isJumping)
         {
-            //playerController.rb.gravityScale = 0.75f;
-            //playerController.rb.velocity = Vector2.zero;
+            playerController.rb.gravityScale = 0.75f;
+            playerController.rb.velocity = Vector2.zero;
             playerController.AnimationController.SetBoolForAnimations("isJumping",false);
             playerController.AnimationController.SetBoolForAnimations("isFalling", false);
             playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
@@ -101,16 +94,19 @@ public class PlayerSwordAttackState : PlayerBaseState
         else
         {            
                     playerController.AnimationController.SetTriggerForAnimations("Attack");
-                   
+                    CanDoubleSwing = true;
         }
 
         playerController.IsAttacking = true;
-        playerController.CanPlayerAttack = false;
-        CanDoubleSwing = true;
+
+        
+
+        
+
+        
 
     }
 
-    
     public void DoubleSwing()
     {
         if(CanDoubleSwing) {
@@ -122,7 +118,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     public void EndAttack()
     {
-        //playerController.rb.gravityScale = 3;
+        playerController.rb.gravityScale = 3;
         playerController.IsAttacking = false;
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
@@ -201,7 +197,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     //}
     public void FirstSwingAttack()
     {
-        RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter, firstSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(attack1BoxCastPosition, attack1BoxCastSize);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -222,14 +218,14 @@ public class PlayerSwordAttackState : PlayerBaseState
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
         }
 
-        //HandelSlashEffect(firstSwingEffect, firstSwingCenter.position);
+        //HandelSlashEffect(firstSwingEffect, attack1BoxCastPosition.position);
 
     }
 
     public void SecondSwingAttack()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter, secondSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(attack2BoxCastPosition, attack2BoxCastSize);
 
         if (hitResult.collider != null)
         {
@@ -248,33 +244,35 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
         }
-        //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
+        //HandelSlashEffect(secondSwingEffect, attack2BoxCastPosition.position + new Vector3(1, 0.35f, 0));
     }
 
-    public void JumpAttack()
-    {
+    //public void ChopAttack()
+    //{
+    //    RaycastHit2D hitResult = BoxCastForAttack(attack3BoxCastPosition, attack3BoxCastSize);
 
-        RaycastHit2D hitResult = BoxCastForAttack(jumpAttackSwingCenter, jumpAttackSwingCastSize);
+    //    if (hitResult.collider != null)
+    //    {
+    //        if (hitResult.collider.CompareTag("EnemySwordBlock"))
+    //        {
+    //            OnSwordAttackBlockedByEnemy(hitResult);
+    //        }
 
-        if (hitResult.collider != null)
-        {
-            if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                OnSwordAttackBlockedByEnemy(hitResult);
-            }
+    //        else if (hitResult.collider.CompareTag("Enemy"))
+    //        {
 
-            else if (hitResult.collider.CompareTag("Enemy"))
-            {
-                OnEnemyHit(hitResult, StabLaunchVector(hitResult), secondSwingDamage);
-            }
-        }
+    //            OnEnemyHit(hitResult, ChopLaunchVector(hitResult), chopDamage);
+    //        }
+    //    }
 
-        else
-        {
-            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
-        }
-        //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
-    }
+    //    else
+    //    {
+    //        audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+    //    }
+
+    //    HandelSlashEffect(chopEffect, attack3BoxCastPosition.position);
+
+    //}
 
     private RaycastHit2D BoxCastForAttack(Transform centerPoint, Vector2 boxSize)
     {
@@ -338,8 +336,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     //    // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
     //    Debug.DrawRay(origin, direction * distance, Color.red);
     //}
-    //private void Update()
-    //{
-    //    VisualizeBoxCast(jumpAttackSwingCenter.position, jumpAttackSwingCastSize, transform.right, distance);
-    //}
+    private void Update()
+    {
+        //VisualizeBoxCast(attack1BoxCastPosition.position, attack1BoxCastSize, transform.right, distance);
+    }
 }

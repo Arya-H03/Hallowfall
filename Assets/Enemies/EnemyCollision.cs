@@ -29,7 +29,7 @@ public class EnemyCollision : MonoBehaviour
             StartCoroutine(EnemyFlashOnHit());
             SpawnDamagePopUp(damage);
             enemy.OnEnemyDamage(damage);
-            //LaunchEnemy(lanunchVector);
+            LaunchEnemy(lanunchVector);
         }
         
         

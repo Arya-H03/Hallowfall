@@ -35,7 +35,7 @@ public class PlayerAttacks : MonoBehaviour
 
     [SerializeField] Transform attack3BoxCastPosition;
     private Vector2 attack3BoxCastSize = new Vector2(1.75f, 0.35f);
-    //private Vector2 firstSwingCenter = new Vector2(1.056f, 0.025f);
+    //private Vector2 attack1BoxCastPosition = new Vector2(1.056f, 0.025f);
 
     private void Start()
     {
@@ -323,6 +323,6 @@ public class PlayerAttacks : MonoBehaviour
 
     private void Update()
     {
-        //VisualizeBoxCast(firstSwingCenter.position, firstSwingCastSize, transform.right, distance);
+        //VisualizeBoxCast(attack1BoxCastPosition.position, attack1BoxCastSize, transform.right, distance);
     }
 }

@@ -48,6 +48,7 @@ public class PlayerJumpState : PlayerBaseState
     {
         playerController.IsPlayerJumping = true;
         playerController.CanPlayerJump = false;
+        playerController.CanPlayerAttack = false;
 
         jumpDirectionX = playerController.PlayerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
@@ -62,6 +63,4 @@ public class PlayerJumpState : PlayerBaseState
     {
         playerController.AnimationController.SetBoolForAnimations("isFalling", true);
     }
-
-   
 }
