@@ -28,30 +28,34 @@ public class EnemyMovement : MonoBehaviour
         
         if(direction.x < 0 && currentDir != 1)
         {
-            OnEnemyBeginTurning(1);
+            currentDir = 1;
+            this.transform.localScale = new Vector3(currentDir, 1, 1);   
+            //OnEnemyBeginTurning(1);
 
         }
         if(direction.x >= 0 && currentDir != -1)
         {
-            OnEnemyBeginTurning(-1);
+            currentDir = -1;
+            this.transform.localScale = new Vector3(currentDir, 1, 1);
+            //OnEnemyBeginTurning(-1);
         }
     }
 
     private void OnEnemyBeginTurning(int dir)
     {
         currentDir = dir;
-        enemyController.ChangeState(EnemyStateEnum.Turn);
+        //enemyController.ChangeState(EnemyStateEnum.Turn);
       
     }
 
     //Gets called from animation manager in the second to last frame of the turn animation.
     public void OnEnemyEndTurning()
     {
-        transform.localScale = new Vector3(currentDir, 1, 1);
-        enemyController.GetDialogueBox().transform.localScale = new Vector3(currentDir, 1, 1);
-        enemyController.SetIsTurning(false);
-        enemyController.SetCanChangeState(true);
-        enemyController.ChangeState(enemyController.previousStateEnum);
+        //transform.localScale = new Vector3(currentDir, 1, 1);
+        //enemyController.GetDialogueBox().transform.localScale = new Vector3(currentDir, 1, 1);
+        //enemyController.SetIsTurning(false);
+        //enemyController.SetCanChangeState(true);
+        //enemyController.ChangeState(enemyController.previousStateEnum);
    
     }
 

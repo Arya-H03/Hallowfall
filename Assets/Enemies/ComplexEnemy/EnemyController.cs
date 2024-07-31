@@ -27,12 +27,12 @@ public class EnemyController : MonoBehaviour
     private IdleState idleState;
     private PatrolState patrolState;
     private ChaseState chaseState;
-    private SwordAttackState swordAttackState;
+    private EnemyAttackState attackState;
     private StunState stunState;
-    private JumpState jumpState;
-    private TurnState turnState;
-    private BlockState blockState;
-    private EnemyRangeAttackState rangeAttackState;
+    //private JumpState jumpState;
+    //private TurnState turnState;
+    //private BlockState blockState;
+    //private EnemyRangeAttackState rangeAttackState;
 
     [HideInInspector]
     public SmartEnemyAgent agent;
@@ -56,12 +56,6 @@ public class EnemyController : MonoBehaviour
     private bool canBlock = true;
     private bool canMove = true;
 
-    [SerializeField] private List<EnemyAbilitiesEnum> enemyAbilities = new List<EnemyAbilitiesEnum>();
-
-    [SerializeField] private List<EnemyAbilitiesEnum> availableAbilities = new List<EnemyAbilitiesEnum>();
-
-    private Dictionary<EnemyAbilitiesEnum,bool> enemyAbilityDictionary = new Dictionary<EnemyAbilitiesEnum, bool>();
-
     #endregion
 
 
@@ -77,16 +71,15 @@ public class EnemyController : MonoBehaviour
     public PatrolState PatrolState { get => patrolState; set => patrolState = value; }
     public IdleState IdleState { get => idleState; set => idleState = value; }
     public ChaseState ChaseState { get => chaseState; set => chaseState = value; }
-    public SwordAttackState SwordAttackState { get => swordAttackState; set => swordAttackState = value; }
+    public EnemyAttackState AttackState { get => attackState; set => attackState = value; }
     public StunState StunState { get => stunState; set => stunState = value; }
-    public JumpState JumpState { get => jumpState; set => jumpState = value; }
-    public TurnState TurnState { get => turnState; set => turnState = value; }
-    public BlockState BlockState { get => blockState; set => blockState = value; }
+    //public JumpState JumpState { get => jumpState; set => jumpState = value; }
+    //public TurnState TurnState { get => turnState; set => turnState = value; }
+    //public BlockState BlockState { get => blockState; set => blockState = value; }
 
    
     public bool CanMove { get => canMove; set => canMove = value; }
-    public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
-    public Dictionary<EnemyAbilitiesEnum, bool> EnemyAbilityDictionary { get => enemyAbilityDictionary; set => enemyAbilityDictionary = value; }
+    //public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
 
     #endregion
 
@@ -115,28 +108,28 @@ public class EnemyController : MonoBehaviour
                 case EnemyStateEnum.Chase:
                     CurrentState = ChaseState;
                     break;
-                case EnemyStateEnum.SwordAttack:
+                case EnemyStateEnum.Attack:
                    
-                    CurrentState = SwordAttackState;
+                    CurrentState = AttackState;
                     break;
                 case EnemyStateEnum.Stun:
                     CurrentState = StunState;
                     break;
-                case EnemyStateEnum.Jump:
-                    CurrentState = JumpState;
-                    break;
-                case EnemyStateEnum.Turn:
-                    CurrentState = TurnState;
-                    break;
-                case EnemyStateEnum.RangeAttack:
-                    CurrentState = RangeAttackState;
-                    break;
-                case EnemyStateEnum.Block:
-                    if (GetCanBlock())
-                    {
-                        CurrentState = BlockState;
-                    }
-                    break;
+                //case EnemyStateEnum.Jump:
+                //    CurrentState = JumpState;
+                //    break;
+                //case EnemyStateEnum.Turn:
+                //    CurrentState = TurnState;
+                //    break;
+                //case EnemyStateEnum.RangeAttack:
+                //    CurrentState = RangeAttackState;
+                //    break;
+                //case EnemyStateEnum.Block:
+                //    if (GetCanBlock())
+                //    {
+                //        CurrentState = BlockState;
+                //    }
+                //    break;
             }
 
             currentStateEnum = stateEnum;
@@ -187,101 +180,12 @@ public class EnemyController : MonoBehaviour
     }
     private void Start()
     {
-
-        foreach (var ability in enemyAbilities)
-        {
-            EnemyAbilityDictionary.Add(ability,true);
-            MakeAbilityAvailable(ability);
-        }
         ChangeState(EnemyStateEnum.Patrol);
-
     }
 
-    private void HandleAbilityAvailabilityChecks()
-    {
-        if(Vector2.Distance(player.transform.position, this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
-        {
-            Debug.Log("Sword Attack is available");
-            MakeAbilityAvailable(EnemyAbilitiesEnum.SwordAttack);
-            
-        }
-
-        else if (Vector2.Distance(player.transform.position, this.transform.position) < RangeAttackState.AttackRange && Vector2.Distance(player.transform.position, this.transform.position) > 5 && RangeAttackState.CanRangeAttack && !RangeAttackState.IsRangeAttaking)
-        {
-            MakeAbilityAvailable(EnemyAbilitiesEnum.RangeAttack);
-        }
-    }
-
-    private void MakeAbilityAvailable(EnemyAbilitiesEnum abilitiesEnum)
-    {
-        enemyAbilityDictionary[abilitiesEnum] = true;
-        availableAbilities.Add(abilitiesEnum);
-    }
-
-    public void MakeAbilityUnavailable(EnemyAbilitiesEnum abilitiesEnum)
-    {
-        enemyAbilityDictionary[abilitiesEnum] = false;
-        availableAbilities.Remove(abilitiesEnum);   
-    }
-
-    private EnemyAbilitiesEnum GetAttack()
-    {
-        return availableAbilities[availableAbilities.Count - 1];
-    }
     private void Update()
     {
         handleCooldowns();
-
-
-        if (hasSeenPlayer)
-        {
-
-            HandleAbilityAvailabilityChecks();
-            if (Vector2.Distance(player.transform.position, this.transform.position) < SwordAttackState.AttackRange && SwordAttackState.CanSwordAttack && !SwordAttackState.IsSwordAttaking)
-            {
-                ChangeState(EnemyStateEnum.SwordAttack);
-            }
-
-            else
-            {
-
-                if (availableAbilities.Count > 0)
-                {
-                    int index = Random.Range(0, availableAbilities.Count);
-
-                    if (availableAbilities[index] == EnemyAbilitiesEnum.SwordAttack)
-                    {
-                        ChangeState(EnemyStateEnum.SwordAttack);
-                    }
-                    else if (availableAbilities[index] == EnemyAbilitiesEnum.RangeAttack)
-                    {
-                        ChangeState(EnemyStateEnum.RangeAttack);
-                    }
-                }
-
-
-                else if (CanMove && !isTurning)
-                {
-                    MoveToPlayer(3);
-                }
-
-            }
-
-        }
-        //if (player && player.GetComponent<PlayerController>().isAttacking && jumpState.GetComponent<JumpState>().canJump && !isJumping)
-        //{
-        //    jumpState.GetComponent<JumpState>().canJump = false;
-        //    int randomNumber = UnityEngine.Random.Range(1, 101);
-        //    if (randomNumber <= 100 * 0.33)
-        //    {
-        //        ChangeState(EnemyStateEnum.Jump);
-        //    }
-        //    else
-        //    {
-        //        jumpState.GetComponent<JumpState>().canJump = true;
-        //    }
-
-        //}
 
         CurrentState.HandleState();
 
@@ -304,7 +208,6 @@ public class EnemyController : MonoBehaviour
     private void handleCooldowns()
     {
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
-        BlockState.GetComponent<BlockState>().ManageBlockCooldown();
     }
 
     public void OnEnemyDamage(float value)
@@ -392,25 +295,25 @@ public class EnemyController : MonoBehaviour
         PatrolState = GetComponentInChildren<PatrolState>();
         PatrolState.SetStatesController(this);
 
-        //ChaseState = GetComponentInChildren<ChaseState>();
-        //ChaseState.SetStatesController(this);
+        ChaseState = GetComponentInChildren<ChaseState>();
+        ChaseState.SetStatesController(this);
 
-        SwordAttackState = GetComponentInChildren<SwordAttackState>();
-        SwordAttackState.SetStatesController(this);
+        AttackState = GetComponentInChildren<EnemyAttackState>();
+        AttackState.SetStatesController(this);
 
         StunState = GetComponentInChildren<StunState>();
         StunState.SetStatesController(this);
 
-        JumpState = GetComponentInChildren<JumpState>();
-        JumpState.SetStatesController(this);
+        //JumpState = GetComponentInChildren<JumpState>();
+        //JumpState.SetStatesController(this);
 
-        TurnState = GetComponentInChildren<TurnState>();
-        TurnState.SetStatesController(this);
+        //TurnState = GetComponentInChildren<TurnState>();
+        //TurnState.SetStatesController(this);
 
-        BlockState = GetComponentInChildren<BlockState>();
-        BlockState.SetStatesController(this);
+        //BlockState = GetComponentInChildren<BlockState>();
+        //BlockState.SetStatesController(this);
 
-        RangeAttackState = GetComponentInChildren<EnemyRangeAttackState>();
-        RangeAttackState.SetStatesController(this);
+        //RangeAttackState = GetComponentInChildren<EnemyRangeAttackState>();
+        //RangeAttackState.SetStatesController(this);
     }
 }

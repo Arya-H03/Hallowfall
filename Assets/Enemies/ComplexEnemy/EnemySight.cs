@@ -18,7 +18,7 @@ public class EnemySight : MonoBehaviour
         enemyController = GetComponentInParent<EnemyController>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!enemyController.hasSeenPlayer)
         {
@@ -39,7 +39,7 @@ public class EnemySight : MonoBehaviour
                     {
                         enemyController.player = hit.collider.gameObject;
                         enemyController.hasSeenPlayer = true;
-                        enemyController.ChangeState(EnemyStateEnum.SwordAttack);
+                        enemyController.ChangeState(EnemyStateEnum.Chase);
                     }
                 }
 

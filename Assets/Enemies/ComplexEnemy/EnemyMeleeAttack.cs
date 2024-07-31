@@ -1,54 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using static UnityEngine.UI.Image;
 
-public class SwordAttack : MonoBehaviour
+public class EnemyMeleeAttack : EnemyBaseAttack
 {
-    //[SerializeField] Vector2 size = new Vector2(1.75f, 0.5f);// Size of the box in 2D
-    //[SerializeField] Transform loc; // Distance for the boxcast in 2D
-    private EnemyController enemyStatesManager;
-
-    private Vector2 swordAttackSize = new Vector2(1.75f, 0.5f);
-    [SerializeField] Transform swordAttackPoint;
-
+    [SerializeField] private Vector2 boxCastSize = new Vector2(1.75f, 0.5f);
+    [SerializeField] Transform boxCastCenter;
+    private float distance = 0;
     [SerializeField] LayerMask layerMask;
 
-    [SerializeField] private int swordAttackDamage = 0;
+    [SerializeField] private int parryDamage = 100;
 
-    private int parryDamage = 100;
-
-    private float distance = 0;
+    
 
     private void Awake()
     {
-        enemyStatesManager = GetComponentInParent<EnemyController>();    
+        enemyController = GetComponentInParent<EnemyController>();
+    }
+    private void Update()
+    {
+        DrawCast();
     }
     public void SwordAttackBoxCast()
     {
         Vector2 direction = transform.right;
 
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(swordAttackPoint.position.x, swordAttackPoint.position.y), swordAttackSize, 0f, direction, distance, layerMask);
+        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
 
         if (hit)
         {
-         
+
 
             if (hit.collider.CompareTag("ParryShield") == true)
             {
 
                 GameObject parryShield = hit.collider.gameObject;
-                enemyStatesManager.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
-                enemyStatesManager.ChangeState(EnemyStateEnum.Stun);
-              
+                enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
+                enemyController.ChangeState(EnemyStateEnum.Stun);
+
             }
 
             if (hit.collider.CompareTag("Player"))
             {
                 GameObject player = hit.collider.gameObject;
-                player.GetComponent<Player>().OnTakingDamage(swordAttackDamage);
+                player.GetComponent<Player>().OnTakingDamage(attackDamage);
             }
         }
 
@@ -72,9 +67,8 @@ public class SwordAttack : MonoBehaviour
         Debug.DrawRay(origin, direction * distance, Color.red);
     }
 
-    //public void DrawCast()
-    //{
-    //    VisualizeBoxCast(loc.position, size, transform.right, distance);
-    //}
-
+    public void DrawCast()
+    {
+        VisualizeBoxCast(boxCastCenter.position, boxCastSize, transform.right, distance);
+    }
 }

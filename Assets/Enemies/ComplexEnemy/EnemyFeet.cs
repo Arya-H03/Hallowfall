@@ -13,10 +13,10 @@ public class EnemyFeet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if( collision.CompareTag("Ground") && enemyStatesManager.isJumping) 
-        {
-            enemyStatesManager.JumpState.OnGroundReached();
+        //if( collision.CompareTag("Ground") && enemyStatesManager.isJumping) 
+        //{
+        //    enemyStatesManager.JumpState.OnGroundReached();
             
-        }
+        //}
     }
 }

@@ -64,7 +64,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -78,7 +78,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -130,12 +130,12 @@ TextureImporter:
       name: Walk_0
       rect:
         serializedVersion: 2
-        x: 63
-        y: 62
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 48
+        y: 16
+        width: 30
+        height: 55
+      alignment: 9
+      pivot: {x: 0.45191002, y: 0.4049132}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -151,12 +151,12 @@ TextureImporter:
       name: Walk_1
       rect:
         serializedVersion: 2
-        x: 175
-        y: 15
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 176
+        y: 16
+        width: 30
+        height: 55
+      alignment: 9
+      pivot: {x: 0.46994323, y: 0.4049132}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -172,12 +172,12 @@ TextureImporter:
       name: Walk_2
       rect:
         serializedVersion: 2
-        x: 193
-        y: 65
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 304
+        y: 16
+        width: 30
+        height: 55
+      alignment: 9
+      pivot: {x: 0.43387553, y: 0.39835545}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -193,12 +193,12 @@ TextureImporter:
       name: Walk_3
       rect:
         serializedVersion: 2
-        x: 302
-        y: 15
-        width: 32
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 432
+        y: 16
+        width: 30
+        height: 55
+      alignment: 9
+      pivot: {x: 0.42786357, y: 0.3950766}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -214,12 +214,12 @@ TextureImporter:
       name: Walk_4
       rect:
         serializedVersion: 2
-        x: 431
-        y: 15
+        x: 560
+        y: 16
         width: 30
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 55
+      alignment: 9
+      pivot: {x: 0.43988648, y: 0.41147086}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -235,12 +235,12 @@ TextureImporter:
       name: Walk_5
       rect:
         serializedVersion: 2
-        x: 560
-        y: 15
+        x: 688
+        y: 16
         width: 30
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 55
+      alignment: 9
+      pivot: {x: 0.42786255, y: 0.41147086}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -256,12 +256,12 @@ TextureImporter:
       name: Walk_6
       rect:
         serializedVersion: 2
-        x: 688
-        y: 15
+        x: 816
+        y: 16
         width: 30
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 55
+      alignment: 9
+      pivot: {x: 0.4218506, y: 0.39179778}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -277,12 +277,12 @@ TextureImporter:
       name: Walk_7
       rect:
         serializedVersion: 2
-        x: 815
-        y: 15
-        width: 31
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 944
+        y: 16
+        width: 30
+        height: 55
+      alignment: 9
+      pivot: {x: 0.4218506, y: 0.4049132}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,59 +294,25 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Walk_8
-      rect:
-        serializedVersion: 2
-        x: 944
-        y: 15
-        width: 31
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 930b6086a49271860800000000000000
-      internalID: 7500509103958437945
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_9
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 15
-        width: 30
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8521ce21109000e00800000000000000
-      internalID: 1008816216748069464
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4f3b44c4917aad2499951e842d8ec2b3
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Walk_0: 4035959289877228764
+      Walk_1: -982904232830982447
+      Walk_2: -350908408369970039
+      Walk_3: -5409570386352685021
+      Walk_4: 1553940418269799609
+      Walk_5: 2416434504916517810
+      Walk_6: -6428935122508569504
+      Walk_7: 7144598999076838305
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

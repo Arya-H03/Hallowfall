@@ -25,8 +25,24 @@ public class PlayerCollision : MonoBehaviour
             case "Mist":
                 playerController.Player.OnPlayerDeath();
                 break;
+            case "Enemy":
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                boxCollider2D.isTrigger = true; 
+                break;
         }
       
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            
+            case "Enemy":
+                rb.bodyType = RigidbodyType2D.Dynamic;
+                boxCollider2D.isTrigger = false;
+                break;
+        }
     }
 
     public void KnockPlayer(Vector2 launchVel)

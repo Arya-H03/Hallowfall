@@ -47,7 +47,6 @@ public class EnemyRangeAttackState : EnemyBaseState
 
     private IEnumerator RangeAttackCoroutine()
     {
-        enemyController.MakeAbilityUnavailable(abilitiesEnum);
         CanRangeAttack = false;
         IsRangeAttaking = true;
         enemyController.CanMove = false;

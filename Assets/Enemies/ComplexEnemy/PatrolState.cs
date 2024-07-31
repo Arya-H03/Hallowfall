@@ -13,7 +13,6 @@ public class PatrolState : EnemyBaseState
 
     private float patrolDelayCooldown = 0f;
     private float patrolDelayTimer = 0f;
-    private int patrolDirection = 1;
 
     [SerializeField] private string[] patrolDialogues = {
         " More... More...",
@@ -53,9 +52,10 @@ public class PatrolState : EnemyBaseState
 
         if (patrolDelayTimer >= patrolDelayCooldown)
         {
-
+            
             if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {
+                enemyController.animationManager.SetBoolForAnimation("isRunning", true);
                 enemyController.EnemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
             }
 
@@ -93,10 +93,10 @@ public class PatrolState : EnemyBaseState
         RandomizePatrolDelay();
         patrolDelayTimer = 0;
     }
-    public void SetPatrolDirection(int dir)
-    {
-        patrolDirection = dir;  
-    }
+    //public void SetPatrolDirection(int dir)
+    //{
+    //    patrolDirection = dir;  
+    //}
     private int GetPatrolPointDirection()
     {
         int direction = 0;

@@ -8,7 +8,7 @@ public enum EnemyStateEnum
     Idle,
     Patrol,
     Chase,
-    SwordAttack,
+    Attack,
     RangeAttack,
     Stun,
     Turn,

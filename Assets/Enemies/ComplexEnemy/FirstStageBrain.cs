@@ -14,7 +14,7 @@ public class FirstStageBrain : Agent
 
     private EnemyController statesManager;
     private PatrolState patrolState;
-    private SwordAttackState attackState;
+    private EnemyAttackState attackState;
     private PlayerController playerController;
 
     private void Awake()
@@ -22,7 +22,7 @@ public class FirstStageBrain : Agent
         statesManager = GetComponent<EnemyController>();
 
         patrolState = statesManager.PatrolState;
-        attackState = statesManager.SwordAttackState;
+        attackState = statesManager.AttackState;
 
         playerController = player.GetComponent<PlayerController>();
 
@@ -77,12 +77,12 @@ public class FirstStageBrain : Agent
                     {
                         switch (patrolDirAction)
                         {
-                            case 0:
-                                patrolState.SetPatrolDirection(1);
-                                break;
-                            case 1:
-                                patrolState.SetPatrolDirection(-1);
-                                break;
+                            //case 0:
+                            //    patrolState.SetPatrolDirection(1);
+                            //    break;
+                            //case 1:
+                            //    patrolState.SetPatrolDirection(-1);
+                            //    break;
                         }
                         statesManager.ChangeState(EnemyStateEnum.Patrol);
                     }
@@ -100,7 +100,7 @@ public class FirstStageBrain : Agent
                 case 3:
                     if (statesManager.canAttack)
                     {
-                        statesManager.ChangeState(EnemyStateEnum.SwordAttack);
+                        statesManager.ChangeState(EnemyStateEnum.Attack);
                     }
 
                     break;

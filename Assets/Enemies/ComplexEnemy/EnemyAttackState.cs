@@ -1,0 +1,108 @@
+using Google.Protobuf.WellKnownTypes;
+using NUnit.Framework.Interfaces;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using Unity.Barracuda;
+using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+
+public class EnemyAttackState : EnemyBaseState
+{
+  
+
+    [SerializeField] private bool  canAttack = true;  
+    [SerializeField] private bool isAttacking = false;
+
+    private EnemyBaseAttack attackRef;
+
+    public bool IsAttaking { get => isAttacking; set => isAttacking = value; }
+    public bool CanAttack { get => canAttack; set => canAttack = value; }
+
+    //private float moveSpeed = 2.5f;
+
+    public EnemyAttackState() : base()
+    {
+        stateEnum = EnemyStateEnum.Attack;
+
+    }
+
+    private void Awake()
+    {
+        attackRef = GetComponent<EnemyBaseAttack>();    
+    }
+
+    public override void OnEnterState()
+    {
+      
+    }
+
+    public override void OnExitState()
+    {
+        if (IsAttaking)
+        {
+            CancelAttack();
+        }
+    }
+
+    public override void HandleState()
+    {
+        if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < attackRef.AttackRange)
+        {
+            if(canAttack)
+            {
+                StartCoroutine(StartAttackCoroutine());
+            }
+            
+            
+        }
+        else
+        {
+            enemyController.ChangeState(EnemyStateEnum.Chase);
+        }
+    }
+
+    private IEnumerator StartAttackCoroutine()
+    {
+        
+        CanAttack = false;
+        IsAttaking = true;
+        enemyController.CanMove = false;
+
+        enemyController.animationManager.SetBoolForAnimation("isAttacking", true);
+       
+        yield return new WaitForSeconds(attackRef.AttackCooldown);
+
+        CanAttack = true;
+        enemyController.CanMove = true;
+    }
+
+   
+    public void EndAttack()
+    {
+        enemyController.animationManager.SetBoolForAnimation("isAttacking", false);
+        IsAttaking = false;
+        //enemController.CanMove = true;
+        enemyController.ChangeState(EnemyStateEnum.Idle);
+
+    }
+
+    public void CancelAttack()
+    {
+        enemyController.animationManager.SetBoolForAnimation("isAttacking", false);
+        IsAttaking = false;
+        //enemyController.CanMove = true;
+        enemyController.ChangeState(EnemyStateEnum.Idle);
+        
+    }
+    public void CallAttack()
+    {
+       attackRef.HandleAttack();
+    }
+
+    
+
+}

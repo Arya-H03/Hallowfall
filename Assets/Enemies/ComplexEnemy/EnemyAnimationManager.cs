@@ -32,18 +32,18 @@ public class EnemyAnimationManager : MonoBehaviour
         
     }
 
-    public void EndSwordAttaking()
+    public void EndAttacking()
     {
-        enemyController.SwordAttackState.EndSwordAttack();
+        enemyController.AttackState.EndAttack();
     }
 
-    public void BoxCastSwordAttack()
+    public void CallAttack()
     {
-        enemyController.SwordAttackState.EnableBoxCastingForSwordAttack();
+        enemyController.AttackState.CallAttack();
     }
 
     public void BeginBlockingSword()
     {
-        enemyController.BlockState.BeginBlockingSword();
+        //enemyController.BlockState.BeginBlockingSword();
     }
 }

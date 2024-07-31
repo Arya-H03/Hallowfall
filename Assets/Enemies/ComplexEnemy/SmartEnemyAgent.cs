@@ -5,7 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using System.Runtime.CompilerServices;
 using Unity.MLAgents.Sensors;
-using static SwordAttackState;
+using static EnemyAttackState;
 
 public class SmartEnemyAgent : Agent
 {
@@ -144,7 +144,7 @@ public class SmartEnemyAgent : Agent
     //                if (cancelSwordAttack == 1 && playerController.isParrying)
     //                {
     //                    Debug.Log("canceled sword attack");
-    //                    swordAttackState.CancelSwordAttack();
+    //                    swordAttackState.CancelAttack();
     //                    AddReward(1f);
     //                }
     //                break;
