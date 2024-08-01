@@ -5872,6 +5872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cdba8cf2082b408e3a1d5fdfeb122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadSprite: {fileID: -898221585893318736, guid: b0473f367baadd244806f58a4e17a024, type: 3}
 --- !u!1001 &233946053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14441,6 +14442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arsonist
       objectReference: {fileID: 0}
+    - target: {fileID: 6815036451256663909, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: damagePopUp
+      value: 
+      objectReference: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
     - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.527183

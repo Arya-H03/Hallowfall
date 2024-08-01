@@ -7,21 +7,22 @@ public class EnemyAnimationManager : MonoBehaviour
     private Animator animator;
     private EnemyController enemyController;
 
+    public Animator Animator { get => animator; set => animator = value; }
 
     private void Awake()
     {
         enemyController = GetComponent<EnemyController>(); 
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
     }
     public void SetBoolForAnimation(string name, bool value)
     {
-        animator.SetBool(name, value);
+        Animator.SetBool(name, value);
         
     }
 
     public void SetTriggerForAnimation(string name)
     {
-        animator.SetTrigger(name);
+        Animator.SetTrigger(name);
 
     }
 
@@ -45,5 +46,10 @@ public class EnemyAnimationManager : MonoBehaviour
     public void BeginBlockingSword()
     {
         //enemyController.BlockState.BeginBlockingSword();
+    }
+
+    public void OnDeathAnimationEnd()
+    {
+        enemyController.DeathState.OnDeathAnimationEnd();
     }
 }

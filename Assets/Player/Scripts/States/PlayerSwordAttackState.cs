@@ -14,7 +14,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     private SwordAttackTypeEnum attackType;
 
     private AudioSource audioSource;
-    [SerializeField] AudioClip[] hitClips;
+
     [SerializeField] AudioClip[] missClips;
 
     [SerializeField] PlayerFootSteps footSteps;
@@ -152,51 +152,6 @@ public class PlayerSwordAttackState : PlayerBaseState
         hit.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hit.point);
     }
 
-    private void OnEnemyHit(RaycastHit2D hit,Vector2 launchVector,int damage)
-    {
-        GameObject enemy = hit.collider.gameObject;
-        EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        enemy.GetComponent<EnemyCollisionManager>().OnEnemyHit(launchVector, damage);
-
-        if (!enemyController.hasSeenPlayer)
-        {
-            enemyController.player = parent;
-            enemyController.hasSeenPlayer = true;
-            if (enemyController.CurrentStateEnum != EnemyStateEnum.Chase)
-            {
-                enemyController.ChangeState(EnemyStateEnum.Chase);
-            }
-
-        }
-        audioSource.PlayOneShot(hitClips[Random.Range(0, 3)]);
-        enemyController.PlayBloodEffect(hit.point);
-    }
-
-    private Vector2 SlashLaunchVector(RaycastHit2D hit)
-    {
-        Vector2 launchVector = new Vector2(hit.point.x - this.transform.position.x, 10f);
-        return launchVector;
-    }
-
-    private Vector2 StabLaunchVector(RaycastHit2D hit)
-    {
-        Vector2 launchVector;
-        if (hit.point.x >= this.transform.position.x)
-        {
-            launchVector = new Vector2(4f, 0);
-        }
-        else
-        {
-            launchVector = new Vector2(-4f, 0);
-        }
-        return launchVector;
-    }
-
-    //private Vector2 ChopLaunchVector(RaycastHit2D hit)
-    //{
-    //    Vector2 launchVector = new Vector2(4f, 0);
-    //    return launchVector;
-    //}
     public void FirstSwingAttack()
     {
         RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter, firstSwingCastSize);
@@ -210,7 +165,11 @@ public class PlayerSwordAttackState : PlayerBaseState
 
             else if (hitResult.collider.CompareTag("Enemy"))
             {
-                OnEnemyHit(hitResult, SlashLaunchVector(hitResult), firstSwingDamage);
+                
+                GameObject enemy = hitResult.collider.gameObject;
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point,this.gameObject);
+                
             }
 
 
@@ -238,7 +197,9 @@ public class PlayerSwordAttackState : PlayerBaseState
 
             else if (hitResult.collider.CompareTag("Enemy"))
             {
-                OnEnemyHit(hitResult, StabLaunchVector(hitResult), secondSwingDamage);
+                GameObject enemy = hitResult.collider.gameObject;
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                enemyController.OnEnemyHit(secondSwingDamage, hitResult.point,this.gameObject);
             }
         }
 
@@ -263,7 +224,9 @@ public class PlayerSwordAttackState : PlayerBaseState
 
             else if (hitResult.collider.CompareTag("Enemy"))
             {
-                OnEnemyHit(hitResult, StabLaunchVector(hitResult), secondSwingDamage);
+                GameObject enemy = hitResult.collider.gameObject;
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                enemyController.OnEnemyHit(jumpAttackDamage, hitResult.point, this.gameObject);
             }
         }
 

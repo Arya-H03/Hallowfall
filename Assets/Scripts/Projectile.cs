@@ -55,18 +55,18 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
-            if ((collision.transform.position - this.transform.position).x < 0)
-            {
-                collision.GetComponent<EnemyCollisionManager>().OnEnemyHit(collision.transform.right * -1 * 5, damage);
-                collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
+            //if ((collision.transform.position - this.transform.position).x < 0)
+            //{
+            //    collision.GetComponent<Ene>().OnEnemyHit(collision.transform.right * -1 * 5, damage);
+            //    collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
 
-            }
-            else
-            {
-                collision.GetComponent<EnemyCollisionManager>().OnEnemyHit(collision.transform.right * 1 * 5, damage);
-                collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
+            //}
+            //else
+            //{
+            //    collision.GetComponent<EnemyCollisionManager>().OnEnemyHit(collision.transform.right * 1 * 5, damage);
+            //    collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
 
-            }
+            //}
 
             Destroy(this.gameObject);
 

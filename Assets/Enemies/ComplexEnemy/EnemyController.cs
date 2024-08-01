@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
 
     private DialogueBox dialogueBox;
     private ParticleSystem bloodParticles;
+    private Material material;
+    private SpriteRenderer spriteRenderer;
 
     private IdleState idleState;
     private PatrolState patrolState;
@@ -47,6 +49,7 @@ public class EnemyController : MonoBehaviour
     public GameObject player;
 
     [SerializeField] public GameObject stunEffect;
+    [SerializeField] DamagePopUp damagePopUp;
 
     public bool hasSeenPlayer = false;
     public bool canAttack = false;
@@ -57,6 +60,7 @@ public class EnemyController : MonoBehaviour
     private bool canBlock = true;
     private bool canMove = true;
     private bool isDead = false;
+    private bool isInvincible = false;
 
     #endregion
 
@@ -86,6 +90,8 @@ public class EnemyController : MonoBehaviour
     public EnemyStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
     public EnemyBaseState CurrentState1 { get => currentState; set => currentState = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
+    public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
+    public SpriteRenderer SpriteRenderer { get => spriteRenderer; set => spriteRenderer = value; }
 
     //public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
 
@@ -93,7 +99,7 @@ public class EnemyController : MonoBehaviour
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
-        if(CurrentStateEnum != stateEnum && canChangeState)
+        if(CurrentStateEnum != stateEnum && canChangeState &&!isDead)
         {
             Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
@@ -146,6 +152,8 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<SmartEnemyAgent>();
         dialogueBox = GetComponentInChildren<DialogueBox>();
         bloodParticles = GetComponent<ParticleSystem>();
+        material = GetComponent<SpriteRenderer>().material;
+        SpriteRenderer = GetComponent<SpriteRenderer>();
 
         InitializeEnemyState();
 
@@ -175,6 +183,41 @@ public class EnemyController : MonoBehaviour
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
 
+    public void OnEnemyHit(int damage, Vector2 hitPoint,GameObject playerRef)
+    {
+        if(!hasSeenPlayer )
+        {
+            if (playerRef)
+            {
+                this.player = playerRef;
+            }
+            
+            hasSeenPlayer = true;
+            if (CurrentStateEnum != EnemyStateEnum.Chase)
+            {
+                ChangeState(EnemyStateEnum.Chase);
+            }
+        }
+        
+        if (!isInvincible && damage > 0)
+        {
+            StartCoroutine(EnemyHitCoroutine(damage, hitPoint));
+        }
+       
+    }
+
+    private IEnumerator EnemyHitCoroutine(int damage, Vector2 hitPoint)
+    {
+        isInvincible = true;
+        material.SetFloat("_Flash", 1);
+        PlayBloodEffect(hitPoint);
+        SpawnDamagePopUp(damage);
+        OnEnemyDamage(damage);
+        yield return new WaitForSeconds(0.25f);
+        material.SetFloat("_Flash", 0);
+        //SFX
+        isInvincible = false;
+    }
     public void OnEnemyDamage(float value)
     {
         if (currentHealth > 0)
@@ -193,6 +236,12 @@ public class EnemyController : MonoBehaviour
           
            Debug.Log("You are dead");
         }
+    }
+
+    private void SpawnDamagePopUp(int damage)
+    {
+        DamagePopUp obj = Instantiate(damagePopUp, new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity);
+        obj.SetText(damage.ToString());
     }
 
     public void ResetHealth()

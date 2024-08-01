@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class EnemyCollisionManager : MonoBehaviour
 {
-    private Material material;
 
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-    private EnemyController statesManager;
+    private EnemyController enemyController;
 
     [SerializeField] float luanchModifier = 1f;
 
@@ -18,71 +17,48 @@ public class EnemyCollisionManager : MonoBehaviour
 
     public bool isInvincible = false;
 
+    public BoxCollider2D BoxCollider { get => boxCollider; set => boxCollider = value; }
+    public Rigidbody2D Rb { get => rb; set => rb = value; }
+
     private void Awake()
     {
-        statesManager = GetComponent<EnemyController>();
-        rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        material = GetComponent<SpriteRenderer>().material;
+        enemyController = GetComponent<EnemyController>();
+        Rb = GetComponent<Rigidbody2D>();
+        BoxCollider = GetComponent<BoxCollider2D>();
 
     }
 
-    public void OnEnemyHit(Vector2 lanunchVector, int damage)
-    {
-        if (!isInvincible)
-        {         
-            StartCoroutine(HandleEnemyGettingHit(lanunchVector,damage));
-        }
-
-    }
-
-    private IEnumerator HandleEnemyGettingHit(Vector2 lanunchVector, int damage)
-    {
-        isInvincible = true;
-        material.SetFloat("_Flash", 1);
-        SpawnDamagePopUp(damage);
-        statesManager.OnEnemyDamage(damage);
-        LaunchEnemy(lanunchVector);
-        yield return new WaitForSeconds(0.25f);
-        material.SetFloat("_Flash", 0);
-        isInvincible = false;
-    }
     public void LaunchEnemy(Vector2 lanunchVector)
     {
-        rb.velocity = new Vector2(rb.velocity.x + lanunchVector.x * luanchModifier, rb.velocity.y + lanunchVector.y * luanchModifier);
+        Rb.velocity = new Vector2(Rb.velocity.x + lanunchVector.x * luanchModifier, Rb.velocity.y + lanunchVector.y * luanchModifier);
     }
 
     public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
     {
         shield.GetComponent<ParryShield>().OnSuccessfulParry();
         shield.GetComponent<ParryShield>().SpawnImpactEffect(hitLocation);
+        enemyController.OnEnemyHit(damage,hitLocation,null);
         Vector3 scale = transform.localScale;
         Vector2 launchVec = Vector2.zero;
         if (scale.x == 1)
         {
-            launchVec = new Vector2(7 * luanchModifier, 5 * luanchModifier);
+            launchVec = new Vector2(5 * luanchModifier, 3 * luanchModifier);
         }
         if (scale.x == -1)
         {
-            launchVec = new Vector2(-7 * luanchModifier, 5 * luanchModifier);
+            launchVec = new Vector2(-5 * luanchModifier, 3 * luanchModifier);
         }
-        OnEnemyHit(launchVec, damage);
-    }
 
-    private void SpawnDamagePopUp(int damage)
-    {
-        DamagePopUp obj = Instantiate(damagePopUp, new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity);
-        obj.SetText(damage.ToString());
+        LaunchEnemy(launchVec);
     }
-
     public void ApplyVelocity(float x, float y)
     {
-        rb.velocity = new Vector2(x, y);
+        Rb.velocity = new Vector2(x, y);
     }
 
     public void SetColliderIsTrigger(bool value)
     {
-        boxCollider.isTrigger = value;
+        BoxCollider.isTrigger = value;
     }
 
     public void SpawnImpactEffect(Vector3 position)

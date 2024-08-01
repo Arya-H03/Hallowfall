@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameManager gameManager;
 
     [HideInInspector]
-    public PlayerAttacks playerAttacks;
-    [HideInInspector]
     public Rigidbody2D rb;
     [SerializeField] private InputManager inputManager;
     [HideInInspector]
@@ -106,7 +104,6 @@ public class PlayerController : MonoBehaviour
 
         PlayerCollision = GetComponent<PlayerCollision>();
 
-        playerAttacks = GetComponentInChildren<PlayerAttacks>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
