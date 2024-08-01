@@ -33,7 +33,15 @@ public class ChaseState : EnemyBaseState
             else
             {
                 enemyController.canAttack = false;
-                enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+                if (enemyController.player.GetComponent<PlayerController>().IsHanging)
+                {
+                   enemyController.ChangeState(EnemyStateEnum.Idle);
+                }
+                else
+                {
+                    enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+                }
+               
             }
 
             

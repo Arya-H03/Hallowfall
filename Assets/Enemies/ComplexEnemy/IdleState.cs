@@ -29,7 +29,7 @@ public class IdleState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController.hasSeenPlayer)
+        if (enemyController.hasSeenPlayer && !enemyController.player.GetComponent<PlayerController>().IsHanging)
         {
             enemyController.ChangeState(EnemyStateEnum.Chase);
         }
