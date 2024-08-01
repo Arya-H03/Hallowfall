@@ -22,9 +22,9 @@ public class JumpState : EnemyBaseState
     public override void OnEnterState()
     {
 
-        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        enemyController.animationManager.SetBoolForAnimation("isTurning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", false);
 
         
         

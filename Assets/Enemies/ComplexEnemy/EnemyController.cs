@@ -14,8 +14,8 @@ public class EnemyController : MonoBehaviour
     private float maxHealth = 100;
     public float currentHealth;
 
-    
-    public EnemyStateEnum currentStateEnum;
+
+    [SerializeField] private EnemyStateEnum currentStateEnum;
     private EnemyBaseState currentState;
 
     public EnemyStateEnum previousStateEnum;
@@ -29,6 +29,7 @@ public class EnemyController : MonoBehaviour
     private ChaseState chaseState;
     private EnemyAttackState attackState;
     private StunState stunState;
+    private EnemyDeathState deathState;
     //private JumpState jumpState;
     //private TurnState turnState;
     //private BlockState blockState;
@@ -37,7 +38,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public SmartEnemyAgent agent;
     [HideInInspector]
-    public EnemyAnimationManager animationManager;
+    private EnemyAnimationManager enemyAnimationManager;
     private EnemyMovement enemyMovement;
     [HideInInspector]
     public EnemyCollisionManager collisionManager;
@@ -55,6 +56,7 @@ public class EnemyController : MonoBehaviour
     private bool canChangeState = true;
     private bool canBlock = true;
     private bool canMove = true;
+    private bool isDead = false;
 
     #endregion
 
@@ -66,7 +68,7 @@ public class EnemyController : MonoBehaviour
     public EnemyMovement EnemyMovement { get => enemyMovement; set => enemyMovement = value; }
 
     //Eenemy States
-    public EnemyBaseState CurrentState { get => currentState; set => currentState = value; }
+    public EnemyBaseState CurrentState { get => CurrentState1; set => CurrentState1 = value; }
     public EnemyBaseState PreviousState { get => previousState; set => previousState = value; }
     public PatrolState PatrolState { get => patrolState; set => patrolState = value; }
     public IdleState IdleState { get => idleState; set => idleState = value; }
@@ -79,15 +81,21 @@ public class EnemyController : MonoBehaviour
 
    
     public bool CanMove { get => canMove; set => canMove = value; }
+    public EnemyAnimationManager EnemyAnimationManager { get => enemyAnimationManager; set => enemyAnimationManager = value; }
+    public EnemyDeathState DeathState { get => deathState; set => deathState = value; }
+    public EnemyStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
+    public EnemyBaseState CurrentState1 { get => currentState; set => currentState = value; }
+    public bool IsDead { get => isDead; set => isDead = value; }
+
     //public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
 
     #endregion
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
-        if(currentStateEnum != stateEnum && canChangeState)
+        if(CurrentStateEnum != stateEnum && canChangeState)
         {
-            Debug.Log(GetCurrentStateEnum().ToString() + " to " + stateEnum.ToString());
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -95,7 +103,7 @@ public class EnemyController : MonoBehaviour
             }
 
             PreviousState = CurrentState;
-            previousStateEnum = currentStateEnum;
+            previousStateEnum = CurrentStateEnum;
 
             switch (stateEnum)
             {
@@ -115,54 +123,24 @@ public class EnemyController : MonoBehaviour
                 case EnemyStateEnum.Stun:
                     CurrentState = StunState;
                     break;
-                //case EnemyStateEnum.Jump:
-                //    CurrentState = JumpState;
-                //    break;
-                //case EnemyStateEnum.Turn:
-                //    CurrentState = TurnState;
-                //    break;
-                //case EnemyStateEnum.RangeAttack:
-                //    CurrentState = RangeAttackState;
-                //    break;
-                //case EnemyStateEnum.Block:
-                //    if (GetCanBlock())
-                //    {
-                //        CurrentState = BlockState;
-                //    }
-                //    break;
+                case EnemyStateEnum.Death:
+                    CurrentState = DeathState;
+                    break;
             }
 
-            currentStateEnum = stateEnum;
+            CurrentStateEnum = stateEnum;
             CurrentState.OnEnterState();
         }
         
     }
 
-    public void SetCurrentState(EnemyBaseState newState)
-    {
-        CurrentState = newState;
-    }
-
-    public EnemyBaseState GetCurrentState()
-    {
-        return CurrentState;    
-    }
-
-    public void SetCurrentStateEnum(EnemyStateEnum newStateEnum)
-    {
-        currentStateEnum = newStateEnum;
-    }
-
-    public EnemyStateEnum GetCurrentStateEnum()
-    {
-        return currentStateEnum;
-    }
-
+   
+  
     private void Awake()
     {
 
-        
-        animationManager = GetComponent<EnemyAnimationManager>();
+
+        EnemyAnimationManager = GetComponent<EnemyAnimationManager>();
         EnemyMovement = GetComponent<EnemyMovement>();
         collisionManager = GetComponent<EnemyCollisionManager>();
         agent = GetComponent<SmartEnemyAgent>();
@@ -173,39 +151,26 @@ public class EnemyController : MonoBehaviour
 
 
      
-        currentStateEnum = EnemyStateEnum.Idle;
+        CurrentStateEnum = EnemyStateEnum.Idle;
         CurrentState = IdleState;
 
 
     }
     private void Start()
     {
+        currentHealth = maxHealth;
         ChangeState(EnemyStateEnum.Patrol);
     }
 
     private void Update()
     {
-        handleCooldowns();
+        HandleCooldowns();
 
         CurrentState.HandleState();
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            ChangeState(EnemyStateEnum.Jump);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            ChangeState(EnemyStateEnum.Block);
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ChangeState(EnemyStateEnum.RangeAttack);
-        }
     }
 
-    private void handleCooldowns()
+    private void HandleCooldowns()
     {
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
@@ -218,17 +183,14 @@ public class EnemyController : MonoBehaviour
        
             if (currentHealth <= 0)
             {
-                currentHealth = 0;
-                //agent.AddReward(-3);
-                //agent.EndEpisode();  
-                Debug.Log("I died");
+               currentHealth = 0;
+               ChangeState(EnemyStateEnum.Death);
 
             }
         }
         else
         {
-            //agent.AddReward(-3);
-            //agent.EndEpisode();
+          
            Debug.Log("You are dead");
         }
     }
@@ -246,7 +208,6 @@ public class EnemyController : MonoBehaviour
     public void PlayBloodEffect(Vector2 hitPoint)
     {
         Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);
-        //Debug.Log(distance);
         var shape = bloodParticles.shape;
         shape.position = (distance);
         bloodParticles.Play();
@@ -303,6 +264,9 @@ public class EnemyController : MonoBehaviour
 
         StunState = GetComponentInChildren<StunState>();
         StunState.SetStatesController(this);
+
+        DeathState = GetComponentInChildren<EnemyDeathState>();
+        DeathState.SetStatesController(this);   
 
         //JumpState = GetComponentInChildren<JumpState>();
         //JumpState.SetStatesController(this);

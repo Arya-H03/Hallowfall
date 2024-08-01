@@ -31,15 +31,15 @@ public class BlockState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
-        enemyController.animationManager.SetTriggerForAnimation("Block");
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.EnemyAnimationManager.SetTriggerForAnimation("Block");
         
     }
 
     public override void OnExitState()
     {
-        enemyController.animationManager.SetBoolForAnimation("isBlocking", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isBlocking", false);
         swordBlockObj.GetComponent<BoxCollider2D>().enabled = false;
         Debug.Log("End block");
     }
@@ -52,7 +52,7 @@ public class BlockState : EnemyBaseState
 
     public void BeginBlockingSword()
     {
-        enemyController.animationManager.SetBoolForAnimation("isBlocking", true);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isBlocking", true);
         enemyController.SetCanBlock(false);
         blockTimer = 0f;
         swordBlockObj.GetComponent<BoxCollider2D>().enabled = true;
@@ -96,7 +96,7 @@ public class BlockState : EnemyBaseState
 
     private IEnumerator EndBlockByDuration(float duration,EnemyStateEnum stateToGoBack)
     {
-        if(enemyController.currentStateEnum == EnemyStateEnum.Block)
+        if(enemyController.CurrentStateEnum == EnemyStateEnum.Block)
         {
             yield return new WaitForSeconds(duration);
             enemyController.ChangeState(stateToGoBack);

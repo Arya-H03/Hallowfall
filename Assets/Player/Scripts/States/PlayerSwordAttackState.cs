@@ -162,7 +162,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             enemyController.player = parent;
             enemyController.hasSeenPlayer = true;
-            if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+            if (enemyController.CurrentStateEnum != EnemyStateEnum.Chase)
             {
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }

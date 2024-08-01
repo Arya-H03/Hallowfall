@@ -12,12 +12,12 @@ public class ChaseState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        enemyController.animationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void OnExitState()
     {
-        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
     }
 
     public override void HandleState()

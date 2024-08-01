@@ -39,12 +39,12 @@ public class PatrolState : EnemyBaseState
     {
         SetNextPatrolPoint();
         patrolDelayTimer = patrolDelayCooldown;
-        enemyController.animationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void OnExitState()
     {
-        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
     }
 
     public override void HandleState()
@@ -55,7 +55,7 @@ public class PatrolState : EnemyBaseState
             
             if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {
-                enemyController.animationManager.SetBoolForAnimation("isRunning", true);
+                enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
                 enemyController.EnemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
             }
 
@@ -88,7 +88,7 @@ public class PatrolState : EnemyBaseState
 
     private void OnPatrolPointReached()
     {
-        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
         SetNextPatrolPoint();
         RandomizePatrolDelay();
         patrolDelayTimer = 0;

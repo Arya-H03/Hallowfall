@@ -60,10 +60,10 @@ public class EnemyAttackState : EnemyBaseState
             
             
         }
-        //else
-        //{
-        //    enemyController.ChangeState(EnemyStateEnum.Chase);
-        //}
+        else if(!isAttacking) 
+        {
+            enemyController.ChangeState(EnemyStateEnum.Chase);
+        }
     }
 
     private IEnumerator StartAttackCoroutine()
@@ -73,7 +73,7 @@ public class EnemyAttackState : EnemyBaseState
         IsAttaking = true;
         enemyController.CanMove = false;
 
-        enemyController.animationManager.SetBoolForAnimation("isAttacking", true);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", true);
        
         yield return new WaitForSeconds(AttackRef.AttackCooldown);
 
@@ -84,7 +84,7 @@ public class EnemyAttackState : EnemyBaseState
    
     public void EndAttack()
     {
-        enemyController.animationManager.SetBoolForAnimation("isAttacking", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);
         IsAttaking = false;
         //enemController.CanMove = true;
         enemyController.ChangeState(EnemyStateEnum.Idle);
@@ -93,7 +93,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public void CancelAttack()
     {
-        enemyController.animationManager.SetBoolForAnimation("isAttacking", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);
         IsAttaking = false;
         //enemyController.CanMove = true;
         enemyController.ChangeState(EnemyStateEnum.Idle);

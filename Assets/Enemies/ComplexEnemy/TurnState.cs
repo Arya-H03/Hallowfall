@@ -19,11 +19,11 @@ public class TurnState : EnemyBaseState
     public override void OnEnterState()
     {
         
-        enemyController.animationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.animationManager.SetBoolForAnimation("isAttackingSword", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttackingSword", false);
         enemyController.SetIsTurning(true);
         enemyController.SetCanChangeState(false);
-        enemyController.animationManager.SetBoolForAnimation("isTurning", true);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", true);
 
 
     }
@@ -31,7 +31,7 @@ public class TurnState : EnemyBaseState
     public override void OnExitState()
     {
         
-        enemyController.animationManager.SetBoolForAnimation("isTurning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", false);
         
     }
 

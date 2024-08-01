@@ -14,5 +14,6 @@ public enum EnemyStateEnum
     Turn,
     Jump,
     Block,
+    Death
 
 }

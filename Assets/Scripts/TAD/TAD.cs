@@ -108,7 +108,7 @@ public class TAD : MonoBehaviour
                 {
                     enemyController.player = this.gameObject;
                     enemyController.hasSeenPlayer = true;
-                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    if (enemyController.CurrentStateEnum != EnemyStateEnum.Chase)
                     {
                         enemyController.ChangeState(EnemyStateEnum.Chase);
                     }

@@ -118,7 +118,7 @@ public class PlayerAttacks : MonoBehaviour
                 {
                     enemyController.player = parent;
                     enemyController.hasSeenPlayer = true;
-                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    if (enemyController.CurrentStateEnum != EnemyStateEnum.Chase)
                     {
                         enemyController.ChangeState(EnemyStateEnum.Chase);
                     }
@@ -184,7 +184,7 @@ public class PlayerAttacks : MonoBehaviour
                 {
                     enemyController.player = parent;
                     enemyController.hasSeenPlayer = true;
-                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    if (enemyController.CurrentStateEnum != EnemyStateEnum.Chase)
                     {
                         enemyController.ChangeState(EnemyStateEnum.Chase);
                     }
@@ -237,7 +237,7 @@ public class PlayerAttacks : MonoBehaviour
                 {
                     enemyController.player = parent;
                     enemyController.hasSeenPlayer = true;
-                    if (enemyController.currentStateEnum != EnemyStateEnum.Chase)
+                    if (enemyController.CurrentStateEnum != EnemyStateEnum.Chase)
                     {
                         enemyController.ChangeState(EnemyStateEnum.Chase);
                     }
