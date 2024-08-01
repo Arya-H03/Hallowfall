@@ -17,11 +17,12 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     {
         enemyController = GetComponentInParent<EnemyController>();
     }
-    private void Update()
-    {
-        DrawCast();
-    }
-    public void SwordAttackBoxCast()
+    //private void Update()
+    //{
+    //    DrawCast();
+    //}
+
+    public override void HandleAttack()
     {
         Vector2 direction = transform.right;
 
@@ -46,9 +47,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
                 player.GetComponent<Player>().OnTakingDamage(attackDamage);
             }
         }
-
     }
-
     private void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
     {
         // Define the corners of the box for visualization in 2D

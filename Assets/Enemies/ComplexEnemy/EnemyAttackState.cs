@@ -21,6 +21,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public bool IsAttaking { get => isAttacking; set => isAttacking = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
+    public EnemyBaseAttack AttackRef { get => attackRef; set => attackRef = value; }
 
     //private float moveSpeed = 2.5f;
 
@@ -32,7 +33,7 @@ public class EnemyAttackState : EnemyBaseState
 
     private void Awake()
     {
-        attackRef = GetComponent<EnemyBaseAttack>();    
+        AttackRef = GetComponent<EnemyBaseAttack>();    
     }
 
     public override void OnEnterState()
@@ -50,7 +51,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < attackRef.AttackRange)
+        if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < AttackRef.AttackRange)
         {
             if(canAttack)
             {
@@ -59,10 +60,10 @@ public class EnemyAttackState : EnemyBaseState
             
             
         }
-        else
-        {
-            enemyController.ChangeState(EnemyStateEnum.Chase);
-        }
+        //else
+        //{
+        //    enemyController.ChangeState(EnemyStateEnum.Chase);
+        //}
     }
 
     private IEnumerator StartAttackCoroutine()
@@ -74,7 +75,7 @@ public class EnemyAttackState : EnemyBaseState
 
         enemyController.animationManager.SetBoolForAnimation("isAttacking", true);
        
-        yield return new WaitForSeconds(attackRef.AttackCooldown);
+        yield return new WaitForSeconds(AttackRef.AttackCooldown);
 
         CanAttack = true;
         enemyController.CanMove = true;
@@ -100,7 +101,7 @@ public class EnemyAttackState : EnemyBaseState
     }
     public void CallAttack()
     {
-       attackRef.HandleAttack();
+       AttackRef.HandleAttack();
     }
 
     

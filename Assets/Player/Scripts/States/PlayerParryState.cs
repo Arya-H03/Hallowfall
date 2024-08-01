@@ -46,7 +46,7 @@ public class PlayerParryState : PlayerBaseState
 
     public void OnParryEnd()
     {
-
+        parryShield.GetComponent<BoxCollider2D>().enabled = false;
         playerController.IsParrying = false;
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
