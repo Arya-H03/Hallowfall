@@ -6028,7 +6028,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  playerAttacks: {fileID: 0}
   rb: {fileID: 0}
   inputManager: {fileID: 0}
   spriteRenderer: {fileID: 0}
@@ -10995,7 +10994,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5478323056235678100}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -11382,10 +11381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e0872d300414a4f996cd6567d526b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClips:
-  - {fileID: 8300000, guid: 691247275ccaec34d9d11863f5fad632, type: 3}
-  - {fileID: 8300000, guid: a9905811a785b584e968392f3dbc4d14, type: 3}
-  - {fileID: 8300000, guid: 5a3a5bc9ed43f38429e3590b35faadb1, type: 3}
   missClips:
   - {fileID: 8300000, guid: be3eb9310aa56f540967f99527bea652, type: 3}
   - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}

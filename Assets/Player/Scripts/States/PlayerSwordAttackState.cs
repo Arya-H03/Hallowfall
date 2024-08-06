@@ -168,7 +168,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point,this.gameObject);
+                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point,this.transform.parent.parent.gameObject);
                 
             }
 

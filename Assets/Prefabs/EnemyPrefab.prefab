@@ -204,7 +204,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672787409679022419}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -239,16 +239,14 @@ MonoBehaviour:
   currentStateEnum: 0
   previousStateEnum: 0
   agent: {fileID: 0}
-  animationManager: {fileID: 0}
   collisionManager: {fileID: 0}
   player: {fileID: 0}
   stunEffect: {fileID: 6038383028684167405}
+  damagePopUp: {fileID: 0}
   hasSeenPlayer: 0
   canAttack: 0
   isStuned: 0
   isJumping: 0
-  enemyAbilities: 0000000001000000
-  availableAbilities: 
 --- !u!114 &5733453611917105654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5516,10 +5514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c63a5a0612ca9347912d9a9e943a92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesEnum: 0
-  attackRange: 2
-  canSwordAttack: 1
-  isSwordAttaking: 0
+  canAttack: 1
+  isAttacking: 0
 --- !u!1 &5076090148463046082
 GameObject:
   m_ObjectHideFlags: 0

@@ -157,16 +157,20 @@ public class EnemyController : MonoBehaviour
 
         InitializeEnemyState();
 
+        //CurrentStateEnum = EnemyStateEnum.Idle;
+        //CurrentState = IdleState;
 
-     
-        CurrentStateEnum = EnemyStateEnum.Idle;
-        CurrentState = IdleState;
+
 
 
     }
     private void Start()
     {
         currentHealth = maxHealth;
+
+        CurrentStateEnum = EnemyStateEnum.Idle;
+        CurrentState = IdleState;
+
         ChangeState(EnemyStateEnum.Patrol);
     }
 
@@ -208,13 +212,14 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator EnemyHitCoroutine(int damage, Vector2 hitPoint)
     {
+        
         isInvincible = true;
-        material.SetFloat("_Flash", 1);
+        //material.SetFloat("_Flash", 1);
         PlayBloodEffect(hitPoint);
         SpawnDamagePopUp(damage);
         OnEnemyDamage(damage);
         yield return new WaitForSeconds(0.25f);
-        material.SetFloat("_Flash", 0);
+        //material.SetFloat("_Flash", 0);
         //SFX
         isInvincible = false;
     }
@@ -222,6 +227,7 @@ public class EnemyController : MonoBehaviour
     {
         if (currentHealth > 0)
         {
+            
             currentHealth -= value;
        
             if (currentHealth <= 0)
@@ -230,11 +236,17 @@ public class EnemyController : MonoBehaviour
                ChangeState(EnemyStateEnum.Death);
 
             }
+
+            if(!isDead)
+            {
+                enemyAnimationManager.SetTriggerForAnimation("Hit");
+            }
+            
         }
         else
         {
-          
-           Debug.Log("You are dead");
+
+            ChangeState(EnemyStateEnum.Death);
         }
     }
 

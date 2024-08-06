@@ -17,8 +17,9 @@ public class EnemyMovement : MonoBehaviour
 
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
     {      
-            Vector2 direction = endPoint - startPoint;
-            transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
+            Vector2 direction = (endPoint - startPoint).normalized;
+        transform.position += new Vector3(direction.x, 0, 0) * speed * Time.deltaTime;
+            //transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
             TurnEnemy(direction);
           
     }
