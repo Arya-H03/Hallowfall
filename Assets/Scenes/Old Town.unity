@@ -281,6 +281,22 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Size.x
+      value: 0.47215062
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4589044
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.041000456
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.01647693
+      objectReference: {fileID: 0}
     - target: {fileID: 5478323056235678100, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Name
       value: Inquisitor
@@ -10141,6 +10157,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 657778544946344706, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: attackCooldown
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1824542978293724540, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -10209,8 +10229,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8813364542130030853, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2843595039577193122, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}

@@ -49,7 +49,7 @@ public class EnemyCollisionManager : MonoBehaviour
             launchVec = new Vector2(-5 * luanchModifier, 3 * luanchModifier);
         }
 
-        LaunchEnemy(launchVec);
+        //LaunchEnemy(launchVec);
     }
     public void ApplyVelocity(float x, float y)
     {

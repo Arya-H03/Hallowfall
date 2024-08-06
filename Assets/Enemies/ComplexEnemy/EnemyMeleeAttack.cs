@@ -17,36 +17,41 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     {
         enemyController = GetComponentInParent<EnemyController>();
     }
-    //private void Update()
-    //{
-    //    DrawCast();
-    //}
+    private void Update()
+    {
+        DrawCast();
+    }
 
     public override void HandleAttack()
     {
         Vector2 direction = transform.right;
 
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
+        RaycastHit2D [] hits = Physics2D.BoxCastAll(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
 
-        if (hit)
+         foreach (RaycastHit2D hit in hits)
         {
-
-
-            if (hit.collider.CompareTag("ParryShield") == true)
+            if(hit.collider.CompareTag("ParryShield") == true)
             {
-
+                Debug.Log("Parry");
                 GameObject parryShield = hit.collider.gameObject;
                 enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
                 enemyController.ChangeState(EnemyStateEnum.Stun);
-
+                return;
             }
+            
+        }
 
+        foreach (RaycastHit2D hit in hits)
+        {                  
             if (hit.collider.CompareTag("Player"))
             {
                 GameObject player = hit.collider.gameObject;
                 player.GetComponent<Player>().OnTakingDamage(attackDamage);
+                return;
             }
         }
+
+
     }
     private void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
     {
