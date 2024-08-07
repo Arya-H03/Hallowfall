@@ -22,7 +22,7 @@ public class PlayerCollision : MonoBehaviour
 
         switch (collision.tag)
         {
-            case "Mist":
+            case "Trap":
                 playerController.Player.OnPlayerDeath();
                 break;
             case "Enemy":

@@ -9,7 +9,6 @@ TagManager:
   - EnemyCollisionAttack
   - ParryShield
   - DialogeBox
-  - Mist
   - Grass
   - PlayerPickUpBox
   - Wood
@@ -18,6 +17,7 @@ TagManager:
   - TAD
   - GameManager
   - BlockObject
+  - Trap
   layers:
   - Default
   - TransparentFX
