@@ -5,45 +5,65 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject go = new GameObject("GameManager");
+                instance = go.AddComponent<GameManager>();
+            }
+            return instance;
+        }
+    }
+
+    public Statue LastStatue { get => lastStatue; set => lastStatue = value; }
+
     [SerializeField] Canvas canvas;
-
     [SerializeField] GameObject dialogeBox;
-
     [SerializeField] GameObject pauseMenu;
-
     [SerializeField] string playerWakeUpDialoge;
-
     [SerializeField] InputManager inputManager;
-
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject enemy;
     [SerializeField] Transform enemySpawnTransform;
 
+    private Statue lastStatue;
 
     private GameObject playerCamera;
 
     public delegate void MyFunction();
 
-
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
+
+        DontDestroyOnLoad(gameObject);
+
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        
     }
 
     private void OnEnable()
     {
         Player.PlayerRespawnEvent += SpawnEnemy;
     }
+
     private void Start()
     {
-
         //OnPlayerWakeUp();
         //MyFunction func = EndPlayerDistortion;
         //StartCoroutine(CallFunctionByDelay(func, 4));
 
         //SpawnEnemy();
-
     }
 
     private void SpawnEnemy()
@@ -55,17 +75,17 @@ public class GameManager : MonoBehaviour
         enemy = Instantiate(enemyPrefab, enemySpawnTransform.position, Quaternion.identity);
     }
 
-  
-
     public void PlayAudio(AudioSource source, AudioClip clip)
     {
         source.volume = 0.5f;
-        source.PlayOneShot(clip);   
+        source.PlayOneShot(clip);
     }
+
     public void OnReplayButtonClick()
     {
         SceneManager.LoadScene("RealmBeyond");
     }
+
     public void OnMainmenuButtonClick()
     {
         OnGameUnPause();
@@ -90,19 +110,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         inputManager.OnEnable();
     }
+
     private void CreateUpDialogeBox(string text)
     {
-        //GameObject obj = Instantiate(dialogeBox, Vector3.zero, Quaternion.identity);
-        //obj.transform.SetParent(canvas.transform, false);
-        //obj.transform.position = new Vector3(220, 75, 0);
         dialogeBox.SetActive(true);
         dialogeBox.GetComponent<Dialoge>().StartDialoge(text);
+    }
 
-        //obj.GetComponent<Dialoge>().text[0] = text;
-        
-    }   
-
-    IEnumerator CallDialoge(float sec,string text)
+    IEnumerator CallDialoge(float sec, string text)
     {
         yield return new WaitForSeconds(sec);
         CreateUpDialogeBox(text);
@@ -111,13 +126,11 @@ public class GameManager : MonoBehaviour
     private void OnPlayerWakeUp()
     {
         playerCamera.GetComponent<PlayerCamera>().OnPlayerDistorted();
-
-       
     }
 
-    IEnumerator CallFunctionByDelay(MyFunction function,float sec)
+    IEnumerator CallFunctionByDelay(MyFunction function, float sec)
     {
-       yield return new WaitForSeconds(sec);
+        yield return new WaitForSeconds(sec);
         function();
     }
 
@@ -126,6 +139,4 @@ public class GameManager : MonoBehaviour
         playerCamera.GetComponent<PlayerCamera>().OnPlayerEndDistorted();
         StartCoroutine(CallDialoge(2, playerWakeUpDialoge));
     }
-
-    
 }

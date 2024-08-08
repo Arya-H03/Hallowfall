@@ -5,6 +5,21 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    private static InputManager instance;
+
+    public static InputManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject go = new GameObject("InputManager");
+                instance = go.AddComponent<InputManager>();
+            }
+            return instance;
+        }
+    }
+
     PlayerInputAction inputActions;
 
     [SerializeField] PlayerController player;
@@ -14,6 +29,13 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
         InputActions = new PlayerInputAction();
     }
 
@@ -21,6 +43,7 @@ public class InputManager : MonoBehaviour
     {
         InputActions.Guardian.Movement.performed += StartMove;
         InputActions.Guardian.Movement.canceled += StopMove;
+        InputActions.Guardian.Interact.canceled += StopMove;
 
         InputActions.Guardian.Jump.performed += Jump;
 

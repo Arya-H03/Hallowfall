@@ -12,9 +12,11 @@ public class EnvironmentCheck : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask interactionLayerMask;
 
     PlayerController playerController;
 
+    private IInteractable currentInteractable;
 
 
     private void Awake()
@@ -24,6 +26,7 @@ public class EnvironmentCheck : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckForInteractions();
         EndFallingGroundCheck();
         GroundCheck();
         RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);     
@@ -37,10 +40,40 @@ public class EnvironmentCheck : MonoBehaviour
 
         }
 
+
         
        
     }
 
+    private void CheckForInteractions()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 1f, interactionLayerMask);
+        if(hit) 
+        {
+            switch(hit.collider.tag)
+            {
+                case "Statue":
+                    if(currentInteractable == null)
+                    {
+                        currentInteractable = hit.transform.gameObject.GetComponent<IInteractable>();
+                        currentInteractable.OnIntercationBegin();
+                    }
+                    break;
+                default:
+                    Debug.Log("Other Tag: " + hit.collider.tag);
+                    break;
+            }
+        }
+
+        else
+        {
+            if(currentInteractable != null)
+            {
+                currentInteractable.OnIntercationEnd();
+                currentInteractable = null;
+            }
+        }
+    }
     private void GroundCheck()
     {
       

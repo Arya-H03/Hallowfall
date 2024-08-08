@@ -18,6 +18,7 @@ TagManager:
   - GameManager
   - BlockObject
   - Trap
+  - Statue
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Player
   - Item
   - FeetCheckBox
-  - 
+  - Interaction
   - 
   - 
   - 
