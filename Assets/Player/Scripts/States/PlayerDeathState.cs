@@ -26,12 +26,13 @@ public class PlayerDeathState : PlayerBaseState
     }
     public override void OnEnterState()
     {
+        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
         OnPlayerDeath();
     }
 
     public override void OnExitState()
     {
-
+        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
     }
 
     public override void HandleState()

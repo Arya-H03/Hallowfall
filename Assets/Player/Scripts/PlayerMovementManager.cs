@@ -51,15 +51,19 @@ public class PlayerMovementManager : MonoBehaviour
     }
     private void ManageRunState()
     {
-        if (currentDirection.x != 0 && !playerController.IsPlayerJumping)
+        if (!playerController.IsPlayerJumping && !playerController.IsFalling && !playerController.IsHanging)
         {
-           
-            playerController.ChangeState(PlayerStateEnum.Run);
+            if (currentDirection.x != 0 )
+            {
+
+                playerController.ChangeState(PlayerStateEnum.Run);
+            }
+            else
+            {
+                playerController.ChangeState(PlayerStateEnum.Idle);
+            }
         }
-        else
-        {
-            playerController.ChangeState(PlayerStateEnum.Idle);
-        }
+       
     }
     public void HandleMovement(Vector2 dir)
     {

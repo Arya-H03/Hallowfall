@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -9,18 +10,37 @@ public class EnemyMovement : MonoBehaviour
 
     private int currentDir = 1;
 
+    private float distanceToTarget;
+    private Vector2 targetPosition;
+
+    public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
+
     private void Awake()
     {
         //enemy = GetComponent<EnemyAI>();
         enemyController = GetComponent<EnemyController>();
     }
 
+    //private void Update()
+    //{
+    //    distanceToTarget = Mathf.Abs(targetPosition.x - transform.position.x);
+    //}
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
-    {      
+    {
+        //targetPosition = endPoint;      
+        //if (distanceToTarget >= 0.25f) 
+        //{
             Vector2 direction = (endPoint - startPoint).normalized;
-        transform.position += new Vector3(direction.x, 0, 0) * speed * Time.deltaTime;
-            //transform.position = Vector2.MoveTowards(startPoint, endPoint, speed * Time.deltaTime);
-            TurnEnemy(direction);
+        //transform.position += new Vector3(direction.x, 0, 0) * speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(startPoint, new Vector2(endPoint.x,startPoint.y), speed * Time.deltaTime);
+        TurnEnemy(direction);
+            
+        //}
+        //else
+        //{
+        //    enemyController.ChangeState(EnemyStateEnum.Idle);
+        //}
+      
           
     }
 

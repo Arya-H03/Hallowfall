@@ -26,8 +26,8 @@ public class PlayerCollision : MonoBehaviour
                 //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
                 break;
             case "Enemy":
-                rb.bodyType = RigidbodyType2D.Kinematic;
-                boxCollider2D.isTrigger = true;
+                //rb.bodyType = RigidbodyType2D.Kinematic;
+                //boxCollider2D.isTrigger = true;
                 break;
         }
       

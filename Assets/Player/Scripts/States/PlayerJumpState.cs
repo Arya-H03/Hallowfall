@@ -48,8 +48,8 @@ public class PlayerJumpState : PlayerBaseState
     {
         playerController.IsPlayerJumping = true;
         playerController.CanPlayerJump = false;
-        
 
+        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
         jumpDirectionX = playerController.PlayerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
         playerController.rb.velocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
@@ -57,6 +57,7 @@ public class PlayerJumpState : PlayerBaseState
         GameManager.Instance.PlayAudio(audioSource, jumpUpAC);
 
         playerController.AnimationController.SetTriggerForAnimations("JumpUp");
+
     }
 
     public void SetPlayerFallStatus()
