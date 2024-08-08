@@ -14,7 +14,11 @@ public class PatrolState : EnemyBaseState
     private float patrolDelayCooldown = 0f;
     private float patrolDelayTimer = 0f;
 
-    [SerializeField] private string[] patrolDialogues = {
+    [SerializeField] Transform rightPatrolBound;
+    [SerializeField] Transform leftPatrolBound;
+
+    [SerializeField]
+    private string[] patrolDialogues = {
         " More... More...",
         " It hurts",
         " Help me...",
@@ -27,7 +31,7 @@ public class PatrolState : EnemyBaseState
     }
     private void Awake()
     {
-        
+
     }
 
     private void Start()
@@ -52,7 +56,7 @@ public class PatrolState : EnemyBaseState
 
         if (patrolDelayTimer >= patrolDelayCooldown)
         {
-            
+
             if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {
                 enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
@@ -63,9 +67,9 @@ public class PatrolState : EnemyBaseState
             {
                 OnPatrolPointReached();
             }
-            
+
         }
-      
+
     }
 
     public void ManagePatrolDelayCooldown()
@@ -74,16 +78,17 @@ public class PatrolState : EnemyBaseState
         {
             patrolDelayTimer += Time.deltaTime;
         }
-        
+
     }
 
     private void SetNextPatrolPoint()
     {
-        int patrolDirection = GetPatrolPointDirection();
-        int randomRange = Random.Range(4, 7);
-        nextPatrollPosition = new Vector2(startPosition.x + (patrolDirection * randomRange), startPosition.y);
-        enemyController.GetDialogueBox().PlayRandomDialogue(patrolDialogues);
-        
+        //int patrolDirection = GetPatrolPointDirection();
+        //int randomRange = Random.Range(4, 7);
+        int randomXpos = Random.Range(Mathf.CeilToInt(leftPatrolBound.position.x), Mathf.FloorToInt(rightPatrolBound.position.x));
+        nextPatrollPosition = new Vector2(randomXpos, startPosition.y);
+        //enemyController.GetDialogueBox().PlayRandomDialogue(patrolDialogues);
+
     }
 
     private void OnPatrolPointReached()
@@ -116,9 +121,9 @@ public class PatrolState : EnemyBaseState
 
     private void RandomizePatrolDelay()
     {
-       
-            patrolDelayCooldown = Random.Range(2, 5);
-              
+
+        patrolDelayCooldown = Random.Range(2, 5);
+
     }
 
 }

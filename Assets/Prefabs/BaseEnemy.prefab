@@ -784,16 +784,14 @@ MonoBehaviour:
   currentStateEnum: 0
   previousStateEnum: 0
   agent: {fileID: 0}
-  animationManager: {fileID: 0}
   collisionManager: {fileID: 0}
   player: {fileID: 0}
   stunEffect: {fileID: 4976947001340109981}
+  damagePopUp: {fileID: 0}
   hasSeenPlayer: 0
   canAttack: 0
   isStuned: 0
   isJumping: 0
-  enemyAbilities: 0000000001000000
-  availableAbilities: 
 --- !u!114 &5467423977425920606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5655,6 +5653,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &6181113350431017022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8693811963378991522}
+  m_Layer: 6
+  m_Name: 'LeftBound '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8693811963378991522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6181113350431017022}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27.962349, y: -1.0225437, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4014199294828770127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7879785936766848130
 GameObject:
   m_ObjectHideFlags: 0
@@ -5749,6 +5778,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   swordAttackDamage: 0
+--- !u!1 &8182175947496991829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3073241266850422144}
+  m_Layer: 6
+  m_Name: RightBound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3073241266850422144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8182175947496991829}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 58.22235, y: -1.0225437, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4014199294828770127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8246307105147385406
 GameObject:
   m_ObjectHideFlags: 0
@@ -5868,7 +5928,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3073241266850422144}
+  - {fileID: 8693811963378991522}
   m_Father: {fileID: 2977755455346242875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2657997786246664659
@@ -5883,6 +5945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a792508ea75ca874faa1d10f8be3c914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightPatrolBound: {fileID: 3073241266850422144}
+  leftPatrolBound: {fileID: 8693811963378991522}
   patrolDialogues:
   - ' More... More...'
   - ' It hurts'
@@ -5933,7 +5997,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c63a5a0612ca9347912d9a9e943a92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesEnum: 0
-  attackRange: 2
-  canSwordAttack: 1
-  isSwordAttaking: 0
+  canAttack: 1
+  isAttacking: 0
