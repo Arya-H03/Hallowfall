@@ -11,6 +11,7 @@ public enum PlayerStateEnum
    Parry,
    Roll,
    Hang,
-   Fall
+   Fall,
+   Death
     
 }

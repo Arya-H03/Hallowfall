@@ -11,11 +11,9 @@ public class PlayerController : MonoBehaviour
 
     private PlayerAnimationController animationController;
     private PlayerMovementManager playerMovementManager;
-    [SerializeField] private GameManager gameManager;
 
     [HideInInspector]
     public Rigidbody2D rb;
-    [SerializeField] private InputManager inputManager;
     [HideInInspector]
     public SpriteRenderer spriteRenderer;
     [HideInInspector]
@@ -55,6 +53,7 @@ public class PlayerController : MonoBehaviour
     private PlayerRollState playerRollState;
     private PlayerHangingState playerHangingState;
     private PlayerFallState playerFallState;
+    private PlayerDeathState playerDeathState;
 
 
     private PlayerFootSteps footSteps;
@@ -67,7 +66,6 @@ public class PlayerController : MonoBehaviour
     public PlayerIdleState PlayerIdleState { get => playerIdleState; set => playerIdleState = value; }
     public PlayerRunState PlayerRunState { get => playerRunState; set => playerRunState = value; }
     public PlayerMovementManager PlayerMovementManager { get => playerMovementManager; set => playerMovementManager = value; }
-    public GameManager GameManager { get => gameManager;}
     public PlayerJumpState PlayerJumpState { get => playerJumpState; set => playerJumpState = value; }
     public bool CanPlayerJump { get => canPlayerJump; set => canPlayerJump = value; }
     public bool IsPlayerGrounded { get => isPlayerGrounded; set => isPlayerGrounded = value; }
@@ -86,13 +84,13 @@ public class PlayerController : MonoBehaviour
     public bool IsRolling { get => isRolling; set => isRolling = value; }
     public bool CanRoll { get => canRoll; set => canRoll = value; }
     public PlayerHangingState PlayerHangingState { get => playerHangingState; set => playerHangingState = value; }
-    public InputManager InputManager { get => inputManager; set => inputManager = value; }
     public bool CanHang { get => canHang; set => canHang = value; }
     public bool IsHanging { get => isHanging; set => isHanging = value; }
     public bool IsFacingWall { get => isFacingWall; set => isFacingWall = value; }
     public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
     public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
+    public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
 
     #endregion
     private void Awake()
@@ -135,6 +133,9 @@ public class PlayerController : MonoBehaviour
 
         PlayerFallState = GetComponentInChildren<PlayerFallState>(); 
         PlayerFallState.SetOnInitializeVariables(this);
+
+        PlayerDeathState = GetComponentInChildren<PlayerDeathState>();
+        PlayerDeathState.SetOnInitializeVariables(this);
 
 
         CurrentStateEnum = PlayerStateEnum.Idle;
@@ -187,6 +188,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case PlayerStateEnum.Fall:
                     CurrentState = PlayerFallState;
+                    break;
+                case PlayerStateEnum.Death:
+                    CurrentState = PlayerDeathState;
                     break;
             }
 

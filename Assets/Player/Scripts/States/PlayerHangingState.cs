@@ -36,16 +36,16 @@ public class PlayerHangingState : PlayerBaseState
 
     private void ChangePlayerInputActionsWhileHanging()
     {
-        playerController.InputManager.InputActions.Guardian.Movement.performed -= playerController.InputManager.StartMove;
-        playerController.InputManager.InputActions.Guardian.Movement.performed += JumpAway;
-        playerController.InputManager.InputActions.Guardian.Jump.performed -= playerController.InputManager.Jump;
+        InputManager.Instance.InputActions.Guardian.Movement.performed -= InputManager.Instance.StartMove;
+        InputManager.Instance.InputActions.Guardian.Movement.performed += JumpAway;
+        InputManager.Instance.InputActions.Guardian.Jump.performed -= InputManager.Instance.Jump;
     }
 
     private void ResetPlayerInputActions()
     {
-        playerController.InputManager.InputActions.Guardian.Movement.performed += playerController.InputManager.StartMove;
-        playerController.InputManager.InputActions.Guardian.Movement.performed -= JumpAway;
-        playerController.InputManager.InputActions.Guardian.Jump.performed += playerController.InputManager.Jump;     
+        InputManager.Instance.InputActions.Guardian.Movement.performed += InputManager.Instance.StartMove;
+        InputManager.Instance.InputActions.Guardian.Movement.performed -= JumpAway;
+        InputManager.Instance.InputActions.Guardian.Jump.performed += InputManager.Instance.Jump;     
     }
 
     private void JumpAway(InputAction.CallbackContext ctx)

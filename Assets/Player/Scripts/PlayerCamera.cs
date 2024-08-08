@@ -12,9 +12,12 @@ public class PlayerCamera : MonoBehaviour
     private ChromaticAberration chromaticAberration;
     private float followSpeed = 2f;
 
+    private PlayerController playerController;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();    
         volume = GetComponent<Volume>();
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out chromaticAberration);
@@ -23,7 +26,7 @@ public class PlayerCamera : MonoBehaviour
     
     void Update()
     {
-        if (player)
+        if (player && !playerController.IsDead)
         {
 
             Vector3 currentPosition = transform.position;

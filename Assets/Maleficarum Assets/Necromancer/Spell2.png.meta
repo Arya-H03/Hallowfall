@@ -88,7 +88,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -102,7 +102,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -538,7 +538,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Spell2_0: -7132710336831216126
+      Spell2_1: 4071864531623572647
+      Spell2_10: -7097996302438239574
+      Spell2_11: 5325948251172148921
+      Spell2_12: -7007466483404879444
+      Spell2_13: 703796387477479175
+      Spell2_14: -7695254787075874077
+      Spell2_15: -1853652462956065477
+      Spell2_16: 4474687536705979036
+      Spell2_17: 1856728493052650700
+      Spell2_2: 4665093342161206058
+      Spell2_3: 2754278920091521496
+      Spell2_4: -3655772964997902501
+      Spell2_5: 1176739112865770190
+      Spell2_6: 1565196311934971981
+      Spell2_7: 4049896027283242005
+      Spell2_8: 6841124985947222486
+      Spell2_9: -5423300249437568791
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

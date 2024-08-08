@@ -11,6 +11,7 @@ public class Statue : MonoBehaviour, IInteractable
 
     [SerializeField] private GameObject purpleFire;
 
+
     
     
     public void SetPlayerPositionOnRespawn(GameObject player)

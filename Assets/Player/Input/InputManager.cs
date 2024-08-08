@@ -23,7 +23,6 @@ public class InputManager : MonoBehaviour
     PlayerInputAction inputActions;
 
     [SerializeField] PlayerController player;
-    [SerializeField] GameManager gameManager;
 
     public PlayerInputAction InputActions { get => inputActions; set => inputActions = value; }
 
@@ -107,7 +106,7 @@ public class InputManager : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext ctx)
     {
-        gameManager.OnGamePause();
+        GameManager.Instance.OnGamePause();
     }
 
 

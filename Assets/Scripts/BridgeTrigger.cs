@@ -24,7 +24,7 @@ public class BridgeTrigger: MonoBehaviour
 
     private void OnEnable()
     {
-        Player.PlayerRespawnEvent += ResetBridge;
+        PlayerDeathState.PlayerRespawnEvent += ResetBridge;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

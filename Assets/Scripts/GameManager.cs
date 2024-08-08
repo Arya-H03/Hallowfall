@@ -21,15 +21,16 @@ public class GameManager : MonoBehaviour
     }
 
     public Statue LastStatue { get => lastStatue; set => lastStatue = value; }
+    public GameObject Player { get => player; set => player = value; }
 
     [SerializeField] Canvas canvas;
     [SerializeField] GameObject dialogeBox;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject deathMenu;
     [SerializeField] string playerWakeUpDialoge;
-    [SerializeField] InputManager inputManager;
-    [SerializeField] GameObject enemyPrefab;
-    [SerializeField] GameObject enemy;
-    [SerializeField] Transform enemySpawnTransform;
+   
+
+    [SerializeField] GameObject player;
 
     private Statue lastStatue;
 
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //OnPlayerWakeUp();
+        //DistortCamera();
         //MyFunction func = EndPlayerDistortion;
         //StartCoroutine(CallFunctionByDelay(func, 4));
 
@@ -81,9 +82,22 @@ public class GameManager : MonoBehaviour
         source.PlayOneShot(clip);
     }
 
+    public void OpenDeathMenu()
+    {
+        deathMenu.SetActive(true);
+    }
+
+    public void CloseDeathMenu()
+    {
+        deathMenu.SetActive(false);
+    }
+
     public void OnReplayButtonClick()
     {
-        SceneManager.LoadScene("RealmBeyond");
+        //SceneManager.LoadScene("RealmBeyond");
+        CloseDeathMenu();
+        Player.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
+        
     }
 
     public void OnMainmenuButtonClick()
@@ -101,14 +115,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
-        inputManager.OnDisable();
+        InputManager.Instance.OnDisable();
     }
 
     public void OnGameUnPause()
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
-        inputManager.OnEnable();
+        InputManager.Instance.OnEnable();
     }
 
     private void CreateUpDialogeBox(string text)
@@ -123,7 +137,7 @@ public class GameManager : MonoBehaviour
         CreateUpDialogeBox(text);
     }
 
-    private void OnPlayerWakeUp()
+    public void DistortCamera()
     {
         playerCamera.GetComponent<PlayerCamera>().OnPlayerDistorted();
     }
@@ -134,9 +148,9 @@ public class GameManager : MonoBehaviour
         function();
     }
 
-    private void EndPlayerDistortion()
+    public void EndPlayerDistortion()
     {
         playerCamera.GetComponent<PlayerCamera>().OnPlayerEndDistorted();
-        StartCoroutine(CallDialoge(2, playerWakeUpDialoge));
+        
     }
 }

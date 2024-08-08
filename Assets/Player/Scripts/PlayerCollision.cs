@@ -23,11 +23,11 @@ public class PlayerCollision : MonoBehaviour
         switch (collision.tag)
         {
             case "Trap":
-                playerController.Player.OnPlayerDeath();
+                //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
                 break;
             case "Enemy":
                 rb.bodyType = RigidbodyType2D.Kinematic;
-                boxCollider2D.isTrigger = true; 
+                boxCollider2D.isTrigger = true;
                 break;
         }
       
@@ -38,10 +38,10 @@ public class PlayerCollision : MonoBehaviour
         switch (collision.tag)
         {
             
-            case "Enemy":
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                boxCollider2D.isTrigger = false;
-                break;
+            //case "Enemy":
+            //    rb.bodyType = RigidbodyType2D.Dynamic;
+            //    boxCollider2D.isTrigger = false;
+            //    break;
         }
     }
 

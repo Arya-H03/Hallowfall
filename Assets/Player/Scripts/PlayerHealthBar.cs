@@ -9,20 +9,26 @@ public class PlayerHealthBar : MonoBehaviour
     [SerializeField] GameObject [] healthShields;
 
     private int currenthealthShieldsIndex = 0;
-    private Player player;
+    private GameObject player;
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
-     
+        //player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     private void OnEnable()
     {
+
         Player.LosingHealthShieldEvent += OnLifeLost;
-        Player.PlayerRespawnEvent += ResetHealthShields;
+        PlayerDeathState.PlayerRespawnEvent += ResetHealthShields;
     }
- 
+    private void OnDisable()
+    {
+        Player.LosingHealthShieldEvent -= OnLifeLost;
+        PlayerDeathState.PlayerRespawnEvent -= ResetHealthShields;
+    }
+
     private void OnLifeLost()
     {
         if (currenthealthShieldsIndex < 3)

@@ -26,23 +26,28 @@ public class EnvironmentCheck : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckForInteractions();
-        EndFallingGroundCheck();
-        GroundCheck();
-        RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);     
-        RaycastHit2D midLevelCast = Physics2D.Raycast(midLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
-    
-        if (midLevelCast && !headLevelCast && playerController.CanHang) {
-            
-            playerController.ChangeState(PlayerStateEnum.Hang);
-            playerController.PlayerHangingState.SetHaningPosition(midLevelCast);
-            
+        if (!playerController.IsDead)
+        {
+            CheckForInteractions();
+            EndFallingGroundCheck();
+            GroundCheck();
+            RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
+            RaycastHit2D midLevelCast = Physics2D.Raycast(midLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
+
+            if (midLevelCast && !headLevelCast && playerController.CanHang)
+            {
+
+                playerController.ChangeState(PlayerStateEnum.Hang);
+                playerController.PlayerHangingState.SetHaningPosition(midLevelCast);
+
+
+            }
+
+
+
 
         }
 
-
-        
-       
     }
 
     private void CheckForInteractions()
@@ -76,30 +81,44 @@ public class EnvironmentCheck : MonoBehaviour
     }
     private void GroundCheck()
     {
-      
-            RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
-            RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
-            if (rayCast1 || rayCast2)
-            {           
-                playerController.IsPlayerGrounded = true;               
+        RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
+        RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
 
-            }
+        if (rayCast1 || rayCast2)
+        {
+            playerController.IsPlayerGrounded = true;
 
-            else
+            // Check for traps
+            if (rayCast1.collider != null && rayCast1.collider.CompareTag("Trap"))
             {
-                playerController.IsPlayerGrounded = false;
+                playerController.ChangeState(PlayerStateEnum.Death);
+                return; 
+            }
 
-                if (!playerController.IsHanging)
+            if (rayCast2.collider != null && rayCast2.collider.CompareTag("Trap"))
+            {
+                playerController.ChangeState(PlayerStateEnum.Death);
+                return; 
+            }
+        }
+        else
+        {
+            playerController.IsPlayerGrounded = false;
+
+            if (!playerController.IsHanging)
+            {
+                // Handle special cases like rolling off a ledge
+                if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
                 {
-                    if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
-                    {
                     StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
-                    }
-                    playerController.ChangeState(PlayerStateEnum.Fall);
-            }
-            }
+                }
 
+                // Change state to falling
+                playerController.ChangeState(PlayerStateEnum.Fall);
+            }
+        }
     }
+
 
     private void EndFallingGroundCheck()
     {
