@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.PlayerRespawnEvent += SpawnEnemy;
+        //Player.PlayerRespawnEvent += SpawnEnemy;
     }
 
     private void Start()
@@ -68,11 +68,11 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (enemy)
-        {
-            Destroy(enemy);
-        }
-        enemy = Instantiate(enemyPrefab, enemySpawnTransform.position, Quaternion.identity);
+        //if (enemy)
+        //{
+        //    Destroy(enemy);
+        //}
+        //enemy = Instantiate(enemyPrefab, enemySpawnTransform.position, Quaternion.identity);
     }
 
     public void PlayAudio(AudioSource source, AudioClip clip)

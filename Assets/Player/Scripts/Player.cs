@@ -23,8 +23,6 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerHealthBar healthBar;
 
     [SerializeField] GameObject deathmenu;
-
-    [SerializeField] Transform respawnTransform;
   
     public int maxCorupption = 100;
     public int currentCorupption = 0;
@@ -186,11 +184,11 @@ public class Player : MonoBehaviour
 
     private void PlayerRespawn()
     {
-        this.transform.position = respawnTransform.position;
         controller.InputManager.OnEnable();
         controller.spriteRenderer.enabled = true;
         controller.IsDead = false;
         isPlayerDead = false;
+        GameManager.Instance.LastStatue.SetPlayerPositionOnRespawn(this.gameObject);
     }
 
     private void OnPlayerRespawn()
