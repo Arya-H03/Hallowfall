@@ -24,25 +24,33 @@ public class ChaseState : EnemyBaseState
     {
         if (enemyController.hasSeenPlayer)
         {
-            if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < enemyController.AttackState.AttackRef.AttackRange)
+            if (enemyController.CurrentPlatformElevation.ElevationLevel == enemyController.player.GetComponent<PlayerController>().CurrentPlatformElevation.ElevationLevel)
             {
-                enemyController.ChangeState(EnemyStateEnum.Attack);
-                enemyController.canAttack = true;
-            }
-
-            else
-            {
-                enemyController.canAttack = false;
-                if (enemyController.player.GetComponent<PlayerController>().IsHanging)
+                if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < enemyController.AttackState.AttackRef.AttackRange)
                 {
-                   enemyController.ChangeState(EnemyStateEnum.Idle);
+                    enemyController.ChangeState(EnemyStateEnum.Attack);
+                    enemyController.canAttack = true;
                 }
+
                 else
                 {
-                    enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+                    enemyController.canAttack = false;
+                    if (enemyController.player.GetComponent<PlayerController>().IsHanging)
+                    {
+                        enemyController.ChangeState(EnemyStateEnum.Idle);
+                    }
+                    else
+                    {
+                        enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+                    }
+
                 }
-               
             }
+            else
+            {
+                enemyController.ChangeState(EnemyStateEnum.Idle);
+            }
+           
 
             
         }

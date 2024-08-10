@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Player player;
     private PlayerCollision playerCollision;
 
+    private PlatformTag currentPlatformElevation;
 
 
     [SerializeField] private bool canPlayerJump = true;
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour
     public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
+    public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
 
     #endregion
     private void Awake()
@@ -146,6 +148,8 @@ public class PlayerController : MonoBehaviour
     {
         currentState.HandleState();
         PlayerRollState.HandleRollCooldown();
+
+        Debug.Log("palyer" + currentPlatformElevation.ElevationLevel);
     }
     public void ChangeState(PlayerStateEnum stateEnum)
     {

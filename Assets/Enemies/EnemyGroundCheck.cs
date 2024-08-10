@@ -4,20 +4,39 @@ using UnityEngine;
 
 public class EnemyGroundCheck : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(collision + "in");
+    [SerializeField] Transform groundCheckOrigin1;
+    [SerializeField] Transform groundCheckOrigin2;
 
+    [SerializeField] LayerMask groundLayer;
+
+    EnemyController enemyController;
+
+    private void Awake()
+    {
+        enemyController = GetComponentInParent<EnemyController>();  
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void FixedUpdate()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
+        GroundCheck();
+    }
+    private void GroundCheck()
+    {
+        RaycastHit2D[] rayCasts = new RaycastHit2D[2];
+        rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
+        rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
 
-            Debug.Log(collision + "Out");
+        foreach (RaycastHit2D rayCast in rayCasts)
+        {
+            if (rayCast.collider != null)
+            {
+                PlatformTag platformTag = rayCast.collider.gameObject.GetComponent<PlatformTag>();
+                if (platformTag != enemyController.CurrentPlatformElevation)
+                {
+                    enemyController.CurrentPlatformElevation = platformTag;
+                }
+
+            
+            }
         }
-        
-        
     }
 }

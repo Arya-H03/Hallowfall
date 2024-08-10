@@ -11,7 +11,6 @@ public class EnemyMovement : MonoBehaviour
     private int currentDir = 1;
 
     private float distanceToTarget;
-    private Vector2 targetPosition;
 
     public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
 
@@ -27,21 +26,13 @@ public class EnemyMovement : MonoBehaviour
     //}
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
     {
-        //targetPosition = endPoint;      
-        //if (distanceToTarget >= 0.25f) 
-        //{
+       
             Vector2 direction = (endPoint - startPoint).normalized;
         //transform.position += new Vector3(direction.x, 0, 0) * speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(startPoint, new Vector2(endPoint.x,startPoint.y), speed * Time.deltaTime);
         TurnEnemy(direction);
             
-        //}
-        //else
-        //{
-        //    enemyController.ChangeState(EnemyStateEnum.Idle);
-        //}
-      
-          
+    
     }
 
     private void TurnEnemy(Vector2 direction)

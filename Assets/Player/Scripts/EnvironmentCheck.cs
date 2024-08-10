@@ -81,43 +81,42 @@ public class EnvironmentCheck : MonoBehaviour
     }
     private void GroundCheck()
     {
-        RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
-        RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
+        RaycastHit2D[] rayCasts = new RaycastHit2D[2];
+        rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
+        rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
 
-        if (rayCast1 || rayCast2)
+        bool isGrounded = false;
+        foreach (RaycastHit2D rayCast in rayCasts)
         {
-            playerController.IsPlayerGrounded = true;
-
-            // Check for traps
-            if (rayCast1.collider != null && rayCast1.collider.CompareTag("Trap"))
+            if (rayCast.collider != null)
             {
-                playerController.ChangeState(PlayerStateEnum.Death);
-                return; 
-            }
-
-            if (rayCast2.collider != null && rayCast2.collider.CompareTag("Trap"))
-            {
-                playerController.ChangeState(PlayerStateEnum.Death);
-                return; 
-            }
-        }
-        else
-        {
-            playerController.IsPlayerGrounded = false;
-
-            if (!playerController.IsHanging)
-            {
-                // Handle special cases like rolling off a ledge
-                if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
+                isGrounded = true;
+                PlatformTag platformTag = rayCast.collider.gameObject.GetComponent<PlatformTag>();
+                if (platformTag != playerController.CurrentPlatformElevation)
                 {
-                    StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
+                    playerController.CurrentPlatformElevation = platformTag;
                 }
 
-                // Change state to falling
-                playerController.ChangeState(PlayerStateEnum.Fall);
+                if (rayCast.collider.CompareTag("Trap"))
+                {
+                    playerController.ChangeState(PlayerStateEnum.Death);
+                    return;
+                }
             }
         }
+
+        playerController.IsPlayerGrounded = isGrounded;
+
+        if (!isGrounded && !playerController.IsHanging)
+        {
+            if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
+            {
+                StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
+            }
+            playerController.ChangeState(PlayerStateEnum.Fall);
+        }
     }
+
 
 
     private void EndFallingGroundCheck()
