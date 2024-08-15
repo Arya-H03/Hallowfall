@@ -97,5 +97,9 @@ public class PlayerAnimationController : MonoBehaviour
         playerController.PlayerRollState.OnRollEnd();
     }
 
-
+    public void EnableSecondSwing()
+    {
+        playerController.PlayerSwordAttackState.CanDoubleSwing = true;
+    }
+  
 }

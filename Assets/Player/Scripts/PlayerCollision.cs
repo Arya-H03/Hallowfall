@@ -35,14 +35,14 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        switch (collision.tag)
-        {
+        //switch (collision.tag)
+        //{
             
-            //case "Enemy":
-            //    rb.bodyType = RigidbodyType2D.Dynamic;
-            //    boxCollider2D.isTrigger = false;
-            //    break;
-        }
+        //    //case "Enemy":
+        //    //    rb.bodyType = RigidbodyType2D.Dynamic;
+        //    //    boxCollider2D.isTrigger = false;
+        //    //    break;
+        //}
     }
 
     public void KnockPlayer(Vector2 launchVel)

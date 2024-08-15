@@ -115,7 +115,7 @@ public class InputManager : MonoBehaviour
     {
         player.PlayerSwordAttackState.DoubleSwing();
     }
-
+   
     public void StartParry(InputAction.CallbackContext ctx)
     {
         player.OnStartParry();

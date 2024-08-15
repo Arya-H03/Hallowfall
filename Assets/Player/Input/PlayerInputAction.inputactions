@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ThirdAttack",
+                    "type": "Button",
+                    "id": "255b6f87-1368-4cfc-ab84-03cf4477407c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -248,6 +257,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8e3408e-342d-4494-b7fc-e77755ce22ea",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap(tapDelay=0.5,tapCount=3)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThirdAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

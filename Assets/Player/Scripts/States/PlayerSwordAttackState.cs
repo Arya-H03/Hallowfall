@@ -20,7 +20,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] PlayerFootSteps footSteps;
     private GameObject parent;
 
-    private bool canDoubleSwing = true;
+    private bool canDoubleSwing = false;
 
     //For Debuging
     [SerializeField] Vector2 size; // Size of the box in 2D
@@ -93,9 +93,9 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
 
         else
-        {            
-                    playerController.AnimationController.SetTriggerForAnimations("Attack");
-                    CanDoubleSwing = true;
+        {
+            playerController.AnimationController.SetTriggerForAnimations("Attack");
+            //CanDoubleSwing = true;
         }
 
         playerController.IsAttacking = true;
@@ -113,7 +113,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         if (CanDoubleSwing)
         {
-            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");    
             CanDoubleSwing = false;
         }
 
