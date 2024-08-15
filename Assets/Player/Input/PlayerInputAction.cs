@@ -109,7 +109,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""StartParry"",
+                    ""name"": ""Parry"",
                     ""type"": ""Button"",
                     ""id"": ""c8cb68fb-fd70-4084-83c4-565d995c73fa"",
                     ""expectedControlType"": ""Button"",
@@ -269,7 +269,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""StartParry"",
+                    ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -289,7 +289,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian_Roll = m_Guardian.FindAction("Roll", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
         m_Guardian_SecondAttack = m_Guardian.FindAction("SecondAttack", throwIfNotFound: true);
-        m_Guardian_Parry = m_Guardian.FindAction("StartParry", throwIfNotFound: true);
+        m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
     }
 
     public void Dispose()

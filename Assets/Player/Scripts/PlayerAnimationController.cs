@@ -46,11 +46,6 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger(name);
     }
 
-    public void ManageParryAttack()
-    {
-        SetBoolForAnimations("isParrySuccessful", false);
-    }
-
     public void EndSwordAttack()
     {
         playerController.PlayerSwordAttackState.EndAttack();

@@ -51,7 +51,7 @@ public class PlayerMovementManager : MonoBehaviour
     }
     private void ManageRunState()
     {
-        if (!playerController.IsPlayerJumping && !playerController.IsFalling && !playerController.IsHanging)
+        if (!playerController.IsPlayerJumping && !playerController.IsFalling && !playerController.IsHanging && !playerController.IsParrying && !playerController.IsAttacking && !playerController.IsRolling)
         {
             if (currentDirection.x != 0 )
             {

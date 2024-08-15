@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void OnParry()
+    public void OnStartParry()
     {
         if(isPlayerGrounded && !isRolling)
         {
@@ -235,6 +235,8 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
+   
     public void OnRoll()
     {
         if(IsPlayerGrounded && !isPlayerJumping && !isRolling && CanRoll)

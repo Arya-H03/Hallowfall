@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
         InputActions.Guardian.Roll.performed += Roll;
 
         InputActions.Guardian.Parry.performed += StartParry;
-        InputActions.Guardian.Parry.canceled += EndParry;
+
 
         InputActions.Guardian.Pause.performed += Pause;   
 
@@ -118,15 +118,8 @@ public class InputManager : MonoBehaviour
 
     public void StartParry(InputAction.CallbackContext ctx)
     {
-        //player.OnParry();
+        player.OnStartParry();
         Debug.Log("Start");
     }
-
-    public void EndParry(InputAction.CallbackContext ctx)
-    {
-        //player.OnParry();
-        Debug.Log("End");
-    }
-
 
 }

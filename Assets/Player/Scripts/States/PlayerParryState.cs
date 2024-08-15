@@ -21,6 +21,7 @@ public class PlayerParryState : PlayerBaseState
     public override void OnExitState()
     {
         playerController.PlayerMovementManager.MoveSpeed = playerController.PlayerMovementManager.MoveSpeed;
+       
     }
 
     public override void HandleState()
@@ -33,9 +34,18 @@ public class PlayerParryState : PlayerBaseState
     {
 
         playerController.IsParrying = true;
-        playerController.AnimationController.SetTriggerForAnimations("StartParry");
+        playerController.AnimationController.SetTriggerForAnimations("Parry");
+        playerController.AnimationController.SetBoolForAnimations("isParrying",true);
+        StartCoroutine(StopParryCoroutine());
        
         
+    }
+
+    private IEnumerator StopParryCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playerController.AnimationController.SetBoolForAnimations("isParrying", false);
+        OnParryEnd();
     }
 
     public void ActivateParryShield()
@@ -48,6 +58,7 @@ public class PlayerParryState : PlayerBaseState
     {
         parryShield.GetComponent<BoxCollider2D>().enabled = false;
         playerController.IsParrying = false;
+        playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", false);
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
