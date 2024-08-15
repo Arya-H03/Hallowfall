@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Player;
 
 public class PlayerDeathState : PlayerBaseState
 {
+    public delegate void MyEventHandler();
 
     public static event MyEventHandler PlayerDeathEvent;
     public static event MyEventHandler PlayerRespawnEvent;
@@ -26,13 +26,13 @@ public class PlayerDeathState : PlayerBaseState
     }
     public override void OnEnterState()
     {
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
+        
         OnPlayerDeath();
     }
 
     public override void OnExitState()
     {
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
+        
     }
 
     public override void HandleState()
@@ -73,10 +73,11 @@ public class PlayerDeathState : PlayerBaseState
     private void PlayerRespawn()
     {
         GameManager.Instance.EndPlayerDistortion();
-        GameManager.Instance.LastStatue.SetPlayerPositionOnRespawn(this.transform.parent.parent.gameObject );
+        GameManager.Instance.SetPlayerLocationOnRespawn();
         playerController.AnimationController.SetBoolForAnimations("isDead", false);
         InputManager.Instance.OnEnable();
         playerController.IsDead = false;
+        playerController.RestoreHealth(playerController.MaxHealth);
         playerController.ChangeState(PlayerStateEnum.Idle); 
 
     }

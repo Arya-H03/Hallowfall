@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -66,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -118,10 +118,10 @@ TextureImporter:
       name: burning_loop_4_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 6
-        height: 16
+        width: 10
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,10 +139,10 @@ TextureImporter:
       name: burning_loop_4_1
       rect:
         serializedVersion: 2
-        x: 12
+        x: 10
         y: 0
-        width: 6
-        height: 17
+        width: 10
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,9 +160,9 @@ TextureImporter:
       name: burning_loop_4_2
       rect:
         serializedVersion: 2
-        x: 22
+        x: 20
         y: 0
-        width: 16
+        width: 10
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: burning_loop_4_3
       rect:
         serializedVersion: 2
-        x: 32
+        x: 30
         y: 0
-        width: 7
-        height: 10
+        width: 10
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: burning_loop_4_4
       rect:
         serializedVersion: 2
-        x: 42
+        x: 40
         y: 0
-        width: 7
-        height: 18
+        width: 10
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,9 +223,9 @@ TextureImporter:
       name: burning_loop_4_5
       rect:
         serializedVersion: 2
-        x: 52
+        x: 50
         y: 0
-        width: 7
+        width: 10
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -243,14 +243,20 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9a33e1c7d8223c14e96da02593cba308
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      burning_loop_4_0: -3375781739270887710
+      burning_loop_4_1: 7525090803310951411
+      burning_loop_4_2: -2614481539037402178
+      burning_loop_4_3: -8006362584891074903
+      burning_loop_4_4: -9186079439518740606
+      burning_loop_4_5: -6875710897720324838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

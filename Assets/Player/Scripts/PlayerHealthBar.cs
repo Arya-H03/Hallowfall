@@ -6,47 +6,36 @@ using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    [SerializeField] GameObject [] healthShields;
-
-    private int currenthealthShieldsIndex = 0;
-    private GameObject player;
+   
+    private GameObject playerGo;
+    private PlayerController playerController;
 
     private void Awake()
     {
-        //player = GameObject.FindGameObjectWithTag("Player");
+        playerGo = GameObject.FindGameObjectWithTag("Player");
+        playerController = playerGo.GetComponent<PlayerController>();
 
     }
 
     private void OnEnable()
     {
 
-        Player.LosingHealthShieldEvent += OnLifeLost;
-        PlayerDeathState.PlayerRespawnEvent += ResetHealthShields;
     }
     private void OnDisable()
     {
-        Player.LosingHealthShieldEvent -= OnLifeLost;
-        PlayerDeathState.PlayerRespawnEvent -= ResetHealthShields;
+        
     }
 
-    private void OnLifeLost()
+    private void Update()
     {
-        if (currenthealthShieldsIndex < 3)
+        if (playerController != null)
         {
-            healthShields[currenthealthShieldsIndex].GetComponent<HealthShield>().PlayBreakAnimation();
-            currenthealthShieldsIndex++;
-        }              
+            float ratio = (float)playerController.CurrentHealth / playerController.MaxHealth;
+            this.transform.localScale = new Vector3(ratio, 1, 1);
+        }   
     }
 
-    private void ResetHealthShields()
-    {
-        foreach (var healthShield in healthShields)
-        {
-            healthShield.GetComponent<HealthShield>().ShowHealthShield(); 
-        }
-    }
 
-    
 
- 
+
 }

@@ -48,7 +48,7 @@ public class SwordAttack : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 GameObject player = hit.collider.gameObject;
-                player.GetComponent<Player>().OnTakingDamage(swordAttackDamage);
+                player.GetComponent<PlayerController>().OnTakingDamage(swordAttackDamage);
             }
         }
 

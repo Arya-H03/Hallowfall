@@ -59,6 +59,11 @@ public class PlayerController : MonoBehaviour
 
     private PlayerFootSteps footSteps;
 
+
+    private int maxHealth = 100;
+    private int currentHealth = 0;
+
+
     #region Getters / Setters
 
     public PlayerAnimationController AnimationController { get => animationController; set => animationController = value; }
@@ -93,6 +98,8 @@ public class PlayerController : MonoBehaviour
     public bool IsFalling { get => isFalling; set => isFalling = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
     public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
+    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
 
     #endregion
     private void Awake()
@@ -144,6 +151,10 @@ public class PlayerController : MonoBehaviour
         CurrentState = PlayerIdleState;
     }
 
+    private void Start()
+    {
+        RestoreHealth(MaxHealth);
+    }
     private void Update()
     {
         currentState.HandleState();
@@ -219,7 +230,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwordAttack()
     {
-        if (HasSword && !IsAttacking && CanPlayerAttack && !IsHanging)
+        if (HasSword && !IsAttacking && CanPlayerAttack && !IsHanging && !isPlayerJumping && !isFalling)
         {
     
             ChangeState(PlayerStateEnum.SwordAttack);
@@ -252,21 +263,25 @@ public class PlayerController : MonoBehaviour
         HasSword = isEquiped;
     }
 
-    public void RestoreHealth()
+    public void RestoreHealth(int amount)
     {
+        currentHealth = amount;
+    }
+
+    public void OnTakingDamage(int value)
+    { 
+        if (currentHealth > 0)
+        {
+
+            currentHealth -= value;
+
+            if (currentHealth <= 0)
+            {
+                ChangeState(PlayerStateEnum.Death);
+
+            }
+        }
 
     }
 
-    //public void OnPlayerHang(Transform hagningPoint)
-    //{
-    //    animationController.SetBoolForAnimations("isHanging", true);
-    //    PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
-    //    transform.position = hagningPoint.position;
-    //    inputManager.DisablePlayerMovement();
-    //    isPlayerJumping = false;
-    //    CanPlayerJump = true;
-    //    isPlayerGrounded = true;
-
-    //}
-    
 }

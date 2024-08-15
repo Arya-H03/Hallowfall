@@ -25,7 +25,6 @@ public class Essence : MonoBehaviour
     {
         if (collision.CompareTag("PlayerPickUpBox"))
         {
-            collision.GetComponentInParent<Player>().OnEssencePickUp();
             Destroy(this.gameObject);
         }
         

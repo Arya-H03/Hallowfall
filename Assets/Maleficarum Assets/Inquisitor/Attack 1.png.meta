@@ -1,13 +1,40 @@
 fileFormatVersion: 2
-guid: 498dda57b7076044f91f6dde3bbf39a8
+guid: f7141c64d5de0594e8dbed4cb2f16b39
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1241265217496618076
-    second: burning_loop_5_0
+      213: -7008412969330441016
+    second: Attack_0
   - first:
-      213: -8403131449749230840
-    second: burning_loop_5_1
+      213: -7763475090823894447
+    second: Attack_1
+  - first:
+      213: 302641331129538988
+    second: Attack_2
+  - first:
+      213: -6329420634031446844
+    second: Attack_3
+  - first:
+      213: -910092549403018386
+    second: Attack_4
+  - first:
+      213: 221524225039350300
+    second: Attack_5
+  - first:
+      213: 1290532464073988732
+    second: Attack_6
+  - first:
+      213: 4780903288873104255
+    second: Attack_7
+  - first:
+      213: -2238382357930459393
+    second: Attack_8
+  - first:
+      213: -297473348006037033
+    second: Attack_9
+  - first:
+      213: -4098942091326826159
+    second: Attack_10
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,43 +130,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: burning_loop_5_0
+      name: Attack 1_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 0
-        width: 13
-        height: 8
+        x: 796
+        y: 63
+        width: 16
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c541fe8832cd93110800000000000000
-      internalID: 1241265217496618076
+      spriteID: d60933b6d35154946a0dfaa733abc20b
+      internalID: -1329638103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: burning_loop_5_1
+      name: Attack 1_1
       rect:
         serializedVersion: 2
-        x: 17
-        y: 0
-        width: 14
-        height: 8
+        x: 1510
+        y: 64
+        width: 18
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 80ba8c8d774126b80800000000000000
-      internalID: -8403131449749230840
+      spriteID: 7fde3ba9e4cf93e42ab7683ceed18935
+      internalID: 1447902505
       vertices: []
       indices: 
       edges: []
@@ -147,7 +174,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f774273481acecd43b8fcae13c4381da
     internalID: 0
     vertices: []
     indices: 
@@ -155,8 +182,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      burning_loop_5_0: 1241265217496618076
-      burning_loop_5_1: -8403131449749230840
+      Attack 1_0: -1329638103
+      Attack 1_1: 1447902505
+      Attack_0: -7008412969330441016
+      Attack_1: -7763475090823894447
+      Attack_10: -4098942091326826159
+      Attack_2: 302641331129538988
+      Attack_3: -6329420634031446844
+      Attack_4: -910092549403018386
+      Attack_5: 221524225039350300
+      Attack_6: 1290532464073988732
+      Attack_7: 4780903288873104255
+      Attack_8: -2238382357930459393
+      Attack_9: -297473348006037033
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

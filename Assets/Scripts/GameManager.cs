@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject player;
 
     private Statue lastStatue;
+    [SerializeField] Transform initialSpawnPoint;
+    private Transform currentSpawnPoint;
 
     private GameObject playerCamera;
 
@@ -53,27 +55,24 @@ public class GameManager : MonoBehaviour
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
-    private void OnEnable()
-    {
-        //Player.PlayerRespawnEvent += SpawnEnemy;
-    }
-
     private void Start()
     {
-        //DistortCamera();
-        //MyFunction func = EndPlayerDistortion;
-        //StartCoroutine(CallFunctionByDelay(func, 4));
-
-        //SpawnEnemy();
+        
     }
 
-    private void SpawnEnemy()
+    public void SetPlayerLocationOnRespawn()
     {
-        //if (enemy)
-        //{
-        //    Destroy(enemy);
-        //}
-        //enemy = Instantiate(enemyPrefab, enemySpawnTransform.position, Quaternion.identity);
+        if (lastStatue)
+        {
+            currentSpawnPoint = lastStatue.GetStatueRespawnPoint();
+            
+        }
+        else
+        {
+            currentSpawnPoint = initialSpawnPoint;
+        }
+
+        player.transform.position = currentSpawnPoint.position;
     }
 
     public void PlayAudio(AudioSource source, AudioClip clip)
@@ -94,7 +93,6 @@ public class GameManager : MonoBehaviour
 
     public void OnReplayButtonClick()
     {
-        //SceneManager.LoadScene("RealmBeyond");
         CloseDeathMenu();
         Player.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
         

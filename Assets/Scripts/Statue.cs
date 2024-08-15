@@ -14,9 +14,9 @@ public class Statue : MonoBehaviour, IInteractable
 
     
     
-    public void SetPlayerPositionOnRespawn(GameObject player)
+    public Transform GetStatueRespawnPoint()
     {
-        player.transform.position = respawnTransform.position;
+        return respawnTransform;
     }
 
     public void OnIntercationBegin()

@@ -45,7 +45,7 @@ public class MinionAttack : MonoBehaviour
 
 
                 GameObject player = hit.collider.gameObject;
-                player.GetComponent<Player>().OnTakingDamage(50);
+                player.GetComponent<PlayerController>().OnTakingDamage(50);
 
 
             }

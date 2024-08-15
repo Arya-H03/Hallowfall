@@ -46,7 +46,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
             if (hit.collider.CompareTag("Player"))
             {
                 GameObject player = hit.collider.gameObject;
-                player.GetComponent<Player>().OnTakingDamage(attackDamage);
+                player.GetComponent<PlayerController>().OnTakingDamage(attackDamage);
                 return;
             }
         }
