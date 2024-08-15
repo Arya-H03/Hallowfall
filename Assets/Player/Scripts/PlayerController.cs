@@ -149,7 +149,6 @@ public class PlayerController : MonoBehaviour
         currentState.HandleState();
         PlayerRollState.HandleRollCooldown();
 
-        Debug.Log("palyer" + currentPlatformElevation.ElevationLevel);
     }
     public void ChangeState(PlayerStateEnum stateEnum)
     {

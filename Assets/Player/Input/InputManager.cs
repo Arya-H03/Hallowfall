@@ -52,7 +52,8 @@ public class InputManager : MonoBehaviour
 
         InputActions.Guardian.Roll.performed += Roll;
 
-        InputActions.Guardian.Parry.performed += Parry;
+        InputActions.Guardian.Parry.performed += StartParry;
+        InputActions.Guardian.Parry.canceled += EndParry;
 
         InputActions.Guardian.Pause.performed += Pause;   
 
@@ -70,7 +71,7 @@ public class InputManager : MonoBehaviour
     
         InputActions.Guardian.Roll.performed -= Roll;
 
-        InputActions.Guardian.Parry.performed -= Parry;
+        InputActions.Guardian.Parry.performed -= StartParry;
 
         InputActions.Guardian.Pause.performed -= Pause;
 
@@ -112,12 +113,19 @@ public class InputManager : MonoBehaviour
 
     public void DoubleSwing(InputAction.CallbackContext ctx)
     {
-        //player.PlayerSwordAttackState.DoubleSwing();
+        player.PlayerSwordAttackState.DoubleSwing();
     }
 
-    public void Parry(InputAction.CallbackContext ctx)
+    public void StartParry(InputAction.CallbackContext ctx)
     {
-        player.OnParry();
+        //player.OnParry();
+        Debug.Log("Start");
+    }
+
+    public void EndParry(InputAction.CallbackContext ctx)
+    {
+        //player.OnParry();
+        Debug.Log("End");
     }
 
 

@@ -20,7 +20,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] PlayerFootSteps footSteps;
     private GameObject parent;
 
-    //private bool canDoubleSwing =true;
+    private bool canDoubleSwing = true;
 
     //For Debuging
     [SerializeField] Vector2 size; // Size of the box in 2D
@@ -50,7 +50,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     [SerializeField] private float moveSpeedWhileAttaking = 2;
     public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
-    //public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
+    public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
 
     public PlayerSwordAttackState()
     {
@@ -85,17 +85,17 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         if (!isGrounded)
         {
-            //playerController.rb.gravityScale = 0.75f;
-            //playerController.rb.velocity = Vector2.zero;
-            playerController.AnimationController.SetBoolForAnimations("isJumping",false);
-            playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-            playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
+            ////playerController.rb.gravityScale = 0.75f;
+            ////playerController.rb.velocity = Vector2.zero;
+            //playerController.AnimationController.SetBoolForAnimations("isJumping",false);
+            //playerController.AnimationController.SetBoolForAnimations("isFalling", false);
+            //playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
         }
 
         else
         {            
                     playerController.AnimationController.SetTriggerForAnimations("Attack");
-                    //CanDoubleSwing = true;
+                    CanDoubleSwing = true;
         }
 
         playerController.IsAttacking = true;
@@ -109,14 +109,15 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    //public void DoubleSwing()
-    //{
-    //    if(CanDoubleSwing) {
-    //        playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
-    //        CanDoubleSwing = false;
-    //    }
+    public void DoubleSwing()
+    {
+        if (CanDoubleSwing)
+        {
+            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+            CanDoubleSwing = false;
+        }
 
-    //}
+    }
 
     public void EndAttack()
     {

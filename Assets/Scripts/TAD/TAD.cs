@@ -147,7 +147,7 @@
 
 //    }
 
-//    private void Parry()
+//    private void StartParry()
 //    {
 //        dialogueBox.StartDialouge(" Roll");
 //    }

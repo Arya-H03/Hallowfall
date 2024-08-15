@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour
     //private EnemyAI enemy;
     private EnemyController enemyController;
 
-    private int currentDir = 1;
+    private int currentDir = 0;
 
     private float distanceToTarget;
 
@@ -16,23 +16,17 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        //enemy = GetComponent<EnemyAI>();
         enemyController = GetComponent<EnemyController>();
     }
 
-    //private void Update()
-    //{
-    //    distanceToTarget = Mathf.Abs(targetPosition.x - transform.position.x);
-    //}
+ 
     public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
     {
        
-            Vector2 direction = (endPoint - startPoint).normalized;
-        //transform.position += new Vector3(direction.x, 0, 0) * speed * Time.deltaTime;
+        Vector2 direction = endPoint - startPoint;
         transform.position = Vector2.MoveTowards(startPoint, new Vector2(endPoint.x,startPoint.y), speed * Time.deltaTime);
         TurnEnemy(direction);
             
-    
     }
 
     private void TurnEnemy(Vector2 direction)
@@ -56,7 +50,7 @@ public class EnemyMovement : MonoBehaviour
     private void OnEnemyBeginTurning(int dir)
     {
         currentDir = dir;
-        //enemyController.ChangeState(EnemyStateEnum.Turn);
+        
       
     }
 

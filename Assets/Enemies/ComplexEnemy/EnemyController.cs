@@ -182,7 +182,6 @@ public class EnemyController : MonoBehaviour
 
         CurrentState.HandleState();
 
-        Debug.Log("Enemt" + currentPlatformElevation.ElevationLevel);
     }
 
     private void HandleCooldowns()
