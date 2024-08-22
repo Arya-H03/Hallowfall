@@ -25,7 +25,7 @@ public class PlayerJumpState : PlayerBaseState
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);
         StartJump();
 
-        InputManager.Instance.InputActions.Guardian.Movement.performed -= InputManager.Instance.StartMove;
+        //InputManager.Instance.InputActions.Guardian.Movement.performed -= InputManager.Instance.StartMove;
     }
 
     public override void OnExitState()
@@ -33,7 +33,7 @@ public class PlayerJumpState : PlayerBaseState
         playerController.IsPlayerJumping = false;
         playerController.CanPlayerJump = true;
         
-        InputManager.Instance.InputActions.Guardian.Movement.performed += InputManager.Instance.StartMove;
+       
     }
 
     public override void HandleState()
@@ -51,11 +51,12 @@ public class PlayerJumpState : PlayerBaseState
 
         jumpDirectionX = playerController.PlayerMovementManager.currentDirection.x;
         playerController.rb.gravityScale = 3;
-        playerController.rb.velocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
+        playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
 
         GameManager.Instance.PlayAudio(audioSource, jumpUpAC);
 
         playerController.AnimationController.SetTriggerForAnimations("JumpUp");
+      
 
     }
 

@@ -29,8 +29,8 @@ public class EnvironmentCheck : MonoBehaviour
         if (!playerController.IsDead)
         {
             CheckForInteractions();
-            EndFallingGroundCheck();
-            GroundCheck();
+            CheckIfPlayerHasHitGround();
+            CheckWhilePlayerIsFalling();
             RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
             RaycastHit2D midLevelCast = Physics2D.Raycast(midLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
 
@@ -79,18 +79,18 @@ public class EnvironmentCheck : MonoBehaviour
             }
         }
     }
-    private void GroundCheck()
+    private void CheckWhilePlayerIsFalling()
     {
         RaycastHit2D[] rayCasts = new RaycastHit2D[2];
         rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
         rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
 
-        bool isGrounded = false;
+        //bool isGrounded = false;
         foreach (RaycastHit2D rayCast in rayCasts)
         {
             if (rayCast.collider != null)
             {
-                isGrounded = true;
+                //isGrounded = true;
                 PlatformTag platformTag = rayCast.collider.gameObject.GetComponent<PlatformTag>();
                 if (platformTag != playerController.CurrentPlatformElevation)
                 {
@@ -105,9 +105,9 @@ public class EnvironmentCheck : MonoBehaviour
             }
         }
 
-        playerController.IsPlayerGrounded = isGrounded;
+        //playerController.IsPlayerGrounded = isGrounded;
 
-        if (!isGrounded && !playerController.IsHanging)
+        if (!playerController.IsPlayerGrounded && !playerController.IsHanging)
         {
             if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
             {
@@ -119,18 +119,18 @@ public class EnvironmentCheck : MonoBehaviour
 
 
 
-    private void EndFallingGroundCheck()
+    private void CheckIfPlayerHasHitGround()
     {
-        if (playerController.rb.velocity.y < 0 && playerController.IsFalling)
+        if (playerController.rb.velocity.y <= 0 && playerController.IsFalling)
         {
-            RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
-            RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
+            RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.3f, groundLayer);
+            RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.3f, groundLayer);
            
-            if (rayCast1 || rayCast2)
+            if (rayCast1 && rayCast2)
             {
-                playerController.PlayerFallState.OnPlayerGrounded();
-               
+                playerController.PlayerFallState.OnPlayerGrounded();             
             }
+            
         }
     }
 

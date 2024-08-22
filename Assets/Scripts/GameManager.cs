@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayAudio(AudioSource source, AudioClip clip)
     {
-        source.volume = 0.5f;
+        source.volume = source.volume * 1f;
         source.PlayOneShot(clip);
     }
 

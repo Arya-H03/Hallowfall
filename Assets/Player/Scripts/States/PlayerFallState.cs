@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerFallState : PlayerBaseState
 {
+    [SerializeField] private AudioClip hitingGroundSound;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();  
+    }
     public PlayerFallState()
     {
         this.stateEnum = PlayerStateEnum.Fall;
@@ -36,8 +43,9 @@ public class PlayerFallState : PlayerBaseState
     public void OnPlayerGrounded()
     {
         playerController.AnimationController.SetBoolForAnimations("isFalling", false);
+        playerController.IsPlayerGrounded = true;
 
-        //playerController.GameManager.PlayAudio(audioSource, groundHitAC);
+        GameManager.Instance.PlayAudio(audioSource, hitingGroundSound);
 
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
