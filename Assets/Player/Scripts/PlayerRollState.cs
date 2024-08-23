@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerRollState : PlayerBaseState
 {
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip rollAC;
+
     [SerializeField] float rollDuration = 0.5f; // Duration of the roll in seconds
     [SerializeField] float rollDistance = 1f;  // Distance to roll
 
@@ -21,6 +24,10 @@ public class PlayerRollState : PlayerBaseState
         this.stateEnum = PlayerStateEnum.Roll;
     }
 
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void OnEnterState()
     {
         currentPosition = playerController.transform.position;
@@ -38,6 +45,7 @@ public class PlayerRollState : PlayerBaseState
 
         playerController.IsRolling = true;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
+        AudioManager.Instance.PlaySFX(audioSource, rollAC);
         playerController.PlayerMovementManager.MoveSpeed = 0;
         rollCooldownTimer = 0;
         playerController.CanRoll = false;

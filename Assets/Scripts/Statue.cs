@@ -11,9 +11,13 @@ public class Statue : MonoBehaviour, IInteractable
 
     [SerializeField] private GameObject purpleFire;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip activationAC;
 
-    
-    
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public Transform GetStatueRespawnPoint()
     {
         return respawnTransform;
@@ -46,6 +50,7 @@ public class Statue : MonoBehaviour, IInteractable
             
             GameManager.Instance.LastStatue = this;
             SetPurpleFire(true);
+            AudioManager.Instance.PlaySFX(audioSource, activationAC);
         }
        
     }

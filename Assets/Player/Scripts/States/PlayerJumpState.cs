@@ -6,7 +6,6 @@ public class PlayerJumpState : PlayerBaseState
 {
     private AudioSource audioSource;
     [SerializeField] AudioClip jumpUpAC;
-    [SerializeField] AudioClip groundHitAC;
     [SerializeField] float jumpSpeed;
 
     private float jumpDirectionX;
@@ -53,7 +52,7 @@ public class PlayerJumpState : PlayerBaseState
         playerController.rb.gravityScale = 3;
         playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
 
-        GameManager.Instance.PlayAudio(audioSource, jumpUpAC);
+        AudioManager.Instance.PlaySFX(audioSource, jumpUpAC);
 
         playerController.AnimationController.SetTriggerForAnimations("JumpUp");
       

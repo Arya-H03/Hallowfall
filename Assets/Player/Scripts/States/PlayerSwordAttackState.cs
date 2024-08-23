@@ -15,7 +15,8 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private AudioSource audioSource;
 
-    [SerializeField] AudioClip[] missClips;
+    [SerializeField] AudioClip[] swingMissAC;
+    [SerializeField] AudioClip[] swingHitAC;
 
     [SerializeField] PlayerFootSteps footSteps;
     private GameObject parent;
@@ -56,6 +57,13 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         this.stateEnum = PlayerStateEnum.SwordAttack;
     }
+
+    private void Awake()
+    {
+        parent = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
@@ -67,6 +75,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
+        
     }
 
     public override void HandleState()
@@ -75,45 +84,28 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    private void Awake()
-    {
-        parent = GameObject.FindGameObjectWithTag("Player");
-        audioSource = GetComponent<AudioSource>();
-    }
-
+   
     public void StartAttack(bool isGrounded)
     {
-        if (!isGrounded)
+        if (isGrounded)
         {
-            ////playerController.rb.gravityScale = 0.75f;
-            ////playerController.rb.velocity = Vector2.zero;
-            //playerController.AnimationController.SetBoolForAnimations("isJumping",false);
-            //playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-            //playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
+            playerController.AnimationController.SetTriggerForAnimations("Attack");
+            playerController.IsAttacking = true;
+            playerController.CanPlayerAttack = false;
+
         }
 
         else
         {
-            playerController.AnimationController.SetTriggerForAnimations("Attack");
-            //CanDoubleSwing = true;
+            playerController.ChangeState(PlayerStateEnum.Idle);
         }
-
-        playerController.IsAttacking = true;
-        playerController.CanPlayerAttack = false;
-
-        
-
-        
-
-        
-
     }
 
     public void DoubleSwing()
     {
         if (CanDoubleSwing)
         {
-            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");    
+            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
             CanDoubleSwing = false;
         }
 
@@ -123,6 +115,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         //playerController.rb.gravityScale = 3;
         playerController.IsAttacking = false;
+        playerController.CanPlayerAttack = true;
+
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
@@ -131,6 +125,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
+        
         
         //footSteps.OnStartPlayerFootstep();
 
@@ -169,6 +164,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                AudioManager.Instance.PlaySFX(audioSource, swingHitAC[Random.Range(0, swingHitAC.Length)]);
                 enemyController.OnEnemyHit(firstSwingDamage, hitResult.point,this.transform.parent.parent.gameObject);
                 
             }
@@ -177,7 +173,8 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
         else
         {
-            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+            AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
+            
         }
 
         //HandelSlashEffect(firstSwingEffect, firstSwingCenter.position);
@@ -200,13 +197,14 @@ public class PlayerSwordAttackState : PlayerBaseState
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                AudioManager.Instance.PlaySFX(audioSource, swingHitAC[Random.Range(0, swingHitAC.Length)]);
                 enemyController.OnEnemyHit(secondSwingDamage, hitResult.point,this.gameObject);
             }
         }
 
         else
         {
-            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+            AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
         }
         //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }
@@ -233,7 +231,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         else
         {
-            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+            audioSource.PlayOneShot(swingMissAC[Random.Range(0, 3)]);
         }
         //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }

@@ -5,16 +5,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerHangingState : PlayerBaseState
 {
+    private AudioSource audioSource;
+   [SerializeField] private AudioClip hangingAC;
+   [SerializeField] private AudioClip jumpingAC;
 
+    
     public PlayerHangingState()
     {
         this.stateEnum = PlayerStateEnum.Hang;
+    }
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
     public override void OnEnterState()
     {
         ChangePlayerInputActionsWhileHanging();
         playerController.AnimationController.SetBoolForAnimations("isHanging", true);
         playerController.IsHanging = true;  
+        AudioManager.Instance.PlaySFX(audioSource,hangingAC);
         playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
         
         
@@ -80,8 +90,9 @@ public class PlayerHangingState : PlayerBaseState
             }
         }
 
-        
-        
+        AudioManager.Instance.PlaySFX(audioSource, jumpingAC);
+
+
         StartCoroutine(HandleHangingCooldown());
 
         playerController.ChangeState(PlayerStateEnum.Idle);

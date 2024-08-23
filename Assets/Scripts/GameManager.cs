@@ -75,12 +75,6 @@ public class GameManager : MonoBehaviour
         player.transform.position = currentSpawnPoint.position;
     }
 
-    public void PlayAudio(AudioSource source, AudioClip clip)
-    {
-        source.volume = source.volume * 1f;
-        source.PlayOneShot(clip);
-    }
-
     public void OpenDeathMenu()
     {
         deathMenu.SetActive(true);

@@ -8,7 +8,7 @@
 //    private AudioSource audioSource;
 
 //    [SerializeField] AudioClip[] hitClips;
-//    [SerializeField] AudioClip[] missClips;
+//    [SerializeField] AudioClip[] swingMissAC;
 
 //    [SerializeField] PlayerFootSteps footSteps;
 //    [SerializeField] Vector2 size; // Size of the box in 2D
@@ -132,7 +132,7 @@
 //        }
 //        else
 //        {
-//            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+//            audioSource.PlayOneShot(swingMissAC[Random.Range(0, 3)]);
 //        }
 
 //        HandelSlashEffect(slash1, attack1BoxCastPosition.position);
@@ -196,7 +196,7 @@
 
 //        else
 //        {
-//            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+//            audioSource.PlayOneShot(swingMissAC[Random.Range(0, 3)]);
 //        }
 //        HandelSlashEffect(slash2, attack2BoxCastPosition.position + new Vector3(1,0.35f,0));
 //    }
@@ -253,7 +253,7 @@
 
 //        else
 //        {
-//            audioSource.PlayOneShot(missClips[Random.Range(0, 3)]);
+//            audioSource.PlayOneShot(swingMissAC[Random.Range(0, 3)]);
 //        }
 
 //        HandelSlashEffect(slash3, attack3BoxCastPosition.position);
