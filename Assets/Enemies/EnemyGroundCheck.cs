@@ -17,7 +17,7 @@ public class EnemyGroundCheck : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        GroundCheck();
+        //GroundCheck();
     }
     private void GroundCheck()
     {
@@ -30,10 +30,10 @@ public class EnemyGroundCheck : MonoBehaviour
             if (rayCast.collider != null)
             {
                 PlatformTag platformTag = rayCast.collider.gameObject.GetComponent<PlatformTag>();
-                if (platformTag != enemyController.CurrentPlatformElevation)
-                {
-                    enemyController.CurrentPlatformElevation = platformTag;
-                }
+                //if (platformTag != enemyController.CurrentPlatformElevation)
+                //{
+                //    enemyController.CurrentPlatformElevation = platformTag;
+                //}
 
             
             }

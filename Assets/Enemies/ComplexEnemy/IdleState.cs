@@ -29,9 +29,17 @@ public class IdleState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController.hasSeenPlayer && !enemyController.player.GetComponent<PlayerController>().IsHanging && enemyController.CurrentPlatformElevation.ElevationLevel == enemyController.player.GetComponent<PlayerController>().CurrentPlatformElevation.ElevationLevel)
+        if (enemyController.hasSeenPlayer /*&& !enemyController.player.GetComponent<PlayerController>().IsHanging*/ /*&& enemyController.CurrentPlatformElevation.ElevationLevel == enemyController.player.GetComponent<PlayerController>().CurrentPlatformElevation.ElevationLevel*/ /*&& !enemyController.IsFacingLedge*/)
         {
-            enemyController.ChangeState(EnemyStateEnum.Chase);
+            if (!enemyController.IsFacingLedge )
+            {
+                enemyController.ChangeState(EnemyStateEnum.Chase);
+            }
+            else if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x)
+            {
+                enemyController.ChangeState(EnemyStateEnum.Chase);
+            }
+            
         }
         
     }

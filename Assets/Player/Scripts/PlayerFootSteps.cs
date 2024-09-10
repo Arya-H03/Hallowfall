@@ -56,12 +56,12 @@ public class PlayerFootSteps : MonoBehaviour
     }
     public void OnStartPlayerFootstep()
     {
-        if (!footstepAudioSource.isPlaying)
-        {
-            footstepAudioSource.time = footstepStartTime;
-            footstepAudioSource.Play();
-            footstepPS.Play();
-        }
+        //if (!footstepAudioSource.isPlaying)
+        //{
+        //    footstepAudioSource.time = footstepStartTime;
+        //    footstepAudioSource.Play();
+        //    footstepPS.Play();
+        //}
     }
 
     public void OnEndPlayerFootstep()

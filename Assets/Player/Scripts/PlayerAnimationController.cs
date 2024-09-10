@@ -101,5 +101,10 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerController.PlayerSwordAttackState.CanDoubleSwing = true;
     }
+
+    public void PlayFootStepSFX()
+    {
+        playerController.PlayerRunState.PlayFootStepSFX();
+    }
   
 }

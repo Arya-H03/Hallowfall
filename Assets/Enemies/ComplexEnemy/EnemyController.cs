@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
     private EnemyAttackState attackState;
     private StunState stunState;
     private EnemyDeathState deathState;
-    private PlatformTag currentPlatformElevation;
+    //private PlatformTag currentPlatformElevation;
     //private JumpState jumpState;
     //private TurnState turnState;
     //private BlockState blockState;
@@ -62,6 +62,7 @@ public class EnemyController : MonoBehaviour
     private bool canMove = true;
     private bool isDead = false;
     private bool isInvincible = false;
+    private bool isFacingLedge = false;
 
     #endregion
 
@@ -93,7 +94,9 @@ public class EnemyController : MonoBehaviour
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
     public SpriteRenderer SpriteRenderer { get => spriteRenderer; set => spriteRenderer = value; }
-    public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
+    public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
+
+    //public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
 
     //public EnemyRangeAttackState RangeAttackState { get => rangeAttackState; set => rangeAttackState = value; }
 

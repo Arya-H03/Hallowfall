@@ -29,6 +29,18 @@ public class EnemyMovement : MonoBehaviour
             
     }
 
+    public int FindDirectionToPlayer()
+    {
+        if(enemyController.player.gameObject.transform.position.x - enemyController.transform.position.x >= 0)
+        {
+            return 1;
+        }
+        else
+        {         
+            return -1;
+        }
+    }
+
     private void TurnEnemy(Vector2 direction)
     {
         

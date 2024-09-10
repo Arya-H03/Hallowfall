@@ -10,11 +10,19 @@ public class PlayerRunState : PlayerBaseState
 
     [SerializeField] private float runSpeed = 3.5f;
 
+    private AudioSource[] audioSources;
+    [SerializeField] private AudioClip[] runAC;
+    private int currentAudioSourceIndex = 0;
+
     public PlayerRunState()
     {
         this.stateEnum = PlayerStateEnum.Run;
     }
 
+    private void Awake()
+    {
+        audioSources = GetComponentsInChildren<AudioSource>();
+    }
     public void SetOnInitializeVariables(PlayerController statesManagerRef, PlayerFootSteps playerFootStepsRef)
     {
         this.playerController = statesManagerRef;
@@ -41,14 +49,27 @@ public class PlayerRunState : PlayerBaseState
     {
         playerController.PlayerMovementManager.MoveSpeed = runSpeed;
         playerController.AnimationController.SetBoolForAnimations("isRunning", true);
-        playerFootSteps.OnStartPlayerFootstep();
+        //playerFootSteps.OnStartPlayerFootstep();
 
     }
 
     private void StopRunning()
     {
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);
-        playerFootSteps.OnEndPlayerFootstep();
+        //playerFootSteps.OnEndPlayerFootstep();
 
     }
+
+    public void PlayFootStepSFX()
+    {
+        AudioManager.Instance.PlaySFX(audioSources[currentAudioSourceIndex], runAC[Random.Range(0, runAC.Length)]);
+        currentAudioSourceIndex++;
+
+        if(currentAudioSourceIndex >= audioSources.Length)
+        {
+            currentAudioSourceIndex = 0;
+        }
+    }
+
+
 }

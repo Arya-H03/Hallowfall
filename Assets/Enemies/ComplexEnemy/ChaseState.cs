@@ -22,38 +22,64 @@ public class ChaseState : EnemyBaseState
 
     public override void HandleState()
     {
+        // Check if the enemy has seen the player
+        if (enemyController == null || enemyController.player == null) return;
+
         if (enemyController.hasSeenPlayer)
         {
-            if (enemyController.CurrentPlatformElevation.ElevationLevel == enemyController.player.GetComponent<PlayerController>().CurrentPlatformElevation.ElevationLevel)
+            // Check if the enemy is not facing a ledge
+            if (!enemyController.IsFacingLedge || IsFacingPlayerDirection())
             {
-                if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < enemyController.AttackState.AttackRef.AttackRange)
+                // Check if the player is within attack range
+                if (IsPlayerInRange())
                 {
-                    enemyController.ChangeState(EnemyStateEnum.Attack);
-                    enemyController.canAttack = true;
+                    AttackPlayer();
                 }
-
                 else
                 {
-                    enemyController.canAttack = false;
-                    if (enemyController.player.GetComponent<PlayerController>().IsHanging)
-                    {
-                        enemyController.ChangeState(EnemyStateEnum.Idle);
-                    }
-                    else
-                    {
-                        enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
-                    }
-
+                    ChaseOrIdle();
                 }
             }
             else
             {
+                // Enemy is facing a ledge and not aligned with the player
                 enemyController.ChangeState(EnemyStateEnum.Idle);
             }
-           
-
-            
         }
-
     }
+
+    private bool IsPlayerInRange()
+    {
+        return Vector2.Distance(enemyController.player.transform.position, transform.position)
+               < enemyController.AttackState.AttackRef.AttackRange;
+    }
+
+    private bool IsFacingPlayerDirection()
+    {
+        return enemyController.IsFacingLedge && enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x;
+    }
+
+    private void AttackPlayer()
+    {
+        enemyController.ChangeState(EnemyStateEnum.Attack);
+        enemyController.canAttack = true;
+    }
+
+    private void ChaseOrIdle()
+    {
+        enemyController.canAttack = false;
+
+        PlayerController playerController = enemyController.player.GetComponent<PlayerController>();
+        if (playerController != null && playerController.IsHanging)
+        {
+            // If the player is hanging, go to idle state
+            enemyController.ChangeState(EnemyStateEnum.Idle);
+        }
+        else
+        {
+            // Otherwise, chase the player
+            enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+        }
+    }
+
 }
