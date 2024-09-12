@@ -30,7 +30,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void OnExitState()
     {
         playerController.IsPlayerJumping = false;
-        playerController.CanPlayerJump = true;
+        //playerController.CanPlayerJump = true;
         
        
     }

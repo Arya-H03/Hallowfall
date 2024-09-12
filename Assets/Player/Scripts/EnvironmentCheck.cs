@@ -126,9 +126,10 @@ public class EnvironmentCheck : MonoBehaviour
             RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.3f, groundLayer);
             RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.3f, groundLayer);
            
-            if (rayCast1 && rayCast2)
+            if (rayCast1 ||rayCast2)
             {
                 playerController.PlayerFallState.OnPlayerGrounded();             
+                          
             }
             
         }

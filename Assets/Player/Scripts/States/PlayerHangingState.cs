@@ -24,6 +24,7 @@ public class PlayerHangingState : PlayerBaseState
         ChangePlayerInputActionsWhileHanging();
         playerController.AnimationController.SetBoolForAnimations("isHanging", true);
         playerController.IsHanging = true;  
+        playerController.CanPlayerJump= true;  
         AudioManager.Instance.PlaySFX(audioSource,hangingAC);
         playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
         

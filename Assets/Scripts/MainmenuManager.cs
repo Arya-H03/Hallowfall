@@ -8,7 +8,7 @@ public class MainmenuManager : MonoBehaviour
     [SerializeField] GameObject creditsPanel;
    public void OnButtonStartClick()
     {
-        SceneManager.LoadScene("RealmBeyond");
+        SceneManager.LoadScene("Cemetery");
     }
 
     public void OnButtonExitClick()

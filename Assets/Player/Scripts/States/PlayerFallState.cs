@@ -44,6 +44,7 @@ public class PlayerFallState : PlayerBaseState
     {
         playerController.AnimationController.SetBoolForAnimations("isFalling", false);
         playerController.IsPlayerGrounded = true;
+        playerController.CanPlayerJump = true;
 
         AudioManager.Instance.PlaySFX(audioSource, hitingGroundSound);
 
