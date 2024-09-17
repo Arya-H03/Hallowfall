@@ -171,10 +171,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inquisitor
       objectReference: {fileID: 0}
-    - target: {fileID: 6489539805827609009, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: gameManager
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: footSteps
       value: 
-      objectReference: {fileID: 1165662248}
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546526773060207497, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: footSteps
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145230739375272340, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: woodRunSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f411e15fe2775c48baeaeb6961558ff, type: 3}
+    - target: {fileID: 8145230739375272340, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: grassRunSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 9dbe8e3c84c1c3248be7c807ff8b366a, type: 3}
+    - target: {fileID: 8145230739375272340, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: groundRunSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 63e8979eaa8545041886dd575eadf068, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

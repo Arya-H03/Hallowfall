@@ -22,9 +22,6 @@ public class PlayerController : MonoBehaviour
     private Player player;
     private PlayerCollision playerCollision;
 
-    private PlatformTag currentPlatformElevation;
-
-
     [SerializeField] private bool canPlayerJump = true;
     [SerializeField] private bool isPlayerGrounded = true;
     [SerializeField] private bool isPlayerJumping = false;
@@ -46,6 +43,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerStateEnum currentStateEnum;
     private PlayerBaseState currentState;
 
+    private FloorTypeEnum currentFloorType;
+
     private PlayerIdleState playerIdleState;
     private PlayerRunState playerRunState;
     private PlayerJumpState playerJumpState;
@@ -55,10 +54,6 @@ public class PlayerController : MonoBehaviour
     private PlayerHangingState playerHangingState;
     private PlayerFallState playerFallState;
     private PlayerDeathState playerDeathState;
-
-
-    private PlayerFootSteps footSteps;
-
 
     private int maxHealth = 100;
     private int currentHealth = 0;
@@ -84,7 +79,6 @@ public class PlayerController : MonoBehaviour
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
     public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
     public Player Player { get => player; set => player = value; }
-    public PlayerFootSteps FootSteps { get => footSteps; set => footSteps = value; }
     public PlayerRollState PlayerRollState { get => playerRollState; set => playerRollState = value; }
     public PlayerCollision PlayerCollision { get => playerCollision; set => playerCollision = value; }
     public bool IsRolling { get => isRolling; set => isRolling = value; }
@@ -97,9 +91,9 @@ public class PlayerController : MonoBehaviour
     public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
-    public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
 
     #endregion
     private void Awake()
@@ -115,7 +109,6 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
         Player = GetComponent<Player>();
-        footSteps = GetComponentInChildren<PlayerFootSteps>();  
 
         
        
@@ -123,7 +116,7 @@ public class PlayerController : MonoBehaviour
         PlayerIdleState.SetOnInitializeVariables(this);
 
         PlayerRunState = GetComponentInChildren<PlayerRunState>();
-        PlayerRunState.SetOnInitializeVariables(this,footSteps);
+        PlayerRunState.SetOnInitializeVariables(this);
 
         PlayerJumpState = GetComponentInChildren<PlayerJumpState>();
         PlayerJumpState.SetOnInitializeVariables(this);

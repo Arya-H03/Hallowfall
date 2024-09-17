@@ -14,7 +14,7 @@ public class EnemyLedgeDetector : MonoBehaviour
     {
         if(collision.CompareTag("Ground") || collision.CompareTag("Grass"))
         {
-            Debug.Log("Enter");
+            
             enemyController.IsFacingLedge = false;
         }
     }

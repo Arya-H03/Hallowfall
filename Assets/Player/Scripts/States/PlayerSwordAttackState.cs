@@ -18,7 +18,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] AudioClip[] swingMissAC;
     [SerializeField] AudioClip[] swingHitAC;
 
-    [SerializeField] PlayerFootSteps footSteps;
     private GameObject parent;
 
     private bool canDoubleSwing = false;

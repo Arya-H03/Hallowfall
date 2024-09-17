@@ -47,4 +47,9 @@ public class AudioManager : MonoBehaviour
         source.volume = source.volume * overallVolumeMultiplier * musicVolumeMultiplier;
         source.PlayOneShot(clip);
     }
+
+    public void StopAudioSource(AudioSource source)
+    {
+        source.Stop();  
+    }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] PlayerFootSteps footSteps;
     private PlayerController playerController;
 
     [SerializeField] RuntimeAnimatorController withSwordAC;
@@ -101,10 +100,4 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerController.PlayerSwordAttackState.CanDoubleSwing = true;
     }
-
-    public void PlayFootStepSFX()
-    {
-        playerController.PlayerRunState.PlayFootStepSFX();
-    }
-  
 }

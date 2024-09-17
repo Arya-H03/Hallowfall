@@ -31,6 +31,7 @@ public class EnvironmentCheck : MonoBehaviour
             CheckForInteractions();
             CheckIfPlayerHasHitGround();
             CheckWhilePlayerIsFalling();
+            CheckForFloorType();
             RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
             RaycastHit2D midLevelCast = Physics2D.Raycast(midLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
 
@@ -49,7 +50,32 @@ public class EnvironmentCheck : MonoBehaviour
         }
 
     }
+    private void CheckForFloorType()
+    {
+        RaycastHit2D rayCast = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
+        if (rayCast && rayCast.collider.tag != playerController.CurrentFloorType.ToString()) 
+        {
+            playerController.PlayerRunState.StopRunningSFX();
+            switch (rayCast.collider.tag)
+            {
+                case "Ground":
+                    playerController.CurrentFloorType = FloorTypeEnum.Ground;
+                    break;
+                case "Wood":
+                    playerController.CurrentFloorType = FloorTypeEnum.Wood;
+                    break;
+                case "Grass":
+                    playerController.CurrentFloorType = FloorTypeEnum.Grass;
+                    break;
+            }
 
+            if (playerController.CurrentStateEnum == PlayerStateEnum.Run)
+            {
+                playerController.PlayerRunState.StartRunningSFX();
+            }
+
+        }
+    }
     private void CheckForInteractions()
     {
         RaycastHit2D hit = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 1f, interactionLayerMask);
@@ -91,11 +117,6 @@ public class EnvironmentCheck : MonoBehaviour
             if (rayCast.collider != null)
             {
                 //isGrounded = true;
-                PlatformTag platformTag = rayCast.collider.gameObject.GetComponent<PlatformTag>();
-                if (platformTag != playerController.CurrentPlatformElevation)
-                {
-                    playerController.CurrentPlatformElevation = platformTag;
-                }
 
                 if (rayCast.collider.CompareTag("Trap"))
                 {

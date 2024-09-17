@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
-    private PlayerFootSteps playerFootSteps;
-
-    public PlayerFootSteps PlayerFootSteps {set => playerFootSteps = value; }
+   
 
     [SerializeField] private float runSpeed = 3.5f;
 
-    private AudioSource[] audioSources;
-    [SerializeField] private AudioClip[] runAC;
-    private int currentAudioSourceIndex = 0;
-
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip groundRunSFX;
+    [SerializeField] private AudioClip grassRunSFX;
+    [SerializeField] private AudioClip woodRunSFX;
     public PlayerRunState()
     {
         this.stateEnum = PlayerStateEnum.Run;
@@ -21,13 +19,9 @@ public class PlayerRunState : PlayerBaseState
 
     private void Awake()
     {
-        audioSources = GetComponentsInChildren<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
-    public void SetOnInitializeVariables(PlayerController statesManagerRef, PlayerFootSteps playerFootStepsRef)
-    {
-        this.playerController = statesManagerRef;
-        PlayerFootSteps = playerFootStepsRef;
-    }
+   
     public override void OnEnterState()
     {
         
@@ -49,6 +43,7 @@ public class PlayerRunState : PlayerBaseState
     {
         playerController.PlayerMovementManager.MoveSpeed = runSpeed;
         playerController.AnimationController.SetBoolForAnimations("isRunning", true);
+        StartRunningSFX();
         //playerFootSteps.OnStartPlayerFootstep();
 
     }
@@ -56,20 +51,31 @@ public class PlayerRunState : PlayerBaseState
     private void StopRunning()
     {
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);
+        StopRunningSFX();
         //playerFootSteps.OnEndPlayerFootstep();
 
     }
 
-    public void PlayFootStepSFX()
+   
+    public void StartRunningSFX()
     {
-        AudioManager.Instance.PlaySFX(audioSources[currentAudioSourceIndex], runAC[Random.Range(0, runAC.Length)]);
-        currentAudioSourceIndex++;
-
-        if(currentAudioSourceIndex >= audioSources.Length)
+        switch (playerController.CurrentFloorType)
         {
-            currentAudioSourceIndex = 0;
+            case FloorTypeEnum.Ground:
+                AudioManager.Instance.PlaySFX(audioSource, groundRunSFX);
+                break;
+            case FloorTypeEnum.Grass:
+                AudioManager.Instance.PlaySFX(audioSource, grassRunSFX);
+                break;
+            case FloorTypeEnum.Wood:
+                AudioManager.Instance.PlaySFX(audioSource, woodRunSFX);
+                break;
         }
+        
     }
 
-
+    public void StopRunningSFX()
+    {
+        AudioManager.Instance.StopAudioSource(audioSource);
+    }
 }

@@ -6,7 +6,7 @@ public class EnemySight : MonoBehaviour
 {
     [SerializeField] LayerMask targetLayer;
     private float visionAngle = 90f; 
-    private float visionRange = 10f;
+    private float visionRange = 5f;
 
     private Transform enemyTransform;
 
