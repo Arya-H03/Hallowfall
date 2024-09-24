@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 7642061386989442486}
   - component: {fileID: 221400360149666746}
   - component: {fileID: 4736531303998535172}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LedgeDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -872,6 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb854920733deeb4c87f5a68b299e19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
   currentHealth: 0
   currentStateEnum: 0
   previousStateEnum: 0

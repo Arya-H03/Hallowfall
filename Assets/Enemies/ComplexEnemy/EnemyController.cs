@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 public class EnemyController : MonoBehaviour
 {
     #region Variables
-    private float maxHealth = 100;
+    public float maxHealth = 100;
     public float currentHealth;
 
 

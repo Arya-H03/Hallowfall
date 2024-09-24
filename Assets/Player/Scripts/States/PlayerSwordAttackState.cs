@@ -280,25 +280,25 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
 
     //For debugging
-    //void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
-    //{
-    //    // Define the corners of the box for visualization in 2D
-    //    Vector2 topLeft = origin + (Vector2.left * size.x / 2) + (Vector2.up * size.y / 2);
-    //    Vector2 topRight = origin + (Vector2.right * size.x / 2) + (Vector2.up * size.y / 2);
-    //    Vector2 bottomLeft = origin + (Vector2.left * size.x / 2) + (Vector2.down * size.y / 2);
-    //    Vector2 bottomRight = origin + (Vector2.right * size.x / 2) + (Vector2.down * size.y / 2);
+    void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
+    {
+        // Define the corners of the box for visualization in 2D
+        Vector2 topLeft = origin + (Vector2.left * size.x / 2) + (Vector2.up * size.y / 2);
+        Vector2 topRight = origin + (Vector2.right * size.x / 2) + (Vector2.up * size.y / 2);
+        Vector2 bottomLeft = origin + (Vector2.left * size.x / 2) + (Vector2.down * size.y / 2);
+        Vector2 bottomRight = origin + (Vector2.right * size.x / 2) + (Vector2.down * size.y / 2);
 
-    //    // Draw the edges of the box using Debug.DrawLine for visualization in 2D
-    //    Debug.DrawLine(topLeft, topRight, Color.red);
-    //    Debug.DrawLine(topRight, bottomRight, Color.red);
-    //    Debug.DrawLine(bottomRight, bottomLeft, Color.red);
-    //    Debug.DrawLine(bottomLeft, topLeft, Color.red);
+        // Draw the edges of the box using Debug.DrawLine for visualization in 2D
+        Debug.DrawLine(topLeft, topRight, Color.red);
+        Debug.DrawLine(topRight, bottomRight, Color.red);
+        Debug.DrawLine(bottomRight, bottomLeft, Color.red);
+        Debug.DrawLine(bottomLeft, topLeft, Color.red);
 
-    //    // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
-    //    Debug.DrawRay(origin, direction * distance, Color.red);
-    //}
+        // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
+        Debug.DrawRay(origin, direction * distance, Color.red);
+    }
     //private void Update()
     //{
-    //    VisualizeBoxCast(jumpAttackSwingCenter.position, jumpAttackSwingCastSize, transform.right, distance);
+    //    VisualizeBoxCast(secondSwingCenter.position, secondSwingCastSize, transform.right, distance);
     //}
 }

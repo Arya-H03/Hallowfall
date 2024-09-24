@@ -32,7 +32,6 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         {
             if(hit.collider.CompareTag("ParryShield") == true)
             {
-                Debug.Log("StartParry");
                 GameObject parryShield = hit.collider.gameObject;
                 enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
                 enemyController.ChangeState(EnemyStateEnum.Stun);

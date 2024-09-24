@@ -167,6 +167,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1039343221700156694, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125604686332195647, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495416885279188156, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.725
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495416885279188156, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505755817256193920, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242746601610278521, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5478323056235678100, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Name
       value: Inquisitor
@@ -175,9 +199,21 @@ PrefabInstance:
       propertyPath: footSteps
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5874536014144502926, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6546526773060207497, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: footSteps
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279478140037947940, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7696378628388297161, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Volume
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8145230739375272340, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: woodRunSFX
@@ -1261,6 +1297,10 @@ PrefabInstance:
     - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_Name
       value: Arsonist (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815036451256663909, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: maxHealth
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_LocalPosition.x
