@@ -12,6 +12,7 @@ public class EnvironmentCheck : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask enemyLayer;
     [SerializeField] LayerMask interactionLayerMask;
 
     PlayerController playerController;
@@ -29,8 +30,9 @@ public class EnvironmentCheck : MonoBehaviour
         if (!playerController.IsDead)
         {
             CheckForInteractions();
-            CheckIfPlayerHasHitGround();
+            
             CheckWhilePlayerIsFalling();
+            CheckIfPlayerHasHitGround();
             CheckForFloorType();
             RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
             RaycastHit2D midLevelCast = Physics2D.Raycast(midLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
@@ -107,6 +109,8 @@ public class EnvironmentCheck : MonoBehaviour
     }
     private void CheckWhilePlayerIsFalling()
     {
+        CheckForEnemyBelowWhenFalling();
+
         RaycastHit2D[] rayCasts = new RaycastHit2D[2];
         rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
         rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
@@ -124,10 +128,6 @@ public class EnvironmentCheck : MonoBehaviour
                     return;
                 }
 
-                if (rayCast.collider.CompareTag("Enemy"))
-                {
-
-                }
             }
         }
 
@@ -143,6 +143,25 @@ public class EnvironmentCheck : MonoBehaviour
         }
     }
 
+    private void CheckForEnemyBelowWhenFalling()
+    {
+        RaycastHit2D[] rayCasts = new RaycastHit2D[2];
+        rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, enemyLayer);
+        rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, enemyLayer);
+
+        foreach (RaycastHit2D rayCast in rayCasts)
+        {
+            if (rayCast.collider != null)
+            {
+              
+                if (rayCast.collider.CompareTag("Enemy"))
+                {
+                    playerController.PlayerCollision.BoxCollider2D.isTrigger = true;
+                }
+            }
+        }
+    }
+
 
 
     private void CheckIfPlayerHasHitGround()
@@ -154,6 +173,7 @@ public class EnvironmentCheck : MonoBehaviour
            
             if (rayCast1 ||rayCast2)
             {
+                playerController.PlayerCollision.BoxCollider2D.isTrigger = false;
                 playerController.PlayerFallState.OnPlayerGrounded();             
                           
             }
