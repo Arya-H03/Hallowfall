@@ -17,6 +17,11 @@ public class PatrolState : EnemyBaseState
     [SerializeField] Transform rightPatrolBound;
     [SerializeField] Transform leftPatrolBound;
 
+    private AudioSource audioSource;
+    [SerializeField] AudioClip walkGroundSFX;
+    [SerializeField] AudioClip walkGrassSFX;
+    [SerializeField] AudioClip walkWoodSFX;
+
     [SerializeField]
     private string[] patrolDialogues = {
         " More... More...",
@@ -31,7 +36,7 @@ public class PatrolState : EnemyBaseState
     }
     private void Awake()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -41,34 +46,69 @@ public class PatrolState : EnemyBaseState
     }
     public override void OnEnterState()
     {
-        SetNextPatrolPoint();
-        patrolDelayTimer = patrolDelayCooldown;
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+        //SetNextPatrolPoint();
+        //patrolDelayTimer = patrolDelayCooldown;
+        StartCoroutine(PatrolToNextPoint());
+        //enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+        
+
     }
 
     public override void OnExitState()
     {
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyMovement.StopRunningSFX(audioSource);
     }
 
+    private IEnumerator PatrolToNextPoint()
+    {
+        if(enemyController.CurrentStateEnum == EnemyStateEnum.Patrol)
+        {
+            SetNextPatrolPoint();
+            enemyController.EnemyMovement.StartRunningSFX(audioSource, walkGroundSFX, walkGrassSFX, walkWoodSFX);
+
+            while (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
+            {
+                if (!enemyController.IsFacingLedge)
+                {
+                    enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+                    enemyController.EnemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
+                    yield return new WaitForEndOfFrame();
+                }
+                else break;
+            }
+            OnPatrolPointReached();
+
+
+            int delay = Random.Range(1, 4);
+            yield return new WaitForSeconds(delay);
+
+            StartCoroutine(PatrolToNextPoint());
+        }
+        
+        
+    }
     public override void HandleState()
     {
 
-        if (patrolDelayTimer >= patrolDelayCooldown)
-        {
+        //if (patrolDelayTimer >= patrolDelayCooldown)
+        //{
+            //if (!enemyController.IsFacingLedge)
+            //{
+            //    if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
+            //    {
+                    
+            //    }
 
-            if (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
-            {
-                enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
-                enemyController.EnemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
-            }
+            //    else
+            //    {
+            //        OnPatrolPointReached();
+            //    }
+            //}
 
-            else
-            {
-                OnPatrolPointReached();
-            }
 
-        }
+
+        //}
 
     }
 
@@ -83,20 +123,18 @@ public class PatrolState : EnemyBaseState
 
     private void SetNextPatrolPoint()
     {
-        //int patrolDirection = GetPatrolPointDirection();
-        //int randomRange = Random.Range(4, 7);
         int randomXpos = Random.Range(Mathf.CeilToInt(leftPatrolBound.position.x), Mathf.FloorToInt(rightPatrolBound.position.x));
-        nextPatrollPosition = new Vector2(randomXpos, startPosition.y);
-        //enemyController.GetDialogueBox().PlayRandomDialogue(patrolDialogues);
-
+        nextPatrollPosition = new Vector2(randomXpos, startPosition.y);       
     }
 
     private void OnPatrolPointReached()
     {
+        enemyController.EnemyMovement.StopRunningSFX(audioSource);
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
-        SetNextPatrolPoint();
-        RandomizePatrolDelay();
-        patrolDelayTimer = 0;
+        //SetNextPatrolPoint();
+        //RandomizePatrolDelay();
+        //patrolDelayTimer = 0;
+
     }
     //public void SetPatrolDirection(int dir)
     //{

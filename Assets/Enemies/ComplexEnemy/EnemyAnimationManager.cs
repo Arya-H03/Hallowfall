@@ -26,12 +26,12 @@ public class EnemyAnimationManager : MonoBehaviour
 
     }
 
-    public void EndTurningAnimation()
-    {
+    //public void EndTurningAnimation()
+    //{
 
-        enemyController.EnemyMovement.OnEnemyEndTurning();
+    //    enemyController.EnemyMovement.OnEnemyEndTurning();
         
-    }
+    //}
 
     public void EndAttacking()
     {

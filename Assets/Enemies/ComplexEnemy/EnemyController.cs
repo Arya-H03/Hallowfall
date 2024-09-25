@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth;
 
+    private FloorTypeEnum currentFloorType;
+
 
     [SerializeField] private EnemyStateEnum currentStateEnum;
     private EnemyBaseState currentState;
@@ -95,6 +97,7 @@ public class EnemyController : MonoBehaviour
     public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
     public SpriteRenderer SpriteRenderer { get => spriteRenderer; set => spriteRenderer = value; }
     public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
+    public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
 
     //public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
 

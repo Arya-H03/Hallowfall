@@ -182,7 +182,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -531,7 +531,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: b76458e40abf6bb44b04cfec86c24566, type: 3}
   m_Resource: {fileID: 8300000, guid: b76458e40abf6bb44b04cfec86c24566, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -640,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 3228750813879065389}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.85, y: 0.08, z: 0}
+  m_LocalPosition: {x: 0.725, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -750,7 +750,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -974,7 +974,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1303,7 +1303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3f2c56c2877c341bc086b2840d314e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footSteps: {fileID: 0}
   withSwordAC: {fileID: 9100000, guid: 39e9c4a7f18bfa540898e84c3796d63d, type: 2}
   withoutSwordAC: {fileID: 9100000, guid: 9bd9d84d02b4ce345814eee399ca7728, type: 2}
   LeftHand: {fileID: 5478323056235678100}
@@ -6279,7 +6278,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6409,7 +6408,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6645,7 +6644,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b21acc09495f71d42a40b788a6f71b5e, type: 3}
   - {fileID: 8300000, guid: 1bc4797b6ec1e104fbb9e79ad052e6b0, type: 3}
   - {fileID: 8300000, guid: 6bfa016381db9f04ba989ed14e7e02ec, type: 3}
-  footSteps: {fileID: 0}
   size: {x: 0, y: 0}
   loc: {fileID: 0}
   firstSwingEffect: {fileID: 6442735963225259504, guid: a36c0c10653f5f843b84197939211636, type: 3}
@@ -6675,7 +6673,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0

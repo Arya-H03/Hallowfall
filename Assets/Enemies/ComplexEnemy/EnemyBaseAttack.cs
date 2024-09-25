@@ -8,6 +8,9 @@ public class EnemyBaseAttack : MonoBehaviour
     [SerializeField] protected float attackRange;
     [SerializeField] protected int attackDamage;
 
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected AudioClip [] attackSFX;
+
     protected EnemyController enemyController;
 
     public float AttackCooldown { get => attackCooldown; set => attackCooldown = value; }
@@ -17,6 +20,13 @@ public class EnemyBaseAttack : MonoBehaviour
     private void Awake()
     {
         enemyController = GetComponentInParent<EnemyController>();  
+    }
+    private void Start()
+    {
+        if (!audioSource)
+        {
+            Debug.LogWarning(this.name + "has no audio source attached to it's serializefield");
+        }
     }
     public virtual void HandleAttack()
     {

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class EnemyMovement : MonoBehaviour
 {
-    //private EnemyAI enemy;
+   
+   
     private EnemyController enemyController;
 
     private int currentDir = 0;
@@ -66,16 +68,27 @@ public class EnemyMovement : MonoBehaviour
       
     }
 
-    //Gets called from animation manager in the second to last frame of the turn animation.
-    public void OnEnemyEndTurning()
-    {
-        //transform.localScale = new Vector3(currentDir, 1, 1);
-        //enemyController.GetDialogueBox().transform.localScale = new Vector3(currentDir, 1, 1);
-        //enemyController.SetIsTurning(false);
-        //enemyController.SetCanChangeState(true);
-        //enemyController.ChangeState(enemyController.previousStateEnum);
    
+    public void StartRunningSFX(AudioSource audioSource,AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
+    {
+        switch (enemyController.CurrentFloorType)
+        {
+            case FloorTypeEnum.Ground:
+                AudioManager.Instance.PlaySFX(audioSource, groundSFX);
+                break;
+            case FloorTypeEnum.Grass:
+                AudioManager.Instance.PlaySFX(audioSource, grassSFX);
+                break;
+            case FloorTypeEnum.Wood:
+                AudioManager.Instance.PlaySFX(audioSource, woodSFX);
+                break;
+        }
+
     }
 
-    
+    public void StopRunningSFX(AudioSource audioSource)
+    {
+        AudioManager.Instance.StopAudioSource(audioSource);
+    }
+
 }

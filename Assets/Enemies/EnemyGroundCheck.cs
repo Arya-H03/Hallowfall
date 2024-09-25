@@ -17,7 +17,7 @@ public class EnemyGroundCheck : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //GroundCheck();
+        GroundCheck();
     }
     private void GroundCheck()
     {
@@ -29,13 +29,20 @@ public class EnemyGroundCheck : MonoBehaviour
         {
             if (rayCast.collider != null)
             {
-                PlatformTag platformTag = rayCast.collider.gameObject.GetComponent<PlatformTag>();
-                //if (platformTag != enemyController.CurrentPlatformElevation)
-                //{
-                //    enemyController.CurrentPlatformElevation = platformTag;
-                //}
+                switch (rayCast.collider.tag)
+                {
+                    case "Ground":
+                        enemyController.CurrentFloorType = FloorTypeEnum.Ground;
+                        break;
+                    case "Wood":
+                        enemyController.CurrentFloorType = FloorTypeEnum.Wood;
+                        break;
+                    case "Grass":
+                        enemyController.CurrentFloorType = FloorTypeEnum.Grass;
+                        break;
+                }
 
-            
+
             }
         }
     }

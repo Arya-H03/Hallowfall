@@ -5,19 +5,30 @@ using UnityEngine;
 public class ChaseState : EnemyBaseState
 {
     private float chaseSpeed = 2f;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip chaseGroundSFX;
+    [SerializeField] AudioClip chaseGrassSFX;
+    [SerializeField] AudioClip chaseWoodSFX;
+
     public ChaseState() : base()
     {
         stateEnum = EnemyStateEnum.Chase;    
     }
 
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void OnEnterState()
     {
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.EnemyMovement.StartRunningSFX(audioSource,chaseGroundSFX,chaseGrassSFX,chaseWoodSFX);
     }
 
     public override void OnExitState()
     {
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyMovement.StopRunningSFX(audioSource);
     }
 
     public override void HandleState()
@@ -61,8 +72,10 @@ public class ChaseState : EnemyBaseState
 
     private void AttackPlayer()
     {
-        enemyController.ChangeState(EnemyStateEnum.Attack);
         enemyController.canAttack = true;
+        enemyController.ChangeState(EnemyStateEnum.Attack);
+        
+        
     }
 
     private void ChaseOrIdle()
@@ -70,7 +83,7 @@ public class ChaseState : EnemyBaseState
         enemyController.canAttack = false;
 
         PlayerController playerController = enemyController.player.GetComponent<PlayerController>();
-        if (playerController != null && playerController.IsHanging)
+        if (!playerController || playerController.IsHanging || playerController.IsDead)
         {
             // If the player is hanging, go to idle state
             enemyController.ChangeState(EnemyStateEnum.Idle);

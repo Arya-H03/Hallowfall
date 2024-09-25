@@ -60,9 +60,14 @@ public class EnemyAttackState : EnemyBaseState
             
             
         }
-        else if(!isAttacking) 
+        else  
         {
-            enemyController.ChangeState(EnemyStateEnum.Chase);
+            if (!isAttacking) 
+            {
+                
+                enemyController.ChangeState(EnemyStateEnum.Chase);
+            }
+               
         }
     }
 

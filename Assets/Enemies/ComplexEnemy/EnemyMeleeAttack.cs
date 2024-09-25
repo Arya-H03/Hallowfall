@@ -17,16 +17,18 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     {
         enemyController = GetComponentInParent<EnemyController>();
     }
-    private void Update()
-    {
-        DrawCast();
-    }
+    //private void Update()
+    //{
+    //    DrawCast();
+    //}
 
     public override void HandleAttack()
     {
         Vector2 direction = transform.right;
 
         RaycastHit2D [] hits = Physics2D.BoxCastAll(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
+
+        AudioManager.Instance.PlaySFX(audioSource, attackSFX[Random.Range(0,attackSFX.Length -1 )]);
 
          foreach (RaycastHit2D hit in hits)
         {
