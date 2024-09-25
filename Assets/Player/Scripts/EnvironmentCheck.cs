@@ -123,6 +123,11 @@ public class EnvironmentCheck : MonoBehaviour
                     playerController.ChangeState(PlayerStateEnum.Death);
                     return;
                 }
+
+                if (rayCast.collider.CompareTag("Enemy"))
+                {
+
+                }
             }
         }
 

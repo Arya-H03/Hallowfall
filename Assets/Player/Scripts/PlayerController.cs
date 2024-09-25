@@ -267,12 +267,20 @@ public class PlayerController : MonoBehaviour
         {
 
             currentHealth -= value;
+           
 
             if (currentHealth <= 0)
             {
                 ChangeState(PlayerStateEnum.Death);
 
             }
+            else
+            {
+                ChangeState(PlayerStateEnum.Idle);
+                animationController.SetTriggerForAnimations("Hit");
+            }
+
+           
         }
 
     }
