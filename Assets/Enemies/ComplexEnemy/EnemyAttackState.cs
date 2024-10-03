@@ -73,7 +73,14 @@ public class EnemyAttackState : EnemyBaseState
 
     private IEnumerator StartAttackCoroutine()
     {
-        
+        if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x) 
+        {
+            
+            enemyController.transform.localScale = new Vector3(-enemyController.transform.localScale.x, enemyController.transform.localScale.y, enemyController.transform.localScale.z);
+            yield return new WaitForSeconds(0.5f);
+
+
+        }
         CanAttack = false;
         IsAttaking = true;
         enemyController.CanMove = false;

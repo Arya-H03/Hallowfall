@@ -123,7 +123,7 @@ public class PatrolState : EnemyBaseState
 
     private void SetNextPatrolPoint()
     {
-        int randomXpos = Random.Range(Mathf.CeilToInt(leftPatrolBound.position.x), Mathf.FloorToInt(rightPatrolBound.position.x));
+        int randomXpos = Random.Range(Mathf.FloorToInt(leftPatrolBound.position.x), Mathf.CeilToInt(rightPatrolBound.position.x));
         nextPatrollPosition = new Vector2(randomXpos, startPosition.y);       
     }
 

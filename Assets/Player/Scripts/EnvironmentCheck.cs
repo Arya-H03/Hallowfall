@@ -109,7 +109,11 @@ public class EnvironmentCheck : MonoBehaviour
     }
     private void CheckWhilePlayerIsFalling()
     {
-        CheckForEnemyBelowWhenFalling();
+        if (playerController.IsFalling)
+        {
+            CheckForEnemyBelowWhenFalling();
+        }
+       
 
         RaycastHit2D[] rayCasts = new RaycastHit2D[2];
         rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
@@ -146,8 +150,8 @@ public class EnvironmentCheck : MonoBehaviour
     private void CheckForEnemyBelowWhenFalling()
     {
         RaycastHit2D[] rayCasts = new RaycastHit2D[2];
-        rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, enemyLayer);
-        rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, enemyLayer);
+        rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.5f, enemyLayer);
+        rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.5f, enemyLayer);
 
         foreach (RaycastHit2D rayCast in rayCasts)
         {
@@ -168,14 +172,15 @@ public class EnvironmentCheck : MonoBehaviour
     {
         if (playerController.rb.velocity.y <= 0 && playerController.IsFalling)
         {
-            RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.3f, groundLayer);
-            RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.3f, groundLayer);
+            RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
+            RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
            
             if (rayCast1 ||rayCast2)
             {
+                
+                playerController.PlayerFallState.OnPlayerGrounded();
                 playerController.PlayerCollision.BoxCollider2D.isTrigger = false;
-                playerController.PlayerFallState.OnPlayerGrounded();             
-                          
+
             }
             
         }

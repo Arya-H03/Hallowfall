@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject dialogeBox;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject deathMenu;
+    [SerializeField] GameObject settingsPanel;
     [SerializeField] string playerWakeUpDialoge;
    
 
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        AudioManager.Instance.LoadSoundData();
     }
 
     public void SetPlayerLocationOnRespawn()
@@ -95,11 +96,14 @@ public class GameManager : MonoBehaviour
     public void OnMainmenuButtonClick()
     {
         OnGameUnPause();
+        AudioManager.Instance.SaveSoundData();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void OnExitButtonClick()
     {
+       
+        AudioManager.Instance.SaveSoundData();
         Application.Quit();
     }
 
@@ -115,6 +119,18 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
         InputManager.Instance.OnEnable();
+    }
+
+    public void OnOpenSettingsMenu()
+    {
+        settingsPanel.SetActive(true);
+
+
+    }
+
+    public void OnCloseSettingsMenu()
+    {
+        settingsPanel.SetActive(false);
     }
 
     private void CreateUpDialogeBox(string text)

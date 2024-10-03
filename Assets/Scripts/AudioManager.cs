@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
 
-    private float overallVolumeMultiplier = 1;
-    private float sfxVolumeMultiplier = 1;
-    private float musicVolumeMultiplier = 1;
+    [SerializeField] private float masterVolumeMultiplier = 0.5f;
+    [SerializeField] private float effectsVolumeMultiplier = 0.5f;
+    [SerializeField] private float musicVolumeMultiplier = 0.5f;
+
+    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField] Slider effectsVolumeSlider;
+    [SerializeField] Slider musicVolumeSlider;
     public static AudioManager Instance
     {
         get
@@ -21,6 +26,10 @@ public class AudioManager : MonoBehaviour
             return instance;
         }
     }
+
+    public float MasterVolumeMultiplier { get => masterVolumeMultiplier; set => masterVolumeMultiplier = value; }
+    public float EffectsVolumeMultiplier { get => effectsVolumeMultiplier; set => effectsVolumeMultiplier = value; }
+    public float MusicVolumeMultiplier { get => musicVolumeMultiplier; set => musicVolumeMultiplier = value; }
 
     private void Awake()
     {
@@ -38,18 +47,40 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioSource source, AudioClip clip)
     {
-        source.volume = source.volume * overallVolumeMultiplier * sfxVolumeMultiplier;
+        Debug.Log("play");
+        source.volume =  MasterVolumeMultiplier * EffectsVolumeMultiplier;
         source.PlayOneShot(clip);
     }
 
     public void PlayMusic(AudioSource source, AudioClip clip)
     {
-        source.volume = source.volume * overallVolumeMultiplier * musicVolumeMultiplier;
+        source.volume =  MasterVolumeMultiplier * MusicVolumeMultiplier;
         source.PlayOneShot(clip);
     }
 
     public void StopAudioSource(AudioSource source)
     {
         source.Stop();  
+    }
+
+    public void SaveSoundData()
+    {
+        SaveSystem.SaveSoundData(this);
+    }
+
+    public void LoadSoundData()
+    {
+        SoundData soundData = SaveSystem.LoadSoundData();
+        if (soundData != null)
+        {
+            MasterVolumeMultiplier = soundData.masterVolume;
+            masterVolumeSlider.value = MasterVolumeMultiplier;
+
+            MusicVolumeMultiplier = soundData.musicVolume;
+            musicVolumeSlider.value = MusicVolumeMultiplier;
+
+            EffectsVolumeMultiplier = soundData.effectsVolume; 
+            effectsVolumeSlider.value = EffectsVolumeMultiplier;    
+        }
     }
 }

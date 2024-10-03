@@ -16,8 +16,6 @@ public class StunState : EnemyBaseState
     public override void OnEnterState()
     {
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttackingSword", false);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", false);
         enemyController.isStuned = true;
         enemyController.stunEffect.SetActive(true);
     }
