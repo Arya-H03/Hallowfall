@@ -54,6 +54,7 @@ public class PlayerDeathState : PlayerBaseState
         playerController.AnimationController.SetBoolForAnimations("isDead", true);
         playerController.AnimationController.SetTriggerForAnimations("Death");
         GameManager.Instance.DistortCamera();
+        MobManager.Instance.ResetPlayerForAllEnemies();
 
         yield return new WaitForSeconds(1f);
 

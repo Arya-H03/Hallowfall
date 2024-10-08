@@ -67,7 +67,7 @@ public class PointOfInterest : MonoBehaviour
     {
         if (hasDialouge)
         {
-            dialogueBox.StartDialouge(dialogueText);
+            //dialogueBox.StartDialouge(dialogueText);
         }
 
         switch (interactionType)

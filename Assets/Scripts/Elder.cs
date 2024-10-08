@@ -21,7 +21,7 @@ public class Elder : MonoBehaviour
     private void PlayRandomDialogue(string[] texts)
     {
         int randomIndex = Random.Range(0, texts.Length);
-        dialogueBox.StartDialouge(texts[randomIndex]);
+        //dialogueBox.StartDialouge(texts[randomIndex]);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,7 +54,7 @@ public class Elder : MonoBehaviour
     private void ActivateInteractIcon()
     {
         interactIcon.SetActive(true);
-        dialogueBox.PlayRandomDialogue(onEnterRangeDialogues);
+        //dialogueBox.PlayRandomDialogue(onEnterRangeDialogues);
        
     }
 

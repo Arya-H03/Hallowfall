@@ -56,6 +56,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] private float moveSpeedWhileAttaking = 2;
     public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
     public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
+    public bool IsInitialSwinging { get => isInitialSwinging; set => isInitialSwinging = value; }
+
     public PlayerSwordAttackState()
     {
         this.stateEnum = PlayerStateEnum.SwordAttack;
@@ -80,7 +82,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         playerController.CanPlayerAttack = true;
 
         canInitialSwing = true;
-        isInitialSwinging = false;
+        IsInitialSwinging = false;
 
         canDoubleSwing = false;
         isDoubleSwinging = false;
@@ -105,7 +107,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             CanDoubleSwing = false;
             isDoubleSwinging = true;
         }
-        else if(canInitialSwing && !isInitialSwinging)
+        else if(canInitialSwing && !IsInitialSwinging)
         {
 
             playerController.AnimationController.SetTriggerForAnimations("Attack");
@@ -114,7 +116,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             playerController.CanPlayerAttack = false;
 
             canInitialSwing = false;
-            isInitialSwinging = true;
+            IsInitialSwinging = true;
 
             canDoubleSwing = true;  
         }
@@ -129,7 +131,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         playerController.CanPlayerAttack = true;
 
         canInitialSwing = true;
-        isInitialSwinging = false;
+        IsInitialSwinging = false;
 
         canDoubleSwing = false;
         isDoubleSwinging = false;

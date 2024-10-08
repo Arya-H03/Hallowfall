@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+
 
     public static GameManager Instance
     {
@@ -24,7 +26,9 @@ public class GameManager : MonoBehaviour
     public GameObject Player { get => player; set => player = value; }
 
     [SerializeField] Canvas canvas;
-    [SerializeField] GameObject dialogeBox;
+
+    private DialogueBox dialogueBox;
+   
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject deathMenu;
     [SerializeField] GameObject settingsPanel;
@@ -54,11 +58,15 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        dialogueBox = GameObject.FindGameObjectWithTag("DialogueBox").GetComponent<DialogueBox>();
+
     }
 
     private void Start()
     {
         AudioManager.Instance.LoadSoundData();
+        StartCoroutine(OnGameStartDialogue());
+
     }
 
     public void SetPlayerLocationOnRespawn()
@@ -89,6 +97,7 @@ public class GameManager : MonoBehaviour
     public void OnReplayButtonClick()
     {
         CloseDeathMenu();
+        MobManager.Instance.ResetLookingForPlayersForAllEnemies();
         Player.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
         
     }
@@ -133,16 +142,16 @@ public class GameManager : MonoBehaviour
         settingsPanel.SetActive(false);
     }
 
-    private void CreateUpDialogeBox(string text)
-    {
-        dialogeBox.SetActive(true);
-        dialogeBox.GetComponent<Dialoge>().StartDialoge(text);
-    }
+    
 
-    IEnumerator CallDialoge(float sec, string text)
+    IEnumerator OnGameStartDialogue()
     {
-        yield return new WaitForSeconds(sec);
-        CreateUpDialogeBox(text);
+        yield return new WaitForSeconds(2f);
+        dialogueBox.StartDialogue("I should be close",5f);
+        yield return new WaitForSeconds(5f);
+        dialogueBox.StartDialogue("This time I will find it", 5f);
+
+
     }
 
     public void DistortCamera()

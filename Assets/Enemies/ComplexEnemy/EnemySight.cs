@@ -20,7 +20,7 @@ public class EnemySight : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!enemyController.hasSeenPlayer)
+        if (!enemyController.hasSeenPlayer && !enemyController.IsPlayerDead)
         {
             // Calculate the start direction of the cone of vision
             Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x, 0, 0);

@@ -31,7 +31,7 @@ public class IdleState : EnemyBaseState
     {
         if (enemyController.hasSeenPlayer)
         {
-            if (!enemyController.IsFacingLedge )
+            if (!enemyController.IsFacingLedge)
             {
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }
@@ -39,7 +39,11 @@ public class IdleState : EnemyBaseState
             {
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }
-            
+
+        }
+        else 
+        {
+            enemyController.ChangeState(EnemyStateEnum.Patrol);
         }
         
     }

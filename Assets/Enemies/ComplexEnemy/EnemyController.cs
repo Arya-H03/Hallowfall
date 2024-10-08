@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public EnemyCollisionManager collisionManager;
 
-    [HideInInspector]
+    
     public GameObject player;
 
     [SerializeField] public GameObject stunEffect;
@@ -65,6 +65,7 @@ public class EnemyController : MonoBehaviour
     private bool isDead = false;
     private bool isInvincible = false;
     private bool isFacingLedge = false;
+    private bool isPlayerDead = false;
 
     #endregion
 
@@ -98,6 +99,7 @@ public class EnemyController : MonoBehaviour
     public SpriteRenderer SpriteRenderer { get => spriteRenderer; set => spriteRenderer = value; }
     public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
+    public bool IsPlayerDead { get => isPlayerDead; set => isPlayerDead = value; }
 
     //public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
 
@@ -348,5 +350,19 @@ public class EnemyController : MonoBehaviour
 
         //RangeAttackState = GetComponentInChildren<EnemyRangeAttackState>();
         //RangeAttackState.SetStatesController(this);
+    }
+
+    public void ResetPlayer()
+    {
+        
+        player = null;
+        hasSeenPlayer = false;
+        isPlayerDead = true;
+        ChangeState(EnemyStateEnum.Idle);
+    }
+
+    public void EnableLookingForPlayer()
+    {
+        isPlayerDead = false;
     }
 }

@@ -90,6 +90,7 @@ public class ChaseState : EnemyBaseState
         }
         else
         {
+            enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
             // Otherwise, chase the player
             enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
         }

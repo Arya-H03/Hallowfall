@@ -43,7 +43,7 @@ public class EnemyDeathState : EnemyBaseState
         enemyController.EnemyAnimationManager.Animator.enabled = false; 
         enemyController.SpriteRenderer.sprite = deadSprite;
 
-        Destroy(transform.parent.parent.gameObject, 5);
+        Destroy(transform.parent.parent.gameObject, 4);
     }
 
 }
