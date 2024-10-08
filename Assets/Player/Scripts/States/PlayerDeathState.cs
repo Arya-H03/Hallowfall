@@ -78,9 +78,12 @@ public class PlayerDeathState : PlayerBaseState
         InputManager.Instance.OnEnable();
         playerController.IsDead = false;
         playerController.RestoreHealth(playerController.MaxHealth);
+        playerController.ResetPlayerVariables();
         playerController.ChangeState(PlayerStateEnum.Idle); 
 
     }
+
+   
 
     public void OnPlayerRespawn()
     {

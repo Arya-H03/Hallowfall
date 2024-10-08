@@ -285,4 +285,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void ResetPlayerVariables()
+    {
+        canPlayerJump = true;
+        isPlayerGrounded = true;
+        isPlayerJumping = false;
+        canPlayerAttack = true;
+        isParrying = false;
+        isDead = false;
+        isAttacking = false;
+        isRolling = false;
+        isHanging = false;
+        canRoll = true;
+        canHang = true;
+        isFalling = false;
+        isFacingWall = false;
+        isFacingLedge = false;
+    }
+
 }
