@@ -47,7 +47,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioSource source, AudioClip clip)
     {
-        Debug.Log("play");
         source.volume =  MasterVolumeMultiplier * EffectsVolumeMultiplier;
         source.PlayOneShot(clip);
     }
