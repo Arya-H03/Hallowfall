@@ -100,15 +100,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SecondAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""b5ac8a19-383a-4e98-92c6-31cf981ed85c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Parry"",
                     ""type"": ""Button"",
                     ""id"": ""c8cb68fb-fd70-4084-83c4-565d995c73fa"",
@@ -262,17 +253,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d1e6c1e1-5c3e-4c35-b197-55f7a0ce93c7"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""MultiTap(tapDelay=0.5)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SecondAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""5f6e7c99-94c6-4735-ae76-610d8f85623b"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -308,7 +288,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
         m_Guardian_Roll = m_Guardian.FindAction("Roll", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
-        m_Guardian_SecondAttack = m_Guardian.FindAction("SecondAttack", throwIfNotFound: true);
         m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
         m_Guardian_ThirdAttack = m_Guardian.FindAction("ThirdAttack", throwIfNotFound: true);
     }
@@ -380,7 +359,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guardian_Interact;
     private readonly InputAction m_Guardian_Roll;
     private readonly InputAction m_Guardian_Pause;
-    private readonly InputAction m_Guardian_SecondAttack;
     private readonly InputAction m_Guardian_Parry;
     private readonly InputAction m_Guardian_ThirdAttack;
     public struct GuardianActions
@@ -395,7 +373,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Guardian_Interact;
         public InputAction @Roll => m_Wrapper.m_Guardian_Roll;
         public InputAction @Pause => m_Wrapper.m_Guardian_Pause;
-        public InputAction @SecondAttack => m_Wrapper.m_Guardian_SecondAttack;
         public InputAction @Parry => m_Wrapper.m_Guardian_Parry;
         public InputAction @ThirdAttack => m_Wrapper.m_Guardian_ThirdAttack;
         public InputActionMap Get() { return m_Wrapper.m_Guardian; }
@@ -431,9 +408,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @SecondAttack.started += instance.OnSecondAttack;
-            @SecondAttack.performed += instance.OnSecondAttack;
-            @SecondAttack.canceled += instance.OnSecondAttack;
             @Parry.started += instance.OnParry;
             @Parry.performed += instance.OnParry;
             @Parry.canceled += instance.OnParry;
@@ -468,9 +442,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @SecondAttack.started -= instance.OnSecondAttack;
-            @SecondAttack.performed -= instance.OnSecondAttack;
-            @SecondAttack.canceled -= instance.OnSecondAttack;
             @Parry.started -= instance.OnParry;
             @Parry.performed -= instance.OnParry;
             @Parry.canceled -= instance.OnParry;
@@ -504,7 +475,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnSecondAttack(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
         void OnThirdAttack(InputAction.CallbackContext context);
     }

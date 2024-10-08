@@ -223,10 +223,15 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwordAttack()
     {
-        if (HasSword && !IsAttacking && CanPlayerAttack && !IsHanging && !isPlayerJumping && !isFalling)
+        
+        if (/*!IsAttacking && CanPlayerAttack && */!IsHanging && !isPlayerJumping && !isFalling && IsPlayerGrounded)
         {
-    
+            
             ChangeState(PlayerStateEnum.SwordAttack);
+            if (currentStateEnum == PlayerStateEnum.SwordAttack) 
+            {
+                playerSwordAttackState.Attack();
+            }
         }
         
     }

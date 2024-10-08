@@ -50,7 +50,7 @@
 
 //        if (Vector2.Distance(enemy.transform.position, this.transform.position) <= 2 && canAttack)
 //        {
-//            StartAttack();
+//            Attack();
 //        }
 
 //        Vector2 dir = enemy.transform.position - this.transform.position;
@@ -59,7 +59,7 @@
 
 //    }
 
-//    private void StartAttack()
+//    private void Attack()
 //    {
 //        canAttack = false;       
 //        animator.SetBool("isAttacking",true);

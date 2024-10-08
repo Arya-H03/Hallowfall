@@ -43,7 +43,7 @@
 //        parent = GameObject.FindGameObjectWithTag("Player");
 //        audioSource = GetComponent<AudioSource>();
 //    }
-//    public void StartAttack(bool isJumping, int attackIndex)
+//    public void Attack(bool isJumping, int attackIndex)
 //    {
 //        playerController.AnimationController.EndAnimations("");
 //        switch (attackIndex)

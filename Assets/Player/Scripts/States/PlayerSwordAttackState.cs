@@ -20,6 +20,11 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private GameObject parent;
 
+    
+
+    private bool isInitialSwinging = false;
+    private bool isDoubleSwinging = false;
+    private bool canInitialSwing = true;
     private bool canDoubleSwing = false;
 
     //For Debuging
@@ -51,7 +56,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] private float moveSpeedWhileAttaking = 2;
     public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
     public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
-
     public PlayerSwordAttackState()
     {
         this.stateEnum = PlayerStateEnum.SwordAttack;
@@ -66,7 +70,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
-        StartAttack(playerController.IsPlayerGrounded);
+        Attack();
         
     }
 
@@ -74,7 +78,13 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
-        
+
+        canInitialSwing = true;
+        isInitialSwinging = false;
+
+        canDoubleSwing = false;
+        isDoubleSwinging = false;
+
     }
 
     public override void HandleState()
@@ -84,30 +94,32 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
 
    
-    public void StartAttack(bool isGrounded)
+    public void Attack()
     {
-        if (isGrounded)
+
+        if (CanDoubleSwing && !isDoubleSwinging) 
         {
+
+            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+
+            CanDoubleSwing = false;
+            isDoubleSwinging = true;
+        }
+        else if(canInitialSwing && !isInitialSwinging)
+        {
+
             playerController.AnimationController.SetTriggerForAnimations("Attack");
+
             playerController.IsAttacking = true;
             playerController.CanPlayerAttack = false;
 
-        }
+            canInitialSwing = false;
+            isInitialSwinging = true;
 
-        else
-        {
-            playerController.ChangeState(PlayerStateEnum.Idle);
+            canDoubleSwing = true;  
         }
-    }
-
-    public void DoubleSwing()
-    {
-        if (CanDoubleSwing)
-        {
-            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
-            CanDoubleSwing = false;
-        }
-
+       
+      
     }
 
     public void EndAttack()
@@ -115,6 +127,14 @@ public class PlayerSwordAttackState : PlayerBaseState
         //playerController.rb.gravityScale = 3;
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
+
+        canInitialSwing = true;
+        isInitialSwinging = false;
+
+        canDoubleSwing = false;
+        isDoubleSwinging = false;
+
+
 
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {
@@ -124,11 +144,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
-        
-        
-        //footSteps.OnStartPlayerFootstep();
-
-       
+              
 
     }
 
