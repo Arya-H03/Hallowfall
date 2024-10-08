@@ -146,11 +146,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator OnGameStartDialogue()
     {
+        InputManager.Instance.OnDisable();
+        DistortCamera();
         yield return new WaitForSeconds(2f);
-        dialogueBox.StartDialogue("I should be close",5f);
-        yield return new WaitForSeconds(5f);
-        dialogueBox.StartDialogue("This time I will find it", 5f);
-
+        dialogueBox.StartDialogue("Find your way forward",5f);
+        yield return new WaitForSeconds(1f);
+        EndPlayerDistortion();
+        InputManager.Instance.OnEnable();
 
     }
 
