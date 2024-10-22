@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Barracuda;
 using UnityEngine;
 
 public class EnemyBaseState : MonoBehaviour , IEnemyState

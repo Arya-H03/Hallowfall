@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Barracuda;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -40,8 +39,8 @@ public class EnemyController : MonoBehaviour
     //private BlockState blockState;
     //private EnemyRangeAttackState rangeAttackState;
 
-    [HideInInspector]
-    public SmartEnemyAgent agent;
+    //[HideInInspector]
+    //public SmartEnemyAgent agent;
     [HideInInspector]
     private EnemyAnimationManager enemyAnimationManager;
     private EnemyMovement enemyMovement;
@@ -159,7 +158,7 @@ public class EnemyController : MonoBehaviour
         EnemyAnimationManager = GetComponent<EnemyAnimationManager>();
         EnemyMovement = GetComponent<EnemyMovement>();
         collisionManager = GetComponent<EnemyCollisionManager>();
-        agent = GetComponent<SmartEnemyAgent>();
+        //agent = GetComponent<SmartEnemyAgent>();
         dialogueBox = GetComponentInChildren<DialogueBox>();
         bloodParticles = GetComponent<ParticleSystem>();
         material = GetComponent<SpriteRenderer>().material;
