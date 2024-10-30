@@ -173,15 +173,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Color.b
-      value: 0.21960786
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Color.g
-      value: 0.21960786
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Color.r
-      value: 0.21960786
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1039343221700156694, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Volume
@@ -4597,6 +4597,14 @@ PrefabInstance:
     - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_Name
       value: Arsonist (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815036451256663909, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11248,6 +11256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arsonist
       objectReference: {fileID: 0}
+    - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 48.94
@@ -12836,7 +12848,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.175
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: cf60acc100000000335b2738
@@ -13869,6 +13881,10 @@ PrefabInstance:
     - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_Name
       value: Arsonist (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
       propertyPath: m_LocalPosition.x
