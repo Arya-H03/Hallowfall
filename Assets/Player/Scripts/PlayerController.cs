@@ -315,33 +315,6 @@ public class PlayerController : MonoBehaviour
         isFacingLedge = false;
     }
 
-    public void OnAtonementPickUp()
-    {
-        PlayerInfo.CurrentAtonement++;
-        Debug.Log("1");
-        if(PlayerInfo.CurrentAtonement >= PlayerInfo.AtonementToLevel)
-        {
-            PlayerInfo.AtonementLvl++;
-            PlayerInfo.CurrentAtonement = 0;
-            PlayerInfo.AtonementToLevel += 2;
-
-            GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = PlayerInfo.AtonementLvl.ToString();
-        }
-
-       
-        float ratio = (float)PlayerInfo.CurrentAtonement / PlayerInfo.AtonementToLevel;
-        GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
-    }
-
-    public void ResetAttonement()
-    {
-        PlayerInfo.CurrentAtonement = 0;
-        PlayerInfo.AtonementToLevel = 0;
-        PlayerInfo.AtonementToLevel = 3;
-
-        float ratio = (float)PlayerInfo.CurrentAtonement / PlayerInfo.AtonementToLevel;
-        GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
-        GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = 0.ToString();
-    }
+    
 
 }

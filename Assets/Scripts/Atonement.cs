@@ -25,7 +25,7 @@ public class Atonement : MonoBehaviour
     {
         if (collision.CompareTag("PlayerPickUpBox"))
         {
-            collision.transform.parent.GetComponentInParent<PlayerController>().OnAtonementPickUp();
+            LevelupManager.Instance.OnAtonementPickUp();
             Destroy(this.gameObject);
         }
         
