@@ -19,7 +19,7 @@ public class EnemyDeathState : EnemyBaseState
         
         OnEnemyDeath();
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
-        Instantiate(atonement, transform.position, Quaternion.identity);
+        
     }
 
     public override void OnExitState()
@@ -42,6 +42,7 @@ public class EnemyDeathState : EnemyBaseState
 
     public void OnDeathAnimationEnd()
     {
+        Instantiate(atonement, transform.position, Quaternion.identity);
         enemyController.EnemyAnimationManager.Animator.enabled = false; 
         enemyController.SpriteRenderer.sprite = deadSprite;
         Destroy(transform.parent.parent.gameObject, 4);

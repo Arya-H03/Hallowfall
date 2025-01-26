@@ -1,6 +1,7 @@
 using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -317,15 +318,17 @@ public class PlayerController : MonoBehaviour
     public void OnAtonementPickUp()
     {
         PlayerInfo.CurrentAtonement++;
+        Debug.Log("1");
         if(PlayerInfo.CurrentAtonement >= PlayerInfo.AtonementToLevel)
         {
             PlayerInfo.AtonementLvl++;
             PlayerInfo.CurrentAtonement = 0;
             PlayerInfo.AtonementToLevel += 2;
+
+            GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = PlayerInfo.AtonementLvl.ToString();
         }
 
-        Debug.Log(PlayerInfo.CurrentAtonement);
-        Debug.Log(PlayerInfo.AtonementToLevel);
+       
         float ratio = (float)PlayerInfo.CurrentAtonement / PlayerInfo.AtonementToLevel;
         GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
     }
@@ -338,6 +341,7 @@ public class PlayerController : MonoBehaviour
 
         float ratio = (float)PlayerInfo.CurrentAtonement / PlayerInfo.AtonementToLevel;
         GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
+        GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = 0.ToString();
     }
 
 }
