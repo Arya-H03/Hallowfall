@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private Player player;
     private PlayerCollision playerCollision;
+    private PlayerInfo playerInfo = new PlayerInfo();
 
     [SerializeField] private bool canPlayerJump = true;
     [SerializeField] private bool isPlayerGrounded = true;
@@ -55,12 +56,12 @@ public class PlayerController : MonoBehaviour
     private PlayerFallState playerFallState;
     private PlayerDeathState playerDeathState;
 
-    private int maxHealth = 100;
-    private int currentHealth = 0;
+    
 
 
     #region Getters / Setters
 
+   
     public PlayerAnimationController AnimationController { get => animationController; set => animationController = value; }
     public PlayerStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
     public PlayerBaseState CurrentState { get => currentState; set => currentState = value; }
@@ -91,9 +92,9 @@ public class PlayerController : MonoBehaviour
     public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-    public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
+   
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
+    public PlayerInfo PlayerInfo { get => playerInfo; set => playerInfo = value; }
 
     #endregion
     private void Awake()
@@ -146,7 +147,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        RestoreHealth(MaxHealth);
+        RestoreHealth(playerInfo.MaxHealth);
     }
     private void Update()
     {
@@ -263,18 +264,20 @@ public class PlayerController : MonoBehaviour
 
     public void RestoreHealth(int amount)
     {
-        currentHealth = amount;
+        playerInfo.CurrentHealth = amount;
+        float ratio = (float)PlayerInfo.CurrentHealth / PlayerInfo.MaxHealth;
+        GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
     }
 
     public void OnTakingDamage(int value)
     { 
-        if (currentHealth > 0)
+        if (playerInfo.CurrentHealth > 0)
         {
 
-            currentHealth -= value;
+            playerInfo.CurrentHealth -= value;
            
 
-            if (currentHealth <= 0)
+            if (playerInfo.CurrentHealth <= 0)
             {
                 ChangeState(PlayerStateEnum.Death);
 
@@ -287,6 +290,9 @@ public class PlayerController : MonoBehaviour
 
            
         }
+
+        float ratio = (float)PlayerInfo.CurrentHealth / PlayerInfo.MaxHealth;
+        GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
 
     }
 
@@ -306,6 +312,32 @@ public class PlayerController : MonoBehaviour
         isFalling = false;
         isFacingWall = false;
         isFacingLedge = false;
+    }
+
+    public void OnAtonementPickUp()
+    {
+        PlayerInfo.CurrentAtonement++;
+        if(PlayerInfo.CurrentAtonement >= PlayerInfo.AtonementToLevel)
+        {
+            PlayerInfo.AtonementLvl++;
+            PlayerInfo.CurrentAtonement = 0;
+            PlayerInfo.AtonementToLevel += 2;
+        }
+
+        Debug.Log(PlayerInfo.CurrentAtonement);
+        Debug.Log(PlayerInfo.AtonementToLevel);
+        float ratio = (float)PlayerInfo.CurrentAtonement / PlayerInfo.AtonementToLevel;
+        GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
+    }
+
+    public void ResetAttonement()
+    {
+        PlayerInfo.CurrentAtonement = 0;
+        PlayerInfo.AtonementToLevel = 0;
+        PlayerInfo.AtonementToLevel = 3;
+
+        float ratio = (float)PlayerInfo.CurrentAtonement / PlayerInfo.AtonementToLevel;
+        GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
     }
 
 }

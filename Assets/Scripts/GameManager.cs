@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject deathMenu;
     [SerializeField] GameObject settingsPanel;
     [SerializeField] string playerWakeUpDialoge;
+
+    [SerializeField] public Transform healthBar;
+    [SerializeField] public Transform atonementBar;
+
    
 
     [SerializeField] GameObject player;
@@ -65,7 +69,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AudioManager.Instance.LoadSoundData();
-        StartCoroutine(OnGameStartDialogue());
+        //StartCoroutine(OnGameStartDialogue());
 
     }
 

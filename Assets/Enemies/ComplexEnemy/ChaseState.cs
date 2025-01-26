@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ChaseState : EnemyBaseState
 {
-    private float chaseSpeed = 2f;
+    private float chaseSpeed;
+    [SerializeField] float chaseSpeedLrange = 1f;
+    [SerializeField] float chaseSpeedUrange = 2f;
     private AudioSource audioSource;
     [SerializeField] AudioClip chaseGroundSFX;
     [SerializeField] AudioClip chaseGrassSFX;
@@ -18,6 +20,11 @@ public class ChaseState : EnemyBaseState
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        chaseSpeed = Random.Range(chaseSpeedLrange, chaseSpeedUrange + 0.1f);
     }
     public override void OnEnterState()
     {

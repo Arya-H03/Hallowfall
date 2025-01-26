@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyDeathState : EnemyBaseState
 {
     [SerializeField] Sprite deadSprite;
+    [SerializeField] GameObject atonement;
     public EnemyDeathState() : base()
     {
         stateEnum = EnemyStateEnum.Death;
@@ -18,6 +19,7 @@ public class EnemyDeathState : EnemyBaseState
         
         OnEnemyDeath();
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
+        Instantiate(atonement, transform.position, Quaternion.identity);
     }
 
     public override void OnExitState()
@@ -42,7 +44,6 @@ public class EnemyDeathState : EnemyBaseState
     {
         enemyController.EnemyAnimationManager.Animator.enabled = false; 
         enemyController.SpriteRenderer.sprite = deadSprite;
-
         Destroy(transform.parent.parent.gameObject, 4);
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Essence : MonoBehaviour
+public class Atonement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private void Awake()
@@ -11,10 +11,10 @@ public class Essence : MonoBehaviour
     }
     void Start()
     {
-       StartCoroutine(LaunchEssence());
+       StartCoroutine(LaunchAttonement());
     }
 
-    private IEnumerator LaunchEssence()
+    private IEnumerator LaunchAttonement()
     {
         float xDir = Random.Range(-3, 3.1f);
         rb.velocity = new Vector2(rb.velocity.x + xDir, rb.velocity.y + 7);
@@ -25,6 +25,7 @@ public class Essence : MonoBehaviour
     {
         if (collision.CompareTag("PlayerPickUpBox"))
         {
+            collision.transform.parent.GetComponentInParent<PlayerController>().OnAtonementPickUp();
             Destroy(this.gameObject);
         }
         

@@ -740,6 +740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadSprite: {fileID: -898221585893318736, guid: b0473f367baadd244806f58a4e17a024, type: 3}
+  atonement: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
 --- !u!1 &3994567058038104221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,8 +1161,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 942103347
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 4167fc9fb80b93745b375af01e0af793, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1242,7 +1243,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1259,11 +1260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb854920733deeb4c87f5a68b299e19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 0
   currentStateEnum: 1
   previousStateEnum: 0
-  agent: {fileID: 0}
   collisionManager: {fileID: 0}
   player: {fileID: 0}
   stunEffect: {fileID: 5633359595972537000}
@@ -6178,6 +6178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c59928c7314114c80e1d7e82be82dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chaseSpeedLrange: 1
+  chaseSpeedUrange: 2
   chaseGroundSFX: {fileID: 8300000, guid: 63e8979eaa8545041886dd575eadf068, type: 3}
   chaseGrassSFX: {fileID: 8300000, guid: 988ab9e459138e1448fd6e1cb7c8dc69, type: 3}
   chaseWoodSFX: {fileID: 8300000, guid: 1f411e15fe2775c48baeaeb6961558ff, type: 3}
@@ -6469,7 +6471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93952c12c7102eb47bdf7d40a4113eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textSpeed: 0.05
 --- !u!1 &9188536229556048115
 GameObject:
   m_ObjectHideFlags: 0

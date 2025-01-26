@@ -23,7 +23,11 @@ public class PlayerMovementManager : MonoBehaviour
         if (!playerController.IsPlayerJumping && !playerController.IsDead && !playerController.IsHanging && !playerController.IsFalling)
         {
 
-            transform.position += new Vector3(currentDirection.x, 0,0) * MoveSpeed * Time.deltaTime;
+            transform.position += new Vector3(currentDirection.x, 0,-currentDirection.y) * MoveSpeed * Time.deltaTime;
+
+            Vector3 clampedPos = transform.position;
+            clampedPos.z = Mathf.Clamp(clampedPos.z,-1,2);
+            transform.position = clampedPos;
 
         }
     }
@@ -53,7 +57,7 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (!playerController.IsPlayerJumping && !playerController.IsFalling && !playerController.IsHanging && !playerController.IsParrying && !playerController.IsAttacking && !playerController.IsRolling)
         {
-            if (currentDirection.x != 0 )
+            if (currentDirection != Vector2.zero )
             {
 
                 playerController.ChangeState(PlayerStateEnum.Run);

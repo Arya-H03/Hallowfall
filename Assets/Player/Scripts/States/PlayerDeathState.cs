@@ -78,7 +78,8 @@ public class PlayerDeathState : PlayerBaseState
         playerController.AnimationController.SetBoolForAnimations("isDead", false);
         InputManager.Instance.OnEnable();
         playerController.IsDead = false;
-        playerController.RestoreHealth(playerController.MaxHealth);
+        playerController.RestoreHealth(playerController.PlayerInfo.MaxHealth);
+        playerController.ResetAttonement();
         playerController.ResetPlayerVariables();
         playerController.ChangeState(PlayerStateEnum.Idle); 
 

@@ -176,11 +176,12 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        player = GameManager.Instance.Player;
+        hasSeenPlayer = true;
+        CurrentStateEnum = EnemyStateEnum.Chase;
+        CurrentState = chaseState;
 
-        CurrentStateEnum = EnemyStateEnum.Idle;
-        CurrentState = IdleState;
-
-        ChangeState(EnemyStateEnum.Patrol);
+        
     }
 
     private void Update()
