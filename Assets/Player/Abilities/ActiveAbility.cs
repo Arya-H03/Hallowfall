@@ -10,12 +10,19 @@ public class ActiveAbility : BaseAbility
     public int spawnCount = 1;
     public float spawnDelay = 2;
 
+    public PassiveAbility[] supportAbilities; 
+
     public override void ApplyAbility()
     {
         GameObject spawner = Instantiate(spawnerGO, GameManager.Instance.Player.transform.Find("AbilityHolder"));
         ProjectileSpawner projectileSpawner = spawner.GetComponent<ProjectileSpawner>();
-        projectileSpawner.Projectile = projectile;
-        projectileSpawner.SpawnCount = spawnCount;
-        projectileSpawner.SpawnDelay = spawnDelay;
-    }
+        projectileSpawner.Ability = this;
+        
+        foreach (PassiveAbility ability in supportAbilities)
+        {
+            LevelupManager.Instance.abilities.Add(ability);
+        }
+      
+        LevelupManager.Instance.abilities.Remove(this);
+}
 }

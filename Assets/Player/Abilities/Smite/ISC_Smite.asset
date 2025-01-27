@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206f34f170f4c0f49913ee6ec81a89b0, type: 3}
+  m_Name: ISC_Smite
+  m_EditorClassIdentifier: 
+  abilityName: Echoing Smite
+  description: Increase number of Smites per cast by 1.
+  icon: {fileID: 21300000, guid: e6d0f73b326a1fd428bec8be4c22a975, type: 3}
+  activeAbility: {fileID: 11400000, guid: fc35313ee549a1d4cb9bd184edd2fb65, type: 2}
+  modifier: 1

@@ -99,11 +99,12 @@ public class LevelupManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void CloseAbilityWindow()
+    private void CloseAbilityWindow(AbilityCard abilitycard)
     {
         abilitiesToAssign = new List<BaseAbility>(abilities);
         InputManager.Instance.OnEnable();
         Time.timeScale = 1;
+        abilitycard.ApplyAbilityEvent = null;
         abilityWindow.SetActive(false);
     }
     private void FillAbilityCards()
@@ -119,7 +120,7 @@ public class LevelupManager : MonoBehaviour
             abilityCard.cardName.text = ability.abilityName;
             abilityCard.CardDescription = ability.description;
             abilityCard.ApplyAbilityEvent += ability.ApplyAbility;
-            abilityCard.ApplyAbilityEvent += CloseAbilityWindow;
+            abilityCard.ApplyAbilityEvent += () => CloseAbilityWindow(abilityCard);
 
 
 

@@ -19,3 +19,6 @@ MonoBehaviour:
   spawnerGO: {fileID: 2394594077894151085, guid: 03dd309282bd37d4cb0e6399540db22d, type: 3}
   spawnCount: 1
   spawnDelay: 2
+  supportAbilities:
+  - {fileID: 11400000, guid: e302f994564dada4ba082b4a0065b4ad, type: 2}
+  - {fileID: 11400000, guid: dc48185eba8a08d4d92f681b38ddd711, type: 2}

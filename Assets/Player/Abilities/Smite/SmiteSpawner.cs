@@ -9,12 +9,12 @@ public class SmiteSpawner : ProjectileSpawner
     {
         while (true)
         {
-            yield return new WaitForSeconds(SpawnDelay);
+            yield return new WaitForSeconds(CurrentSpawnDelay);
 
-            for (int i = 0; i < SpawnCount; i++)
+            for (int i = 0; i < CurrentSpawnCount; i++)
             {
                 Vector3 spawnPos = new Vector3(Random.Range(transform.position.x - 3, transform.position.x + 4), -3.5f, 0);
-                GameObject effect = Instantiate(Projectile, spawnPos, Quaternion.identity);
+                GameObject effect = Instantiate(ability.projectile, spawnPos, Quaternion.identity);
             }
            
         }

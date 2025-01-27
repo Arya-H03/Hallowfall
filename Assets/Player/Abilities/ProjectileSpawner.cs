@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class ProjectileSpawner:MonoBehaviour
 {
-    private GameObject projectile;
-    private int spawnCount;
-    private float spawnDelay;
-    public GameObject Projectile { get => projectile; set => projectile = value; }
-    public int SpawnCount { get => spawnCount; set => spawnCount = value; }
-    public float SpawnDelay { get => spawnDelay; set => spawnDelay = value; }
+    protected ActiveAbility ability;
+    private int currentSpawnCount;
+    private float currentSpawnDelay;
+
+    public ActiveAbility Ability { get => ability; set => ability = value; }
+    public int CurrentSpawnCount { get => currentSpawnCount; set => currentSpawnCount = value; }
+    public float CurrentSpawnDelay { get => currentSpawnDelay; set => currentSpawnDelay = value; }
 
     private void Start()
     {
+        currentSpawnCount = ability.spawnCount;
+        currentSpawnDelay = ability.spawnDelay; 
+
         StartCoroutine(SpawnEffectCoroutine());
     }
 
