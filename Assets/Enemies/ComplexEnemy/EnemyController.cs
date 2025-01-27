@@ -197,21 +197,21 @@ public class EnemyController : MonoBehaviour
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
 
-    public void OnEnemyHit(int damage, Vector2 hitPoint,GameObject playerRef)
+    public void OnEnemyHit(int damage, Vector2 hitPoint)
     {
-        if(!hasSeenPlayer )
-        {
-            if (playerRef)
-            {
-                this.player = playerRef;
-            }
+        //if(!hasSeenPlayer )
+        //{
+        //    if (playerRef)
+        //    {
+        //        this.player = playerRef;
+        //    }
             
-            hasSeenPlayer = true;
-            if (CurrentStateEnum != EnemyStateEnum.Chase)
-            {
-                ChangeState(EnemyStateEnum.Chase);
-            }
-        }
+        //    hasSeenPlayer = true;
+        //    if (CurrentStateEnum != EnemyStateEnum.Chase)
+        //    {
+        //        ChangeState(EnemyStateEnum.Chase);
+        //    }
+        //}
         
         if (!isInvincible && damage > 0)
         {

@@ -182,7 +182,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 AudioManager.Instance.PlaySFX(audioSource, swingHitAC[Random.Range(0, swingHitAC.Length)]);
-                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point,this.transform.parent.parent.gameObject);
+                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point/*this.transform.parent.parent.gameObject*/);
                 
             }
 
@@ -215,7 +215,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 AudioManager.Instance.PlaySFX(audioSource, swingHitAC[Random.Range(0, swingHitAC.Length)]);
-                enemyController.OnEnemyHit(secondSwingDamage, hitResult.point,this.gameObject);
+                enemyController.OnEnemyHit(secondSwingDamage, hitResult.point/*,this.gameObject*/);
             }
         }
 
@@ -242,7 +242,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.OnEnemyHit(jumpAttackDamage, hitResult.point, this.gameObject);
+                enemyController.OnEnemyHit(jumpAttackDamage, hitResult.point);
             }
         }
 

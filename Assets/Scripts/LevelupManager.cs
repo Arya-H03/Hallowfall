@@ -9,9 +9,11 @@ public class LevelupManager : MonoBehaviour
     private PlayerController playerController;
 
     [SerializeField] GameObject abilityWindow;
-    [SerializeField] GameObject abilityCard1; //left
-    [SerializeField] GameObject abilityCard2; //Middle
-    [SerializeField] GameObject abilityCard3; //right
+    [SerializeField] GameObject[] abilityCards;
+    
+
+    public List<BaseAbility> abilities;
+    public List<BaseAbility> abilitiesToAssign;
     public static LevelupManager Instance
     {
         get
@@ -48,6 +50,8 @@ public class LevelupManager : MonoBehaviour
             Debug.LogWarning("Levelup manager doesn't have ref to player controller");
         }
         PlayerDeathState.PlayerRespawnEvent += ResetAttonement;
+
+        abilitiesToAssign = new List<BaseAbility>(abilities);
     }
 
     private void Update()
@@ -89,9 +93,36 @@ public class LevelupManager : MonoBehaviour
         playerController.PlayerInfo.AtonementToLevel += 2;
 
         GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = playerController.PlayerInfo.AtonementLvl.ToString();
-
+        FillAbilityCards();
         abilityWindow.SetActive(true);
         InputManager.Instance.OnDisable();
         Time.timeScale = 0;
+    }
+
+    private void CloseAbilityWindow()
+    {
+        abilitiesToAssign = new List<BaseAbility>(abilities);
+        InputManager.Instance.OnEnable();
+        Time.timeScale = 1;
+        abilityWindow.SetActive(false);
+    }
+    private void FillAbilityCards()
+    {
+        foreach (var card in abilityCards)
+        {
+            int index = Random.Range(0, abilitiesToAssign.Count);
+            BaseAbility ability = abilitiesToAssign[index];
+            abilitiesToAssign.Remove(ability);
+
+            AbilityCard abilityCard = card.GetComponent<AbilityCard>();
+            abilityCard.cardIcon.sprite = ability.icon;
+            abilityCard.cardName.text = ability.abilityName;
+            abilityCard.CardDescription = ability.description;
+            abilityCard.ApplyAbilityEvent += ability.ApplyAbility;
+            abilityCard.ApplyAbilityEvent += CloseAbilityWindow;
+
+
+
+        }
     }
 }

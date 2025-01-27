@@ -37,7 +37,7 @@ public class EnemyCollisionManager : MonoBehaviour
     {
         shield.GetComponent<ParryShield>().OnSuccessfulParry();
         shield.GetComponent<ParryShield>().SpawnImpactEffect(hitLocation);
-        enemyController.OnEnemyHit(damage,hitLocation,null);
+        enemyController.OnEnemyHit(damage,hitLocation/*,null*/);
         Vector3 scale = transform.localScale;
         Vector2 launchVec = Vector2.zero;
         if (scale.x == 1)

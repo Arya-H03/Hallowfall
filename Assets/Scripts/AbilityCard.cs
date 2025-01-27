@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AbilityCard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Image cardIcon;
+    public TextMeshProUGUI cardName;
+    private string cardDescription;
+
+    public delegate void EventHandler();
+    public EventHandler ApplyAbilityEvent;
+
+    public string CardDescription { get => cardDescription; set => cardDescription = value; }
+
+    public void OnCardClicked()
     {
-        
+        ApplyAbilityEvent?.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnCardHover()
     {
-        
+        Debug.Log(cardDescription);
+    }
+
+    public void OnCardHoverClear()
+    {
+        Debug.Log("Exit");
     }
 }

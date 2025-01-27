@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cdf6a283c21d19e40bb1bbe4d4879e6b
+guid: c7185e0878790024fb6a19153d162ea0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -39,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,19 +81,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -107,7 +94,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Server
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,232 +110,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_1
+      name: Retro Impact Effect Pack 5 A_0
       rect:
         serializedVersion: 2
-        x: 224
-        y: 358
-        width: 31
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 14
+        y: 256
+        width: 35
+        height: 66
+      alignment: 9
+      pivot: {x: 0.51387143, y: 0.040248524}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11b3d7740f4f79249a7e2a453b956bdb
-      internalID: -2129003309
+      spriteID: 4eb42448a3e053f4f9a0a0bef9fed986
+      internalID: -2033469014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_2
+      name: Retro Impact Effect Pack 5 A_1
       rect:
         serializedVersion: 2
-        x: 257
-        y: 355
+        x: 79
+        y: 256
+        width: 33
+        height: 67
+      alignment: 9
+      pivot: {x: 0.5073561, y: 0.043486636}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc1a4bb71373bd4a9fb3f4b9cacc18f
+      internalID: -525286734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 256
+        width: 33
+        height: 65
+      alignment: 9
+      pivot: {x: 0.5000005, y: 0.036909837}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc3f7e4c8e44b440ba48d54fc47b9f5
+      internalID: 834981333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_3
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 255
+        width: 34
+        height: 67
+      alignment: 9
+      pivot: {x: 0.5071402, y: 0.036240764}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57f79d17d6918d14994d0b039de704df
+      internalID: -430065368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_4
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 257
+        width: 40
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5121376, y: 0.033467293}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94d2c4061412cec4a8186104c041e216
+      internalID: 1450325402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_5
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 256
+        width: 35
+        height: 67
+      alignment: 9
+      pivot: {x: 0.4861293, y: 0.05073297}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 373426f6184b2f84f8611420a56a0fb0
+      internalID: 1678848455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_6
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 256
+        width: 37
+        height: 66
+      alignment: 9
+      pivot: {x: 0.51312256, y: 0.036570232}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6c8a84cac4e5bb43a123b994f62990b
+      internalID: -1446887077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_7
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 258
+        width: 32
+        height: 65
+      alignment: 9
+      pivot: {x: 0.48482895, y: 0.04064425}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb9f0145bdb3aae44bb30db743a2fe79
+      internalID: 1045736568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Pack 5 A_8
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 258
         width: 30
-        height: 27
+        height: 65
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c668e204ae33df546ba83d037c98875d
-      internalID: 1361216463
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_3
-      rect:
-        serializedVersion: 2
-        x: 289
-        y: 358
-        width: 31
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ca62f4b9003bb1428deca84c6f45952
-      internalID: -1143864077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_0
-      rect:
-        serializedVersion: 2
-        x: 194
-        y: 362
-        width: 28
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b952bdf06eb75743b4b9ec81613a69d
-      internalID: 492498682
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_4
-      rect:
-        serializedVersion: 2
-        x: 515
-        y: 293
-        width: 26
-        height: 23
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31d4e7aaa5a0a4e4da95ec879ef090ec
-      internalID: 2106621181
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_5
-      rect:
-        serializedVersion: 2
-        x: 549
-        y: 294
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f968fbec71a9d504d92479a89aa4b02e
-      internalID: 122586428
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_6
-      rect:
-        serializedVersion: 2
-        x: 580
-        y: 294
-        width: 23
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6758c107e84a51447aee336eda90bcba
-      internalID: 1762274310
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_7
-      rect:
-        serializedVersion: 2
-        x: 613
-        y: 294
-        width: 21
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e29de1af2d7df3846afebf3d584b5f30
-      internalID: 367541103
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_8
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 111
-        width: 28
-        height: 47
-      alignment: 9
-      pivot: {x: 0.4804554, y: 0.042526733}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0fddb5a8bce73db4fa6bed5b3ddb5236
-      internalID: 1981504643
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_9
-      rect:
-        serializedVersion: 2
-        x: 95
-        y: 111
-        width: 31
-        height: 48
-      alignment: 9
-      pivot: {x: 0.54745585, y: 0.04266739}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 99e31dae9410381448f43199dc1b7042
-      internalID: -1764291083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yellow Effect Bullet Impact Explosion 32x32_10
-      rect:
-        serializedVersion: 2
-        x: 131
-        y: 112
-        width: 27
-        height: 48
-      alignment: 9
-      pivot: {x: 0.5081081, y: 0.04622221}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce703e935f959ad4f96d15d9ec973c96
-      internalID: 18762156
+      spriteID: bc79c6a63d3a0a24f89cf01c8899e780
+      internalID: -1866724977
       vertices: []
       indices: 
       edges: []
@@ -356,7 +301,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 522bfa644c4e13b4d9ef78069f3f41fc
     internalID: 0
     vertices: []
     indices: 
@@ -364,17 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Yellow Effect Bullet Impact Explosion 32x32_0: 492498682
-      Yellow Effect Bullet Impact Explosion 32x32_1: -2129003309
-      Yellow Effect Bullet Impact Explosion 32x32_10: 18762156
-      Yellow Effect Bullet Impact Explosion 32x32_2: 1361216463
-      Yellow Effect Bullet Impact Explosion 32x32_3: -1143864077
-      Yellow Effect Bullet Impact Explosion 32x32_4: 2106621181
-      Yellow Effect Bullet Impact Explosion 32x32_5: 122586428
-      Yellow Effect Bullet Impact Explosion 32x32_6: 1762274310
-      Yellow Effect Bullet Impact Explosion 32x32_7: 367541103
-      Yellow Effect Bullet Impact Explosion 32x32_8: 1981504643
-      Yellow Effect Bullet Impact Explosion 32x32_9: -1764291083
+      Retro Impact Effect Pack 5 A_0: -2033469014
+      Retro Impact Effect Pack 5 A_1: -525286734
+      Retro Impact Effect Pack 5 A_2: 834981333
+      Retro Impact Effect Pack 5 A_3: -430065368
+      Retro Impact Effect Pack 5 A_4: 1450325402
+      Retro Impact Effect Pack 5 A_5: 1678848455
+      Retro Impact Effect Pack 5 A_6: -1446887077
+      Retro Impact Effect Pack 5 A_7: 1045736568
+      Retro Impact Effect Pack 5 A_8: -1866724977
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
