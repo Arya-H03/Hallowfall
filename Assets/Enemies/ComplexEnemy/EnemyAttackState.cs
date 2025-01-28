@@ -7,6 +7,7 @@ using System.Drawing;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyAttackState : EnemyBaseState
 {
@@ -75,7 +76,8 @@ public class EnemyAttackState : EnemyBaseState
         {
             
             enemyController.transform.localScale = new Vector3(-enemyController.transform.localScale.x, enemyController.transform.localScale.y, enemyController.transform.localScale.z);
-            yield return new WaitForSeconds(0.5f);
+           
+            yield return new WaitForSeconds(Random.Range(0.75f,2.1f));
 
 
         }
@@ -90,7 +92,6 @@ public class EnemyAttackState : EnemyBaseState
         CanAttack = true;
         enemyController.CanMove = true;
     }
-
    
     public void EndAttack()
     {

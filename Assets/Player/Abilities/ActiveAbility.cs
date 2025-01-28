@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class ActiveAbility : BaseAbility
     public GameObject spawnerGO;
     public int spawnCount = 1;
     public float spawnDelay = 2;
+
+    public System.Type spawnerType;
 
     public PassiveAbility[] supportAbilities; 
 

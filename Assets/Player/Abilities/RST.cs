@@ -6,12 +6,12 @@ using UnityEngine;
 public class RST : PassiveAbility //Reduce Spawn Time 
 {
     public ActiveAbility activeAbility;
-    public float modifier; //Should be %
 
 
     public override void ApplyAbility()
     {
-        ProjectileSpawner spawner = GameManager.Instance.Player.transform.Find("AbilityHolder").gameObject.GetComponentInChildren<ProjectileSpawner>();
+
+        ProjectileSpawner spawner = GameManager.Instance.Player.transform.Find("AbilityHolder").GetComponentInChildren(activeAbility.spawnerType) as ProjectileSpawner;
         if (spawner)
         {
             spawner.CurrentSpawnDelay *= (1 - modifier);
@@ -24,5 +24,5 @@ public class RST : PassiveAbility //Reduce Spawn Time
        
     }
 
-
+    
 }

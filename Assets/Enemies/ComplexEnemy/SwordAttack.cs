@@ -10,7 +10,7 @@ public class SwordAttack : MonoBehaviour
     //[SerializeField] Transform loc; // Distance for the boxcast in 2D
     private EnemyController enemyStatesManager;
 
-    private Vector2 swordAttackSize = new Vector2(1.75f, 0.5f);
+    private Vector2 swordAttackSize = new Vector2(2f, 0.5f);
     [SerializeField] Transform swordAttackPoint;
 
     [SerializeField] LayerMask layerMask;

@@ -15,7 +15,8 @@ public class ProjectileSpawner:MonoBehaviour
     private void Start()
     {
         currentSpawnCount = ability.spawnCount;
-        currentSpawnDelay = ability.spawnDelay; 
+        currentSpawnDelay = ability.spawnDelay;
+        ability.spawnerType = GetType();
 
         StartCoroutine(SpawnEffectCoroutine());
     }

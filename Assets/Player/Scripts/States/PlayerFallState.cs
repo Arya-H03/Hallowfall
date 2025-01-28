@@ -42,6 +42,7 @@ public class PlayerFallState : PlayerBaseState
 
     public void OnPlayerGrounded()
     {
+        
         playerController.AnimationController.SetBoolForAnimations("isFalling", false);
         playerController.IsPlayerGrounded = true;
         playerController.CanPlayerJump = true;

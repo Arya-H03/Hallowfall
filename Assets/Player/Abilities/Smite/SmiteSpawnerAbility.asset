@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmiteSpawnerAbility
   m_EditorClassIdentifier: 
   abilityName: Smite
-  description: Lol
+  description: Rays of holy fire will randomly strike around you
   icon: {fileID: -2033469014, guid: c7185e0878790024fb6a19153d162ea0, type: 3}
   projectile: {fileID: 617895130420400854, guid: e075c79aaa835e9488cc3373fbe3b357, type: 3}
   spawnerGO: {fileID: 2394594077894151085, guid: 03dd309282bd37d4cb0e6399540db22d, type: 3}

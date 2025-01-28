@@ -44,7 +44,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] float distance; // Distance for the boxcast in 2D
 
     [SerializeField] Transform firstSwingCenter;
-     private Vector2 firstSwingCastSize = new Vector2(1.1f, 1.5f);
+     private Vector2 firstSwingCastSize = new Vector2(1.7f, 1.5f);
 
     [SerializeField] Transform secondSwingCenter;
      private Vector2 secondSwingCastSize = new Vector2(1.3f, 0.8f);
@@ -315,8 +315,8 @@ public class PlayerSwordAttackState : PlayerBaseState
         // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
         Debug.DrawRay(origin, direction * distance, Color.red);
     }
-    //private void Update()
-    //{
-    //    VisualizeBoxCast(secondSwingCenter.position, secondSwingCastSize, transform.right, distance);
-    //}
+    private void Update()
+    {
+        VisualizeBoxCast(firstSwingCenter.position, firstSwingCastSize, transform.right, distance);
+    }
 }

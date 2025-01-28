@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PassiveAbility : BaseAbility
 {
-  
+    public float modifier;
 }

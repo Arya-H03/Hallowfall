@@ -6,15 +6,15 @@ using UnityEngine;
 public class ISC : PassiveAbility //Increase Spawn Count
 {
     public ActiveAbility activeAbility;
-    public int modifier; //Should be int
+    
 
 
     public override void ApplyAbility()
     {
-        ProjectileSpawner spawner = GameManager.Instance.Player.transform.Find("AbilityHolder").gameObject.GetComponentInChildren<ProjectileSpawner>();
+        ProjectileSpawner spawner = GameManager.Instance.Player.transform.Find("AbilityHolder").GetComponentInChildren(activeAbility.spawnerType) as ProjectileSpawner;
         if (spawner)
         {
-            spawner.CurrentSpawnCount += modifier;
+            spawner.CurrentSpawnCount += (int)modifier;
 
         }
         else

@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] string playerWakeUpDialoge;
 
     [SerializeField] public Transform healthBar;
+    [SerializeField] public TextMeshProUGUI healthText;
+    [SerializeField] public TextMeshProUGUI abilityDescription;
     [SerializeField] public Transform atonementBar;
     [SerializeField] public GameObject atonementLvlText;
 

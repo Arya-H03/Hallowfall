@@ -91,6 +91,10 @@ public class LevelupManager : MonoBehaviour
         playerController.PlayerInfo.AtonementLvl++;
         playerController.PlayerInfo.CurrentAtonement = 0;
         playerController.PlayerInfo.AtonementToLevel += 2;
+        playerController.PlayerInfo.CurrentHealth = playerController.PlayerInfo.MaxHealth;
+        float ratio = (float)playerController.PlayerInfo.CurrentHealth / playerController.PlayerInfo.MaxHealth;
+        GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
+        GameManager.Instance.healthText.text = playerController.PlayerInfo.CurrentHealth.ToString() + "/" + playerController.PlayerInfo.MaxHealth.ToString();
 
         GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = playerController.PlayerInfo.AtonementLvl.ToString();
         FillAbilityCards();

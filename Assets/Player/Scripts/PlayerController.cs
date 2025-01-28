@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerJumping = false;
     [SerializeField] private bool canPlayerAttack = true;
     [SerializeField] private bool isParrying  = false;
+    [SerializeField] private bool canParry  = true;
     [SerializeField] private bool hasSword = true;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
@@ -240,7 +241,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnStartParry()
     {
-        if(isPlayerGrounded && !isRolling)
+        if(isPlayerGrounded && !isRolling &&!isFalling &&!isPlayerJumping)
         {
             ChangeState(PlayerStateEnum.Parry);
         }
@@ -281,7 +282,6 @@ public class PlayerController : MonoBehaviour
             if (playerInfo.CurrentHealth <= 0)
             {
                 ChangeState(PlayerStateEnum.Death);
-
             }
             else
             {
@@ -294,6 +294,7 @@ public class PlayerController : MonoBehaviour
 
         float ratio = (float)PlayerInfo.CurrentHealth / PlayerInfo.MaxHealth;
         GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
+        GameManager.Instance.healthText.text = PlayerInfo.CurrentHealth.ToString() + "/" + PlayerInfo.MaxHealth.ToString();
 
     }
 

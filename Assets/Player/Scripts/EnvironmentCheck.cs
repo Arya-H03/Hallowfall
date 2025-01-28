@@ -170,11 +170,14 @@ public class EnvironmentCheck : MonoBehaviour
 
     private void CheckIfPlayerHasHitGround()
     {
+        
         if (playerController.rb.velocity.y <= 0 && playerController.IsFalling)
         {
+            
             RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
             RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
-           
+            Debug.Log("H");
+
             if (rayCast1 ||rayCast2)
             {
                 

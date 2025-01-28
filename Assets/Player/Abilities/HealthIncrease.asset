@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf42b76e419c75040ba25e40828ee13a, type: 3}
+  m_Name: HealthIncrease
+  m_EditorClassIdentifier: 
+  abilityName: Vitality
+  description: Add 25 hit points to max health
+  icon: {fileID: 21300000, guid: f4232fe3bf2d56a4c82dc04f629ab722, type: 3}
+  modifier: 25

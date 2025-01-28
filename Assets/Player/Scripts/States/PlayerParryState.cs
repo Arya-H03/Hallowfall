@@ -34,6 +34,7 @@ public class PlayerParryState : PlayerBaseState
     {
 
         playerController.IsParrying = true;
+        playerController.CanPlayerJump = false;
         playerController.AnimationController.SetTriggerForAnimations("Parry");
         playerController.AnimationController.SetBoolForAnimations("isParrying",true);
         StartCoroutine(StopParryCoroutine());
@@ -58,6 +59,7 @@ public class PlayerParryState : PlayerBaseState
     {
         parryShield.GetComponent<BoxCollider2D>().enabled = false;
         playerController.IsParrying = false;
+        playerController.CanPlayerJump = true;
         playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", false);
         if (playerController.PlayerMovementManager.currentDirection.x != 0)
         {

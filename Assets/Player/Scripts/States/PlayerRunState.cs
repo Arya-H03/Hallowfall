@@ -12,6 +12,9 @@ public class PlayerRunState : PlayerBaseState
     [SerializeField] private AudioClip groundRunSFX;
     [SerializeField] private AudioClip grassRunSFX;
     [SerializeField] private AudioClip woodRunSFX;
+
+    public float RunSpeed { get => runSpeed; set => runSpeed = value; }
+
     public PlayerRunState()
     {
         this.stateEnum = PlayerStateEnum.Run;
@@ -41,7 +44,7 @@ public class PlayerRunState : PlayerBaseState
 
     private void StartRunning()
     {
-        playerController.PlayerMovementManager.MoveSpeed = runSpeed;
+        playerController.PlayerMovementManager.MoveSpeed = RunSpeed;
         playerController.AnimationController.SetBoolForAnimations("isRunning", true);
         StartRunningSFX();
         //playerFootSteps.OnStartPlayerFootstep();
