@@ -81,4 +81,22 @@ public class PlayerRunState : PlayerBaseState
     {
         AudioManager.Instance.StopAudioSource(audioSource);
     }
+
+    public void PauseRunningSFX()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Pause();
+            
+        }
+    }
+
+    public void ResumeRunningSFX()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.UnPause();
+            
+        }
+    }
 }

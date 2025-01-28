@@ -228,7 +228,7 @@ public class EnemyController : MonoBehaviour
         PlayBloodEffect(hitPoint);
         SpawnDamagePopUp(damage);
         OnEnemyDamage(damage);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
         //material.SetFloat("_Flash", 0);
         //SFX
         isInvincible = false;
@@ -255,7 +255,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-
+            isDead = true;
             ChangeState(EnemyStateEnum.Death);
         }
     }

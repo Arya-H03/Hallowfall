@@ -40,8 +40,8 @@ public class PatrolState : EnemyBaseState
 
     private void Start()
     {
-        startPosition = this.transform.position;
-        SetNextPatrolPoint();
+        //startPosition = this.transform.position;
+        //SetNextPatrolPoint();
     }
     public override void OnEnterState()
     {

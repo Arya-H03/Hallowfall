@@ -149,7 +149,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        RestoreHealth(playerInfo.MaxHealth);
+        //RestoreHealth(playerInfo.MaxHealth);
+        PlayerInfo.CurrentHealth = PlayerInfo.MaxHealth;
     }
     private void Update()
     {

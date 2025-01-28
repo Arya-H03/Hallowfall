@@ -12,7 +12,7 @@ public class PlayerInfo
     private int atonementLvl = 0;
     private int atonementToLevel = 3;
 
-    public delegate void EventHandler();
+   
    
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }

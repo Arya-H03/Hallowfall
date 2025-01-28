@@ -22,7 +22,9 @@ public class PlayerHangingState : PlayerBaseState
     public override void OnEnterState()
     {
         ChangePlayerInputActionsWhileHanging();
+        
         playerController.AnimationController.SetBoolForAnimations("isHanging", true);
+        
         playerController.IsHanging = true;  
         playerController.CanPlayerJump= true;  
         AudioManager.Instance.PlaySFX(audioSource,hangingAC);

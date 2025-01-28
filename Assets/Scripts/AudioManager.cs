@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
         instance = this;
 
 
-        DontDestroyOnLoad(gameObject);
+        
 
     }
 
@@ -78,8 +78,8 @@ public class AudioManager : MonoBehaviour
             MusicVolumeMultiplier = soundData.musicVolume;
             musicVolumeSlider.value = MusicVolumeMultiplier;
 
-            EffectsVolumeMultiplier = soundData.effectsVolume; 
-            effectsVolumeSlider.value = EffectsVolumeMultiplier;    
+            EffectsVolumeMultiplier = soundData.effectsVolume;
+            effectsVolumeSlider.value = EffectsVolumeMultiplier;
         }
     }
 }

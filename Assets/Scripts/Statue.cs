@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Statue : MonoBehaviour, IInteractable
 {
+    
     [SerializeField] private Transform respawnTransform;
 
     [SerializeField] private GameObject interactionCanvas;
@@ -16,6 +17,7 @@ public class Statue : MonoBehaviour, IInteractable
 
     private void Awake()
     {
+      
         audioSource = GetComponent<AudioSource>();
     }
     public Transform GetStatueRespawnPoint()
@@ -51,6 +53,8 @@ public class Statue : MonoBehaviour, IInteractable
             GameManager.Instance.LastStatue = this;
             SetPurpleFire(true);
             AudioManager.Instance.PlaySFX(audioSource, activationAC);
+            StartCoroutine(GameManager.Instance.SpawnEnemies());
+            
         }
        
     }

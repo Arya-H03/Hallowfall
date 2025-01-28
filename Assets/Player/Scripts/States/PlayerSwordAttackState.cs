@@ -20,7 +20,9 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private GameObject parent;
 
-    
+    public delegate void EventHandler();
+    public EventHandler SwordSwing1Event;
+    public EventHandler SwordSwing2Event;
 
     private bool isInitialSwinging = false;
     private bool isDoubleSwinging = false;
@@ -57,6 +59,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
     public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
     public bool IsInitialSwinging { get => isInitialSwinging; set => isInitialSwinging = value; }
+    public Transform FirstSwingCenter { get => firstSwingCenter; set => firstSwingCenter = value; }
+    public Transform SecondSwingCenter { get => secondSwingCenter; set => secondSwingCenter = value; }
 
     public PlayerSwordAttackState()
     {
@@ -167,7 +171,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     public void FirstSwingAttack()
     {
-        RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter, firstSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(FirstSwingCenter, firstSwingCastSize);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -201,7 +205,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public void SecondSwingAttack()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter, secondSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(SecondSwingCenter, secondSwingCastSize);
 
         if (hitResult.collider != null)
         {
@@ -317,6 +321,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
     private void Update()
     {
-        VisualizeBoxCast(firstSwingCenter.position, firstSwingCastSize, transform.right, distance);
+        VisualizeBoxCast(FirstSwingCenter.position, firstSwingCastSize, transform.right, distance);
     }
 }

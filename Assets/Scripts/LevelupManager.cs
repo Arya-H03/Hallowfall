@@ -35,7 +35,7 @@ public class LevelupManager : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
        
         
@@ -100,6 +100,7 @@ public class LevelupManager : MonoBehaviour
         FillAbilityCards();
         abilityWindow.SetActive(true);
         InputManager.Instance.OnDisable();
+        GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().PauseRunningSFX();
         Time.timeScale = 0;
     }
 
@@ -108,6 +109,7 @@ public class LevelupManager : MonoBehaviour
         abilitiesToAssign = new List<BaseAbility>(abilities);
         InputManager.Instance.OnEnable();
         Time.timeScale = 1;
+        GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
         abilitycard.ApplyAbilityEvent = null;
         abilityWindow.SetActive(false);
     }

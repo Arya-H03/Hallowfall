@@ -5,7 +5,7 @@ using static EnemyAI;
 
 public class IdleState : EnemyBaseState
 {
-    
+    PlayerController playerController;
     public IdleState() : base()
     {
         stateEnum = EnemyStateEnum.Idle;
@@ -14,7 +14,7 @@ public class IdleState : EnemyBaseState
 
     private void Start()
     {
-        
+        playerController = enemyController.player.GetComponentInChildren<PlayerController>();
     }
 
     public override void OnEnterState()
@@ -29,7 +29,7 @@ public class IdleState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController.hasSeenPlayer)
+        if (enemyController.hasSeenPlayer && !playerController.IsDead)
         {
             if (!enemyController.IsFacingLedge)
             {
@@ -41,10 +41,11 @@ public class IdleState : EnemyBaseState
             }
 
         }
-        else 
-        {
-            enemyController.ChangeState(EnemyStateEnum.Patrol);
-        }
+
+        //else 
+        ////{
+        ////    enemyController.ChangeState(EnemyStateEnum.Patrol);
+        ////}
         
     }
 
