@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerJumping = false;
     [SerializeField] private bool canPlayerAttack = true;
     [SerializeField] private bool isParrying  = false;
-    [SerializeField] private bool canParry  = true;
     [SerializeField] private bool hasSword = true;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;

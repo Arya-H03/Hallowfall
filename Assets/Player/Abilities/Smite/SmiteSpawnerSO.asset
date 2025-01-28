@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895260a9ab6887f4fa5965f231d39c3a, type: 3}
+  m_Name: SmiteSpawnerSO
+  m_EditorClassIdentifier: 
+  abilityName: Smite
+  description: Rays of holy fire will randomly strike around you
+  icon: {fileID: -2033469014, guid: c7185e0878790024fb6a19153d162ea0, type: 3}
+  handlerPrefab: {fileID: 5966133158903010921, guid: 87fbbac09a7a3004aac89ba4979840f5, type: 3}
+  supportAbilities:
+  - {fileID: 11400000, guid: 3d5925592b5f1c546b1de15743771972, type: 2}
+  - {fileID: 11400000, guid: cd9891c08c3aa2f43bf0c8a8e55b9c46, type: 2}
+  projectile: {fileID: 617895130420400854, guid: e075c79aaa835e9488cc3373fbe3b357, type: 3}
+  spawnCount: 1
+  spawnDelay: 2

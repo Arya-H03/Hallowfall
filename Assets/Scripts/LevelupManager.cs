@@ -9,7 +9,7 @@ public class LevelupManager : MonoBehaviour
     private PlayerController playerController;
 
    
-    [SerializeField] GameObject[] abilityCards;
+    [SerializeField] AbilityCard [] abilityCards;
     
 
     public List<BaseAbility> abilities;
@@ -95,32 +95,36 @@ public class LevelupManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void CloseAbilityWindow(AbilityCard abilitycard)
+    private void CloseAbilityWindow()
     {
         abilitiesToAssign = new List<BaseAbility>(abilities);
         InputManager.Instance.OnEnable();
         Time.timeScale = 1;
         GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
-        abilitycard.ApplyAbilityEvent = null;
+
+        foreach(AbilityCard card in abilityCards)
+        {
+            card.ResetApplyAbilityEvent();
+        }
         UIManager.Instance.AbilityWindow.SetActive(false);
     }
     private void FillAbilityCards()
     {
-        foreach (var card in abilityCards)
+        foreach (AbilityCard card in abilityCards)
         {
             int index = Random.Range(0, abilitiesToAssign.Count);
             BaseAbility ability = abilitiesToAssign[index];
             abilitiesToAssign.Remove(ability);
-
-            AbilityCard abilityCard = card.GetComponent<AbilityCard>();
-            abilityCard.cardIcon.sprite = ability.icon;
-            abilityCard.cardName.text = ability.abilityName;
-            abilityCard.CardDescription = ability.description;
-            abilityCard.ApplyAbilityEvent += ability.ApplyAbility;
-            abilityCard.ApplyAbilityEvent += () => CloseAbilityWindow(abilityCard);
+            card.cardIcon.sprite = ability.icon;
+            card.cardName.text = ability.abilityName;
+            card.CardDescription = ability.description;
+            card.ApplyAbilityEvent += ability.CallAbility;
+            card.ApplyAbilityEvent += CloseAbilityWindow;
 
 
 
         }
     }
+
+     
 }

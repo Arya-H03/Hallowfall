@@ -18,6 +18,7 @@ public class AbilityCard : MonoBehaviour
     public void OnCardClicked()
     {
         ApplyAbilityEvent?.Invoke();
+        
     }
 
     public void OnCardHover()
@@ -28,5 +29,10 @@ public class AbilityCard : MonoBehaviour
     public void OnCardHoverClear()
     {
         UIManager.Instance.AbilityDescription.text = "";
+    }
+
+    public void ResetApplyAbilityEvent()
+    {
+        ApplyAbilityEvent = null;   
     }
 }

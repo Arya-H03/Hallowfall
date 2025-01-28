@@ -51,12 +51,12 @@
 
 //            case 1:
 //                //Slash
-//                playerController.AnimationController.SetTriggerForAnimations("FirstSwingAttack");
+//                playerController.AnimationController.SetTriggerForAnimations("FirstSwingBoxCast");
                 
 //                break;
 //                //stab
 //            case 2:
-//                playerController.AnimationController.SetTriggerForAnimations("SecondSwingAttack");
+//                playerController.AnimationController.SetTriggerForAnimations("SecondSwingBoxCast");
 //                break;
 //                //Chop
 //            case 3:

@@ -14,11 +14,11 @@ public class ProjectileSpawner:MonoBehaviour
 
     private void Start()
     {
-        currentSpawnCount = ability.spawnCount;
-        currentSpawnDelay = ability.spawnDelay;
-        ability.spawnerType = GetType();
+        //currentSpawnCount = ability.spawnCount;
+        //currentSpawnDelay = ability.spawnDelay;
+        //ability.spawnerType = GetType();
 
-        StartCoroutine(SpawnEffectCoroutine());
+        //StartCoroutine(SpawnEffectCoroutine());
     }
 
     protected virtual IEnumerator SpawnEffectCoroutine()

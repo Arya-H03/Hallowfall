@@ -3,29 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewActiveAbility", menuName = "NewActiveAbility")]
+[CreateAssetMenu(fileName = "ActiveAbility", menuName = "ActiveAbility")]
 public class ActiveAbility : BaseAbility
-{
-    public GameObject projectile;
-    public GameObject spawnerGO;
-    public int spawnCount = 1;
-    public float spawnDelay = 2;
-
-    public System.Type spawnerType;
-
+{  
+    public GameObject handlerPrefab;
+   
     public PassiveAbility[] supportAbilities; 
 
-    public override void ApplyAbility()
+    public override void CallAbility()
     {
-        GameObject spawner = Instantiate(spawnerGO, GameManager.Instance.Player.transform.Find("AbilityHolder"));
-        ProjectileSpawner projectileSpawner = spawner.GetComponent<ProjectileSpawner>();
-        projectileSpawner.Ability = this;
-        
+
+        GameObject handlerGO = Instantiate(handlerPrefab, GameManager.Instance.Player.transform.Find("AbilityHolder"));
+        ActiveAbilityHandler handler = handlerGO.GetComponent<ActiveAbilityHandler>();
+        Debug.Log("yo");
+
+
         foreach (PassiveAbility ability in supportAbilities)
         {
             LevelupManager.Instance.abilities.Add(ability);
         }
-      
+
         LevelupManager.Instance.abilities.Remove(this);
-}
+    }
 }

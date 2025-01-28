@@ -51,16 +51,16 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
 
-    public void BoxCastForFirstAttackSwing()
+    public void FirstAttackSwing()
     {
-        playerController.PlayerSwordAttackState.FirstSwingAttack();
-        playerController.PlayerSwordAttackState.SwordSwing1Event?.Invoke();
+       
+        playerController.PlayerSwordAttackState.OnFirstSwordSwingEvent?.Invoke();
     }
 
-    public void BoxCastForSecondAttackSwing()
+    public void SecondAttackSwing()
     {
-        playerController.PlayerSwordAttackState.SecondSwingAttack();
-        playerController.PlayerSwordAttackState.SwordSwing2Event?.Invoke();
+        
+        playerController.PlayerSwordAttackState.OnSecondSwordSwingEvent?.Invoke();
     }
 
     public void BoxCastForJumpAttack()

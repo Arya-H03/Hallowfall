@@ -10,7 +10,7 @@ public class BaseAbility : ScriptableObject
     public string description;
     public Sprite icon;
 
-    public virtual void ApplyAbility() 
+    public virtual void CallAbility() 
     {
         
     }

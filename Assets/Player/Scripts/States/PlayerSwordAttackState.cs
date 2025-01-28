@@ -21,8 +21,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     private GameObject parent;
 
     public delegate void EventHandler();
-    public EventHandler SwordSwing1Event;
-    public EventHandler SwordSwing2Event;
+    public EventHandler OnFirstSwordSwingEvent;
+    public EventHandler OnSecondSwordSwingEvent;
 
     private bool isInitialSwinging = false;
     private bool isDoubleSwinging = false;
@@ -73,6 +73,11 @@ public class PlayerSwordAttackState : PlayerBaseState
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        OnFirstSwordSwingEvent += FirstSwingBoxCast;
+        OnSecondSwordSwingEvent += SecondSwingBoxCast;
+    }
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
@@ -169,7 +174,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         hit.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hit.point);
     }
 
-    public void FirstSwingAttack()
+    private void FirstSwingBoxCast()
     {
         RaycastHit2D hitResult = BoxCastForAttack(FirstSwingCenter, firstSwingCastSize);
         if (hitResult.collider != null)
@@ -202,7 +207,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    public void SecondSwingAttack()
+    private void SecondSwingBoxCast()
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(SecondSwingCenter, secondSwingCastSize);
