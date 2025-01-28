@@ -173,7 +173,7 @@ public class EnvironmentCheck : MonoBehaviour
         
         if (playerController.rb.velocity.y <= 0 && playerController.IsFalling)
         {
-            
+           
             RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
             RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
 
@@ -187,5 +187,11 @@ public class EnvironmentCheck : MonoBehaviour
             
         }
     }
+
+    //private void Update()
+    //{
+    //    Debug.DrawLine(groundCheckOrigin1.transform.position, groundCheckOrigin1.transform.position + (Vector3.down) * 0.25f);
+    //    Debug.DrawLine(groundCheckOrigin2.transform.position, groundCheckOrigin2.transform.position + (Vector3.down) * 0.25f);
+    //}
 
 }

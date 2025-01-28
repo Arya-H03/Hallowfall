@@ -22,11 +22,11 @@ public class AbilityCard : MonoBehaviour
 
     public void OnCardHover()
     {
-        GameManager.Instance.abilityDescription.text = cardDescription;
+        UIManager.Instance.AbilityDescription.text = cardDescription;
     }
 
     public void OnCardHoverClear()
     {
-        GameManager.Instance.abilityDescription.text = "";
+        UIManager.Instance.AbilityDescription.text = "";
     }
 }

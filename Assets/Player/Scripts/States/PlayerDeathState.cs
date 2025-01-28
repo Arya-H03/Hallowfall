@@ -58,7 +58,7 @@ public class PlayerDeathState : PlayerBaseState
 
         yield return new WaitForSeconds(1f);
 
-        GameManager.Instance.OpenDeathMenu();
+        UIManager.Instance.OpenDeathMenu();
 
     }
 

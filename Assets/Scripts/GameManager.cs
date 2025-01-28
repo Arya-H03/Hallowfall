@@ -26,20 +26,11 @@ public class GameManager : MonoBehaviour
     public Statue LastStatue { get => lastStatue; set => lastStatue = value; }
     public GameObject Player { get => player; set => player = value; }
 
-    [SerializeField] Canvas canvas;
 
-    private DialogueBox dialogueBox;
-   
-    [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject deathMenu;
-    [SerializeField] GameObject settingsPanel;
+    
     [SerializeField] string playerWakeUpDialoge;
 
-    [SerializeField] public Transform healthBar;
-    [SerializeField] public TextMeshProUGUI healthText;
-    [SerializeField] public TextMeshProUGUI abilityDescription;
-    [SerializeField] public Transform atonementBar;
-    [SerializeField] public GameObject atonementLvlText;
+    
 
     [SerializeField]  GameObject rbound;
     [SerializeField]  GameObject lBound;
@@ -69,14 +60,13 @@ public class GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
 
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        dialogueBox = GameObject.FindGameObjectWithTag("DialogueBox").GetComponent<DialogueBox>();
 
     }
 
     private void Start()
     {
         AudioManager.Instance.LoadSoundData();
-        StartCoroutine(OnGameStartDialogue());
+        //StartCoroutine(OnGameStartDialogue());
 
     }
 
@@ -149,65 +139,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void OpenDeathMenu()
-    {
-        deathMenu.SetActive(true);
-    }
-
-    public void CloseDeathMenu()
-    {
-        deathMenu.SetActive(false);
-    }
-
-    public void OnReplayButtonClick()
-    {
-        CloseDeathMenu();
-        SceneManager.LoadScene("Cemetery");
-        //MobManager.Instance.ResetLookingForPlayersForAllEnemies();
-        //Player.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
-
-
-    }
-
-    public void OnMainmenuButtonClick()
-    {
-        OnGameUnPause();
-        AudioManager.Instance.SaveSoundData();
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void OnExitButtonClick()
-    {
-       
-        AudioManager.Instance.SaveSoundData();
-        Application.Quit();
-    }
-
-    public void OnGamePause()
-    {
-        Time.timeScale = 0;
-        pauseMenu.SetActive(true);
-        InputManager.Instance.OnDisable();
-    }
-
-    public void OnGameUnPause()
-    {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        InputManager.Instance.OnEnable();
-    }
-
-    public void OnOpenSettingsMenu()
-    {
-        settingsPanel.SetActive(true);
-
-
-    }
-
-    public void OnCloseSettingsMenu()
-    {
-        settingsPanel.SetActive(false);
-    }
+    
 
     
 
@@ -216,7 +148,7 @@ public class GameManager : MonoBehaviour
         InputManager.Instance.OnDisable();
         DistortCamera();
         yield return new WaitForSeconds(2f);
-        dialogueBox.StartDialogue("Find the Statue",10f);
+        UIManager.Instance.DialogueBox.StartDialogue("Find the Statue",10f);
         yield return new WaitForSeconds(1f);
         EndPlayerDistortion();
         InputManager.Instance.OnEnable();

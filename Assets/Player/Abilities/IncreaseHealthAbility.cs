@@ -9,6 +9,6 @@ public class IncreaseHealthAbility : PassiveAbility
     {
         PlayerController playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
         playerController.PlayerInfo.MaxHealth += (int)modifier;
-        GameManager.Instance.healthText.text = playerController.PlayerInfo.CurrentHealth.ToString() + "/" + playerController.PlayerInfo.MaxHealth.ToString();
+       
     }
 }

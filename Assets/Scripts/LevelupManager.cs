@@ -8,7 +8,7 @@ public class LevelupManager : MonoBehaviour
     private static LevelupManager instance;
     private PlayerController playerController;
 
-    [SerializeField] GameObject abilityWindow;
+   
     [SerializeField] GameObject[] abilityCards;
     
 
@@ -70,9 +70,6 @@ public class LevelupManager : MonoBehaviour
             OnLevelUp();
         }
 
-
-        float ratio = (float)playerController.PlayerInfo.CurrentAtonement / playerController.PlayerInfo.AtonementToLevel;
-        GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
     }
 
     public void ResetAttonement()
@@ -81,9 +78,6 @@ public class LevelupManager : MonoBehaviour
         playerController.PlayerInfo.AtonementToLevel = 0;
         playerController.PlayerInfo.AtonementToLevel = 3;
 
-        float ratio = (float)playerController.PlayerInfo.CurrentAtonement / playerController.PlayerInfo.AtonementToLevel;
-        GameManager.Instance.atonementBar.localScale = new Vector3(ratio, 1, 1);
-        GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = 0.ToString();
     }
 
     private void OnLevelUp()
@@ -93,12 +87,9 @@ public class LevelupManager : MonoBehaviour
         playerController.PlayerInfo.AtonementToLevel += 2;
         playerController.PlayerInfo.CurrentHealth = playerController.PlayerInfo.MaxHealth;
         float ratio = (float)playerController.PlayerInfo.CurrentHealth / playerController.PlayerInfo.MaxHealth;
-        GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
-        GameManager.Instance.healthText.text = playerController.PlayerInfo.CurrentHealth.ToString() + "/" + playerController.PlayerInfo.MaxHealth.ToString();
-
-        GameManager.Instance.atonementLvlText.GetComponent<TextMeshProUGUI>().text = playerController.PlayerInfo.AtonementLvl.ToString();
+       
         FillAbilityCards();
-        abilityWindow.SetActive(true);
+        UIManager.Instance.AbilityWindow.SetActive(true);
         InputManager.Instance.OnDisable();
         GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().PauseRunningSFX();
         Time.timeScale = 0;
@@ -111,7 +102,7 @@ public class LevelupManager : MonoBehaviour
         Time.timeScale = 1;
         GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
         abilitycard.ApplyAbilityEvent = null;
-        abilityWindow.SetActive(false);
+        UIManager.Instance.AbilityWindow.SetActive(false);
     }
     private void FillAbilityCards()
     {

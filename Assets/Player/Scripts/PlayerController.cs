@@ -149,8 +149,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        //RestoreHealth(playerInfo.MaxHealth);
-        PlayerInfo.CurrentHealth = PlayerInfo.MaxHealth;
+        RestoreHealth(playerInfo.MaxHealth);
+        
     }
     private void Update()
     {
@@ -268,8 +268,7 @@ public class PlayerController : MonoBehaviour
     public void RestoreHealth(int amount)
     {
         playerInfo.CurrentHealth = amount;
-        float ratio = (float)PlayerInfo.CurrentHealth / PlayerInfo.MaxHealth;
-        GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
+
     }
 
     public void OnTakingDamage(int value)
@@ -289,14 +288,7 @@ public class PlayerController : MonoBehaviour
                 ChangeState(PlayerStateEnum.Idle);
                 animationController.SetTriggerForAnimations("Hit");
             }
-
-           
         }
-
-        float ratio = (float)PlayerInfo.CurrentHealth / PlayerInfo.MaxHealth;
-        GameManager.Instance.healthBar.localScale = new Vector3(ratio, 1, 1);
-        GameManager.Instance.healthText.text = PlayerInfo.CurrentHealth.ToString() + "/" + PlayerInfo.MaxHealth.ToString();
-
     }
 
     public void ResetPlayerVariables()

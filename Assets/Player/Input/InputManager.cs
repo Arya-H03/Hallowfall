@@ -105,7 +105,7 @@ public class InputManager : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext ctx)
     {
-        GameManager.Instance.OnGamePause();
+        UIManager.Instance.OnGamePause();
     }
 
     public void StartParry(InputAction.CallbackContext ctx)
