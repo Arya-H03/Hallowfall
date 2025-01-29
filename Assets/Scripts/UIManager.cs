@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class UIManager : MonoBehaviour
 {
@@ -24,6 +27,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI abilityDescription;
 
     private PlayerController playerController;
+
+    public List<GameObject> listOfFreeAbilitySlots;
+    private Dictionary<BaseAbility, GameObject> dictionaryOfAbilitySlots ;
+    private Dictionary<BaseAbility, int> dictionaryOfAbilityLvls ;
 
 
     public static UIManager Instance
@@ -60,7 +67,10 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        playerController = GameManager.Instance.Player.GetComponent<PlayerController>();    
+        playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
+        dictionaryOfAbilitySlots = new Dictionary<BaseAbility, GameObject> ();
+        dictionaryOfAbilityLvls = new Dictionary<BaseAbility, int> ();
+
     }
     private void Update()
     {
@@ -146,4 +156,38 @@ public class UIManager : MonoBehaviour
     {
         settingsPanel.SetActive(false);
     }
+
+    public void AddAbilitySlot(BaseAbility ability)
+    {
+        if (!dictionaryOfAbilitySlots.ContainsKey(ability))
+        {
+            GameObject abilitySlot = listOfFreeAbilitySlots[0];
+            dictionaryOfAbilitySlots.Add(ability, abilitySlot);
+            
+
+            listOfFreeAbilitySlots.Remove(abilitySlot);
+            dictionaryOfAbilitySlots[ability].GetComponent<Image>().sprite = ability.icon;
+
+            if (ability.canLevel)
+            {
+                dictionaryOfAbilityLvls.Add(ability, 1);
+                dictionaryOfAbilitySlots[ability].GetComponentInChildren<TextMeshProUGUI>().text = "1";
+            }
+
+            dictionaryOfAbilitySlots[ability].SetActive(true);
+
+
+
+
+        }
+        else if(ability.canLevel)
+        {
+            dictionaryOfAbilityLvls[ability] += 1;
+            dictionaryOfAbilitySlots[ability].GetComponentInChildren<TextMeshProUGUI>().text = dictionaryOfAbilityLvls[ability].ToString();
+        }
+
+    }
+
+  
+
 }

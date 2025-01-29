@@ -8,4 +8,6 @@ public class SpawnerAbility : ActiveAbility
     public GameObject projectile;
     public int spawnCount = 1;
     public float spawnDelay = 2;
+
+
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   abilityName: Echoing Smite
   description: Increase number of Smites per cast by 1.
   icon: {fileID: 21300000, guid: e6d0f73b326a1fd428bec8be4c22a975, type: 3}
+  canLevel: 1
   modifier: 1

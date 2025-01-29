@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Smite
   description: Rays of holy fire will randomly strike around you
-  icon: {fileID: -2033469014, guid: c7185e0878790024fb6a19153d162ea0, type: 3}
+  icon: {fileID: 21300000, guid: cd7aa9b406cddbe4085d91fd554cdac8, type: 3}
+  canLevel: 0
   handlerPrefab: {fileID: 5966133158903010921, guid: 87fbbac09a7a3004aac89ba4979840f5, type: 3}
   supportAbilities:
   - {fileID: 11400000, guid: 3d5925592b5f1c546b1de15743771972, type: 2}

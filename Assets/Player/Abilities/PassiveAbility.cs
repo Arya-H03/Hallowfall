@@ -12,5 +12,6 @@ public class PassiveAbility : BaseAbility
     public override void CallAbility()
     {
         passiveAbilityEvent?.Invoke();
+        base.CallAbility();
     }
 }

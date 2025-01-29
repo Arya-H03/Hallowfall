@@ -12,6 +12,7 @@ public class ActiveAbility : BaseAbility
 
     public override void CallAbility()
     {
+        
 
         GameObject handlerGO = Instantiate(handlerPrefab, GameManager.Instance.Player.transform.Find("AbilityHolder"));
         ActiveAbilityHandler handler = handlerGO.GetComponent<ActiveAbilityHandler>();
@@ -24,5 +25,7 @@ public class ActiveAbility : BaseAbility
         }
 
         LevelupManager.Instance.abilities.Remove(this);
+
+        base.CallAbility();
     }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   abilityName: Quickened Smite
   description: Increase the rate at which Smite is cast by 10%
   icon: {fileID: 21300000, guid: 58860556ae0f6c649a1f9d40ab13a290, type: 3}
+  canLevel: 1
   modifier: 0.1

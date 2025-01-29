@@ -15,4 +15,5 @@ MonoBehaviour:
   abilityName: Vitality
   description: Add 25 hit points to max health
   icon: {fileID: 21300000, guid: f4232fe3bf2d56a4c82dc04f629ab722, type: 3}
+  canLevel: 1
   modifier: 25

@@ -15,4 +15,5 @@ MonoBehaviour:
   abilityName: Haste
   description: Increase moevment speed by 10%
   icon: {fileID: 21300000, guid: 064e6ca965e6ee2448c994285564d548, type: 3}
+  canLevel: 1
   modifier: 0.1
