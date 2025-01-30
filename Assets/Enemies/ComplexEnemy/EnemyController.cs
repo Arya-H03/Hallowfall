@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth;
 
+    private float damageModifier = 1;
+
     private FloorTypeEnum currentFloorType;
 
 
@@ -49,6 +51,7 @@ public class EnemyController : MonoBehaviour
 
     
     public GameObject player;
+    private PlayerController playerController;
 
     [SerializeField] public GameObject stunEffect;
     [SerializeField] DamagePopUp damagePopUp;
@@ -99,6 +102,8 @@ public class EnemyController : MonoBehaviour
     public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
     public bool IsPlayerDead { get => isPlayerDead; set => isPlayerDead = value; }
+    public PlayerController PlayerController { get => playerController; set => playerController = value; }
+    public float DamageModifier { get => damageModifier; set => damageModifier = value; }
 
     //public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
 
@@ -110,7 +115,7 @@ public class EnemyController : MonoBehaviour
     {
         if(CurrentStateEnum != stateEnum && canChangeState &&!isDead)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -169,14 +174,17 @@ public class EnemyController : MonoBehaviour
         //CurrentStateEnum = EnemyStateEnum.Idle;
         //CurrentState = IdleState;
 
-
+        
 
 
     }
     private void Start()
     {
-        currentHealth = maxHealth;
         player = GameManager.Instance.Player;
+        playerController = player.GetComponent<PlayerController>();
+
+        currentHealth = maxHealth;
+       
         hasSeenPlayer = true;
         CurrentStateEnum = EnemyStateEnum.Chase;
         CurrentState = chaseState;
@@ -226,20 +234,20 @@ public class EnemyController : MonoBehaviour
         isInvincible = true;
         //material.SetFloat("_Flash", 1);
         PlayBloodEffect(hitPoint);
-        SpawnDamagePopUp(damage);
-        OnEnemyDamage(damage);
+        OnEnemyDamage(damage, damageModifier);
         yield return new WaitForSeconds(0.1f);
         //material.SetFloat("_Flash", 0);
         //SFX
         isInvincible = false;
     }
-    public void OnEnemyDamage(float value)
+    public void OnEnemyDamage(float value,float modifier)
     {
         if (currentHealth > 0)
         {
-            
-            currentHealth -= value;
-       
+            float damage = value * modifier;
+            currentHealth -= damage;
+            SpawnDamagePopUp(damage);
+
             if (currentHealth <= 0)
             {
                currentHealth = 0;
@@ -260,7 +268,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void SpawnDamagePopUp(int damage)
+    private void SpawnDamagePopUp(float damage)
     {
         DamagePopUp obj = Instantiate(damagePopUp, new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity);
         obj.SetText(damage.ToString());

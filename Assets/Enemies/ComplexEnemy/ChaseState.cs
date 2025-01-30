@@ -12,6 +12,8 @@ public class ChaseState : EnemyBaseState
     [SerializeField] AudioClip chaseGrassSFX;
     [SerializeField] AudioClip chaseWoodSFX;
 
+    public float ChaseSpeed { get => chaseSpeed; set => chaseSpeed = value; }
+
     public ChaseState() : base()
     {
         stateEnum = EnemyStateEnum.Chase;    
@@ -24,7 +26,7 @@ public class ChaseState : EnemyBaseState
 
     private void Start()
     {
-        chaseSpeed = Random.Range(chaseSpeedLrange, chaseSpeedUrange + 0.1f);
+        ChaseSpeed = Random.Range(chaseSpeedLrange, chaseSpeedUrange + 0.1f);
     }
     public override void OnEnterState()
     {
@@ -99,7 +101,7 @@ public class ChaseState : EnemyBaseState
         {
             enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
             // Otherwise, chase the player
-            enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, chaseSpeed);
+            enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, ChaseSpeed);
         }
     }
 

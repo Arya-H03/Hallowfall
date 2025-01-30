@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Outline_Mat
+  m_Name: MarkedOutline_Mat
   m_Shader: {fileID: -6465566751694194690, guid: f32845f61c003b24abe6840651d035dd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -43,7 +43,7 @@ Material:
     m_Floats:
     - _OutlinThickness: 0.1
     m_Colors:
-    - _OutlineColor: {r: 1, g: 0.08247197, b: 0, a: 0}
+    - _OutlineColor: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3904950880126549975
