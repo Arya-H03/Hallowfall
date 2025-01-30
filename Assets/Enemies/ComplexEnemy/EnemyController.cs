@@ -235,7 +235,7 @@ public class EnemyController : MonoBehaviour
         //material.SetFloat("_Flash", 1);
         PlayBloodEffect(hitPoint);
         OnEnemyDamage(damage, damageModifier);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0f);
         //material.SetFloat("_Flash", 0);
         //SFX
         isInvincible = false;

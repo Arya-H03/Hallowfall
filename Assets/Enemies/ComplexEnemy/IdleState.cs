@@ -33,10 +33,13 @@ public class IdleState : EnemyBaseState
         {
             if (!enemyController.IsFacingLedge)
             {
+                Debug.Log("Not FE");
                 enemyController.ChangeState(EnemyStateEnum.Chase);
+                
             }
             else if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x)
             {
+                Debug.Log("other");
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }
 
