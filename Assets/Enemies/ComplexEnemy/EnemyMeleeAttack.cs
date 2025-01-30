@@ -69,6 +69,13 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 
     public void DrawCast()
     {
+        
         VisualizeBoxCast(boxCastCenter.position, boxCastSize, transform.right, distance);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(boxCastCenter.position, boxCastSize);
+        
     }
 }
