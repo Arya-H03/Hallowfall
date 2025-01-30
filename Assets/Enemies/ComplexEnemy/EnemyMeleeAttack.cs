@@ -11,12 +11,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 
     [SerializeField] private int parryDamage = 100;
 
-    
-
-    private void Awake()
-    {
-        enemyController = GetComponentInParent<EnemyController>();
-    }
+   
     //private void Update()
     //{
     //    DrawCast();
@@ -28,7 +23,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 
         RaycastHit2D [] hits = Physics2D.BoxCastAll(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
 
-        AudioManager.Instance.PlaySFX(audioSource, attackSFX[Random.Range(0,attackSFX.Length -1 )]);
+        PlayAttackSFX();
 
          foreach (RaycastHit2D hit in hits)
         {

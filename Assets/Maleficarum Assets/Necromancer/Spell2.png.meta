@@ -123,7 +123,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -147,6 +147,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -154,10 +167,10 @@ TextureImporter:
       name: Spell2_0
       rect:
         serializedVersion: 2
-        x: 52
-        y: 31
-        width: 32
-        height: 55
+        x: 0
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +188,10 @@ TextureImporter:
       name: Spell2_1
       rect:
         serializedVersion: 2
-        x: 196
-        y: 31
-        width: 32
-        height: 62
+        x: 144
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,10 +209,10 @@ TextureImporter:
       name: Spell2_2
       rect:
         serializedVersion: 2
-        x: 340
-        y: 31
-        width: 32
-        height: 65
+        x: 288
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,10 +230,10 @@ TextureImporter:
       name: Spell2_3
       rect:
         serializedVersion: 2
-        x: 484
-        y: 31
-        width: 32
-        height: 68
+        x: 432
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,10 +251,10 @@ TextureImporter:
       name: Spell2_4
       rect:
         serializedVersion: 2
-        x: 628
-        y: 31
-        width: 32
-        height: 70
+        x: 576
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,10 +272,10 @@ TextureImporter:
       name: Spell2_5
       rect:
         serializedVersion: 2
-        x: 773
-        y: 31
-        width: 31
-        height: 70
+        x: 720
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -280,10 +293,10 @@ TextureImporter:
       name: Spell2_6
       rect:
         serializedVersion: 2
-        x: 918
-        y: 31
-        width: 30
-        height: 70
+        x: 864
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,10 +314,10 @@ TextureImporter:
       name: Spell2_7
       rect:
         serializedVersion: 2
-        x: 1062
-        y: 31
-        width: 30
-        height: 70
+        x: 1008
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -322,10 +335,10 @@ TextureImporter:
       name: Spell2_8
       rect:
         serializedVersion: 2
-        x: 1202
-        y: 31
-        width: 34
-        height: 68
+        x: 1152
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -343,10 +356,10 @@ TextureImporter:
       name: Spell2_9
       rect:
         serializedVersion: 2
-        x: 1340
-        y: 30
-        width: 8
-        height: 11
+        x: 1296
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -364,10 +377,10 @@ TextureImporter:
       name: Spell2_10
       rect:
         serializedVersion: 2
-        x: 1347
-        y: 30
-        width: 6
-        height: 6
+        x: 1440
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -385,10 +398,10 @@ TextureImporter:
       name: Spell2_11
       rect:
         serializedVersion: 2
-        x: 1348
-        y: 30
-        width: 32
-        height: 57
+        x: 1584
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,10 +419,10 @@ TextureImporter:
       name: Spell2_12
       rect:
         serializedVersion: 2
-        x: 1481
-        y: 30
-        width: 12
-        height: 11
+        x: 1728
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,10 +440,10 @@ TextureImporter:
       name: Spell2_13
       rect:
         serializedVersion: 2
-        x: 1492
-        y: 30
-        width: 32
-        height: 50
+        x: 1872
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -444,94 +457,10 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Spell2_14
-      rect:
-        serializedVersion: 2
-        x: 1618
-        y: 30
-        width: 12
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3e2e738da86f43590800000000000000
-      internalID: -7695254787075874077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spell2_15
-      rect:
-        serializedVersion: 2
-        x: 1636
-        y: 30
-        width: 32
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b3dc970f7e08646e0800000000000000
-      internalID: -1853652462956065477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spell2_16
-      rect:
-        serializedVersion: 2
-        x: 1780
-        y: 31
-        width: 32
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c924a325b98491e30800000000000000
-      internalID: 4474687536705979036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spell2_17
-      rect:
-        serializedVersion: 2
-        x: 1924
-        y: 31
-        width: 32
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cc4efb02abc64c910800000000000000
-      internalID: 1856728493052650700
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e0d7d3d39ef187548809801f01abfb7a
     internalID: 0
     vertices: []
     indices: 
@@ -545,10 +474,6 @@ TextureImporter:
       Spell2_11: 5325948251172148921
       Spell2_12: -7007466483404879444
       Spell2_13: 703796387477479175
-      Spell2_14: -7695254787075874077
-      Spell2_15: -1853652462956065477
-      Spell2_16: 4474687536705979036
-      Spell2_17: 1856728493052650700
       Spell2_2: 4665093342161206058
       Spell2_3: 2754278920091521496
       Spell2_4: -3655772964997902501

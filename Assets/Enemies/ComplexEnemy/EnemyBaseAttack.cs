@@ -9,9 +9,9 @@ public class EnemyBaseAttack : MonoBehaviour
     [SerializeField] protected int attackDamage;
 
     [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected AudioClip [] attackSFX;
+    [SerializeField] protected AudioClip[] attackSFX;
 
-    protected EnemyController enemyController;
+    [SerializeField] protected EnemyController enemyController;
 
     public float AttackCooldown { get => attackCooldown; set => attackCooldown = value; }
     public float AttackRange { get => attackRange; set => attackRange = value; }
@@ -19,7 +19,7 @@ public class EnemyBaseAttack : MonoBehaviour
 
     private void Awake()
     {
-        enemyController = GetComponentInParent<EnemyController>();  
+        enemyController = GetComponentInParent<EnemyController>();
     }
     private void Start()
     {
@@ -31,5 +31,13 @@ public class EnemyBaseAttack : MonoBehaviour
     public virtual void HandleAttack()
     {
 
+    }
+
+    protected void PlayAttackSFX()
+    {
+        if (audioSource != null && attackSFX.Length > 0)
+        {
+            AudioManager.Instance.PlaySFX(audioSource, attackSFX[Random.Range(0, attackSFX.Length - 1)]);
+        }
     }
 }

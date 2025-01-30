@@ -1,64 +1,7 @@
 fileFormatVersion: 2
 guid: a6c074570a9308441849343d4d844a4d
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5672212990771226010
-    second: Spell1_0
-  - first:
-      213: 4802772382170707106
-    second: Spell1_1
-  - first:
-      213: -6807867292391960889
-    second: Spell1_2
-  - first:
-      213: -8143968168817848558
-    second: Spell1_3
-  - first:
-      213: -1834333395252505371
-    second: Spell1_4
-  - first:
-      213: -5514560985020650708
-    second: Spell1_5
-  - first:
-      213: 7298966732259378108
-    second: Spell1_6
-  - first:
-      213: -6922485030963938981
-    second: Spell1_7
-  - first:
-      213: -2901146693477633395
-    second: Spell1_8
-  - first:
-      213: 2924960853651041090
-    second: Spell1_9
-  - first:
-      213: -5410234633651871649
-    second: Spell1_10
-  - first:
-      213: -1339939191975204201
-    second: Spell1_11
-  - first:
-      213: 7783690390656736772
-    second: Spell1_12
-  - first:
-      213: 7320410099432075742
-    second: Spell1_13
-  - first:
-      213: -5316164926828892379
-    second: Spell1_14
-  - first:
-      213: 1011010639391493846
-    second: Spell1_15
-  - first:
-      213: -8409421370684579648
-    second: Spell1_16
-  - first:
-      213: -1491531603124298895
-    second: Spell1_17
-  - first:
-      213: 1077601616111454771
-    second: Spell1_18
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -150,6 +93,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -157,19 +113,19 @@ TextureImporter:
       name: Spell1_0
       rect:
         serializedVersion: 2
-        x: 52
-        y: 31
-        width: 34
-        height: 53
+        x: 0
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a95664599afb7be40800000000000000
-      internalID: 5672212990771226010
+      spriteID: fd95fa13f569627498909fd92fbdd183
+      internalID: -664365853
       vertices: []
       indices: 
       edges: []
@@ -178,19 +134,19 @@ TextureImporter:
       name: Spell1_1
       rect:
         serializedVersion: 2
-        x: 196
-        y: 31
-        width: 34
-        height: 56
+        x: 144
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2a477501900e6a240800000000000000
-      internalID: 4802772382170707106
+      spriteID: 694da17e1b0c8e543b47c5cb7c5795e7
+      internalID: -49145385
       vertices: []
       indices: 
       edges: []
@@ -199,19 +155,19 @@ TextureImporter:
       name: Spell1_2
       rect:
         serializedVersion: 2
-        x: 340
-        y: 31
-        width: 34
-        height: 56
+        x: 288
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7ce0af664c89581a0800000000000000
-      internalID: -6807867292391960889
+      spriteID: 2e486d6b5318d55478e9634257e31958
+      internalID: -1593010367
       vertices: []
       indices: 
       edges: []
@@ -220,19 +176,19 @@ TextureImporter:
       name: Spell1_3
       rect:
         serializedVersion: 2
-        x: 484
-        y: 31
-        width: 34
-        height: 53
+        x: 432
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 21f068b5910dafe80800000000000000
-      internalID: -8143968168817848558
+      spriteID: babc43a8a782fa84182d6547d7426a67
+      internalID: 365350253
       vertices: []
       indices: 
       edges: []
@@ -241,19 +197,19 @@ TextureImporter:
       name: Spell1_4
       rect:
         serializedVersion: 2
-        x: 628
-        y: 31
-        width: 34
-        height: 51
+        x: 576
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5e49658ee732b86e0800000000000000
-      internalID: -1834333395252505371
+      spriteID: e444bb43e962187438fe4d2fe4eab3ff
+      internalID: 866023553
       vertices: []
       indices: 
       edges: []
@@ -262,19 +218,19 @@ TextureImporter:
       name: Spell1_5
       rect:
         serializedVersion: 2
-        x: 772
-        y: 31
-        width: 34
-        height: 51
+        x: 720
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c2bad9360085873b0800000000000000
-      internalID: -5514560985020650708
+      spriteID: 4db07dc7ea3bff44f9f022e520167bf6
+      internalID: 2116792923
       vertices: []
       indices: 
       edges: []
@@ -283,19 +239,19 @@ TextureImporter:
       name: Spell1_6
       rect:
         serializedVersion: 2
-        x: 916
-        y: 31
-        width: 36
-        height: 51
+        x: 864
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cb3c6b742932b4560800000000000000
-      internalID: 7298966732259378108
+      spriteID: 1ab99e86d59ea3341947b1b9fb8803f8
+      internalID: 74691090
       vertices: []
       indices: 
       edges: []
@@ -304,19 +260,19 @@ TextureImporter:
       name: Spell1_7
       rect:
         serializedVersion: 2
-        x: 1060
-        y: 31
-        width: 37
-        height: 52
+        x: 1008
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b597f6e8a846eef90800000000000000
-      internalID: -6922485030963938981
+      spriteID: a0350ddc159d5ad43bd0ab90b47ae658
+      internalID: 563155199
       vertices: []
       indices: 
       edges: []
@@ -325,19 +281,19 @@ TextureImporter:
       name: Spell1_8
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 31
-        width: 36
-        height: 61
+        x: 1152
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d8277f5047e0db7d0800000000000000
-      internalID: -2901146693477633395
+      spriteID: 6cad6d18acc2b994d937545a57bd485b
+      internalID: -1562052960
       vertices: []
       indices: 
       edges: []
@@ -346,19 +302,19 @@ TextureImporter:
       name: Spell1_9
       rect:
         serializedVersion: 2
-        x: 1350
-        y: 31
-        width: 34
-        height: 55
+        x: 1296
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 24b2bc7366c879820800000000000000
-      internalID: 2924960853651041090
+      spriteID: 86d03bdb85e7986408dd8628eeae1c28
+      internalID: 293831678
       vertices: []
       indices: 
       edges: []
@@ -367,19 +323,19 @@ TextureImporter:
       name: Spell1_10
       rect:
         serializedVersion: 2
-        x: 1492
-        y: 31
-        width: 32
-        height: 50
+        x: 1440
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f502aade34cfae4b0800000000000000
-      internalID: -5410234633651871649
+      spriteID: 60ed7246918b3b5429e9cd12f22346fd
+      internalID: 358272138
       vertices: []
       indices: 
       edges: []
@@ -388,19 +344,19 @@ TextureImporter:
       name: Spell1_11
       rect:
         serializedVersion: 2
-        x: 1637
-        y: 31
-        width: 31
-        height: 50
+        x: 1584
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 79aa1b97764976de0800000000000000
-      internalID: -1339939191975204201
+      spriteID: c768c2da00b4bd84a8b4880eeabe925b
+      internalID: 419460592
       vertices: []
       indices: 
       edges: []
@@ -409,19 +365,19 @@ TextureImporter:
       name: Spell1_12
       rect:
         serializedVersion: 2
-        x: 1779
-        y: 31
-        width: 33
-        height: 50
+        x: 1728
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 40e57b8ab29350c60800000000000000
-      internalID: 7783690390656736772
+      spriteID: c950a3866b6193949bee302ade5a0eaf
+      internalID: -1785030078
       vertices: []
       indices: 
       edges: []
@@ -430,19 +386,19 @@ TextureImporter:
       name: Spell1_13
       rect:
         serializedVersion: 2
-        x: 1921
-        y: 31
-        width: 35
-        height: 50
+        x: 1872
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ed1b4d24332579560800000000000000
-      internalID: 7320410099432075742
+      spriteID: ef11e310e3b4daa4da7ad789ac01ddf7
+      internalID: -2114723045
       vertices: []
       indices: 
       edges: []
@@ -451,19 +407,19 @@ TextureImporter:
       name: Spell1_14
       rect:
         serializedVersion: 2
-        x: 2063
-        y: 31
-        width: 37
-        height: 50
+        x: 2016
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 52f29f05a203936b0800000000000000
-      internalID: -5316164926828892379
+      spriteID: ae1fbe74c9b15f149bbd9616a706141c
+      internalID: 2105032105
       vertices: []
       indices: 
       edges: []
@@ -472,19 +428,19 @@ TextureImporter:
       name: Spell1_15
       rect:
         serializedVersion: 2
-        x: 2217
-        y: 31
-        width: 27
-        height: 50
+        x: 2160
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6de0219e1d4d70e00800000000000000
-      internalID: 1011010639391493846
+      spriteID: f332a42ab58999b429e0cd5e119a4209
+      internalID: -800999037
       vertices: []
       indices: 
       edges: []
@@ -493,19 +449,19 @@ TextureImporter:
       name: Spell1_16
       rect:
         serializedVersion: 2
-        x: 2360
-        y: 31
-        width: 28
-        height: 50
+        x: 2304
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0c064c181dbbb4b80800000000000000
-      internalID: -8409421370684579648
+      spriteID: 76c8034f131233a42bf942985cca5562
+      internalID: 1078130485
       vertices: []
       indices: 
       edges: []
@@ -514,19 +470,19 @@ TextureImporter:
       name: Spell1_17
       rect:
         serializedVersion: 2
-        x: 2502
-        y: 31
-        width: 30
-        height: 52
+        x: 2448
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 17bd180d8e30d4be0800000000000000
-      internalID: -1491531603124298895
+      spriteID: 7b01709fe217aa448a276520957741c5
+      internalID: -556099540
       vertices: []
       indices: 
       edges: []
@@ -535,19 +491,19 @@ TextureImporter:
       name: Spell1_18
       rect:
         serializedVersion: 2
-        x: 2645
-        y: 31
-        width: 31
-        height: 53
+        x: 2592
+        y: 0
+        width: 144
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 33ac5b1e5f864fe00800000000000000
-      internalID: 1077601616111454771
+      spriteID: b831da416c910aa4fae2a6d118bbc2dc
+      internalID: 1333068627
       vertices: []
       indices: 
       edges: []
@@ -555,7 +511,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -563,25 +519,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Spell1_0: 5672212990771226010
-      Spell1_1: 4802772382170707106
-      Spell1_10: -5410234633651871649
-      Spell1_11: -1339939191975204201
-      Spell1_12: 7783690390656736772
-      Spell1_13: 7320410099432075742
-      Spell1_14: -5316164926828892379
-      Spell1_15: 1011010639391493846
-      Spell1_16: -8409421370684579648
-      Spell1_17: -1491531603124298895
-      Spell1_18: 1077601616111454771
-      Spell1_2: -6807867292391960889
-      Spell1_3: -8143968168817848558
-      Spell1_4: -1834333395252505371
-      Spell1_5: -5514560985020650708
-      Spell1_6: 7298966732259378108
-      Spell1_7: -6922485030963938981
-      Spell1_8: -2901146693477633395
-      Spell1_9: 2924960853651041090
+      Spell1_0: -664365853
+      Spell1_1: -49145385
+      Spell1_10: 358272138
+      Spell1_11: 419460592
+      Spell1_12: -1785030078
+      Spell1_13: -2114723045
+      Spell1_14: 2105032105
+      Spell1_15: -800999037
+      Spell1_16: 1078130485
+      Spell1_17: -556099540
+      Spell1_18: 1333068627
+      Spell1_2: -1593010367
+      Spell1_3: 365350253
+      Spell1_4: 866023553
+      Spell1_5: 2116792923
+      Spell1_6: 74691090
+      Spell1_7: 563155199
+      Spell1_8: -1562052960
+      Spell1_9: 293831678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
