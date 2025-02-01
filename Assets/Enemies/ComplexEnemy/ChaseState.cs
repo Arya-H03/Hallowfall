@@ -30,8 +30,9 @@ public class ChaseState : EnemyBaseState
     }
     public override void OnEnterState()
     {
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
-        enemyController.EnemyMovement.StartRunningSFX(audioSource,chaseGroundSFX,chaseGrassSFX,chaseWoodSFX);
+        //enemyController.EnemyMovement.StartRunningSFX(audioSource, chaseGroundSFX, chaseGrassSFX, chaseWoodSFX);
+        //enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+        //enemyController.EnemyMovement.StartRunningSFX(audioSource,chaseGroundSFX,chaseGrassSFX,chaseWoodSFX);
     }
 
     public override void OnExitState()
@@ -51,11 +52,11 @@ public class ChaseState : EnemyBaseState
             if (!enemyController.IsFacingLedge || IsFacingPlayerDirection())
             {
                 // Check if the player is within attack range
-                if (IsPlayerInRange())
+                if (IsPlayerInRange() && enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
                 {
                     AttackPlayer();
                 }
-                else
+                else if(!IsPlayerInRange())
                 {
                     ChaseOrIdle();
                 }
@@ -81,7 +82,7 @@ public class ChaseState : EnemyBaseState
 
     private void AttackPlayer()
     {
-        enemyController.canAttack = true;
+        //enemyController.canAttack = true;
         enemyController.ChangeState(EnemyStateEnum.Attack);
         
         
@@ -89,10 +90,10 @@ public class ChaseState : EnemyBaseState
 
     private void ChaseOrIdle()
     {
-        enemyController.canAttack = false;
+        //enemyController.canAttack = false;
 
         PlayerController playerController = enemyController.player.GetComponent<PlayerController>();
-        if (!playerController || playerController.IsHanging || playerController.IsDead)
+        if (!playerController || playerController.IsHanging || playerController.IsDead || !enemyController.canAttack ||!enemyController.AttackState.IsAttackDelayOver)
         {
             // If the player is hanging, go to idle state
             enemyController.ChangeState(EnemyStateEnum.Idle);
@@ -102,6 +103,7 @@ public class ChaseState : EnemyBaseState
             enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
             // Otherwise, chase the player
             enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, ChaseSpeed);
+            
         }
     }
 

@@ -115,7 +115,7 @@ public class EnemyController : MonoBehaviour
     {
         if(CurrentStateEnum != stateEnum && canChangeState &&!isDead)
         {
-            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -195,7 +195,14 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         HandleCooldowns();
-
+        if (attackState.CanSpecialAttack || attackState.CanAttack)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
+        }
         CurrentState.HandleState();
 
     }

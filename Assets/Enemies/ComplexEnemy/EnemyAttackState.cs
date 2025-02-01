@@ -11,16 +11,28 @@ using Random = UnityEngine.Random;
 
 public class EnemyAttackState : EnemyBaseState
 {
-  
+    public enum AttackTypeEnum
+    {
+        regular,
+        special,
+    }
 
     [SerializeField] private bool  canAttack = true;  
+    [SerializeField] private bool  canSpecialAttack = true;  
     [SerializeField] private bool isAttacking = false;
 
-    private EnemyBaseAttack attackRef;
+    [SerializeField] private float attackDelay = 2f; // Min delay betwenn each attack
+    [SerializeField] private bool isAttackDelayOver = true;
+
+    [SerializeField] private EnemyBaseAttack attackRef;
+    [SerializeField] private EnemySpecialAbility specialAbilityRef;
 
     public bool IsAttaking { get => isAttacking; set => isAttacking = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public EnemyBaseAttack AttackRef { get => attackRef; set => attackRef = value; }
+    public EnemySpecialAbility SpecialAbilityRef { get => specialAbilityRef; set => specialAbilityRef = value; }
+    public bool CanSpecialAttack { get => canSpecialAttack; set => canSpecialAttack = value; }
+    public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
 
     //private float moveSpeed = 2.5f;
 
@@ -32,7 +44,17 @@ public class EnemyAttackState : EnemyBaseState
 
     private void Awake()
     {
-        AttackRef = GetComponent<EnemyBaseAttack>();    
+        if (!AttackRef)
+        {
+            Debug.LogWarning("The ref to EnemyBaseAttackis not set");
+        }
+
+        if (!specialAbilityRef)
+        {
+            Debug.LogWarning("The ref to EnemySpecialAbility not set");
+            canSpecialAttack = false;
+        }
+
     }
 
     public override void OnEnterState()
@@ -44,34 +66,35 @@ public class EnemyAttackState : EnemyBaseState
     {
         if (IsAttaking)
         {
-            CancelAttack();
+            CancelAttack("isAttacking");
+            CancelAttack("isSpecialAttacking");
         }
     }
 
     public override void HandleState()
     {
-        if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < AttackRef.AttackRange)
+        if (SpecialAbilityRef && Vector2.Distance(enemyController.player.transform.position, this.transform.position) < specialAbilityRef.AttackRange && CanSpecialAttack && !isAttacking && IsAttackDelayOver)
         {
-            if(canAttack)
-            {
-                StartCoroutine(StartAttackCoroutine());
-            }
-            
-            
+            StartCoroutine(AttackDelayCoroutine());
+            StartCoroutine(StartAttackCoroutine(AttackTypeEnum.special));
+
         }
-        else  
+
+        else if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < AttackRef.AttackRange && canAttack && !isAttacking && IsAttackDelayOver)
         {
-            if (!isAttacking) 
-            {
-                
-                enemyController.ChangeState(EnemyStateEnum.Chase);
-            }
-               
+            StartCoroutine(AttackDelayCoroutine());
+            StartCoroutine(StartAttackCoroutine(AttackTypeEnum.regular));
+
+
         }
+        else if (!isAttacking) enemyController.ChangeState(EnemyStateEnum.Chase);
+
+        
     }
 
-    private IEnumerator StartAttackCoroutine()
+    private IEnumerator StartAttackCoroutine(AttackTypeEnum attacktype)
     {
+        StartCoroutine(AttackDelayCoroutine());  
         if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x) 
         {
             
@@ -81,40 +104,83 @@ public class EnemyAttackState : EnemyBaseState
 
 
         }
-        CanAttack = false;
+
         IsAttaking = true;
         enemyController.CanMove = false;
+      
+         
+        switch (attacktype)
+        {
+            case AttackTypeEnum.regular:
+                CanAttack = false;
+                enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", true);
+                enemyController.CanMove = true;
 
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", true);
+                yield return new WaitForSeconds(attackRef.AttackCooldown);
+                CanAttack = true;
+
+                break;
+            case AttackTypeEnum.special:
+                CanSpecialAttack = false;
+                enemyController.EnemyAnimationManager.SetBoolForAnimation("isSpecialAttacking", true);
+                enemyController.CanMove = true;
+                yield return new WaitForSeconds(specialAbilityRef.AttackCooldown);
+                CanSpecialAttack = true;
+
+                break;
+        }  
+
+        
+        
        
-        yield return new WaitForSeconds(AttackRef.AttackCooldown);
-
-        CanAttack = true;
-        enemyController.CanMove = true;
     }
    
-    public void EndAttack()
+    public void EndAttack(AttackTypeEnum attacktype)
     {
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);
+        switch (attacktype)
+        {
+            case AttackTypeEnum.regular:
+                enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);
+                break;
+            case AttackTypeEnum.special:
+                enemyController.EnemyAnimationManager.SetBoolForAnimation("isSpecialAttacking", false);
+                break;
+        }
+      
         IsAttaking = false;
         //enemController.CanMove = true;
         enemyController.ChangeState(EnemyStateEnum.Idle);
 
     }
 
-    public void CancelAttack()
+    public void CancelAttack(string animBoolName)
     {
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation(animBoolName, false);
         IsAttaking = false;
         //enemyController.CanMove = true;
         enemyController.ChangeState(EnemyStateEnum.Idle);
         
     }
-    public void CallAttack()
+    public void CallAttack(AttackTypeEnum attacktype)
     {
-       AttackRef.HandleAttack();
+        switch (attacktype)
+        {
+            case AttackTypeEnum.regular:
+                AttackRef?.HandleAttack();
+                break;
+            case AttackTypeEnum.special:
+                specialAbilityRef?.HandleAttack();
+                break;
+        }
+       
     }
 
-    
+    private IEnumerator AttackDelayCoroutine()
+    {
+        IsAttackDelayOver = false;
+        yield return new WaitForSeconds(attackDelay);
+        IsAttackDelayOver = true;
+    }
+
 
 }

@@ -29,17 +29,17 @@ public class IdleState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController.hasSeenPlayer && !enemyController.PlayerController.IsDead)
+        if (enemyController.hasSeenPlayer && !enemyController.PlayerController.IsDead &&enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
         {
             if (!enemyController.IsFacingLedge)
             {
-                Debug.Log("Not FE");
+                
                 enemyController.ChangeState(EnemyStateEnum.Chase);
                 
             }
             else if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x)
             {
-                Debug.Log("other");
+                
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }
 

@@ -15,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     private float distanceToTarget;
 
     public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
+    public int CurrentDir { get => currentDir; set => currentDir = value; }
 
     private void Awake()
     {
@@ -46,24 +47,24 @@ public class EnemyMovement : MonoBehaviour
     private void TurnEnemy(Vector2 direction)
     {
         
-        if(direction.x < 0 && currentDir != 1)
+        if(direction.x < 0 && CurrentDir != 1)
         {
-            currentDir = 1;
-            this.transform.localScale = new Vector3(currentDir, 1, 1);   
+            CurrentDir = 1;
+            this.transform.localScale = new Vector3(CurrentDir, 1, 1);   
             //OnEnemyBeginTurning(1);
 
         }
-        if(direction.x >= 0 && currentDir != -1)
+        if(direction.x >= 0 && CurrentDir != -1)
         {
-            currentDir = -1;
-            this.transform.localScale = new Vector3(currentDir, 1, 1);
+            CurrentDir = -1;
+            this.transform.localScale = new Vector3(CurrentDir, 1, 1);
             //OnEnemyBeginTurning(-1);
         }
     }
 
     private void OnEnemyBeginTurning(int dir)
     {
-        currentDir = dir;
+        CurrentDir = dir;
         
       
     }

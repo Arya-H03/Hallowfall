@@ -76,6 +76,8 @@ public class EnvironmentCheck : MonoBehaviour
                 playerController.PlayerRunState.StartRunningSFX();
             }
 
+            playerController.CanPlayerJump = true;
+
         }
     }
     private void CheckForInteractions()
