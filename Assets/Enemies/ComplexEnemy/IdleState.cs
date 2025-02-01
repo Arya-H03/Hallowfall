@@ -29,21 +29,32 @@ public class IdleState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController.hasSeenPlayer && !enemyController.PlayerController.IsDead &&enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
+        if (!enemyController.PlayerController.IsDead)
         {
-            if (!enemyController.IsFacingLedge)
+            if(enemyController.AttackState.IsEnemyInAttackRange() && enemyController.AttackState.IsEnemyAbleToAttaack())
             {
-                
-                enemyController.ChangeState(EnemyStateEnum.Chase);
-                
+                enemyController.ChangeState(EnemyStateEnum.Attack);
             }
-            else if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x)
+            else if (!enemyController.AttackState.IsEnemyInAttackRange())
             {
-                
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }
-
         }
+        //if (enemyController.hasSeenPlayer && !enemyController.PlayerController.IsDead &&enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
+        //{
+        //    if (!enemyController.IsFacingLedge)
+        //    {
+                
+        //        enemyController.ChangeState(EnemyStateEnum.Chase);
+                
+        //    }
+        //    else if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x)
+        //    {
+                
+        //        enemyController.ChangeState(EnemyStateEnum.Chase);
+        //    }
+
+        //}
 
         //else 
         ////{

@@ -7,6 +7,7 @@ using System.Drawing;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class EnemyAttackState : EnemyBaseState
@@ -182,5 +183,14 @@ public class EnemyAttackState : EnemyBaseState
         IsAttackDelayOver = true;
     }
 
+    public bool IsEnemyInAttackRange()
+    {
+        return Vector2.Distance(enemyController.player.transform.position, enemyController.transform.position) < AttackRef.AttackRange;
 
+    }
+
+    public bool IsEnemyAbleToAttaack()
+    {
+        return (canAttack || canSpecialAttack) && isAttackDelayOver;
+    }
 }

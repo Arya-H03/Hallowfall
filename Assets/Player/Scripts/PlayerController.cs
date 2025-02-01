@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                ChangeState(PlayerStateEnum.Idle);
+                //ChangeState(PlayerStateEnum.Idle);
                 animationController.SetTriggerForAnimations("Hit");
             }
         }

@@ -171,8 +171,7 @@ public class EnemyController : MonoBehaviour
 
         InitializeEnemyState();
 
-        //CurrentStateEnum = EnemyStateEnum.Idle;
-        //CurrentState = IdleState;
+        
 
         
 
@@ -186,23 +185,16 @@ public class EnemyController : MonoBehaviour
         currentHealth = maxHealth;
        
         hasSeenPlayer = true;
-        CurrentStateEnum = EnemyStateEnum.Chase;
-        CurrentState = chaseState;
 
-        
+        CurrentStateEnum = EnemyStateEnum.Idle;
+        CurrentState = IdleState;
+
     }
 
     private void Update()
     {
         HandleCooldowns();
-        if (attackState.CanSpecialAttack || attackState.CanAttack)
-        {
-            canAttack = true;
-        }
-        else
-        {
-            canAttack = false;
-        }
+        canAttack = attackState.IsEnemyAbleToAttaack();
         CurrentState.HandleState();
 
     }

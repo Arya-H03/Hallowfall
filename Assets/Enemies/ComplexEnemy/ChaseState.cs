@@ -31,7 +31,7 @@ public class ChaseState : EnemyBaseState
     public override void OnEnterState()
     {
         //enemyController.EnemyMovement.StartRunningSFX(audioSource, chaseGroundSFX, chaseGrassSFX, chaseWoodSFX);
-        //enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
         //enemyController.EnemyMovement.StartRunningSFX(audioSource,chaseGroundSFX,chaseGrassSFX,chaseWoodSFX);
     }
 
@@ -46,19 +46,25 @@ public class ChaseState : EnemyBaseState
         // Check if the enemy has seen the player
         if (enemyController == null || enemyController.player == null) return;
 
-        if (enemyController.hasSeenPlayer)
+        if (! enemyController.PlayerController.IsDead)
         {
             // Check if the enemy is not facing a ledge
-            if (!enemyController.IsFacingLedge || IsFacingPlayerDirection())
+            if (!enemyController.IsFacingLedge || IsFacingPlayerDirAtLedge())
             {
                 // Check if the player is within attack range
-                if (IsPlayerInRange() && enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
+                if (enemyController.AttackState.IsEnemyInAttackRange() && enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
                 {
-                    AttackPlayer();
+                    enemyController.ChangeState(EnemyStateEnum.Attack);
                 }
-                else if(!IsPlayerInRange())
+                else if(!enemyController.AttackState.IsEnemyInAttackRange())
                 {
-                    ChaseOrIdle();
+                    
+                    enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, ChaseSpeed);
+                    //ChaseOrIdle();
+                }
+                else
+                {
+                    enemyController.ChangeState(EnemyStateEnum.Idle);
                 }
             }
             else
@@ -69,13 +75,7 @@ public class ChaseState : EnemyBaseState
         }
     }
 
-    private bool IsPlayerInRange()
-    {
-        return Vector2.Distance(enemyController.player.transform.position, transform.position)
-               < enemyController.AttackState.AttackRef.AttackRange;
-    }
-
-    private bool IsFacingPlayerDirection()
+    private bool IsFacingPlayerDirAtLedge()
     {
         return enemyController.IsFacingLedge && enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x;
     }
@@ -100,7 +100,7 @@ public class ChaseState : EnemyBaseState
         }
         else
         {
-            enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+            //enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
             // Otherwise, chase the player
             enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, ChaseSpeed);
             
