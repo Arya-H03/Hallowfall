@@ -7,11 +7,13 @@ public class PlayerMovementManager : MonoBehaviour
     private PlayerController playerController;
     [SerializeField] private DialogueBox dialogueBox;
 
-    public Vector2 currentDirection;
+    public Vector2 currentInputDir; // -1 = "A" +1 = "D" 0= None 
+    private Vector2 currentDirection = new Vector2(1,0);
 
     private float moveSpeed;
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+    public Vector2 CurrentDirection { get => currentDirection; set => currentDirection = value; }
 
     private void Start()
     {
@@ -23,7 +25,7 @@ public class PlayerMovementManager : MonoBehaviour
         if (!playerController.IsPlayerJumping && !playerController.IsDead && !playerController.IsHanging && !playerController.IsFalling)
         {
 
-            transform.position += new Vector3(currentDirection.x, 0,-currentDirection.y) * MoveSpeed * Time.deltaTime;
+            transform.position += new Vector3(currentInputDir.x, 0,-currentInputDir.y) * MoveSpeed * Time.deltaTime;
 
             Vector3 clampedPos = transform.position;
             clampedPos.z = Mathf.Clamp(clampedPos.z,-1,2);
@@ -36,20 +38,20 @@ public class PlayerMovementManager : MonoBehaviour
     {
         float scaleX = 1;
 
-        if (currentDirection.x > 0)
+        if (currentInputDir.x > 0)
         {
             scaleX = 1;
         }
-        else if (currentDirection.x < 0)
+        else if (currentInputDir.x < 0)
         {
             scaleX = -1;
             
         }
-        else if (currentDirection.x == 0)
+        else if (currentInputDir.x == 0)
         {
             scaleX = transform.localScale.x;
         }
-
+        currentDirection.x = scaleX;
         transform.localScale = new Vector3(scaleX, 1, 1);
         dialogueBox.transform.localScale = new Vector3(scaleX, 1, 1);
     }
@@ -57,7 +59,7 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (!playerController.IsPlayerJumping && !playerController.IsFalling && !playerController.IsHanging && !playerController.IsParrying && !playerController.IsAttacking && !playerController.IsRolling)
         {
-            if (currentDirection != Vector2.zero )
+            if (currentInputDir != Vector2.zero )
             {
 
                 playerController.ChangeState(PlayerStateEnum.Run);
@@ -71,7 +73,7 @@ public class PlayerMovementManager : MonoBehaviour
     }
     public void HandleMovement(Vector2 dir)
     {
-        currentDirection = dir;
+        currentInputDir = dir;
         OnPlayerTurning();
         ManageRunState();
     }

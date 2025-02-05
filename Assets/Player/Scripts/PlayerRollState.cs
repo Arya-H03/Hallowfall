@@ -83,7 +83,7 @@ public class PlayerRollState : PlayerBaseState
     {
         if(playerController.CurrentStateEnum == PlayerStateEnum.Roll) 
         {
-            if (playerController.PlayerMovementManager.currentDirection.x != 0)
+            if (playerController.PlayerMovementManager.currentInputDir.x != 0)
             {
                 playerController.ChangeState(PlayerStateEnum.Run);
             }

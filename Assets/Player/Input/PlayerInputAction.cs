@@ -55,7 +55,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack2"",
+                    ""name"": ""DashAttack"",
                     ""type"": ""Button"",
                     ""id"": ""55693191-f4d4-4db1-9aeb-453e367276d6"",
                     ""expectedControlType"": ""Button"",
@@ -187,17 +187,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5444f798-8cf7-4f6d-a1df-7314df091f50"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""64db5595-3823-4f60-8d73-250418123200"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -210,11 +199,11 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6455ca97-59af-49f3-b8ff-d3c73d497df2"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold(duration=0.2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack2"",
+                    ""action"": ""DashAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -272,6 +261,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""ThirdAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51ba7a73-d9a3-4f09-b871-757191b4b650"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,7 +283,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
         m_Guardian_Attack = m_Guardian.FindAction("Attack", throwIfNotFound: true);
-        m_Guardian_Attack2 = m_Guardian.FindAction("Attack2", throwIfNotFound: true);
+        m_Guardian_DashAttack = m_Guardian.FindAction("DashAttack", throwIfNotFound: true);
         m_Guardian_Attack3 = m_Guardian.FindAction("Attack3", throwIfNotFound: true);
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
         m_Guardian_Roll = m_Guardian.FindAction("Roll", throwIfNotFound: true);
@@ -354,7 +354,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guardian_Movement;
     private readonly InputAction m_Guardian_Jump;
     private readonly InputAction m_Guardian_Attack;
-    private readonly InputAction m_Guardian_Attack2;
+    private readonly InputAction m_Guardian_DashAttack;
     private readonly InputAction m_Guardian_Attack3;
     private readonly InputAction m_Guardian_Interact;
     private readonly InputAction m_Guardian_Roll;
@@ -368,7 +368,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Guardian_Movement;
         public InputAction @Jump => m_Wrapper.m_Guardian_Jump;
         public InputAction @Attack => m_Wrapper.m_Guardian_Attack;
-        public InputAction @Attack2 => m_Wrapper.m_Guardian_Attack2;
+        public InputAction @DashAttack => m_Wrapper.m_Guardian_DashAttack;
         public InputAction @Attack3 => m_Wrapper.m_Guardian_Attack3;
         public InputAction @Interact => m_Wrapper.m_Guardian_Interact;
         public InputAction @Roll => m_Wrapper.m_Guardian_Roll;
@@ -393,9 +393,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @Attack2.started += instance.OnAttack2;
-            @Attack2.performed += instance.OnAttack2;
-            @Attack2.canceled += instance.OnAttack2;
+            @DashAttack.started += instance.OnDashAttack;
+            @DashAttack.performed += instance.OnDashAttack;
+            @DashAttack.canceled += instance.OnDashAttack;
             @Attack3.started += instance.OnAttack3;
             @Attack3.performed += instance.OnAttack3;
             @Attack3.canceled += instance.OnAttack3;
@@ -427,9 +427,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @Attack2.started -= instance.OnAttack2;
-            @Attack2.performed -= instance.OnAttack2;
-            @Attack2.canceled -= instance.OnAttack2;
+            @DashAttack.started -= instance.OnDashAttack;
+            @DashAttack.performed -= instance.OnDashAttack;
+            @DashAttack.canceled -= instance.OnDashAttack;
             @Attack3.started -= instance.OnAttack3;
             @Attack3.performed -= instance.OnAttack3;
             @Attack3.canceled -= instance.OnAttack3;
@@ -470,7 +470,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnAttack2(InputAction.CallbackContext context);
+        void OnDashAttack(InputAction.CallbackContext context);
         void OnAttack3(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);

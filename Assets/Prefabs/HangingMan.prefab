@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: -1045667633
   m_SortingLayer: -1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -910092549403018386, guid: 5876d36b819a0bf4b9d934b101ef531c, type: 3}
+  m_Sprite: {fileID: -1190778423, guid: 5876d36b819a0bf4b9d934b101ef531c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 0.6875, y: 1.53125}
+  m_Size: {x: 3.5, y: 2.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -725,7 +725,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -0.06, y: -0.72, z: 0}
+    m_Position: {x: -0.18, y: -0.72, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
     m_Scale: {x: 0.37, y: 0.08, z: 1}
     placementMode: 0

@@ -183,9 +183,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4522458437887298580, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: jumpSpeed
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5478323056235678100, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Name
       value: Inquisitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647746929411258524, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 8145230739375272340, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: runSpeed

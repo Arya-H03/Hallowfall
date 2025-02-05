@@ -28,6 +28,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     private bool isDoubleSwinging = false;
     private bool canInitialSwing = true;
     private bool canDoubleSwing = false;
+    private bool canDashAttack = false;
 
     //For Debuging
     [SerializeField] Vector2 size; // Size of the box in 2D
@@ -49,7 +50,7 @@ public class PlayerSwordAttackState : PlayerBaseState
      private Vector2 firstSwingCastSize = new Vector2(1.7f, 1.5f);
 
     [SerializeField] Transform secondSwingCenter;
-     private Vector2 secondSwingCastSize = new Vector2(1.3f, 0.8f);
+     private Vector2 secondSwingCastSize = new Vector2(1.3f, 1f);
 
     [SerializeField] Transform jumpAttackSwingCenter;
      private Vector2 jumpAttackSwingCastSize = new Vector2(1.2f, 2f);
@@ -112,7 +113,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
 
             playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
-
+            canDashAttack = true;
             CanDoubleSwing = false;
             isDoubleSwinging = true;
         }
@@ -144,10 +145,10 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         canDoubleSwing = false;
         isDoubleSwinging = false;
+        canDashAttack = false;
 
 
-
-        if (playerController.PlayerMovementManager.currentDirection.x != 0)
+        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }
@@ -211,7 +212,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(SecondSwingCenter, secondSwingCastSize);
-
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -235,6 +235,14 @@ public class PlayerSwordAttackState : PlayerBaseState
         //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }
 
+    public void DashAttack()
+    {
+        if (canDashAttack)
+        {
+            playerController.rb.velocity += new Vector2(8 * playerController.PlayerMovementManager.CurrentDirection.x, 0);
+        }
+        
+    }
     public void JumpAttack()
     {
 
@@ -326,6 +334,11 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
     private void Update()
     {
-        VisualizeBoxCast(FirstSwingCenter.position, firstSwingCastSize, transform.right, distance);
+        //VisualizeBoxCast(FirstSwingCenter.position, firstSwingCastSize, transform.right, distance);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(secondSwingCenter.position, secondSwingCastSize);
     }
 }

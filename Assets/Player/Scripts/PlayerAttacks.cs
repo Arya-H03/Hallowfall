@@ -78,7 +78,7 @@
 //    public void EndAttack()
 //    {
 //        playerController.rb.gravityScale = 3;
-//        if (playerController.PlayerMovementManager.currentDirection.x != 0)
+//        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
 //        {
 //            playerController.AnimationController.SetBoolForAnimations("isRunning", true);
 //        }

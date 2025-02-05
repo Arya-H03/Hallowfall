@@ -49,7 +49,7 @@ public class PlayerFallState : PlayerBaseState
 
         AudioManager.Instance.PlaySFX(audioSource, hitingGroundSound);
 
-        if (playerController.PlayerMovementManager.currentDirection.x != 0)
+        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }

@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack2",
+                    "name": "DashAttack",
                     "type": "Button",
                     "id": "55693191-f4d4-4db1-9aeb-453e367276d6",
                     "expectedControlType": "Button",
@@ -165,17 +165,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5444f798-8cf7-4f6d-a1df-7314df091f50",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "64db5595-3823-4f60-8d73-250418123200",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -188,11 +177,11 @@
                 {
                     "name": "",
                     "id": "6455ca97-59af-49f3-b8ff-d3c73d497df2",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold(duration=0.2)",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack2",
+                    "action": "DashAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -248,6 +237,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ThirdAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51ba7a73-d9a3-4f09-b871-757191b4b650",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

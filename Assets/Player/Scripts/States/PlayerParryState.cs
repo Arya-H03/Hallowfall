@@ -61,7 +61,7 @@ public class PlayerParryState : PlayerBaseState
         playerController.IsParrying = false;
         playerController.CanPlayerJump = true;
         playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", false);
-        if (playerController.PlayerMovementManager.currentDirection.x != 0)
+        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }

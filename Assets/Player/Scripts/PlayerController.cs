@@ -257,6 +257,10 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+    public void OnDashAttack()
+    {
+        PlayerSwordAttackState.DashAttack();
+    }
 
     public void HandelSwordEquipment(bool isEquiped)
     {
@@ -285,7 +289,11 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //ChangeState(PlayerStateEnum.Idle);
-                animationController.SetTriggerForAnimations("Hit");
+                if (currentStateEnum != PlayerStateEnum.SwordAttack)
+                {
+                    animationController.SetTriggerForAnimations("Hit");
+                }
+               
             }
         }
     }

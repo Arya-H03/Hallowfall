@@ -47,6 +47,7 @@ public class InputManager : MonoBehaviour
         InputActions.Guardian.Jump.performed += Jump;
 
         InputActions.Guardian.Attack.performed += FirstSwing;
+        InputActions.Guardian.DashAttack.performed += DashAttack;   
         
 
         InputActions.Guardian.Roll.performed += Roll;
@@ -67,7 +68,8 @@ public class InputManager : MonoBehaviour
         InputActions.Guardian.Jump.performed -= Jump;
 
         InputActions.Guardian.Attack.performed -= FirstSwing;
-    
+        InputActions.Guardian.DashAttack.performed -= DashAttack;
+
         InputActions.Guardian.Roll.performed -= Roll;
 
         InputActions.Guardian.Parry.performed -= StartParry;
@@ -111,6 +113,12 @@ public class InputManager : MonoBehaviour
     public void StartParry(InputAction.CallbackContext ctx)
     {
         player.OnStartParry();
+    }
+
+    public void DashAttack(InputAction.CallbackContext ctx)
+    {
+        player.OnDashAttack();
+        Debug.Log("DashAttack");
     }
 
 }
