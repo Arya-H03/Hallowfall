@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerSwordAttackState : PlayerBaseState
 {
@@ -23,6 +24,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     public delegate void EventHandler();
     public EventHandler OnFirstSwordSwingEvent;
     public EventHandler OnSecondSwordSwingEvent;
+
+    private Coroutine SpawnAfterImageCoroutine;
 
     private bool isInitialSwinging = false;
     private bool isDoubleSwinging = false;
@@ -97,12 +100,13 @@ public class PlayerSwordAttackState : PlayerBaseState
         canDoubleSwing = false;
         isDoubleSwinging = false;
 
+       
     }
 
     public override void HandleState()
     {
 
-
+       
     }
 
    
@@ -168,8 +172,12 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
-              
 
+        if (SpawnAfterImageCoroutine != null)
+        {
+            StopCoroutine(SpawnAfterImageCoroutine);
+            SpawnAfterImageCoroutine = null;
+        }
     }
 
     private void OnSwordAttackBlockedByEnemy(RaycastHit2D hit)
@@ -251,6 +259,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         if (canDashAttack)
         {
+            SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
+           
             playerController.rb.velocity += new Vector2(8 * playerController.PlayerMovementManager.CurrentDirection.x, 0);
         }
         
@@ -259,8 +269,25 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         if (!playerController.IsPlayerGrounded)
         {          
-            RaycastHit2D hit = Physics2D.CircleCast(playerController.transform.position,8,Vector2.zero, layerMask);
-            Debug.Log("AirStrike" + hit.collider.gameObject);
+            //RaycastHit2D hit = Physics2D.CircleCast(playerController.transform.position,10,Vector2.zero,0, layerMask);
+            //if (hit)
+            //{
+            //    Debug.Log("AirStrike " + hit.collider.gameObject.name);
+            //    Vector2 attackVec = (hit.transform.position - playerController.transform.position).normalized;
+            //    playerController.PlayerMovementManager.TurnPlayer(attackVec);
+            //    //SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
+            //    playerController.PlayerCollision.Rb.velocity = attackVec * 9f;
+            //}
+
+            var targetPos = Input.mousePosition;
+            targetPos.z = this.transform.position.z;
+            targetPos = Camera.main.ScreenToWorldPoint(targetPos);
+            Vector2 attackVec = (targetPos - playerController.transform.position).normalized;
+            playerController.PlayerMovementManager.TurnPlayer(attackVec);
+            playerController.PlayerCollision.Rb.velocity = attackVec * 15f;
+
+
+
         }
     }
     public void JumpAttack()

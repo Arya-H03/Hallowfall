@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerAnimationController animationController;
     private PlayerMovementManager playerMovementManager;
+    private AfterImageHandler afterImageHandler;
 
     [HideInInspector]
     public Rigidbody2D rb;
@@ -96,11 +97,12 @@ public class PlayerController : MonoBehaviour
    
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
     public PlayerInfo PlayerInfo { get => playerInfo; set => playerInfo = value; }
+    public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
 
     #endregion
     private void Awake()
     {
-        
+        AfterImageHandler = GetComponent<AfterImageHandler>();
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
 
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
@@ -156,12 +158,14 @@ public class PlayerController : MonoBehaviour
         currentState.HandleState();
         PlayerRollState.HandleRollCooldown();
 
+        
+
     }
     public void ChangeState(PlayerStateEnum stateEnum)
     {
         if (currentStateEnum != stateEnum /*&& canChangeState*/)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {

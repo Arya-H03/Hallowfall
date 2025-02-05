@@ -509,7 +509,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAttack: 1
+  canSpecialAttack: 1
   isAttacking: 0
+  attackDelay: 2
+  isAttackDelayOver: 1
+  attackRef: {fileID: 0}
+  specialAbilityRef: {fileID: 0}
 --- !u!114 &657778544946344706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,7 +757,7 @@ GameObject:
   - component: {fileID: 6380797013854336540}
   - component: {fileID: 54514936750267102}
   - component: {fileID: 8594924496744178288}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: feetbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

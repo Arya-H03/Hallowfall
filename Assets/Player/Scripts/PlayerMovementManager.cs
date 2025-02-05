@@ -34,27 +34,49 @@ public class PlayerMovementManager : MonoBehaviour
         }
     }
 
-    private void OnPlayerTurning()
+    public void TurnPlayer(Vector2 vec)
     {
         float scaleX = 1;
 
-        if (currentInputDir.x > 0)
+        if (vec.x > 0)
         {
             scaleX = 1;
         }
-        else if (currentInputDir.x < 0)
+        else if (vec.x < 0)
         {
             scaleX = -1;
-            
+
         }
-        else if (currentInputDir.x == 0)
+        else if (vec.x == 0)
         {
             scaleX = transform.localScale.x;
         }
+
         currentDirection.x = scaleX;
         transform.localScale = new Vector3(scaleX, 1, 1);
         dialogueBox.transform.localScale = new Vector3(scaleX, 1, 1);
     }
+    //private void OnPlayerTurning()
+    //{
+    //    float scaleX = 1;
+
+    //    if (currentInputDir.x > 0)
+    //    {
+    //        scaleX = 1;
+    //    }
+    //    else if (currentInputDir.x < 0)
+    //    {
+    //        scaleX = -1;
+            
+    //    }
+    //    else if (currentInputDir.x == 0)
+    //    {
+    //        scaleX = transform.localScale.x;
+    //    }
+    //    currentDirection.x = scaleX;
+    //    transform.localScale = new Vector3(scaleX, 1, 1);
+    //    dialogueBox.transform.localScale = new Vector3(scaleX, 1, 1);
+    //}
     private void ManageRunState()
     {
         if (!playerController.IsPlayerJumping && !playerController.IsFalling && !playerController.IsHanging && !playerController.IsParrying && !playerController.IsAttacking && !playerController.IsRolling)
@@ -74,7 +96,8 @@ public class PlayerMovementManager : MonoBehaviour
     public void HandleMovement(Vector2 dir)
     {
         currentInputDir = dir;
-        OnPlayerTurning();
+        TurnPlayer(currentInputDir);
+        //OnPlayerTurning();
         ManageRunState();
     }
 }
