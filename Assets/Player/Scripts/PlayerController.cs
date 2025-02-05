@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum /*&& canChangeState*/)
         {
-            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
     public void OnSwordAttack()
     {
         
-        if (/*!IsAttacking && CanPlayerAttack && */!IsHanging && !isPlayerJumping && !isFalling && IsPlayerGrounded)
+        if (/*!IsAttacking && CanPlayerAttack && */!IsHanging /*&& !isPlayerJumping && !isFalling && IsPlayerGrounded*/)
         {
             if (currentStateEnum == PlayerStateEnum.SwordAttack && playerSwordAttackState.CanDoubleSwing)
             {
@@ -260,6 +260,11 @@ public class PlayerController : MonoBehaviour
     public void OnDashAttack()
     {
         PlayerSwordAttackState.DashAttack();
+    }
+
+    public void OnAirStrike()
+    {
+        PlayerSwordAttackState.AirStrike();
     }
 
     public void HandelSwordEquipment(bool isEquiped)

@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack3",
+                    "name": "AirStrike",
                     "type": "Button",
                     "id": "54a9dbae-d651-4470-abfa-41d7d33feae2",
                     "expectedControlType": "Button",
@@ -188,11 +188,11 @@
                 {
                     "name": "",
                     "id": "e7fcf772-9b73-4941-bbe5-d69efd7b87c0",
-                    "path": "<Keyboard>/3",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack3",
+                    "action": "AirStrike",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

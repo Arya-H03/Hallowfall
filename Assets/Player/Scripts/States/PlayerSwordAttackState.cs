@@ -108,8 +108,17 @@ public class PlayerSwordAttackState : PlayerBaseState
    
     public void Attack()
     {
+        if (!playerController.IsPlayerGrounded && playerController.CanPlayerAttack)
+        {
 
-        if (CanDoubleSwing && !isDoubleSwinging) 
+            //playerController.AnimationController.SetBoolForAnimations("isFalling", false);
+            playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
+            playerController.IsAttacking = true;
+            playerController.CanPlayerAttack = false;
+
+
+        }
+        else if (CanDoubleSwing && !isDoubleSwinging) 
         {
 
             playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
@@ -147,8 +156,11 @@ public class PlayerSwordAttackState : PlayerBaseState
         isDoubleSwinging = false;
         canDashAttack = false;
 
-
-        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
+        if (!playerController.IsPlayerGrounded)
+        {
+            playerController.ChangeState(PlayerStateEnum.Fall);
+        }
+        else if (playerController.PlayerMovementManager.currentInputDir.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }
@@ -243,6 +255,14 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
         
     }
+    public void AirStrike()
+    {
+        if (!playerController.IsPlayerGrounded)
+        {          
+            RaycastHit2D hit = Physics2D.CircleCast(playerController.transform.position,8,Vector2.zero, layerMask);
+            Debug.Log("AirStrike" + hit.collider.gameObject);
+        }
+    }
     public void JumpAttack()
     {
 
@@ -332,13 +352,13 @@ public class PlayerSwordAttackState : PlayerBaseState
         // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
         Debug.DrawRay(origin, direction * distance, Color.red);
     }
-    private void Update()
-    {
-        //VisualizeBoxCast(FirstSwingCenter.position, firstSwingCastSize, transform.right, distance);
-    }
+    //private void Update()
+    //{
+    //    //VisualizeBoxCast(FirstSwingCenter.position, firstSwingCastSize, transform.right, distance);
+    //}
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(secondSwingCenter.position, secondSwingCastSize);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireCube(secondSwingCenter.position, secondSwingCastSize);
+    //}
 }

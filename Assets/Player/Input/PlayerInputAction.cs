@@ -64,7 +64,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack3"",
+                    ""name"": ""AirStrike"",
                     ""type"": ""Button"",
                     ""id"": ""54a9dbae-d651-4470-abfa-41d7d33feae2"",
                     ""expectedControlType"": ""Button"",
@@ -210,11 +210,11 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e7fcf772-9b73-4941-bbe5-d69efd7b87c0"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack3"",
+                    ""action"": ""AirStrike"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -284,7 +284,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
         m_Guardian_Attack = m_Guardian.FindAction("Attack", throwIfNotFound: true);
         m_Guardian_DashAttack = m_Guardian.FindAction("DashAttack", throwIfNotFound: true);
-        m_Guardian_Attack3 = m_Guardian.FindAction("Attack3", throwIfNotFound: true);
+        m_Guardian_AirStrike = m_Guardian.FindAction("AirStrike", throwIfNotFound: true);
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
         m_Guardian_Roll = m_Guardian.FindAction("Roll", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
@@ -355,7 +355,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guardian_Jump;
     private readonly InputAction m_Guardian_Attack;
     private readonly InputAction m_Guardian_DashAttack;
-    private readonly InputAction m_Guardian_Attack3;
+    private readonly InputAction m_Guardian_AirStrike;
     private readonly InputAction m_Guardian_Interact;
     private readonly InputAction m_Guardian_Roll;
     private readonly InputAction m_Guardian_Pause;
@@ -369,7 +369,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Guardian_Jump;
         public InputAction @Attack => m_Wrapper.m_Guardian_Attack;
         public InputAction @DashAttack => m_Wrapper.m_Guardian_DashAttack;
-        public InputAction @Attack3 => m_Wrapper.m_Guardian_Attack3;
+        public InputAction @AirStrike => m_Wrapper.m_Guardian_AirStrike;
         public InputAction @Interact => m_Wrapper.m_Guardian_Interact;
         public InputAction @Roll => m_Wrapper.m_Guardian_Roll;
         public InputAction @Pause => m_Wrapper.m_Guardian_Pause;
@@ -396,9 +396,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @DashAttack.started += instance.OnDashAttack;
             @DashAttack.performed += instance.OnDashAttack;
             @DashAttack.canceled += instance.OnDashAttack;
-            @Attack3.started += instance.OnAttack3;
-            @Attack3.performed += instance.OnAttack3;
-            @Attack3.canceled += instance.OnAttack3;
+            @AirStrike.started += instance.OnAirStrike;
+            @AirStrike.performed += instance.OnAirStrike;
+            @AirStrike.canceled += instance.OnAirStrike;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -430,9 +430,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @DashAttack.started -= instance.OnDashAttack;
             @DashAttack.performed -= instance.OnDashAttack;
             @DashAttack.canceled -= instance.OnDashAttack;
-            @Attack3.started -= instance.OnAttack3;
-            @Attack3.performed -= instance.OnAttack3;
-            @Attack3.canceled -= instance.OnAttack3;
+            @AirStrike.started -= instance.OnAirStrike;
+            @AirStrike.performed -= instance.OnAirStrike;
+            @AirStrike.canceled -= instance.OnAirStrike;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -471,7 +471,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDashAttack(InputAction.CallbackContext context);
-        void OnAttack3(InputAction.CallbackContext context);
+        void OnAirStrike(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);

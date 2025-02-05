@@ -48,6 +48,7 @@ public class InputManager : MonoBehaviour
 
         InputActions.Guardian.Attack.performed += FirstSwing;
         InputActions.Guardian.DashAttack.performed += DashAttack;   
+        InputActions.Guardian.AirStrike.performed += AirStrike;   
         
 
         InputActions.Guardian.Roll.performed += Roll;
@@ -69,6 +70,7 @@ public class InputManager : MonoBehaviour
 
         InputActions.Guardian.Attack.performed -= FirstSwing;
         InputActions.Guardian.DashAttack.performed -= DashAttack;
+        InputActions.Guardian.AirStrike.performed -= AirStrike;
 
         InputActions.Guardian.Roll.performed -= Roll;
 
@@ -118,7 +120,12 @@ public class InputManager : MonoBehaviour
     public void DashAttack(InputAction.CallbackContext ctx)
     {
         player.OnDashAttack();
-        Debug.Log("DashAttack");
+        
+    }
+
+    public void AirStrike(InputAction.CallbackContext ctx)
+    {
+        player.OnAirStrike();
     }
 
 }

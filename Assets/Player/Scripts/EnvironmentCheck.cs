@@ -51,7 +51,7 @@ public class EnvironmentCheck : MonoBehaviour
             }
 
 
-            if (!playerController.IsPlayerGrounded && !playerController.IsHanging)
+            if (!playerController.IsPlayerGrounded && !playerController.IsHanging && !playerController.IsAttacking )
             {
                 if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
                 {
@@ -87,7 +87,7 @@ public class EnvironmentCheck : MonoBehaviour
                 playerController.PlayerRunState.StartRunningSFX();
             }
 
-            playerController.CanPlayerJump = true;
+            
 
         }
     }
@@ -122,37 +122,20 @@ public class EnvironmentCheck : MonoBehaviour
     }
     private void CheckWhilePlayerIsFalling()
     {
-        //if (playerController.IsFalling)
-        //{
-        //    CheckForEnemyBelowWhenFalling();
-        //}
-       
-
+        
         RaycastHit2D[] rayCasts = new RaycastHit2D[2];
         rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
         rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
 
-        ////bool isGrounded = false;
-        //foreach (RaycastHit2D rayCast in rayCasts)
-        //{
-        //    if (rayCast.collider != null)
-        //    {
-        //        //isGrounded = true;
-
-        //        if (rayCast.collider.CompareTag("Trap"))
-        //        {
-        //            playerController.ChangeState(PlayerStateEnum.Death);
-        //            return;
-        //        }
-
-        //    }
-        //}
+        
 
         if (rayCasts[0])
         {
             HandleCastResultForGroundChecking(rayCasts[0]);
         }
         else HandleCastResultForGroundChecking(rayCasts[1]);
+
+        if (!rayCasts[1] && !rayCasts[0]) playerController.IsPlayerGrounded = false;
 
         //playerController.IsPlayerGrounded = isGrounded;
 
