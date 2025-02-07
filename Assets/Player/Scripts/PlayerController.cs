@@ -6,6 +6,7 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR.Haptics;
+using static PlayerSwordAttackState;
 
 public class PlayerController : MonoBehaviour
 {
@@ -230,17 +231,39 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwordAttack()
     {
-        
-        if (/*!IsAttacking && CanPlayerAttack && */!IsHanging /*&& !isPlayerJumping && !isFalling && IsPlayerGrounded*/)
+        if(!IsAttacking && CanPlayerAttack && !IsHanging)
         {
-            if (currentStateEnum == PlayerStateEnum.SwordAttack && playerSwordAttackState.CanDoubleSwing)
+            if(!isPlayerJumping && !isFalling && IsPlayerGrounded)
             {
-                playerSwordAttackState.Attack();
+                ChangeState(PlayerStateEnum.SwordAttack);
+                playerSwordAttackState.HandleFirstSwing();
             }
-            else ChangeState(PlayerStateEnum.SwordAttack);
-            
+            else
+            {
+                ChangeState(PlayerStateEnum.SwordAttack);
+                playerSwordAttackState.HandleJumpAttack();
+            }
+        } 
+       
+    }
+    public void OnSwordDoubleSwing()
+    {
+        playerSwordAttackState.HandleDoubleSwing();
+    }
+
+    public void OnDashAttack()
+    {
+        PlayerSwordAttackState.DashAttack();
+    }
+
+    public void OnAirStrike()
+    {
+        if (!IsPlayerGrounded)
+        {
+            ChangeState(PlayerStateEnum.SwordAttack);
+            PlayerSwordAttackState.AirStrike();
         }
-        
+       
     }
 
     public void OnStartParry()
@@ -261,15 +284,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-    public void OnDashAttack()
-    {
-        PlayerSwordAttackState.DashAttack();
-    }
-
-    public void OnAirStrike()
-    {
-        PlayerSwordAttackState.AirStrike();
-    }
+   
 
     public void HandelSwordEquipment(bool isEquiped)
     {

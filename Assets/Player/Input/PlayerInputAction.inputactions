@@ -24,9 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "Swing",
                     "type": "Button",
                     "id": "76f069b6-837a-4ffc-a19c-bfa507f23bee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DoubleSwing",
+                    "type": "Button",
+                    "id": "8dbd18eb-7c3d-4642-9918-335c51e1041a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -247,7 +256,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Swing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbf2ee2f-d0db-4a5a-a0fe-aa5c1e6e7b11",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap(tapDelay=0.25)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleSwing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

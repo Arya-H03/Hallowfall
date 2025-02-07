@@ -5,15 +5,7 @@ using static UnityEditor.PlayerSettings;
 
 public class PlayerSwordAttackState : PlayerBaseState
 {
-    public enum SwordAttackTypeEnum
-    {
-        firstSwing,
-        secondSwing,
-        Chop
-    }
-
-    private SwordAttackTypeEnum attackType;
-
+  
     private AudioSource audioSource;
 
     [SerializeField] AudioClip[] swingMissAC;
@@ -27,10 +19,6 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private Coroutine SpawnAfterImageCoroutine;
 
-    private bool isInitialSwinging = false;
-    private bool isDoubleSwinging = false;
-    private bool canInitialSwing = true;
-    private bool canDoubleSwing = false;
     private bool canDashAttack = false;
 
     //For Debuging
@@ -58,11 +46,12 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] Transform jumpAttackSwingCenter;
      private Vector2 jumpAttackSwingCastSize = new Vector2(1.2f, 2f);
 
+    private Vector3 airStrikeTargetPos;
+    private bool airStrikeHasTarget = false;
+
 
     [SerializeField] private float moveSpeedWhileAttaking = 2;
-    public SwordAttackTypeEnum AttackType { get => attackType; set => attackType = value; }
-    public bool CanDoubleSwing { get => canDoubleSwing; set => canDoubleSwing = value; }
-    public bool IsInitialSwinging { get => isInitialSwinging; set => isInitialSwinging = value; }
+   
     public Transform FirstSwingCenter { get => firstSwingCenter; set => firstSwingCenter = value; }
     public Transform SecondSwingCenter { get => secondSwingCenter; set => secondSwingCenter = value; }
 
@@ -85,79 +74,55 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
-        Attack();
-        
+       
     }
 
     public override void OnExitState()
     {
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
+        canDashAttack = false;
 
-        canInitialSwing = true;
-        IsInitialSwinging = false;
-
-        canDoubleSwing = false;
-        isDoubleSwinging = false;
-
-       
+        if (SpawnAfterImageCoroutine != null)
+        {
+            StopCoroutine(SpawnAfterImageCoroutine);
+            SpawnAfterImageCoroutine = null;
+        }
     }
 
     public override void HandleState()
     {
-
+        if(airStrikeHasTarget && Vector3.Distance(playerController.transform.position, airStrikeTargetPos) < 2f)
+        {
+            EndAttack();
+            airStrikeHasTarget = false;
+        }
        
     }
 
-   
-    public void Attack()
+    public void HandleFirstSwing()
     {
-        if (!playerController.IsPlayerGrounded && playerController.CanPlayerAttack)
-        {
-
-            //playerController.AnimationController.SetBoolForAnimations("isFalling", false);
-            playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
-            playerController.IsAttacking = true;
-            playerController.CanPlayerAttack = false;
-
-
-        }
-        else if (CanDoubleSwing && !isDoubleSwinging) 
-        {
-
-            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
-            canDashAttack = true;
-            CanDoubleSwing = false;
-            isDoubleSwinging = true;
-        }
-        else if(canInitialSwing && !IsInitialSwinging)
-        {
-
-            playerController.AnimationController.SetTriggerForAnimations("Attack");
-
-            playerController.IsAttacking = true;
-            playerController.CanPlayerAttack = false;
-
-            canInitialSwing = false;
-            IsInitialSwinging = true;
-
-            canDoubleSwing = true;  
-        }
-       
-      
+        playerController.IsAttacking = true;
+        playerController.CanPlayerAttack = false;
+        canDashAttack = true;
+        playerController.AnimationController.SetTriggerForAnimations("Attack");   
     }
 
+    public void HandleDoubleSwing()
+    {
+        playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+    }
+    public void HandleJumpAttack()
+    {
+        playerController.IsAttacking = true;
+        playerController.CanPlayerAttack = false;
+        playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
+       
+    }
     public void EndAttack()
-    {
-        //playerController.rb.gravityScale = 3;
+    {       
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
-
-        canInitialSwing = true;
-        IsInitialSwinging = false;
-
-        canDoubleSwing = false;
-        isDoubleSwinging = false;
         canDashAttack = false;
 
         if (!playerController.IsPlayerGrounded)
@@ -180,6 +145,32 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
     }
 
+    public void DashAttack()
+    {
+        if (canDashAttack)
+        {
+            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
+            SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
+            playerController.rb.velocity += new Vector2(8 * playerController.PlayerMovementManager.CurrentDirection.x, 0);
+        }
+
+    }
+    public void AirStrike()
+    {
+        //var targetPos = Input.mousePosition;
+        //targetPos = Camera.main.ScreenToWorldPoint(targetPos);
+        //targetPos.z = this.transform.position.z;
+        //airStrikeTargetPos = targetPos;
+        //airStrikeHasTarget = true;
+        //Vector2 attackVec = (airStrikeTargetPos - playerController.transform.position).normalized;
+        //playerController.PlayerMovementManager.TurnPlayer(attackVec);
+        //SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
+        //playerController.PlayerCollision.Rb.velocity = attackVec * 5f;
+        //playerController.IsAttacking = true;
+        //playerController.CanPlayerAttack = false;
+
+       // playerController.ChangeState(PlayerStateEnum.Fall);
+    }
     private void OnSwordAttackBlockedByEnemy(RaycastHit2D hit)
     {
         Vector2 launchVector;
@@ -255,42 +246,9 @@ public class PlayerSwordAttackState : PlayerBaseState
         //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }
 
-    public void DashAttack()
-    {
-        if (canDashAttack)
-        {
-            SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
-           
-            playerController.rb.velocity += new Vector2(8 * playerController.PlayerMovementManager.CurrentDirection.x, 0);
-        }
-        
-    }
-    public void AirStrike()
-    {
-        if (!playerController.IsPlayerGrounded)
-        {          
-            //RaycastHit2D hit = Physics2D.CircleCast(playerController.transform.position,10,Vector2.zero,0, layerMask);
-            //if (hit)
-            //{
-            //    Debug.Log("AirStrike " + hit.collider.gameObject.name);
-            //    Vector2 attackVec = (hit.transform.position - playerController.transform.position).normalized;
-            //    playerController.PlayerMovementManager.TurnPlayer(attackVec);
-            //    //SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
-            //    playerController.PlayerCollision.Rb.velocity = attackVec * 9f;
-            //}
-
-            var targetPos = Input.mousePosition;
-            targetPos.z = this.transform.position.z;
-            targetPos = Camera.main.ScreenToWorldPoint(targetPos);
-            Vector2 attackVec = (targetPos - playerController.transform.position).normalized;
-            playerController.PlayerMovementManager.TurnPlayer(attackVec);
-            playerController.PlayerCollision.Rb.velocity = attackVec * 15f;
-
-
-
-        }
-    }
-    public void JumpAttack()
+    
+    
+    public void JumpAttackBoxCast()
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(jumpAttackSwingCenter, jumpAttackSwingCastSize);

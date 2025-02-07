@@ -46,9 +46,18 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Swing"",
                     ""type"": ""Button"",
                     ""id"": ""76f069b6-837a-4ffc-a19c-bfa507f23bee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DoubleSwing"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dbd18eb-7c3d-4642-9918-335c51e1041a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -269,7 +278,18 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Swing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbf2ee2f-d0db-4a5a-a0fe-aa5c1e6e7b11"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""MultiTap(tapDelay=0.25)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleSwing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -282,7 +302,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian = asset.FindActionMap("Guardian", throwIfNotFound: true);
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
-        m_Guardian_Attack = m_Guardian.FindAction("Attack", throwIfNotFound: true);
+        m_Guardian_Swing = m_Guardian.FindAction("Swing", throwIfNotFound: true);
+        m_Guardian_DoubleSwing = m_Guardian.FindAction("DoubleSwing", throwIfNotFound: true);
         m_Guardian_DashAttack = m_Guardian.FindAction("DashAttack", throwIfNotFound: true);
         m_Guardian_AirStrike = m_Guardian.FindAction("AirStrike", throwIfNotFound: true);
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
@@ -353,7 +374,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private List<IGuardianActions> m_GuardianActionsCallbackInterfaces = new List<IGuardianActions>();
     private readonly InputAction m_Guardian_Movement;
     private readonly InputAction m_Guardian_Jump;
-    private readonly InputAction m_Guardian_Attack;
+    private readonly InputAction m_Guardian_Swing;
+    private readonly InputAction m_Guardian_DoubleSwing;
     private readonly InputAction m_Guardian_DashAttack;
     private readonly InputAction m_Guardian_AirStrike;
     private readonly InputAction m_Guardian_Interact;
@@ -367,7 +389,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public GuardianActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Guardian_Movement;
         public InputAction @Jump => m_Wrapper.m_Guardian_Jump;
-        public InputAction @Attack => m_Wrapper.m_Guardian_Attack;
+        public InputAction @Swing => m_Wrapper.m_Guardian_Swing;
+        public InputAction @DoubleSwing => m_Wrapper.m_Guardian_DoubleSwing;
         public InputAction @DashAttack => m_Wrapper.m_Guardian_DashAttack;
         public InputAction @AirStrike => m_Wrapper.m_Guardian_AirStrike;
         public InputAction @Interact => m_Wrapper.m_Guardian_Interact;
@@ -390,9 +413,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Swing.started += instance.OnSwing;
+            @Swing.performed += instance.OnSwing;
+            @Swing.canceled += instance.OnSwing;
+            @DoubleSwing.started += instance.OnDoubleSwing;
+            @DoubleSwing.performed += instance.OnDoubleSwing;
+            @DoubleSwing.canceled += instance.OnDoubleSwing;
             @DashAttack.started += instance.OnDashAttack;
             @DashAttack.performed += instance.OnDashAttack;
             @DashAttack.canceled += instance.OnDashAttack;
@@ -424,9 +450,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Swing.started -= instance.OnSwing;
+            @Swing.performed -= instance.OnSwing;
+            @Swing.canceled -= instance.OnSwing;
+            @DoubleSwing.started -= instance.OnDoubleSwing;
+            @DoubleSwing.performed -= instance.OnDoubleSwing;
+            @DoubleSwing.canceled -= instance.OnDoubleSwing;
             @DashAttack.started -= instance.OnDashAttack;
             @DashAttack.performed -= instance.OnDashAttack;
             @DashAttack.canceled -= instance.OnDashAttack;
@@ -469,7 +498,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnSwing(InputAction.CallbackContext context);
+        void OnDoubleSwing(InputAction.CallbackContext context);
         void OnDashAttack(InputAction.CallbackContext context);
         void OnAirStrike(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);

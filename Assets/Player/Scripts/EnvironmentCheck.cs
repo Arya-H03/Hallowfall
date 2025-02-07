@@ -32,7 +32,6 @@ public class EnvironmentCheck : MonoBehaviour
             CheckForInteractions();
             
             CheckWhilePlayerIsFalling();
-            //CheckIfPlayerHasHitGround();
             CheckForFloorType();
 
 
@@ -57,7 +56,7 @@ public class EnvironmentCheck : MonoBehaviour
                 {
                     StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
                 }
-                playerController.ChangeState(PlayerStateEnum.Fall);
+                
             }
 
         }
@@ -135,11 +134,13 @@ public class EnvironmentCheck : MonoBehaviour
         }
         else HandleCastResultForGroundChecking(rayCasts[1]);
 
-        if (!rayCasts[1] && !rayCasts[0]) playerController.IsPlayerGrounded = false;
+        if (!rayCasts[1] && !rayCasts[0] && !playerController.IsAttacking)
+        {
+            playerController.IsPlayerGrounded = false;
+            playerController.ChangeState(PlayerStateEnum.Fall);
+        } 
 
-        //playerController.IsPlayerGrounded = isGrounded;
-
-
+       
     }
 
     private void HandleCastResultForGroundChecking(RaycastHit2D rayCast)
@@ -160,51 +161,5 @@ public class EnvironmentCheck : MonoBehaviour
         }
     }
 
-    //private void CheckForEnemyBelowWhenFalling()
-    //{
-    //    RaycastHit2D[] rayCasts = new RaycastHit2D[2];
-    //    rayCasts[0] = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.5f, enemyLayer);
-    //    rayCasts[1] = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.5f, enemyLayer);
-
-    //    foreach (RaycastHit2D rayCast in rayCasts)
-    //    {
-    //        if (rayCast.collider != null)
-    //        {
-              
-    //            if (rayCast.collider.CompareTag("Enemy"))
-    //            {
-    //                playerController.PlayerCollision.BoxCollider2D.isTrigger = true;
-    //            }
-    //        }
-    //    }
-    //}
-
-
-
-    private void CheckIfPlayerHasHitGround()
-    {
-        
-        if (playerController.rb.velocity.y <= 0 && playerController.IsFalling)
-        {
-           
-            RaycastHit2D rayCast1 = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
-            RaycastHit2D rayCast2 = Physics2D.Raycast(groundCheckOrigin2.transform.position, Vector2.down, 0.25f, groundLayer);
-
-            if (rayCast1 ||rayCast2)
-            {
-                
-                playerController.PlayerFallState.OnPlayerGrounded();
-                //playerController.PlayerCollision.BoxCollider2D.isTrigger = false;
-
-            }
-            
-        }
-    }
-
-    //private void Update()
-    //{
-    //    Debug.DrawLine(groundCheckOrigin1.transform.position, groundCheckOrigin1.transform.position + (Vector3.down) * 0.25f);
-    //    Debug.DrawLine(groundCheckOrigin2.transform.position, groundCheckOrigin2.transform.position + (Vector3.down) * 0.25f);
-    //}
 
 }
