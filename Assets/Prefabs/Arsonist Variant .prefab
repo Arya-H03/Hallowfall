@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6529487045021538346, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Name
-      value: Arsonist Variant 1
+      value: 'Arsonist Variant '
       objectReference: {fileID: 0}
     - target: {fileID: 6815036451256663909, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: hasSeenPlayer
@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6488502
+      value: 6.187642
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.0653024
+      value: -3.2509003
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.026105152
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalRotation.w

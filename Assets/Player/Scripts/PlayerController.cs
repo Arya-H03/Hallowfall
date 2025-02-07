@@ -238,11 +238,11 @@ public class PlayerController : MonoBehaviour
                 ChangeState(PlayerStateEnum.SwordAttack);
                 playerSwordAttackState.HandleFirstSwing();
             }
-            else
-            {
-                ChangeState(PlayerStateEnum.SwordAttack);
-                playerSwordAttackState.HandleJumpAttack();
-            }
+            //else
+            //{
+            //    ChangeState(PlayerStateEnum.SwordAttack);
+            //    playerSwordAttackState.HandleJumpAttack();
+            //}
         } 
        
     }

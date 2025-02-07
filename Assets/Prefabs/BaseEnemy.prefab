@@ -513,7 +513,7 @@ MonoBehaviour:
   isAttacking: 0
   attackDelay: 2
   isAttackDelayOver: 1
-  attackRef: {fileID: 0}
+  attackRef: {fileID: 657778544946344706}
   specialAbilityRef: {fileID: 0}
 --- !u!114 &657778544946344706
 MonoBehaviour:
@@ -1028,7 +1028,7 @@ Transform:
   m_GameObject: {fileID: 6529487045021538346}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.527183, y: -1.96, z: -0.026105152}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   player: {fileID: 0}
   stunEffect: {fileID: 5633359595972537000}
   damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
-  hasSeenPlayer: 0
+  hasSeenPlayer: 1
   canAttack: 0
   isStuned: 0
   isJumping: 0
@@ -2554,7 +2554,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: 0
+        m_ColorSpace: -1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:

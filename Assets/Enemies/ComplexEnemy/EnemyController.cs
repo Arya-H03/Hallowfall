@@ -194,9 +194,13 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        HandleCooldowns();
-        canAttack = attackState.IsEnemyAbleToAttaack();
-        CurrentState.HandleState();
+        if (!isDead)
+        {
+            HandleCooldowns();
+            canAttack = attackState.IsEnemyAbleToAttaack();
+            CurrentState.HandleState();
+        }
+      
 
     }
 
@@ -242,7 +246,7 @@ public class EnemyController : MonoBehaviour
     }
     public void OnEnemyDamage(float value,float modifier)
     {
-        if (currentHealth > 0)
+        if (!isDead)
         {
             float damage = value * modifier;
             currentHealth -= damage;
@@ -251,21 +255,20 @@ public class EnemyController : MonoBehaviour
             if (currentHealth <= 0)
             {
                currentHealth = 0;
+               
                ChangeState(EnemyStateEnum.Death);
+                isDead = true;
 
             }
+            else enemyAnimationManager.SetTriggerForAnimation("Hit");
 
-            if(!isDead)
-            {
-                enemyAnimationManager.SetTriggerForAnimation("Hit");
-            }
-            
+
         }
-        else
-        {
-            isDead = true;
-            ChangeState(EnemyStateEnum.Death);
-        }
+        //else
+        //{
+        //    isDead = true;
+        //    ChangeState(EnemyStateEnum.Death);
+        //}
     }
 
     private void SpawnDamagePopUp(float damage)
