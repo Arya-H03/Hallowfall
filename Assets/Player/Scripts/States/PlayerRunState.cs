@@ -46,7 +46,7 @@ public class PlayerRunState : PlayerBaseState
     {
         playerController.PlayerMovementManager.MoveSpeed = RunSpeed;
         playerController.AnimationController.SetBoolForAnimations("isRunning", true);
-        StartRunningSFX();
+        //StartRunningSFX();
         //playerFootSteps.OnStartPlayerFootstep();
 
     }
@@ -54,7 +54,7 @@ public class PlayerRunState : PlayerBaseState
     private void StopRunning()
     {
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);
-        StopRunningSFX();
+        //StopRunningSFX();
         //playerFootSteps.OnEndPlayerFootstep();
 
     }
