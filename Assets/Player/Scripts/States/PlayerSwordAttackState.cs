@@ -88,6 +88,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             StopCoroutine(SpawnAfterImageCoroutine);
             SpawnAfterImageCoroutine = null;
         }
+        playerController.rb.velocity = Vector2.zero;
     }
 
     public override void HandleState()
@@ -125,11 +126,11 @@ public class PlayerSwordAttackState : PlayerBaseState
         playerController.CanPlayerAttack = true;
         canDashAttack = false;
 
-        if (!playerController.IsPlayerGrounded)
-        {
-            playerController.ChangeState(PlayerStateEnum.Fall);
-        }
-        else if (playerController.PlayerMovementManager.currentInputDir.x != 0)
+        //if (!playerController.IsPlayerGrounded)
+        //{
+        //    playerController.ChangeState(PlayerStateEnum.Fall);
+        //}
+         if (playerController.PlayerMovementManager.currentInputDir.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }

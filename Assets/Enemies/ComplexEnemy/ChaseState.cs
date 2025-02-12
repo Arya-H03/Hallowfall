@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ChaseState : EnemyBaseState
 {
@@ -58,6 +59,7 @@ public class ChaseState : EnemyBaseState
                 }
                 else if(!enemyController.AttackState.IsEnemyInAttackRange())
                 {
+
                     
                     enemyController.EnemyMovement.MoveTo(transform.position, enemyController.player.transform.position, ChaseSpeed);
                     //ChaseOrIdle();

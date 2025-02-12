@@ -23,11 +23,14 @@ public class EnemyMovement : MonoBehaviour
     }
 
  
-    public void MoveTo(Vector2 startPoint, Vector2 endPoint, float speed)
+    public void MoveTo(Vector3 startPoint, Vector3 endPoint, float speed)
     {
        
-        Vector2 direction = endPoint - startPoint;
-        transform.position = Vector2.MoveTowards(startPoint, new Vector2(endPoint.x,startPoint.y), speed * Time.deltaTime);
+        Vector3 direction = endPoint - startPoint;
+
+        enemyController.NavAgent.speed = speed;
+        enemyController.NavAgent.SetDestination(endPoint);
+        //transform.position = Vector2.MoveTowards(startPoint, new Vector2(endPoint.x, endPoint.y), speed * Time.deltaTime);
         TurnEnemy(direction);
             
     }
@@ -44,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void TurnEnemy(Vector2 direction)
+    private void TurnEnemy(Vector3 direction)
     {
         
         if(direction.x < 0 && CurrentDir != 1)

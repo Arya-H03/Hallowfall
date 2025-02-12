@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 657778544946344706, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: attackRange
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 657778544946344706, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: boxCastSize.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 657778544946344706, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: boxCastSize.y
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1824542978293724540, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -16,9 +28,45 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1870428348725750115, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870428348725750115, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870428348725750115, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870428348725750115, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870428348725750115, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511855182593275202, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: ShapeModule.m_Position.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723532816330053953, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723532816330053953, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.19
+      objectReference: {fileID: 0}
     - target: {fileID: 6529487045021538346, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Name
       value: 'Arsonist Variant '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815036451256663909, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6815036451256663909, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: hasSeenPlayer
@@ -26,11 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.187642
+      value: 4.51
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2509003
+      value: -2.9449868
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.z
@@ -71,5 +119,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6529487045021538346, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8891665204637704496}
   m_SourcePrefab: {fileID: 100100000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+--- !u!1 &1985378696944268089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6529487045021538346, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+  m_PrefabInstance: {fileID: 4688280990064028435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &8891665204637704496
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985378696944268089}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.46875
+  m_Speed: 3.5
+  m_Acceleration: 5
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.71875
+  m_BaseOffset: 0.859375
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

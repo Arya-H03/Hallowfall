@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-   
+    [SerializeField] Transform target;
+    NavMeshAgent agent;
     private GameObject player;
     private EnemyAI enemyAI;
 
@@ -23,9 +25,16 @@ public class Enemy : MonoBehaviour
     {
         enemyAI = GetComponent<EnemyAI>();
         currentHealth = maxHealth;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
-    
+    private void Update()
+    {
+        agent.SetDestination(target.position);
+    }
 
     public void OnEnemyDamage(float value)
     {

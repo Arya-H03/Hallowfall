@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem.LowLevel;
 using Random = UnityEngine.Random;
 
@@ -56,6 +57,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public GameObject stunEffect;
     [SerializeField] DamagePopUp damagePopUp;
 
+    private NavMeshAgent navAgent;
+
     public bool hasSeenPlayer = false;
     public bool canAttack = false;
     public bool isStuned = false;
@@ -105,6 +108,7 @@ public class EnemyController : MonoBehaviour
     public bool IsPlayerDead { get => isPlayerDead; set => isPlayerDead = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
     public float DamageModifier { get => damageModifier; set => damageModifier = value; }
+    public NavMeshAgent NavAgent { get => navAgent; set => navAgent = value; }
 
     //public PlatformTag CurrentPlatformElevation { get => currentPlatformElevation; set => currentPlatformElevation = value; }
 
@@ -169,6 +173,7 @@ public class EnemyController : MonoBehaviour
         bloodParticles = GetComponent<ParticleSystem>();
         material = GetComponent<SpriteRenderer>().material;
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        navAgent = GetComponent<NavMeshAgent>();
 
         InitializeEnemyState();
 
@@ -180,6 +185,9 @@ public class EnemyController : MonoBehaviour
     }
     private void Start()
     {
+        navAgent.updateRotation = false;
+        navAgent.updateUpAxis = false;
+
         player = GameManager.Instance.Player;
         playerController = player.GetComponent<PlayerController>();
 

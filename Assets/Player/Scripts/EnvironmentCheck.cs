@@ -135,11 +135,11 @@ public class EnvironmentCheck : MonoBehaviour
         }
         else HandleCastResultForGroundChecking(rayCasts[1]);
 
-        if (!rayCasts[1] && !rayCasts[0] && !playerController.IsAttacking &&!playerController.IsHanging)
-        {
-            playerController.IsPlayerGrounded = false;
-            playerController.ChangeState(PlayerStateEnum.Fall);
-        } 
+        //if (!rayCasts[1] && !rayCasts[0] && !playerController.IsAttacking &&!playerController.IsHanging)
+        //{
+        //    playerController.IsPlayerGrounded = false;
+        //    playerController.ChangeState(PlayerStateEnum.Fall);
+        //} 
 
        
     }
@@ -154,10 +154,10 @@ public class EnvironmentCheck : MonoBehaviour
                 return;
             }
 
-            else if (playerController.CurrentStateEnum == PlayerStateEnum.Fall)
-            {
-                playerController.PlayerFallState.OnPlayerGrounded();
-            }
+            //else if (playerController.CurrentStateEnum == PlayerStateEnum.Fall)
+            //{
+            //    playerController.PlayerFallState.OnPlayerGrounded();
+            //}
 
         }
     }

@@ -38,10 +38,10 @@ public class PlayerJumpState : PlayerBaseState
     public override void HandleState()
     {
 
-        if(playerController.PlayerCollision.Rb.velocityY < 0 && !playerController.IsHanging)
-        {
-            playerController.ChangeState(PlayerStateEnum.Fall); 
-        }
+        //if(playerController.PlayerCollision.Rb.velocityY < 0 && !playerController.IsHanging)
+        //{
+        //    playerController.ChangeState(PlayerStateEnum.Fall); 
+        //}
     }
     private void StartJump()
     {

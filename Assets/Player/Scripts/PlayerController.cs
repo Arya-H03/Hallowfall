@@ -201,9 +201,9 @@ public class PlayerController : MonoBehaviour
                  case PlayerStateEnum.Hang:
                     CurrentState = PlayerHangingState;
                     break;
-                case PlayerStateEnum.Fall:
-                    CurrentState = PlayerFallState;
-                    break;
+                //case PlayerStateEnum.Fall:
+                //    CurrentState = PlayerFallState;
+                //    break;
                 case PlayerStateEnum.Death:
                     CurrentState = PlayerDeathState;
                     break;
@@ -227,10 +227,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpStart()
     {
-        if (IsPlayerGrounded && CanPlayerJump && !IsPlayerJumping)
-        {
-            ChangeState(PlayerStateEnum.Jump);
-        }     
+        //if (IsPlayerGrounded && CanPlayerJump && !IsPlayerJumping)
+        //{
+        //    ChangeState(PlayerStateEnum.Jump);
+        //}     
     }
 
     public void OnSwordAttack()

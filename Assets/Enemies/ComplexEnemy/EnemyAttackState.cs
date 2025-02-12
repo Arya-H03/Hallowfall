@@ -58,6 +58,10 @@ public class EnemyAttackState : EnemyBaseState
 
     }
 
+    private void Start()
+    {
+        enemyController.NavAgent.stoppingDistance = attackRef.AttackRange;
+    }
     public override void OnEnterState()
     {
       
