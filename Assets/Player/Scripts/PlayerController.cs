@@ -164,9 +164,9 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeState(PlayerStateEnum stateEnum)
     {
-        if (currentStateEnum != stateEnum /*&& canChangeState*/)
+        if (currentStateEnum != stateEnum)
         {
-            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -206,6 +206,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case PlayerStateEnum.Death:
                     CurrentState = PlayerDeathState;
+                    break;
+                    default:
+                    CurrentState = PlayerIdleState;
+                    stateEnum = PlayerStateEnum.Idle;
                     break;
             }
 

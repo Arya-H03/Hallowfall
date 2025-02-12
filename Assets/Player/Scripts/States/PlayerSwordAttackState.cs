@@ -149,6 +149,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         if (canDashAttack)
         {
+            canDashAttack = false;
             playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
             SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
             playerController.rb.velocity += new Vector2(8 * playerController.PlayerMovementManager.CurrentDirection.x, 0);

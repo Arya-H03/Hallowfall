@@ -257,7 +257,7 @@ public class EnemyController : MonoBehaviour
                currentHealth = 0;
                
                ChangeState(EnemyStateEnum.Death);
-                isDead = true;
+               
 
             }
             else enemyAnimationManager.SetTriggerForAnimation("Hit");

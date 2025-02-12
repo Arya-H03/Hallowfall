@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -42,7 +43,7 @@ public class EnvironmentCheck : MonoBehaviour
 
             if (midLevelCast && !headLevelCast && playerController.CanHang)
             {
-
+                Debug.Log("Hang");
                 playerController.ChangeState(PlayerStateEnum.Hang);
                 playerController.PlayerHangingState.SetHaningPosition(midLevelCast);
 
@@ -134,7 +135,7 @@ public class EnvironmentCheck : MonoBehaviour
         }
         else HandleCastResultForGroundChecking(rayCasts[1]);
 
-        if (!rayCasts[1] && !rayCasts[0] && !playerController.IsAttacking)
+        if (!rayCasts[1] && !rayCasts[0] && !playerController.IsAttacking &&!playerController.IsHanging)
         {
             playerController.IsPlayerGrounded = false;
             playerController.ChangeState(PlayerStateEnum.Fall);

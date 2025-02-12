@@ -18,11 +18,6 @@ public class PlayerFallState : PlayerBaseState
     public override void OnEnterState()
     {
         playerController.IsFalling = true;
-        //if (playerController.PlayerCollision.Rb.bodyType != RigidbodyType2D.Dynamic)
-        //{
-        //    playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
-        //}
-       
         playerController.AnimationController.SetBoolForAnimations("isFalling", true);
     }
 
@@ -30,7 +25,6 @@ public class PlayerFallState : PlayerBaseState
     {
         playerController.AnimationController.SetBoolForAnimations("isFalling", false);
         playerController.IsFalling = false;
-        //playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
 
     }
 

@@ -16,7 +16,7 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void OnEnterState()
     {
-        
+        enemyController.IsDead = true;
         OnEnemyDeath();
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
         Instantiate(atonement, transform.position, Quaternion.identity);

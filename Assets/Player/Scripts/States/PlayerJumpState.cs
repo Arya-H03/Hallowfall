@@ -50,7 +50,7 @@ public class PlayerJumpState : PlayerBaseState
 
         jumpDirectionX = playerController.PlayerMovementManager.currentInputDir.x;
         playerController.rb.gravityScale = 3;
-        playerController.rb.velocity = new Vector2(jumpDirectionX * 5, jumpSpeed);
+        playerController.rb.velocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
 
         AudioManager.Instance.PlaySFX(audioSource, jumpUpAC);
 
