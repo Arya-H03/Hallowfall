@@ -31,7 +31,6 @@ public class EnemyMeleeAttack : EnemyBaseAttack
             {
                 GameObject parryShield = hit.collider.gameObject;
                 enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
-                enemyController.ChangeState(EnemyStateEnum.Stun);
                 return;
             }
             

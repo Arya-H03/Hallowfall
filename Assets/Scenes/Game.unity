@@ -12757,7 +12757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2270871065998021750, guid: 00e7ea9e9b96a3549a49c46fecea796f, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 2598296299797418576, guid: 00e7ea9e9b96a3549a49c46fecea796f, type: 3}
       propertyPath: hitDelay

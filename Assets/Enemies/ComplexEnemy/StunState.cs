@@ -7,7 +7,8 @@ public class StunState : EnemyBaseState
     private float stunDuration = 3f;
     private float stunTimer = 0f;
 
-    
+    public float StunDuration { get => stunDuration; set => stunDuration = value; }
+
     public StunState() : base()
     {
         stateEnum = EnemyStateEnum.Stun;
@@ -25,17 +26,18 @@ public class StunState : EnemyBaseState
         stunTimer = 0f;
         enemyController.isStuned = false;
         enemyController.stunEffect.SetActive(false);
+        enemyController.collisionManager.ResetStagger();
     }
 
     public override void HandleState()
     {
-       if(stunTimer < stunDuration)
+       if(stunTimer < StunDuration)
         {
             stunTimer += Time.deltaTime;
 
         }
 
-       else if(stunTimer >= stunDuration)
+       else if(stunTimer >= StunDuration)
         {
             //enemyController.ChangeState(enemyController.previousStateEnum);
             enemyController.ChangeState(EnemyStateEnum.Idle);

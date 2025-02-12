@@ -37,12 +37,7 @@ public class EnemyController : MonoBehaviour
     private EnemyAttackState attackState;
     private StunState stunState;
     private EnemyDeathState deathState;
-    private EnemyHitState hitState;
 
-    //private PlatformTag currentPlatformElevation;
-    //private JumpState jumpState;
-    //private TurnState turnState;
-    //private EnemyRangeAttackState rangeAttackState;
 
     [HideInInspector]
     private EnemyAnimationManager enemyAnimationManager;
@@ -101,7 +96,6 @@ public class EnemyController : MonoBehaviour
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
     public float DamageModifier { get => DamageModifier1; set => DamageModifier1 = value; }
     public NavMeshAgent NavAgent { get => navAgent; set => navAgent = value; }
-    public EnemyHitState HitState { get => hitState; set => hitState = value; }
     public ParticleSystem BloodParticles { get => bloodParticles; set => bloodParticles = value; }
     public float DamageModifier1 { get => damageModifier; set => damageModifier = value; }
     public Material Material { get => material; set => material = value; }
@@ -143,9 +137,6 @@ public class EnemyController : MonoBehaviour
                     break;
                 case EnemyStateEnum.Death:
                     CurrentState = DeathState;
-                    break;
-                case EnemyStateEnum.Hit:
-                    CurrentState = HitState;
                     break;
             }
 
@@ -207,11 +198,7 @@ public class EnemyController : MonoBehaviour
 
     public void OnEnemyHit(int damage, Vector2 hitPoint, HitSfxType hitType)
     {
-        hitState.Damage = damage;
-        hitState.HitPoint = hitPoint;   
-        hitState.HitType = hitType;
-        ChangeState(EnemyStateEnum.Hit);
-
+        StartCoroutine(collisionManager.EnemyHitCoroutine(damage, hitPoint, hitType));
     }
 
     
@@ -281,10 +268,6 @@ public class EnemyController : MonoBehaviour
 
         DeathState = GetComponentInChildren<EnemyDeathState>();
         DeathState.SetStatesController(this);   
-
-        hitState = GetComponentInChildren<EnemyHitState>();
-        hitState.SetStatesController(this);
-
     }
 
     public void ResetPlayer()
