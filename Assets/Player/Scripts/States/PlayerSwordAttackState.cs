@@ -184,7 +184,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             launchVector = new Vector2(-1.5f, 0);
         }
-        hit.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, parent);
+        //hit.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, parent);
         hit.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hit.point);
     }
 
@@ -204,21 +204,12 @@ public class PlayerSwordAttackState : PlayerBaseState
                 
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                AudioManager.Instance.PlaySFX(audioSource, swingHitAC[Random.Range(0, swingHitAC.Length)]);
-                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point/*this.transform.parent.parent.gameObject*/);
+                AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
+                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point);
                 
             }
 
-
         }
-        else
-        {
-            AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
-            
-        }
-
-        //HandelSlashEffect(firstSwingEffect, firstSwingCenter.position);
-
     }
 
     private void SecondSwingBoxCast()
@@ -236,16 +227,10 @@ public class PlayerSwordAttackState : PlayerBaseState
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                AudioManager.Instance.PlaySFX(audioSource, swingHitAC[Random.Range(0, swingHitAC.Length)]);
+                AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
                 enemyController.OnEnemyHit(secondSwingDamage, hitResult.point/*,this.gameObject*/);
             }
         }
-
-        else
-        {
-            AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
-        }
-        //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }
 
     

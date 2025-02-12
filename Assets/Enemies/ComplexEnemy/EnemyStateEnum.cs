@@ -13,7 +13,7 @@ public enum EnemyStateEnum
     Stun,
     Turn,
     Jump,
-    Block,
+    Hit,
     Death
 
 }

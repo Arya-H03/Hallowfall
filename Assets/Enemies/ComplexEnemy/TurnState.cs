@@ -1,46 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class TurnState : EnemyBaseState
-{
-    //[SerializeField] private bool isTurning = false;
-    public TurnState() : base()
-    {
-        stateEnum = EnemyStateEnum.Turn;
+//public class TurnState : EnemyBaseState
+//{
+//    //[SerializeField] private bool isTurning = false;
+//    public TurnState() : base()
+//    {
+//        stateEnum = EnemyStateEnum.Turn;
 
-    }
+//    }
 
-    private void Start()
-    {
+//    private void Start()
+//    {
 
-    }
+//    }
 
-    public override void OnEnterState()
-    {
+//    public override void OnEnterState()
+//    {
         
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttackingSword", false);
-        enemyController.SetIsTurning(true);
-        enemyController.SetCanChangeState(false);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", true);
+//        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+//        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttackingSword", false);
+//        enemyController.SetIsTurning(true);
+//        enemyController.SetCanChangeState(false);
+//        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", true);
 
 
-    }
+//    }
 
-    public override void OnExitState()
-    {
+//    public override void OnExitState()
+//    {
         
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", false);
+//        enemyController.EnemyAnimationManager.SetBoolForAnimation("isTurning", false);
         
-    }
+//    }
 
-    public override void HandleState()
-    {
-
-
-    }
+//    public override void HandleState()
+//    {
 
 
+//    }
 
-}
+
+
+//}

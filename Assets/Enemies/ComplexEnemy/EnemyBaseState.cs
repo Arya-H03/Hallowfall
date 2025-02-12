@@ -36,18 +36,4 @@ public class EnemyBaseState : MonoBehaviour , IEnemyState
     {
 
     }
-
-    //public void ChangeState(EnemyBaseState newState)
-    //{
-    //    Debug.Log(enemyController.GetCurrentStateEnum().ToString() + " to " + newState.GetStateEnum().ToString());
-
-    //    if (enemyController.GetCurrentState() != null)
-    //    {
-    //        enemyController.GetCurrentState().OnExitState();
-    //    }
-
-    //    enemyController.SetCurrentState(newState);
-    //    enemyController.SetCurrentStateEnum(newState.GetStateEnum());
-    //    enemyController.GetCurrentState().OnEnterState();
-    //}
 }

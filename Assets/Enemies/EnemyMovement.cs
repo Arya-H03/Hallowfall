@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -30,7 +31,6 @@ public class EnemyMovement : MonoBehaviour
 
         enemyController.NavAgent.speed = speed;
         enemyController.NavAgent.SetDestination(endPoint);
-        //transform.position = Vector2.MoveTowards(startPoint, new Vector2(endPoint.x, endPoint.y), speed * Time.deltaTime);
         TurnEnemy(direction);
             
     }
@@ -65,14 +65,6 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void OnEnemyBeginTurning(int dir)
-    {
-        CurrentDir = dir;
-        
-      
-    }
-
-   
     public void StartRunningSFX(AudioSource audioSource,AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
     {
         

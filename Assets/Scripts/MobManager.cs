@@ -52,7 +52,7 @@ public class MobManager : MonoBehaviour
     {
         foreach(EnemyController enemyController in listOfEnemyControllers)
         {
-            enemyController.EnableLookingForPlayer();
+           // enemyController.EnableLookingForPlayer();
         }
     }
 }
