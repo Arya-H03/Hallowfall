@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.IO.LowLevel.Unsafe;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.LowLevel;
@@ -57,6 +58,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] DamagePopUp damagePopUp;
 
     private NavMeshAgent navAgent;
+    private AudioSource audioSource;
 
     public bool hasSeenPlayer = false;
     public bool canAttack = false;
@@ -103,6 +105,7 @@ public class EnemyController : MonoBehaviour
     public ParticleSystem BloodParticles { get => bloodParticles; set => bloodParticles = value; }
     public float DamageModifier1 { get => damageModifier; set => damageModifier = value; }
     public Material Material { get => material; set => material = value; }
+    public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
 
     #endregion
 
@@ -164,6 +167,7 @@ public class EnemyController : MonoBehaviour
         Material = GetComponent<SpriteRenderer>().material;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         navAgent = GetComponent<NavMeshAgent>();
+        AudioSource = GetComponent<AudioSource>();
 
         InitializeEnemyState();
     }
@@ -201,10 +205,11 @@ public class EnemyController : MonoBehaviour
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
 
-    public void OnEnemyHit(int damage, Vector2 hitPoint)
+    public void OnEnemyHit(int damage, Vector2 hitPoint, HitSfxType hitType)
     {
         hitState.Damage = damage;
         hitState.HitPoint = hitPoint;   
+        hitState.HitType = hitType;
         ChangeState(EnemyStateEnum.Hit);
 
     }

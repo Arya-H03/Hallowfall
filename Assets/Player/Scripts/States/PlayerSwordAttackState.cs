@@ -8,8 +8,7 @@ public class PlayerSwordAttackState : PlayerBaseState
   
     private AudioSource audioSource;
 
-    [SerializeField] AudioClip[] swingMissAC;
-    [SerializeField] AudioClip[] swingHitAC;
+    [SerializeField] AudioClip[] attackSwingSFX;
 
     private GameObject parent;
 
@@ -191,6 +190,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void FirstSwingBoxCast()
     {
         RaycastHit2D hitResult = BoxCastForAttack(FirstSwingCenter, firstSwingCastSize);
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -204,11 +204,11 @@ public class PlayerSwordAttackState : PlayerBaseState
                 
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
-                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point);
+              
+                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point, HitSfxType.sword);
                 
             }
-
+            
         }
     }
 
@@ -216,6 +216,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(SecondSwingCenter, secondSwingCastSize);
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -227,9 +228,10 @@ public class PlayerSwordAttackState : PlayerBaseState
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                AudioManager.Instance.PlaySFX(audioSource, swingMissAC[Random.Range(0, swingMissAC.Length)]);
-                enemyController.OnEnemyHit(secondSwingDamage, hitResult.point/*,this.gameObject*/);
+               
+                enemyController.OnEnemyHit(secondSwingDamage, hitResult.point,HitSfxType.sword);
             }
+           
         }
     }
 
@@ -251,13 +253,13 @@ public class PlayerSwordAttackState : PlayerBaseState
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.OnEnemyHit(jumpAttackDamage, hitResult.point);
+                enemyController.OnEnemyHit(jumpAttackDamage, hitResult.point,HitSfxType.sword);
             }
         }
 
         else
         {
-            audioSource.PlayOneShot(swingMissAC[Random.Range(0, 3)]);
+            audioSource.PlayOneShot(attackSwingSFX[Random.Range(0, 3)]);
         }
         //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }

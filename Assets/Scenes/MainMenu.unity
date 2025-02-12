@@ -469,99 +469,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &90308410
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3449483252940169190, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: leftPatrolBound
-      value: 
-      objectReference: {fileID: 781074436}
-    - target: {fileID: 3449483252940169190, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: rightPatrolBound
-      value: 
-      objectReference: {fileID: 1025301230}
-    - target: {fileID: 4769811205382921384, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769811205382921384, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 5091601966097950435, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 5091601966097950435, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_Name
-      value: Arsonist
-      objectReference: {fileID: 0}
-    - target: {fileID: 6529487045021538346, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.26233196
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.026105152
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251538344070392708, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8254217218296372889, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: MaxDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8254217218296372889, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
-      propertyPath: rolloffMode
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5675fa8dd87aae7468a632b526106edd, type: 3}
 --- !u!1 &231478644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2197,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\nSpecial thanks to the talented artists whose incredible work inspired
     the development of this game.\n\n- Batuhan Karag\xF6l\n- WakuWakuWakuWaku\n-
-    CogFireStudios\n- Brullov\n- Essssam\n- Ansimuz\n- Gabry Corti"
+    CogFireStudios\n- Brullov\n- Essssam\n- Ansimuz\n- Gabry Corti\n- Tom Music"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 394fb4a76bd1d134ab14b23e8044a81e, type: 2}
   m_sharedMaterial: {fileID: -4653853979891478946, guid: 394fb4a76bd1d134ab14b23e8044a81e, type: 2}
@@ -4897,4 +4804,3 @@ SceneRoots:
   - {fileID: 681001967}
   - {fileID: 1878997500}
   - {fileID: 1021773797}
-  - {fileID: 90308410}

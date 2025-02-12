@@ -15,7 +15,7 @@ public class FlameWave : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyController>().OnEnemyHit(damage, collision.transform.position);
+            collision.GetComponent<EnemyController>().OnEnemyHit(damage, collision.transform.position, HitSfxType.fire);
         }
     }
 }
