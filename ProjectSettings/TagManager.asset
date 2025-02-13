@@ -56,6 +56,9 @@ TagManager:
   - name: Background
     uniqueID: 3249299663
     locked: 0
+  - name: Ledge
+    uniqueID: 4150658243
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -1,0 +1,761 @@
+fileFormatVersion: 2
+guid: c9ee4b77776306643ba2737dd7889d5b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8122105404376671430
+    second: water_coasts_0
+  - first:
+      213: 6571393205858908708
+    second: water_coasts_1
+  - first:
+      213: -43145478551321415
+    second: water_coasts_2
+  - first:
+      213: -2834912715854804450
+    second: water_coasts_3
+  - first:
+      213: 5049629847057994996
+    second: water_coasts_4
+  - first:
+      213: 4076392732248336861
+    second: water_coasts_5
+  - first:
+      213: -3315712543169009800
+    second: water_coasts_6
+  - first:
+      213: -1065963617093701018
+    second: water_coasts_7
+  - first:
+      213: 961522211323490527
+    second: water_coasts_8
+  - first:
+      213: 3247278013249254160
+    second: water_coasts_9
+  - first:
+      213: -4233815564071597124
+    second: water_coasts_10
+  - first:
+      213: 8962028058733364104
+    second: water_coasts_11
+  - first:
+      213: 6362199366747046466
+    second: water_coasts_12
+  - first:
+      213: -5687863580382760644
+    second: water_coasts_13
+  - first:
+      213: 1715235478768496078
+    second: water_coasts_14
+  - first:
+      213: -1871159825033410338
+    second: water_coasts_15
+  - first:
+      213: 1902052498823024331
+    second: water_coasts_16
+  - first:
+      213: -133822894939272624
+    second: water_coasts_17
+  - first:
+      213: -8871284302676457303
+    second: water_coasts_18
+  - first:
+      213: 319513282508525606
+    second: water_coasts_19
+  - first:
+      213: -1966137855627435219
+    second: water_coasts_20
+  - first:
+      213: -8166805718540264305
+    second: water_coasts_21
+  - first:
+      213: 3901558459337874995
+    second: water_coasts_22
+  - first:
+      213: -7004599188790558295
+    second: water_coasts_23
+  - first:
+      213: 5462017533077224165
+    second: water_coasts_24
+  - first:
+      213: 5948168879557659964
+    second: water_coasts_25
+  - first:
+      213: 1376208356627042032
+    second: water_coasts_26
+  - first:
+      213: -5699095251272532756
+    second: water_coasts_27
+  - first:
+      213: -2601530432529838250
+    second: water_coasts_28
+  - first:
+      213: -2260755073181007174
+    second: water_coasts_29
+  - first:
+      213: -7572361212537086479
+    second: water_coasts_30
+  - first:
+      213: -8962781203965095221
+    second: water_coasts_31
+  - first:
+      213: 7303050654753831786
+    second: water_coasts_32
+  - first:
+      213: -5773776404545795844
+    second: water_coasts_33
+  - first:
+      213: 8651367212374736046
+    second: water_coasts_34
+  - first:
+      213: -5743436230863262705
+    second: water_coasts_35
+  - first:
+      213: -4342767967449808232
+    second: water_coasts_36
+  - first:
+      213: -271076908150013827
+    second: water_coasts_37
+  - first:
+      213: -7498886515443199385
+    second: water_coasts_38
+  - first:
+      213: 4298707827330931208
+    second: water_coasts_39
+  - first:
+      213: -2228925704132297812
+    second: water_coasts_40
+  - first:
+      213: -7475923448676713740
+    second: water_coasts_41
+  - first:
+      213: -6231067346695068921
+    second: water_coasts_42
+  - first:
+      213: 252614112184154139
+    second: water_coasts_43
+  - first:
+      213: -6296677158213206367
+    second: water_coasts_44
+  - first:
+      213: 2847639561785324040
+    second: water_coasts_45
+  - first:
+      213: 1375638889789808687
+    second: water_coasts_46
+  - first:
+      213: -1628266341970438531
+    second: water_coasts_47
+  - first:
+      213: 1808106103230395922
+    second: water_coasts_48
+  - first:
+      213: -2445669505265107296
+    second: water_coasts_49
+  - first:
+      213: -3342507957934785366
+    second: water_coasts_50
+  - first:
+      213: 6954821017727933412
+    second: water_coasts_51
+  - first:
+      213: -3724565242584794815
+    second: water_coasts_52
+  - first:
+      213: 3901592685251259291
+    second: water_coasts_53
+  - first:
+      213: -4420301438546392513
+    second: water_coasts_54
+  - first:
+      213: -9130903157762402975
+    second: water_coasts_55
+  - first:
+      213: -1053432240609225222
+    second: water_coasts_56
+  - first:
+      213: 82400058553051983
+    second: water_coasts_57
+  - first:
+      213: 1452878369368807337
+    second: water_coasts_58
+  - first:
+      213: -8616382680340388736
+    second: water_coasts_59
+  - first:
+      213: 3490137673355769810
+    second: water_coasts_60
+  - first:
+      213: -3728650802743726711
+    second: water_coasts_61
+  - first:
+      213: 8877477517390308603
+    second: water_coasts_62
+  - first:
+      213: -4364918947994458707
+    second: water_coasts_63
+  - first:
+      213: -2418139772272979082
+    second: water_coasts_64
+  - first:
+      213: -3865640321157641597
+    second: water_coasts_65
+  - first:
+      213: -6934970835750534287
+    second: water_coasts_66
+  - first:
+      213: 3717903046775352474
+    second: water_coasts_67
+  - first:
+      213: -2977398455236000050
+    second: water_coasts_68
+  - first:
+      213: 4745186588850843275
+    second: water_coasts_69
+  - first:
+      213: -1254615564646441799
+    second: water_coasts_70
+  - first:
+      213: -7388670254553254856
+    second: water_coasts_71
+  - first:
+      213: -9072176664659723069
+    second: water_coasts_72
+  - first:
+      213: 8979314655133961037
+    second: water_coasts_73
+  - first:
+      213: 4147703538878334568
+    second: water_coasts_74
+  - first:
+      213: 6623901228428482402
+    second: water_coasts_75
+  - first:
+      213: 312161217317345327
+    second: water_coasts_76
+  - first:
+      213: 3154619102216025951
+    second: water_coasts_77
+  - first:
+      213: 2336082280004137474
+    second: water_coasts_78
+  - first:
+      213: -2366433192527093638
+    second: water_coasts_79
+  - first:
+      213: -4054822281656817773
+    second: water_coasts_80
+  - first:
+      213: 444706970806048204
+    second: water_coasts_81
+  - first:
+      213: -6335118036766814002
+    second: water_coasts_82
+  - first:
+      213: 7153908738990612166
+    second: water_coasts_83
+  - first:
+      213: 1314803481126494356
+    second: water_coasts_84
+  - first:
+      213: -4991426482350302806
+    second: water_coasts_85
+  - first:
+      213: -4047682566842005336
+    second: water_coasts_86
+  - first:
+      213: 337166361406910153
+    second: water_coasts_87
+  - first:
+      213: -5144507393842826257
+    second: water_coasts_88
+  - first:
+      213: -4509330840751126371
+    second: water_coasts_89
+  - first:
+      213: -2102053991053032366
+    second: water_coasts_90
+  - first:
+      213: -1415902208526823067
+    second: water_coasts_91
+  - first:
+      213: 3584447013306880871
+    second: water_coasts_92
+  - first:
+      213: 1225123711035208337
+    second: water_coasts_93
+  - first:
+      213: 7284097172458714755
+    second: water_coasts_94
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: water_coasts_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 909
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3b19dfda2c784f80800000000000000
+      internalID: -8122105404376671430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 924
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b4c8457a67b66ff0800000000000000
+      internalID: -43145478551321415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_9
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 827
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01378a2f526a01d20800000000000000
+      internalID: 3247278013249254160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_11
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 843
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 883c2eb59058f5c70800000000000000
+      internalID: 8962028058733364104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_17
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 748
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05a845c39c0942ef0800000000000000
+      internalID: -133822894939272624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_19
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 763
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62090f833a32f6400800000000000000
+      internalID: 319513282508525606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_24
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 667
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eaf500e10cfccb40800000000000000
+      internalID: 5462017533077224165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_26
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 682
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fecda97536491310800000000000000
+      internalID: 1376208356627042032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_33
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 588
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf8048a63fc6fdfa0800000000000000
+      internalID: -5773776404545795844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_35
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 602
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0c69459d273b40b0800000000000000
+      internalID: -5743436230863262705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_40
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 509
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cabf476a1e34111e0800000000000000
+      internalID: -2228925704132297812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_coasts_42
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 524
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70364b4034dc689a0800000000000000
+      internalID: -6231067346695068921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 23180ce63dc4974479238c67da9f7ba2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      water_coasts 1_0: -351753413
+      water_coasts 1_1: 969136130
+      water_coasts_0: -8122105404376671430
+      water_coasts_1: 6571393205858908708
+      water_coasts_10: -4233815564071597124
+      water_coasts_11: 8962028058733364104
+      water_coasts_12: 6362199366747046466
+      water_coasts_13: -5687863580382760644
+      water_coasts_14: 1715235478768496078
+      water_coasts_15: -1871159825033410338
+      water_coasts_16: 1902052498823024331
+      water_coasts_17: -133822894939272624
+      water_coasts_18: -8871284302676457303
+      water_coasts_19: 319513282508525606
+      water_coasts_2: -43145478551321415
+      water_coasts_20: -1966137855627435219
+      water_coasts_21: -8166805718540264305
+      water_coasts_22: 3901558459337874995
+      water_coasts_23: -7004599188790558295
+      water_coasts_24: 5462017533077224165
+      water_coasts_25: 5948168879557659964
+      water_coasts_26: 1376208356627042032
+      water_coasts_27: -5699095251272532756
+      water_coasts_28: -2601530432529838250
+      water_coasts_29: -2260755073181007174
+      water_coasts_3: -2834912715854804450
+      water_coasts_30: -7572361212537086479
+      water_coasts_31: -8962781203965095221
+      water_coasts_32: 7303050654753831786
+      water_coasts_33: -5773776404545795844
+      water_coasts_34: 8651367212374736046
+      water_coasts_35: -5743436230863262705
+      water_coasts_36: -4342767967449808232
+      water_coasts_37: -271076908150013827
+      water_coasts_38: -7498886515443199385
+      water_coasts_39: 4298707827330931208
+      water_coasts_4: 5049629847057994996
+      water_coasts_40: -2228925704132297812
+      water_coasts_41: -7475923448676713740
+      water_coasts_42: -6231067346695068921
+      water_coasts_43: 252614112184154139
+      water_coasts_44: -6296677158213206367
+      water_coasts_45: 2847639561785324040
+      water_coasts_46: 1375638889789808687
+      water_coasts_47: -1628266341970438531
+      water_coasts_48: 1808106103230395922
+      water_coasts_49: -2445669505265107296
+      water_coasts_5: 4076392732248336861
+      water_coasts_50: -3342507957934785366
+      water_coasts_51: 6954821017727933412
+      water_coasts_52: -3724565242584794815
+      water_coasts_53: 3901592685251259291
+      water_coasts_54: -4420301438546392513
+      water_coasts_55: -9130903157762402975
+      water_coasts_56: -1053432240609225222
+      water_coasts_57: 82400058553051983
+      water_coasts_58: 1452878369368807337
+      water_coasts_59: -8616382680340388736
+      water_coasts_6: -3315712543169009800
+      water_coasts_60: 3490137673355769810
+      water_coasts_61: -3728650802743726711
+      water_coasts_62: 8877477517390308603
+      water_coasts_63: -4364918947994458707
+      water_coasts_64: -2418139772272979082
+      water_coasts_65: -3865640321157641597
+      water_coasts_66: -6934970835750534287
+      water_coasts_67: 3717903046775352474
+      water_coasts_68: -2977398455236000050
+      water_coasts_69: 4745186588850843275
+      water_coasts_7: -1065963617093701018
+      water_coasts_70: -1254615564646441799
+      water_coasts_71: -7388670254553254856
+      water_coasts_72: -9072176664659723069
+      water_coasts_73: 8979314655133961037
+      water_coasts_74: 4147703538878334568
+      water_coasts_75: 6623901228428482402
+      water_coasts_76: 312161217317345327
+      water_coasts_77: 3154619102216025951
+      water_coasts_78: 2336082280004137474
+      water_coasts_79: -2366433192527093638
+      water_coasts_8: 961522211323490527
+      water_coasts_80: -4054822281656817773
+      water_coasts_81: 444706970806048204
+      water_coasts_82: -6335118036766814002
+      water_coasts_83: 7153908738990612166
+      water_coasts_84: 1314803481126494356
+      water_coasts_85: -4991426482350302806
+      water_coasts_86: -4047682566842005336
+      water_coasts_87: 337166361406910153
+      water_coasts_88: -5144507393842826257
+      water_coasts_89: -4509330840751126371
+      water_coasts_9: 3247278013249254160
+      water_coasts_90: -2102053991053032366
+      water_coasts_91: -1415902208526823067
+      water_coasts_92: 3584447013306880871
+      water_coasts_93: 1225123711035208337
+      water_coasts_94: 7284097172458714755
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
