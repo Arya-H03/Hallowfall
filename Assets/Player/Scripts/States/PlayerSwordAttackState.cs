@@ -333,6 +333,6 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     //private void OnDrawGizmos()
     //{
-    //    Gizmos.DrawWireCube(secondSwingCenter.position, secondSwingCastSize);
+    //    Gizmos.DrawWireCube(firstSwingCenter.position, firstSwingCastSize);
     //}
 }

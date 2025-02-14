@@ -37,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
 
     public int FindDirectionToPlayer()
     {
-        if(enemyController.player.gameObject.transform.position.x - enemyController.transform.position.x >= 0)
+        if(enemyController.PlayerPos.x - enemyController.transform.position.x >= 0)
         {
             return 1;
         }

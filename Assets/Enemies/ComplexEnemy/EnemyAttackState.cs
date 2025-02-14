@@ -22,11 +22,13 @@ public class EnemyAttackState : EnemyBaseState
     [SerializeField] private bool  canSpecialAttack = true;  
     [SerializeField] private bool isAttacking = false;
 
-    [SerializeField] private float attackDelay = 2f; // Min delay betwenn each attack
-    [SerializeField] private bool isAttackDelayOver = true;
+    private float attackDelay = 0;
+    [SerializeField] float minAttackDelay = 2f;
+    [SerializeField] float maxAttackDelay = 4f;
+    [SerializeField] bool isAttackDelayOver = true;
 
-    [SerializeField] private EnemyBaseAttack attackRef;
-    [SerializeField] private EnemySpecialAbility specialAbilityRef;
+    [SerializeField]  EnemyBaseAttack attackRef;
+    [SerializeField]  EnemySpecialAbility specialAbilityRef;
 
     public bool IsAttaking { get => isAttacking; set => isAttacking = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
@@ -45,14 +47,9 @@ public class EnemyAttackState : EnemyBaseState
 
     private void Awake()
     {
-        if (!AttackRef)
-        {
-            Debug.LogWarning("The ref to EnemyBaseAttackis not set");
-        }
-
+     
         if (!specialAbilityRef)
-        {
-            Debug.LogWarning("The ref to EnemySpecialAbility not set");
+        {          
             canSpecialAttack = false;
         }
 
@@ -61,6 +58,7 @@ public class EnemyAttackState : EnemyBaseState
     private void Start()
     {
         enemyController.NavAgent.stoppingDistance = attackRef.AttackRange;
+        attackDelay = Random.Range(minAttackDelay, maxAttackDelay + 0.1f);
     }
     public override void OnEnterState()
     {
@@ -78,14 +76,14 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (SpecialAbilityRef && Vector2.Distance(enemyController.player.transform.position, this.transform.position) < specialAbilityRef.AttackRange && CanSpecialAttack && !isAttacking && IsAttackDelayOver)
+        if (SpecialAbilityRef && Vector2.Distance(enemyController.PlayerPos, this.transform.position) < specialAbilityRef.AttackRange && CanSpecialAttack && !isAttacking && IsAttackDelayOver)
         {
             StartCoroutine(AttackDelayCoroutine());
             StartCoroutine(StartAttackCoroutine(AttackTypeEnum.special));
 
         }
 
-        else if (Vector2.Distance(enemyController.player.transform.position, this.transform.position) < AttackRef.AttackRange && canAttack && !isAttacking && IsAttackDelayOver)
+        else if (Vector2.Distance(enemyController.PlayerPos, this.transform.position) < AttackRef.AttackRange && canAttack && !isAttacking && IsAttackDelayOver)
         {
             StartCoroutine(AttackDelayCoroutine());
             StartCoroutine(StartAttackCoroutine(AttackTypeEnum.regular));
@@ -189,7 +187,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public bool IsEnemyInAttackRange()
     {
-        return Vector2.Distance(enemyController.player.transform.position, enemyController.transform.position) < AttackRef.AttackRange;
+        return Vector2.Distance(enemyController.PlayerPos, enemyController.transform.position) < AttackRef.AttackRange;
 
     }
 

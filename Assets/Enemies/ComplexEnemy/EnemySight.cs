@@ -37,7 +37,7 @@ public class EnemySight : MonoBehaviour
 
                     if (hit.collider.CompareTag("Player"))
                     {
-                        enemyController.player = hit.collider.gameObject;
+                        enemyController.Player = hit.collider.gameObject;
                         enemyController.hasSeenPlayer = true;
                         enemyController.ChangeState(EnemyStateEnum.Chase);
                     }

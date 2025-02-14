@@ -54,7 +54,7 @@ public class EnemyRangeAttackState : EnemyBaseState
         GameObject obj = Instantiate(projectilePrefab, projectileSpawnTransform.position,Quaternion.identity);
         Projectile proj = obj.GetComponent<Projectile>();
         proj.EnemyController = enemyController;
-        proj.SetVelocity(enemyController.player.transform.position);
+        proj.SetVelocity(enemyController.PlayerPos);
 
         yield return new WaitForSeconds(0.25f);
         enemyController.ChangeState(EnemyStateEnum.Idle);

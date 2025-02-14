@@ -45,8 +45,9 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public EnemyCollisionManager collisionManager;
 
-    
-    public GameObject player;
+
+    private GameObject player;
+    public Vector3 playerPos;
     private PlayerController playerController;
 
     [SerializeField] public GameObject stunEffect;
@@ -100,6 +101,8 @@ public class EnemyController : MonoBehaviour
     public float DamageModifier1 { get => damageModifier; set => damageModifier = value; }
     public Material Material { get => material; set => material = value; }
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
+    public Vector3 PlayerPos { get => playerPos; set => playerPos = value; }
+    public GameObject Player { get => player; set => player = value; }
 
     #endregion
 
@@ -167,8 +170,9 @@ public class EnemyController : MonoBehaviour
         navAgent.updateRotation = false;
         navAgent.updateUpAxis = false;
 
-        player = GameManager.Instance.Player;
-        playerController = player.GetComponent<PlayerController>();
+        Player = GameManager.Instance.Player;
+        playerController = Player.GetComponent<PlayerController>();
+        playerPos = Player.transform.position + new Vector3(0,Player.GetComponent<SpriteRenderer>().sprite.bounds.size.y/2,0);
 
         currentHealth = maxHealth;
        
@@ -181,6 +185,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        playerPos = Player.transform.position + new Vector3(0, Player.GetComponent<SpriteRenderer>().sprite.bounds.size.y / 2, 0);
         if (!isDead)
         {
             HandleCooldowns();
@@ -273,7 +278,7 @@ public class EnemyController : MonoBehaviour
     public void ResetPlayer()
     {
         
-        player = null;
+        Player = null;
         hasSeenPlayer = false;
         isPlayerDead = true;
         ChangeState(EnemyStateEnum.Idle);
