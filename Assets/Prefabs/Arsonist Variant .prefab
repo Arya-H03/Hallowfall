@@ -20,6 +20,14 @@ PrefabInstance:
       propertyPath: boxCastSize.y
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 877455088494489730, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.261
+      objectReference: {fileID: 0}
+    - target: {fileID: 877455088494489730, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.611
+      objectReference: {fileID: 0}
     - target: {fileID: 1824542978293724540, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -54,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3130962594404774654, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.063
+      value: 0.139
       objectReference: {fileID: 0}
     - target: {fileID: 3130962594404774654, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.756
+      value: 1.888
       objectReference: {fileID: 0}
     - target: {fileID: 4511855182593275202, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: ShapeModule.m_Position.x
@@ -151,6 +159,14 @@ PrefabInstance:
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.9375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.71875
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6755647541403914632, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}

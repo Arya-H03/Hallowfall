@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
@@ -67,6 +68,9 @@ public class EnemyController : MonoBehaviour
     private bool isPlayerDead = false;
 
     [SerializeField] EnemyAbilitySO[] enemyAbilities; 
+
+    [SerializeField] Transform healthbarFG; 
+    [SerializeField] Transform worldCanvas; 
     
 
     #endregion
@@ -105,6 +109,8 @@ public class EnemyController : MonoBehaviour
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
     public Vector3 PlayerPos { get => playerPos; set => playerPos = value; }
     public GameObject Player { get => player; set => player = value; }
+    public Transform HealthbarFG { get => healthbarFG; set => healthbarFG = value; }
+    public Transform WorldCanvas { get => worldCanvas; set => worldCanvas = value; }
 
     #endregion
 
@@ -220,6 +226,8 @@ public class EnemyController : MonoBehaviour
             float damage = value * modifier;
             currentHealth -= damage;
             SpawnDamagePopUp(damage);
+            Vector3 healthBarScale = new Vector3(currentHealth / maxHealth, 1, 1);
+            healthbarFG.localScale = healthBarScale;
 
             if (currentHealth <= 0)
             {

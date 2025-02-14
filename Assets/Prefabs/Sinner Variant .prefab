@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: attackCooldown
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 877455088494489730, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.604
+      objectReference: {fileID: 0}
+    - target: {fileID: 877455088494489730, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.432
+      objectReference: {fileID: 0}
     - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: maxChaseSpeed
       value: 1.5
@@ -62,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3130962594404774654, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.166
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: 3130962594404774654, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.565
+      value: 1.739
       objectReference: {fileID: 0}
     - target: {fileID: 3733571337270659751, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: deadSprite

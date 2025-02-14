@@ -19,6 +19,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
     [SerializeField] GameObject arsonistPrefab;
+    [SerializeField] GameObject sinnerPrefab;
 
     private float mainWaveDelay = 5;
     private void Awake()
@@ -42,6 +43,8 @@ public class EnemySpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(mainWaveDelay);
             SpawnEnemy(arsonistPrefab, GenerateRandomSpawnPosition(10));
+            yield return new WaitForSeconds(1);
+            SpawnEnemy(sinnerPrefab, GenerateRandomSpawnPosition(8));
         }
         
     }

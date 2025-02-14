@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -49,11 +50,15 @@ public class EnemyMovement : MonoBehaviour
 
     private void TurnEnemy(Vector3 direction)
     {
-        
-        if(direction.x < 0 && CurrentDir != 1)
+        Vector3 vec = enemyController.WorldCanvas.localScale;
+        if (direction.x < 0 && CurrentDir != 1)
         {
             CurrentDir = 1;
-            this.transform.localScale = new Vector3(CurrentDir, 1, 1);   
+            this.transform.localScale = new Vector3(CurrentDir, 1, 1);
+            Debug.Log("Left");
+            
+            enemyController.WorldCanvas.localScale = new Vector3(Math.Abs(vec.x), vec.y, vec.z);
+            
             //OnEnemyBeginTurning(1);
 
         }
@@ -61,8 +66,15 @@ public class EnemyMovement : MonoBehaviour
         {
             CurrentDir = -1;
             this.transform.localScale = new Vector3(CurrentDir, 1, 1);
+            enemyController.WorldCanvas.localScale = new Vector3(-Math.Abs(vec.x), vec.y, vec.z);
+
+            Debug.Log("Right");
             //OnEnemyBeginTurning(-1);
         }
+
+       
+   
+
     }
 
     public void StartRunningSFX(AudioSource audioSource,AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
