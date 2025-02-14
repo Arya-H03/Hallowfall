@@ -29,9 +29,9 @@ TagManager:
   - Enemy
   - Player
   - Item
-  - FeetCheckBox
+  - Feet
   - Interaction
-  - 
+  - Wall
   - 
   - 
   - 
