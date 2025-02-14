@@ -16,7 +16,6 @@ public class ActiveAbility : BaseAbility
 
         GameObject handlerGO = Instantiate(handlerPrefab, GameManager.Instance.Player.transform.Find("AbilityHolder"));
         ActiveAbilityHandler handler = handlerGO.GetComponent<ActiveAbilityHandler>();
-        Debug.Log("yo");
 
 
         foreach (PassiveAbility ability in supportAbilities)

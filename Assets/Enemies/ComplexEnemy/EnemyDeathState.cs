@@ -6,20 +6,26 @@ public class EnemyDeathState : EnemyBaseState
 {
     [SerializeField] Sprite deadSprite;
     [SerializeField] GameObject atonement;
+
+    public delegate void EventHandler();
+    public EventHandler EnemyBeginDeathEvent;
+    public EventHandler EnemyEndDeathEvent;
     public EnemyDeathState() : base()
     {
         stateEnum = EnemyStateEnum.Death;
 
     }
 
-  
+    private void Start()
+    {
+        EnemyBeginDeathEvent += OnEnemyDeathBegin;
+    }
+
 
     public override void OnEnterState()
     {
-        enemyController.IsDead = true;
-        OnEnemyDeath();
-        enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
-        Instantiate(atonement, transform.position, Quaternion.identity);
+        EnemyBeginDeathEvent.Invoke();
+       
 
     }
 
@@ -33,21 +39,35 @@ public class EnemyDeathState : EnemyBaseState
         
     }
 
-    private void OnEnemyDeath()
+    private void OnEnemyDeathBegin()
     {
         enemyController.IsDead = true;
         enemyController.collisionManager.Rb.bodyType = RigidbodyType2D.Static;
         enemyController.collisionManager.BoxCollider.enabled = false;
-        
+        enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
+        Instantiate(atonement, transform.position, Quaternion.identity);
+
+    }
+
+    private void OnEnemyDeathEnd()
+    {
+       
     }
 
     public void OnDeathAnimationEnd()
     {
-       
-        enemyController.EnemyAnimationManager.Animator.enabled = false; 
+        enemyController.EnemyAnimationManager.Animator.enabled = false;
         enemyController.SpriteRenderer.sprite = deadSprite;
-        enemyController.enabled = false;
-        Destroy(transform.parent.parent.gameObject, 4);
+        if (EnemyEndDeathEvent != null)
+        {
+            EnemyEndDeathEvent.Invoke();
+        }
+      
+        Destroy(transform.parent.parent.gameObject,0.25f);
+        
+
+
+
     }
 
 }

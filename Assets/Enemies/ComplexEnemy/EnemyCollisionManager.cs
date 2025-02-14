@@ -49,13 +49,14 @@ public class EnemyCollisionManager : MonoBehaviour
             hitSFXDictionary[hitSfx.hitType] = hitSfx.sound;
         }
     }
-    public IEnumerator EnemyHitCoroutine(int damage, Vector2 hitPoint, HitSfxType hitType)
+    public IEnumerator EnemyHitCoroutine(float damage, Vector2 hitPoint, HitSfxType hitType)
     {
         //VFX
         PlayBloodEffect(hitPoint);
         enemyController.Material.SetFloat("_Flash", 1);
         //SFX
-        AudioManager.Instance.PlaySFX(enemyController.AudioSource, GetHitSound(hitType));
+        if(hitType != HitSfxType.none) AudioManager.Instance.PlaySFX(enemyController.AudioSource, GetHitSound(hitType));
+
         //Damage
         enemyController.OnEnemyTakingDamage(damage, enemyController.DamageModifier);
 

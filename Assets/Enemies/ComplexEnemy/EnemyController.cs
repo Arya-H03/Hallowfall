@@ -65,6 +65,8 @@ public class EnemyController : MonoBehaviour
     private bool isDead = false;
     private bool isFacingLedge = false;
     private bool isPlayerDead = false;
+
+    [SerializeField] EnemyAbilitySO[] enemyAbilities; 
     
 
     #endregion
@@ -178,6 +180,10 @@ public class EnemyController : MonoBehaviour
        
         hasSeenPlayer = true;
 
+        foreach (var ability in enemyAbilities)
+        {
+            ability.ApplyAbility(this);
+        }
         CurrentStateEnum = EnemyStateEnum.Idle;
         CurrentState = IdleState;
 
@@ -201,7 +207,7 @@ public class EnemyController : MonoBehaviour
         PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
     }
 
-    public void OnEnemyHit(int damage, Vector2 hitPoint, HitSfxType hitType)
+    public void OnEnemyHit(float damage, Vector2 hitPoint, HitSfxType hitType)
     {
         StartCoroutine(collisionManager.EnemyHitCoroutine(damage, hitPoint, hitType));
     }

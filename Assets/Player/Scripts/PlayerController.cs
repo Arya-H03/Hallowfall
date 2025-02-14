@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -296,13 +296,13 @@ public class PlayerController : MonoBehaviour
         HasSword = isEquiped;
     }
 
-    public void RestoreHealth(int amount)
+    public void RestoreHealth(float amount)
     {
         playerInfo.CurrentHealth = amount;
 
     }
 
-    public void OnTakingDamage(int value)
+    public void OnTakingDamage(float value)
     { 
         if (playerInfo.CurrentHealth > 0)
         {
