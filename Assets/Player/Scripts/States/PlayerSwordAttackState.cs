@@ -7,7 +7,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 {
     [SerializeField] private float moveSpeedWhileAttaking = 2;
 
-    private float attackComboWindow = 1f;
+    private float attackComboWindow = 0.6f;
     private float attackDelay = 0.3f;
     private bool canAttack = true;
     private bool isInCombo = false;
@@ -134,15 +134,15 @@ public class PlayerSwordAttackState : PlayerBaseState
         switch (comboIndex)
         {
             case 1:
-                Debug.Log("FirstSwing");
+               
                 playerController.AnimationController.SetTriggerForAnimations("FirstSwing");               
                 break;
             case 2:
-                Debug.Log("SecondSwing");
+             
                 playerController.AnimationController.SetTriggerForAnimations("SecondSwing");
                 break;
             case 3:
-                Debug.Log("ThirdSwing");
+                
                 playerController.AnimationController.SetTriggerForAnimations("ThirdSwing");
                 break;
                 
@@ -213,8 +213,9 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void FirstSwingBoxCast()
     {
-        RaycastHit2D hitResult = BoxCastForAttack(FirstSwingCenter, firstSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter, firstSwingCastSize);
         AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
+        SpawnSlashEffect(firstSwingEffect, firstSwingCenter.position);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -239,8 +240,9 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void SecondSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(SecondSwingCenter, secondSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter, secondSwingCastSize);
         AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
+        SpawnSlashEffect(secondSwingEffect, secondSwingCenter.position);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -264,8 +266,9 @@ public class PlayerSwordAttackState : PlayerBaseState
     public void ThirdSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(ThirdSwingCenter, thirdSwingCastSize);
+        RaycastHit2D hitResult = BoxCastForAttack(thirdSwingCenter, thirdSwingCastSize);
         AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
+        SpawnSlashEffect(thirdSwingEffect, thirdSwingCenter.position);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -306,27 +309,27 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    private void HandelSlashEffect(GameObject effect, Vector3 position)
+    private void SpawnSlashEffect(GameObject effect, Vector3 position)
     {
 
-        GameObject obj = Instantiate(effect, position, Quaternion.identity);
-        Vector3 scale = parent.transform.localScale;
+        //GameObject obj = Instantiate(effect, position, Quaternion.identity);
+        //Vector3 scale = parent.transform.localScale;
 
-        Vector2 launchVec = Vector2.zero;
-        if (scale.x == 1)
-        {
-            launchVec = new Vector2(1, 0);
-        }
-        if (scale.x == -1)
-        {
-            launchVec = new Vector2(-1, 0);
-            obj.transform.localScale = new Vector3(-2, 2, 2);
-        }
-        obj.GetComponent<Rigidbody2D>().velocity = launchVec * 5;
-        Destroy(obj, 0.5f);
+        //Vector2 launchVec = Vector2.zero;
+        //if (scale.x == 1)
+        //{
+        //    launchVec = new Vector2(1, 0);
+        //}
+        //if (scale.x == -1)
+        //{
+        //    launchVec = new Vector2(-1, 0);
+        //    obj.transform.localScale = new Vector3(-2, 2, 2);
+        //}
+        //obj.GetComponent<Rigidbody2D>().velocity = launchVec * 4;
+        //Destroy(obj, 0.2f);
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(ThirdSwingCenter.position, thirdSwingCastSize);
+        Gizmos.DrawWireCube(secondSwingCenter.position, secondSwingCastSize);
     }
 }

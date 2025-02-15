@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
     public void OnReplayButtonClick()
     {
         CloseDeathMenu();
-        SceneManager.LoadScene("Cemetery");
+        SceneManager.LoadScene("Game");
         //MobManager.Instance.ResetLookingForPlayersForAllEnemies();
         //Player.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
 

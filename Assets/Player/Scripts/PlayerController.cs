@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public ParticleSystem deathEffectParticle;
 
+    private Material material;
+
     private Player player;
     private PlayerCollision playerCollision;
     private PlayerInfo playerInfo = new PlayerInfo();
@@ -99,20 +101,19 @@ public class PlayerController : MonoBehaviour
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
     public PlayerInfo PlayerInfo { get => playerInfo; set => playerInfo = value; }
     public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
+    public Material Material { get => material; set => material = value; }
 
     #endregion
     private void Awake()
     {
         AfterImageHandler = GetComponent<AfterImageHandler>();
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
-
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
-
         PlayerCollision = GetComponent<PlayerCollision>();
-
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffectParticle = GetComponent<ParticleSystem>();
+        material = spriteRenderer.material;
         Player = GetComponent<Player>();
 
         
@@ -279,7 +280,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void OnTakingDamage(float value)
+    private void OnTakingDamage(float value)
     { 
         if (playerInfo.CurrentHealth > 0)
         {
@@ -291,18 +292,21 @@ public class PlayerController : MonoBehaviour
             {
                 ChangeState(PlayerStateEnum.Death);
             }
-            else
-            {
-                //ChangeState(PlayerStateEnum.Idle);
-                if (currentStateEnum != PlayerStateEnum.SwordAttack)
-                {
-                    animationController.SetTriggerForAnimations("Hit");
-                }
-               
-            }
         }
     }
 
+    private IEnumerator PlayerHitCoroutine(float damage)
+    {
+        OnTakingDamage(damage);
+        material.SetFloat("_Flash", 1);
+        yield return new WaitForSeconds(0.1f); 
+        material.SetFloat("_Flash", 0);
+    }
+
+    public void OnPlayerHit(float damage)
+    {
+        StartCoroutine(PlayerHitCoroutine(damage));
+    }
     public void ResetPlayerVariables()
     {
         canPlayerJump = true;

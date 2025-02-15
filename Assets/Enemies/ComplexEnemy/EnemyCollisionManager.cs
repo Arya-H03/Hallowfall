@@ -62,7 +62,7 @@ public class EnemyCollisionManager : MonoBehaviour
 
         ManageStagger(damage);
 
-        //Wait?
+        //Wait
         yield return new WaitForSeconds(0.1f);
         enemyController.Material.SetFloat("_Flash", 0);
 

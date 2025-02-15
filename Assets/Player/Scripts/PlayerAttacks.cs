@@ -135,7 +135,7 @@
 //            audioSource.PlayOneShot(attackSwingSFX[Random.Range(0, 3)]);
 //        }
 
-//        HandelSlashEffect(slash1, attack1BoxCastPosition.position);
+//        SpawnSlashEffect(slash1, attack1BoxCastPosition.position);
 
 //    }
 
@@ -198,7 +198,7 @@
 //        {
 //            audioSource.PlayOneShot(attackSwingSFX[Random.Range(0, 3)]);
 //        }
-//        HandelSlashEffect(slash2, attack2BoxCastPosition.position + new Vector3(1,0.35f,0));
+//        SpawnSlashEffect(slash2, attack2BoxCastPosition.position + new Vector3(1,0.35f,0));
 //    }
 
 //    public void Attack3()
@@ -256,7 +256,7 @@
 //            audioSource.PlayOneShot(attackSwingSFX[Random.Range(0, 3)]);
 //        }
 
-//        HandelSlashEffect(slash3, attack3BoxCastPosition.position);
+//        SpawnSlashEffect(slash3, attack3BoxCastPosition.position);
 
 //    }
 
@@ -301,7 +301,7 @@
 //        Debug.DrawRay(origin, direction * distance, Color.red);
 //    }
 
-//    private void HandelSlashEffect(GameObject effect, Vector3 position)
+//    private void SpawnSlashEffect(GameObject effect, Vector3 position)
 //    {
         
 //        GameObject obj = Instantiate(effect, position, Quaternion.identity);

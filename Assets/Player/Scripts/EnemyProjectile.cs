@@ -8,7 +8,7 @@ public class EnemyProjectile : BaseProjectile
     {
         if (collision != null && collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().OnTakingDamage((int)damage);
+            collision.GetComponent<PlayerController>().OnPlayerHit(Damage);
         }
     }
 }

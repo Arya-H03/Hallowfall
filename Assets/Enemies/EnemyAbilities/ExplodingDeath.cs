@@ -29,7 +29,7 @@ public class ExplodingDeath : EnemyAbilitySO
             {
                 if(hit.collider.CompareTag("Player"))
                 {
-                    hit.transform.GetComponent<PlayerController>().OnTakingDamage(damage);
+                    hit.transform.GetComponent<PlayerController>().OnPlayerHit(damage);
                 }
 
                 else if (hit.collider.CompareTag("Enemy"))

@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().OnTakingDamage(damage);
+            collision.GetComponent<PlayerController>().OnPlayerHit(damage);
             if((collision.transform.position - this.transform.position).x < 0)
             {
                 collision.GetComponent<PlayerCollision>().KnockPlayer(collision.transform.right * -1 * 5);

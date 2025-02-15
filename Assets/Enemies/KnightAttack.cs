@@ -53,7 +53,7 @@ public class KnightAttack : MonoBehaviour
 
 
                 GameObject player = hit.collider.gameObject;
-                player.GetComponent<PlayerController>().OnTakingDamage(lightAttackDamage);
+                player.GetComponent<PlayerController>().OnPlayerHit(lightAttackDamage);
 
 
             }
@@ -79,16 +79,16 @@ public class KnightAttack : MonoBehaviour
         }
 
 
-        if (hit.collider.CompareTag("Player"))
-        {
+        //if (hit.collider.CompareTag("Player"))
+        //{
 
 
-            GameObject player = hit.collider.gameObject;
-            player.GetComponent<PlayerController>().OnTakingDamage(HeavyAttackDamage);
-            //player.GetComponent<Player>().OnKnockBack(new Vector2(10, 10),this.transform.position.x);
+        //    GameObject player = hit.collider.gameObject;
+        //    player.GetComponent<PlayerController>().OnTakingDamage(HeavyAttackDamage);
+        //    //player.GetComponent<Player>().OnKnockBack(new Vector2(10, 10),this.transform.position.x);
 
 
-        }
+        //}
 
     }
 
