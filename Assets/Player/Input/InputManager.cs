@@ -46,11 +46,9 @@ public class InputManager : MonoBehaviour
 
         InputActions.Guardian.Jump.performed += Jump;
 
-        InputActions.Guardian.Swing.performed += Swing;
-        InputActions.Guardian.DoubleSwing.performed += DoubleSwing;
+        InputActions.Guardian.Swing.performed += Attack;
         InputActions.Guardian.DashAttack.performed += DashAttack;   
-
-        InputActions.Guardian.AirStrike.performed += AirStrike;   
+  
         
 
         InputActions.Guardian.Roll.performed += Roll;
@@ -70,11 +68,9 @@ public class InputManager : MonoBehaviour
 
         InputActions.Guardian.Jump.performed -= Jump;
 
-        InputActions.Guardian.Swing.performed -= Swing;
-        InputActions.Guardian.DoubleSwing.performed -= DoubleSwing;
+        InputActions.Guardian.Swing.performed -= Attack;
 
         InputActions.Guardian.DashAttack.performed -= DashAttack;
-        InputActions.Guardian.AirStrike.performed -= AirStrike;
 
         InputActions.Guardian.Roll.performed -= Roll;
 
@@ -101,17 +97,10 @@ public class InputManager : MonoBehaviour
         player.OnJumpStart();
     }
 
-    public void Swing(InputAction.CallbackContext ctx)
+    public void Attack(InputAction.CallbackContext ctx)
     {
         player.OnSwordAttack();
     }
-
-    public void DoubleSwing(InputAction.CallbackContext ctx)
-    {
-        
-        player.OnSwordDoubleSwing();
-    }
-
     public void Roll(InputAction.CallbackContext ctx)
     {
         player.OnRoll();
@@ -132,10 +121,4 @@ public class InputManager : MonoBehaviour
         player.OnDashAttack();
         
     }
-
-    public void AirStrike(InputAction.CallbackContext ctx)
-    {
-        player.OnAirStrike();
-    }
-
 }

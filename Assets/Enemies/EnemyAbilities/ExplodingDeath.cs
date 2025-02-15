@@ -22,7 +22,7 @@ public class ExplodingDeath : EnemyAbilitySO
         GameObject vfx = Instantiate(explosionVFX, spawnPos, Quaternion.identity);
         AudioManager.Instance.PlaySFX(enemyController.AudioSource, explosionSFX);
 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(spawnPos, 3f, Vector2.zero);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(spawnPos, 1f, Vector2.zero);
         foreach(RaycastHit2D hit in hits)
         {
             if(hit.collider != null)

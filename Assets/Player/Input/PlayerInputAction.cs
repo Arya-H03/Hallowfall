@@ -46,7 +46,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Swing"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""76f069b6-837a-4ffc-a19c-bfa507f23bee"",
                     ""expectedControlType"": ""Button"",
@@ -278,7 +278,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Swing"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -302,7 +302,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian = asset.FindActionMap("Guardian", throwIfNotFound: true);
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
-        m_Guardian_Swing = m_Guardian.FindAction("Swing", throwIfNotFound: true);
+        m_Guardian_Swing = m_Guardian.FindAction("Attack", throwIfNotFound: true);
         m_Guardian_DoubleSwing = m_Guardian.FindAction("DoubleSwing", throwIfNotFound: true);
         m_Guardian_DashAttack = m_Guardian.FindAction("DashAttack", throwIfNotFound: true);
         m_Guardian_AirStrike = m_Guardian.FindAction("AirStrike", throwIfNotFound: true);

@@ -7425,7 +7425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &334547431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28131,6 +28131,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 909008120018297734, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 909008120018297734, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1071849589883454675, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.747
@@ -28147,6 +28155,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4641465282700383999, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: m_Name
+      value: ThirdSwingCastCenter
+      objectReference: {fileID: 0}
     - target: {fileID: 5478323056235678100, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Name
       value: Inquisitor
@@ -28158,6 +28170,14 @@ PrefabInstance:
     - target: {fileID: 5647746929411258524, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.535
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: thirdSwingCenter
+      value: 
+      objectReference: {fileID: 1557385731}
+    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+      propertyPath: thirdSwingCastSize.x
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: attackSwingSFX.Array.size
@@ -33870,6 +33890,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6141006372766980078, guid: a7a139a3ad0cd164baaf84723c8eb895, type: 3}
   m_PrefabInstance: {fileID: 2002914152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1557385731 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 909008120018297734, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+  m_PrefabInstance: {fileID: 1286332437}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1558427571
 GameObject:

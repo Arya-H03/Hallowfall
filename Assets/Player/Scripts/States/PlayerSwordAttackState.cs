@@ -5,7 +5,14 @@ using static UnityEditor.PlayerSettings;
 
 public class PlayerSwordAttackState : PlayerBaseState
 {
-  
+    [SerializeField] private float moveSpeedWhileAttaking = 2;
+
+    private float attackComboWindow = 1f;
+    private float attackDelay = 0.3f;
+    private bool canAttack = true;
+    private bool isInCombo = false;
+    private int comboIndex = 0;
+    private Coroutine comboResetCoroutine;
     private AudioSource audioSource;
 
     [SerializeField] AudioClip[] attackSwingSFX;
@@ -15,44 +22,36 @@ public class PlayerSwordAttackState : PlayerBaseState
     public delegate void EventHandler();
     public EventHandler OnFirstSwordSwingEvent;
     public EventHandler OnSecondSwordSwingEvent;
+    public EventHandler OnThirdSwordSwingEvent;
 
     private Coroutine SpawnAfterImageCoroutine;
 
     private bool canDashAttack = false;
 
-    //For Debuging
-    [SerializeField] Vector2 size; // Size of the box in 2D
-    [SerializeField] Transform loc; // Distance for the boxcast in 2D
-
     [SerializeField] GameObject firstSwingEffect;
     [SerializeField] GameObject secondSwingEffect;
-    [SerializeField] GameObject chopEffect;
+    [SerializeField] GameObject thirdSwingEffect;
 
     [SerializeField] int firstSwingDamage = 10;
     [SerializeField] int secondSwingDamage = 20;
-    [SerializeField] int jumpAttackDamage = 15;
+    [SerializeField] int thirdSwingDamage = 30;
 
-
+ 
     [SerializeField] LayerMask layerMask; // Layer mask for the boxcast
     [SerializeField] float distance; // Distance for the boxcast in 2D
 
     [SerializeField] Transform firstSwingCenter;
-     private Vector2 firstSwingCastSize = new Vector2(1.7f, 1.5f);
+    [SerializeField] private Vector2 firstSwingCastSize = new Vector2(1.7f, 1.5f);
 
     [SerializeField] Transform secondSwingCenter;
-     private Vector2 secondSwingCastSize = new Vector2(1.3f, 1f);
+    [SerializeField] private Vector2 secondSwingCastSize = new Vector2(1.3f, 1f);
 
-    [SerializeField] Transform jumpAttackSwingCenter;
-     private Vector2 jumpAttackSwingCastSize = new Vector2(1.2f, 2f);
+    [SerializeField] Transform thirdSwingCenter;
+    [SerializeField] private Vector2 thirdSwingCastSize = new Vector2(1.2f, 2f);
 
-    private Vector3 airStrikeTargetPos;
-    private bool airStrikeHasTarget = false;
-
-
-    [SerializeField] private float moveSpeedWhileAttaking = 2;
-   
-    public Transform FirstSwingCenter { get => firstSwingCenter; set => firstSwingCenter = value; }
-    public Transform SecondSwingCenter { get => secondSwingCenter; set => secondSwingCenter = value; }
+    public Transform FirstSwingCenter { get => firstSwingCenter; }
+    public Transform SecondSwingCenter { get => secondSwingCenter; }
+    public Transform ThirdSwingCenter { get => thirdSwingCenter; }
 
     public PlayerSwordAttackState()
     {
@@ -73,7 +72,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void OnEnterState()
     {
         playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
-       
+        playerController.IsAttacking = true;
+
     }
 
     public override void OnExitState()
@@ -92,14 +92,62 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     public override void HandleState()
     {
-        if(airStrikeHasTarget && Vector3.Distance(playerController.transform.position, airStrikeTargetPos) < 2f)
-        {
-            EndAttack();
-            airStrikeHasTarget = false;
-        }
-       
+         
     }
 
+
+    public void HandleAttack()
+    {
+        if (!canAttack) return;
+
+        comboIndex++;
+        if (comboIndex > 3) comboIndex = 1;
+
+        PlaySwingAnimation(comboIndex);
+
+        canAttack = false;
+        isInCombo = true;
+
+        StartCoroutine(AttackCooldown());
+
+        // Reset combo if the player waits too long
+        if (comboResetCoroutine != null)
+            StopCoroutine(comboResetCoroutine);
+        comboResetCoroutine = StartCoroutine(ResetComboAfterDelay());
+    }
+
+    private IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        canAttack = true;
+    }
+
+    private IEnumerator ResetComboAfterDelay()
+    {
+        yield return new WaitForSeconds(attackComboWindow);
+        comboIndex = 0; // Reset combo
+        isInCombo = false;
+    }
+
+    private void PlaySwingAnimation(int comboIndex)
+    {
+        switch (comboIndex)
+        {
+            case 1:
+                Debug.Log("FirstSwing");
+                playerController.AnimationController.SetTriggerForAnimations("FirstSwing");               
+                break;
+            case 2:
+                Debug.Log("SecondSwing");
+                playerController.AnimationController.SetTriggerForAnimations("SecondSwing");
+                break;
+            case 3:
+                Debug.Log("ThirdSwing");
+                playerController.AnimationController.SetTriggerForAnimations("ThirdSwing");
+                break;
+                
+        };
+    }
     public void HandleFirstSwing()
     {
         playerController.IsAttacking = true;
@@ -114,22 +162,13 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
     public void HandleJumpAttack()
     {
-        playerController.IsAttacking = true;
         playerController.CanPlayerAttack = false;
         playerController.AnimationController.SetTriggerForAnimations("JumpAttack");
        
     }
     public void EndAttack()
     {       
-        playerController.IsAttacking = false;
-        playerController.CanPlayerAttack = true;
-        canDashAttack = false;
-
-        //if (!playerController.IsPlayerGrounded)
-        //{
-        //    playerController.ChangeState(PlayerStateEnum.Fall);
-        //}
-         if (playerController.PlayerMovementManager.currentInputDir.x != 0)
+        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }
@@ -156,22 +195,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
 
     }
-    public void AirStrike()
-    {
-        //var targetPos = Input.mousePosition;
-        //targetPos = Camera.main.ScreenToWorldPoint(targetPos);
-        //targetPos.z = this.transform.position.z;
-        //airStrikeTargetPos = targetPos;
-        //airStrikeHasTarget = true;
-        //Vector2 attackVec = (airStrikeTargetPos - playerController.transform.position).normalized;
-        //playerController.PlayerMovementManager.TurnPlayer(attackVec);
-        //SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
-        //playerController.PlayerCollision.Rb.velocity = attackVec * 5f;
-        //playerController.IsAttacking = true;
-        //playerController.CanPlayerAttack = false;
-
-       // playerController.ChangeState(PlayerStateEnum.Fall);
-    }
+ 
     private void OnSwordAttackBlockedByEnemy(RaycastHit2D hit)
     {
         Vector2 launchVector;
@@ -237,11 +261,11 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     
     
-    public void JumpAttackBoxCast()
+    public void ThirdSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(jumpAttackSwingCenter, jumpAttackSwingCastSize);
-
+        RaycastHit2D hitResult = BoxCastForAttack(ThirdSwingCenter, thirdSwingCastSize);
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("EnemySwordBlock"))
@@ -253,15 +277,9 @@ public class PlayerSwordAttackState : PlayerBaseState
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.OnEnemyHit(jumpAttackDamage, hitResult.point,HitSfxType.sword);
+                enemyController.OnEnemyHit(thirdSwingDamage, hitResult.point,HitSfxType.sword);
             }
         }
-
-        else
-        {
-            audioSource.PlayOneShot(attackSwingSFX[Random.Range(0, 3)]);
-        }
-        //HandelSlashEffect(secondSwingEffect, secondSwingCenter.position + new Vector3(1, 0.35f, 0));
     }
 
     private RaycastHit2D BoxCastForAttack(Transform centerPoint, Vector2 boxSize)
@@ -307,32 +325,8 @@ public class PlayerSwordAttackState : PlayerBaseState
         obj.GetComponent<Rigidbody2D>().velocity = launchVec * 5;
         Destroy(obj, 0.5f);
     }
-
-    //For debugging
-    void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
+    private void OnDrawGizmos()
     {
-        // Define the corners of the box for visualization in 2D
-        Vector2 topLeft = origin + (Vector2.left * size.x / 2) + (Vector2.up * size.y / 2);
-        Vector2 topRight = origin + (Vector2.right * size.x / 2) + (Vector2.up * size.y / 2);
-        Vector2 bottomLeft = origin + (Vector2.left * size.x / 2) + (Vector2.down * size.y / 2);
-        Vector2 bottomRight = origin + (Vector2.right * size.x / 2) + (Vector2.down * size.y / 2);
-
-        // Draw the edges of the box using Debug.DrawLine for visualization in 2D
-        Debug.DrawLine(topLeft, topRight, Color.red);
-        Debug.DrawLine(topRight, bottomRight, Color.red);
-        Debug.DrawLine(bottomRight, bottomLeft, Color.red);
-        Debug.DrawLine(bottomLeft, topLeft, Color.red);
-
-        // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
-        Debug.DrawRay(origin, direction * distance, Color.red);
+        Gizmos.DrawWireCube(ThirdSwingCenter.position, thirdSwingCastSize);
     }
-    //private void Update()
-    //{
-    //    //VisualizeBoxCast(FirstSwingCenter.position, firstSwingCastSize, transform.right, distance);
-    //}
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireCube(firstSwingCenter.position, firstSwingCastSize);
-    //}
 }

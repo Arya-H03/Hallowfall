@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum)
         {
-            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -235,39 +235,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwordAttack()
     {
-        if(!IsAttacking && CanPlayerAttack && !IsHanging)
+        if (!isPlayerJumping && !isFalling && IsPlayerGrounded && !IsHanging)
         {
-            if(!isPlayerJumping && !isFalling && IsPlayerGrounded)
-            {
-                ChangeState(PlayerStateEnum.SwordAttack);
-                playerSwordAttackState.HandleFirstSwing();
-            }
-            //else
-            //{
-            //    ChangeState(PlayerStateEnum.SwordAttack);
-            //    playerSwordAttackState.HandleJumpAttack();
-            //}
-        } 
-       
-    }
-    public void OnSwordDoubleSwing()
-    {
-        playerSwordAttackState.HandleDoubleSwing();
+            ChangeState(PlayerStateEnum.SwordAttack);
+            playerSwordAttackState.HandleAttack();
+        }
     }
 
     public void OnDashAttack()
     {
-        PlayerSwordAttackState.DashAttack();
-    }
-
-    public void OnAirStrike()
-    {
-        if (!IsPlayerGrounded)
-        {
-            ChangeState(PlayerStateEnum.SwordAttack);
-            PlayerSwordAttackState.AirStrike();
-        }
-       
+        //PlayerSwordAttackState.DashAttack();
     }
 
     public void OnStartParry()
