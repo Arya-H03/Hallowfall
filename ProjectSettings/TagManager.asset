@@ -31,7 +31,7 @@ TagManager:
   - Item
   - Feet
   - Interaction
-  - Wall
+  - Bounds
   - 
   - 
   - 
@@ -56,7 +56,10 @@ TagManager:
   - name: Background
     uniqueID: 3249299663
     locked: 0
-  - name: Ledge
+  - name: Ground
+    uniqueID: 25166789
+    locked: 0
+  - name: Bounds
     uniqueID: 4150658243
     locked: 0
   - name: Default
