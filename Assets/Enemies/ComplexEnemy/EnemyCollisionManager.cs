@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyCollisionManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class EnemyCollisionManager : MonoBehaviour
     [SerializeField] float luanchModifier = 1f;
     [SerializeField] DamagePopUp damagePopUp;
     [SerializeField] GameObject impactEffect;
+    [SerializeField] GameObject [] bloofVFX ;
 
     [SerializeField] float maxStagger;
     [SerializeField] float currentStagger;
@@ -49,6 +51,7 @@ public class EnemyCollisionManager : MonoBehaviour
             hitSFXDictionary[hitSfx.hitType] = hitSfx.sound;
         }
     }
+
     public IEnumerator EnemyHitCoroutine(float damage, Vector2 hitPoint, HitSfxType hitType)
     {
         //VFX
@@ -72,10 +75,24 @@ public class EnemyCollisionManager : MonoBehaviour
 
     private void PlayBloodEffect(Vector2 hitPoint)
     {
-        Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);
-        var shape = enemyController.BloodParticles.shape;
-        shape.position = (distance);
-        enemyController.BloodParticles.Play();
+        Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);   
+        Vector2 dir = FindEffectDir(hitPoint);
+        Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
+        GameObject go = Instantiate(bloofVFX[Random.Range(0, bloofVFX.Length)], center, Quaternion.identity);
+        Vector3 scale = go.transform.localScale;
+        scale.x *= dir.x;
+        go.transform.localScale = scale;
+    }
+
+    private Vector2 FindEffectDir(Vector3 pointOfImpact)
+    {
+        Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
+        Vector3 dist = (center - pointOfImpact).normalized;
+
+        float xDir = dist.x >= 0 ? -1 : 1;
+        float yDir = dist.y >= 0 ? 1 : -1;
+
+        return new Vector2(xDir, yDir);
     }
 
     private AudioClip GetHitSound(HitSfxType hitType)

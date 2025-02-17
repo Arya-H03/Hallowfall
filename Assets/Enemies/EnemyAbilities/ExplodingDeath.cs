@@ -34,7 +34,7 @@ public class ExplodingDeath : EnemyAbilitySO
 
                 else if (hit.collider.CompareTag("Enemy"))
                 {
-                    hit.transform.GetComponent<EnemyController>().OnEnemyHit(damage, spawnPos,HitSfxType.sword);
+                    hit.transform.GetComponent<EnemyController>().OnEnemyHit(damage, hit.point,HitSfxType.sword);
                 }
                    
   

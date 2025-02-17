@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     [HideInInspector]
     public SpriteRenderer spriteRenderer;
-    [HideInInspector]
-    public ParticleSystem deathEffectParticle;
 
     private Material material;
 
@@ -112,7 +110,6 @@ public class PlayerController : MonoBehaviour
         PlayerCollision = GetComponent<PlayerCollision>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        deathEffectParticle = GetComponent<ParticleSystem>();
         material = spriteRenderer.material;
         Player = GetComponent<Player>();
 

@@ -49,7 +49,6 @@ public class PlayerDeathState : PlayerBaseState
     private IEnumerator PlayerDeathCoroutine()
     {
         InputManager.Instance.OnDisable();
-        playerController.deathEffectParticle.Play();
         playerController.IsDead = true;    
         playerController.AnimationController.SetBoolForAnimations("isDead", true);
         playerController.AnimationController.SetTriggerForAnimations("Death");

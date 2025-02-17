@@ -5,7 +5,7 @@ using UnityEngine;
   
 public class PlayerInfo
 {
-    private float maxHealth = 100;
+    private float maxHealth = 10000;
     private float currentHealth = 0;
 
     private int currentAtonement = 0;
