@@ -77,8 +77,8 @@ public class EnemyCollisionManager : MonoBehaviour
     {
         Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);   
         Vector2 dir = FindEffectDir(hitPoint);
-        Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
-        GameObject go = Instantiate(bloofVFX[Random.Range(0, bloofVFX.Length)], center, Quaternion.identity);
+         Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
+        GameObject go = Instantiate(bloofVFX[Random.Range(0, bloofVFX.Length)], hitPoint, Quaternion.identity);
         Vector3 scale = go.transform.localScale;
         scale.x *= dir.x;
         go.transform.localScale = scale;

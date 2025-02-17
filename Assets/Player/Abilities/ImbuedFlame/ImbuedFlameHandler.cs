@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ImbuedFlameHandler : ActiveAbilityHandler
 {
     [SerializeField] GameObject flamePrefab;
+    [SerializeField] AudioClip [] sfx;
 
     PlayerSwordAttackState swordAttackState;
+    AudioSource audioSource;
 
     private void Start()
     {
         swordAttackState = GameManager.Instance.Player.GetComponentInChildren<PlayerSwordAttackState>();
+        audioSource = GetComponent<AudioSource>();
         swordAttackState.OnFirstSwordSwingEvent += SpawnFirstSwingFlame;
         swordAttackState.OnSecondSwordSwingEvent += SpawnSecondSwingFlame;
         swordAttackState.OnThirdSwordSwingEvent += SpawnThirdSwingFlame;
@@ -19,6 +23,7 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
     private void SpawnFirstSwingFlame()
     {
         GameObject obj = Instantiate(flamePrefab, swordAttackState.FirstSwingCenter.position, Quaternion.Euler(0, 0, 0));
+        //AudioManager.Instance.PlayRandomSFX(audioSource, sfx);
 
         Vector3 scale = GameManager.Instance.Player.transform.localScale;
 
@@ -40,6 +45,8 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
     private void SpawnSecondSwingFlame()
     {
         GameObject obj = Instantiate(flamePrefab, swordAttackState.SecondSwingCenter.position, Quaternion.Euler(0,0,0));
+       // AudioManager.Instance.PlayRandomSFX(audioSource, sfx);
+
 
         Vector3 scale = GameManager.Instance.Player.transform.localScale;
 
@@ -61,6 +68,8 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
     private void SpawnThirdSwingFlame()
     {
         GameObject obj = Instantiate(flamePrefab, swordAttackState.SecondSwingCenter.position, Quaternion.Euler(0, 0, 0));
+       // AudioManager.Instance.PlayRandomSFX(audioSource, sfx);
+
 
         Vector3 scale = GameManager.Instance.Player.transform.localScale;
 

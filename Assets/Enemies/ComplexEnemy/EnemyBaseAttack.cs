@@ -37,7 +37,7 @@ public class EnemyBaseAttack : MonoBehaviour
     {
         if (audioSource != null && attackSFX.Length > 0)
         {
-            AudioManager.Instance.PlaySFX(audioSource, attackSFX[Random.Range(0, attackSFX.Length - 1)]);
+            AudioManager.Instance.PlayRandomSFX(audioSource, attackSFX);
         }
     }
 }

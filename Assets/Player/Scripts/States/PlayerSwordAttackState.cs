@@ -8,7 +8,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] private float moveSpeedWhileAttaking = 2;
 
     private float attackComboWindow = 0.6f;
-    private float attackDelay = 0.3f;
+    private float attackDelay = 0.4f;
     private bool canAttack = true;
     private bool isInCombo = false;
     private int comboIndex = 0;
@@ -16,8 +16,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     private AudioSource audioSource;
 
     [SerializeField] AudioClip[] attackSwingSFX;
-
-    private GameObject parent;
 
     public delegate void EventHandler();
     public EventHandler OnFirstSwordSwingEvent;
@@ -60,7 +58,6 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void Awake()
     {
-        parent = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
     }
 

@@ -47,8 +47,18 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioSource source, AudioClip clip)
     {
+
         source.volume =  MasterVolumeMultiplier * EffectsVolumeMultiplier;
+        source.pitch = Random.Range(0.9f, 1.005f);
         source.PlayOneShot(clip);
+    }
+
+    public void PlayRandomSFX(AudioSource source, AudioClip []clip)
+    {
+
+        source.volume = MasterVolumeMultiplier * EffectsVolumeMultiplier;
+        source.pitch = Random.Range(0.9f, 1.00f);
+        source.PlayOneShot(GetRandomSFX(clip));
     }
 
     public void PlayMusic(AudioSource source, AudioClip clip)
@@ -62,6 +72,10 @@ public class AudioManager : MonoBehaviour
         source.Stop();  
     }
 
+    private AudioClip GetRandomSFX(AudioClip[] sfx)
+    {
+        return sfx[Random.Range(0, sfx.Length)];
+    }
     public void SaveSoundData()
     {
         SaveSystem.SaveSoundData(this);

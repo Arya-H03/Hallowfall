@@ -74464,7 +74464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &334547431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95241,42 +95241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73407683790e50c4aa377036ed38470c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &1239544742
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239544728}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 2048
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 2147485695
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.19}
-  m_Radius: 0.4
 --- !u!4 &1241245528 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7537064808389210043, guid: 271e6cb336e61db4cab5f20eac57de14, type: 3}
@@ -96383,11 +96347,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 408932475434728368, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.83
+      value: -13.27
       objectReference: {fileID: 0}
     - target: {fileID: 408932475434728368, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.71
+      value: -33.99
       objectReference: {fileID: 0}
     - target: {fileID: 408932475434728368, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.z
@@ -96422,14 +96386,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 486006166923256573, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
@@ -96452,10 +96408,6 @@ PrefabInstance:
     - target: {fileID: 2495416885279188156, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.817
-      objectReference: {fileID: 0}
-    - target: {fileID: 3553557354532342788, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3815223853184823280, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: m_Size.y
@@ -96511,29 +96463,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
       propertyPath: attackSwingSFX.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: 'attackSwingSFX.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: c217f396fd7cb204c92d211acf723e7f, type: 3}
-    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: 'attackSwingSFX.Array.data[1]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 8b57f9a6c6f070f49990eb6152479b7c, type: 3}
-    - target: {fileID: 5687565365542791027, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      propertyPath: 'attackSwingSFX.Array.data[2]'
-      value: 
-      objectReference: {fileID: 8300000, guid: f645405aa66244042ab36b72242e2fbb, type: 3}
-    m_RemovedComponents:
-    - {fileID: 5742544877611617131, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-    - {fileID: 4195835374663312726, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5478323056235678100, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1239544742}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f351b13ed8583f4e9546d064d713d17, type: 3}
 --- !u!1001 &1286478726
 PrefabInstance:

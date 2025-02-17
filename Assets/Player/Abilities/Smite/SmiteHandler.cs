@@ -36,8 +36,9 @@ public class SmiteHandler : ActiveAbilityHandler
 
             for (int i = 0; i < currentSpawnCount; i++)
             {
-                Vector3 spawnPos = new Vector3(Random.Range(transform.position.x - 3, transform.position.x + 4), -3.5f, 0);
+                Vector3 spawnPos = new Vector3(Random.Range(transform.position.x - 3, transform.position.x + 4), Random.Range(transform.position.y - 3, transform.position.y + 4), 0);
                 GameObject effect = Instantiate(smiteSpawnerSO.projectile, spawnPos, Quaternion.identity);
+                AudioManager.Instance.PlayRandomSFX(audioSource, sfx);
             }
 
         }
@@ -49,12 +50,12 @@ public class SmiteHandler : ActiveAbilityHandler
     private void EchoingSmite()
     {
         currentSpawnCount += (int)echoingSmite.modifier;
-        Debug.Log(currentSpawnCount);
+        
     }
 
     private void QuickenedSmite()
     {
         currentSpawnDelay *= (1 - quickenedSmite.modifier);
-        Debug.Log(currentSpawnDelay);
+        
     }
 }
