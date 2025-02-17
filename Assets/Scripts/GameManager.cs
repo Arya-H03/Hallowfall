@@ -132,6 +132,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StopTime(float duration)
+    {
+        StartCoroutine(HitStopCoroutine(duration));
+    }
     private IEnumerator SpawnEnemyWithDelay(Vector2 position, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -139,9 +143,14 @@ public class GameManager : MonoBehaviour
     }
 
 
-    
+    private IEnumerator HitStopCoroutine(float duration)
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(duration); // Wait using real-time (ignores time scale)
+        Time.timeScale = 1f;
+    }
 
-    
+
 
     IEnumerator OnGameStartDialogue()
     {

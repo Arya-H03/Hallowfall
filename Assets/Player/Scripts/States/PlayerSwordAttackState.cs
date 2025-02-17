@@ -6,6 +6,7 @@ using static UnityEditor.PlayerSettings;
 public class PlayerSwordAttackState : PlayerBaseState
 {
     [SerializeField] private float moveSpeedWhileAttaking = 2;
+    [SerializeField] private float hitStopDuration = 0.05f;
 
     private float attackComboWindow = 0.6f;
     private float attackDelay = 0.4f;
@@ -216,19 +217,14 @@ public class PlayerSwordAttackState : PlayerBaseState
         SpawnSlashEffect(firstSwingEffect, firstSwingCenter.position);
         if (hitResult.collider != null)
         {
-            if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                OnSwordAttackBlockedByEnemy(hitResult);
-
-            }
-
-            else if (hitResult.collider.CompareTag("Enemy"))
+            if (hitResult.collider.CompareTag("Enemy"))
             {
                 
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
               
                 enemyController.OnEnemyHit(firstSwingDamage, hitResult.point, HitSfxType.sword);
+                GameManager.Instance.StopTime(hitStopDuration);
                 
             }
             
@@ -242,18 +238,14 @@ public class PlayerSwordAttackState : PlayerBaseState
         AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
         SpawnSlashEffect(secondSwingEffect, secondSwingCenter.position);
         if (hitResult.collider != null)
-        {
-            if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                OnSwordAttackBlockedByEnemy(hitResult);
-            }
-
-            else if (hitResult.collider.CompareTag("Enemy"))
+        {        
+             if (hitResult.collider.CompareTag("Enemy"))
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                
                 enemyController.OnEnemyHit(secondSwingDamage, hitResult.point,HitSfxType.sword);
+                GameManager.Instance.StopTime(hitStopDuration);
             }
            
         }
@@ -269,16 +261,12 @@ public class PlayerSwordAttackState : PlayerBaseState
         SpawnSlashEffect(thirdSwingEffect, thirdSwingCenter.position);
         if (hitResult.collider != null)
         {
-            if (hitResult.collider.CompareTag("EnemySwordBlock"))
-            {
-                OnSwordAttackBlockedByEnemy(hitResult);
-            }
-
-            else if (hitResult.collider.CompareTag("Enemy"))
+            if (hitResult.collider.CompareTag("Enemy"))
             {
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 enemyController.OnEnemyHit(thirdSwingDamage, hitResult.point,HitSfxType.sword);
+                GameManager.Instance.StopTime(hitStopDuration);
             }
         }
     }
