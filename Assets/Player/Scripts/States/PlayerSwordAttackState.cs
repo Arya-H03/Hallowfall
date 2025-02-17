@@ -68,6 +68,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         OnFirstSwordSwingEvent += FirstSwingBoxCast;
         OnSecondSwordSwingEvent += SecondSwingBoxCast;
+        OnThirdSwordSwingEvent += ThirdSwingBoxCast;
     }
     public override void OnEnterState()
     {

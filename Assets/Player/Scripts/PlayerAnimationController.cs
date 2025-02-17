@@ -63,9 +63,9 @@ public class PlayerAnimationController : MonoBehaviour
         playerController.PlayerSwordAttackState.OnSecondSwordSwingEvent?.Invoke();
     }
 
-    public void BoxCastForJumpAttack()
+    public void ThirdAttackSwing()
     {
-        playerController.PlayerSwordAttackState.ThirdSwingBoxCast();
+        playerController.PlayerSwordAttackState.OnThirdSwordSwingEvent?.Invoke();
     }
 
     public void OnParryEnd()

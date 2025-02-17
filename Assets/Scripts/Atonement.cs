@@ -11,7 +11,7 @@ public class Atonement : MonoBehaviour
     }
     void Start()
     {
-       StartCoroutine(LaunchAttonement());
+       //StartCoroutine(LaunchAttonement());
     }
 
     private IEnumerator LaunchAttonement()

@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0a0f28e3a39104baead77849e1e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstFlameSlash: {fileID: 6442735963225259504, guid: a36c0c10653f5f843b84197939211636, type: 3}
-  secondFlameSlash: {fileID: 3155597501727793528, guid: 359778928ef60ce428bd37d5238ffdce, type: 3}
+  flamePrefab: {fileID: 1254809270399908513, guid: b14d7578cc0ab904f9c52affdcbf0792, type: 3}
