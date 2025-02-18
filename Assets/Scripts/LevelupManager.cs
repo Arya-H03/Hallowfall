@@ -64,8 +64,8 @@ public class LevelupManager : MonoBehaviour
 
     public void OnAtonementPickUp()
     {
-        playerController.PlayerInfo.CurrentAtonement++;
-        if (playerController.PlayerInfo.CurrentAtonement >= playerController.PlayerInfo.AtonementToLevel)
+        playerController.CurrentAtonement++;
+        if (playerController.CurrentAtonement >= playerController.AtonementToLevel)
         {
             OnLevelUp();
         }
@@ -74,19 +74,19 @@ public class LevelupManager : MonoBehaviour
 
     public void ResetAttonement()
     {
-        playerController.PlayerInfo.CurrentAtonement = 0;
-        playerController.PlayerInfo.AtonementToLevel = 0;
-        playerController.PlayerInfo.AtonementToLevel = 3;
+        playerController.CurrentAtonement = 0;
+        playerController.AtonementToLevel = 0;
+        playerController.AtonementToLevel = 3;
 
     }
 
     private void OnLevelUp()
     {
-        playerController.PlayerInfo.AtonementLvl++;
-        playerController.PlayerInfo.CurrentAtonement = 0;
-        playerController.PlayerInfo.AtonementToLevel += 2;
-        playerController.PlayerInfo.CurrentHealth = playerController.PlayerInfo.MaxHealth;
-        float ratio = (float)playerController.PlayerInfo.CurrentHealth / playerController.PlayerInfo.MaxHealth;
+        playerController.AtonementLvl++;
+        playerController.CurrentAtonement = 0;
+        playerController.AtonementToLevel += 2;
+        playerController.CurrentHealth = playerController.MaxHealth;
+        float ratio = (float)playerController.CurrentHealth / playerController.MaxHealth;
        
         FillAbilityCards();
         UIManager.Instance.AbilityWindow.SetActive(true);

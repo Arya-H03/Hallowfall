@@ -8,8 +8,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] private float moveSpeedWhileAttaking = 2;
     [SerializeField] private float hitStopDuration = 0.05f;
 
-    private float attackComboWindow = 0.6f;
-    private float attackDelay = 0.4f;
+    private float attackComboWindow = 0.55f;
+    private float attackDelay = 0.35f;
     private bool canAttack = true;
     private bool isInCombo = false;
     private int comboIndex = 0;
@@ -213,7 +213,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void FirstSwingBoxCast()
     {
         RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter, firstSwingCastSize);
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)],1);
         SpawnSlashEffect(firstSwingEffect, firstSwingCenter.position);
         if (hitResult.collider != null)
         {
@@ -235,7 +235,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter, secondSwingCastSize);
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], 1);
         SpawnSlashEffect(secondSwingEffect, secondSwingCenter.position);
         if (hitResult.collider != null)
         {        
@@ -257,7 +257,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
 
         RaycastHit2D hitResult = BoxCastForAttack(thirdSwingCenter, thirdSwingCastSize);
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)]);
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], 1);
         SpawnSlashEffect(thirdSwingEffect, thirdSwingCenter.position);
         if (hitResult.collider != null)
         {

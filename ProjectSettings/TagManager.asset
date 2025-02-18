@@ -10,7 +10,6 @@ TagManager:
   - ParryShield
   - Grass
   - PlayerPickUpBox
-  - Wood
   - EnemySwordBlock
   - Enemy
   - TAD
@@ -19,6 +18,8 @@ TagManager:
   - Trap
   - Statue
   - DialogueBox
+  - Mist
+  - Stone
   layers:
   - Default
   - TransparentFX

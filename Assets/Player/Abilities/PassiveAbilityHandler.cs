@@ -18,7 +18,7 @@ public class PassiveAbilityHandler : MonoBehaviour
 
     private void IncreaseHealth()
     {
-        playerController.PlayerInfo.MaxHealth += (int)healthIncrease.modifier;
+        playerController.MaxHealth += (int)healthIncrease.modifier;
     }
 
     private void IncreaseSpeed()

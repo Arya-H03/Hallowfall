@@ -24,7 +24,19 @@ public class PlayerController : MonoBehaviour
 
     private Player player;
     private PlayerCollision playerCollision;
-    private PlayerInfo playerInfo = new PlayerInfo();
+
+    [SerializeField] PlayerConfig playerConfig;
+
+    private float maxHealth = 0;
+    private float currentHealth = 0;
+
+    private int currentAtonement = 0;
+    private int atonementLvl = 0;
+    private int atonementToLevel = 0;
+
+
+
+    
 
     [SerializeField] private bool canPlayerJump = true;
     [SerializeField] private bool isPlayerGrounded = true;
@@ -47,7 +59,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerStateEnum currentStateEnum;
     private PlayerBaseState currentState;
 
-    private FloorTypeEnum currentFloorType;
+    [SerializeField] private FloorTypeEnum currentFloorType;
 
     private PlayerIdleState playerIdleState;
     private PlayerRunState playerRunState;
@@ -97,9 +109,15 @@ public class PlayerController : MonoBehaviour
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
    
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
-    public PlayerInfo PlayerInfo { get => playerInfo; set => playerInfo = value; }
     public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
     public Material Material { get => material; set => material = value; }
+    public PlayerConfig PlayerConfig { get => playerConfig; set => playerConfig = value; }
+
+    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public int CurrentAtonement { get => currentAtonement; set => currentAtonement = value; }
+    public int AtonementLvl { get => atonementLvl; set => atonementLvl = value; }
+    public int AtonementToLevel { get => atonementToLevel; set => atonementToLevel = value; }
 
     #endregion
     private void Awake()
@@ -149,7 +167,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        RestoreHealth(playerInfo.MaxHealth);
+        InitVariablesFromConfig();
+        RestoreHealth(playerConfig.maxHealth);
         
     }
     private void Update()
@@ -164,7 +183,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentStateEnum != stateEnum)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -217,6 +236,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void InitVariablesFromConfig()
+    {
+        maxHealth = playerConfig.maxHealth;
+        atonementToLevel = playerConfig.toLevel;
+    }
     public void OnMove(Vector2 dir)
     {
         PlayerMovementManager.HandleMovement(dir);
@@ -273,19 +297,19 @@ public class PlayerController : MonoBehaviour
 
     public void RestoreHealth(float amount)
     {
-        playerInfo.CurrentHealth = amount;
+        currentHealth = amount;
 
     }
 
     private void OnTakingDamage(float value)
     { 
-        if (playerInfo.CurrentHealth > 0)
+        if (currentHealth > 0)
         {
 
-            playerInfo.CurrentHealth -= value;
+            currentHealth -= value;
            
 
-            if (playerInfo.CurrentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 ChangeState(PlayerStateEnum.Death);
             }

@@ -6,10 +6,8 @@ using UnityEngine.Audio;
 public class ImbuedFlameHandler : ActiveAbilityHandler
 {
     [SerializeField] GameObject flamePrefab;
-    [SerializeField] AudioClip [] sfx;
 
     PlayerSwordAttackState swordAttackState;
-    AudioSource audioSource;
 
     private void Start()
     {

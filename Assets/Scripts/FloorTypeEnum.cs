@@ -6,6 +6,6 @@ public enum FloorTypeEnum
 {
    Ground,
    Grass,
-   Wood
+   Stone
     
 }

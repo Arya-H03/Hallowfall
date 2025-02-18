@@ -27,7 +27,7 @@ public class PlayerHangingState : PlayerBaseState
         
         playerController.IsHanging = true;  
         playerController.CanPlayerJump= true;  
-        AudioManager.Instance.PlaySFX(audioSource,hangingAC);
+        AudioManager.Instance.PlaySFX(audioSource,hangingAC, 1);
         playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
         
         
@@ -93,7 +93,7 @@ public class PlayerHangingState : PlayerBaseState
             }
         }
 
-        AudioManager.Instance.PlaySFX(audioSource, jumpingAC);
+        AudioManager.Instance.PlaySFX(audioSource, jumpingAC, 1 );
 
 
         StartCoroutine(HandleHangingCooldown());

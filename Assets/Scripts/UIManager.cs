@@ -83,18 +83,18 @@ public class UIManager : MonoBehaviour
 
     private void UpdateHealthUI(PlayerController playerController)
     {
-        float ratio = (float)playerController.PlayerInfo.CurrentHealth / playerController.PlayerInfo.MaxHealth;
+        float ratio = (float)playerController.CurrentHealth / playerController.MaxHealth;
         healthBar.localScale = new Vector3(ratio, 1, 1);
 
-        healthText.text = playerController.PlayerInfo.CurrentHealth.ToString() + "/" + playerController.PlayerInfo.MaxHealth.ToString();
+        healthText.text = playerController.CurrentHealth.ToString() + "/" + playerController.MaxHealth.ToString();
     }
 
     private void UpdateAttonementUI(PlayerController playerController)
     {
 
-        float ratio = (float)playerController.PlayerInfo.CurrentAtonement / playerController.PlayerInfo.AtonementToLevel;
+        float ratio = (float)playerController.CurrentAtonement / playerController.AtonementToLevel;
         atonementBar.localScale = new Vector3(ratio, 1, 1);
-        atonementLvlText.text = playerController.PlayerInfo.AtonementLvl.ToString();
+        atonementLvlText.text = playerController.AtonementLvl.ToString();
     }
 
     public void OpenDeathMenu()

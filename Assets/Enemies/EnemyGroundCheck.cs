@@ -34,8 +34,8 @@ public class EnemyGroundCheck : MonoBehaviour
                     case "Ground":
                         enemyController.CurrentFloorType = FloorTypeEnum.Ground;
                         break;
-                    case "Wood":
-                        enemyController.CurrentFloorType = FloorTypeEnum.Wood;
+                    case "Stone":
+                        enemyController.CurrentFloorType = FloorTypeEnum.Stone;
                         break;
                     case "Grass":
                         enemyController.CurrentFloorType = FloorTypeEnum.Grass;

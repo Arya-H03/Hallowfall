@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IPlayerState
 {
+    void InitState(PlayerConfig config);
     void OnEnterState();
 
     void OnExitState();

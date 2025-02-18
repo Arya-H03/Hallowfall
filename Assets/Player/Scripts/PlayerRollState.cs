@@ -45,7 +45,7 @@ public class PlayerRollState : PlayerBaseState
 
         playerController.IsRolling = true;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
-        AudioManager.Instance.PlaySFX(audioSource, rollAC);
+        AudioManager.Instance.PlaySFX(audioSource, rollAC, 1    );
         playerController.PlayerMovementManager.MoveSpeed = 0;
         rollCooldownTimer = 0;
         playerController.CanRoll = false;

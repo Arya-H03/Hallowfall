@@ -28,12 +28,13 @@ public class EnvironmentCheck : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckForFloorType();
         if (!playerController.IsDead)
         {
             CheckForInteractions();
             
             CheckWhilePlayerIsFalling();
-            CheckForFloorType();
+            
 
 
 
@@ -41,14 +42,14 @@ public class EnvironmentCheck : MonoBehaviour
             RaycastHit2D headLevelCast = Physics2D.Raycast(headLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
             RaycastHit2D midLevelCast = Physics2D.Raycast(midLevelCheckOrigin.position, new Vector2(playerController.gameObject.transform.localScale.x * 1, 0), 0.5f, layerMask);
 
-            if (midLevelCast && !headLevelCast && playerController.CanHang)
-            {
-                Debug.Log("Hang");
-                playerController.ChangeState(PlayerStateEnum.Hang);
-                playerController.PlayerHangingState.SetHaningPosition(midLevelCast);
+            //if (midLevelCast && !headLevelCast && playerController.CanHang)
+            //{
+            //    Debug.Log("Hang");
+            //    playerController.ChangeState(PlayerStateEnum.Hang);
+            //    playerController.PlayerHangingState.SetHaningPosition(midLevelCast);
 
 
-            }
+            //}
 
 
             if (!playerController.IsPlayerGrounded && !playerController.IsHanging && !playerController.IsAttacking )
@@ -66,7 +67,8 @@ public class EnvironmentCheck : MonoBehaviour
     private void CheckForFloorType()
     {
         RaycastHit2D rayCast = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
-        if (rayCast && rayCast.collider.tag != playerController.CurrentFloorType.ToString()) 
+
+        if (rayCast && !rayCast.collider.CompareTag(playerController.CurrentFloorType.ToString()))
         {
             playerController.PlayerRunState.StopRunningSFX();
             switch (rayCast.collider.tag)
@@ -74,8 +76,8 @@ public class EnvironmentCheck : MonoBehaviour
                 case "Ground":
                     playerController.CurrentFloorType = FloorTypeEnum.Ground;
                     break;
-                case "Wood":
-                    playerController.CurrentFloorType = FloorTypeEnum.Wood;
+                case "Stone":
+                    playerController.CurrentFloorType = FloorTypeEnum.Stone;
                     break;
                 case "Grass":
                     playerController.CurrentFloorType = FloorTypeEnum.Grass;
@@ -86,8 +88,6 @@ public class EnvironmentCheck : MonoBehaviour
             {
                 playerController.PlayerRunState.StartRunningSFX();
             }
-
-            
 
         }
     }

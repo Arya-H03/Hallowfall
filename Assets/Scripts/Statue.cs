@@ -52,7 +52,7 @@ public class Statue : MonoBehaviour, IInteractable
             
             GameManager.Instance.LastStatue = this;
             SetPurpleFire(true);
-            AudioManager.Instance.PlaySFX(audioSource, activationAC);
+            AudioManager.Instance.PlaySFX(audioSource, activationAC, 1  );
             StartCoroutine(GameManager.Instance.SpawnEnemies());
             
         }

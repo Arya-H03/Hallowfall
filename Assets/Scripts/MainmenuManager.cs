@@ -15,7 +15,7 @@ public class MainmenuManager : MonoBehaviour
     private void Start()
     {
         AudioManager.Instance.LoadSoundData();
-        AudioManager.Instance.PlayMusic(audioSource, backgroundMusic);  
+        AudioManager.Instance.PlayMusic(audioSource, backgroundMusic, 1 );  
     }
     private void OnGUI()
     {

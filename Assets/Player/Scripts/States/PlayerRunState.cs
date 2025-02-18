@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
    
 
-    [SerializeField] private float runSpeed = 3.5f;
+    private float runSpeed = 0;
 
     private AudioSource audioSource;
-    [SerializeField] private AudioClip groundRunSFX;
-    [SerializeField] private AudioClip grassRunSFX;
-    [SerializeField] private AudioClip woodRunSFX;
+    private AudioClip[] groundRunSFX;
+    private AudioClip[] grassRunSFX;
+    private AudioClip[] stoneRunSFX;
+
 
     public float RunSpeed { get => runSpeed; set => runSpeed = value; }
 
@@ -20,6 +22,13 @@ public class PlayerRunState : PlayerBaseState
         this.stateEnum = PlayerStateEnum.Run;
     }
 
+    public override void InitState(PlayerConfig config)
+    {
+        runSpeed = config.runSpeed;
+        groundRunSFX = config.groundSFX;
+        grassRunSFX = config.grassSFX;
+        stoneRunSFX = config.stoneSFX;
+    }
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -39,7 +48,24 @@ public class PlayerRunState : PlayerBaseState
     public override void HandleState()
     {
 
+        
+    }
 
+    public void PlayStepSound()
+    {
+ 
+        switch (playerController.CurrentFloorType)
+        {
+            case FloorTypeEnum.Ground:
+                AudioManager.Instance.PlayRandomSFX(audioSource, groundRunSFX, 0.1f);
+                break;
+            case FloorTypeEnum.Grass:
+                AudioManager.Instance.PlayRandomSFX(audioSource, grassRunSFX, 0.1f);
+                break;
+            case FloorTypeEnum.Stone:
+                AudioManager.Instance.PlayRandomSFX(audioSource, stoneRunSFX, 0.1f);
+                break;
+        }
     }
 
     private void StartRunning()
@@ -62,19 +88,19 @@ public class PlayerRunState : PlayerBaseState
    
     public void StartRunningSFX()
     {
-        switch (playerController.CurrentFloorType)
-        {
-            case FloorTypeEnum.Ground:
-                AudioManager.Instance.PlaySFX(audioSource, groundRunSFX);
-                break;
-            case FloorTypeEnum.Grass:
-                AudioManager.Instance.PlaySFX(audioSource, grassRunSFX);
-                break;
-            case FloorTypeEnum.Wood:
-                AudioManager.Instance.PlaySFX(audioSource, woodRunSFX);
-                break;
-        }
-        
+        //switch (playerController.CurrentFloorType)
+        //{
+        //    case FloorTypeEnum.Ground:
+        //        AudioManager.Instance.PlaySFX(audioSource, groundRunSFX);
+        //        break;
+        //    case FloorTypeEnum.Grass:
+        //        AudioManager.Instance.PlaySFX(audioSource, grassRunSFX);
+        //        break;
+        //    case FloorTypeEnum.Stone:
+        //        AudioManager.Instance.PlaySFX(audioSource, woodRunSFX);
+        //        break;
+        //}
+
     }
 
     public void StopRunningSFX()

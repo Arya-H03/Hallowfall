@@ -58,7 +58,7 @@ public class EnemyCollisionManager : MonoBehaviour
         PlayBloodEffect(hitPoint);
         enemyController.Material.SetFloat("_Flash", 1);
         //SFX
-        if(hitType != HitSfxType.none) AudioManager.Instance.PlaySFX(enemyController.AudioSource, GetHitSound(hitType));
+        if(hitType != HitSfxType.none) AudioManager.Instance.PlaySFX(enemyController.AudioSource, GetHitSound(hitType),1);
 
         //Damage
         enemyController.OnEnemyTakingDamage(damage, enemyController.DamageModifier);

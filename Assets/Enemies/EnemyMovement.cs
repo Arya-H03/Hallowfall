@@ -83,13 +83,13 @@ public class EnemyMovement : MonoBehaviour
         switch (enemyController.CurrentFloorType)
         {
             case FloorTypeEnum.Ground:
-                AudioManager.Instance.PlaySFX(audioSource, groundSFX);
+                AudioManager.Instance.PlaySFX(audioSource, groundSFX, 1);
                 break;
             case FloorTypeEnum.Grass:
-                AudioManager.Instance.PlaySFX(audioSource, grassSFX);
+                AudioManager.Instance.PlaySFX(audioSource, grassSFX, 1);
                 break;
-            case FloorTypeEnum.Wood:
-                AudioManager.Instance.PlaySFX(audioSource, woodSFX);
+            case FloorTypeEnum.Stone:
+                AudioManager.Instance.PlaySFX(audioSource, woodSFX, 1);
                 break;
         }
 

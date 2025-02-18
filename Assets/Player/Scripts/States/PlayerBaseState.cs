@@ -12,6 +12,15 @@ public class PlayerBaseState : MonoBehaviour, IPlayerState
 
     }
 
+    public virtual void InitState(PlayerConfig config)
+    {
+
+    }
+
+    public virtual void Start()
+    {
+        InitState(playerController.PlayerConfig);
+    }
     public void SetOnInitializeVariables(PlayerController statesManagerRef)
     {
         this.playerController = statesManagerRef;
