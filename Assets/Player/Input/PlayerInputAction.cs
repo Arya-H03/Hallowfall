@@ -208,8 +208,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6455ca97-59af-49f3-b8ff-d3c73d497df2"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DashAttack"",

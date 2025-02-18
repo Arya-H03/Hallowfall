@@ -5,18 +5,21 @@ using static UnityEditor.PlayerSettings;
 
 public class PlayerSwordAttackState : PlayerBaseState
 {
-    [SerializeField] private float moveSpeedWhileAttaking = 2;
-    [SerializeField] private float hitStopDuration = 0.05f;
+    private float moveSpeedWhileAttaking =0;
+    private float hitStopDuration = 0;
 
-    private float attackComboWindow = 0.55f;
-    private float attackDelay = 0.35f;
+    private float dashAttackDelay = 0;
+    private float dashModifier = 0;
+    private float attackComboWindow = 0;
+    private float attackDelay = 0;
     private bool canAttack = true;
     private bool isInCombo = false;
     private int comboIndex = 0;
     private Coroutine comboResetCoroutine;
     private AudioSource audioSource;
 
-    [SerializeField] AudioClip[] attackSwingSFX;
+    private AudioClip[] attackSwingSFX;
+    private AudioClip[] dashAttackSFX;
 
     public delegate void EventHandler();
     public EventHandler OnFirstSwordSwingEvent;
@@ -25,32 +28,33 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private Coroutine SpawnAfterImageCoroutine;
 
-    private bool canDashAttack = false;
+    private GameObject firstSwingEffect;
+    private GameObject secondSwingEffect;
+    private GameObject thirdSwingEffect;
 
-    [SerializeField] GameObject firstSwingEffect;
-    [SerializeField] GameObject secondSwingEffect;
-    [SerializeField] GameObject thirdSwingEffect;
+    private float firstSwingDamage = 0;
+    private float secondSwingDamage = 0;
+    private float thirdSwingDamage = 0;
+    private float dashAttackDamage = 0;
 
-    [SerializeField] int firstSwingDamage = 10;
-    [SerializeField] int secondSwingDamage = 20;
-    [SerializeField] int thirdSwingDamage = 30;
-
+    private DashAttackBox dashAttackBox;
  
-    [SerializeField] LayerMask layerMask; // Layer mask for the boxcast
-    [SerializeField] float distance; // Distance for the boxcast in 2D
+    private LayerMask layerMask; // Layer mask for the boxcast
+    private float distance; // Distance for the boxcast in 2D
 
-    [SerializeField] Transform firstSwingCenter;
-    [SerializeField] private Vector2 firstSwingCastSize = new Vector2(1.7f, 1.5f);
+    [SerializeField] private Transform firstSwingCenter;
+    private Vector2 firstSwingCastSize = Vector2.zero;
 
-    [SerializeField] Transform secondSwingCenter;
-    [SerializeField] private Vector2 secondSwingCastSize = new Vector2(1.3f, 1f);
+    [SerializeField] private Transform secondSwingCenter;
+    private Vector2 secondSwingCastSize = Vector2.zero;
 
-    [SerializeField] Transform thirdSwingCenter;
-    [SerializeField] private Vector2 thirdSwingCastSize = new Vector2(1.2f, 2f);
+    [SerializeField] private Transform thirdSwingCenter;
+    private Vector2 thirdSwingCastSize = Vector2.zero;
 
     public Transform FirstSwingCenter { get => firstSwingCenter; }
     public Transform SecondSwingCenter { get => secondSwingCenter; }
     public Transform ThirdSwingCenter { get => thirdSwingCenter; }
+    public float DashAttackDamage { get => dashAttackDamage; set => dashAttackDamage = value; }
 
     public PlayerSwordAttackState()
     {
@@ -60,13 +64,38 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        dashAttackBox = GetComponentInChildren<DashAttackBox>();
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();  
+        
         OnFirstSwordSwingEvent += FirstSwingBoxCast;
         OnSecondSwordSwingEvent += SecondSwingBoxCast;
         OnThirdSwordSwingEvent += ThirdSwingBoxCast;
+    }
+
+    public override void InitState(PlayerConfig config)
+    {
+        moveSpeedWhileAttaking = config.moveSpeedWhileAttaking;
+        hitStopDuration = config.hitStopDuration;
+        attackComboWindow = config.attackComboWindow;
+        attackDelay = config.attackDelay;
+        dashAttackDelay = config.dashAttackDelay;
+        attackSwingSFX = config.attackSwingSFX;
+        dashAttackSFX = config.dashAttackSFX;
+        firstSwingDamage = config.firstSwingDamage;
+        secondSwingDamage = config.secondSwingDamage;
+        thirdSwingDamage = config.thirdSwingDamage;
+        DashAttackDamage = config.dashAttackDamage;
+        layerMask = config.layerMask;
+        distance = config.distance;
+        firstSwingCastSize = config.firstSwingCastSize;
+        secondSwingCastSize = config.secondSwingCastSize;
+        thirdSwingCastSize = config.thirdSwingCastSize;
+        dashModifier = config.dashModifier;
+
     }
     public override void OnEnterState()
     {
@@ -79,14 +108,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
-        canDashAttack = false;
-
-        if (SpawnAfterImageCoroutine != null)
-        {
-            StopCoroutine(SpawnAfterImageCoroutine);
-            SpawnAfterImageCoroutine = null;
-        }
-        playerController.rb.velocity = Vector2.zero;
+      
     }
 
     public override void HandleState()
@@ -146,12 +168,13 @@ public class PlayerSwordAttackState : PlayerBaseState
                 break;
                 
         };
+
+        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], 1);
     }
     public void HandleFirstSwing()
     {
         playerController.IsAttacking = true;
         playerController.CanPlayerAttack = false;
-        canDashAttack = true;
         playerController.AnimationController.SetTriggerForAnimations("Attack");   
     }
 
@@ -167,7 +190,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     }
     public void EndAttack()
     {       
-        if (playerController.PlayerMovementManager.currentInputDir.x != 0)
+        if (playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
         {
             playerController.ChangeState(PlayerStateEnum.Run);
         }
@@ -175,51 +198,67 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
-
-        if (SpawnAfterImageCoroutine != null)
-        {
-            StopCoroutine(SpawnAfterImageCoroutine);
-            SpawnAfterImageCoroutine = null;
-        }
     }
 
     public void DashAttack()
     {
-        if (canDashAttack)
-        {
-            canDashAttack = false;
-            playerController.AnimationController.SetTriggerForAnimations("DoubleSwing");
-            SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
-            playerController.rb.velocity += new Vector2(8 * playerController.PlayerMovementManager.CurrentDirection.x, 0);
-        }
-
+        StartCoroutine(DashAttackCoroutine());
     }
- 
-    private void OnSwordAttackBlockedByEnemy(RaycastHit2D hit)
+
+    private IEnumerator DashAttackCoroutine()
     {
-        Vector2 launchVector;
-        if (hit.point.x >= this.transform.position.x)
+        if (playerController.CanDashAttack)
         {
-            launchVector = new Vector2(1.5f, 0);
+            //Play Anim
+            playerController.AnimationController.SetTriggerForAnimations("Dash");
+            //Enable Collider
+            dashAttackBox.EnableCollider();
+            //SFX
+            AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, dashAttackSFX.Length)], 1);
+            //After Image
+            SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
+            //Velocity
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
+            Vector2 dir = ( mousePos - playerController.transform.position).normalized;
+            playerController.PlayerMovementManager.TurnPlayer(dir);
+            dir.y = Mathf.Clamp(dir.y, -0.5f, 0.5f);
+            playerController.rb.velocity += dir * dashModifier;
+
+            playerController.CanDashAttack = false;
+
+            //Local CD
+            yield return new WaitForSeconds(0.5f);
+            //End After Image
+            if (SpawnAfterImageCoroutine != null)
+            {
+                StopCoroutine(SpawnAfterImageCoroutine);
+                SpawnAfterImageCoroutine = null;
+            }
+            //Rest Vel
+            playerController.rb.velocity = Vector2.zero;
+            playerController.PlayerMovementManager.TurnPlayer(playerController.PlayerMovementManager.currentInputDir);
+            //Disable Collider
+            dashAttackBox.DisableCollider();
+
+            EndAttack();
+
+            yield return new WaitForSeconds(dashAttackDelay);
+          
+            playerController.CanDashAttack = true;
+
         }
-        else
-        {
-            launchVector = new Vector2(-1.5f, 0);
-        }
-        //hit.collider.gameObject.GetComponentInParent<BlockState>().OnAttackBlocked(30, launchVector, parent);
-        hit.collider.gameObject.GetComponentInParent<EnemyCollisionManager>().SpawnImpactEffect(hit.point);
     }
 
     private void FirstSwingBoxCast()
     {
-        RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter, firstSwingCastSize);
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)],1);
-        SpawnSlashEffect(firstSwingEffect, firstSwingCenter.position);
+        RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize);
+        
+        //SpawnSlashEffect(firstSwingEffect, firstSwingCenter.position);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("Enemy"))
             {
-                
                 GameObject enemy = hitResult.collider.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
               
@@ -234,9 +273,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void SecondSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter, secondSwingCastSize);
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], 1);
-        SpawnSlashEffect(secondSwingEffect, secondSwingCenter.position);
+        RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize);
+        //SpawnSlashEffect(secondSwingEffect, firstSwingCenter.position);
         if (hitResult.collider != null)
         {        
              if (hitResult.collider.CompareTag("Enemy"))
@@ -256,9 +294,8 @@ public class PlayerSwordAttackState : PlayerBaseState
     public void ThirdSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(thirdSwingCenter, thirdSwingCastSize);
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], 1);
-        SpawnSlashEffect(thirdSwingEffect, thirdSwingCenter.position);
+        RaycastHit2D hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize);
+        //SpawnSlashEffect(thirdSwingEffect, firstSwingCenter.position);
         if (hitResult.collider != null)
         {
             if (hitResult.collider.CompareTag("Enemy"))
@@ -271,18 +308,19 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
     }
 
-    private RaycastHit2D BoxCastForAttack(Transform centerPoint, Vector2 boxSize)
+    private RaycastHit2D BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize)
     {
         Vector2 direction = transform.right;
         RaycastHit2D closestHit;
 
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(centerPoint.position.x, centerPoint.position.y), boxSize, 0f, direction, distance, layerMask);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
         if (hits.Length > 0)
         {
             closestHit = hits[0];
 
             foreach (RaycastHit2D hit in hits)
             {
+                Debug.Log(hit);
                 if (Vector2.Distance(hit.point, this.transform.position) < Vector2.Distance(closestHit.point, this.transform.position))
                 {
                     closestHit = hit;
@@ -314,8 +352,46 @@ public class PlayerSwordAttackState : PlayerBaseState
         //obj.GetComponent<Rigidbody2D>().velocity = launchVec * 4;
         //Destroy(obj, 0.2f);
     }
-    private void OnDrawGizmos()
+
+    private void DebugBoxCast(Vector2 centerPoint, Vector2 boxSize)
     {
-        Gizmos.DrawWireCube(secondSwingCenter.position, secondSwingCastSize);
+        Vector2 direction = transform.right;
+        Color castColor = Color.red;
+        Color hitColor = Color.green;
+
+        // Draw the BoxCast starting position
+        Vector2 worldCenter = centerPoint;
+        Debug.DrawRay(worldCenter, direction * distance, castColor, 0.1f); // Draw the cast direction
+
+        // Draw the BoxCast outline
+        Vector2 halfSize = boxSize / 2f;
+        Vector2 topLeft = worldCenter + new Vector2(-halfSize.x, halfSize.y);
+        Vector2 topRight = worldCenter + new Vector2(halfSize.x, halfSize.y);
+        Vector2 bottomLeft = worldCenter + new Vector2(-halfSize.x, -halfSize.y);
+        Vector2 bottomRight = worldCenter + new Vector2(halfSize.x, -halfSize.y);
+
+        Debug.DrawLine(topLeft, topRight, castColor, 0.1f);
+        Debug.DrawLine(topRight, bottomRight, castColor, 0.1f);
+        Debug.DrawLine(bottomRight, bottomLeft, castColor, 0.1f);
+        Debug.DrawLine(bottomLeft, topLeft, castColor, 0.1f);
+
+        // Perform the BoxCastAll
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(worldCenter, boxSize, 0f, direction, distance, layerMask);
+        foreach (RaycastHit2D hit in hits)
+        {
+            //Debug.Log($"Hit: {hit.collider.name} at {hit.point}");
+            Debug.DrawRay(hit.point, Vector2.up * 0.5f, hitColor, 0.1f); // Draw where it hit
+        }
     }
+
+    
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.green;
+
+    //    Gizmos.DrawWireCube(firstSwingCenter.position, firstSwingCastSize); 
+    //}
+
+
+
 }

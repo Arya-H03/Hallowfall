@@ -119,6 +119,7 @@ public class InputManager : MonoBehaviour
     public void DashAttack(InputAction.CallbackContext ctx)
     {
         player.OnDashAttack();
+
         
     }
 }

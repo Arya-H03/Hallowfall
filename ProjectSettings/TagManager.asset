@@ -12,7 +12,6 @@ TagManager:
   - PlayerPickUpBox
   - EnemySwordBlock
   - Enemy
-  - TAD
   - GameManager
   - BlockObject
   - Trap
@@ -20,6 +19,7 @@ TagManager:
   - DialogueBox
   - Mist
   - Stone
+  - Wood
   layers:
   - Default
   - TransparentFX

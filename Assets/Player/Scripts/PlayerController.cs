@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerGrounded = true;
     [SerializeField] private bool isPlayerJumping = false;
     [SerializeField] private bool canPlayerAttack = true;
+    [SerializeField] private bool canDashAttack = true;
     [SerializeField] private bool isParrying  = false;
-    [SerializeField] private bool hasSword = true;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isRolling = false;
@@ -89,7 +89,6 @@ public class PlayerController : MonoBehaviour
     public bool IsPlayerJumping { get => isPlayerJumping; set => isPlayerJumping = value; }
     public bool CanPlayerAttack { get => canPlayerAttack; set => canPlayerAttack = value; }
     public bool IsParrying { get => isParrying; set => isParrying = value; }
-    public bool HasSword { get => hasSword; set => hasSword = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
@@ -118,6 +117,7 @@ public class PlayerController : MonoBehaviour
     public int CurrentAtonement { get => currentAtonement; set => currentAtonement = value; }
     public int AtonementLvl { get => atonementLvl; set => atonementLvl = value; }
     public int AtonementToLevel { get => atonementToLevel; set => atonementToLevel = value; }
+    public bool CanDashAttack { get => canDashAttack; set => canDashAttack = value; }
 
     #endregion
     private void Awake()
@@ -266,7 +266,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnDashAttack()
     {
-        //PlayerSwordAttackState.DashAttack();
+        if (canDashAttack)
+        {
+            ChangeState(PlayerStateEnum.SwordAttack);
+            PlayerSwordAttackState.DashAttack();
+        }
+       
     }
 
     public void OnStartParry()
@@ -287,14 +292,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-   
-
-    public void HandelSwordEquipment(bool isEquiped)
-    {
-        animationController.ChangeAnimatorAC(isEquiped);
-        HasSword = isEquiped;
-    }
-
+  
     public void RestoreHealth(float amount)
     {
         currentHealth = amount;

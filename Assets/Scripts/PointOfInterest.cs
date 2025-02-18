@@ -65,19 +65,19 @@ public class PointOfInterest : MonoBehaviour
 
     private void HandleInteraction()
     {
-        if (hasDialouge)
-        {
-            //dialogueBox.StartDialouge(dialogueText);
-        }
+        //if (hasDialouge)
+        //{
+        //    dialogueBox.StartDialouge(dialogueText);
+        //}
 
-        switch (interactionType)
-        {
-            case InteractionTypeEnum.Weapon:
-                GameObject player;
-                player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<PlayerController>().HandelSwordEquipment(true);
-                break;
-        }
+        //switch (interactionType)
+        //{
+        //    case InteractionTypeEnum.Weapon:
+        //        GameObject player;
+        //        player = GameObject.FindGameObjectWithTag("Player");
+        //        player.GetComponent<PlayerController>().HandelSwordEquipment(true);
+        //        break;
+        //}
     }
 
 }

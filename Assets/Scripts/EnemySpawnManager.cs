@@ -52,6 +52,7 @@ public class EnemySpawnManager : MonoBehaviour
     private void SpawnEnemy(GameObject prefab, Vector3 pos)
     {
         GameObject enemy = Instantiate(prefab, pos,Quaternion.identity);
+        enemy.tag = "Enemy";
     }
 
     private Vector3 GenerateRandomSpawnPosition(float dist)

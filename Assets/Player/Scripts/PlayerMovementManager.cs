@@ -32,6 +32,8 @@ public class PlayerMovementManager : MonoBehaviour
             transform.position = clampedPos;
 
         }
+
+        
     }
 
     public void TurnPlayer(Vector2 vec)
