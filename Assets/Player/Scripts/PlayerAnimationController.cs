@@ -95,7 +95,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void OnRollEnd()
     {
-        playerController.PlayerRollState.OnRollEnd();
+        playerController.PlayerRollState.EndRoll();
     }
 
     public void PlayStepSound()

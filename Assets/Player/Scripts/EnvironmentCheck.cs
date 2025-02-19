@@ -52,14 +52,14 @@ public class EnvironmentCheck : MonoBehaviour
             //}
 
 
-            if (!playerController.IsPlayerGrounded && !playerController.IsHanging && !playerController.IsAttacking )
-            {
-                if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
-                {
-                    StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
-                }
+            //if (!playerController.IsPlayerGrounded && !playerController.IsHanging && !playerController.IsAttacking )
+            //{
+            //    if (playerController.CurrentStateEnum == PlayerStateEnum.Roll)
+            //    {
+            //        StartCoroutine(playerController.PlayerRollState.OnReachingLedgeWhileRolling(0.25f));
+            //    }
                 
-            }
+            //}
 
         }
 
