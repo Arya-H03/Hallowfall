@@ -31,7 +31,7 @@ public class Atonement : MonoBehaviour
         
     }
 
-    public void SnapToPlayer(GameObject player )
+    private void SnapToPlayer(GameObject player )
     {
         rb.velocity = new Vector2(player.transform.position.x - this.transform.position.x, player.transform.position.y - this.transform.position.y) * 2;
     }

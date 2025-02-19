@@ -145,7 +145,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      abandoned-structures-day and night color schemes-got pixel cleaning and adjustments for both versions_0: -5440033518264160683
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

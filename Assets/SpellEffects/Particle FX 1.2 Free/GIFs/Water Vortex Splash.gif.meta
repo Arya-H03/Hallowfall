@@ -167,7 +167,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Water Vortex Splash_0: -187186833859485924
+      Water Vortex Splash_1: 4150589374129702965
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

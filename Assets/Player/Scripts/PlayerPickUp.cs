@@ -10,7 +10,7 @@ public class PlayerPickUp : MonoBehaviour
         if(collision.GetComponent<Atonement>() != null)
         {
    
-            collision.GetComponent<Atonement>().SnapToPlayer(this.gameObject);
+            //collision.GetComponent<Atonement>().SnapToPlayer(this.gameObject);
         }
     }
 }

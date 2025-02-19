@@ -44,6 +44,7 @@ public class EnemyDeathState : EnemyBaseState
         enemyController.IsDead = true;
         enemyController.collisionManager.Rb.bodyType = RigidbodyType2D.Static;
         enemyController.collisionManager.BoxCollider.enabled = false;
+        enemyController.NavAgent.enabled = false;
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
         enemyController.WorldCanvas.gameObject.SetActive(false);
         Instantiate(atonement, transform.position, Quaternion.identity);
