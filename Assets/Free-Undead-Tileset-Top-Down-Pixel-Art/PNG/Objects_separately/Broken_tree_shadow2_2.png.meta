@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Broken_tree_shadow2_2_0: -7111978570054767028
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

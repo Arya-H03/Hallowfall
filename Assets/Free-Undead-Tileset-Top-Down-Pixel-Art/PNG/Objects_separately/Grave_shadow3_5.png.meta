@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Grave_shadow3_5_0: 527578206851254065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

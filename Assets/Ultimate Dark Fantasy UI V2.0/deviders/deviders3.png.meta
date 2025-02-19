@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      deviders3_0: 8455141076206018171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

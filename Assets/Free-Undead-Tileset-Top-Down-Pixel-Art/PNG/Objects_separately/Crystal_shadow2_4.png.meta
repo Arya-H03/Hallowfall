@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Crystal_shadow2_4_0: 3240522275157841151
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

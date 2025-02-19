@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Abandoned Structures Elements_32_0: -564762652879230205
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

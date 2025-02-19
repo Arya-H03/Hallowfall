@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lich_shadow1_0: -2566937122095515401
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

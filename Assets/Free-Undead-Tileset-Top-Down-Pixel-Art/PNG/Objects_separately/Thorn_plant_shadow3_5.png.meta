@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Thorn_plant_shadow3_5_0: -3938756449272833028
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
