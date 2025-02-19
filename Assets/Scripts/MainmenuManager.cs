@@ -24,7 +24,7 @@ public class MainmenuManager : MonoBehaviour
     public void OnButtonStartClick()
     {
         AudioManager.Instance.SaveSoundData();  
-        SceneManager.LoadScene("Cemetery");
+        SceneManager.LoadScene("Game");
     }
 
     public void OnButtonExitClick()
