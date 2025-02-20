@@ -25,9 +25,8 @@ public class GameManager : MonoBehaviour
 
     public Statue LastStatue { get => lastStatue; set => lastStatue = value; }
     public GameObject Player { get => player; set => player = value; }
+    public int PlayerScore { get => playerScore; set => playerScore = value; }
 
-
-    
     [SerializeField] string playerWakeUpDialoge;
 
     
@@ -37,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]  GameObject enemy;
 
-   
+    private int playerScore = 0;
 
     [SerializeField] GameObject player;
 
@@ -70,6 +69,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void AddToPlayerScore(int value)
+    {
+        playerScore += value;
+        UIManager.Instance.UpdatePlayerScoreText(playerScore);
+    }
     public void SetPlayerLocationOnRespawn()
     {
         if (lastStatue)

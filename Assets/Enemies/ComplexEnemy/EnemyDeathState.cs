@@ -48,12 +48,8 @@ public class EnemyDeathState : EnemyBaseState
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
         enemyController.WorldCanvas.gameObject.SetActive(false);
         Instantiate(atonement, transform.position, Quaternion.identity);
+        GameManager.Instance.AddToPlayerScore(enemyController.EnemyLvl);
 
-    }
-
-    private void OnEnemyDeathEnd()
-    {
-       
     }
 
     public void OnDeathAnimationEnd()

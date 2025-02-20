@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,6 +24,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Transform atonementBar;
     [SerializeField] TextMeshProUGUI atonementLvlText;
+
+    [SerializeField] TextMeshProUGUI playerScoreText;
 
     [SerializeField] TextMeshProUGUI abilityDescription;
 
@@ -79,6 +82,11 @@ public class UIManager : MonoBehaviour
             UpdateHealthUI(playerController);
             UpdateAttonementUI(playerController);
         }
+    }
+
+    public void UpdatePlayerScoreText(int value)
+    {
+        playerScoreText.text = " Score: " + value.ToString();
     }
 
     private void UpdateHealthUI(PlayerController playerController)

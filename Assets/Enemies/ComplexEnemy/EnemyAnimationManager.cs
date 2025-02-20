@@ -25,14 +25,6 @@ public class EnemyAnimationManager : MonoBehaviour
         Animator.SetTrigger(name);
 
     }
-
-    //public void EndTurningAnimation()
-    //{
-
-    //    enemyController.EnemyMovement.OnEnemyEndTurning();
-        
-    //}
-
     public void EndAttacking(EnemyAttackState.AttackTypeEnum attackType)
     {
         enemyController.AttackState.EndAttack(attackType);
@@ -44,15 +36,5 @@ public class EnemyAnimationManager : MonoBehaviour
         enemyController.AttackState.CallAttack(attackType);
     }
 
-    
-
-    public void BeginBlockingSword()
-    {
-        //enemyController.BlockState.BeginBlockingSword();
-    }
-
-    public void OnDeathAnimationEnd()
-    {
-        enemyController.DeathState.OnDeathAnimationEnd();
-    }
+ 
 }

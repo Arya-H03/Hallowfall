@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     #region Variables
     public float maxHealth = 100;
     public float currentHealth;
+    private int enemyLvl = 1;
 
     private float damageModifier = 1;
 
@@ -111,6 +112,7 @@ public class EnemyController : MonoBehaviour
     public GameObject Player { get => player; set => player = value; }
     public Transform HealthbarFG { get => healthbarFG; set => healthbarFG = value; }
     public Transform WorldCanvas { get => worldCanvas; set => worldCanvas = value; }
+    public int EnemyLvl { get => enemyLvl; set => enemyLvl = value; }
 
     #endregion
 
