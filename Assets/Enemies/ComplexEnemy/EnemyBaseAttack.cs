@@ -7,7 +7,7 @@ public class EnemyBaseAttack : MonoBehaviour
     [SerializeField] protected float attackCooldown;
     [SerializeField] protected float attackRange;
     [SerializeField] protected int attackDamage;
-
+    private bool isAvailable = true;
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected AudioClip[] attackSFX;
 
@@ -28,7 +28,19 @@ public class EnemyBaseAttack : MonoBehaviour
             Debug.LogWarning(this.name + "has no audio source attached to it's serializefield");
         }
     }
-    public virtual void HandleAttack()
+
+    public void StartAttack()
+    {
+        StartCoroutine(AttackCoroutine());
+    }
+    private IEnumerator AttackCoroutine()
+    {
+        HandleAttack();
+        isAvailable = false;
+        yield return new WaitForSeconds(attackCooldown);
+        isAvailable = true;
+    }
+    protected virtual void HandleAttack()
     {
 
     }

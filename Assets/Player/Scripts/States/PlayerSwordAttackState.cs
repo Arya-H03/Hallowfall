@@ -319,7 +319,6 @@ public class PlayerSwordAttackState : PlayerBaseState
 
             foreach (RaycastHit2D hit in hits)
             {
-                Debug.Log(hit);
                 if (Vector2.Distance(hit.point, this.transform.position) < Vector2.Distance(closestHit.point, this.transform.position))
                 {
                     closestHit = hit;

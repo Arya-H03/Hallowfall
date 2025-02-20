@@ -6,6 +6,7 @@ public class EnemyDeathState : EnemyBaseState
 {
     [SerializeField] Sprite deadSprite;
     [SerializeField] GameObject atonement;
+    [SerializeField] private float corpseLifeTime = 1;
 
     public delegate void EventHandler();
     public EventHandler EnemyBeginDeathEvent;
@@ -52,10 +53,11 @@ public class EnemyDeathState : EnemyBaseState
 
     }
 
-    public void OnDeathAnimationEnd()
+    private IEnumerator DeathAnimationEndCoroutine()
     {
         enemyController.EnemyAnimationManager.Animator.enabled = false;
         enemyController.SpriteRenderer.sprite = deadSprite;
+        yield return new WaitForSeconds(corpseLifeTime);
         if (EnemyEndDeathEvent != null)
         {
             EnemyEndDeathEvent.Invoke();
@@ -63,9 +65,11 @@ public class EnemyDeathState : EnemyBaseState
       
         Destroy(transform.parent.parent.gameObject,0.25f);
         
+    }
 
-
-
+    public void StartDeathAnimationEndCoroutine()
+    {
+        StartCoroutine(DeathAnimationEndCoroutine());
     }
 
 }

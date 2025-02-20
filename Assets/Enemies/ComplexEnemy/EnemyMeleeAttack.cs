@@ -11,13 +11,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 
     [SerializeField] private int parryDamage = 100;
 
-   
-    //private void Update()
-    //{
-    //    DrawCast();
-    //}
-
-    public override void HandleAttack()
+    protected override void HandleAttack()
     {
         Vector2 direction = transform.right;
 
@@ -72,9 +66,9 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         VisualizeBoxCast(boxCastCenter.position, boxCastSize, transform.right, distance);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(boxCastCenter.position, boxCastSize);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireCube(boxCastCenter.position, boxCastSize);
         
-    }
+    //}
 }

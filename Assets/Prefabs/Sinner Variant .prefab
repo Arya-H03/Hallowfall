@@ -80,13 +80,17 @@ PrefabInstance:
       propertyPath: deadSprite
       value: 
       objectReference: {fileID: -6126746645354384401, guid: 99f7c969db66fb446a64f247877455a2, type: 3}
+    - target: {fileID: 3733571337270659751, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: corpseLifeTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4468608832272152097, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Height
       value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4468608832272152097, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Radius
-      value: 0.45
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 4511855182593275202, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.m_ColorSpace

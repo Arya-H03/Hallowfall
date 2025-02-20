@@ -6,7 +6,7 @@ public class EnemySpecialAbility : EnemyBaseAttack
 {
     [SerializeField] GameObject mob;
 
-    public override void HandleAttack()
+    protected override void HandleAttack()
     {
         SpawnMob(FindSpawnPos());
     }

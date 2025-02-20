@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class EnemyAttackState : EnemyBaseState
     [SerializeField]  EnemyBaseAttack attackRef;
     [SerializeField]  EnemySpecialAbility specialAbilityRef;
 
+    public List<EnemyBaseAttack> enemyAttackList;
+    public List<EnemyBaseAttack> enemyAvailableAttackList;
+
     public bool IsAttaking { get => isAttacking; set => isAttacking = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public EnemyBaseAttack AttackRef { get => attackRef; set => attackRef = value; }
@@ -47,14 +51,15 @@ public class EnemyAttackState : EnemyBaseState
 
     private void Awake()
     {
-     
+        enemyAttackList = GetComponents<EnemyBaseAttack>().ToList();
+
+
         if (!specialAbilityRef)
         {          
             canSpecialAttack = false;
         }
 
     }
-
     private void Start()
     {
         enemyController.NavAgent.stoppingDistance = attackRef.AttackRange;
@@ -97,7 +102,7 @@ public class EnemyAttackState : EnemyBaseState
 
     private IEnumerator StartAttackCoroutine(AttackTypeEnum attacktype)
     {
-        StartCoroutine(AttackDelayCoroutine());  
+        //StartCoroutine(AttackDelayCoroutine());  
         if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x) 
         {
             
@@ -169,10 +174,10 @@ public class EnemyAttackState : EnemyBaseState
         switch (attacktype)
         {
             case AttackTypeEnum.regular:
-                AttackRef?.HandleAttack();
+                AttackRef?.StartAttack();
                 break;
             case AttackTypeEnum.special:
-                specialAbilityRef?.HandleAttack();
+                specialAbilityRef?.StartAttack();
                 break;
         }
        

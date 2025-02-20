@@ -7,7 +7,7 @@ public class EnemyRangedAttack : EnemyBaseAttack
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
 
-    public override void HandleAttack()
+    protected override void HandleAttack()
     {
         SpawnProjectile();
         PlayAttackSFX();
@@ -19,6 +19,6 @@ public class EnemyRangedAttack : EnemyBaseAttack
         GameObject projGO = Instantiate(projectilePrefab, projectileSpawnPoint.position,Quaternion.identity);
         BaseProjectile projectile = projGO.GetComponent<BaseProjectile>();
         projectile.Damage = attackDamage;
-        projectile.FindStartDirection(enemyController.transform.localScale);
+        projectile.SetProjectileCourse(enemyController.Player);
     }
 }

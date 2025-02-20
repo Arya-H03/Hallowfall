@@ -40,26 +40,6 @@ public class IdleState : EnemyBaseState
                 enemyController.ChangeState(EnemyStateEnum.Chase);
             }
         }
-        //if (enemyController.hasSeenPlayer && !enemyController.PlayerController.IsDead &&enemyController.canAttack && enemyController.AttackState.IsAttackDelayOver)
-        //{
-        //    if (!enemyController.IsFacingLedge)
-        //    {
-                
-        //        enemyController.ChangeState(EnemyStateEnum.Chase);
-                
-        //    }
-        //    else if (enemyController.EnemyMovement.FindDirectionToPlayer() == enemyController.transform.localScale.x)
-        //    {
-                
-        //        enemyController.ChangeState(EnemyStateEnum.Chase);
-        //    }
-
-        //}
-
-        //else 
-        ////{
-        ////    enemyController.ChangeState(EnemyStateEnum.Patrol);
-        ////}
         
     }
 

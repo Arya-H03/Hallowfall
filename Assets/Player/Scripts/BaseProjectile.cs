@@ -7,7 +7,7 @@ public class BaseProjectile : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float speed;
 
-    protected int startDirection;
+    protected Vector2 startVel;
 
     protected Rigidbody2D rb;
 
@@ -20,22 +20,19 @@ public class BaseProjectile : MonoBehaviour
     }
     private void Start()
     {
-        SetSpawnVelocity(startDirection);
+        SetSpawnVelocity(startVel);
     }
 
-    private void SetSpawnVelocity(int dir)
+    private void SetSpawnVelocity(Vector2 vel)
     {
 
-        rb.velocity = new Vector2(dir * speed, 0);
+        rb.velocity += vel;
         
     }
-
-    public void FindStartDirection(Vector3 parentScale)
+    public void SetProjectileCourse(GameObject target)
     {
-        startDirection = parentScale.x < 0 ? 1 : -1;
-
-        this.transform.localScale = new Vector3(-this.transform.localScale.x * startDirection, this.transform.localScale.y, this.transform.localScale.z);
-
-
+        startVel = (target.transform.position - this.transform.position).normalized;
+        int dirX = startVel.x < 0 ? 1 : -1;
+        this.transform.localScale = new Vector3(this.transform.localScale.x * dirX, this.transform.localScale.y, this.transform.localScale.z);
     }
 }
