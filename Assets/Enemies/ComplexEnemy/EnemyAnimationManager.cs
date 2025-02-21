@@ -25,16 +25,16 @@ public class EnemyAnimationManager : MonoBehaviour
         Animator.SetTrigger(name);
 
     }
-    public void EndAttacking(EnemyAttackState.AttackTypeEnum attackType)
+
+    public void PerformAttack()
     {
-        enemyController.AttackState.EndAttack(attackType);
+        enemyController.AttackState.NextAttack.CallAttackActionOnAnimFrame();
     }
 
-
-    public void CallAttack(EnemyAttackState.AttackTypeEnum attackType)
+    public void OnEndAttackAnim()
     {
-        enemyController.AttackState.CallAttack(attackType);
+        enemyController.AttackState.EndAttack();
     }
-
- 
 }
+ 
+

@@ -97,6 +97,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5468299036172277262}
     - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: maxAttackDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: minAttackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: specialAbilityRef
       value: 
       objectReference: {fileID: 7733516524422739764}
@@ -186,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Size.y
-      value: 1.5118947
+      value: 1.4921489
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Offset.x
@@ -194,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_Offset.y
-      value: 0.0032337904
+      value: 0.7486391
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -223,34 +231,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3453558572145969200, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7733516524422739764}
+      addedObject: {fileID: 5468299036172277262}
     - targetCorrespondingSourceObject: {fileID: 3453558572145969200, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5468299036172277262}
+      addedObject: {fileID: 7733516524422739764}
   m_SourcePrefab: {fileID: 100100000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
 --- !u!1 &2928965879421073787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3453558572145969200, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
   m_PrefabInstance: {fileID: 524748297246994763}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7733516524422739764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2928965879421073787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f28d4cc2d23675049b2f10837fb5f302, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCooldown: 15
-  attackRange: 8
-  attackDamage: 0
-  audioSource: {fileID: 4646197755074760936}
-  attackSFX: []
-  mob: {fileID: 6338835623293835334, guid: cedfe1c2498823d4c9d65e993617e785, type: 3}
 --- !u!114 &5468299036172277262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4694afc9506f1641ad9c0683113d08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 5
+  animCondition: isAttacking
+  attackCooldown: 2
   attackRange: 8
   attackDamage: 35
   audioSource: {fileID: 4646197755074760936}
@@ -273,6 +264,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
   projectilePrefab: {fileID: 3757319058761393601, guid: f793617da02a88e42af43e9fcec1ccb5, type: 3}
   projectileSpawnPoint: {fileID: 5099512777251563530}
+--- !u!114 &7733516524422739764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928965879421073787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28d4cc2d23675049b2f10837fb5f302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animCondition: isSummoning
+  attackCooldown: 15
+  attackRange: 10
+  attackDamage: 0
+  audioSource: {fileID: 4646197755074760936}
+  attackSFX: []
+  mob: {fileID: 6338835623293835334, guid: cedfe1c2498823d4c9d65e993617e785, type: 3}
 --- !u!82 &4646197755074760936 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5130404775515857315, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}

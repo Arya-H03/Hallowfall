@@ -13,8 +13,12 @@ PrefabInstance:
       value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 657778544946344706, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: animCondition
+      value: isAttacking
+      objectReference: {fileID: 0}
+    - target: {fileID: 657778544946344706, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: attackCooldown
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 877455088494489730, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -106,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: minAttackDelay
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5633359595972537000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_IsActive

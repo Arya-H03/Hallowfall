@@ -36,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
             
     }
 
-    public int FindDirectionToPlayer()
+    private int FindDirectionToPlayer()
     {
         if(enemyController.PlayerPos.x - enemyController.transform.position.x >= 0)
         {
@@ -45,6 +45,32 @@ public class EnemyMovement : MonoBehaviour
         else
         {         
             return -1;
+        }
+    }
+
+    public void FacePlayer()
+    {
+        int xDir = FindDirectionToPlayer();
+        Vector3 vec = enemyController.WorldCanvas.localScale;
+        if (xDir < 0)
+        {
+            enemyController.WorldCanvas.localScale = new Vector3(Math.Abs(vec.x), vec.y, vec.z);
+            if (CurrentDir != 1)
+            {
+                CurrentDir = 1;
+                this.transform.localScale = new Vector3(CurrentDir, 1, 1);
+            }
+
+
+        }
+        if (xDir >= 0)
+        {
+            enemyController.WorldCanvas.localScale = new Vector3(-Math.Abs(vec.x), vec.y, vec.z);
+            if (CurrentDir != -1)
+            {
+                CurrentDir = -1;
+                this.transform.localScale = new Vector3(CurrentDir, 1, 1);
+            }
         }
     }
 
@@ -71,9 +97,6 @@ public class EnemyMovement : MonoBehaviour
                 this.transform.localScale = new Vector3(CurrentDir, 1, 1);
             }          
         }
-
-       
-   
 
     }
 

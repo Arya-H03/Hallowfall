@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyBaseAttack : MonoBehaviour
 {
+    [SerializeField] private string animCondition;
     [SerializeField] protected float attackCooldown;
     [SerializeField] protected float attackRange;
     [SerializeField] protected int attackDamage;
@@ -16,6 +17,7 @@ public class EnemyBaseAttack : MonoBehaviour
     public float AttackCooldown { get => attackCooldown; set => attackCooldown = value; }
     public float AttackRange { get => attackRange; set => attackRange = value; }
     protected int AttackDamage { get => attackDamage; set => attackDamage = value; }
+    public string AnimCondition { get => animCondition; set => animCondition = value; }
 
     private void Awake()
     {
@@ -35,12 +37,14 @@ public class EnemyBaseAttack : MonoBehaviour
     }
     private IEnumerator AttackCoroutine()
     {
-        HandleAttack();
         isAvailable = false;
+        enemyController.AttackState.RemoveFromAvailableAttacks(this);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation(AnimCondition, true);
         yield return new WaitForSeconds(attackCooldown);
         isAvailable = true;
+        enemyController.AttackState.AddToAvailableAttacks(this);
     }
-    protected virtual void HandleAttack()
+    public virtual void CallAttackActionOnAnimFrame()
     {
 
     }
