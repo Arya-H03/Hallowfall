@@ -20,8 +20,10 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField] GameObject arsonistPrefab;
     [SerializeField] GameObject sinnerPrefab;
+    [SerializeField] GameObject necromancerPrefab;
 
     private float mainWaveDelay = 5;
+    private int waveCounter = 0;
     private void Awake()
     {
         if(instance != null && instance != this)
@@ -41,10 +43,20 @@ public class EnemySpawnManager : MonoBehaviour
     {
         while (true) 
         {
+            waveCounter++;
             yield return new WaitForSeconds(mainWaveDelay);
-            SpawnEnemy(arsonistPrefab, GenerateRandomSpawnPosition(10));
+
+            for(int i = 0; i < waveCounter; i++) SpawnEnemy(arsonistPrefab, GenerateRandomSpawnPosition(10));
+
             yield return new WaitForSeconds(1);
-            SpawnEnemy(sinnerPrefab, GenerateRandomSpawnPosition(8));
+            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(sinnerPrefab, GenerateRandomSpawnPosition(8));
+
+            if (waveCounter >= 5)
+            {
+                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(necromancerPrefab, GenerateRandomSpawnPosition(8));
+            }
+
+
         }
         
     }
