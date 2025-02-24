@@ -106,11 +106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: maxAttackDelay
-      value: 1.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: minAttackDelay
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5633359595972537000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_IsActive

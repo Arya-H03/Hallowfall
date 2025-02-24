@@ -251,20 +251,24 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void FirstSwingBoxCast()
     {
-        RaycastHit2D hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize);
+        RaycastHit2D [] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize);
         
-        //SpawnSlashEffect(firstSwingEffect, firstSwingCenter.position);
-        if (hitResult.collider != null)
+       
+        if (hitResult != null)
         {
-            if (hitResult.collider.CompareTag("Enemy"))
+            foreach (RaycastHit2D hit in hitResult)
             {
-                GameObject enemy = hitResult.collider.gameObject;
-                EnemyController enemyController = enemy.GetComponent<EnemyController>();
-              
-                enemyController.OnEnemyHit(firstSwingDamage, hitResult.point, HitSfxType.sword);
-                GameManager.Instance.StopTime(hitStopDuration);
-                
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    GameObject enemy = hit.collider.gameObject;
+                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
+
+                    enemyController.OnEnemyHit(firstSwingDamage, hit.point, HitSfxType.sword);
+                    GameManager.Instance.StopTime(hitStopDuration);
+
+                }
             }
+           
             
         }
     }
@@ -272,19 +276,24 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void SecondSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize);
-        //SpawnSlashEffect(secondSwingEffect, firstSwingCenter.position);
-        if (hitResult.collider != null)
-        {        
-             if (hitResult.collider.CompareTag("Enemy"))
+        RaycastHit2D []hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize);
+
+        if (hitResult != null)
+        {
+            foreach (RaycastHit2D hit in hitResult)
             {
-                GameObject enemy = hitResult.collider.gameObject;
-                EnemyController enemyController = enemy.GetComponent<EnemyController>();
-               
-                enemyController.OnEnemyHit(secondSwingDamage, hitResult.point,HitSfxType.sword);
-                GameManager.Instance.StopTime(hitStopDuration);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    GameObject enemy = hit.collider.gameObject;
+                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
+
+                    enemyController.OnEnemyHit(secondSwingDamage, hit.point, HitSfxType.sword);
+                    GameManager.Instance.StopTime(hitStopDuration);
+
+                }
             }
-           
+
+
         }
     }
 
@@ -293,41 +302,37 @@ public class PlayerSwordAttackState : PlayerBaseState
     public void ThirdSwingBoxCast()
     {
 
-        RaycastHit2D hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize);
-        //SpawnSlashEffect(thirdSwingEffect, firstSwingCenter.position);
-        if (hitResult.collider != null)
+        RaycastHit2D[] hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize);
+        if (hitResult != null)
         {
-            if (hitResult.collider.CompareTag("Enemy"))
+            foreach (RaycastHit2D hit in hitResult)
             {
-                GameObject enemy = hitResult.collider.gameObject;
-                EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.OnEnemyHit(thirdSwingDamage, hitResult.point,HitSfxType.sword);
-                GameManager.Instance.StopTime(hitStopDuration);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    GameObject enemy = hit.collider.gameObject;
+                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
+
+                    enemyController.OnEnemyHit(thirdSwingDamage, hit.point, HitSfxType.sword);
+                    GameManager.Instance.StopTime(hitStopDuration);
+
+                }
             }
+
+
         }
     }
 
-    private RaycastHit2D BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize)
+    private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize)
     {
         Vector2 direction = transform.right;
-        RaycastHit2D closestHit;
 
         RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
         if (hits.Length > 0)
         {
-            closestHit = hits[0];
-
-            foreach (RaycastHit2D hit in hits)
-            {
-                if (Vector2.Distance(hit.point, this.transform.position) < Vector2.Distance(closestHit.point, this.transform.position))
-                {
-                    closestHit = hit;
-                }
-            }
-            return closestHit;
+            return hits;
         }
 
-        return new RaycastHit2D();
+        return null;
 
     }
 

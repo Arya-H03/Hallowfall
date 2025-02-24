@@ -22,8 +22,8 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] GameObject sinnerPrefab;
     [SerializeField] GameObject necromancerPrefab;
 
-    private float mainWaveDelay = 5;
-    private int waveCounter = 0;
+    [SerializeField] private float mainWaveDelay = 5;
+    [SerializeField] private int waveCounter = 0;
     private void Awake()
     {
         if(instance != null && instance != this)
@@ -53,6 +53,7 @@ public class EnemySpawnManager : MonoBehaviour
 
             if (waveCounter >= 5)
             {
+                mainWaveDelay += 5;
                 for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(necromancerPrefab, GenerateRandomSpawnPosition(8));
             }
 

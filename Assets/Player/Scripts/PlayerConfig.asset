@@ -30,8 +30,8 @@ MonoBehaviour:
   grassSFX:
   - {fileID: 8300000, guid: 8892b9199e7adc84dbfe412042911a66, type: 3}
   dashModifier: 6
-  moveSpeedWhileAttaking: 1
-  hitStopDuration: 0.05
+  moveSpeedWhileAttaking: 0
+  hitStopDuration: 0.025
   attackComboWindow: 0.55
   attackDelay: 0.35
   dashAttackDelay: 2.5
