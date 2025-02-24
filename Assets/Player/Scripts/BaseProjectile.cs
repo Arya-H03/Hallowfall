@@ -6,6 +6,8 @@ public class BaseProjectile : MonoBehaviour
 {
     [SerializeField] protected float damage;
     [SerializeField] protected float speed;
+    Vector3 s;
+    Vector3 e;
 
     protected Vector2 startVel;
 
@@ -33,9 +35,14 @@ public class BaseProjectile : MonoBehaviour
     {
         Vector3 targetCenter = target.transform.position + new Vector3(0, target.GetComponent<SpriteRenderer>().bounds.size.y / 2);
         startVel = (targetCenter - this.transform.position).normalized;
-        float angle = Mathf.Atan2(targetCenter.y, targetCenter.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(startVel.y, startVel.x) * Mathf.Rad2Deg;
+        if (angle < -90 || angle > 90)
+        {
+            angle += 180;
+        }
         int dirX = startVel.x < 0 ? 1 : -1;
         this.transform.localScale = new Vector3(this.transform.localScale.x * dirX, this.transform.localScale.y, this.transform.localScale.z);
-        this.transform.rotation = Quaternion.Euler(0,0,angle +120);  
+        this.transform.rotation = Quaternion.Euler(0,0,angle);  
     }
+
 }

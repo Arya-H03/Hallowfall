@@ -102,7 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: maxAttackDelay
-      value: 3
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618063916734958427, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: minAttackDelay
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5633359595972537000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_IsActive
@@ -126,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815036451256663909, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: maxHealth
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
