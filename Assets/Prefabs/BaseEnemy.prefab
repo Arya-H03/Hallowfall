@@ -204,13 +204,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAttack: 1
-  canSpecialAttack: 1
   isAttacking: 0
   minAttackDelay: 2
   maxAttackDelay: 4
   isAttackDelayOver: 1
-  attackRef: {fileID: 657778544946344706}
-  specialAbilityRef: {fileID: 0}
 --- !u!114 &657778544946344706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5edbe5ac2d19c9438a2727dd436b48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animCondition: 
   attackCooldown: 2.5
   attackRange: 1.5
   attackDamage: 20
