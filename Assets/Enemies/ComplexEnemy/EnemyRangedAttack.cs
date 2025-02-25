@@ -19,6 +19,6 @@ public class EnemyRangedAttack : EnemyBaseAttack
         GameObject projGO = Instantiate(projectilePrefab, projectileSpawnPoint.position,Quaternion.identity);
         BaseProjectile projectile = projGO.GetComponent<BaseProjectile>();
         projectile.Damage = attackDamage;
-        projectile.SetProjectileCourse(enemyController.Player);
+        projectile.SetProjectileCourseToTarget(enemyController.Player);
     }
 }

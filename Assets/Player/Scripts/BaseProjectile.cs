@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BaseProjectile : MonoBehaviour
 {
     [SerializeField] protected float damage;
     [SerializeField] protected float speed;
-    Vector3 s;
-    Vector3 e;
-
-    protected Vector2 startVel;
-
+    [SerializeField] protected float lifeTime = 2;
+   
     protected Rigidbody2D rb;
 
     public float Damage { get => damage; set => damage = value; }
@@ -22,27 +20,50 @@ public class BaseProjectile : MonoBehaviour
     }
     private void Start()
     {
-        SetSpawnVelocity(startVel);
+
+        StartCoroutine(DestroyProjectile());
     }
 
-    private void SetSpawnVelocity(Vector2 vel)
+    private void ChangeVelocity(Vector2 vel)
     {
 
         rb.velocity += vel * speed;
         
     }
-    public void SetProjectileCourse(GameObject target)
+    public void SetProjectileCourseToTarget(GameObject target)
     {
         Vector3 targetCenter = target.transform.position + new Vector3(0, target.GetComponent<SpriteRenderer>().bounds.size.y / 2);
-        startVel = (targetCenter - this.transform.position).normalized;
-        float angle = Mathf.Atan2(startVel.y, startVel.x) * Mathf.Rad2Deg;
+        Vector3 vel = (targetCenter - this.transform.position).normalized;
+        float angle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
         if (angle < -90 || angle > 90)
         {
             angle += 180;
         }
-        int dirX = startVel.x < 0 ? 1 : -1;
+        int dirX = vel.x < 0 ? 1 : -1;
         this.transform.localScale = new Vector3(this.transform.localScale.x * dirX, this.transform.localScale.y, this.transform.localScale.z);
-        this.transform.rotation = Quaternion.Euler(0,0,angle);  
+        this.transform.rotation = Quaternion.Euler(0,0,angle);
+        ChangeVelocity(vel);
+    }
+
+    public void SetProjectileCourseForward(GameObject spawnerGO)
+    {
+        Vector2 vel = Vector2.zero;
+        if (spawnerGO.transform.localScale.x == 1)
+        {
+            vel = new Vector2(1, 0);
+        }
+        if (spawnerGO.transform.localScale.x == -1)
+        {
+            vel = new Vector2(-1, 0);
+            this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+        }
+        ChangeVelocity(vel);
+    }
+
+    private IEnumerator DestroyProjectile()
+    {
+        yield return new WaitForSeconds(lifeTime);
+        Destroy(this.gameObject);
     }
 
 }

@@ -490,7 +490,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -504,7 +504,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -528,7 +528,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -569,10 +569,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 1206
-        width: 8
-        height: 6
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -590,10 +590,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_1
       rect:
         serializedVersion: 2
-        x: 83
-        y: 1203
-        width: 11
-        height: 9
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -611,10 +611,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_2
       rect:
         serializedVersion: 2
-        x: 134
-        y: 1156
-        width: 49
-        height: 56
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -632,10 +632,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_3
       rect:
         serializedVersion: 2
-        x: 198
-        y: 1157
-        width: 25
-        height: 14
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -653,10 +653,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_4
       rect:
         serializedVersion: 2
-        x: 221
-        y: 1171
-        width: 29
-        height: 31
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -674,10 +674,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_5
       rect:
         serializedVersion: 2
-        x: 232
-        y: 1167
-        width: 9
-        height: 9
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -695,10 +695,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_6
       rect:
         serializedVersion: 2
-        x: 261
-        y: 1157
-        width: 92
-        height: 48
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -716,10 +716,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_7
       rect:
         serializedVersion: 2
-        x: 20
-        y: 1127
-        width: 18
-        height: 12
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -737,10 +737,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_8
       rect:
         serializedVersion: 2
-        x: 85
-        y: 1098
-        width: 25
-        height: 40
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -758,10 +758,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_9
       rect:
         serializedVersion: 2
-        x: 154
-        y: 1095
-        width: 20
-        height: 37
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -779,10 +779,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_10
       rect:
         serializedVersion: 2
-        x: 218
-        y: 1094
-        width: 18
-        height: 16
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -800,10 +800,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_11
       rect:
         serializedVersion: 2
-        x: 82
-        y: 1027
-        width: 36
-        height: 55
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -821,10 +821,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_12
       rect:
         serializedVersion: 2
-        x: 150
-        y: 1033
-        width: 34
-        height: 53
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -842,10 +842,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_13
       rect:
         serializedVersion: 2
-        x: 214
-        y: 1062
-        width: 30
-        height: 25
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -863,10 +863,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_14
       rect:
         serializedVersion: 2
-        x: 301
-        y: 1081
-        width: 8
-        height: 7
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -884,10 +884,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_15
       rect:
         serializedVersion: 2
-        x: 239
-        y: 1066
-        width: 13
-        height: 12
+        x: 0
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -905,10 +905,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_16
       rect:
         serializedVersion: 2
-        x: 307
-        y: 1072
-        width: 11
-        height: 8
+        x: 64
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -926,10 +926,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_17
       rect:
         serializedVersion: 2
-        x: 227
-        y: 1047
-        width: 14
-        height: 16
+        x: 128
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -947,10 +947,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_18
       rect:
         serializedVersion: 2
-        x: 239
-        y: 1057
-        width: 9
-        height: 9
+        x: 192
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -968,10 +968,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_19
       rect:
         serializedVersion: 2
-        x: 285
-        y: 1055
-        width: 13
-        height: 15
+        x: 256
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -989,10 +989,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_20
       rect:
         serializedVersion: 2
-        x: 306
-        y: 1058
-        width: 7
-        height: 8
+        x: 320
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1010,10 +1010,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_21
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1043
-        width: 8
-        height: 8
+        x: 384
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1031,10 +1031,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_22
       rect:
         serializedVersion: 2
-        x: 287
-        y: 1043
-        width: 7
-        height: 7
+        x: 448
+        y: 960
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1052,10 +1052,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_23
       rect:
         serializedVersion: 2
-        x: 300
-        y: 1047
-        width: 8
-        height: 7
+        x: 0
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1073,10 +1073,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_24
       rect:
         serializedVersion: 2
-        x: 15
-        y: 1030
-        width: 12
-        height: 10
+        x: 64
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1094,10 +1094,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_25
       rect:
         serializedVersion: 2
-        x: 232
-        y: 1034
-        width: 8
-        height: 9
+        x: 128
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1115,10 +1115,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_26
       rect:
         serializedVersion: 2
-        x: 298
-        y: 1034
-        width: 7
-        height: 7
+        x: 192
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1136,10 +1136,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_27
       rect:
         serializedVersion: 2
-        x: 7
-        y: 969
-        width: 13
-        height: 29
+        x: 256
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1157,10 +1157,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_28
       rect:
         serializedVersion: 2
-        x: 71
-        y: 971
-        width: 14
-        height: 31
+        x: 320
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1178,10 +1178,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_29
       rect:
         serializedVersion: 2
-        x: 137
-        y: 977
-        width: 13
-        height: 26
+        x: 384
+        y: 896
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1199,10 +1199,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_30
       rect:
         serializedVersion: 2
-        x: 212
-        y: 987
-        width: 34
-        height: 30
+        x: 0
+        y: 832
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1220,10 +1220,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_31
       rect:
         serializedVersion: 2
-        x: 277
-        y: 986
-        width: 34
-        height: 29
+        x: 64
+        y: 832
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1241,10 +1241,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_32
       rect:
         serializedVersion: 2
-        x: 345
-        y: 985
-        width: 30
-        height: 31
+        x: 128
+        y: 832
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1262,10 +1262,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_33
       rect:
         serializedVersion: 2
-        x: 408
-        y: 985
-        width: 31
-        height: 32
+        x: 192
+        y: 832
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1283,10 +1283,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_34
       rect:
         serializedVersion: 2
-        x: 470
-        y: 983
-        width: 33
-        height: 35
+        x: 256
+        y: 832
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1304,10 +1304,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_35
       rect:
         serializedVersion: 2
-        x: 8
-        y: 914
-        width: 12
-        height: 28
+        x: 320
+        y: 832
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1325,10 +1325,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_36
       rect:
         serializedVersion: 2
-        x: 72
-        y: 912
-        width: 13
-        height: 29
+        x: 0
+        y: 768
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1346,10 +1346,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_37
       rect:
         serializedVersion: 2
-        x: 141
-        y: 908
-        width: 46
-        height: 20
+        x: 64
+        y: 768
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1367,10 +1367,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_38
       rect:
         serializedVersion: 2
-        x: 177
-        y: 925
-        width: 11
-        height: 6
+        x: 128
+        y: 768
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1388,10 +1388,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_39
       rect:
         serializedVersion: 2
-        x: 213
-        y: 908
-        width: 39
-        height: 27
+        x: 192
+        y: 768
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1409,10 +1409,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_40
       rect:
         serializedVersion: 2
-        x: 265
-        y: 842
-        width: 52
-        height: 96
+        x: 0
+        y: 704
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1430,10 +1430,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_41
       rect:
         serializedVersion: 2
-        x: 332
-        y: 841
-        width: 46
-        height: 99
+        x: 64
+        y: 704
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1451,10 +1451,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_42
       rect:
         serializedVersion: 2
-        x: 433
-        y: 917
-        width: 9
-        height: 10
+        x: 128
+        y: 704
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1472,10 +1472,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_43
       rect:
         serializedVersion: 2
-        x: 5
-        y: 849
-        width: 50
-        height: 33
+        x: 192
+        y: 704
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1493,10 +1493,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_44
       rect:
         serializedVersion: 2
-        x: 69
-        y: 848
-        width: 50
-        height: 33
+        x: 256
+        y: 704
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1514,10 +1514,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_45
       rect:
         serializedVersion: 2
-        x: 132
-        y: 844
-        width: 54
-        height: 27
+        x: 0
+        y: 640
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1535,10 +1535,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_46
       rect:
         serializedVersion: 2
-        x: 143
-        y: 868
-        width: 10
-        height: 9
+        x: 64
+        y: 640
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1556,10 +1556,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_47
       rect:
         serializedVersion: 2
-        x: 150
-        y: 870
-        width: 9
-        height: 13
+        x: 128
+        y: 640
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1577,10 +1577,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_48
       rect:
         serializedVersion: 2
-        x: 160
-        y: 868
-        width: 14
-        height: 13
+        x: 192
+        y: 640
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1598,10 +1598,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_49
       rect:
         serializedVersion: 2
-        x: 194
-        y: 843
-        width: 29
-        height: 27
+        x: 256
+        y: 640
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1619,10 +1619,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_50
       rect:
         serializedVersion: 2
-        x: 206
-        y: 870
-        width: 33
-        height: 15
+        x: 0
+        y: 576
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1640,10 +1640,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_51
       rect:
         serializedVersion: 2
-        x: 159
-        y: 846
-        width: 11
-        height: 14
+        x: 64
+        y: 576
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1661,10 +1661,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_52
       rect:
         serializedVersion: 2
-        x: 225
-        y: 854
-        width: 27
-        height: 15
+        x: 128
+        y: 576
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1682,10 +1682,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_53
       rect:
         serializedVersion: 2
-        x: 262
-        y: 859
-        width: 15
-        height: 10
+        x: 192
+        y: 576
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1703,10 +1703,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_54
       rect:
         serializedVersion: 2
-        x: 15
-        y: 782
-        width: 38
-        height: 37
+        x: 256
+        y: 576
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1724,10 +1724,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_55
       rect:
         serializedVersion: 2
-        x: 76
-        y: 798
-        width: 28
-        height: 26
+        x: 0
+        y: 512
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1745,10 +1745,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_56
       rect:
         serializedVersion: 2
-        x: 100
-        y: 796
-        width: 21
-        height: 8
+        x: 64
+        y: 512
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1766,10 +1766,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_57
       rect:
         serializedVersion: 2
-        x: 137
-        y: 805
-        width: 10
-        height: 10
+        x: 128
+        y: 512
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1787,10 +1787,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_58
       rect:
         serializedVersion: 2
-        x: 144
-        y: 813
-        width: 9
-        height: 14
+        x: 192
+        y: 512
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1808,10 +1808,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_59
       rect:
         serializedVersion: 2
-        x: 161
-        y: 813
-        width: 10
-        height: 14
+        x: 256
+        y: 512
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1829,10 +1829,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_60
       rect:
         serializedVersion: 2
-        x: 170
-        y: 797
-        width: 17
-        height: 7
+        x: 0
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1850,10 +1850,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_61
       rect:
         serializedVersion: 2
-        x: 199
-        y: 798
-        width: 55
-        height: 56
+        x: 64
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1871,10 +1871,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_62
       rect:
         serializedVersion: 2
-        x: 86
-        y: 777
-        width: 8
-        height: 20
+        x: 128
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1892,10 +1892,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_63
       rect:
         serializedVersion: 2
-        x: 151
-        y: 774
-        width: 7
-        height: 11
+        x: 192
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1913,10 +1913,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_64
       rect:
         serializedVersion: 2
-        x: 217
-        y: 747
-        width: 18
-        height: 30
+        x: 256
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1934,10 +1934,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_65
       rect:
         serializedVersion: 2
-        x: 6
-        y: 729
-        width: 25
-        height: 12
+        x: 320
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1955,10 +1955,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_66
       rect:
         serializedVersion: 2
-        x: 9
-        y: 660
-        width: 22
-        height: 22
+        x: 384
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1976,10 +1976,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_67
       rect:
         serializedVersion: 2
-        x: 73
-        y: 729
-        width: 49
-        height: 12
+        x: 0
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1997,10 +1997,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_68
       rect:
         serializedVersion: 2
-        x: 78
-        y: 658
-        width: 36
-        height: 35
+        x: 64
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2018,10 +2018,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_69
       rect:
         serializedVersion: 2
-        x: 143
-        y: 668
-        width: 39
-        height: 25
+        x: 128
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2039,10 +2039,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_70
       rect:
         serializedVersion: 2
-        x: 165
-        y: 722
-        width: 21
-        height: 29
+        x: 192
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2060,10 +2060,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_71
       rect:
         serializedVersion: 2
-        x: 216
-        y: 657
-        width: 30
-        height: 16
+        x: 256
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2081,10 +2081,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_72
       rect:
         serializedVersion: 2
-        x: 231
-        y: 673
-        width: 80
-        height: 87
+        x: 0
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2102,10 +2102,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_73
       rect:
         serializedVersion: 2
-        x: 234
-        y: 722
-        width: 7
-        height: 7
+        x: 64
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2123,10 +2123,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_74
       rect:
         serializedVersion: 2
-        x: 239
-        y: 731
-        width: 7
-        height: 7
+        x: 128
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2144,10 +2144,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_75
       rect:
         serializedVersion: 2
-        x: 242
-        y: 716
-        width: 7
-        height: 7
+        x: 192
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2165,10 +2165,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_76
       rect:
         serializedVersion: 2
-        x: 152
-        y: 659
-        width: 29
-        height: 9
+        x: 256
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2186,10 +2186,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_77
       rect:
         serializedVersion: 2
-        x: 280
-        y: 657
-        width: 30
-        height: 7
+        x: 0
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2207,10 +2207,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_78
       rect:
         serializedVersion: 2
-        x: 14
-        y: 589
-        width: 16
-        height: 38
+        x: 64
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2228,10 +2228,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_79
       rect:
         serializedVersion: 2
-        x: 79
-        y: 589
-        width: 26
-        height: 38
+        x: 128
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2249,10 +2249,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_80
       rect:
         serializedVersion: 2
-        x: 142
-        y: 589
-        width: 35
-        height: 38
+        x: 192
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2270,10 +2270,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_81
       rect:
         serializedVersion: 2
-        x: 227
-        y: 589
-        width: 16
-        height: 38
+        x: 256
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2291,10 +2291,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_82
       rect:
         serializedVersion: 2
-        x: 292
-        y: 588
-        width: 16
-        height: 39
+        x: 320
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2312,10 +2312,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_83
       rect:
         serializedVersion: 2
-        x: 32
-        y: 536
-        width: 26
-        height: 22
+        x: 0
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2333,10 +2333,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_84
       rect:
         serializedVersion: 2
-        x: 95
-        y: 532
-        width: 26
-        height: 22
+        x: 64
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2354,10 +2354,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_85
       rect:
         serializedVersion: 2
-        x: 136
-        y: 520
-        width: 36
-        height: 39
+        x: 128
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2375,10 +2375,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_86
       rect:
         serializedVersion: 2
-        x: 199
-        y: 520
-        width: 31
-        height: 44
+        x: 192
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2396,10 +2396,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_87
       rect:
         serializedVersion: 2
-        x: 264
-        y: 521
-        width: 15
-        height: 26
+        x: 256
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2417,10 +2417,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_88
       rect:
         serializedVersion: 2
-        x: 269
-        y: 546
-        width: 22
-        height: 22
+        x: 320
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2438,10 +2438,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_89
       rect:
         serializedVersion: 2
-        x: 172
-        y: 530
-        width: 6
-        height: 7
+        x: 384
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2459,10 +2459,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_90
       rect:
         serializedVersion: 2
-        x: 4
-        y: 477
-        width: 12
-        height: 11
+        x: 448
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2480,10 +2480,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_91
       rect:
         serializedVersion: 2
-        x: 68
-        y: 457
-        width: 55
-        height: 44
+        x: 0
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2501,10 +2501,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_92
       rect:
         serializedVersion: 2
-        x: 135
-        y: 457
-        width: 49
-        height: 44
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2522,10 +2522,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_93
       rect:
         serializedVersion: 2
-        x: 196
-        y: 460
-        width: 17
-        height: 20
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2543,10 +2543,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_94
       rect:
         serializedVersion: 2
-        x: 217
-        y: 460
-        width: 7
-        height: 10
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2564,10 +2564,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_95
       rect:
         serializedVersion: 2
-        x: 227
-        y: 457
-        width: 22
-        height: 44
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2585,10 +2585,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_96
       rect:
         serializedVersion: 2
-        x: 255
-        y: 413
-        width: 61
-        height: 88
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2606,10 +2606,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_97
       rect:
         serializedVersion: 2
-        x: 330
-        y: 460
-        width: 46
-        height: 40
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2627,10 +2627,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_98
       rect:
         serializedVersion: 2
-        x: 420
-        y: 465
-        width: 21
-        height: 34
+        x: 192
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2648,10 +2648,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_99
       rect:
         serializedVersion: 2
-        x: 0
-        y: 337
-        width: 37
-        height: 81
+        x: 256
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2669,10 +2669,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_100
       rect:
         serializedVersion: 2
-        x: 63
-        y: 406
-        width: 55
-        height: 19
+        x: 320
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2690,10 +2690,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_101
       rect:
         serializedVersion: 2
-        x: 127
-        y: 409
-        width: 56
-        height: 13
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2711,10 +2711,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_102
       rect:
         serializedVersion: 2
-        x: 191
-        y: 412
-        width: 60
-        height: 7
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2732,10 +2732,10 @@ TextureImporter:
       name: Combat-Sheet + Weapon + Glow_103
       rect:
         serializedVersion: 2
-        x: 92
-        y: 337
-        width: 30
-        height: 29
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2749,1018 +2749,10 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_104
-      rect:
-        serializedVersion: 2
-        x: 161
-        y: 337
-        width: 28
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 52ec928ae58a35bd0800000000000000
-      internalID: -2642583431834644955
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_105
-      rect:
-        serializedVersion: 2
-        x: 222
-        y: 337
-        width: 96
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ce5d3175b245d71a0800000000000000
-      internalID: -6810194516393077268
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_106
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 346
-        width: 19
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 298b5d4f18a7c8ca0800000000000000
-      internalID: -6013296703869437806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_107
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 338
-        width: 13
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b8803a05ca7ce3890800000000000000
-      internalID: -7476318788487280501
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_108
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 274
-        width: 17
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7f334977452740b80800000000000000
-      internalID: -8429486895421705225
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_109
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 273
-        width: 21
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0efe51d9fb01abb00800000000000000
-      internalID: 845006295245647840
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_110
-      rect:
-        serializedVersion: 2
-        x: 135
-        y: 272
-        width: 25
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3ab244c314f612e50800000000000000
-      internalID: 6782824839771335587
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_111
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 269
-        width: 29
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e82c72e02170d3d30800000000000000
-      internalID: 4412690984021246606
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_112
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 268
-        width: 37
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dcb55e51e12607bc0800000000000000
-      internalID: -3787419405262693427
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_113
-      rect:
-        serializedVersion: 2
-        x: 354
-        y: 275
-        width: 26
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3875d1c63a7917730800000000000000
-      internalID: 3995141072603666307
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_114
-      rect:
-        serializedVersion: 2
-        x: 371
-        y: 268
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d907bb0caca89fea0800000000000000
-      internalID: -5838482838487600995
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_115
-      rect:
-        serializedVersion: 2
-        x: 141
-        y: 217
-        width: 42
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 11060a65e36f999e0800000000000000
-      internalID: -1613988243833855983
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_116
-      rect:
-        serializedVersion: 2
-        x: 199
-        y: 165
-        width: 58
-        height: 85
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3036d11154592c6e0800000000000000
-      internalID: -1818727175631838461
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_117
-      rect:
-        serializedVersion: 2
-        x: 282
-        y: 208
-        width: 37
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 07e98e314b9f0d940800000000000000
-      internalID: 5319025711747997296
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_118
-      rect:
-        serializedVersion: 2
-        x: 355
-        y: 205
-        width: 30
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3b8491b502d988850800000000000000
-      internalID: 6379521634463205555
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_119
-      rect:
-        serializedVersion: 2
-        x: 427
-        y: 242
-        width: 8
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7ee3f2b5abde6a4a0800000000000000
-      internalID: -6582312420705878297
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_120
-      rect:
-        serializedVersion: 2
-        x: 435
-        y: 247
-        width: 8
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 94d99eda91f335540800000000000000
-      internalID: 4995405791208512841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_121
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 247
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0d8d02ad987bad570800000000000000
-      internalID: 8492301850058479824
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_122
-      rect:
-        serializedVersion: 2
-        x: 499
-        y: 249
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df26a8cc61132a2e0800000000000000
-      internalID: -2116074900920048899
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_123
-      rect:
-        serializedVersion: 2
-        x: 502
-        y: 239
-        width: 8
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 55755f0725d1f5590800000000000000
-      internalID: -7683390199351126187
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_124
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 218
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 349cb40a78fc51270800000000000000
-      internalID: 8220704876251564355
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_125
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 237
-        width: 28
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 27afaf4bc4bba09d0800000000000000
-      internalID: -2807225479583827342
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_126
-      rect:
-        serializedVersion: 2
-        x: 423
-        y: 228
-        width: 8
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 37872e18c35c3b0e0800000000000000
-      internalID: -2255242124714674061
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_127
-      rect:
-        serializedVersion: 2
-        x: 432
-        y: 219
-        width: 14
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ce6219e1ed64f6740800000000000000
-      internalID: 5147410818917279468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_128
-      rect:
-        serializedVersion: 2
-        x: 487
-        y: 232
-        width: 9
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8018f9d8289375830800000000000000
-      internalID: 4059776821982363912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_129
-      rect:
-        serializedVersion: 2
-        x: 497
-        y: 210
-        width: 12
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7de35edcee9c22f20800000000000000
-      internalID: 3396499096484527831
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_130
-      rect:
-        serializedVersion: 2
-        x: 291
-        y: 205
-        width: 28
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b29e31beec861fc00800000000000000
-      internalID: 932641835758905643
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_131
-      rect:
-        serializedVersion: 2
-        x: 419
-        y: 205
-        width: 28
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4aa841d2d53591e30800000000000000
-      internalID: 4474699364422683300
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_132
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 130
-        width: 22
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9391702137d8cbaf0800000000000000
-      internalID: -379272743242753735
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_133
-      rect:
-        serializedVersion: 2
-        x: 135
-        y: 134
-        width: 51
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 26a097b3560504630800000000000000
-      internalID: 3909212872277297762
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_134
-      rect:
-        serializedVersion: 2
-        x: 154
-        y: 168
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fdc8574da45820300800000000000000
-      internalID: 216882288505752799
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_135
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 129
-        width: 73
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d92cf8c08484ba200800000000000000
-      internalID: 192326883378971293
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_136
-      rect:
-        serializedVersion: 2
-        x: 99
-        y: 130
-        width: 18
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee0886ade37587070800000000000000
-      internalID: 8104323456917078254
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_137
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 73
-        width: 18
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: da1e9b885de3d7b40800000000000000
-      internalID: 5439573011776266669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_138
-      rect:
-        serializedVersion: 2
-        x: 153
-        y: 111
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0fc34df10f57940c0800000000000000
-      internalID: -4591008670940906256
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_139
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 78
-        width: 21
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 52c8de8451e62e5a0800000000000000
-      internalID: -6493506675017937883
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_140
-      rect:
-        serializedVersion: 2
-        x: 273
-        y: 83
-        width: 37
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 428fee6b58a32a1c0800000000000000
-      internalID: -4493965132188157916
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_141
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 74
-        width: 23
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a0ebf05caa70f4980800000000000000
-      internalID: -8552608737321304566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_142
-      rect:
-        serializedVersion: 2
-        x: 363
-        y: 86
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a5a4171ec9f1c6840800000000000000
-      internalID: 5218580826873219674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_143
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 77
-        width: 9
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ec6893ca26624c280800000000000000
-      internalID: -9024045548105529650
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_144
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 69
-        width: 10
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 057df6a60e89b9910800000000000000
-      internalID: 1845236561964160848
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_145
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 38
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f071251e6a2a17e30800000000000000
-      internalID: 4499556340348360463
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_146
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 44
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d2d1b02dcde40bd80800000000000000
-      internalID: -8236997008136921811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_147
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 41
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3bae30cafb99ae00800000000000000
-      internalID: 1056547088864553791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_148
-      rect:
-        serializedVersion: 2
-        x: 85
-        y: 14
-        width: 13
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5edd8e20f85042a00800000000000000
-      internalID: 730715151328140773
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_149
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 8
-        width: 15
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 18ff7b3e6493f9890800000000000000
-      internalID: -7449172282016530559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_150
-      rect:
-        serializedVersion: 2
-        x: 92
-        y: 15
-        width: 14
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00c79a601af5515c0800000000000000
-      internalID: -4245381928520680448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Combat-Sheet + Weapon + Glow_151
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 6
-        width: 11
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5518831555b917240800000000000000
-      internalID: 4787778669608730965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8b284d47290e117458120d60db64ea95
     internalID: 0
     vertices: []
     indices: 
@@ -3775,59 +2767,11 @@ TextureImporter:
       Combat-Sheet + Weapon + Glow_101: 5748161946265628529
       Combat-Sheet + Weapon + Glow_102: -2853155853936062323
       Combat-Sheet + Weapon + Glow_103: -4320803327886342232
-      Combat-Sheet + Weapon + Glow_104: -2642583431834644955
-      Combat-Sheet + Weapon + Glow_105: -6810194516393077268
-      Combat-Sheet + Weapon + Glow_106: -6013296703869437806
-      Combat-Sheet + Weapon + Glow_107: -7476318788487280501
-      Combat-Sheet + Weapon + Glow_108: -8429486895421705225
-      Combat-Sheet + Weapon + Glow_109: 845006295245647840
       Combat-Sheet + Weapon + Glow_11: -7799420836258345140
-      Combat-Sheet + Weapon + Glow_110: 6782824839771335587
-      Combat-Sheet + Weapon + Glow_111: 4412690984021246606
-      Combat-Sheet + Weapon + Glow_112: -3787419405262693427
-      Combat-Sheet + Weapon + Glow_113: 3995141072603666307
-      Combat-Sheet + Weapon + Glow_114: -5838482838487600995
-      Combat-Sheet + Weapon + Glow_115: -1613988243833855983
-      Combat-Sheet + Weapon + Glow_116: -1818727175631838461
-      Combat-Sheet + Weapon + Glow_117: 5319025711747997296
-      Combat-Sheet + Weapon + Glow_118: 6379521634463205555
-      Combat-Sheet + Weapon + Glow_119: -6582312420705878297
       Combat-Sheet + Weapon + Glow_12: 60781482577721529
-      Combat-Sheet + Weapon + Glow_120: 4995405791208512841
-      Combat-Sheet + Weapon + Glow_121: 8492301850058479824
-      Combat-Sheet + Weapon + Glow_122: -2116074900920048899
-      Combat-Sheet + Weapon + Glow_123: -7683390199351126187
-      Combat-Sheet + Weapon + Glow_124: 8220704876251564355
-      Combat-Sheet + Weapon + Glow_125: -2807225479583827342
-      Combat-Sheet + Weapon + Glow_126: -2255242124714674061
-      Combat-Sheet + Weapon + Glow_127: 5147410818917279468
-      Combat-Sheet + Weapon + Glow_128: 4059776821982363912
-      Combat-Sheet + Weapon + Glow_129: 3396499096484527831
       Combat-Sheet + Weapon + Glow_13: 7588031085036296382
-      Combat-Sheet + Weapon + Glow_130: 932641835758905643
-      Combat-Sheet + Weapon + Glow_131: 4474699364422683300
-      Combat-Sheet + Weapon + Glow_132: -379272743242753735
-      Combat-Sheet + Weapon + Glow_133: 3909212872277297762
-      Combat-Sheet + Weapon + Glow_134: 216882288505752799
-      Combat-Sheet + Weapon + Glow_135: 192326883378971293
-      Combat-Sheet + Weapon + Glow_136: 8104323456917078254
-      Combat-Sheet + Weapon + Glow_137: 5439573011776266669
-      Combat-Sheet + Weapon + Glow_138: -4591008670940906256
-      Combat-Sheet + Weapon + Glow_139: -6493506675017937883
       Combat-Sheet + Weapon + Glow_14: 6108376593456281646
-      Combat-Sheet + Weapon + Glow_140: -4493965132188157916
-      Combat-Sheet + Weapon + Glow_141: -8552608737321304566
-      Combat-Sheet + Weapon + Glow_142: 5218580826873219674
-      Combat-Sheet + Weapon + Glow_143: -9024045548105529650
-      Combat-Sheet + Weapon + Glow_144: 1845236561964160848
-      Combat-Sheet + Weapon + Glow_145: 4499556340348360463
-      Combat-Sheet + Weapon + Glow_146: -8236997008136921811
-      Combat-Sheet + Weapon + Glow_147: 1056547088864553791
-      Combat-Sheet + Weapon + Glow_148: 730715151328140773
-      Combat-Sheet + Weapon + Glow_149: -7449172282016530559
       Combat-Sheet + Weapon + Glow_15: 5281741584010549222
-      Combat-Sheet + Weapon + Glow_150: -4245381928520680448
-      Combat-Sheet + Weapon + Glow_151: 4787778669608730965
       Combat-Sheet + Weapon + Glow_16: -5180600412744272408
       Combat-Sheet + Weapon + Glow_17: -5687867929822168114
       Combat-Sheet + Weapon + Glow_18: 4067176679377456874

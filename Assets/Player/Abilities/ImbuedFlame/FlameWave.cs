@@ -2,15 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlameWave : MonoBehaviour
+public class FlameWave : BaseProjectile
 {
-    [SerializeField] int damage = 30;
-
-    private void Start()
-    {
-
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
