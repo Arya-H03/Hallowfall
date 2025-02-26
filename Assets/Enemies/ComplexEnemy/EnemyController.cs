@@ -120,7 +120,7 @@ public class EnemyController : MonoBehaviour
     {
         if(CurrentStateEnum != stateEnum && canChangeState &&!isDead)
         {
-            Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
+            //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
             if (CurrentState != null)
             {
@@ -182,7 +182,7 @@ public class EnemyController : MonoBehaviour
 
         Player = GameManager.Instance.Player;
         playerController = Player.GetComponent<PlayerController>();
-        playerPos = Player.transform.position + new Vector3(0,Player.GetComponent<SpriteRenderer>().sprite.bounds.size.y/2,0);
+        playerPos = Player.transform.position /*+ new Vector3(0,Player.GetComponent<SpriteRenderer>().sprite.bounds.size.y/2,0)*/;
 
         currentHealth = maxHealth;
        

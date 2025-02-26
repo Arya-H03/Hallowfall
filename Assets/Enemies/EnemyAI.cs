@@ -137,7 +137,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            enemyMovement.MoveTo(transform.position, nextPatrollPosition, patrolSpeed);
+            enemyMovement.MoveToLocation(transform.position, nextPatrollPosition, patrolSpeed);
         }
 
     }
@@ -181,7 +181,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                enemyMovement.MoveTo(transform.position, player.transform.position, chaseSpeed);
+                enemyMovement.MoveToLocation(transform.position, player.transform.position, chaseSpeed);
             }
 
         }

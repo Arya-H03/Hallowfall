@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,11 +14,7 @@ using Random = UnityEngine.Random;
 
 public class EnemyAttackState : EnemyBaseState
 {
-    public enum AttackTypeEnum
-    {
-        regular,
-        special,
-    }
+ 
 
     [SerializeField] private bool  canAttack = true;  
     [SerializeField] private bool isAttacking = false;
@@ -51,7 +48,7 @@ public class EnemyAttackState : EnemyBaseState
     private void Start()
     {
         nextAttack = enemyAvailableAttackList[0];
-        enemyController.NavAgent.stoppingDistance = nextAttack.AttackRange;
+        //.enemyController.NavAgent.stoppingDistance = nextAttack.AttackRange;
         
     }
     public override void OnEnterState()
@@ -105,7 +102,8 @@ public class EnemyAttackState : EnemyBaseState
 
     public bool IsEnemyInAttackRange()
     {
-        return Vector2.Distance(enemyController.PlayerPos, enemyController.transform.position) < nextAttack.AttackRange;
+        return Vector2.Distance(enemyController.PlayerPos, enemyController.transform.position) <= nextAttack.AttackRange +1;
+        //return Mathf.Abs(enemyController.PlayerPos.x - enemyController.transform.position.x) < nextAttack.AttackRange;
 
     }
 
@@ -129,7 +127,7 @@ public class EnemyAttackState : EnemyBaseState
         if (!nextAttack && enemyAvailableAttackList.Count > 0)
         {
             nextAttack = enemyAvailableAttackList[0];
-            enemyController.NavAgent.stoppingDistance = nextAttack.AttackRange;
+            //enemyController.NavAgent.stoppingDistance = nextAttack.AttackRange;
         }
     }
 }

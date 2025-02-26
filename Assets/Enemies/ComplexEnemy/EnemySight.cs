@@ -20,7 +20,7 @@ public class EnemySight : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!enemyController.hasSeenPlayer && !enemyController.IsPlayerDead)
+        if ( !enemyController.IsPlayerDead && !enemyController.IsDead)
         {
             // Calculate the start direction of the cone of vision
             Vector2 startDirection = Quaternion.Euler(0f, 0f, -visionAngle / 2f) * new Vector3(-enemyTransform.localScale.x, 0, 0);
@@ -35,16 +35,16 @@ public class EnemySight : MonoBehaviour
                 if (hit.collider != null)
                 {
 
-                    if (hit.collider.CompareTag("Player"))
-                    {
-                        enemyController.Player = hit.collider.gameObject;
-                        enemyController.hasSeenPlayer = true;
-                        enemyController.ChangeState(EnemyStateEnum.Chase);
-                    }
+                    //if (hit.collider.CompareTag("Player"))
+                    //{
+                    //    enemyController.Player = hit.collider.gameObject;
+                    //    enemyController.hasSeenPlayer = true;
+                    //    enemyController.ChangeState(EnemyStateEnum.Chase);
+                    //}
                 }
 
                 // Visualize the cone of vision 
-                //Debug.DrawRay(transform.position, direction * visionRange, Color.red);
+                Debug.DrawRay(transform.position, direction * visionRange, Color.red);
 
             }
         }

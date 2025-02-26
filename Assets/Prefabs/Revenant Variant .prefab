@@ -32,6 +32,14 @@ PrefabInstance:
       propertyPath: attackCooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: sightCenter
+      value: 
+      objectReference: {fileID: 4877555654936604810}
+    - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 1824542978293724540, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -115,6 +123,14 @@ PrefabInstance:
     - target: {fileID: 5633359595972537000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5680723254515527910, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5680723254515527910, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
       objectReference: {fileID: 0}
     - target: {fileID: 6380797013854336540, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,3 +253,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+--- !u!4 &4877555654936604810 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5680723254515527910, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+  m_PrefabInstance: {fileID: 965306017422458988}
+  m_PrefabAsset: {fileID: 0}

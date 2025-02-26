@@ -25,15 +25,32 @@ public class EnemyMovement : MonoBehaviour
     }
 
  
-    public void MoveTo(Vector3 startPoint, Vector3 endPoint, float speed)
+    public void MoveToLocation(Vector3 startPoint, Vector3 endPoint, float speed)
     {
        
         Vector3 direction = endPoint - startPoint;
-
         enemyController.NavAgent.speed = speed;
         enemyController.NavAgent.SetDestination(endPoint);
         TurnEnemy(direction);
             
+    }
+
+    public void MoveToPlayer(float speed)
+    {
+
+        Vector3 endPoint;
+        if ((enemyController.transform.position.x - enemyController.Player.transform.position.x) > 0)
+        {
+            endPoint = enemyController.Player.transform.position + new Vector3(enemyController.AttackState.NextAttack.AttackRange, 0, 0);
+        }
+        else
+        {
+            endPoint = enemyController.Player.transform.position + new Vector3(-enemyController.AttackState.NextAttack.AttackRange, 0, 0);
+        }
+        enemyController.NavAgent.speed = speed;
+        enemyController.NavAgent.SetDestination(endPoint);
+        FacePlayer();
+
     }
 
     private int FindDirectionToPlayer()

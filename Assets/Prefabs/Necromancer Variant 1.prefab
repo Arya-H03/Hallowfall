@@ -13,6 +13,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: sightCenter
+      value: 
+      objectReference: {fileID: 5304603159851106733}
+    - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: maxChaseSpeed
       value: 0.95
       objectReference: {fileID: 0}
@@ -27,6 +31,10 @@ PrefabInstance:
     - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: chaseSpeedUrange
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1799516568627423376, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 1824542978293724540, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_FlipX
@@ -111,6 +119,14 @@ PrefabInstance:
     - target: {fileID: 5633359595972537000, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5680723254515527910, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.092
+      objectReference: {fileID: 0}
+    - target: {fileID: 5680723254515527910, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.881
       objectReference: {fileID: 0}
     - target: {fileID: 6380797013854336540, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
@@ -262,6 +278,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: be3eb9310aa56f540967f99527bea652, type: 3}
   - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}
   - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
+  attackTypeEnum: 1
   projectilePrefab: {fileID: 3757319058761393601, guid: f793617da02a88e42af43e9fcec1ccb5, type: 3}
   projectileSpawnPoint: {fileID: 5099512777251563530}
 --- !u!114 &7733516524422739764
@@ -282,6 +299,7 @@ MonoBehaviour:
   attackDamage: 0
   audioSource: {fileID: 4646197755074760936}
   attackSFX: []
+  attackTypeEnum: 1
   mob: {fileID: 6338835623293835334, guid: cedfe1c2498823d4c9d65e993617e785, type: 3}
 --- !u!82 &4646197755074760936 stripped
 AudioSource:
@@ -291,5 +309,10 @@ AudioSource:
 --- !u!4 &5099512777251563530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4723532816330053953, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+  m_PrefabInstance: {fileID: 524748297246994763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5304603159851106733 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5680723254515527910, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
   m_PrefabInstance: {fileID: 524748297246994763}
   m_PrefabAsset: {fileID: 0}

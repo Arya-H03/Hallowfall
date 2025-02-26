@@ -11,6 +11,7 @@ public class EnemyBaseAttack : MonoBehaviour
     private bool isAvailable = true;
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected AudioClip[] attackSFX;
+    [SerializeField] private EnemyAttackTypeEnum attackTypeEnum;
 
     protected EnemyController enemyController;
 
@@ -18,6 +19,7 @@ public class EnemyBaseAttack : MonoBehaviour
     public float AttackRange { get => attackRange; set => attackRange = value; }
     protected int AttackDamage { get => attackDamage; set => attackDamage = value; }
     public string AnimCondition { get => animCondition; set => animCondition = value; }
+    public EnemyAttackTypeEnum AttackTypeEnum { get => attackTypeEnum;}
 
     private void Awake()
     {
