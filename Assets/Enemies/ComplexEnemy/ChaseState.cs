@@ -40,11 +40,13 @@ public class ChaseState : EnemyBaseState
     }
     public override void OnEnterState()
     {
+        enemyController.NavAgent.isStopped = false;
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void OnExitState()
     {
+        enemyController.NavAgent.isStopped = true;
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
         enemyController.EnemyMovement.StopRunningSFX(audioSource);
     }
@@ -67,7 +69,7 @@ public class ChaseState : EnemyBaseState
         switch (attackType)
         {
             case EnemyAttackTypeEnum.Melee:
-                if (!isInRange || !isPlayerInSight)
+                if ((!isInRange || !isPlayerInSight))
                     enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
                 else
                     enemyController.ChangeState(EnemyStateEnum.Attack);

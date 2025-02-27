@@ -107,7 +107,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
-      
+        playerController.PlayerMovementManager.TurnPlayer(playerController.PlayerMovementManager.currentInputDir);
     }
 
     public override void HandleState()
@@ -122,6 +122,8 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         comboIndex++;
         if (comboIndex > 3) comboIndex = 1;
+
+        playerController.PlayerMovementManager.TurnPlayerWithMousePos();
 
         PlaySwingAnimation(comboIndex);
 

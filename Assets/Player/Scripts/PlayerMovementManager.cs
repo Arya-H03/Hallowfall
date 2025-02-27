@@ -31,6 +31,7 @@ public class PlayerMovementManager : MonoBehaviour
             clampedPos.z = Mathf.Clamp(clampedPos.z,-1,2);
             transform.position = clampedPos;
 
+
         }
 
         
@@ -80,5 +81,21 @@ public class PlayerMovementManager : MonoBehaviour
         currentInputDir = dir;
         TurnPlayer(currentInputDir);
         ManageRunState();
+    }
+
+    public void TurnPlayerWithMousePos()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+
+        if (mousePos.x - transform.position.x > 0f)
+        {
+            TurnPlayer(Vector2.right);
+        }
+
+        if (mousePos.x - transform.position.x < 0f)
+        {
+            TurnPlayer(Vector2.left);
+        }
     }
 }
