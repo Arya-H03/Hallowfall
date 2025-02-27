@@ -32,8 +32,8 @@ MonoBehaviour:
   dashModifier: 6
   moveSpeedWhileAttaking: 0
   hitStopDuration: 0.025
-  attackComboWindow: 0.55
-  attackDelay: 0.35
+  attackComboWindow: 0.45
+  attackDelay: 0.25
   dashAttackDelay: 2.5
   attackSwingSFX:
   - {fileID: 8300000, guid: c217f396fd7cb204c92d211acf723e7f, type: 3}

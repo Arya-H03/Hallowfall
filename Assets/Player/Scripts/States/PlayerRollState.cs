@@ -71,7 +71,7 @@ public class PlayerRollState : PlayerBaseState
         playerController.PlayerCollision.Rb.velocity = Vector2.zero;
         if (playerController.CurrentStateEnum == PlayerStateEnum.Roll) 
         {
-            if (playerController.PlayerMovementManager.currentInputDir.x != 0)
+            if (playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
             {
                 playerController.ChangeState(PlayerStateEnum.Run);
             }
