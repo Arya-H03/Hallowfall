@@ -30,9 +30,9 @@ public class BaseProjectile : MonoBehaviour
         rb.velocity += vel * speed;
         
     }
-    public void SetProjectileCourseToTarget(GameObject target)
+    public void SetProjectileCourseToTarget(Transform target)
     {
-        Vector3 targetCenter = target.transform.position + new Vector3(0, target.GetComponent<SpriteRenderer>().bounds.size.y / 2);
+        Vector3 targetCenter = target.position + new Vector3(0, target.GetComponent<SpriteRenderer>().bounds.size.y / 2);
         Vector3 vel = (targetCenter - this.transform.position).normalized;
         float angle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
         if (angle < -90 || angle > 90)

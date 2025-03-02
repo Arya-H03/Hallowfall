@@ -50,6 +50,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     [SerializeField] private Transform thirdSwingCenter;
     private Vector2 thirdSwingCastSize = Vector2.zero;
 
+    [SerializeField] private GameObject effectPrefab;
     public Transform FirstSwingCenter { get => firstSwingCenter; }
     public Transform SecondSwingCenter { get => secondSwingCenter; }
     public Transform ThirdSwingCenter { get => thirdSwingCenter; }
@@ -329,6 +330,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         Vector2 direction = transform.right;
 
         RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
+        SpawnSlashEffect(effectPrefab);
         if (hits.Length > 0)
         {
             return hits;
@@ -338,24 +340,22 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    private void SpawnSlashEffect(GameObject effect, Vector3 position)
+    private void SpawnSlashEffect(GameObject effect)
     {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+        Vector3 dir = (mousePos - playerController.GetPlayerCenter()).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Debug.Log(angle);
+        GameObject go = Instantiate(effect, playerController.GetPlayerCenter(), Quaternion.identity);
+        if (angle >= -90 && angle <= 90)
+        {
+            go.GetComponent<SpriteRenderer>().flipY = true;
+        }
+        go.transform.position += dir;
+        
+        go.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        //GameObject obj = Instantiate(effect, position, Quaternion.identity);
-        //Vector3 scale = parent.transform.localScale;
-
-        //Vector2 launchVec = Vector2.zero;
-        //if (scale.x == 1)
-        //{
-        //    launchVec = new Vector2(1, 0);
-        //}
-        //if (scale.x == -1)
-        //{
-        //    launchVec = new Vector2(-1, 0);
-        //    obj.transform.localScale = new Vector3(-2, 2, 2);
-        //}
-        //obj.GetComponent<Rigidbody2D>().velocity = launchVec * 4;
-        //Destroy(obj, 0.2f);
     }
 
     private void DebugBoxCast(Vector2 centerPoint, Vector2 boxSize)
