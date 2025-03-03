@@ -27,8 +27,8 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private Coroutine SpawnAfterImageCoroutine;
 
-    private GameObject firstSwingEffect;
-    private GameObject secondSwingEffect;
+    [SerializeField] GameObject swingEffect;
+    [SerializeField] GameObject secondSwingEffect;
     private GameObject thirdSwingEffect;
 
     private float firstSwingDamage = 0;
@@ -49,8 +49,6 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     [SerializeField] private Transform thirdSwingCenter;
     private Vector2 thirdSwingCastSize = Vector2.zero;
-
-    [SerializeField] private GameObject effectPrefab;
     public Transform FirstSwingCenter { get => firstSwingCenter; }
     public Transform SecondSwingCenter { get => secondSwingCenter; }
     public Transform ThirdSwingCenter { get => thirdSwingCenter; }
@@ -122,7 +120,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         if (!canAttack) return;
 
         comboIndex++;
-        if (comboIndex > 3) comboIndex = 1;
+        if (comboIndex > 2) comboIndex = 1;
 
         playerController.PlayerMovementManager.TurnPlayerWithMousePos();
 
@@ -254,9 +252,9 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void FirstSwingBoxCast()
     {
-        RaycastHit2D [] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize);
-        
-       
+        RaycastHit2D[] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize);
+
+
         if (hitResult != null)
         {
             foreach (RaycastHit2D hit in hitResult)
@@ -271,15 +269,15 @@ public class PlayerSwordAttackState : PlayerBaseState
 
                 }
             }
-           
-            
+
+
         }
     }
 
     private void SecondSwingBoxCast()
     {
 
-        RaycastHit2D []hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize);
+        RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize);
 
         if (hitResult != null)
         {
@@ -328,9 +326,10 @@ public class PlayerSwordAttackState : PlayerBaseState
     private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize)
     {
         Vector2 direction = transform.right;
-
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
-        SpawnSlashEffect(effectPrefab);
+        GameObject slashEffectGO = SpawnSlashEffect(swingEffect);
+        //RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(slashEffectGO.transform.position, 1.2f, direction, distance, layerMask);
+       
         if (hits.Length > 0)
         {
             return hits;
@@ -340,7 +339,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    private void SpawnSlashEffect(GameObject effect)
+    private GameObject SpawnSlashEffect(GameObject effect)
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
@@ -352,9 +351,12 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             go.GetComponent<SpriteRenderer>().flipY = true;
         }
+        //angle -= 75;
         go.transform.position += dir;
         
         go.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        return go;
 
     }
 
