@@ -66,22 +66,33 @@ public class ChaseState : EnemyBaseState
         bool isInRange = enemyController.AttackState.IsEnemyInAttackRange();
         EnemyAttackTypeEnum attackType = enemyController.AttackState.NextAttack.AttackTypeEnum;
 
-        switch (attackType)
+        if (!isInRange)
         {
-            case EnemyAttackTypeEnum.Melee:
-                if ((!isInRange || !isPlayerInSight))
-                    enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
-                else
-                    enemyController.ChangeState(EnemyStateEnum.Attack);
-                break;
-
-            case EnemyAttackTypeEnum.Ranged:
-                if (!isInRange)
-                    enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
-                else
-                    enemyController.ChangeState(EnemyStateEnum.Attack);
-                break;
+            enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
         }
+            
+        else
+        {
+            enemyController.ChangeState(EnemyStateEnum.Attack);
+        }
+           
+
+        //switch (attackType)
+        //{
+        //    case EnemyAttackTypeEnum.Melee:
+        //        if ((!isInRange || !isPlayerInSight))
+        //            enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
+        //        else
+        //            enemyController.ChangeState(EnemyStateEnum.Attack);
+        //        break;
+
+        //    case EnemyAttackTypeEnum.Ranged:
+        //        if (!isInRange)
+        //            enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
+        //        else
+        //            enemyController.ChangeState(EnemyStateEnum.Attack);
+        //        break;
+        //}
 
 
 

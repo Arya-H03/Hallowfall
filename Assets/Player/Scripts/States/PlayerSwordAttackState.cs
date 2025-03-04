@@ -27,10 +27,9 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private Coroutine SpawnAfterImageCoroutine;
 
-    [SerializeField] GameObject swingEffect;
+    [SerializeField] GameObject firstSwingEffect;
     [SerializeField] GameObject secondSwingEffect;
-    private GameObject thirdSwingEffect;
-
+    
     private float firstSwingDamage = 0;
     private float secondSwingDamage = 0;
     private float thirdSwingDamage = 0;
@@ -252,7 +251,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void FirstSwingBoxCast()
     {
-        RaycastHit2D[] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize);
+        RaycastHit2D[] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize,1);
 
 
         if (hitResult != null)
@@ -277,7 +276,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void SecondSwingBoxCast()
     {
 
-        RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize);
+        RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize,2);
 
         if (hitResult != null)
         {
@@ -303,7 +302,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public void ThirdSwingBoxCast()
     {
 
-        RaycastHit2D[] hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize);
+        RaycastHit2D[] hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize,3);
         if (hitResult != null)
         {
             foreach (RaycastHit2D hit in hitResult)
@@ -323,10 +322,10 @@ public class PlayerSwordAttackState : PlayerBaseState
         }
     }
 
-    private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize)
+    private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize,int index)
     {
         Vector2 direction = transform.right;
-        GameObject slashEffectGO = SpawnSlashEffect(swingEffect);
+        GameObject slashEffectGO = SpawnSlashEffect(index);
         //RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
         RaycastHit2D[] hits = Physics2D.CircleCastAll(slashEffectGO.transform.position, 1.2f, direction, distance, layerMask);
        
@@ -339,24 +338,55 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     }
 
-    private GameObject SpawnSlashEffect(GameObject effect)
+    private GameObject SpawnSlashEffect(int index)
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         Vector3 dir = (mousePos - playerController.GetPlayerCenter()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Debug.Log(angle);
-        GameObject go = Instantiate(effect, playerController.GetPlayerCenter(), Quaternion.identity);
-        if (angle >= -90 && angle <= 90)
-        {
-            go.GetComponent<SpriteRenderer>().flipY = true;
-        }
-        //angle -= 75;
-        go.transform.position += dir;
-        
-        go.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        return go;
+        GameObject effect = null;
+
+        if (index == 1)
+        {
+            effect = Instantiate(firstSwingEffect, playerController.GetPlayerCenter(), Quaternion.identity);
+            //if (angle >= -90 && angle <= 90)
+            //{
+               
+            //    effect.GetComponent<SpriteRenderer>().flipX = true;
+            //}
+            angle -= 60;
+            effect.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+
+        }
+        else if (index == 2)
+        {
+            effect = Instantiate(secondSwingEffect, playerController.GetPlayerCenter(), Quaternion.identity);
+            if (angle <= -90 || angle >= 90)
+            {
+                effect.GetComponent<SpriteRenderer>().flipX = true;
+                effect.GetComponent<SpriteRenderer>().flipY = true;
+            }
+            effect.transform.rotation = Quaternion.Euler(65, 0, angle);
+        }
+
+        effect.transform.position += dir;
+
+
+        return effect;
+
+  
+
+        //if (angle >= -90 && angle <= 90)
+        //{
+        //    go.GetComponent<SpriteRenderer>().flipY = true;
+        //}
+
+        
+
+       
 
     }
 

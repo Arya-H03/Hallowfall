@@ -8,40 +8,83 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     [SerializeField] Transform boxCastCenter;
     private float distance = 0;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] private GameObject attackZoneGO;
+    private EnemyAttackZone attackZone;
 
     [SerializeField] private int parryDamage = 100;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
+    }
     public override void CallAttackActionOnAnimFrame()
     {
-        Vector2 direction = transform.right;
+        //Vector2 direction = transform.right;
 
-        RaycastHit2D [] hits = Physics2D.BoxCastAll(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
+        //RaycastHit2D [] hits = Physics2D.BoxCastAll(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
 
-        PlayAttackSFX();
+        //PlayAttackSFX();
 
-         foreach (RaycastHit2D hit in hits)
+        // foreach (RaycastHit2D hit in hits)
+        //{
+        //    if(hit.collider.CompareTag("ParryShield") == true)
+        //    {
+        //        GameObject parryShield = hit.collider.gameObject;
+        //        enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
+        //        return;
+        //    }
+
+        //}
+
+        //foreach (RaycastHit2D hit in hits)
+        //{                  
+        //    if (hit.collider.CompareTag("Player"))
+        //    {
+        //        GameObject player = hit.collider.gameObject;
+        //        player.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
+        //        return;
+        //    }
+        //}
+
+        if (attackZone.Target)
         {
-            if(hit.collider.CompareTag("ParryShield") == true)
-            {
-                GameObject parryShield = hit.collider.gameObject;
-                enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
-                return;
-            }
-            
+            attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
         }
-
-        foreach (RaycastHit2D hit in hits)
-        {                  
-            if (hit.collider.CompareTag("Player"))
-            {
-                GameObject player = hit.collider.gameObject;
-                player.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
-                return;
-            }
-        }
-
 
     }
+
+    public override IEnumerator AttackCoroutine()
+    {
+        
+        isAvailable = false;
+        SetupAttackZone();
+        enemyController.AttackState.RemoveFromAvailableAttacks(this);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation(AnimCondition, true);
+        yield return new WaitForSeconds(attackCooldown);
+        isAvailable = true;
+        enemyController.AttackState.AddToAvailableAttacks(this);
+    }
+
+    private void SetupAttackZone()
+    {
+        Vector3 dir = (enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (angle >= -90 && angle <= 90)
+        {
+            angle += 180;
+        }
+        attackZoneGO.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        attackZoneGO.transform.position = enemyController.GetEnemyCenter() + (dir/2);
+
+        attackZoneGO.SetActive(true);
+    }
+    public override void OnAttackEnd()
+    {
+        attackZoneGO.SetActive(false);
+    }
+
     //private void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
     //{
     //    // Define the corners of the box for visualization in 2D
@@ -62,13 +105,13 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 
     //public void DrawCast()
     //{
-        
+
     //    VisualizeBoxCast(boxCastCenter.position, boxCastSize, transform.right, distance);
     //}
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireCube(boxCastCenter.position, boxCastSize);
-        
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(boxCastCenter.position, 1f);
+
+    }
 }

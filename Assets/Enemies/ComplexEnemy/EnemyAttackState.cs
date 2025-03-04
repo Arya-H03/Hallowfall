@@ -81,6 +81,7 @@ public class EnemyAttackState : EnemyBaseState
     public void EndAttack()
     {
         enemyController.EnemyAnimationManager.SetBoolForAnimation(nextAttack.AnimCondition, false);
+        nextAttack.OnAttackEnd();
         nextAttack = null;
         enemyController.ChangeState(EnemyStateEnum.Idle);
     }
@@ -102,7 +103,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public bool IsEnemyInAttackRange()
     {
-        return Vector2.Distance(enemyController.PlayerPos, enemyController.transform.position) <= nextAttack.AttackRange +1;
+        return Vector2.Distance(enemyController.PlayerController.GetPlayerCenter(), enemyController.GetEnemyCenter()) <= nextAttack.AttackRange;
         //return Mathf.Abs(enemyController.PlayerPos.x - enemyController.transform.position.x) < nextAttack.AttackRange;
 
     }

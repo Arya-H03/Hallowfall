@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class EnemyBaseAttack : MonoBehaviour
 {
-    [SerializeField] private string animCondition;
+    [SerializeField] protected string animCondition;
     [SerializeField] protected float attackCooldown;
     [SerializeField] protected float attackRange;
     [SerializeField] protected int attackDamage;
-    private bool isAvailable = true;
+    protected bool isAvailable = true;
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected AudioClip[] attackSFX;
-    [SerializeField] private EnemyAttackTypeEnum attackTypeEnum;
+    [SerializeField] protected EnemyAttackTypeEnum attackTypeEnum;
+    
 
     protected EnemyController enemyController;
 
@@ -21,7 +22,8 @@ public class EnemyBaseAttack : MonoBehaviour
     public string AnimCondition { get => animCondition; set => animCondition = value; }
     public EnemyAttackTypeEnum AttackTypeEnum { get => attackTypeEnum;}
 
-    private void Awake()
+
+    protected virtual void Awake()
     {
         enemyController = GetComponentInParent<EnemyController>();
     }
@@ -37,7 +39,7 @@ public class EnemyBaseAttack : MonoBehaviour
     {
         StartCoroutine(AttackCoroutine());
     }
-    private IEnumerator AttackCoroutine()
+    public virtual IEnumerator AttackCoroutine()
     {
         isAvailable = false;
         enemyController.AttackState.RemoveFromAvailableAttacks(this);
@@ -57,5 +59,10 @@ public class EnemyBaseAttack : MonoBehaviour
         {
             AudioManager.Instance.PlayRandomSFX(audioSource, attackSFX, 1);
         }
+    }
+
+    public virtual void OnAttackEnd()
+    {
+
     }
 }

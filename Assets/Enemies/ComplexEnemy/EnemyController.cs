@@ -301,4 +301,11 @@ public class EnemyController : MonoBehaviour
         ChangeState(EnemyStateEnum.Idle);
     }
 
+    public Vector3 GetEnemyCenter()
+    {
+        Vector3 center = this.transform.position;
+        center.y += spriteRenderer.bounds.size.y / 2;
+        return center;
+    }
+
 }
