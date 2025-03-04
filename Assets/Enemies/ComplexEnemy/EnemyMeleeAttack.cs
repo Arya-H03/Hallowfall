@@ -8,8 +8,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     [SerializeField] Transform boxCastCenter;
     private float distance = 0;
     [SerializeField] LayerMask layerMask;
-    [SerializeField] private GameObject attackZoneGO;
-    private EnemyAttackZone attackZone;
+    protected EnemyAttackZone attackZone;
 
     [SerializeField] private int parryDamage = 100;
 
@@ -20,40 +19,13 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     }
     public override void CallAttackActionOnAnimFrame()
     {
-        //Vector2 direction = transform.right;
-
-        //RaycastHit2D [] hits = Physics2D.BoxCastAll(new Vector2(boxCastCenter.position.x, boxCastCenter.position.y), boxCastSize, 0f, direction, distance, layerMask);
-
-        //PlayAttackSFX();
-
-        // foreach (RaycastHit2D hit in hits)
-        //{
-        //    if(hit.collider.CompareTag("ParryShield") == true)
-        //    {
-        //        GameObject parryShield = hit.collider.gameObject;
-        //        enemyController.collisionManager.OnEnemyParried(parryShield, hit.point, parryDamage);
-        //        return;
-        //    }
-
-        //}
-
-        //foreach (RaycastHit2D hit in hits)
-        //{                  
-        //    if (hit.collider.CompareTag("Player"))
-        //    {
-        //        GameObject player = hit.collider.gameObject;
-        //        player.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
-        //        return;
-        //    }
-        //}
-
+        
         if (attackZone.Target)
         {
             attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
         }
 
     }
-
     public override IEnumerator AttackCoroutine()
     {
         
@@ -70,7 +42,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     {
         Vector3 dir = (enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        if (angle >= -90 && angle <= 90)
+        if (angle <= -90 || angle >= 90)
         {
             angle += 180;
         }
@@ -79,39 +51,5 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         attackZoneGO.transform.position = enemyController.GetEnemyCenter() + (dir/2);
 
         attackZoneGO.SetActive(true);
-    }
-    public override void OnAttackEnd()
-    {
-        attackZoneGO.SetActive(false);
-    }
-
-    //private void VisualizeBoxCast(Vector2 origin, Vector2 size, Vector2 direction, float distance)
-    //{
-    //    // Define the corners of the box for visualization in 2D
-    //    Vector2 topLeft = origin + (Vector2.left * size.x / 2) + (Vector2.up * size.y / 2);
-    //    Vector2 topRight = origin + (Vector2.right * size.x / 2) + (Vector2.up * size.y / 2);
-    //    Vector2 bottomLeft = origin + (Vector2.left * size.x / 2) + (Vector2.down * size.y / 2);
-    //    Vector2 bottomRight = origin + (Vector2.right * size.x / 2) + (Vector2.down * size.y / 2);
-
-    //    // Draw the edges of the box using Debug.DrawLine for visualization in 2D
-    //    Debug.DrawLine(topLeft, topRight, Color.red);
-    //    Debug.DrawLine(topRight, bottomRight, Color.red);
-    //    Debug.DrawLine(bottomRight, bottomLeft, Color.red);
-    //    Debug.DrawLine(bottomLeft, topLeft, Color.red);
-
-    //    // Draw the ray from the center to the right (assuming right is forward) for visualization in 2D
-    //    Debug.DrawRay(origin, direction * distance, Color.red);
-    //}
-
-    //public void DrawCast()
-    //{
-
-    //    VisualizeBoxCast(boxCastCenter.position, boxCastSize, transform.right, distance);
-    //}
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(boxCastCenter.position, 1f);
-
     }
 }

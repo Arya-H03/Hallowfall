@@ -11,8 +11,7 @@ public class EnemyAttackZone : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("Player in");
-            Target = collision.gameObject;
+            target = collision.gameObject;
         }
     }
 
@@ -20,8 +19,7 @@ public class EnemyAttackZone : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player out");
-            Target = null;
+            target = null;
         }
     }
 }

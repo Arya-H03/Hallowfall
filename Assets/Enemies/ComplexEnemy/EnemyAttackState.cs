@@ -48,7 +48,6 @@ public class EnemyAttackState : EnemyBaseState
     private void Start()
     {
         nextAttack = enemyAvailableAttackList[0];
-        //.enemyController.NavAgent.stoppingDistance = nextAttack.AttackRange;
         
     }
     public override void OnEnterState()
@@ -71,6 +70,12 @@ public class EnemyAttackState : EnemyBaseState
         enemyController.CanMove = true;
         canAttack = true;
         isAttacking = false;
+        if (nextAttack != null)
+        {
+            nextAttack.DeactivateZoneAttack();
+        }
+        
+ 
     }
 
     public override void HandleState()
@@ -104,8 +109,6 @@ public class EnemyAttackState : EnemyBaseState
     public bool IsEnemyInAttackRange()
     {
         return Vector2.Distance(enemyController.PlayerController.GetPlayerCenter(), enemyController.GetEnemyCenter()) <= nextAttack.AttackRange;
-        //return Mathf.Abs(enemyController.PlayerPos.x - enemyController.transform.position.x) < nextAttack.AttackRange;
-
     }
 
     public bool IsEnemyAbleToAttack()
@@ -127,8 +130,7 @@ public class EnemyAttackState : EnemyBaseState
     {
         if (!nextAttack && enemyAvailableAttackList.Count > 0)
         {
-            nextAttack = enemyAvailableAttackList[0];
-            //enemyController.NavAgent.stoppingDistance = nextAttack.AttackRange;
+            nextAttack = enemyAvailableAttackList[0];           
         }
     }
 }

@@ -12,7 +12,8 @@ public class EnemyBaseAttack : MonoBehaviour
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected AudioClip[] attackSFX;
     [SerializeField] protected EnemyAttackTypeEnum attackTypeEnum;
-    
+    [SerializeField] protected GameObject attackZoneGO;
+
 
     protected EnemyController enemyController;
 
@@ -63,6 +64,15 @@ public class EnemyBaseAttack : MonoBehaviour
 
     public virtual void OnAttackEnd()
     {
+        DeactivateZoneAttack();
+    }
+
+    public void DeactivateZoneAttack()
+    {
+        if (attackZoneGO)
+        {
+            attackZoneGO.SetActive(false);
+        }
 
     }
 }

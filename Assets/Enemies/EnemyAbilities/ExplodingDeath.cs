@@ -6,40 +6,53 @@ using UnityEngine;
 public class ExplodingDeath : EnemyAbilitySO
 {
     [SerializeField] GameObject explosionVFX;
+    [SerializeField] GameObject attackZonePrefab;
     [SerializeField] AudioClip explosionSFX;
-    [SerializeField] float damage = 35;
+    [SerializeField] float damage = 20;
+
+    private GameObject attackZoneGO;
 
     public override void ApplyAbility(EnemyController enemyController)
     {
         enemyController.DeathState.EnemyEndDeathEvent += () => CreateExplosion(enemyController);
+        enemyController.DeathState.EnemyBeginDeathEvent += () => CreateAttackZone(enemyController);
     }
 
+    private void CreateAttackZone(EnemyController enemyController)
+    {
+        attackZoneGO = Instantiate(attackZonePrefab, enemyController.transform.position,Quaternion.identity);
+    }
     private void CreateExplosion(EnemyController enemyController)
     {
-        float spawnOffset = enemyController.SpriteRenderer.bounds.size.y / 2;
-        Vector3 spawnPos = enemyController.transform.position;
-        spawnPos.y += spawnOffset;
-        GameObject vfx = Instantiate(explosionVFX, spawnPos, Quaternion.identity);
+        GameObject vfx = Instantiate(explosionVFX, enemyController.GetEnemyCenter(), Quaternion.identity);
         AudioManager.Instance.PlaySFX(enemyController.AudioSource, explosionSFX,1);
 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(spawnPos, 1f, Vector2.zero);
-        foreach(RaycastHit2D hit in hits)
+        EnemyAttackZone attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
+        if (attackZone != null && attackZone.Target)
         {
-            if(hit.collider != null)
-            {
-                if(hit.collider.CompareTag("Player"))
-                {
-                    hit.transform.GetComponent<PlayerController>().OnPlayerHit(damage);
-                }
+            attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(damage);
+        }
 
-                else if (hit.collider.CompareTag("Enemy"))
-                {
-                    hit.transform.GetComponent<EnemyController>().OnEnemyHit(damage, hit.point,HitSfxType.sword);
-                }
+        Destroy(attackZoneGO);
+
+        //RaycastHit2D[] hits = Physics2D.CircleCastAll(spawnPos, 1f, Vector2.zero);
+        //foreach(RaycastHit2D hit in hits)
+        //{
+        //    if(hit.collider != null)
+        //    {
+        //        if(hit.collider.CompareTag("Player"))
+        //        {
+        //            hit.transform.GetComponent<PlayerController>().OnPlayerHit(damage);
+        //        }
+
+        //        else if (hit.collider.CompareTag("Enemy"))
+        //        {
+        //            hit.transform.GetComponent<EnemyController>().OnEnemyHit(damage, hit.point,HitSfxType.sword);
+        //        }
                    
   
-            }
-        }
+        //    }
+        //}
     }
 
 

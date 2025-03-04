@@ -326,7 +326,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         Vector2 direction = transform.right;
         GameObject slashEffectGO = SpawnSlashEffect(index);
-        //RaycastHit2D[] hits = Physics2D.BoxCastAll(centerPoint, boxSize, 0f, direction, distance, layerMask);
         RaycastHit2D[] hits = Physics2D.CircleCastAll(slashEffectGO.transform.position, 1.2f, direction, distance, layerMask);
        
         if (hits.Length > 0)
@@ -350,12 +349,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         if (index == 1)
         {
-            effect = Instantiate(firstSwingEffect, playerController.GetPlayerCenter(), Quaternion.identity);
-            //if (angle >= -90 && angle <= 90)
-            //{
-               
-            //    effect.GetComponent<SpriteRenderer>().flipX = true;
-            //}
+            effect = Instantiate(firstSwingEffect, playerController.GetPlayerCenter(), Quaternion.identity);          
             angle -= 60;
             effect.transform.rotation = Quaternion.Euler(0, 0, angle);
 
@@ -374,20 +368,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         effect.transform.position += dir;
 
-
         return effect;
-
-  
-
-        //if (angle >= -90 && angle <= 90)
-        //{
-        //    go.GetComponent<SpriteRenderer>().flipY = true;
-        //}
-
-        
-
-       
-
     }
 
     private void DebugBoxCast(Vector2 centerPoint, Vector2 boxSize)

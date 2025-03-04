@@ -191,6 +191,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Circle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 789377faba370ab4482f1c85f4931cdf
+      internalID: -1656861845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline:
     - - {x: 33, y: 128}
       - {x: -33, y: 128}
@@ -235,6 +256,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Circle: -2413806693520163455
+      Circle_0: -1656861845
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

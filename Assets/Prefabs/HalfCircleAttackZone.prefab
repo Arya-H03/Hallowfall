@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2689761871652900504}
   - component: {fileID: 7910444644596225047}
   - component: {fileID: 739941096552854879}
+  - component: {fileID: 1056337489651912631}
   m_Layer: 0
   m_Name: HalfCircleAttackZone
   m_TagString: Untagged
@@ -26,10 +27,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500961752117980373}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0.34, y: 0.04, z: 0}
-  m_LocalScale: {x: -1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1.5, y: 1.2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
@@ -154,3 +155,16 @@ PolygonCollider2D:
       - {x: 0.007612549, y: 0.40650326}
       - {x: 0.006087294, y: 0.5090701}
   m_UseDelaunayMesh: 0
+--- !u!114 &1056337489651912631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500961752117980373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcab315cb2c08f84885b324289bf65fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
