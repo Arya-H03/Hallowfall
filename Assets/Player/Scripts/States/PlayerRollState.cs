@@ -46,9 +46,20 @@ public class PlayerRollState : PlayerBaseState
     private IEnumerator BeginRollCoroutine()
     {
         playerController.IsRolling = true;
+        playerController.IsImmune = true;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
-        Vector2 dir = playerController.PlayerMovementManager.CurrentDirection;
-        playerController.PlayerCollision.Rb.velocity += dir * rollModifier;
+
+        if(playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
+        {
+            Vector2 dir = (playerController.PlayerMovementManager.currentInputDir).normalized;
+            playerController.PlayerCollision.Rb.velocity += dir * rollModifier;
+        }
+        else
+        {
+            Vector2 dir = (playerController.PlayerMovementManager.CurrentDirection).normalized;
+            playerController.PlayerCollision.Rb.velocity += dir * rollModifier;
+        }
+       
         SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
         AudioManager.Instance.PlaySFX(audioSource, rollSFX, 0.5f);
         playerController.PlayerMovementManager.MoveSpeed = 0;
@@ -57,6 +68,7 @@ public class PlayerRollState : PlayerBaseState
         EndRoll();
         yield return new WaitForSeconds(rollCooldown);
         playerController.CanRoll = true;
+        playerController.IsImmune = false;
 
     }
     

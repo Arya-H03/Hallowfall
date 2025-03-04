@@ -51,9 +51,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canRoll = true;
     [SerializeField] private bool canHang = true;
     [SerializeField] private bool isFalling = false;
-
     [SerializeField] private bool isFacingWall = false;
     [SerializeField] private bool isFacingLedge = false;
+    [SerializeField] private bool isImmune = false; 
 
 
     [SerializeField] private PlayerStateEnum currentStateEnum;
@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
     public int AtonementLvl { get => atonementLvl; set => atonementLvl = value; }
     public int AtonementToLevel { get => atonementToLevel; set => atonementToLevel = value; }
     public bool CanDashAttack { get => canDashAttack; set => canDashAttack = value; }
+    public bool IsImmune { get => isImmune; set => isImmune = value; }
 
     #endregion
     private void Awake()
@@ -313,10 +314,14 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator PlayerHitCoroutine(float damage)
     {
-        OnTakingDamage(damage);
-        material.SetFloat("_Flash", 1);
-        yield return new WaitForSeconds(0.1f); 
-        material.SetFloat("_Flash", 0);
+        if (!isImmune)
+        {
+            OnTakingDamage(damage);
+            material.SetFloat("_Flash", 1);
+            yield return new WaitForSeconds(0.1f);
+            material.SetFloat("_Flash", 0);
+        }
+       
     }
 
     public void OnPlayerHit(float damage)
