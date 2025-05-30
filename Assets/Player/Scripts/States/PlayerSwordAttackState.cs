@@ -343,7 +343,6 @@ public class PlayerSwordAttackState : PlayerBaseState
         mousePos.z = 0f;
         Vector3 dir = (mousePos - playerController.GetPlayerCenter()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Debug.Log(angle);
 
         GameObject effect = null;
 

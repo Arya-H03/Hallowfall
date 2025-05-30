@@ -22,8 +22,18 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         
         if (attackZone.Target)
         {
-            attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
+            if (!attackZone.IsAttackParry)
+            {
+                attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
+            }
+            else if(attackZone.ParryShield)
+            {
+                enemyController.collisionManager.OnEnemyParried(attackZone.ParryShield, enemyController.transform.position, parryDamage);
+            }
+           
         }
+        
+       
 
     }
     public override IEnumerator AttackCoroutine()

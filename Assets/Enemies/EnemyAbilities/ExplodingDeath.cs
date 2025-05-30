@@ -26,33 +26,19 @@ public class ExplodingDeath : EnemyAbilitySO
     {
         GameObject vfx = Instantiate(explosionVFX, enemyController.GetEnemyCenter(), Quaternion.identity);
         AudioManager.Instance.PlaySFX(enemyController.AudioSource, explosionSFX,1);
-
-        EnemyAttackZone attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
-        if (attackZone != null && attackZone.Target)
+            
+        if(attackZoneGO)
         {
-            attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(damage);
+            EnemyAttackZone attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
+            if (attackZone != null && attackZone.Target)
+            {
+                attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(damage);
+            }
+
+            Destroy(attackZoneGO);
         }
+        
 
-        Destroy(attackZoneGO);
-
-        //RaycastHit2D[] hits = Physics2D.CircleCastAll(spawnPos, 1f, Vector2.zero);
-        //foreach(RaycastHit2D hit in hits)
-        //{
-        //    if(hit.collider != null)
-        //    {
-        //        if(hit.collider.CompareTag("Player"))
-        //        {
-        //            hit.transform.GetComponent<PlayerController>().OnPlayerHit(damage);
-        //        }
-
-        //        else if (hit.collider.CompareTag("Enemy"))
-        //        {
-        //            hit.transform.GetComponent<EnemyController>().OnEnemyHit(damage, hit.point,HitSfxType.sword);
-        //        }
-                   
-  
-        //    }
-        //}
     }
 
 
