@@ -21,6 +21,7 @@ public class ExplodingDeath : EnemyAbilitySO
     private void CreateAttackZone(EnemyController enemyController)
     {
         attackZoneGO = Instantiate(attackZonePrefab, enemyController.transform.position,Quaternion.identity);
+        attackZoneGO.transform.parent = enemyController.transform;
     }
     private void CreateExplosion(EnemyController enemyController)
     {

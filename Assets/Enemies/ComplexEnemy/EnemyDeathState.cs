@@ -63,7 +63,9 @@ public class EnemyDeathState : EnemyBaseState
 
         //
         Destroy(transform.parent.parent.gameObject,0.25f);
-        
+        //transform.parent.parent.gameObject.SetActive(false) ;
+
+
     }
 
     public void StartDeathAnimationEndCoroutine()

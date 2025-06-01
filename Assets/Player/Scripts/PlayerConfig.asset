@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5ecf97db3b3c944bc7c203508ab57c, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10000
   toLevel: 3
   runSpeed: 3.5
   groundSFX:
