@@ -19,7 +19,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     }
     public override void CallAttackActionOnAnimFrame()
     {
-        
+        PlayAttackSFX();
         if (attackZone.Target)
         {
             if (!attackZone.IsAttackParry)
@@ -43,6 +43,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         SetupAttackZone();
         enemyController.AttackState.RemoveFromAvailableAttacks(this);
         enemyController.EnemyAnimationManager.SetBoolForAnimation(AnimCondition, true);
+        
         yield return new WaitForSeconds(attackCooldown);
         isAvailable = true;
         enemyController.AttackState.AddToAvailableAttacks(this);

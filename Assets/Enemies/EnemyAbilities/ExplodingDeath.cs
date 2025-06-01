@@ -24,7 +24,7 @@ public class ExplodingDeath : EnemyAbilitySO
     }
     private void CreateExplosion(EnemyController enemyController)
     {
-        GameObject vfx = Instantiate(explosionVFX, enemyController.GetEnemyCenter(), Quaternion.identity);
+        Instantiate(explosionVFX, enemyController.GetEnemyCenter(), Quaternion.identity);
         AudioManager.Instance.PlaySFX(enemyController.AudioSource, explosionSFX,1);
             
         if(attackZoneGO)
@@ -35,9 +35,11 @@ public class ExplodingDeath : EnemyAbilitySO
                 attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(damage);
             }
 
-            Destroy(attackZoneGO);
+            
         }
-        
+
+        Destroy(attackZoneGO);
+
 
     }
 

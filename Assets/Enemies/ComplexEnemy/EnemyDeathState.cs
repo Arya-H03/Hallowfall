@@ -58,11 +58,10 @@ public class EnemyDeathState : EnemyBaseState
         enemyController.EnemyAnimationManager.Animator.enabled = false;
         enemyController.SpriteRenderer.sprite = deadSprite;
         yield return new WaitForSeconds(corpseLifeTime);
-        if (EnemyEndDeathEvent != null)
-        {
-            EnemyEndDeathEvent.Invoke();
-        }
-      
+        EnemyEndDeathEvent?.Invoke();
+
+
+        //
         Destroy(transform.parent.parent.gameObject,0.25f);
         
     }

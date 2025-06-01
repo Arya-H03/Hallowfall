@@ -279,10 +279,9 @@ MonoBehaviour:
   attackDamage: 35
   audioSource: {fileID: 4646197755074760936}
   attackSFX:
-  - {fileID: 8300000, guid: be3eb9310aa56f540967f99527bea652, type: 3}
-  - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}
-  - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
+  - {fileID: 8300000, guid: 63496705482bf864da859392c05aa553, type: 3}
   attackTypeEnum: 1
+  attackZoneGO: {fileID: 0}
   projectilePrefab: {fileID: 3757319058761393601, guid: f793617da02a88e42af43e9fcec1ccb5, type: 3}
   projectileSpawnPoint: {fileID: 5099512777251563530}
 --- !u!114 &7733516524422739764
@@ -304,6 +303,7 @@ MonoBehaviour:
   audioSource: {fileID: 4646197755074760936}
   attackSFX: []
   attackTypeEnum: 1
+  attackZoneGO: {fileID: 0}
   mob: {fileID: 6338835623293835334, guid: cedfe1c2498823d4c9d65e993617e785, type: 3}
 --- !u!82 &4646197755074760936 stripped
 AudioSource:

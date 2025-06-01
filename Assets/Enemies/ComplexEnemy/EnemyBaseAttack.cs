@@ -45,13 +45,14 @@ public class EnemyBaseAttack : MonoBehaviour
         isAvailable = false;
         enemyController.AttackState.RemoveFromAvailableAttacks(this);
         enemyController.EnemyAnimationManager.SetBoolForAnimation(AnimCondition, true);
+       
         yield return new WaitForSeconds(attackCooldown);
         isAvailable = true;
         enemyController.AttackState.AddToAvailableAttacks(this);
     }
     public virtual void CallAttackActionOnAnimFrame()
     {
-
+        
     }
 
     protected void PlayAttackSFX()
