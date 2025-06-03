@@ -5,10 +5,18 @@ using UnityEngine.UI;
 
 public class SkillNode : MonoBehaviour
 {
-    private Image image;
-
     [SerializeField] SkillNode [] previousNodes;
     [SerializeField] SkillNode [] nextNodes;
+
+    [SerializeField] SkillSO skillSO;
+
+    private SkillManager skillManager;
+    
+
+    [SerializeField] Image outlineImage;
+    [SerializeField] Transform linkHolder;
+    [SerializeField] Image skillImage;
+
     private List<Image> links = new List<Image>();
 
     private bool isUnlocked = false;
@@ -18,9 +26,9 @@ public class SkillNode : MonoBehaviour
 
     private void Awake()
     {
-        image = GetComponent<Image>();
-
-        foreach(Transform child in transform)
+        skillManager = GetComponentInParent<SkillManager>();
+      
+        foreach (Transform child in linkHolder)
         {
             Image image = child.GetComponent<Image>();
             if (image != null)
@@ -32,6 +40,9 @@ public class SkillNode : MonoBehaviour
     private void Start()
     {
         CheckPreviousNodes();
+
+        skillImage.sprite = skillSO.icon;
+
     }
     public void CheckPreviousNodes()
     {
@@ -59,13 +70,14 @@ public class SkillNode : MonoBehaviour
     private void UnlockNode()
     {
         IsUnlocked = true ;
-        image.color = Color.green;
+        skillImage.color = new Color(1, 1, 1, 1f);
+        outlineImage.color = Color.green;
 
         if (links.Count > 0)
         {
             foreach (var link in links)
             {
-                link.color = Color.cyan;
+                link.color = new Color(1f, 0.5f, 0f);
 
             }
         }
@@ -84,13 +96,15 @@ public class SkillNode : MonoBehaviour
     {
         if(value)
         {
-            canBeUnlocked = true;  
-            image.color = Color.yellow;
+            canBeUnlocked = true;
+            skillImage.color = new Color(1, 1, 1, 0.7f);           
+            outlineImage.color = Color.yellow;
         }
         else
         {
-            canBeUnlocked = false;  
-            image.color = Color.red;
+            canBeUnlocked = false;
+            skillImage.color = new Color(1, 1, 1, 0.1f);           
+            outlineImage.color = Color.red;
         }          
     }
     public void OnNodeClicked()
@@ -98,6 +112,16 @@ public class SkillNode : MonoBehaviour
         if(canBeUnlocked && !isUnlocked)
         {
             UnlockNode();
+            skillSO.ApplySkill();
         }
+    }
+
+    public void OnSkillHover()
+    {
+        skillManager.ShowDescriptionFrame(this.transform.position,skillSO.name,skillSO.skillDescription,skillSO.skillCost);
+    }
+    public void OnSkillHoverClear()
+    {
+        skillManager.HideDescriptionFrame();
     }
 }
