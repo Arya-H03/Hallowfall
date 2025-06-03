@@ -73,16 +73,10 @@ public class SkillNode : MonoBehaviour
         skillImage.color = new Color(1, 1, 1, 1f);
         outlineImage.color = Color.green;
 
-        if (links.Count > 0)
-        {
-            foreach (var link in links)
-            {
-                link.color = new Color(1f, 0.5f, 0f);
+        MangeLinks(true);   
 
-            }
-        }
-        
-        if(nextNodes.Length > 0)
+
+        if (nextNodes.Length > 0)
         {
             foreach (var node in nextNodes)
             {
@@ -90,6 +84,29 @@ public class SkillNode : MonoBehaviour
             }
         }
        
+    }
+
+    private void MangeLinks(bool shouldChangeColor)
+    {
+        if (links.Count > 0)
+        {
+            if (shouldChangeColor)
+            {
+                foreach (var link in links)
+                {
+                    link.color = new Color(1f, 0.5f, 0f);
+
+                }
+            }
+            else
+            {
+                foreach (var link in links)
+                {
+                    link.color = new Color(1f, 1f, 1f);
+                }
+            }
+           
+        }
     }
 
     private void UpdateNode(bool value)
@@ -123,5 +140,13 @@ public class SkillNode : MonoBehaviour
     public void OnSkillHoverClear()
     {
         skillManager.HideDescriptionFrame();
+    }
+
+    public void ResetSkill()
+    {
+        canBeUnlocked = false ;
+        isUnlocked = false ;
+        CheckPreviousNodes();
+        MangeLinks(false);
     }
 }

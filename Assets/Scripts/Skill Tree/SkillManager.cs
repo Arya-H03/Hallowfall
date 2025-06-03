@@ -9,8 +9,19 @@ public class SkillManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI costText;
+    [SerializeField] TextMeshProUGUI resetCostText;
+    private SkillNode[] skillNodes;
 
+    [SerializeField] private int resetCost = 100;
 
+    private void Awake()
+    {
+        skillNodes = GetComponentsInChildren<SkillNode>();
+    }
+    private void Start()
+    {
+        resetCostText.text = resetCost.ToString();
+    }
     public void ShowDescriptionFrame(Vector3 pos,string name,string description,int cost)
     {
   
@@ -25,5 +36,14 @@ public class SkillManager : MonoBehaviour
     public void HideDescriptionFrame()
     {
         skillDescriptionFrame.SetActive(false);
+    }
+
+    public void ResetAllSkills()
+    {
+        
+        foreach (SkillNode skillNode in skillNodes)
+        {
+            skillNode.ResetSkill();
+        }
     }
 }

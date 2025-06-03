@@ -8,6 +8,7 @@ public class MainmenuManager : MonoBehaviour
 {
     [SerializeField] GameObject creditsPanel;
     [SerializeField] GameObject settingsPanel;
+    [SerializeField] GameObject skillPanel;
 
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip backgroundMusic;
@@ -66,5 +67,14 @@ public class MainmenuManager : MonoBehaviour
     public void OnSettingsButtonCloseClick()
     {
         ClosePanel(settingsPanel);
+    }
+
+    public void OnSkillPanelClick()
+    {
+        OpenPanel(skillPanel);  
+    }
+    public void OnSkillPanelCloseClick()
+    {
+        ClosePanel(skillPanel);
     }
 }
