@@ -9,6 +9,8 @@ public class ShadowStrikeHandler : ActiveAbilityHandler
     [SerializeField] SpawnerAbility shadowStrikeSpawnerSO;
     [SerializeField] private LayerMask enemyLayer;
 
+    [SerializeField] private PassiveAbility fromTheShadows;
+
     private int currentSpawnCount;
     private float currentSpawnDelay;
 
@@ -16,6 +18,8 @@ public class ShadowStrikeHandler : ActiveAbilityHandler
     {
         currentSpawnCount = shadowStrikeSpawnerSO.spawnCount;
         currentSpawnDelay = shadowStrikeSpawnerSO.spawnDelay;
+
+        InitializePassiveAbility(fromTheShadows, FromTheShadows);
 
         StartCoroutine(SpawnShadowCloneCoroutine());
     }
@@ -45,15 +49,26 @@ public class ShadowStrikeHandler : ActiveAbilityHandler
     }
     private void SummonShadowClone()
     {
-        // Filter out already marked enemies
-        if (nearbyEnemies.Count > 0)
-        {
-            int index = Random.Range(0, nearbyEnemies.Count);
-            GameObject selectedEnemy = nearbyEnemies[index];
-            GameObject clone = Instantiate(shadowStrikeSpawnerSO.projectile, selectedEnemy.transform.transform.position, Quaternion.identity);
-            clone.GetComponent<ShadowClone>().EnemyTarget = selectedEnemy;
-           
+        List<GameObject> temp = new List<GameObject>();
+        temp = nearbyEnemies;
 
+        for(int i = 0; i < currentSpawnCount; i++)
+        {
+            if (temp.Count > 0)
+            {
+                int index = Random.Range(0, temp.Count);
+                GameObject selectedEnemy = temp[index];
+                temp.Remove(selectedEnemy);
+                GameObject clone = Instantiate(shadowStrikeSpawnerSO.projectile, selectedEnemy.transform.transform.position, Quaternion.identity);
+                clone.GetComponent<ShadowClone>().EnemyTarget = selectedEnemy;               
+            }
         }
+        nearbyEnemies.Clear();
+
+    }
+
+    private void FromTheShadows()
+    {
+        currentSpawnCount += (int)fromTheShadows.modifier;
     }
 }
