@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyDeathState : EnemyBaseState
 {
     [SerializeField] Sprite deadSprite;
-    [SerializeField] GameObject atonement;
+    [SerializeField] GameObject essence;
+    [SerializeField] GameObject skull;
     [SerializeField] private float corpseLifeTime = 1;
 
     public delegate void EventHandler();
@@ -48,8 +49,12 @@ public class EnemyDeathState : EnemyBaseState
         enemyController.NavAgent.enabled = false;
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
         enemyController.WorldCanvas.gameObject.SetActive(false);
-        Instantiate(atonement, transform.position, Quaternion.identity);
-        GameManager.Instance.AddToPlayerScore(enemyController.EnemyLvl);
+
+        enemyController.ItemDropHandler.HandleItemDrop(enemyController.transform.position);
+
+
+
+        //GameManager.Instance.AddToPlayerScore(enemyController.EnemyLvl);
 
     }
 

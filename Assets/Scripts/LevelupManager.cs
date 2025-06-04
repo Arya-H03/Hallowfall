@@ -58,14 +58,14 @@ public class LevelupManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.L))
         {
-            OnAtonementPickUp();
+            OnEssencePickUp();
         }
     }
 
-    public void OnAtonementPickUp()
+    public void OnEssencePickUp()
     {
-        playerController.CurrentAtonement++;
-        if (playerController.CurrentAtonement >= playerController.AtonementToLevel)
+        playerController.CurrentEssence++;
+        if (playerController.CurrentEssence >= playerController.AtonementToLevel)
         {
             OnLevelUp();
         }
@@ -74,7 +74,7 @@ public class LevelupManager : MonoBehaviour
 
     public void ResetAttonement()
     {
-        playerController.CurrentAtonement = 0;
+        playerController.CurrentEssence = 0;
         playerController.AtonementToLevel = 0;
         playerController.AtonementToLevel = 3;
 
@@ -83,7 +83,7 @@ public class LevelupManager : MonoBehaviour
     private void OnLevelUp()
     {
         playerController.AtonementLvl++;
-        playerController.CurrentAtonement = 0;
+        playerController.CurrentEssence = 0;
         playerController.AtonementToLevel += 2;
         playerController.CurrentHealth = playerController.MaxHealth;
         float ratio = (float)playerController.CurrentHealth / playerController.MaxHealth;

@@ -15,4 +15,4 @@ MonoBehaviour:
   skillName: TestSkill
   skillDescription: This is a descrioption for a skill lalalalalal
   icon: {fileID: 21300000, guid: 609e3978ec338354b99db7426f6b227a, type: 3}
-  skillCost: 500
+  skillCost: 1

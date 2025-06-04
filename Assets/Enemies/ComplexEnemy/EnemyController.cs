@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
     private ParticleSystem bloodParticles;
     private Material material;
     private SpriteRenderer spriteRenderer;
+    private EnemyItemDropHandler itemDropHandler;
 
     private IdleState idleState;
     private PatrolState patrolState;
@@ -41,10 +42,9 @@ public class EnemyController : MonoBehaviour
     private EnemyDeathState deathState;
 
 
-    [HideInInspector]
+
     private EnemyAnimationManager enemyAnimationManager;
     private EnemyMovement enemyMovement;
-    [HideInInspector]
     public EnemyCollisionManager collisionManager;
 
 
@@ -113,6 +113,7 @@ public class EnemyController : MonoBehaviour
     public Transform HealthbarFG { get => healthbarFG; set => healthbarFG = value; }
     public Transform WorldCanvas { get => worldCanvas; set => worldCanvas = value; }
     public int EnemyLvl { get => enemyLvl; set => enemyLvl = value; }
+    public EnemyItemDropHandler ItemDropHandler { get => itemDropHandler; set => itemDropHandler = value; }
 
     #endregion
 
@@ -172,6 +173,7 @@ public class EnemyController : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         navAgent = GetComponent<NavMeshAgent>();
         AudioSource = GetComponent<AudioSource>();
+        itemDropHandler = GetComponentInChildren<EnemyItemDropHandler>();
 
         InitializeEnemyState();
     }

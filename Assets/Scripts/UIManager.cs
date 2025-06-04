@@ -29,6 +29,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI abilityDescription;
 
+    [SerializeField] TextMeshProUGUI skullCountText;
+
     private PlayerController playerController;
 
     public List<GameObject> listOfFreeAbilitySlots;
@@ -55,7 +57,7 @@ public class UIManager : MonoBehaviour
     public GameObject AbilityWindow { get => abilityWindow; set => abilityWindow = value; }
     public TextMeshProUGUI AbilityDescription { get => abilityDescription; set => abilityDescription = value; }
     public DialogueBox DialogueBox { get => dialogueBox; set => dialogueBox = value; }
-
+ 
     private void Awake()
     {
         if(instance !=this && instance)
@@ -80,13 +82,18 @@ public class UIManager : MonoBehaviour
         if (playerController)
         {
             UpdateHealthUI(playerController);
-            UpdateAttonementUI(playerController);
+            UpdateEssenceUI(playerController);
         }
     }
 
     public void UpdatePlayerScoreText(int value)
     {
         playerScoreText.text = " Score: " + value.ToString();
+    }
+
+    public void UpdatePlayerSkullText(int value)
+    {
+        skullCountText.text = value.ToString();
     }
 
     private void UpdateHealthUI(PlayerController playerController)
@@ -97,16 +104,17 @@ public class UIManager : MonoBehaviour
         healthText.text = playerController.CurrentHealth.ToString() + "/" + playerController.MaxHealth.ToString();
     }
 
-    private void UpdateAttonementUI(PlayerController playerController)
+    private void UpdateEssenceUI(PlayerController playerController)
     {
 
-        float ratio = (float)playerController.CurrentAtonement / playerController.AtonementToLevel;
+        float ratio = (float)playerController.CurrentEssence / playerController.AtonementToLevel;
         atonementBar.localScale = new Vector3(ratio, 1, 1);
         atonementLvlText.text = playerController.AtonementLvl.ToString();
     }
 
     public void OpenDeathMenu()
     {
+        SaveSystem.SaveGameData(GameManager.Instance.PlayerSkullCount);
         deathMenu.SetActive(true);
     }
 
@@ -144,6 +152,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
         InputManager.Instance.OnDisable();
+        SaveSystem.SaveGameData(GameManager.Instance.PlayerSkullCount);
     }
 
     public void OnGameUnPause()

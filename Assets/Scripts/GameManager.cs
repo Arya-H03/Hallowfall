@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public Statue LastStatue { get => lastStatue; set => lastStatue = value; }
     public GameObject Player { get => player; set => player = value; }
     public int PlayerScore { get => playerScore; set => playerScore = value; }
+    public int PlayerSkullCount { get => playerSkullCount; set => playerSkullCount = value; }
 
     [SerializeField] string playerWakeUpDialoge;
 
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]  GameObject enemy;
 
     private int playerScore = 0;
+    private int playerSkullCount = 0;
 
     [SerializeField] GameObject player;
 
@@ -65,14 +67,33 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AudioManager.Instance.LoadSoundData();
+
+        LoadGameData();
+
+        UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
+
         //StartCoroutine(OnGameStartDialogue());
 
     }
 
+    public void LoadGameData()
+    {
+        GameData gameData = SaveSystem.LoadGameData();
+        if(gameData != null)
+        {
+            playerSkullCount = gameData.skullCount;
+        }
+    }
     public void AddToPlayerScore(int value)
     {
         playerScore += value;
         UIManager.Instance.UpdatePlayerScoreText(playerScore);
+    }
+
+    public void AddToPlayerSkulls(int value)
+    {
+        PlayerSkullCount += value;
+        UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
     }
     public void SetPlayerLocationOnRespawn()
     {

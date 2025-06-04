@@ -10,6 +10,9 @@ public class SkillManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI costText;
     [SerializeField] TextMeshProUGUI resetCostText;
+
+    [SerializeField] TextMeshProUGUI skullText;
+
     private SkillNode[] skillNodes;
 
     [SerializeField] private int resetCost = 100;
@@ -40,10 +43,32 @@ public class SkillManager : MonoBehaviour
 
     public void ResetAllSkills()
     {
-        
-        foreach (SkillNode skillNode in skillNodes)
+        int temp = LoadSkullCount() - resetCost;
+        if (temp >= 0)
         {
-            skillNode.ResetSkill();
+            foreach (SkillNode skillNode in skillNodes)
+            {
+                skillNode.ResetSkill();
+            }
+            SaveSystem.SaveGameData(temp);
+            UpdateSkullsText();
         }
+       
+    }
+
+    public int LoadSkullCount()
+    {
+        GameData gameData = SaveSystem.LoadGameData();
+        if (gameData != null)
+        {
+            return gameData.skullCount;
+        }
+        else return 0;
+    }
+
+  
+    public void UpdateSkullsText()
+    {
+        skullText.text = LoadSkullCount().ToString();
     }
 }

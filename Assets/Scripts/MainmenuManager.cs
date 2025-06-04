@@ -70,8 +70,9 @@ public class MainmenuManager : MonoBehaviour
     }
 
     public void OnSkillPanelClick()
-    {
-        OpenPanel(skillPanel);  
+    {       
+        OpenPanel(skillPanel);
+        skillPanel.GetComponent<SkillManager>().UpdateSkullsText();
     }
     public void OnSkillPanelCloseClick()
     {

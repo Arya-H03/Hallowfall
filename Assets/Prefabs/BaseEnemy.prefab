@@ -112,6 +112,56 @@ Transform:
   - {fileID: 1418515642396729782}
   m_Father: {fileID: 7251538344070392708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2615261533256426532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755286238328466813}
+  - component: {fileID: 1587291075419524740}
+  m_Layer: 6
+  m_Name: ItemDropHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1755286238328466813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2615261533256426532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7251538344070392708}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587291075419524740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2615261533256426532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e3a396521b4a9840b86c4ec44ecff09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
+  skull: {fileID: 1829614432987233744, guid: 1b3e8076d0fbb3b4b9530c408095a473, type: 3}
+  essenceDropChance: 0.75
+  skullDropChance: 0.5
+  essenceDropCount: 1
+  skullDropCount: 1
 --- !u!1 &3223970733450789763
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +280,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}
   - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
   attackTypeEnum: 0
+  attackZoneGO: {fileID: 0}
   boxCastSize: {x: 1, y: 1.45}
   boxCastCenter: {fileID: 4723532816330053953}
   layerMask:
@@ -378,7 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadSprite: {fileID: -898221585893318736, guid: b0473f367baadd244806f58a4e17a024, type: 3}
-  atonement: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
+  essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
+  skull: {fileID: 0}
   corpseLifeTime: 1
 --- !u!1 &5633359595972537000
 GameObject:
@@ -608,6 +660,7 @@ Transform:
   - {fileID: 3130962594404774654}
   - {fileID: 4825887145450144339}
   - {fileID: 5680723254515527910}
+  - {fileID: 1755286238328466813}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1824542978293724540

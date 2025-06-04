@@ -48,7 +48,7 @@ public class SkillNode : MonoBehaviour
     {
         if (previousNodes.Length == 0)
         {
-            UpdateNode(true);
+            UpdateNodeOnSkillTree(true);
         } 
         else
         {
@@ -58,16 +58,16 @@ public class SkillNode : MonoBehaviour
                 if (node.IsUnlocked != true)
                 {
                     temp = false;
-                    UpdateNode(temp);
+                    UpdateNodeOnSkillTree(temp);
                     return;
                 }
             }
-            if (temp) UpdateNode(true);
+            if (temp) UpdateNodeOnSkillTree(true);
         }
            
     }
 
-    private void UnlockNode()
+    private void UnlockNodeOnSkillTree()
     {
         IsUnlocked = true ;
         skillImage.color = new Color(1, 1, 1, 1f);
@@ -109,7 +109,7 @@ public class SkillNode : MonoBehaviour
         }
     }
 
-    private void UpdateNode(bool value)
+    private void UpdateNodeOnSkillTree(bool value)
     {
         if(value)
         {
@@ -128,8 +128,15 @@ public class SkillNode : MonoBehaviour
     {
         if(canBeUnlocked && !isUnlocked)
         {
-            UnlockNode();
-            skillSO.ApplySkill();
+            int temp = skillManager.LoadSkullCount() - skillSO.skillCost;
+            if (temp >= 0)
+            {
+                UnlockNodeOnSkillTree();
+                skillSO.ApplySkill();
+                SaveSystem.SaveGameData(temp);
+                skillManager.UpdateSkullsText();
+            }
+            
         }
     }
 

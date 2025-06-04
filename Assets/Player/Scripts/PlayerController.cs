@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private float maxHealth = 0;
     private float currentHealth = 0;
 
-    private int currentAtonement = 0;
+    private int currentEssence = 0;
     private int atonementLvl = 0;
     private int atonementToLevel = 0;
 
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
-    public int CurrentAtonement { get => currentAtonement; set => currentAtonement = value; }
+    public int CurrentEssence { get => currentEssence; set => currentEssence = value; }
     public int AtonementLvl { get => atonementLvl; set => atonementLvl = value; }
     public int AtonementToLevel { get => atonementToLevel; set => atonementToLevel = value; }
     public bool CanDashAttack { get => canDashAttack; set => canDashAttack = value; }
