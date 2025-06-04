@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895260a9ab6887f4fa5965f231d39c3a, type: 3}
+  m_Name: ShadowStrikeSpawnerSO
+  m_EditorClassIdentifier: 
+  abilityName: Shadow Strike
+  description: A shadow starts appearing behind the enemies. Strking them in the
+    back.
+  icon: {fileID: 21300000, guid: 9ddec6b630e80ae4391d1bb17886735e, type: 3}
+  canLevel: 0
+  handlerPrefab: {fileID: 6596028015455482972, guid: 3e20f980f4e9c414d8ca0358eed03d3f, type: 3}
+  supportAbilities: []
+  projectile: {fileID: 1402465484376910880, guid: 1e1a8bd7e653200429ac15dd1287023b, type: 3}
+  spawnCount: 1
+  spawnDelay: 5
