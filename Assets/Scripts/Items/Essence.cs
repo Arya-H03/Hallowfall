@@ -7,7 +7,7 @@ public class Essence : BaseItem
     public override void OnItemPickUp()
     {
         LevelupManager.Instance.OnEssencePickUp();
-        Destroy(this.gameObject);
+        ObjectPoolManager.Instance.EssencePool.ReturnToPool(gameObject);
 
     }
 }

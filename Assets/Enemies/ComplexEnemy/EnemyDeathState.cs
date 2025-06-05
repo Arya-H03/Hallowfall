@@ -67,7 +67,9 @@ public class EnemyDeathState : EnemyBaseState
 
 
         //
-        Destroy(transform.parent.parent.gameObject,0.25f);
+        //Destroy(transform.parent.parent.gameObject,0.25f);
+        enemyController.ResetEnemy();
+
         //transform.parent.parent.gameObject.SetActive(false) ;
 
 

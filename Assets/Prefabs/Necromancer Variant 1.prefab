@@ -145,6 +145,10 @@ PrefabInstance:
       value: Necromancer Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 6815036451256663909, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
+      propertyPath: enemyType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815036451256663909, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: maxHealth
       value: 80
       objectReference: {fileID: 0}
@@ -304,7 +308,6 @@ MonoBehaviour:
   attackSFX: []
   attackTypeEnum: 1
   attackZoneGO: {fileID: 0}
-  mob: {fileID: 6338835623293835334, guid: cedfe1c2498823d4c9d65e993617e785, type: 3}
 --- !u!82 &4646197755074760936 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5130404775515857315, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}

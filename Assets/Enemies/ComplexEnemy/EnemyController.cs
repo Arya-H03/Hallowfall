@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
@@ -20,6 +21,7 @@ public class EnemyController : MonoBehaviour
     private float damageModifier = 1;
 
     private FloorTypeEnum currentFloorType;
+    [SerializeField] private EnemyTypeEnum enemyType;
 
 
     [SerializeField] private EnemyStateEnum currentStateEnum;
@@ -114,6 +116,7 @@ public class EnemyController : MonoBehaviour
     public Transform WorldCanvas { get => worldCanvas; set => worldCanvas = value; }
     public int EnemyLvl { get => enemyLvl; set => enemyLvl = value; }
     public EnemyItemDropHandler ItemDropHandler { get => itemDropHandler; set => itemDropHandler = value; }
+    public EnemyTypeEnum EnemyType { get => enemyType;}
 
     #endregion
 
@@ -231,8 +234,7 @@ public class EnemyController : MonoBehaviour
             float damage = value * modifier;
             currentHealth -= damage;
             SpawnDamagePopUp(damage);
-            Vector3 healthBarScale = new Vector3(currentHealth / maxHealth, 1, 1);
-            healthbarFG.localScale = healthBarScale;
+            UpdateEnemyHealthBar();
 
             if (currentHealth <= 0)
             {
@@ -294,13 +296,35 @@ public class EnemyController : MonoBehaviour
         DeathState.SetStatesController(this);   
     }
 
-    public void ResetPlayer()
+    public void ResetEnemy()
     {
         
-        Player = null;
-        hasSeenPlayer = false;
-        isPlayerDead = true;
+        switch (enemyType)
+        {
+            case EnemyTypeEnum.Arsonist:
+                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(this.gameObject);
+                break;
+            case EnemyTypeEnum.Revenant:
+                ObjectPoolManager.Instance.RevenantPool.ReturnToPool(this.gameObject);
+                break;
+            case EnemyTypeEnum.Sinner:
+                ObjectPoolManager.Instance.SinnerPool.ReturnToPool(this.gameObject);
+                break;
+            case EnemyTypeEnum.Necromancer:
+                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(this.gameObject);
+                break;
+        }
+        IsDead = false;
+        collisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
+        collisionManager.BoxCollider.enabled = true;
+        NavAgent.enabled = true;
+        WorldCanvas.gameObject.SetActive(true);
+
+        EnemyAnimationManager.Animator.enabled = true;
+        ResetHealth();
+        UpdateEnemyHealthBar();
         ChangeState(EnemyStateEnum.Idle);
+
     }
 
     public Vector3 GetEnemyCenter()
@@ -308,6 +332,12 @@ public class EnemyController : MonoBehaviour
         Vector3 center = this.transform.position;
         center.y += spriteRenderer.bounds.size.y / 2;
         return center;
+    }
+
+    public void UpdateEnemyHealthBar()
+    {
+        Vector3 healthBarScale = new Vector3(currentHealth / maxHealth, 1, 1);
+        healthbarFG.localScale = healthBarScale;
     }
 
 }

@@ -9,7 +9,7 @@ public class Skull : BaseItem
     public override void OnItemPickUp()
     {
         GameManager.Instance.AddToPlayerSkulls(1);
-        Destroy(this.gameObject);
+        ObjectPoolManager.Instance.SkullPool.ReturnToPool(gameObject);
     }
 
     public override void OnItemDrop()

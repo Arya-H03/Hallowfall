@@ -110,64 +110,13 @@ public class GameManager : MonoBehaviour
         player.transform.position = currentSpawnPoint.position;
     }
 
-    public IEnumerator SpawnEnemies()
-    {
-        int waveCount = 1; // Start from wave 1
-        float firstWaveDelay = 3f;
-        float subsequentWaveDelay = 10f;
-
-        // Wait for the first wave
-        yield return new WaitForSeconds(firstWaveDelay);
-
-        while (true)
-        {
-            // Determine the number of enemies to spawn in this wave
-            int spawnCount = GetSpawnCount(waveCount);
-
-            // Spawn the wave
-            SpawnWave(spawnCount);
-
-            // Increment wave count
-            waveCount++;
-
-            // Wait for the next wave
-            yield return new WaitForSeconds(subsequentWaveDelay);
-        }
-    }
-
-    private int GetSpawnCount(int waveCount)
-    {
-        // Wave enemy counts: 1, 2, 4, 6, 8 (capped at 8)
-        if (waveCount == 1) return 1;
-        if (waveCount == 2) return 2;
-        if (waveCount == 3) return 4;
-        if (waveCount == 4) return 6;
-        return 8; // Cap at 8 for waves 5+
-    }
-
-    private void SpawnWave(int spawnCount)
-    {
-        for (int i = 0; i < spawnCount; i++)
-        {
-            // Calculate a random spawn position within the bounds
-            Vector2 spawnPoint = new Vector2(Random.Range(lBound.transform.position.x, rbound.transform.position.x), -3);
-
-            // Optionally stagger enemy spawns within the wave
-            StartCoroutine(SpawnEnemyWithDelay(spawnPoint, i * 0.2f));
-        }
-    }
+    
 
     public void StopTime(float duration)
     {
         StartCoroutine(HitStopCoroutine(duration));
     }
-    private IEnumerator SpawnEnemyWithDelay(Vector2 position, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Instantiate(enemy, position, Quaternion.identity);
-    }
-
-
+    
     private IEnumerator HitStopCoroutine(float duration)
     {
         Time.timeScale = 0f;

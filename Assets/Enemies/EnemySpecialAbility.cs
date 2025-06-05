@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemySpecialAbility : EnemyBaseAttack
 {
-    [SerializeField] GameObject mob;
-
+    
     public override void CallAttackActionOnAnimFrame()
     {
-        SpawnMob(FindSpawnPos());
+        EnemySpawnManager.Instance.SpawnEnemy(EnemyTypeEnum.Revenant, FindSpawnPos());
+        
     }
 
     private Vector3  FindSpawnPos()
@@ -19,8 +19,5 @@ public class EnemySpecialAbility : EnemyBaseAttack
 
         return spawnPos;
     }
-    private void SpawnMob(Vector3 spawnPos)
-    {
-        Instantiate(mob,spawnPos,Quaternion.identity);  
-    }
+    
 }

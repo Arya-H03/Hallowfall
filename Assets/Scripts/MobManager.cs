@@ -45,7 +45,7 @@ public class MobManager : MonoBehaviour
     {
         foreach(EnemyController enemyController in listOfEnemyControllers)
         {
-            enemyController.ResetPlayer();
+            enemyController.ResetEnemy();
         }
     }
     public void ResetLookingForPlayersForAllEnemies()

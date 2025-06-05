@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class EnemyItemDropHandler : MonoBehaviour
 {
-    [SerializeField] GameObject essence;
-    [SerializeField] GameObject skull;
-
+   
     [SerializeField] float essenceDropChance = 0.75f;
     [SerializeField] float skullDropChance = 0.50f;
 
@@ -15,11 +13,11 @@ public class EnemyItemDropHandler : MonoBehaviour
 
     public void HandleItemDrop(Vector3 pos)
     {      
-        DropItem(essence, essenceDropChance, essenceDropCount, pos);
-        DropItem(skull, skullDropChance, skullDropCount, pos);
+        DropItem(ObjectPoolManager.Instance.EssencePool, essenceDropChance, essenceDropCount, pos);
+        DropItem(ObjectPoolManager.Instance.SkullPool, skullDropChance, skullDropCount, pos);
     }
 
-    private void DropItem(GameObject item, float dropChance, int count, Vector3 pos)
+    private void DropItem(ObjectPool pool, float dropChance, int count, Vector3 pos)
     {
         int rand = Random.Range(1,101);
         if (rand < dropChance * 100)
@@ -27,7 +25,9 @@ public class EnemyItemDropHandler : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 Vector3 offset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
-                var go = Instantiate(item, pos + offset, Quaternion.identity);
+                //var go = Instantiate(item, pos + offset, Quaternion.identity);
+                var go = pool.GetFromPool();
+                go.transform.position = offset + pos;
                 go.GetComponent<BaseItem>().OnItemDrop();
             }
         }

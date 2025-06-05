@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    private EnemySpawnManager instance;
-    public EnemySpawnManager Instance
+    
+    private static EnemySpawnManager instance;
+    public static EnemySpawnManager Instance
     {
         get 
         {
@@ -46,15 +47,15 @@ public class EnemySpawnManager : MonoBehaviour
             waveCounter++;
             yield return new WaitForSeconds(mainWaveDelay);
 
-            for(int i = 0; i < waveCounter; i++) SpawnEnemy(arsonistPrefab, GenerateRandomSpawnPosition(10));
+            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Arsonist, GenerateRandomSpawnPosition(10));
 
             yield return new WaitForSeconds(1);
-            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(sinnerPrefab, GenerateRandomSpawnPosition(8));
+            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Sinner, GenerateRandomSpawnPosition(8));
 
             if (waveCounter >= 5)
             {
                 mainWaveDelay += 5;
-                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(necromancerPrefab, GenerateRandomSpawnPosition(8));
+                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Necromancer, GenerateRandomSpawnPosition(8));
             }
 
 
@@ -62,10 +63,33 @@ public class EnemySpawnManager : MonoBehaviour
         
     }
 
-    private void SpawnEnemy(GameObject prefab, Vector3 pos)
+    public void SpawnEnemy(EnemyTypeEnum enemyType, Vector3 pos)
     {
-        GameObject enemy = Instantiate(prefab, pos,Quaternion.identity);
-        enemy.tag = "Enemy";
+        GameObject enemy = null;
+
+        switch(enemyType)
+        {
+            case EnemyTypeEnum.Arsonist:
+                enemy = ObjectPoolManager.Instance.ArsonistPool.GetFromPool();
+            break;
+            case EnemyTypeEnum.Revenant:
+                enemy = ObjectPoolManager.Instance.RevenantPool.GetFromPool();
+                break;
+            case EnemyTypeEnum.Sinner:
+                enemy = ObjectPoolManager.Instance.SinnerPool.GetFromPool();
+                break;
+            case EnemyTypeEnum.Necromancer:
+                enemy = ObjectPoolManager.Instance.NecroPool.GetFromPool();
+                break;
+
+        }
+        if (enemy != null)
+        {
+            enemy.transform.position = pos;
+            enemy.transform.rotation = Quaternion.identity;
+           
+                                   
+        }
     }
 
     private Vector3 GenerateRandomSpawnPosition(float dist)
