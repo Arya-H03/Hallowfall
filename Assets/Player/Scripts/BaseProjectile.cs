@@ -60,6 +60,23 @@ public class BaseProjectile : MonoBehaviour
         ChangeVelocity(vel);
     }
 
+    public void SetProjectileCourseToCursor()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+        Vector3 vel = (mousePos - this.transform.position).normalized;
+        float angle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
+        if (angle > -90 && angle < 90)
+        {
+           angle += 180;
+        }
+        int dirX = vel.x < 0 ? 1 : -1;
+        this.transform.localScale = new Vector3(this.transform.localScale.x * dirX, this.transform.localScale.y, this.transform.localScale.z);
+        this.transform.rotation = Quaternion.Euler(0, 0, angle);
+        ChangeVelocity(vel);
+        
+    }
+
     private IEnumerator DestroyProjectile()
     {
         yield return new WaitForSeconds(lifeTime);
