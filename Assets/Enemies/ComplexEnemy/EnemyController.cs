@@ -319,6 +319,7 @@ public class EnemyController : MonoBehaviour
         collisionManager.BoxCollider.enabled = true;
         NavAgent.enabled = true;
         WorldCanvas.gameObject.SetActive(true);
+        attackState.IsAttackDelayOver = true;
 
         EnemyAnimationManager.Animator.enabled = true;
         ResetHealth();
