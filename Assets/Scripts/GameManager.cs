@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Statue LastStatue { get => lastStatue; set => lastStatue = value; }
+  
     public GameObject Player { get => player; set => player = value; }
     public int PlayerScore { get => playerScore; set => playerScore = value; }
     public int PlayerSkullCount { get => playerSkullCount; set => playerSkullCount = value; }
@@ -42,9 +42,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject player;
 
-    private Statue lastStatue;
-    [SerializeField] Transform initialSpawnPoint;
-    private Transform currentSpawnPoint;
+   
 
     private GameObject playerCamera;
 
@@ -95,23 +93,7 @@ public class GameManager : MonoBehaviour
         PlayerSkullCount += value;
         UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
     }
-    public void SetPlayerLocationOnRespawn()
-    {
-        if (lastStatue)
-        {
-            currentSpawnPoint = lastStatue.GetStatueRespawnPoint();
-            
-        }
-        else
-        {
-            currentSpawnPoint = initialSpawnPoint;
-        }
-
-        player.transform.position = currentSpawnPoint.position;
-    }
-
     
-
     public void StopTime(float duration)
     {
         StartCoroutine(HitStopCoroutine(duration));
@@ -143,12 +125,7 @@ public class GameManager : MonoBehaviour
         playerCamera.GetComponent<PlayerCamera>().OnPlayerDistorted();
     }
 
-    IEnumerator CallFunctionByDelay(MyFunction function, float sec)
-    {
-        yield return new WaitForSeconds(sec);
-        function();
-    }
-
+   
     public void EndPlayerDistortion()
     {
         playerCamera.GetComponent<PlayerCamera>().OnPlayerEndDistorted();

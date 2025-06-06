@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
 
     private Material material;
 
-    private Player player;
     private PlayerCollision playerCollision;
 
     [SerializeField] PlayerConfig playerConfig;
@@ -93,7 +92,6 @@ public class PlayerController : MonoBehaviour
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
     public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
-    public Player Player { get => player; set => player = value; }
     public PlayerRollState PlayerRollState { get => playerRollState; set => playerRollState = value; }
     public PlayerCollision PlayerCollision { get => playerCollision; set => playerCollision = value; }
     public bool IsRolling { get => isRolling; set => isRolling = value; }
@@ -130,9 +128,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         material = spriteRenderer.material;
-        Player = GetComponent<Player>();
-
-        
+      
        
         PlayerIdleState = GetComponentInChildren<PlayerIdleState>();
         PlayerIdleState.SetOnInitializeVariables(this);

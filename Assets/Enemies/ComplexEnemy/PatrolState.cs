@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
-using static EnemyAI;
+
 
 public class PatrolState : EnemyBaseState
 {
@@ -21,14 +21,7 @@ public class PatrolState : EnemyBaseState
     [SerializeField] AudioClip walkGrassSFX;
     [SerializeField] AudioClip walkWoodSFX;
 
-    [SerializeField]
-    private string[] patrolDialogues = {
-        " More... More...",
-        " It hurts",
-        " Help me...",
-        " Please make it ... end",
-    };
-
+    
     public PatrolState() : base()
     {
         stateEnum = EnemyStateEnum.Patrol;

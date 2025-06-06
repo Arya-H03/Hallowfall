@@ -73,7 +73,6 @@ public class PlayerDeathState : PlayerBaseState
     private void PlayerRespawn()
     {
         GameManager.Instance.EndPlayerDistortion();
-        GameManager.Instance.SetPlayerLocationOnRespawn();
         playerController.AnimationController.SetBoolForAnimations("isDead", false);
         InputManager.Instance.OnEnable();
         playerController.IsDead = false;
