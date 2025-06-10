@@ -131,7 +131,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WASD"",
                     ""id"": ""f783ca2a-c4dc-43dc-b7b4-ab8f9fa90380"",
-                    ""path"": ""2DVector"",
+                    ""gamePath"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -142,7 +142,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""27d1980b-65f1-4381-8467-833e48dfbded"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""gamePath"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -153,7 +153,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""05b51fac-fabb-4bdc-a395-67ca9219af95"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""gamePath"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -164,7 +164,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""df178c8a-f821-4bda-b2be-ebab30d326dd"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""gamePath"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -175,7 +175,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""5b421e7a-a3f5-4736-abed-90dd4c19c71d"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""gamePath"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -186,7 +186,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""38191dc6-252e-4d82-956f-16057360a81c"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""gamePath"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -197,7 +197,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""64db5595-3823-4f60-8d73-250418123200"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""gamePath"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -208,7 +208,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6455ca97-59af-49f3-b8ff-d3c73d497df2"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""gamePath"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -219,7 +219,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e7fcf772-9b73-4941-bbe5-d69efd7b87c0"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""gamePath"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -230,7 +230,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ffd8e4bb-50e6-40c3-9df5-15db76b4eb8a"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""gamePath"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -241,7 +241,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7f08639e-da90-4c2e-9067-6987b41f9125"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""gamePath"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -252,7 +252,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5f6e7c99-94c6-4735-ae76-610d8f85623b"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""gamePath"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -263,7 +263,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c8e3408e-342d-4494-b7fc-e77755ce22ea"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""gamePath"": ""<Mouse>/leftButton"",
                     ""interactions"": ""MultiTap(tapDelay=0.5,tapCount=3)"",
                     ""processors"": """",
                     ""groups"": """",
@@ -274,7 +274,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""51ba7a73-d9a3-4f09-b871-757191b4b650"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""gamePath"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -285,7 +285,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fbf2ee2f-d0db-4a5a-a0fe-aa5c1e6e7b11"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""gamePath"": ""<Mouse>/leftButton"",
                     ""interactions"": ""MultiTap(tapDelay=0.25)"",
                     ""processors"": """",
                     ""groups"": """",

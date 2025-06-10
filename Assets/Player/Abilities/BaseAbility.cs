@@ -11,10 +11,8 @@ public class BaseAbility : ScriptableObject
     public Sprite icon;
     public bool canLevel;
 
-    public virtual void CallAbility() 
+    public virtual void CallAbility()
     {
         UIManager.Instance.AddAbilitySlot(this);
     }
-
-    
 }

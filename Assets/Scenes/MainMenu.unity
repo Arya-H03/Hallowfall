@@ -1661,7 +1661,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sanctum of Sorrow
+  m_text: 'Hallowfall
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 394fb4a76bd1d134ab14b23e8044a81e, type: 2}
   m_sharedMaterial: {fileID: -4653853979891478946, guid: 394fb4a76bd1d134ab14b23e8044a81e, type: 2}

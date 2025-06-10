@@ -23,7 +23,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] GameObject sinnerPrefab;
     [SerializeField] GameObject necromancerPrefab;
 
-    [SerializeField] private float mainWaveDelay = 5;
+    [SerializeField] private float mainWaveDelay = 3;
     [SerializeField] private int waveCounter = 0;
     private void Awake()
     {
