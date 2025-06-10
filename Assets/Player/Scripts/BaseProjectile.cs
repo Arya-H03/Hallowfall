@@ -27,7 +27,7 @@ public class BaseProjectile : MonoBehaviour
     private void ChangeVelocity(Vector2 vel)
     {
 
-        rb.velocity += vel * speed;
+        rb.linearVelocity += vel * speed;
         
     }
     public void SetProjectileCourseToTarget(Transform target)

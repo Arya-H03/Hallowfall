@@ -222,7 +222,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             Vector2 dir = ( mousePos - playerController.transform.position).normalized;
             playerController.PlayerMovementManager.TurnPlayer(dir);
             dir.y = Mathf.Clamp(dir.y, -0.5f, 0.5f);
-            playerController.rb.velocity += dir * dashModifier;
+            playerController.rb.linearVelocity += dir * dashModifier;
 
             playerController.CanDashAttack = false;
 
@@ -235,7 +235,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 SpawnAfterImageCoroutine = null;
             }
             //Rest Vel
-            playerController.rb.velocity = Vector2.zero;
+            playerController.rb.linearVelocity = Vector2.zero;
             playerController.PlayerMovementManager.TurnPlayer(playerController.PlayerMovementManager.currentInputDir);
             //Disable Collider
             dashAttackBox.DisableCollider();

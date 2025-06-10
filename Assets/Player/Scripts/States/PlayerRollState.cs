@@ -52,12 +52,12 @@ public class PlayerRollState : PlayerBaseState
         if(playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
         {
             Vector2 dir = (playerController.PlayerMovementManager.currentInputDir).normalized;
-            playerController.PlayerCollision.Rb.velocity += dir * rollModifier;
+            playerController.PlayerCollision.Rb.linearVelocity += dir * rollModifier;
         }
         else
         {
             Vector2 dir = (playerController.PlayerMovementManager.CurrentDirection).normalized;
-            playerController.PlayerCollision.Rb.velocity += dir * rollModifier;
+            playerController.PlayerCollision.Rb.linearVelocity += dir * rollModifier;
         }
        
         SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
@@ -80,7 +80,7 @@ public class PlayerRollState : PlayerBaseState
             SpawnAfterImageCoroutine = null;
         }
         playerController.IsRolling = false;
-        playerController.PlayerCollision.Rb.velocity = Vector2.zero;
+        playerController.PlayerCollision.Rb.linearVelocity = Vector2.zero;
         if (playerController.CurrentStateEnum == PlayerStateEnum.Roll) 
         {
             if (playerController.PlayerMovementManager.currentInputDir != Vector2.zero)

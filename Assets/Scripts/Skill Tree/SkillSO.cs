@@ -10,6 +10,7 @@ public class SkillSO : ScriptableObject
     public string skillDescription;
     public Sprite icon;
     public int skillCost;
+    public int id;
 
     public void ApplySkill()
     {

@@ -53,9 +53,9 @@ public class ChaseState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead || enemyController.AttackState.NextAttack == null)
-            enemyController.ChangeState(EnemyStateEnum.Idle);
+        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead || enemyController.AttackState.NextAttack == null)          
         {
+            enemyController.ChangeState(EnemyStateEnum.Idle);
             return;
         }
 

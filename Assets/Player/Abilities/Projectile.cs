@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
     {
         Vector3 dir = (targetPositon - this.transform.position).normalized;
 
-        rb.velocity = dir * speed;
+        rb.linearVelocity = dir * speed;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

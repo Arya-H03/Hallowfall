@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     public int PlayerScore { get => playerScore; set => playerScore = value; }
     public int PlayerSkullCount { get => playerSkullCount; set => playerSkullCount = value; }
 
+    public Dictionary<int, SkillSO> skillsDictonary;
+    [SerializeField] SkillSO [] skillSORefs;
+
     [SerializeField] string playerWakeUpDialoge;
 
     
@@ -56,7 +59,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
-        //DontDestroyOnLoad(gameObject);
+     
 
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
@@ -65,21 +68,30 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AudioManager.Instance.LoadSoundData();
-
-        LoadGameData();
-
+        playerSkullCount = SaveSystem.LoadGameData().skullCount;
+        InitSkillsFromSkillTree();
         UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
-
         //StartCoroutine(OnGameStartDialogue());
+
+        
 
     }
 
-    public void LoadGameData()
+    private void InitSkillsFromSkillTree()
     {
-        GameData gameData = SaveSystem.LoadGameData();
-        if(gameData != null)
+        skillsDictonary = new Dictionary<int, SkillSO>();
+        foreach (SkillSO so in skillSORefs)
         {
-            playerSkullCount = gameData.skullCount;
+            skillsDictonary.Add(so.id, so);
+        }
+
+        int [] skillindices = SaveSystem.LoadGameData().skillTreeNodes;
+        for (int i = 0; i < skillindices.Length; i++)
+        {
+            if(skillindices[i] == 1)
+            {
+                skillsDictonary[i].ApplySkill();
+            }
         }
     }
     public void AddToPlayerScore(int value)
@@ -102,7 +114,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator HitStopCoroutine(float duration)
     {
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(duration); // Wait using real-time (ignores time scale)
+        yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1f;
     }
 

@@ -68,7 +68,7 @@ public class PlayerHangingState : PlayerBaseState
 
         if(dir == Vector2.up)
         {
-            playerController.PlayerCollision.Rb.velocity += new Vector2(0, 10);
+            playerController.PlayerCollision.Rb.linearVelocity += new Vector2(0, 10);
             playerController.AnimationController.SetTriggerForAnimations("HangingPushUp");
         }
 
@@ -76,7 +76,7 @@ public class PlayerHangingState : PlayerBaseState
         {
             if(playerController.gameObject.transform.localScale.x < 0)
             {
-                playerController.PlayerCollision.Rb.velocity += new Vector2(5, 5);
+                playerController.PlayerCollision.Rb.linearVelocity += new Vector2(5, 5);
                 playerController.AnimationController.SetTriggerForAnimations("HangingPushUp");
 
             }
@@ -87,7 +87,7 @@ public class PlayerHangingState : PlayerBaseState
         {
             if (playerController.gameObject.transform.localScale.x > 0)
             {
-                playerController.PlayerCollision.Rb.velocity += new Vector2(-5, 5);
+                playerController.PlayerCollision.Rb.linearVelocity += new Vector2(-5, 5);
                 playerController.AnimationController.SetTriggerForAnimations("HangingPushUp");
 
             }

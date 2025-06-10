@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameData
 {
     public int skullCount = 0;
+    public int [] skillTreeNodes = new int[12];
 
     public GameData(int skullCount)
     {

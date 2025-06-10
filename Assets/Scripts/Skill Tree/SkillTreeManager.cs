@@ -1,10 +1,13 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class SkillTreeManager : MonoBehaviour
 {
+
     [SerializeField] GameObject skillDescriptionFrame;
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI nameText;
@@ -12,10 +15,13 @@ public class SkillManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI resetCostText;
 
     [SerializeField] TextMeshProUGUI skullText;
+    [SerializeField] TransferDataSO transferDataSO;
 
     private SkillNode[] skillNodes;
 
     [SerializeField] private int resetCost = 100;
+
+    public SkillNode[] SkillNodes { get => skillNodes;}
 
     private void Awake()
     {
@@ -24,6 +30,7 @@ public class SkillManager : MonoBehaviour
     private void Start()
     {
         resetCostText.text = resetCost.ToString();
+       
     }
     public void ShowDescriptionFrame(Vector3 pos,string name,string description,int cost)
     {
@@ -46,7 +53,7 @@ public class SkillManager : MonoBehaviour
         int temp = LoadSkullCount() - resetCost;
         if (temp >= 0)
         {
-            foreach (SkillNode skillNode in skillNodes)
+            foreach (SkillNode skillNode in SkillNodes)
             {
                 skillNode.ResetSkill();
             }
@@ -71,4 +78,14 @@ public class SkillManager : MonoBehaviour
     {
         skullText.text = LoadSkullCount().ToString();
     }
+
+    public void ApplySavedSkillTree(int[] savedData)
+    {
+        foreach (var node in SkillNodes)
+        {
+            node.UnlockBasedOfSkillTreeData(savedData);
+        }
+    }
+
+
 }

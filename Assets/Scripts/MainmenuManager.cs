@@ -15,6 +15,11 @@ public class MainmenuManager : MonoBehaviour
 
     private void Start()
     {
+        GameData gameData = SaveSystem.LoadGameData();
+        foreach (int node in gameData.skillTreeNodes)
+        {
+            Debug.Log(node);
+        }
         AudioManager.Instance.LoadSoundData();
         AudioManager.Instance.PlayMusic(audioSource, backgroundMusic, 1 );  
     }
@@ -70,9 +75,18 @@ public class MainmenuManager : MonoBehaviour
     }
 
     public void OnSkillPanelClick()
-    {       
+    {
+        SaveSystem.UpdatePlayerSkulls(100);
+        GameData gameData = SaveSystem.LoadGameData();
+        foreach (int node in gameData.skillTreeNodes)
+        {
+            Debug.Log(node);
+        }
         OpenPanel(skillPanel);
-        skillPanel.GetComponent<SkillManager>().UpdateSkullsText();
+        skillPanel.GetComponent<SkillTreeManager>().UpdateSkullsText();
+        skillPanel.GetComponent<SkillTreeManager>().ApplySavedSkillTree(gameData.skillTreeNodes);
+        
+        
     }
     public void OnSkillPanelCloseClick()
     {

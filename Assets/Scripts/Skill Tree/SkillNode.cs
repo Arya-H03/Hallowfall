@@ -1,33 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillNode : MonoBehaviour
 {
-    [SerializeField] SkillNode [] previousNodes;
-    [SerializeField] SkillNode [] nextNodes;
+    [Header("Node Dependencies")]
+    [SerializeField] private SkillNode[] previousNodes;
+    [SerializeField] private SkillNode[] nextNodes;
 
-    [SerializeField] SkillSO skillSO;
+    [SerializeField] private SkillSO skillSO;
+    private SkillTreeManager skillManager;
 
-    private SkillManager skillManager;
-    
-
-    [SerializeField] Image outlineImage;
-    [SerializeField] Transform linkHolder;
-    [SerializeField] Image skillImage;
+    [Header("Visuals")]
+    [SerializeField] private Image outlineImage;
+    [SerializeField] private Transform linkHolder;
+    [SerializeField] private Image skillImage;
 
     private List<Image> links = new List<Image>();
 
     private bool isUnlocked = false;
-     private bool canBeUnlocked = false;
+    private bool canBeUnlocked = false;
 
-    public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
+    public bool IsUnlocked { get => isUnlocked; private set => isUnlocked = value; }
 
     private void Awake()
     {
-        skillManager = GetComponentInParent<SkillManager>();
-      
+        skillManager = GetComponentInParent<SkillTreeManager>();
+
         foreach (Transform child in linkHolder)
         {
             Image image = child.GetComponent<Image>();
@@ -37,113 +36,92 @@ public class SkillNode : MonoBehaviour
             }
         }
     }
+
     private void Start()
     {
         CheckPreviousNodes();
-
         skillImage.sprite = skillSO.icon;
-
     }
+
     public void CheckPreviousNodes()
     {
-        if (previousNodes.Length == 0)
+        bool allUnlocked = true;
+
+        foreach (var node in previousNodes)
         {
-            UpdateNodeOnSkillTree(true);
-        } 
-        else
-        {
-            bool temp = true;
-            foreach (var node in previousNodes)
+            if (!node.IsUnlocked)
             {
-                if (node.IsUnlocked != true)
-                {
-                    temp = false;
-                    UpdateNodeOnSkillTree(temp);
-                    return;
-                }
-            }
-            if (temp) UpdateNodeOnSkillTree(true);
-        }
-           
-    }
-
-    private void UnlockNodeOnSkillTree()
-    {
-        IsUnlocked = true ;
-        skillImage.color = new Color(1, 1, 1, 1f);
-        outlineImage.color = Color.green;
-
-        MangeLinks(true);   
-
-
-        if (nextNodes.Length > 0)
-        {
-            foreach (var node in nextNodes)
-            {
-                node.CheckPreviousNodes();
+                allUnlocked = false;
+                break;
             }
         }
-       
+
+        canBeUnlocked = allUnlocked && !isUnlocked;
+        UpdateNodeVisuals();
     }
 
-    private void MangeLinks(bool shouldChangeColor)
+    public void Unlock()
     {
-        if (links.Count > 0)
-        {
-            if (shouldChangeColor)
-            {
-                foreach (var link in links)
-                {
-                    link.color = new Color(1f, 0.5f, 0f);
+        IsUnlocked = true;
+        canBeUnlocked = false;
 
-                }
-            }
-            else
-            {
-                foreach (var link in links)
-                {
-                    link.color = new Color(1f, 1f, 1f);
-                }
-            }
-           
+        foreach (var node in nextNodes)
+        {
+            node.CheckPreviousNodes();
+        }
+
+        UpdateLinkColors(true);
+        skillSO.ApplySkill();
+        skillManager.UpdateSkullsText();
+        UpdateNodeVisuals();
+    }
+
+    private void UpdateLinkColors(bool shouldHighlight)
+    {
+        Color targetColor = shouldHighlight ? new Color(1f, 0.5f, 0f) : Color.white;
+
+        foreach (var link in links)
+        {
+            link.color = targetColor;
         }
     }
 
-    private void UpdateNodeOnSkillTree(bool value)
+    private void UpdateNodeVisuals()
     {
-        if(value)
+        if (isUnlocked)
         {
-            canBeUnlocked = true;
-            skillImage.color = new Color(1, 1, 1, 0.7f);           
+            skillImage.color = Color.white;
+            outlineImage.color = Color.green;
+        }
+        else if (canBeUnlocked)
+        {
+            skillImage.color = new Color(1, 1, 1, 0.7f);
             outlineImage.color = Color.yellow;
         }
         else
         {
-            canBeUnlocked = false;
-            skillImage.color = new Color(1, 1, 1, 0.1f);           
+            skillImage.color = new Color(1, 1, 1, 0.1f);
             outlineImage.color = Color.red;
-        }          
+        }
     }
+
     public void OnNodeClicked()
     {
-        if(canBeUnlocked && !isUnlocked)
-        {
-            int temp = skillManager.LoadSkullCount() - skillSO.skillCost;
-            if (temp >= 0)
-            {
-                UnlockNodeOnSkillTree();
-                skillSO.ApplySkill();
-                SaveSystem.UpdatePlayerSkulls(temp);
-                skillManager.UpdateSkullsText();
-            }
-            
-        }
+        if (!canBeUnlocked || isUnlocked) return;
+
+        int newSkullCount = skillManager.LoadSkullCount() - skillSO.skillCost;
+        if (newSkullCount < 0) return;
+
+        Unlock();
+        SaveSystem.UpdatePlayerSkulls(newSkullCount);
+        SaveSystem.UpdateSkillTree(skillSO.id, true);
     }
 
     public void OnSkillHover()
     {
-        skillManager.ShowDescriptionFrame(this.transform.position,skillSO.name,skillSO.skillDescription,skillSO.skillCost);
+        skillManager.ShowDescriptionFrame(transform.position, skillSO.name, skillSO.skillDescription, skillSO.skillCost);
     }
+
     public void OnSkillHoverClear()
     {
         skillManager.HideDescriptionFrame();
@@ -151,9 +129,19 @@ public class SkillNode : MonoBehaviour
 
     public void ResetSkill()
     {
-        canBeUnlocked = false ;
-        isUnlocked = false ;
-        CheckPreviousNodes();
-        MangeLinks(false);
+        isUnlocked = false;
+        canBeUnlocked = false;
+        UpdateLinkColors(false);
+        CheckPreviousNodes(); // will call UpdateNodeVisuals as well
+        SaveSystem.UpdateSkillTree(skillSO.id, false);
     }
+
+  public void UnlockBasedOfSkillTreeData(int[] skillTreeNodesData)
+{
+    if (skillSO.id >= 0 && skillSO.id < skillTreeNodesData.Length && skillTreeNodesData[skillSO.id] == 1)
+    {
+        Unlock();
+    }
+}
+
 }

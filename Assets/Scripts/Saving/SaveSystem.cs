@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Unity.VisualScripting;
 
 public static class SaveSystem
 {
@@ -68,5 +69,15 @@ public static class SaveSystem
         SaveSettingsData(data);
 
  
+    }
+
+    public static void UpdateSkillTree(int skillID, bool isUnlocked)
+    {
+        GameData gameData = LoadGameData();
+        if (gameData == null) { gameData = new GameData(); }
+
+        gameData.skillTreeNodes[skillID] = isUnlocked ? 1 : 0;
+        SaveGameData(gameData);
+            
     }
 }

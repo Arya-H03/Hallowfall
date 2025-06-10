@@ -136,7 +136,7 @@ public class EnemyCollisionManager : MonoBehaviour
     }
     public void LaunchEnemy(Vector2 lanunchVector)
     {
-        Rb.velocity = new Vector2(Rb.velocity.x + lanunchVector.x * luanchModifier, Rb.velocity.y + lanunchVector.y * luanchModifier);
+        Rb.linearVelocity = new Vector2(Rb.linearVelocity.x + lanunchVector.x * luanchModifier, Rb.linearVelocity.y + lanunchVector.y * luanchModifier);
     }
 
     public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
@@ -159,7 +159,7 @@ public class EnemyCollisionManager : MonoBehaviour
     }
     public void ApplyVelocity(float x, float y)
     {
-        Rb.velocity = new Vector2(x, y);
+        Rb.linearVelocity = new Vector2(x, y);
     }
     public void SpawnImpactEffect(Vector3 position)
     {

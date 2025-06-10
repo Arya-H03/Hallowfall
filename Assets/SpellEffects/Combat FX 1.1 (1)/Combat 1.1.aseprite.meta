@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -83,6 +84,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,6 +99,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
   textureAssetName: 
@@ -105,6 +110,7 @@ ScriptedImporter:
     pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 0
@@ -126,6 +132,7 @@ ScriptedImporter:
     pivot: {x: 1.6, y: -0.875}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 296
@@ -146,6 +153,7 @@ ScriptedImporter:
     pivot: {x: 0.38235295, y: -0.0754717}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -166,6 +174,7 @@ ScriptedImporter:
     pivot: {x: 0.28125, y: -0.19607843}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -186,6 +195,7 @@ ScriptedImporter:
     pivot: {x: 0.25, y: -0.21568628}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -206,6 +216,7 @@ ScriptedImporter:
     pivot: {x: 2.3, y: -0.7307693}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 298
@@ -226,6 +237,7 @@ ScriptedImporter:
     pivot: {x: 2.0909092, y: -0.6296296}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 301
@@ -246,6 +258,7 @@ ScriptedImporter:
     pivot: {x: 0.4, y: -0.61904764}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -266,6 +279,7 @@ ScriptedImporter:
     pivot: {x: 0.2702703, y: -0.52}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -286,6 +300,7 @@ ScriptedImporter:
     pivot: {x: -0.13636364, y: -0.46428573}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -306,6 +321,7 @@ ScriptedImporter:
     pivot: {x: -1.7777778, y: -0.6538462}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 298
@@ -326,6 +342,7 @@ ScriptedImporter:
     pivot: {x: -2.5714288, y: -2.75}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 200
@@ -346,6 +363,7 @@ ScriptedImporter:
     pivot: {x: 1.1, y: -1.0500001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 101
@@ -366,6 +384,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.5757576}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -386,6 +405,7 @@ ScriptedImporter:
     pivot: {x: 0.43243244, y: -0.625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 216
@@ -406,6 +426,7 @@ ScriptedImporter:
     pivot: {x: 0.25, y: -0.54545456}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -426,6 +447,7 @@ ScriptedImporter:
     pivot: {x: 0.25, y: -3.6000001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -446,6 +468,7 @@ ScriptedImporter:
     pivot: {x: -0.041666668, y: -1.25}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -466,6 +489,7 @@ ScriptedImporter:
     pivot: {x: 0, y: -1.0500001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -486,6 +510,7 @@ ScriptedImporter:
     pivot: {x: 0.575, y: -0.24324325}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -506,6 +531,7 @@ ScriptedImporter:
     pivot: {x: 0.8275862, y: -0.21428572}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -526,6 +552,7 @@ ScriptedImporter:
     pivot: {x: 0.91999996, y: -0.22222222}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -546,6 +573,7 @@ ScriptedImporter:
     pivot: {x: 2.1333334, y: -10}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 295
@@ -566,6 +594,7 @@ ScriptedImporter:
     pivot: {x: 0.6037736, y: -1.3529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 320
@@ -586,6 +615,7 @@ ScriptedImporter:
     pivot: {x: 0.5925926, y: -2.3636365}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 381
@@ -606,6 +636,7 @@ ScriptedImporter:
     pivot: {x: 0.55172414, y: -5.8}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 443
@@ -626,6 +657,7 @@ ScriptedImporter:
     pivot: {x: 0.5423729, y: -10}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 443
@@ -646,6 +678,7 @@ ScriptedImporter:
     pivot: {x: 1.45, y: -1.35}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 101
@@ -666,6 +699,7 @@ ScriptedImporter:
     pivot: {x: 0.9615385, y: -9.2}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -686,6 +720,7 @@ ScriptedImporter:
     pivot: {x: 0.45000002, y: -0.83870965}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -706,6 +741,7 @@ ScriptedImporter:
     pivot: {x: 0.42857146, y: -0.26666668}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -726,6 +762,7 @@ ScriptedImporter:
     pivot: {x: 0.14285715, y: -0.30434784}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -746,6 +783,7 @@ ScriptedImporter:
     pivot: {x: -0.14285715, y: -0.28}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -766,6 +804,7 @@ ScriptedImporter:
     pivot: {x: -0.15384616, y: -0.28}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -786,6 +825,7 @@ ScriptedImporter:
     pivot: {x: 1.9166667, y: -0.92857146}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 297
@@ -806,6 +846,7 @@ ScriptedImporter:
     pivot: {x: 2.6666667, y: -0.36842105}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 202
@@ -826,6 +867,7 @@ ScriptedImporter:
     pivot: {x: 0.2702703, y: -0.15625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 216
@@ -846,6 +888,7 @@ ScriptedImporter:
     pivot: {x: 0.035714287, y: -0.12}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -866,6 +909,7 @@ ScriptedImporter:
     pivot: {x: 0.035714287, y: -0.31111112}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -886,6 +930,7 @@ ScriptedImporter:
     pivot: {x: -0.03846154, y: -0.7878788}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -906,6 +951,7 @@ ScriptedImporter:
     pivot: {x: -0.125, y: -1.36}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -926,6 +972,7 @@ ScriptedImporter:
     pivot: {x: 0.54545456, y: -0.4864865}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -946,6 +993,7 @@ ScriptedImporter:
     pivot: {x: 0.5227273, y: -0.30952382}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -966,6 +1014,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.20833334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -986,6 +1035,7 @@ ScriptedImporter:
     pivot: {x: 0.48979592, y: -0.15384616}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1006,6 +1056,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.11538462}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1026,6 +1077,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.15}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -1046,6 +1098,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.07317073}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1066,6 +1119,7 @@ ScriptedImporter:
     pivot: {x: 0.44444445, y: -0.016393442}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1086,6 +1140,7 @@ ScriptedImporter:
     pivot: {x: 0.46428573, y: -0.032258064}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1106,6 +1161,7 @@ ScriptedImporter:
     pivot: {x: 0.44827586, y: -0.049180325}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1126,6 +1182,7 @@ ScriptedImporter:
     pivot: {x: 0.44827586, y: -0.07692308}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1146,6 +1203,7 @@ ScriptedImporter:
     pivot: {x: 0.375, y: -0.1632653}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -1166,6 +1224,7 @@ ScriptedImporter:
     pivot: {x: 0.5882353, y: -1.1578947}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1186,6 +1245,7 @@ ScriptedImporter:
     pivot: {x: 0.5882353, y: -1.1578947}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1206,6 +1266,7 @@ ScriptedImporter:
     pivot: {x: 0.5882353, y: -1.2777778}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1226,6 +1287,7 @@ ScriptedImporter:
     pivot: {x: 0.5882353, y: -1.2777778}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1246,6 +1308,7 @@ ScriptedImporter:
     pivot: {x: 2, y: -13.75}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 102
@@ -1266,6 +1329,7 @@ ScriptedImporter:
     pivot: {x: 1.3333334, y: -7.4285717}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 104
@@ -1286,6 +1350,7 @@ ScriptedImporter:
     pivot: {x: 0.5319149, y: -0.0925926}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1306,6 +1371,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.13953489}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1326,6 +1392,7 @@ ScriptedImporter:
     pivot: {x: 0.46428573, y: -0.13043478}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1346,6 +1413,7 @@ ScriptedImporter:
     pivot: {x: 1, y: -0.40000004}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -1366,6 +1434,7 @@ ScriptedImporter:
     pivot: {x: 0.6875, y: -4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 294
@@ -1386,6 +1455,7 @@ ScriptedImporter:
     pivot: {x: 0.43478262, y: -0.28947368}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1406,6 +1476,7 @@ ScriptedImporter:
     pivot: {x: 0.2777778, y: -0.22857143}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 293
@@ -1426,6 +1497,7 @@ ScriptedImporter:
     pivot: {x: 0.3125, y: -0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 296
@@ -1446,6 +1518,7 @@ ScriptedImporter:
     pivot: {x: 2.1818182, y: -0.3703704}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 301
@@ -1466,6 +1539,7 @@ ScriptedImporter:
     pivot: {x: 2, y: -0.4137931}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 298
@@ -1486,6 +1560,7 @@ ScriptedImporter:
     pivot: {x: 2, y: -0.75}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 299
@@ -1506,6 +1581,7 @@ ScriptedImporter:
     pivot: {x: 0.34375, y: -1}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1526,6 +1602,7 @@ ScriptedImporter:
     pivot: {x: 0.3125, y: -1}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1546,6 +1623,7 @@ ScriptedImporter:
     pivot: {x: 0.21428573, y: -0.8965517}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1566,6 +1644,7 @@ ScriptedImporter:
     pivot: {x: 0.2413793, y: -0.86666673}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1586,6 +1665,7 @@ ScriptedImporter:
     pivot: {x: 0.29032257, y: -0.72727275}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -1606,6 +1686,7 @@ ScriptedImporter:
     pivot: {x: 0.5416667, y: -0.58064514}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1626,6 +1707,7 @@ ScriptedImporter:
     pivot: {x: 0.5416667, y: -0.54838705}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1646,6 +1728,7 @@ ScriptedImporter:
     pivot: {x: 0.5192308, y: -0.35135135}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1666,6 +1749,7 @@ ScriptedImporter:
     pivot: {x: 0.5178572, y: -0.3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -1686,6 +1770,7 @@ ScriptedImporter:
     pivot: {x: 0.4716981, y: -0.25581396}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1706,6 +1791,7 @@ ScriptedImporter:
     pivot: {x: 0.4634146, y: -0.21739131}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1726,6 +1812,7 @@ ScriptedImporter:
     pivot: {x: 0.44444445, y: -0.42857143}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -1746,6 +1833,7 @@ ScriptedImporter:
     pivot: {x: 0.44186047, y: -0.22222222}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1766,6 +1854,7 @@ ScriptedImporter:
     pivot: {x: 0.45833334, y: -0.13725491}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1786,6 +1875,7 @@ ScriptedImporter:
     pivot: {x: 0.4528302, y: -0.033898305}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -1806,6 +1896,7 @@ ScriptedImporter:
     pivot: {x: 1.0869565, y: -2.6000001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -1826,6 +1917,7 @@ ScriptedImporter:
     pivot: {x: 0.46808508, y: -2.6000001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 320
@@ -1846,6 +1938,7 @@ ScriptedImporter:
     pivot: {x: -0.31578946, y: -0.7037037}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 291
@@ -1866,6 +1959,7 @@ ScriptedImporter:
     pivot: {x: -0.09090909, y: -0.32500002}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1886,6 +1980,7 @@ ScriptedImporter:
     pivot: {x: 1.2142857, y: -0.3888889}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 104
@@ -1906,6 +2001,7 @@ ScriptedImporter:
     pivot: {x: 0.6666667, y: -0.3888889}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -1926,6 +2022,7 @@ ScriptedImporter:
     pivot: {x: 0.5151515, y: -0.3888889}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -1946,6 +2043,7 @@ ScriptedImporter:
     pivot: {x: -0.2857143, y: -0.3888889}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 107
@@ -1966,6 +2064,7 @@ ScriptedImporter:
     pivot: {x: -0.35714287, y: -0.35135135}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 291
@@ -1986,6 +2085,7 @@ ScriptedImporter:
     pivot: {x: 2.7, y: -3.3333333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 107
@@ -2006,6 +2106,7 @@ ScriptedImporter:
     pivot: {x: 0.509434, y: -0.23809524}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -2026,6 +2127,7 @@ ScriptedImporter:
     pivot: {x: 0.5106383, y: -0.23809524}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -2046,6 +2148,7 @@ ScriptedImporter:
     pivot: {x: 0.5294118, y: -0.23809524}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -2066,6 +2169,7 @@ ScriptedImporter:
     pivot: {x: 0.48936167, y: -0.3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -2086,6 +2190,7 @@ ScriptedImporter:
     pivot: {x: 0.47727275, y: -0.34210527}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -2106,6 +2211,7 @@ ScriptedImporter:
     pivot: {x: -0.2631579, y: -0.5625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 292
@@ -2126,6 +2232,7 @@ ScriptedImporter:
     pivot: {x: 0.8518519, y: -0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -2146,6 +2253,7 @@ ScriptedImporter:
     pivot: {x: 0.107142866, y: -0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -2166,6 +2274,7 @@ ScriptedImporter:
     pivot: {x: -0.07692308, y: -0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2186,6 +2295,7 @@ ScriptedImporter:
     pivot: {x: 0.033333335, y: -0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -2206,6 +2316,7 @@ ScriptedImporter:
     pivot: {x: 0, y: -0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -2226,6 +2337,7 @@ ScriptedImporter:
     pivot: {x: 2, y: -0.8636364}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 297
@@ -2246,6 +2358,7 @@ ScriptedImporter:
     pivot: {x: 1.5789474, y: -0.7826087}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 102
@@ -2266,6 +2379,7 @@ ScriptedImporter:
     pivot: {x: 1.0434783, y: -0.60714287}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2286,6 +2400,7 @@ ScriptedImporter:
     pivot: {x: 0.4814815, y: -0.4117647}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2306,6 +2421,7 @@ ScriptedImporter:
     pivot: {x: 0.31428573, y: -0.33333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2326,6 +2442,7 @@ ScriptedImporter:
     pivot: {x: -0.125, y: -0.34210527}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -2346,6 +2463,7 @@ ScriptedImporter:
     pivot: {x: -0.3809524, y: -0.42222223}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2366,6 +2484,7 @@ ScriptedImporter:
     pivot: {x: 0.5555556, y: -2.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 296
@@ -2386,6 +2505,7 @@ ScriptedImporter:
     pivot: {x: 0.52, y: -0.79999995}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2406,6 +2526,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.54838705}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2426,6 +2547,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.54838705}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2446,6 +2568,7 @@ ScriptedImporter:
     pivot: {x: 0.47222224, y: -0.47058824}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2466,6 +2589,7 @@ ScriptedImporter:
     pivot: {x: 0.44117647, y: -0.5862069}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2486,6 +2610,7 @@ ScriptedImporter:
     pivot: {x: 0.06451613, y: -0.21153846}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -2506,6 +2631,7 @@ ScriptedImporter:
     pivot: {x: -0.1, y: -0.12244898}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 101
@@ -2526,6 +2652,7 @@ ScriptedImporter:
     pivot: {x: 0.72727275, y: -0.4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2546,6 +2673,7 @@ ScriptedImporter:
     pivot: {x: 0.52380955, y: -0.071428575}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -2566,6 +2694,7 @@ ScriptedImporter:
     pivot: {x: 0.48979592, y: -0.175}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -2586,6 +2715,7 @@ ScriptedImporter:
     pivot: {x: 0.7777778, y: -3.4545455}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 199
@@ -2606,6 +2736,7 @@ ScriptedImporter:
     pivot: {x: 1.625, y: -1.2}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 113
@@ -2626,6 +2757,7 @@ ScriptedImporter:
     pivot: {x: 0.4375, y: -0.23809524}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 105
@@ -2646,6 +2778,7 @@ ScriptedImporter:
     pivot: {x: 0.25, y: -0.26829267}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2666,6 +2799,7 @@ ScriptedImporter:
     pivot: {x: 0.7692308, y: -0.36842105}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2686,6 +2820,7 @@ ScriptedImporter:
     pivot: {x: 0.4, y: -0.6060606}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2706,6 +2841,7 @@ ScriptedImporter:
     pivot: {x: -2, y: -5.75}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 367
@@ -2726,6 +2862,7 @@ ScriptedImporter:
     pivot: {x: 1.2666668, y: -3.5454547}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 295
@@ -2746,6 +2883,7 @@ ScriptedImporter:
     pivot: {x: 0.5263158, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 293
@@ -2766,6 +2904,7 @@ ScriptedImporter:
     pivot: {x: -0.11111111, y: -0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 295
@@ -2786,6 +2925,7 @@ ScriptedImporter:
     pivot: {x: 3, y: -4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 296
@@ -2806,6 +2946,7 @@ ScriptedImporter:
     pivot: {x: 0.6060606, y: -1.7333335}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2826,6 +2967,7 @@ ScriptedImporter:
     pivot: {x: 0.29032257, y: -2.8}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2846,6 +2988,7 @@ ScriptedImporter:
     pivot: {x: 0, y: -3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2866,6 +3009,7 @@ ScriptedImporter:
     pivot: {x: 0, y: -0.45945948}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -2886,6 +3030,7 @@ ScriptedImporter:
     pivot: {x: -0.45000002, y: -0.25531915}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 101
@@ -2906,6 +3051,7 @@ ScriptedImporter:
     pivot: {x: -0.6111111, y: -0.25}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 102
@@ -2926,6 +3072,7 @@ ScriptedImporter:
     pivot: {x: -0.23809524, y: -0.125}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 100
@@ -2946,6 +3093,7 @@ ScriptedImporter:
     pivot: {x: -0.09090909, y: -0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -2966,6 +3114,7 @@ ScriptedImporter:
     pivot: {x: -2.875, y: -7.4285717}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 113
@@ -2986,6 +3135,7 @@ ScriptedImporter:
     pivot: {x: 0.14814815, y: -0.5757576}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3006,6 +3156,7 @@ ScriptedImporter:
     pivot: {x: 0.37931034, y: -0.375}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -3026,6 +3177,7 @@ ScriptedImporter:
     pivot: {x: 0.90000004, y: -0.3529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3046,6 +3198,7 @@ ScriptedImporter:
     pivot: {x: 1.1538461, y: -0.4615385}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3066,6 +3219,7 @@ ScriptedImporter:
     pivot: {x: 1.7222222, y: -0.53846157}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 294
@@ -3086,6 +3240,7 @@ ScriptedImporter:
     pivot: {x: -0.11764706, y: -5.555556}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 295
@@ -3106,6 +3261,7 @@ ScriptedImporter:
     pivot: {x: -0.14285715, y: -8.833334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 297
@@ -3126,6 +3282,7 @@ ScriptedImporter:
     pivot: {x: 0.45454547, y: -2.7}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 295
@@ -3146,6 +3303,7 @@ ScriptedImporter:
     pivot: {x: 0.47826087, y: -1.4117647}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3166,6 +3324,7 @@ ScriptedImporter:
     pivot: {x: 0.4827586, y: -0.7037037}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3186,6 +3345,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -1.2105263}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3206,6 +3366,7 @@ ScriptedImporter:
     pivot: {x: 0.54545456, y: -1.15}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3226,6 +3387,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -1.0454546}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3246,6 +3408,7 @@ ScriptedImporter:
     pivot: {x: 0.4883721, y: -2.3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 320
@@ -3266,6 +3429,7 @@ ScriptedImporter:
     pivot: {x: -0.05263158, y: -1.4545455}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3286,6 +3450,7 @@ ScriptedImporter:
     pivot: {x: 0.37142858, y: -0.58064514}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 129
@@ -3306,6 +3471,7 @@ ScriptedImporter:
     pivot: {x: 0.45000002, y: -1.3333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3326,6 +3492,7 @@ ScriptedImporter:
     pivot: {x: 0.54285717, y: -3.4545455}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3346,6 +3513,7 @@ ScriptedImporter:
     pivot: {x: 0.51282054, y: -1.6666666}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 320
@@ -3366,6 +3534,7 @@ ScriptedImporter:
     pivot: {x: 1.0500001, y: -2.2}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3386,6 +3555,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -1.5625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 295
@@ -3406,6 +3576,7 @@ ScriptedImporter:
     pivot: {x: 0.4634146, y: -0.4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 65
@@ -3426,6 +3597,7 @@ ScriptedImporter:
     pivot: {x: 0.53846157, y: -0.3125}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3446,6 +3618,7 @@ ScriptedImporter:
     pivot: {x: 0.53846157, y: -0.43333337}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3466,6 +3639,7 @@ ScriptedImporter:
     pivot: {x: 0.6666667, y: -1}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3486,6 +3660,7 @@ ScriptedImporter:
     pivot: {x: 0.7222222, y: -1.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 102
@@ -3506,6 +3681,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.6428572}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3526,6 +3702,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.95652175}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 172
@@ -3546,6 +3723,7 @@ ScriptedImporter:
     pivot: {x: 0.5, y: -0.53125}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3566,6 +3744,7 @@ ScriptedImporter:
     pivot: {x: 0.48, y: -0.6451613}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 261
@@ -3582,1392 +3761,1571 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 261, y: 915}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -545470224
+    uuid:
+      value0: 214997168
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 214997168
     name: Combat 1.1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Combat 1.1_Frame_11
+    - name: Frame_11
       frameIndex: 11
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 7
         width: 10
         height: 8
       spriteId: 9782b22c6f8d7ce40a74b4444ea16a05
-    - name: Combat 1.1_Frame_12
+    - name: Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 4
         width: 34
         height: 53
       spriteId: ec6aa41fbc3f7f64ba64345de6e2d474
-    - name: Combat 1.1_Frame_13
+    - name: Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 23
         y: 10
         width: 32
         height: 51
       spriteId: b901572d4c8838442bac84ebc45bc9db
-    - name: Combat 1.1_Frame_14
+    - name: Frame_14
       frameIndex: 14
+      additiveSortOrder: 0
       cellRect:
         x: 23
         y: 11
         width: 36
         height: 51
       spriteId: b9fe93d214158c148b2dc11534044458
-    - name: Combat 1.1_Frame_24
+    - name: Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 19
         width: 10
         height: 26
       spriteId: a7015e997f043ca44a54498e9c8e6264
-    - name: Combat 1.1_Frame_25
+    - name: Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 17
         width: 11
         height: 27
       spriteId: 39b1529671904984e871b7808ddda812
-    - name: Combat 1.1_Frame_26
+    - name: Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 13
         width: 45
         height: 21
       spriteId: 76d395ac8e7ea394cba58463e4c50341
-    - name: Combat 1.1_Frame_27
+    - name: Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 22
         y: 13
         width: 37
         height: 25
       spriteId: fc1fe20893270a041a22d3e12e386b20
-    - name: Combat 1.1_Frame_28
+    - name: Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 35
         y: 13
         width: 22
         height: 28
       spriteId: dfadb9b693f112049a8e9dc7ee55e365
-    - name: Combat 1.1_Frame_29
+    - name: Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 17
         width: 9
         height: 26
       spriteId: f359db98504dbdd44bb1ddd6038072b1
-    - name: Combat 1.1_Frame_30
+    - name: Frame_30
       frameIndex: 30
+      additiveSortOrder: 0
       cellRect:
         x: 50
         y: 22
         width: 7
         height: 8
       spriteId: 410af8be42b9aea43ab46dde61540ea8
-    - name: Combat 1.1_Frame_47
+    - name: Frame_47
       frameIndex: 47
+      additiveSortOrder: 0
       cellRect:
         x: 10
         y: 21
         width: 20
         height: 20
       spriteId: 8d3652b0704f9d542863ec40020ee9d6
-    - name: Combat 1.1_Frame_48
+    - name: Frame_48
       frameIndex: 48
+      additiveSortOrder: 0
       cellRect:
         x: 15
         y: 19
         width: 34
         height: 33
       spriteId: 1325aaf5714b84e4984c84d4ffc687d9
-    - name: Combat 1.1_Frame_49
+    - name: Frame_49
       frameIndex: 49
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 20
         width: 37
         height: 32
       spriteId: ac3345bc2248bd24789fb2ce5974d069
-    - name: Combat 1.1_Frame_50
+    - name: Frame_50
       frameIndex: 50
+      additiveSortOrder: 0
       cellRect:
         x: 25
         y: 18
         width: 28
         height: 33
       spriteId: 7d6b7fee99c9ef242a1fccd90c0e05ec
-    - name: Combat 1.1_Frame_51
+    - name: Frame_51
       frameIndex: 51
+      additiveSortOrder: 0
       cellRect:
         x: 25
         y: 18
         width: 28
         height: 5
       spriteId: 13e29d6a544373d41af4ed909f1f252a
-    - name: Combat 1.1_Frame_57
+    - name: Frame_57
       frameIndex: 57
+      additiveSortOrder: 0
       cellRect:
         x: 33
         y: 25
         width: 24
         height: 20
       spriteId: e0bad7ebc75a1f646babc54e483a23b8
-    - name: Combat 1.1_Frame_58
+    - name: Frame_58
       frameIndex: 58
+      additiveSortOrder: 0
       cellRect:
         x: 32
         y: 21
         width: 24
         height: 20
       spriteId: 88d4ecca0a3db8548a72ac4653b6a659
-    - name: Combat 1.1_Frame_59
+    - name: Frame_59
       frameIndex: 59
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 9
         width: 40
         height: 37
       spriteId: 2dd4732f2362a23448ad00c6d33e5120
-    - name: Combat 1.1_Frame_60
+    - name: Frame_60
       frameIndex: 60
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 9
         width: 29
         height: 42
       spriteId: dd3d7e91c0908cd4d840b015955b0345
-    - name: Combat 1.1_Frame_61
+    - name: Frame_61
       frameIndex: 61
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 10
         width: 25
         height: 45
       spriteId: a8f6f17b30f4ab34384e3a1f7069d4e0
-    - name: Combat 1.1_Frame_69
+    - name: Frame_69
       frameIndex: 69
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 30
         width: 15
         height: 3
       spriteId: 97464f8fec048744182cfee76042276c
-    - name: Combat 1.1_Frame_70
+    - name: Frame_70
       frameIndex: 70
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 23
         width: 53
         height: 17
       spriteId: 08ab887fffb3a714799065eb5df1c807
-    - name: Combat 1.1_Frame_71
+    - name: Frame_71
       frameIndex: 71
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 26
         width: 54
         height: 11
       spriteId: 5a2bbd188a05225458f5a53e2d6aef49
-    - name: Combat 1.1_Frame_72
+    - name: Frame_72
       frameIndex: 72
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 29
         width: 58
         height: 5
       spriteId: 1af3e593d78d4554f8758f3a936eb58d
-    - name: Combat 1.1_Frame_73
+    - name: Frame_73
       frameIndex: 73
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 30
         width: 59
         height: 3
       spriteId: d48ed6cdc14ab2645b8490db6ec58656
-    - name: Combat 1.1_Frame_87
+    - name: Frame_87
       frameIndex: 87
+      additiveSortOrder: 0
       cellRect:
         x: 3
         y: 27
         width: 20
         height: 20
       spriteId: 24e4ac04cbd3ab3438b6d73e161ca775
-    - name: Combat 1.1_Frame_88
+    - name: Frame_88
       frameIndex: 88
+      additiveSortOrder: 0
       cellRect:
         x: 7
         y: 46
         width: 26
         height: 5
       spriteId: 6aa5f99f640acd14c89bfd67d472ee40
-    - name: Combat 1.1_Frame_89
+    - name: Frame_89
       frameIndex: 89
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 26
         width: 40
         height: 31
       spriteId: 67af4412bdb671b44a34f6ce14150703
-    - name: Combat 1.1_Frame_90
+    - name: Frame_90
       frameIndex: 90
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 12
         width: 56
         height: 45
       spriteId: 32e826f4a1f6f1d4489899b6d1c013c9
-    - name: Combat 1.1_Frame_91
+    - name: Frame_91
       frameIndex: 91
+      additiveSortOrder: 0
       cellRect:
         x: 27
         y: 14
         width: 35
         height: 46
       spriteId: 1ab5188e3d548d841a7850c71540e8e9
-    - name: Combat 1.1_Frame_92
+    - name: Frame_92
       frameIndex: 92
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 14
         width: 28
         height: 50
       spriteId: a294c6d7ac99acb43a623abdaf8ed80c
-    - name: Combat 1.1_Frame_93
+    - name: Frame_93
       frameIndex: 93
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 14
         width: 26
         height: 50
       spriteId: bd8706cd449d051439b367ae0dc0a068
-    - name: Combat 1.1_Frame_145
+    - name: Frame_145
       frameIndex: 145
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 13
         width: 12
         height: 14
       spriteId: 3dcc81bef2b97e14b819ed4e3a77e86b
-    - name: Combat 1.1_Frame_146
+    - name: Frame_146
       frameIndex: 146
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 7
         width: 6
         height: 19
       spriteId: e7d052a834ba0c044818d9d1128efb4e
-    - name: Combat 1.1_Frame_147
+    - name: Frame_147
       frameIndex: 147
+      additiveSortOrder: 0
       cellRect:
         x: 22
         y: 5
         width: 37
         height: 32
       spriteId: 8f9d261530853a045b6cee82f266daa8
-    - name: Combat 1.1_Frame_148
+    - name: Frame_148
       frameIndex: 148
+      additiveSortOrder: 0
       cellRect:
         x: 31
         y: 6
         width: 28
         height: 50
       spriteId: 8fb8f5ad082a6424981d8b3ba5d42164
-    - name: Combat 1.1_Frame_149
+    - name: Frame_149
       frameIndex: 149
+      additiveSortOrder: 0
       cellRect:
         x: 31
         y: 14
         width: 28
         height: 45
       spriteId: 93428e4329a761542978104b41ab0b48
-    - name: Combat 1.1_Frame_150
+    - name: Frame_150
       frameIndex: 150
+      additiveSortOrder: 0
       cellRect:
         x: 33
         y: 26
         width: 26
         height: 33
       spriteId: e09fc95279d32824787db7df379587eb
-    - name: Combat 1.1_Frame_151
+    - name: Frame_151
       frameIndex: 151
+      additiveSortOrder: 0
       cellRect:
         x: 35
         y: 34
         width: 24
         height: 25
       spriteId: f1e86c20ad6aaae4cb5087ac82a56ed2
-    - name: Combat 1.1_Frame_127
+    - name: Frame_127
       frameIndex: 127
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 18
         width: 33
         height: 37
       spriteId: dbde3c4eaf246bb41b7bfc65d0ff0c05
-    - name: Combat 1.1_Frame_128
+    - name: Frame_128
       frameIndex: 128
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 13
         width: 44
         height: 42
       spriteId: 575761279d665c348bf525ea8f121fbd
-    - name: Combat 1.1_Frame_129
+    - name: Frame_129
       frameIndex: 129
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 10
         width: 46
         height: 48
       spriteId: 0abb1143ab201b349b6f5c683c41824e
-    - name: Combat 1.1_Frame_130
+    - name: Frame_130
       frameIndex: 130
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 8
         width: 49
         height: 52
       spriteId: 1650ecfc65fb21040b591f8b816cb6eb
-    - name: Combat 1.1_Frame_131
+    - name: Frame_131
       frameIndex: 131
+      additiveSortOrder: 0
       cellRect:
         x: 6
         y: 6
         width: 52
         height: 52
       spriteId: 1f11423ac81b4144b88661ae728e48ec
-    - name: Combat 1.1_Frame_133
+    - name: Frame_133
       frameIndex: 133
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 3
         width: 22
         height: 20
       spriteId: 32001966171656746bb50e61704281d6
-    - name: Combat 1.1_Frame_134
+    - name: Frame_134
       frameIndex: 134
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 3
         width: 22
         height: 41
       spriteId: 62655d757cb171e4dad1cd58979329ba
-    - name: Combat 1.1_Frame_135
+    - name: Frame_135
       frameIndex: 135
+      additiveSortOrder: 0
       cellRect:
         x: 20
         y: 1
         width: 27
         height: 61
       spriteId: 1e990d0f4e5a6c44db9a768a96cecaeb
-    - name: Combat 1.1_Frame_136
+    - name: Frame_136
       frameIndex: 136
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 2
         width: 28
         height: 62
       spriteId: de17369a6e15b5c4bbda08333f579af0
-    - name: Combat 1.1_Frame_137
+    - name: Frame_137
       frameIndex: 137
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 3
         width: 29
         height: 61
       spriteId: d016aca68e8437548954ee86db61cded
-    - name: Combat 1.1_Frame_138
+    - name: Frame_138
       frameIndex: 138
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 4
         width: 29
         height: 52
       spriteId: 1f4b8f487b7d64d43bfea26f4b91c3d1
-    - name: Combat 1.1_Frame_139
+    - name: Frame_139
       frameIndex: 139
+      additiveSortOrder: 0
       cellRect:
         x: 23
         y: 8
         width: 24
         height: 49
       spriteId: 7797035f694109546b9ed610d07bc020
-    - name: Combat 1.1_Frame_141
+    - name: Frame_141
       frameIndex: 141
+      additiveSortOrder: 0
       cellRect:
         x: 1
         y: 22
         width: 52
         height: 19
       spriteId: b9acfd22c3ac7614195480a3a57d79fd
-    - name: Combat 1.1_Frame_142
+    - name: Frame_142
       frameIndex: 142
+      additiveSortOrder: 0
       cellRect:
         x: 2
         y: 22
         width: 51
         height: 19
       spriteId: 5e7e6109efe0f2e43b9845544ee7282d
-    - name: Combat 1.1_Frame_143
+    - name: Frame_143
       frameIndex: 143
+      additiveSortOrder: 0
       cellRect:
         x: 1
         y: 23
         width: 52
         height: 18
       spriteId: 006637297e913354090f5ff46f2a867e
-    - name: Combat 1.1_Frame_144
+    - name: Frame_144
       frameIndex: 144
+      additiveSortOrder: 0
       cellRect:
         x: 2
         y: 23
         width: 51
         height: 18
       spriteId: beeb962e68daf6149966fd51d64f20b0
-    - name: Combat 1.1_Frame_0
+    - name: Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 20
         y: 55
         width: 6
         height: 4
       spriteId: 20e7e6c42c3a65a4691e11241ba26af7
-    - name: Combat 1.1_Frame_1
+    - name: Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 20
         y: 52
         width: 9
         height: 7
       spriteId: a3f4d2f8eb53c784f8b0a0e7b57b82af
-    - name: Combat 1.1_Frame_2
+    - name: Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 7
         y: 5
         width: 47
         height: 54
       spriteId: 14358910453ba4c4da1e2caea545e5ad
-    - name: Combat 1.1_Frame_3
+    - name: Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 7
         y: 6
         width: 50
         height: 43
       spriteId: e97e718a108c7d5429caaaac8d923f06
-    - name: Combat 1.1_Frame_4
+    - name: Frame_4
       frameIndex: 4
+      additiveSortOrder: 0
       cellRect:
         x: 6
         y: 6
         width: 56
         height: 46
       spriteId: 38409d523f6d69e42b0acdf71387ebed
-    - name: Combat 1.1_Frame_5
+    - name: Frame_5
       frameIndex: 5
+      additiveSortOrder: 0
       cellRect:
         x: 6
         y: 6
         width: 26
         height: 15
       spriteId: ed4516e9d537d9e4a900414539a43f59
-    - name: Combat 1.1_Frame_6
+    - name: Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 40
         width: 16
         height: 10
       spriteId: 0ea379790c94dd541883f555cb0de0cd
-    - name: Combat 1.1_Frame_7
+    - name: Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 22
         y: 11
         width: 23
         height: 38
       spriteId: 6bb1ed7812617f4419fe16771a10ac0a
-    - name: Combat 1.1_Frame_8
+    - name: Frame_8
       frameIndex: 8
+      additiveSortOrder: 0
       cellRect:
         x: 27
         y: 8
         width: 18
         height: 35
       spriteId: d496ffdcc6884d74aa2d4b74080a80ce
-    - name: Combat 1.1_Frame_9
+    - name: Frame_9
       frameIndex: 9
+      additiveSortOrder: 0
       cellRect:
         x: 27
         y: 7
         width: 16
         height: 14
       spriteId: d4a4a21ce601f7d4fa66aa205a4c25ee
-    - name: Combat 1.1_Frame_16
+    - name: Frame_16
       frameIndex: 16
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 10
         width: 11
         height: 27
       spriteId: 0fa7526fc022f344193d398de0b3f181
-    - name: Combat 1.1_Frame_17
+    - name: Frame_17
       frameIndex: 17
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 12
         width: 12
         height: 29
       spriteId: f7855f1c105afdd4faf819433025579d
-    - name: Combat 1.1_Frame_18
+    - name: Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 10
         y: 18
         width: 11
         height: 24
       spriteId: 60019cc380fc76a47a63fc178334a41e
-    - name: Combat 1.1_Frame_19
+    - name: Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 28
         width: 32
         height: 28
       spriteId: 3442a50ddf475284aa8cba8ae49123c9
-    - name: Combat 1.1_Frame_20
+    - name: Frame_20
       frameIndex: 20
+      additiveSortOrder: 0
       cellRect:
         x: 22
         y: 27
         width: 32
         height: 27
       spriteId: 95558d09006784844857a5dc5ae03ebf
-    - name: Combat 1.1_Frame_21
+    - name: Frame_21
       frameIndex: 21
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 26
         width: 28
         height: 29
       spriteId: d0e1e2b82379cd74284923d59f4e7137
-    - name: Combat 1.1_Frame_22
+    - name: Frame_22
       frameIndex: 22
+      additiveSortOrder: 0
       cellRect:
         x: 25
         y: 26
         width: 29
         height: 30
       spriteId: 0eeaba98bca885d42bd605e2f0141f90
-    - name: Combat 1.1_Frame_23
+    - name: Frame_23
       frameIndex: 23
+      additiveSortOrder: 0
       cellRect:
         x: 23
         y: 24
         width: 31
         height: 33
       spriteId: d7d6f65ec92ca5141a9ce92a2095fb2f
-    - name: Combat 1.1_Frame_31
+    - name: Frame_31
       frameIndex: 31
+      additiveSortOrder: 0
       cellRect:
         x: 6
         y: 18
         width: 48
         height: 31
       spriteId: 28850333df97a7c4ba4371b258fe7795
-    - name: Combat 1.1_Frame_32
+    - name: Frame_32
       frameIndex: 32
+      additiveSortOrder: 0
       cellRect:
         x: 6
         y: 17
         width: 48
         height: 31
       spriteId: 4fb3a1cf0c38dc64db09ca3a33055f49
-    - name: Combat 1.1_Frame_33
+    - name: Frame_33
       frameIndex: 33
+      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 13
         width: 52
         height: 37
       spriteId: fe1e5e1286ab2ac4c9926951a267f986
-    - name: Combat 1.1_Frame_34
+    - name: Frame_34
       frameIndex: 34
+      additiveSortOrder: 0
       cellRect:
         x: 3
         y: 12
         width: 56
         height: 40
       spriteId: 965bbeeb1acab3a4c8440cadc0a7c5a0
-    - name: Combat 1.1_Frame_35
+    - name: Frame_35
       frameIndex: 35
+      additiveSortOrder: 0
       cellRect:
         x: 7
         y: 11
         width: 53
         height: 43
       spriteId: 118e9a14bcf6f2947acf693e9a411a35
-    - name: Combat 1.1_Frame_36
+    - name: Frame_36
       frameIndex: 36
+      additiveSortOrder: 0
       cellRect:
         x: 13
         y: 10
         width: 41
         height: 46
       spriteId: ba742c10c4f464a48b90c072a4022ddf
-    - name: Combat 1.1_Frame_37
+    - name: Frame_37
       frameIndex: 37
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 15
         width: 36
         height: 35
       spriteId: d71dd0e3dc466154bbcafb0269badea2
-    - name: Combat 1.1_Frame_38
+    - name: Frame_38
       frameIndex: 38
+      additiveSortOrder: 0
       cellRect:
         x: 13
         y: 10
         width: 43
         height: 45
       spriteId: f4e5df4702688614fbb2cb37d377d0b6
-    - name: Combat 1.1_Frame_39
+    - name: Frame_39
       frameIndex: 39
+      additiveSortOrder: 0
       cellRect:
         x: 10
         y: 7
         width: 48
         height: 51
       spriteId: 393eb79a140eea043aeaac9549b8b50c
-    - name: Combat 1.1_Frame_40
+    - name: Frame_40
       frameIndex: 40
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 2
         width: 53
         height: 59
       spriteId: ec57abc71c1752046bde255e64798a13
-    - name: Combat 1.1_Frame_42
+    - name: Frame_42
       frameIndex: 42
+      additiveSortOrder: 0
       cellRect:
         x: 7
         y: 26
         width: 23
         height: 10
       spriteId: 516527babe80c8d43bff10dde38d646a
-    - name: Combat 1.1_Frame_43
+    - name: Frame_43
       frameIndex: 43
+      additiveSortOrder: 0
       cellRect:
         x: 10
         y: 26
         width: 47
         height: 10
       spriteId: 96c8a926470c8dd489d0d69504b58e7b
-    - name: Combat 1.1_Frame_44
+    - name: Frame_44
       frameIndex: 44
+      additiveSortOrder: 0
       cellRect:
         x: 38
         y: 19
         width: 19
         height: 27
       spriteId: bbd7f466559e44746b0c40822ea515c0
-    - name: Combat 1.1_Frame_45
+    - name: Frame_45
       frameIndex: 45
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 13
         width: 22
         height: 40
       spriteId: f84efdc44496b694ab1d09781f2daf18
-    - name: Combat 1.1_Frame_52
+    - name: Frame_52
       frameIndex: 52
+      additiveSortOrder: 0
       cellRect:
         x: 15
         y: 14
         width: 14
         height: 36
       spriteId: ce3ba1fc66161b94fbf98b8afad63122
-    - name: Combat 1.1_Frame_53
+    - name: Frame_53
       frameIndex: 53
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 14
         width: 24
         height: 36
       spriteId: 88ef8f9966340314d87eb0bd24be4ff7
-    - name: Combat 1.1_Frame_54
+    - name: Frame_54
       frameIndex: 54
+      additiveSortOrder: 0
       cellRect:
         x: 15
         y: 14
         width: 33
         height: 36
       spriteId: 86cfe7761dbad344e937c206da392f4d
-    - name: Combat 1.1_Frame_55
+    - name: Frame_55
       frameIndex: 55
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 14
         width: 14
         height: 36
       spriteId: 6350b3750c5107a46952c9eccc3213df
-    - name: Combat 1.1_Frame_56
+    - name: Frame_56
       frameIndex: 56
+      additiveSortOrder: 0
       cellRect:
         x: 37
         y: 13
         width: 14
         height: 37
       spriteId: 6ad4dfd2380aa7644b9fa90a0e49f30f
-    - name: Combat 1.1_Frame_62
+    - name: Frame_62
       frameIndex: 62
+      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 30
         width: 10
         height: 9
       spriteId: 917ceb8ffb73fc74d86f382c8c09e297
-    - name: Combat 1.1_Frame_63
+    - name: Frame_63
       frameIndex: 63
+      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 10
         width: 53
         height: 42
       spriteId: 6079519773049b247973e295df25b15e
-    - name: Combat 1.1_Frame_64
+    - name: Frame_64
       frameIndex: 64
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 10
         width: 47
         height: 42
       spriteId: 4e104d77a8fedef41b64543709e14170
-    - name: Combat 1.1_Frame_65
+    - name: Frame_65
       frameIndex: 65
+      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 10
         width: 51
         height: 42
       spriteId: 48cc6ea9e9dc76341976a5e53cccb75f
-    - name: Combat 1.1_Frame_66
+    - name: Frame_66
       frameIndex: 66
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 12
         width: 47
         height: 40
       spriteId: e1e034eb4c38c5345bb61fc84d758245
-    - name: Combat 1.1_Frame_67
+    - name: Frame_67
       frameIndex: 67
+      additiveSortOrder: 0
       cellRect:
         x: 11
         y: 13
         width: 44
         height: 38
       spriteId: 64d3386caa75fc843a013dac79e7108f
-    - name: Combat 1.1_Frame_68
+    - name: Frame_68
       frameIndex: 68
+      additiveSortOrder: 0
       cellRect:
         x: 37
         y: 18
         width: 19
         height: 32
       spriteId: 5e5f9179e9c8a894aa2dba0adf9df887
-    - name: Combat 1.1_Frame_74
+    - name: Frame_74
       frameIndex: 74
+      additiveSortOrder: 0
       cellRect:
         x: 9
         y: 18
         width: 27
         height: 27
       spriteId: 98e8d46b84637484998d7136a532c6ff
-    - name: Combat 1.1_Frame_75
+    - name: Frame_75
       frameIndex: 75
+      additiveSortOrder: 0
       cellRect:
         x: 29
         y: 18
         width: 28
         height: 27
       spriteId: 46a0f123981e00049a4332ec6ff9e974
-    - name: Combat 1.1_Frame_76
+    - name: Frame_76
       frameIndex: 76
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 18
         width: 26
         height: 27
       spriteId: 1db4c231f505b194eaa58eb2b656eef0
-    - name: Combat 1.1_Frame_77
+    - name: Frame_77
       frameIndex: 77
+      additiveSortOrder: 0
       cellRect:
         x: 31
         y: 18
         width: 30
         height: 27
       spriteId: 8fcf3b4599f84f7408ea47420429f7e4
-    - name: Combat 1.1_Frame_78
+    - name: Frame_78
       frameIndex: 78
+      additiveSortOrder: 0
       cellRect:
         x: 32
         y: 18
         width: 29
         height: 27
       spriteId: efd82821dfd6bd84080e69668166045c
-    - name: Combat 1.1_Frame_80
+    - name: Frame_80
       frameIndex: 80
+      additiveSortOrder: 0
       cellRect:
         x: 2
         y: 19
         width: 15
         height: 22
       spriteId: 068bf18e46a1efb4180c10da7d3a203e
-    - name: Combat 1.1_Frame_81
+    - name: Frame_81
       frameIndex: 81
+      additiveSortOrder: 0
       cellRect:
         x: 2
         y: 18
         width: 19
         height: 23
       spriteId: 03cd099321d7c224686ba9e09bee77aa
-    - name: Combat 1.1_Frame_82
+    - name: Frame_82
       frameIndex: 82
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 17
         width: 23
         height: 28
       spriteId: cba444c167e0e9f46a1b525038b0ea6e
-    - name: Combat 1.1_Frame_83
+    - name: Frame_83
       frameIndex: 83
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 14
         width: 27
         height: 34
       spriteId: fc8bdc5c7be98bf4899d5037d88323d8
-    - name: Combat 1.1_Frame_84
+    - name: Frame_84
       frameIndex: 84
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 13
         width: 35
         height: 39
       spriteId: 752c76ce7bb69964fb18eb0cdf691913
-    - name: Combat 1.1_Frame_85
+    - name: Frame_85
       frameIndex: 85
+      additiveSortOrder: 0
       cellRect:
         x: 35
         y: 13
         width: 24
         height: 38
       spriteId: b8941395619b61e4fbb4e957e394b124
-    - name: Combat 1.1_Frame_94
+    - name: Frame_94
       frameIndex: 94
+      additiveSortOrder: 0
       cellRect:
         x: 40
         y: 19
         width: 21
         height: 45
       spriteId: 4788a3df865462b428d19aa6174b35a4
-    - name: Combat 1.1_Frame_126
+    - name: Frame_126
       frameIndex: 126
+      additiveSortOrder: 0
       cellRect:
         x: 27
         y: 25
         width: 9
         height: 10
       spriteId: e6411dbc557ca6140b9331ca8955f3f2
-    - name: Combat 1.1_Frame_170
+    - name: Frame_170
       frameIndex: 170
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 20
         width: 25
         height: 25
       spriteId: 0f7e311a97f2812488b4b460ff38eee6
-    - name: Combat 1.1_Frame_171
+    - name: Frame_171
       frameIndex: 171
+      additiveSortOrder: 0
       cellRect:
         x: 15
         y: 17
         width: 34
         height: 31
       spriteId: 3f4a54de2bbddd648a208ab771371b7a
-    - name: Combat 1.1_Frame_172
+    - name: Frame_172
       frameIndex: 172
+      additiveSortOrder: 0
       cellRect:
         x: 15
         y: 17
         width: 34
         height: 31
       spriteId: ae808ad026690de428934a9236fc7be4
-    - name: Combat 1.1_Frame_173
+    - name: Frame_173
       frameIndex: 173
+      additiveSortOrder: 0
       cellRect:
         x: 15
         y: 16
         width: 36
         height: 34
       spriteId: 239b71abb1043e5459e2e39de71ae92a
-    - name: Combat 1.1_Frame_175
+    - name: Frame_175
       frameIndex: 175
+      additiveSortOrder: 0
       cellRect:
         x: 17
         y: 17
         width: 34
         height: 29
       spriteId: b75ec693cffec324e830f8e32614ac54
-    - name: Combat 1.1_Frame_15
+    - name: Frame_15
       frameIndex: 15
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 11
         width: 31
         height: 52
       spriteId: e4c36d7c5d407c7488ac15ae7e164d50
-    - name: Combat 1.1_Frame_46
+    - name: Frame_46
       frameIndex: 46
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 6
         width: 20
         height: 49
       spriteId: 4cae2a7fb9430994e94dcbb536bdb213
-    - name: Combat 1.1_Frame_95
+    - name: Frame_95
       frameIndex: 95
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 2
         width: 22
         height: 5
       spriteId: bd136d014b156574eb0da96143b5bffc
-    - name: Combat 1.1_Frame_96
+    - name: Frame_96
       frameIndex: 96
+      additiveSortOrder: 0
       cellRect:
         x: 10
         y: 3
         width: 42
         height: 42
       spriteId: 90ecedce3505f4243a56792bd8f61406
-    - name: Combat 1.1_Frame_97
+    - name: Frame_97
       frameIndex: 97
+      additiveSortOrder: 0
       cellRect:
         x: 8
         y: 7
         width: 49
         height: 40
       spriteId: 7ad5bb1c9166e194195d880b0614ed95
-    - name: Combat 1.1_Frame_98
+    - name: Frame_98
       frameIndex: 98
+      additiveSortOrder: 0
       cellRect:
         x: 25
         y: 38
         width: 9
         height: 11
       spriteId: e92217cf835a72045aabeaa3ba9260ee
-    - name: Combat 1.1_Frame_100
+    - name: Frame_100
       frameIndex: 100
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 6
         width: 8
         height: 5
       spriteId: 5d2803b013d4c0f4a888fe1edb75e969
-    - name: Combat 1.1_Frame_101
+    - name: Frame_101
       frameIndex: 101
+      additiveSortOrder: 0
       cellRect:
         x: 25
         y: 10
         width: 16
         height: 42
       spriteId: 8383edf0d84ae0e4db6e58f30f882b33
-    - name: Combat 1.1_Frame_102
+    - name: Frame_102
       frameIndex: 102
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 11
         width: 24
         height: 41
       spriteId: 8653f778747500745a48232ca0a59ac3
-    - name: Combat 1.1_Frame_103
+    - name: Frame_103
       frameIndex: 103
+      additiveSortOrder: 0
       cellRect:
         x: 12
         y: 14
         width: 26
         height: 38
       spriteId: b81282fe3b9310f429cdc8234f6ebb5a
-    - name: Combat 1.1_Frame_104
+    - name: Frame_104
       frameIndex: 104
+      additiveSortOrder: 0
       cellRect:
         x: 18
         y: 20
         width: 35
         height: 33
       spriteId: 28bdf72877f272c4fa32cb1beaa14806
-    - name: Combat 1.1_Frame_105
+    - name: Frame_105
       frameIndex: 105
+      additiveSortOrder: 0
       cellRect:
         x: 44
         y: 23
         width: 6
         height: 4
       spriteId: f57cfd3880b49c6479a4a11e137558bd
-    - name: Combat 1.1_Frame_106
+    - name: Frame_106
       frameIndex: 106
+      additiveSortOrder: 0
       cellRect:
         x: 13
         y: 39
         width: 15
         height: 11
       spriteId: f3f2111f2a536714c9bf4c9330145eb8
-    - name: Combat 1.1_Frame_107
+    - name: Frame_107
       frameIndex: 107
+      additiveSortOrder: 0
       cellRect:
         x: 22
         y: 9
         width: 19
         height: 33
       spriteId: 8d0fd42d73ce1a449bf35a5ff655e744
-    - name: Combat 1.1_Frame_108
+    - name: Frame_108
       frameIndex: 108
+      additiveSortOrder: 0
       cellRect:
         x: 33
         y: 7
         width: 9
         height: 14
       spriteId: f78d4c74d850d884097ca11d6d392d8c
-    - name: Combat 1.1_Frame_110
+    - name: Frame_110
       frameIndex: 110
+      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 28
         width: 9
         height: 7
       spriteId: 32fd94ebaa890744caa8b1861159e0c1
-    - name: Combat 1.1_Frame_111
+    - name: Frame_111
       frameIndex: 111
+      additiveSortOrder: 0
       cellRect:
         x: 12
         y: 26
         width: 33
         height: 15
       spriteId: 2b5c4cd2da8861744b575f98f38e0b88
-    - name: Combat 1.1_Frame_112
+    - name: Frame_112
       frameIndex: 112
+      additiveSortOrder: 0
       cellRect:
         x: 23
         y: 28
         width: 31
         height: 10
       spriteId: b325584041609b94a932736885f3c210
-    - name: Combat 1.1_Frame_113
+    - name: Frame_113
       frameIndex: 113
+      additiveSortOrder: 0
       cellRect:
         x: 32
         y: 30
         width: 28
         height: 10
       spriteId: 94ad1e9213e81594bada480d3eb43dfd
-    - name: Combat 1.1_Frame_114
+    - name: Frame_114
       frameIndex: 114
+      additiveSortOrder: 0
       cellRect:
         x: 32
         y: 17
         width: 29
         height: 37
       spriteId: dbcdebd620f3fb94e9f3569df919cb3d
-    - name: Combat 1.1_Frame_115
+    - name: Frame_115
       frameIndex: 115
+      additiveSortOrder: 0
       cellRect:
         x: 41
         y: 12
         width: 20
         height: 47
       spriteId: 754c67bfe6bfe2e4481d869a1f93bb5b
-    - name: Combat 1.1_Frame_116
+    - name: Frame_116
       frameIndex: 116
+      additiveSortOrder: 0
       cellRect:
         x: 43
         y: 11
         width: 18
         height: 44
       spriteId: 1e39fb12d45f3a440ba76b3f893ccc0b
-    - name: Combat 1.1_Frame_117
+    - name: Frame_117
       frameIndex: 117
+      additiveSortOrder: 0
       cellRect:
         x: 37
         y: 6
         width: 21
         height: 48
       spriteId: 5abfcdab9ee051c49933bd31c7d8fa42
-    - name: Combat 1.1_Frame_118
+    - name: Frame_118
       frameIndex: 118
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 20
         width: 22
         height: 30
       spriteId: 51666d6d89d783e4d92abf0f312d9ac7
-    - name: Combat 1.1_Frame_120
+    - name: Frame_120
       frameIndex: 120
+      additiveSortOrder: 0
       cellRect:
         x: 55
         y: 52
         width: 8
         height: 7
       spriteId: e249ce62ed3402541ba0b24e9f474217
-    - name: Combat 1.1_Frame_121
+    - name: Frame_121
       frameIndex: 121
+      additiveSortOrder: 0
       cellRect:
         x: 28
         y: 19
         width: 27
         height: 33
       spriteId: d8adf067352cd4048b07129b8f579510
-    - name: Combat 1.1_Frame_122
+    - name: Frame_122
       frameIndex: 122
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 12
         width: 29
         height: 32
       spriteId: 4d6268637b7764a48a7cc1bbdeb9166d
-    - name: Combat 1.1_Frame_123
+    - name: Frame_123
       frameIndex: 123
+      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 6
         width: 30
         height: 17
       spriteId: d53e7dd80b2f3534286c7bf1d413a703
-    - name: Combat 1.1_Frame_124
+    - name: Frame_124
       frameIndex: 124
+      additiveSortOrder: 0
       cellRect:
         x: 2
         y: 6
         width: 26
         height: 13
       spriteId: 1e9425f8dcd9c4e49a5e9cb7f31570d5
-    - name: Combat 1.1_Frame_125
+    - name: Frame_125
       frameIndex: 125
+      additiveSortOrder: 0
       cellRect:
         x: 1
         y: 7
         width: 18
         height: 13
       spriteId: 0bec477193f00d14f90dd2e2a63cb7ae
-    - name: Combat 1.1_Frame_152
+    - name: Frame_152
       frameIndex: 152
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 50
         width: 17
         height: 9
       spriteId: c247403aa0b92c44eaa4125ddc563f8f
-    - name: Combat 1.1_Frame_153
+    - name: Frame_153
       frameIndex: 153
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 53
         width: 14
         height: 6
       spriteId: f753611e6cd818646b25da5ce152bb06
-    - name: Combat 1.1_Frame_154
+    - name: Frame_154
       frameIndex: 154
+      additiveSortOrder: 0
       cellRect:
         x: 27
         y: 27
         width: 11
         height: 10
       spriteId: 82345d2a2189d62499f36a6f0df7b856
-    - name: Combat 1.1_Frame_155
+    - name: Frame_155
       frameIndex: 155
+      additiveSortOrder: 0
       cellRect:
         x: 21
         y: 24
         width: 23
         height: 17
       spriteId: 731d1b54a20ad064bb73c0cd617c5310
-    - name: Combat 1.1_Frame_156
+    - name: Frame_156
       frameIndex: 156
+      additiveSortOrder: 0
       cellRect:
         x: 18
         y: 19
         width: 29
         height: 27
       spriteId: 99a80bf375d031a49aa85735eb21c69d
-    - name: Combat 1.1_Frame_157
+    - name: Frame_157
       frameIndex: 157
+      additiveSortOrder: 0
       cellRect:
         x: 17
         y: 23
         width: 30
         height: 19
       spriteId: b3b9311033c4efd4f826cb60ca333aef
-    - name: Combat 1.1_Frame_158
+    - name: Frame_158
       frameIndex: 158
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 23
         width: 33
         height: 20
       spriteId: 06e0390658a1be94987873b80c4871e0
-    - name: Combat 1.1_Frame_159
+    - name: Frame_159
       frameIndex: 159
+      additiveSortOrder: 0
       cellRect:
         x: 12
         y: 23
         width: 40
         height: 22
       spriteId: 75612ecbfa6e67b4f92d0784ba778208
-    - name: Combat 1.1_Frame_160
+    - name: Frame_160
       frameIndex: 160
+      additiveSortOrder: 0
       cellRect:
         x: 11
         y: 23
         width: 43
         height: 10
       spriteId: 448f7e0d87706a14a8721666df661abc
-    - name: Combat 1.1_Frame_162
+    - name: Frame_162
       frameIndex: 162
+      additiveSortOrder: 0
       cellRect:
         x: 33
         y: 16
         width: 19
         height: 11
       spriteId: 30af1fc17eabbd449a58bf2acbfcb1bb
-    - name: Combat 1.1_Frame_163
+    - name: Frame_163
       frameIndex: 163
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 18
         width: 35
         height: 31
       spriteId: bbe9a6f44a056a84fa261eacf3ce26b0
-    - name: Combat 1.1_Frame_164
+    - name: Frame_164
       frameIndex: 164
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 28
         width: 40
         height: 21
       spriteId: b7c9a4e3c5d8b61418a1ee0cc4ecd868
-    - name: Combat 1.1_Frame_165
+    - name: Frame_165
       frameIndex: 165
+      additiveSortOrder: 0
       cellRect:
         x: 13
         y: 38
         width: 35
         height: 11
       spriteId: 392218a4c2b587e4f867bee4a5e0fd16
-    - name: Combat 1.1_Frame_166
+    - name: Frame_166
       frameIndex: 166
+      additiveSortOrder: 0
       cellRect:
         x: 12
         y: 30
         width: 39
         height: 18
       spriteId: 30bf50286930c404489ffc7a768d2354
-    - name: Combat 1.1_Frame_167
+    - name: Frame_167
       frameIndex: 167
+      additiveSortOrder: 0
       cellRect:
         x: 11
         y: 33
         width: 20
         height: 15
       spriteId: d2a9577e40558e947aa25f51be3b5390
-    - name: Combat 1.1_Frame_169
+    - name: Frame_169
       frameIndex: 169
+      additiveSortOrder: 0
       cellRect:
         x: 24
         y: 25
         width: 16
         height: 16
       spriteId: 7446651ba95f57b48983ec2338daa30d
-    - name: Combat 1.1_Frame_174
+    - name: Frame_174
       frameIndex: 174
+      additiveSortOrder: 0
       cellRect:
         x: 13
         y: 14
         width: 41
         height: 35
       spriteId: 76776f4301b689a46bd15aaadd3879d4
-    - name: Combat 1.1_Frame_177
+    - name: Frame_177
       frameIndex: 177
+      additiveSortOrder: 0
       cellRect:
         x: 18
         y: 10
         width: 26
         height: 32
       spriteId: 509b3e76de378ac4a80a74331813062c
-    - name: Combat 1.1_Frame_178
+    - name: Frame_178
       frameIndex: 178
+      additiveSortOrder: 0
       cellRect:
         x: 18
         y: 13
         width: 26
         height: 30
       spriteId: e7ccf3cc174344741aea5af9880bce81
-    - name: Combat 1.1_Frame_179
+    - name: Frame_179
       frameIndex: 179
+      additiveSortOrder: 0
       cellRect:
         x: 18
         y: 20
         width: 21
         height: 20
       spriteId: e69ceac640536484082466455ba99fdd
-    - name: Combat 1.1_Frame_180
+    - name: Frame_180
       frameIndex: 180
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 27
         width: 18
         height: 18
       spriteId: d5c78bf4e071bb147b316e2ce4677292
-    - name: Combat 1.1_Frame_181
+    - name: Frame_181
       frameIndex: 181
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 18
         width: 26
         height: 28
       spriteId: dc55b9a25115cf040a895a113898badd
-    - name: Combat 1.1_Frame_182
+    - name: Frame_182
       frameIndex: 182
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 22
         width: 26
         height: 23
       spriteId: bc15d55c70ab874499ac202fe8cce4af
-    - name: Combat 1.1_Frame_183
+    - name: Frame_183
       frameIndex: 183
+      additiveSortOrder: 0
       cellRect:
         x: 19
         y: 17
         width: 26
         height: 32
       spriteId: df4b5e00ee55aa04f9c8deb2fea4156b
-    - name: Combat 1.1_Frame_184
+    - name: Frame_184
       frameIndex: 184
+      additiveSortOrder: 0
       cellRect:
         x: 20
         y: 20
@@ -4975,9 +5333,13 @@ ScriptedImporter:
         height: 31
       spriteId: 769fd6816c361804493922e739433129
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 64, y: 64}
+  previousTextureSize: {x: 512, y: 1024}
