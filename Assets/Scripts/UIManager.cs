@@ -114,7 +114,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenDeathMenu()
     {
-        SaveSystem.SaveGameData(GameManager.Instance.PlayerSkullCount);
+        SaveSystem.UpdatePlayerSkulls(GameManager.Instance.PlayerSkullCount);
         deathMenu.SetActive(true);
     }
 
@@ -152,7 +152,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
         InputManager.Instance.OnDisable();
-        SaveSystem.SaveGameData(GameManager.Instance.PlayerSkullCount);
+        SaveSystem.UpdatePlayerSkulls(GameManager.Instance.PlayerSkullCount);
     }
 
     public void OnGameUnPause()

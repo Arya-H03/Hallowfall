@@ -133,7 +133,7 @@ public class SkillNode : MonoBehaviour
             {
                 UnlockNodeOnSkillTree();
                 skillSO.ApplySkill();
-                SaveSystem.SaveGameData(temp);
+                SaveSystem.UpdatePlayerSkulls(temp);
                 skillManager.UpdateSkullsText();
             }
             

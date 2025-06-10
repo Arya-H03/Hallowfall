@@ -11,4 +11,6 @@ public class GameData
     {
         this.skullCount = skullCount;
     }
+
+    public GameData() { }
 }

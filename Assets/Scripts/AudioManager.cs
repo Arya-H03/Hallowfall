@@ -78,12 +78,12 @@ public class AudioManager : MonoBehaviour
     }
     public void SaveSoundData()
     {
-        SaveSystem.SaveSoundData(this);
+        SaveSystem.UpdateAudioSettings(this);
     }
 
     public void LoadSoundData()
     {
-        SoundData soundData = SaveSystem.LoadSoundData();
+        SettingsData soundData = SaveSystem.LoadSettingsData();
         if (soundData != null)
         {
             MasterVolumeMultiplier = soundData.masterVolume;

@@ -53,15 +53,11 @@ public class ChaseState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead) return;
+        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead || enemyController.PlayerController.IsDead || enemyController.AttackState.NextAttack == null) return;
 
         CheckEnemySight();
 
-        if (enemyController.AttackState.NextAttack == null)
-        {
-            enemyController.ChangeState(EnemyStateEnum.Idle);
-            return;
-        }
+      
 
         bool isInRange = enemyController.AttackState.IsEnemyInAttackRange();
         EnemyAttackTypeEnum attackType = enemyController.AttackState.NextAttack.AttackTypeEnum;
@@ -77,27 +73,7 @@ public class ChaseState : EnemyBaseState
         }
            
 
-        //switch (attackType)
-        //{
-        //    case EnemyAttackTypeEnum.Melee:
-        //        if ((!isInRange || !isPlayerInSight))
-        //            enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
-        //        else
-        //            enemyController.ChangeState(EnemyStateEnum.Attack);
-        //        break;
-
-        //    case EnemyAttackTypeEnum.Ranged:
-        //        if (!isInRange)
-        //            enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
-        //        else
-        //            enemyController.ChangeState(EnemyStateEnum.Attack);
-        //        break;
-        //}
-
-
-
-
-
+     
     }
 
     private void CheckEnemySight()

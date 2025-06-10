@@ -50,7 +50,7 @@ public class SkillManager : MonoBehaviour
             {
                 skillNode.ResetSkill();
             }
-            SaveSystem.SaveGameData(temp);
+            SaveSystem.UpdatePlayerSkulls(temp);
             UpdateSkullsText();
         }
        

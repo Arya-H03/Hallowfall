@@ -6,70 +6,67 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-      public static void SaveSoundData(AudioManager audioManager)
-      {
-            BinaryFormatter formatter = new BinaryFormatter();
-            string path = Application.persistentDataPath + "/sound.data";
-            FileStream stream = new FileStream(path, FileMode.Create);
+    private static string gamePath = Application.persistentDataPath + "/game.json";
+    private static string settingsPath = Application.persistentDataPath + "/settings.json";
 
-            SoundData soundData = new SoundData(audioManager);
-
-            formatter.Serialize(stream, soundData); 
-            stream.Close(); 
-      }
-        
-    public static void SaveGameData(int skullCount)
+    private static void SaveGameData(GameData data)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath +"/game.data";
-
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        GameData gameData = new GameData(skullCount);
-        formatter.Serialize(stream, gameData);
-        stream.Close();
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(gamePath, json);
     }
-    public static SoundData LoadSoundData()
+    private static void SaveSettingsData(SettingsData data)
     {
-        string path = Application.persistentDataPath + "/sound.data";
-        if (File.Exists(path))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            SoundData soundData = formatter.Deserialize(stream) as SoundData;
-            stream.Close();
-            return soundData;
-            
-
-        }
-        else
-        {
-            Debug.LogError("Save Data file not found in "+ path);
-            return null;
-        }
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(settingsPath, json);
     }
 
     public static GameData LoadGameData()
     {
-        string path = Application.persistentDataPath + "/game.data";
-        if (File.Exists(path))
+        if (File.Exists(gamePath))
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            GameData gameData = formatter.Deserialize(stream) as GameData;
-            stream.Close();
-            return gameData;
-
-
+            string json = File.ReadAllText(gamePath);
+            return JsonUtility.FromJson<GameData>(json);
         }
         else
         {
-            Debug.LogError("Game Data file not found in " + path);
-            return null;
+            Debug.LogWarning("No save file found at " + gamePath);
+            return new GameData(); 
         }
     }
 
+    public static SettingsData LoadSettingsData()
+    {
+        if (File.Exists(settingsPath))
+        {
+            string json = File.ReadAllText(settingsPath);
+            return JsonUtility.FromJson<SettingsData>(json);
+        }
+        else
+        {
+            Debug.LogWarning("No save file found at " + settingsPath);
+            return new SettingsData();
+        }
+    }
+    
+    public static void UpdatePlayerSkulls(int newAmount)
+    {
+        GameData data = LoadGameData();
+        if (data == null) { data = new GameData(); }
 
+        data.skullCount = newAmount;
+        SaveGameData(data);
+    }
+
+    public static void UpdateAudioSettings(AudioManager audioManager)
+    {
+        SettingsData data = LoadSettingsData();
+        if (data == null) { data = new SettingsData(); }
+        data.masterVolume = audioManager.MasterVolumeMultiplier;
+        data.effectsVolume = audioManager.EffectsVolumeMultiplier;
+        data.musicVolume = audioManager.MusicVolumeMultiplier;
+
+        SaveSettingsData(data);
+
+ 
+    }
 }
