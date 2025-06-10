@@ -64,7 +64,7 @@ public class LevelupManager : MonoBehaviour
 
     public void OnEssencePickUp()
     {
-        playerController.CurrentEssence++;
+        playerController.CurrentEssence ++;
         if (playerController.CurrentEssence >= playerController.AtonementToLevel)
         {
             OnLevelUp();

@@ -29,7 +29,7 @@ public class IdleState : EnemyBaseState
 
     public override void HandleState()
     {
-        if(enemyController.AttackState.NextAttack && enemyController.AttackState.IsEnemyAbleToAttack() &&!enemyController.PlayerController.IsDead)
+        if(enemyController.AttackState.NextAttack && enemyController.AttackState.IsEnemyAbleToAttack() && !enemyController.PlayerController.IsDead)
         {
             enemyController.ChangeState(EnemyStateEnum.Chase);
         }

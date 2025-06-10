@@ -53,11 +53,19 @@ public class ChaseState : EnemyBaseState
 
     public override void HandleState()
     {
-        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead || enemyController.PlayerController.IsDead || enemyController.AttackState.NextAttack == null) return;
+        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead || enemyController.AttackState.NextAttack == null)
+            enemyController.ChangeState(EnemyStateEnum.Idle);
+        {
+            return;
+        }
 
         CheckEnemySight();
 
-      
+        //if (enemyController.AttackState.NextAttack == null)
+        //{
+        //    enemyController.ChangeState(EnemyStateEnum.Idle);
+        //    return;
+        //}
 
         bool isInRange = enemyController.AttackState.IsEnemyInAttackRange();
         EnemyAttackTypeEnum attackType = enemyController.AttackState.NextAttack.AttackTypeEnum;
