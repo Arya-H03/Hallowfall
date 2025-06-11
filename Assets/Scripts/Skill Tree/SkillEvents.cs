@@ -9,4 +9,7 @@ public static class SkillEvents
     public static event Action OnCounterSkillUnlocked;
     public static void UnlockCounter() => OnCounterSkillUnlocked?.Invoke();
 
+    public static event Action OnPerfectTimingSkillUnlocked;
+    public static void UnlockPerfectTiming() => OnPerfectTimingSkillUnlocked?.Invoke();
+
 }

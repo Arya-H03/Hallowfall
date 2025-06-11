@@ -29,21 +29,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cad0437efdbde0146a2567e970e165b4, type: 3}
   grassSFX:
   - {fileID: 8300000, guid: 8892b9199e7adc84dbfe412042911a66, type: 3}
-  dashModifier: 6
   moveSpeedWhileAttaking: 3.25
   hitStopDuration: 0.025
   attackComboWindow: 0.5
   attackDelay: 0.3
-  dashAttackDelay: 4
   attackSwingSFX:
   - {fileID: 8300000, guid: c217f396fd7cb204c92d211acf723e7f, type: 3}
   - {fileID: 8300000, guid: 8b57f9a6c6f070f49990eb6152479b7c, type: 3}
-  dashAttackSFX:
-  - {fileID: 8300000, guid: f645405aa66244042ab36b72242e2fbb, type: 3}
   firstSwingDamage: 10
   secondSwingDamage: 20
   thirdSwingDamage: 30
-  dashAttackDamage: 20
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -51,6 +46,12 @@ MonoBehaviour:
   firstSwingCastSize: {x: 1.7, y: 1.5}
   secondSwingCastSize: {x: 1.3, y: 1}
   thirdSwingCastSize: {x: 1.2, y: 2}
+  dashModifier: 6
+  dashAttackDelay: 3
+  dashAttackSFX:
+  - {fileID: 8300000, guid: f645405aa66244042ab36b72242e2fbb, type: 3}
+  dashAttackDamage: 20
+  dashduration: 0.5
   rollSFX: {fileID: 8300000, guid: d4ed0ea0527d768449ff49139d403910, type: 3}
   rollCooldown: 0.5
   rollModifier: 6

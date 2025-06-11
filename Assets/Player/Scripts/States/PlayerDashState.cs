@@ -20,18 +20,19 @@ public class PlayerDashState : PlayerBaseState
             this.dashDelay = dashDelay;
             this.dashChargeBar = dashChargeBar;
         }
+        public float DelayTimer { get => delayTimer; set => delayTimer = value; }
 
         public bool UpdateCharge(List<DashChargeSlot> availableDashCharges, List<DashChargeSlot> unavailableDashCharges)
         {
-            delayTimer += Time.deltaTime;
+            DelayTimer += Time.deltaTime;
 
-            float scale = delayTimer / dashDelay;
+            float scale = DelayTimer / dashDelay;
             dashChargeBar.localScale = new Vector3(Mathf.Clamp01(scale), 1, 1);
 
-            if (delayTimer >= dashDelay)
+            if (DelayTimer >= dashDelay)
             {
                
-                delayTimer = 0;
+                DelayTimer = 0;
                 availableDashCharges.Add(this);
                 unavailableDashCharges.Remove(this);
                 return true;
@@ -76,10 +77,12 @@ public class PlayerDashState : PlayerBaseState
     private void OnEnable()
     {
         SkillEvents.OnDoubleDashSkillUnlocked += DoubleDashSkillLogic;
+        SkillEvents.OnPerfectTimingSkillUnlocked += PerfectTimingSkillLogic;
     }
     private void OnDisable()
     {
         SkillEvents.OnDoubleDashSkillUnlocked -= DoubleDashSkillLogic;
+        SkillEvents.OnPerfectTimingSkillUnlocked -= PerfectTimingSkillLogic;
     }
     private void Awake()
     {
@@ -173,7 +176,7 @@ public class PlayerDashState : PlayerBaseState
     {
         maxDashCharges = 2;
         currentDashCharges = maxDashCharges;
-        chargebar2.gameObject.SetActive(true);
+        chargebar2.parent.gameObject.SetActive(true);
         Debug.Log(dashAttackDelay);
         var charge2 = new DashChargeSlot(dashAttackDelay, chargebar2);
         availableDashCharges.Add(charge2);
@@ -181,6 +184,18 @@ public class PlayerDashState : PlayerBaseState
     }
 
     public bool CanDashAttack() => currentDashCharges > 0 && availableDashCharges.Count > 0;
+
+    private void PerfectTimingSkillLogic()
+    {
+        ParryShield.OnParrySuccessful += () =>
+        {
+            foreach (DashChargeSlot charge in unAvailableDashCharges)
+            {
+                charge.DelayTimer += 1;
+            }
+        };
+
+    }
 
 
 }

@@ -241,8 +241,8 @@ RectTransform:
   m_Children:
   - {fileID: 7069389172255927406}
   - {fileID: 1909704163013023718}
-  - {fileID: 9192451734740844369}
   - {fileID: 4819883089200240705}
+  - {fileID: 9192451734740844369}
   - {fileID: 3653792279682453662}
   - {fileID: 3149884036421910882}
   - {fileID: 8277488360089071942}
@@ -3102,7 +3102,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: a073b4182d014ca42b2af8b3f712593f, type: 2}
+      objectReference: {fileID: 11400000, guid: 15a97db934b87fe44a90a88303752af6, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1

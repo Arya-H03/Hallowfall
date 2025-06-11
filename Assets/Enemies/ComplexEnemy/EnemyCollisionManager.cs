@@ -146,7 +146,7 @@ public class EnemyCollisionManager : MonoBehaviour
 
         if(parryShield.CanCounter())
         {
-            parryShield.OnSuccessfulParry();
+            parryShield.CallOnParrySuccessfulEvent();
             enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword);
             Vector3 scale = transform.localScale;
             //Vector2 launchVec = Vector2.zero;
