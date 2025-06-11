@@ -764,7 +764,6 @@ MonoBehaviour:
   costText: {fileID: 8125676110169339114}
   resetCostText: {fileID: 2668149883061185049}
   skullText: {fileID: 1093711405722981600}
-  transferDataSO: {fileID: 0}
   resetCost: 100
 --- !u!1 &3457735962178613485
 GameObject:
@@ -3441,7 +3440,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: dc2c60912a9ee304b84156df5304243c, type: 2}
+      objectReference: {fileID: 11400000, guid: 98ec61123dc854a4a9038c41b2f38012, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 2

@@ -13,6 +13,8 @@ public class PlayerDashState : PlayerBaseState
 
     private Coroutine afterImageCoroutine;
     private AudioSource audioSource;
+    private int maxDashCharges = 1;
+    private int currentDashCharges = 1;
 
     public float DashAttackDamage { get => dashAttackDamage; set => dashAttackDamage = value; }
 
@@ -34,6 +36,12 @@ public class PlayerDashState : PlayerBaseState
         dashAttackBox = GetComponentInChildren<DashAttackBox>();
     }
 
+    public override void Start()
+    {
+        base.Start();
+        SkillEvents.OnDoubleDashSkillUnlocked += DoubleDashSkillLogic;
+    }
+
     public override void OnEnterState()
     {
         TryDashAttack();
@@ -50,20 +58,20 @@ public class PlayerDashState : PlayerBaseState
     }
 
     public void TryDashAttack()
-    {
-        if (playerController.CanDashAttack)
-            StartCoroutine(DashAttackCoroutine());
+    { 
+        if (currentDashCharges > 0) StartCoroutine(DashAttackCoroutine());
+
     }
 
     private IEnumerator DashAttackCoroutine()
     {
-        playerController.CanDashAttack = false;
+        currentDashCharges--;
 
         // Anim
         playerController.AnimationController.SetTriggerForAnimations("Dash");
 
         // Sound
-        AudioManager.Instance.PlaySFX(audioSource, dashAttackSFX[Random.Range(0, dashAttackSFX.Length)], 1);
+        AudioManager.Instance.PlaySFX(audioSource, dashAttackSFX[Random.Range(0, dashAttackSFX.Length)], dashAttackSFX.Length);
 
         // VFX
         afterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
@@ -95,6 +103,18 @@ public class PlayerDashState : PlayerBaseState
         playerController.ChangeState(PlayerStateEnum.Idle);
 
         yield return new WaitForSeconds(dashAttackDelay);
-        playerController.CanDashAttack = true;
+        currentDashCharges++;
+    }
+
+    private void DoubleDashSkillLogic()
+    {
+        maxDashCharges = 2;
+        currentDashCharges++;
+    }
+
+    public bool CanDashAttack()
+    {
+        if (currentDashCharges < 1) return false;
+        else return true;
     }
 }

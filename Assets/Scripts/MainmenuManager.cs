@@ -16,10 +16,7 @@ public class MainmenuManager : MonoBehaviour
     private void Start()
     {
         GameData gameData = SaveSystem.LoadGameData();
-        foreach (int node in gameData.skillTreeNodes)
-        {
-            Debug.Log(node);
-        }
+        
         AudioManager.Instance.LoadSoundData();
         AudioManager.Instance.PlayMusic(audioSource, backgroundMusic, 1 );  
     }

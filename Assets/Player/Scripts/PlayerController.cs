@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerGrounded = true;
     [SerializeField] private bool isPlayerJumping = false;
     [SerializeField] private bool canPlayerAttack = true;
-    [SerializeField] private bool canDashAttack = true;
     [SerializeField] private bool isParrying = false;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
@@ -76,7 +75,6 @@ public class PlayerController : MonoBehaviour
     public bool IsPlayerGrounded { get => isPlayerGrounded; set => isPlayerGrounded = value; }
     public bool IsPlayerJumping { get => isPlayerJumping; set => isPlayerJumping = value; }
     public bool CanPlayerAttack { get => canPlayerAttack; set => canPlayerAttack = value; }
-    public bool CanDashAttack { get => canDashAttack; set => canDashAttack = value; }
     public bool IsParrying { get => isParrying; set => isParrying = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
@@ -197,7 +195,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnDashAttack()
     {
-        if (canDashAttack) ChangeState(PlayerStateEnum.Dash);
+        if(playerDashState.CanDashAttack()) ChangeState(PlayerStateEnum.Dash);
+
     }
 
     public void OnStartParry()

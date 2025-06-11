@@ -113,12 +113,13 @@ public class SkillNode : MonoBehaviour
 
         Unlock();
         SaveSystem.UpdatePlayerSkulls(newSkullCount);
+        skillManager.UpdateSkullsText();
         SaveSystem.UpdateSkillTree(skillSO.id, true);
     }
 
     public void OnSkillHover()
     {
-        skillManager.ShowDescriptionFrame(transform.position, skillSO.name, skillSO.skillDescription, skillSO.skillCost);
+        skillManager.ShowDescriptionFrame(transform.position, skillSO.skillName, skillSO.skillDescription, skillSO.skillCost);
     }
 
     public void OnSkillHoverClear()
