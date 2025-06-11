@@ -71,7 +71,6 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.LoadSoundData();
         playerSkullCount = SaveSystem.LoadGameData().skullCount;
-        InitSkillsFromSkillTree();
         UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
         //StartCoroutine(OnGameStartDialogue());
 
@@ -79,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void InitSkillsFromSkillTree()
+    public void InitSkillsFromSkillTree()
     {
         skillsDictonary = new Dictionary<int, SkillSO>();
         foreach (SkillSO so in skillSORefs)

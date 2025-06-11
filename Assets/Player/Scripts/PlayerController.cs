@@ -135,11 +135,13 @@ public class PlayerController : MonoBehaviour
     {
         InitVariablesFromConfig();
         RestoreHealth(maxHealth);
+        GameManager.Instance.InitSkillsFromSkillTree();
     }
 
     private void Update()
     {
         currentState?.HandleState();
+        ManageTimers();
     }
 
     private void InitializeState<T>(ref T state) where T : PlayerBaseState
@@ -271,5 +273,10 @@ public class PlayerController : MonoBehaviour
         Vector3 center = transform.position;
         center.y += spriteRenderer.bounds.size.y / 2;
         return center;
+    }
+
+    private void ManageTimers()
+    {
+        PlayerDashState.HandleDashTimer();
     }
 }
