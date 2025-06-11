@@ -6,12 +6,12 @@ public class ParryShield : MonoBehaviour
 {
     [SerializeField] Rigidbody2D playerRB;
     [SerializeField] GameObject impactEffect;
-    private PlayerController controller;
+    private PlayerController playerController;
     private AudioSource audioSource;
 
     private void Awake()
     {
-        controller = GetComponentInParent<PlayerController>();
+        playerController = GetComponentInParent<PlayerController>();
         audioSource = GetComponentInParent<AudioSource>();
     }
 
@@ -23,7 +23,7 @@ public class ParryShield : MonoBehaviour
 
     public void OnSuccessfulParry()
     {
-        controller.AnimationController.SetBoolForAnimations("isParrySuccessful", true);
+        playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", true);
         audioSource.Play();
     }
 
@@ -31,5 +31,10 @@ public class ParryShield : MonoBehaviour
     {
         GameObject obj =Instantiate(impactEffect, position, Quaternion.identity);
         Destroy(obj,0.5f);
+    }
+
+    public bool CanCounter()
+    {
+        return playerController.PlayerParryState.CanCounterParry;
     }
 }

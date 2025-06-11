@@ -30,6 +30,14 @@ public class PlayerDashState : PlayerBaseState
         dashAttackDelay = config.dashAttackDelay;
         dashAttackSFX = config.dashAttackSFX;
     }
+    private void OnEnable()
+    {
+        SkillEvents.OnDoubleDashSkillUnlocked += DoubleDashSkillLogic;
+    }
+    private void OnDisable()
+    {
+        SkillEvents.OnDoubleDashSkillUnlocked -= DoubleDashSkillLogic;
+    }
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -39,9 +47,9 @@ public class PlayerDashState : PlayerBaseState
     public override void Start()
     {
         base.Start();
-        SkillEvents.OnDoubleDashSkillUnlocked += DoubleDashSkillLogic;
+        
     }
-
+   
     public override void OnEnterState()
     {
         TryDashAttack();

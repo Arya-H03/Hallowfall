@@ -141,21 +141,26 @@ public class EnemyCollisionManager : MonoBehaviour
 
     public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
     {
-        shield.GetComponent<ParryShield>().OnSuccessfulParry();
-        shield.GetComponent<ParryShield>().SpawnImpactEffect(hitLocation);
-        enemyController.OnEnemyHit(damage,hitLocation, HitSfxType.sword);
-        Vector3 scale = transform.localScale;
-        Vector2 launchVec = Vector2.zero;
-        if (scale.x == 1)
-        {
-            launchVec = new Vector2(5 * luanchModifier, 3 * luanchModifier);
-        }
-        if (scale.x == -1)
-        {
-            launchVec = new Vector2(-5 * luanchModifier, 3 * luanchModifier);
-        }
+        ParryShield parryShield = shield.GetComponent<ParryShield>();
+        parryShield.SpawnImpactEffect(hitLocation);
 
-        //LaunchEnemy(launchVec);
+        if(parryShield.CanCounter())
+        {
+            parryShield.OnSuccessfulParry();
+            enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword);
+            Vector3 scale = transform.localScale;
+            //Vector2 launchVec = Vector2.zero;
+            //if (scale.x == 1)
+            //{
+            //    launchVec = new Vector2(5 * luanchModifier, 3 * luanchModifier);
+            //}
+            //if (scale.x == -1)
+            //{
+            //    launchVec = new Vector2(-5 * luanchModifier, 3 * luanchModifier);
+            //}
+            //LaunchEnemy(launchVec);
+        }
+       
     }
     public void ApplyVelocity(float x, float y)
     {

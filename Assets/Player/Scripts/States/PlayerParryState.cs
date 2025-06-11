@@ -5,12 +5,24 @@ using UnityEngine;
 public class PlayerParryState : PlayerBaseState
 {
     [SerializeField] private float moveSpeedWhileParrying = 2;
+    private bool canCounterParry = false;
 
     [SerializeField] GameObject parryShield;
+
+    public bool CanCounterParry { get => canCounterParry;}
 
     public PlayerParryState()
     {
         this.stateEnum = PlayerStateEnum.Parry;
+    }
+    private void OnEnable()
+    {
+        SkillEvents.OnCounterSkillUnlocked += CounterSkillLogic;
+        
+    }
+    private void OnDisable()
+    {
+        SkillEvents.OnCounterSkillUnlocked -= CounterSkillLogic;
     }
     public override void OnEnterState()
     {
@@ -70,5 +82,10 @@ public class PlayerParryState : PlayerBaseState
             playerController.ChangeState(PlayerStateEnum.Idle);
         }
         
+    }
+
+    private void CounterSkillLogic()
+    {
+        canCounterParry = true;
     }
 }

@@ -3440,7 +3440,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 98ec61123dc854a4a9038c41b2f38012, type: 2}
+      objectReference: {fileID: 11400000, guid: 5e756539231405a488887ee35666af7e, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 2
@@ -3739,7 +3739,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 8af71cc02f05d8a40ab01a79c31f00f8, type: 2}
+      objectReference: {fileID: 11400000, guid: 98ec61123dc854a4a9038c41b2f38012, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 2

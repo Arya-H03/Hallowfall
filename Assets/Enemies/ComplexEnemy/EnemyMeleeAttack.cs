@@ -28,7 +28,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
             }
             else if(attackZone.ParryShield)
             {
-                enemyController.collisionManager.OnEnemyParried(attackZone.ParryShield, enemyController.transform.position, parryDamage);
+                enemyController.collisionManager.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerCenter(), parryDamage);
             }
            
         }
