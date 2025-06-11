@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "Skill Scriptable Object",menuName = " Skill SO")]
 public class SkillSO : ScriptableObject
 {
     public string skillName;
@@ -12,8 +11,8 @@ public class SkillSO : ScriptableObject
     public int skillCost;
     public int id;
 
-    public void ApplySkill()
+    public virtual void ApplySkill(PlayerController playerController)
     {
-        Debug.Log(skillName + " has been applied");
+       
     }
 }

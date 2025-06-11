@@ -12,11 +12,11 @@ public class InteractionHandler : MonoBehaviour
     //}
 
 
-    //private GameObject player;
+    //private GameObject playerGO;
 
     //private void Awake()
     //{
-    //    player = GameObject.FindGameObjectWithTag("Player");
+    //    playerGO = GameObject.FindGameObjectWithTag("Player");
     //}
     //private void OnEnable()
     //{
@@ -38,7 +38,7 @@ public class InteractionHandler : MonoBehaviour
     //    switch (interactionType)
     //    {      
     //        case InteractionTypeEnum.Weapon:
-    //            player.GetComponent<PlayerController>().HandelSwordEquipment(true);
+    //            playerGO.GetComponent<PlayerController>().HandelSwordEquipment(true);
     //            break;
     //    }
     //}

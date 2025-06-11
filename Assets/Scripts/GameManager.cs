@@ -24,9 +24,10 @@ public class GameManager : MonoBehaviour
     }
 
   
-    public GameObject Player { get => player; set => player = value; }
+    public GameObject Player { get => playerGO; set => playerGO = value; }
     public int PlayerScore { get => playerScore; set => playerScore = value; }
     public int PlayerSkullCount { get => playerSkullCount; set => playerSkullCount = value; }
+    public PlayerController PlayerController { get => playerController; set => playerController = value; }
 
     public Dictionary<int, SkillSO> skillsDictonary;
     [SerializeField] SkillSO [] skillSORefs;
@@ -43,7 +44,8 @@ public class GameManager : MonoBehaviour
     private int playerScore = 0;
     private int playerSkullCount = 0;
 
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject playerGO;
+    private PlayerController playerController;
 
    
 
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
      
 
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
+        PlayerController = playerGO.GetComponent<PlayerController>();
     }
 
     private void Start()
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
         {
             if(skillindices[i] == 1)
             {
-                skillsDictonary[i].ApplySkill();
+                skillsDictonary[i].ApplySkill(PlayerController);
             }
         }
     }

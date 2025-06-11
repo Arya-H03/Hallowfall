@@ -100,7 +100,7 @@
 
 //    //            break;
 //    //        case 3:
-//    //            if (/*enemyController.player.GetComponent<PlayerController>().isAttacking*/ tad.isAttaking && enemyController.GetCanBlock())
+//    //            if (/*enemyController.playerGO.GetComponent<PlayerController>().isAttacking*/ tad.isAttaking && enemyController.GetCanBlock())
 //    //            {
 //    //                swordAttackState.ChangeAction(CombatActionEnum.Block);
 //    //            }

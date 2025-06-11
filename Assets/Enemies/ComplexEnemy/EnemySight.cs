@@ -31,7 +31,7 @@ public class EnemySight : MonoBehaviour
                 Vector2 direction = Quaternion.Euler(0f, 0f, angle) * startDirection;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, visionRange, targetLayer);
 
-                // Check for collisions with the player or other objects
+                // Check for collisions with the playerGO or other objects
                 if (hit.collider != null)
                 {
 

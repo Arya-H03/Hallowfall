@@ -71,7 +71,6 @@ public class SkillNode : MonoBehaviour
         }
 
         UpdateLinkColors(true);
-        skillSO.ApplySkill();
         skillManager.UpdateSkullsText();
         UpdateNodeVisuals();
     }

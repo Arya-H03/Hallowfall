@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//This script will hold the data related to the player
+//This script will hold the data related to the playerGO
 
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Player Config Data")]
 public class PlayerConfig : ScriptableObject

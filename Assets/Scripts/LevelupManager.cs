@@ -47,7 +47,7 @@ public class LevelupManager : MonoBehaviour
         playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
         if (!playerController)
         {
-            Debug.LogWarning("Levelup manager doesn't have ref to player controller");
+            Debug.LogWarning("Levelup manager doesn't have ref to playerGO controller");
         }
         PlayerDeathState.PlayerRespawnEvent += ResetAttonement;
 

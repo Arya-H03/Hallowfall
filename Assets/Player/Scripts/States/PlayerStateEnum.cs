@@ -12,6 +12,7 @@ public enum PlayerStateEnum
    Roll,
    Hang,
    //Fall,
+   Dash,
    Death
     
 }

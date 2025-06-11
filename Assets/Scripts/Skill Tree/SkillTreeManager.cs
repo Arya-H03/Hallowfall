@@ -15,7 +15,6 @@ public class SkillTreeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI resetCostText;
 
     [SerializeField] TextMeshProUGUI skullText;
-    [SerializeField] TransferDataSO transferDataSO;
 
     private SkillNode[] skillNodes;
 
