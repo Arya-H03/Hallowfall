@@ -63,7 +63,7 @@ public class EnemyCollisionManager : MonoBehaviour
         //Damage
         enemyController.OnEnemyTakingDamage(damage, enemyController.DamageModifier);
 
-        ManageStagger(damage);
+        StaggerEnemy(damage);
 
         //Wait
         yield return new WaitForSeconds(0.1f);
@@ -105,7 +105,7 @@ public class EnemyCollisionManager : MonoBehaviour
         return null;
     }
 
-    private void ManageStagger(float damage)
+    public void StaggerEnemy(float damage)
     {
         if (currentStagger < maxStagger && canStagger) 
         {
@@ -114,7 +114,7 @@ public class EnemyCollisionManager : MonoBehaviour
             currentStagger += amount;
             if (currentStagger >= maxStagger)
             {
-                //stun enemy
+               
                 StartCoroutine(DelayStaggerCoroutine());
                 enemyController.ChangeState(EnemyStateEnum.Stun);
             }
@@ -141,12 +141,12 @@ public class EnemyCollisionManager : MonoBehaviour
 
     public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
     {
-        ParryShield parryShield = shield.GetComponent<ParryShield>();
-        parryShield.SpawnImpactEffect(hitLocation);
+        PlayerParryState parryState = shield.GetComponentInParent<PlayerParryState>();
+        parryState.SpawnImpactEffect(hitLocation);
 
-        if(parryShield.CanCounter())
+        if(parryState.CanCounter())
         {
-            parryShield.CallOnParrySuccessfulEvent();
+            parryState.CallOnParrySuccessfulEvent();
             enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword);
             Vector3 scale = transform.localScale;
             //Vector2 launchVec = Vector2.zero;

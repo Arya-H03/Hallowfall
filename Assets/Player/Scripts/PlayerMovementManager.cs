@@ -9,11 +9,13 @@ public class PlayerMovementManager : MonoBehaviour
 
     public Vector2 currentInputDir; // -1 = "A" +1 = "D" 0= None 
     private Vector2 currentDirection = new Vector2(1,0);
+    private float speedModifer = 1;
 
     private float moveSpeed;
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public Vector2 CurrentDirection { get => currentDirection; set => currentDirection = value; }
+    public float SpeedModifer { get => speedModifer; set => speedModifer = value; }
 
     private void Start()
     {
@@ -25,7 +27,7 @@ public class PlayerMovementManager : MonoBehaviour
         if (!playerController.IsPlayerJumping && !playerController.IsDead && !playerController.IsHanging /*&& !playerController.IsFalling*/)
         {
 
-            transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * Time.deltaTime;
+            transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
 
             Vector3 clampedPos = transform.position;
             clampedPos.z = Mathf.Clamp(clampedPos.z,-1,2);

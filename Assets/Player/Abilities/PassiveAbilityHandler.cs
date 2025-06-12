@@ -23,7 +23,7 @@ public class PassiveAbilityHandler : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        PlayerRunState playerRunState = playerController.GetComponentInChildren<PlayerRunState>();
+        PlayerRunState playerRunState = playerController.PlayerRunState;
         playerRunState.RunSpeed *= 1 + speedIncrease.modifier;
     }
 

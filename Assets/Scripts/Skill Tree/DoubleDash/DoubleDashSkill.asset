@@ -17,4 +17,4 @@ MonoBehaviour:
     before cooldown.
   icon: {fileID: 21300000, guid: 04b467bf0c8720144b2b304adf91079d, type: 3}
   skillCost: 20
-  id: 6
+  id: 9

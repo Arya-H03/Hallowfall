@@ -177,17 +177,15 @@ public class PlayerDashState : PlayerBaseState
         maxDashCharges = 2;
         currentDashCharges = maxDashCharges;
         chargebar2.parent.gameObject.SetActive(true);
-        Debug.Log(dashAttackDelay);
         var charge2 = new DashChargeSlot(dashAttackDelay, chargebar2);
         availableDashCharges.Add(charge2);
-            Debug.Log(dashAttackDelay);
     }
 
     public bool CanDashAttack() => currentDashCharges > 0 && availableDashCharges.Count > 0;
 
     private void PerfectTimingSkillLogic()
     {
-        ParryShield.OnParrySuccessful += () =>
+        PlayerParryState.OnParrySuccessful += () =>
         {
             foreach (DashChargeSlot charge in unAvailableDashCharges)
             {

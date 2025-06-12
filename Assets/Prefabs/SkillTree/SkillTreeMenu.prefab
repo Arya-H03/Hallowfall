@@ -1494,8 +1494,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 41}
-  m_SizeDelta: {x: 100, y: -50}
+  m_AnchoredPosition: {x: 9.5, y: 37.2}
+  m_SizeDelta: {x: 122.4647, y: -63.5189}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8633465970948647624
 CanvasRenderer:
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skill Name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 394fb4a76bd1d134ab14b23e8044a81e, type: 2}
   m_sharedMaterial: {fileID: -4653853979891478946, guid: 394fb4a76bd1d134ab14b23e8044a81e, type: 2}
@@ -2235,7 +2235,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 39c9c72234364ed4ab83321a4a353947, type: 2}
+      objectReference: {fileID: 11400000, guid: 2334c600873037546adae8b619a453ea, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1
@@ -2666,7 +2666,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 61dac6bee09f93a458556697983c2524, type: 2}
+      objectReference: {fileID: 11400000, guid: ec339f11f5f9e854f9402ce203f4eef4, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1
@@ -3263,7 +3263,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 9101f157418a79e4fab2e4b9d5a2ba43, type: 2}
+      objectReference: {fileID: 11400000, guid: 98ec61123dc854a4a9038c41b2f38012, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 2
@@ -3739,7 +3739,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 98ec61123dc854a4a9038c41b2f38012, type: 2}
+      objectReference: {fileID: 11400000, guid: 2eb327d4cd60c5541895bbbaedef5240, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 2

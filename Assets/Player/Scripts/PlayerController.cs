@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer spriteRenderer;
+    [SerializeField] LayerMask enemyLayer;
 
     // Config
     [SerializeField] private PlayerConfig playerConfig;
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour
     public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
     public PlayerDashState PlayerDashState { get => playerDashState; set => playerDashState = value; }
+    public LayerMask EnemyLayer { get => enemyLayer; set => enemyLayer = value; }
     #endregion
 
     private void Awake()
@@ -219,7 +221,12 @@ public class PlayerController : MonoBehaviour
 
     public void RestoreHealth(float amount)
     {
-        currentHealth = amount;
+        
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
     }
 
     private void OnTakingDamage(float value)
