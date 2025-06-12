@@ -2396,7 +2396,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 7285ad711ffaf1e4a94ab2ec4e3c03a7, type: 2}
+      objectReference: {fileID: 11400000, guid: b8336f3bda9c308489e635666fa8d804, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1
@@ -2799,7 +2799,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: c9137a61f3b0b78438489705301d3d3c, type: 2}
+      objectReference: {fileID: 11400000, guid: f70e65021bd52374094bdd7a2a78f7ce, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: previousNodes.Array.size
       value: 2
@@ -2957,7 +2957,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 52c10ff1f9178c44b8b159f2254b1d89, type: 2}
+      objectReference: {fileID: 11400000, guid: 441235b5b0a486449a4f1101ba396c56, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 2
@@ -3581,7 +3581,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4c6bf030bba63ac49adf508bf5245591, type: 2}
+      objectReference: {fileID: 11400000, guid: ea917f75697eaba4e8209fd67a728852, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: previousNodes.Array.size
       value: 2
@@ -3884,7 +3884,7 @@ PrefabInstance:
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: skillSO
       value: 
-      objectReference: {fileID: 11400000, guid: be246040f90c3bc4aae8fef9c7d69d99, type: 2}
+      objectReference: {fileID: 11400000, guid: 0e408cc19376d89428e6c49634231b4d, type: 2}
     - target: {fileID: 3121028525358587024, guid: 8d29a7a3c7a7c254e8656ffdc3405624, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1

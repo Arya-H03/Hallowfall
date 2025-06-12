@@ -75,10 +75,6 @@ public class MainmenuManager : MonoBehaviour
     {
         SaveSystem.UpdatePlayerSkulls(100);
         GameData gameData = SaveSystem.LoadGameData();
-        foreach (int node in gameData.skillTreeNodes)
-        {
-            Debug.Log(node);
-        }
         OpenPanel(skillPanel);
         skillPanel.GetComponent<SkillTreeManager>().UpdateSkullsText();
         skillPanel.GetComponent<SkillTreeManager>().ApplySavedSkillTree(gameData.skillTreeNodes);

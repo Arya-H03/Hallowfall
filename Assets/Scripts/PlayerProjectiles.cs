@@ -12,6 +12,7 @@ public class PlayerProjectiles : BaseProjectile
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<EnemyController>().OnEnemyHit(damage, collision.transform.position, hitSfxType);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -17,8 +17,11 @@ public class PlayerParryState : PlayerBaseState
 
     private AudioSource audioSource;
     private bool canCounterParry = false;
+    private bool canParryProjectiles = false;
 
     public bool CanCounterParry => canCounterParry;
+
+    public bool CanParryProjectiles { get => canParryProjectiles; set => canParryProjectiles = value; }
 
     public static event Action OnParrySuccessful;
 

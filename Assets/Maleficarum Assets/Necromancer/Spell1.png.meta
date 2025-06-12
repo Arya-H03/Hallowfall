@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 16384
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,9 +93,22 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +126,14 @@ TextureImporter:
       name: Spell1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 53
+        y: 32
+        width: 32
+        height: 51
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -134,13 +148,14 @@ TextureImporter:
       name: Spell1_1
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 197
+        y: 32
+        width: 32
+        height: 54
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -155,13 +170,14 @@ TextureImporter:
       name: Spell1_2
       rect:
         serializedVersion: 2
-        x: 288
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 341
+        y: 32
+        width: 32
+        height: 54
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -176,13 +192,14 @@ TextureImporter:
       name: Spell1_3
       rect:
         serializedVersion: 2
-        x: 432
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 485
+        y: 32
+        width: 32
+        height: 51
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -197,13 +214,14 @@ TextureImporter:
       name: Spell1_4
       rect:
         serializedVersion: 2
-        x: 576
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 629
+        y: 32
+        width: 32
+        height: 49
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -218,13 +236,14 @@ TextureImporter:
       name: Spell1_5
       rect:
         serializedVersion: 2
-        x: 720
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 773
+        y: 32
+        width: 32
+        height: 49
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -239,13 +258,14 @@ TextureImporter:
       name: Spell1_6
       rect:
         serializedVersion: 2
-        x: 864
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 917
+        y: 32
+        width: 34
+        height: 49
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -260,13 +280,14 @@ TextureImporter:
       name: Spell1_7
       rect:
         serializedVersion: 2
-        x: 1008
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1061
+        y: 32
+        width: 35
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -281,13 +302,14 @@ TextureImporter:
       name: Spell1_8
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1206
+        y: 32
+        width: 34
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -302,13 +324,14 @@ TextureImporter:
       name: Spell1_9
       rect:
         serializedVersion: 2
-        x: 1296
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1351
+        y: 32
+        width: 32
+        height: 53
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -323,13 +346,14 @@ TextureImporter:
       name: Spell1_10
       rect:
         serializedVersion: 2
-        x: 1440
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1493
+        y: 32
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -344,13 +368,14 @@ TextureImporter:
       name: Spell1_11
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1638
+        y: 32
+        width: 29
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -365,13 +390,14 @@ TextureImporter:
       name: Spell1_12
       rect:
         serializedVersion: 2
-        x: 1728
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1780
+        y: 32
+        width: 31
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -386,13 +412,14 @@ TextureImporter:
       name: Spell1_13
       rect:
         serializedVersion: 2
-        x: 1872
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1922
+        y: 32
+        width: 33
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -407,13 +434,14 @@ TextureImporter:
       name: Spell1_14
       rect:
         serializedVersion: 2
-        x: 2016
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 2064
+        y: 32
+        width: 35
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -428,13 +456,14 @@ TextureImporter:
       name: Spell1_15
       rect:
         serializedVersion: 2
-        x: 2160
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 2218
+        y: 32
+        width: 25
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -449,13 +478,14 @@ TextureImporter:
       name: Spell1_16
       rect:
         serializedVersion: 2
-        x: 2304
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 2361
+        y: 32
+        width: 26
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -470,13 +500,14 @@ TextureImporter:
       name: Spell1_17
       rect:
         serializedVersion: 2
-        x: 2448
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 2503
+        y: 32
+        width: 28
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -491,13 +522,14 @@ TextureImporter:
       name: Spell1_18
       rect:
         serializedVersion: 2
-        x: 2592
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 2646
+        y: 32
+        width: 29
+        height: 51
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -509,6 +541,7 @@ TextureImporter:
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -518,6 +551,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Spell1_0: -664365853
       Spell1_1: -49145385

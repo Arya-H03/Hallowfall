@@ -154,11 +154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.702387
+      value: 17.55276
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2344642
+      value: -0.60789216
       objectReference: {fileID: 0}
     - target: {fileID: 7251538344070392708, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_LocalPosition.z
@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.285
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -242,11 +242,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 4.5
+      value: 0.9375
       objectReference: {fileID: 0}
     - target: {fileID: 8813364542130030853, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.5
+      value: 1.71875
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 657778544946344706, guid: 44af6ab4dbc7c7c4fb4dcef507390006, type: 3}

@@ -121,7 +121,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 4096
     resizeAlgorithm: 0
@@ -134,7 +134,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -147,9 +147,22 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -167,13 +180,14 @@ TextureImporter:
       name: Spell2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 53
+        y: 32
+        width: 30
+        height: 53
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -188,13 +202,14 @@ TextureImporter:
       name: Spell2_1
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 197
+        y: 32
+        width: 30
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -209,13 +224,14 @@ TextureImporter:
       name: Spell2_2
       rect:
         serializedVersion: 2
-        x: 288
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 341
+        y: 32
+        width: 30
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -230,13 +246,14 @@ TextureImporter:
       name: Spell2_3
       rect:
         serializedVersion: 2
-        x: 432
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 485
+        y: 32
+        width: 30
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -251,13 +268,14 @@ TextureImporter:
       name: Spell2_4
       rect:
         serializedVersion: 2
-        x: 576
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 629
+        y: 32
+        width: 30
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -272,13 +290,14 @@ TextureImporter:
       name: Spell2_5
       rect:
         serializedVersion: 2
-        x: 720
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 774
+        y: 32
+        width: 29
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -293,13 +312,14 @@ TextureImporter:
       name: Spell2_6
       rect:
         serializedVersion: 2
-        x: 864
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 919
+        y: 32
+        width: 28
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -314,13 +334,14 @@ TextureImporter:
       name: Spell2_7
       rect:
         serializedVersion: 2
-        x: 1008
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1063
+        y: 32
+        width: 28
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -335,13 +356,14 @@ TextureImporter:
       name: Spell2_8
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1203
+        y: 32
+        width: 32
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -353,58 +375,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spell2_9
-      rect:
-        serializedVersion: 2
-        x: 1296
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9e08cf138219cb4b0800000000000000
-      internalID: -5423300249437568791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spell2_10
-      rect:
-        serializedVersion: 2
-        x: 1440
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa2f12048f9de7d90800000000000000
-      internalID: -7097996302438239574
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Spell2_11
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1349
+        y: 31
+        width: 30
+        height: 55
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -416,37 +397,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spell2_12
-      rect:
-        serializedVersion: 2
-        x: 1728
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ca942394c5a70ce90800000000000000
-      internalID: -7007466483404879444
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Spell2_13
       rect:
         serializedVersion: 2
-        x: 1872
-        y: 0
-        width: 144
-        height: 112
-      alignment: 9
-      pivot: {x: 0.5, y: 0.285}
+        x: 1493
+        y: 31
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -457,7 +418,74 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Spell2_15
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 31
+        width: 30
+        height: 51
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d203590b6bdd04846bbdef1131daeee8
+      internalID: 212761362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell2_16
+      rect:
+        serializedVersion: 2
+        x: 1781
+        y: 32
+        width: 30
+        height: 51
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88bee585284b25c49bff44c8f8739e0c
+      internalID: -234388976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell2_17
+      rect:
+        serializedVersion: 2
+        x: 1925
+        y: 32
+        width: 30
+        height: 51
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b334a6210d847a47a402793a740dd6d
+      internalID: -1498531819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: e0d7d3d39ef187548809801f01abfb7a
@@ -467,6 +495,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Spell2_0: -7132710336831216126
       Spell2_1: 4071864531623572647
@@ -474,6 +506,10 @@ TextureImporter:
       Spell2_11: 5325948251172148921
       Spell2_12: -7007466483404879444
       Spell2_13: 703796387477479175
+      Spell2_14: 1125319448
+      Spell2_15: 212761362
+      Spell2_16: -234388976
+      Spell2_17: -1498531819
       Spell2_2: 4665093342161206058
       Spell2_3: 2754278920091521496
       Spell2_4: -3655772964997902501

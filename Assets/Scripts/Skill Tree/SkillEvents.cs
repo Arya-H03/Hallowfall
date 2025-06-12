@@ -28,8 +28,14 @@ public static class SkillEvents
     public static void UnlockMomentumShift() => OnMomentumShiftSkillUnlocked?.Invoke();
     //
 
+    //
     public static event Action OnCounterSurgeSkillUnlocked;
     public static void UnlockCounterSurge() => OnCounterSurgeSkillUnlocked?.Invoke();
+    //
 
+    //
+    public static event Action OnBladeReflectionSkillUnlocked;
+    public static void UnlockBladeReflection() => OnBladeReflectionSkillUnlocked?.Invoke();
+    //
 
 }
