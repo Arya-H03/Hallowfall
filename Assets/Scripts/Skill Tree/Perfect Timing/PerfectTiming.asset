@@ -16,5 +16,5 @@ MonoBehaviour:
   skillDescription: 'Reduces cooldown of dash charges by 1 second when a perfect
     parry is executed.  '
   icon: {fileID: 21300000, guid: 92513079ad975da47b8e871e2db1b18f, type: 3}
-  skillCost: 20
+  skillCost: 40
   id: 2

@@ -1,26 +1,24 @@
-using Mono.Cecil.Cil;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 public class SkillTreeManager : MonoBehaviour
 {
+    [Header("UI Dependencies")]
 
     [SerializeField] GameObject skillDescriptionFrame;
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI costText;
     [SerializeField] TextMeshProUGUI resetCostText;
-
     [SerializeField] TextMeshProUGUI skullText;
 
     private SkillNode[] skillNodes;
 
     [SerializeField] private int resetCost = 100;
 
-    public SkillNode[] SkillNodes { get => skillNodes;}
+    public SkillNode[] SkillNodes { get => skillNodes; }
 
     private void Awake()
     {
@@ -29,16 +27,15 @@ public class SkillTreeManager : MonoBehaviour
     private void Start()
     {
         resetCostText.text = resetCost.ToString();
-       
+
     }
-    public void ShowDescriptionFrame(Vector3 pos,string name,string description,int cost)
+    public void ShowDescriptionFrame(Vector3 pos, string name, string description, int cost)
     {
-  
-        skillDescriptionFrame.transform.position = pos + new Vector3(130,70,0);
+
+        skillDescriptionFrame.transform.position = pos + new Vector3(130, 70, 0);
         nameText.text = name;
         descriptionText.text = description;
         costText.text = cost.ToString();
-
         skillDescriptionFrame.SetActive(true);
     }
 
@@ -59,7 +56,7 @@ public class SkillTreeManager : MonoBehaviour
             SaveSystem.UpdatePlayerSkulls(temp);
             UpdateSkullsText();
         }
-       
+
     }
 
     public int LoadSkullCount()
@@ -72,7 +69,7 @@ public class SkillTreeManager : MonoBehaviour
         else return 0;
     }
 
-  
+
     public void UpdateSkullsText()
     {
         skullText.text = LoadSkullCount().ToString();

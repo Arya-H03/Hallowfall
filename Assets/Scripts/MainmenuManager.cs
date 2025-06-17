@@ -73,7 +73,7 @@ public class MainmenuManager : MonoBehaviour
 
     public void OnSkillPanelClick()
     {
-        SaveSystem.UpdatePlayerSkulls(100);
+        SaveSystem.UpdatePlayerSkulls(1000);
         GameData gameData = SaveSystem.LoadGameData();
         OpenPanel(skillPanel);
         skillPanel.GetComponent<SkillTreeManager>().UpdateSkullsText();

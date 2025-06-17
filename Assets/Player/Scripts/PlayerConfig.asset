@@ -50,7 +50,7 @@ MonoBehaviour:
   dashAttackDelay: 3
   dashAttackSFX:
   - {fileID: 8300000, guid: f645405aa66244042ab36b72242e2fbb, type: 3}
-  dashAttackDamage: 20
+  dashAttackDamage: 10
   dashduration: 0.5
   rollSFX: {fileID: 8300000, guid: d4ed0ea0527d768449ff49139d403910, type: 3}
   rollCooldown: 0.5

@@ -132,16 +132,16 @@ public class SkillNode : MonoBehaviour
         isUnlocked = false;
         canBeUnlocked = false;
         UpdateLinkColors(false);
-        CheckPreviousNodes(); // will call UpdateNodeVisuals as well
+        CheckPreviousNodes();
         SaveSystem.UpdateSkillTree(skillSO.id, false);
     }
 
-  public void UnlockBasedOfSkillTreeData(int[] skillTreeNodesData)
-{
-    if (skillSO.id >= 0 && skillSO.id < skillTreeNodesData.Length && skillTreeNodesData[skillSO.id] == 1)
+    public void UnlockBasedOfSkillTreeData(int[] skillTreeNodesData)
     {
-        Unlock();
+        if (skillSO.id >= 0 && skillSO.id < skillTreeNodesData.Length && skillTreeNodesData[skillSO.id] == 1)
+        {
+            Unlock();
+        }
     }
-}
 
 }

@@ -127,7 +127,7 @@ public class PlayerParryState : PlayerBaseState
     private void CreateEffectsOnParrySuccess()
     {
         playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", true);
-        AudioManager.Instance.PlaySFX(audioSource, parrySFX, 1f);
+        
     }
 
     #endregion
@@ -192,6 +192,7 @@ public class PlayerParryState : PlayerBaseState
 
     public void SpawnImpactEffect(Vector3 position)
     {
+        AudioManager.Instance.PlaySFX(audioSource, parrySFX, 1f);
         GameObject obj = Instantiate(impactEffect, position, Quaternion.identity);
         Destroy(obj, 0.5f);
     }

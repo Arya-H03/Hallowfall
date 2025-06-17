@@ -156,8 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3a396521b4a9840b86c4ec44ecff09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
-  skull: {fileID: 1829614432987233744, guid: 1b3e8076d0fbb3b4b9530c408095a473, type: 3}
   essenceDropChance: 0.75
   skullDropChance: 0.5
   essenceDropCount: 1
@@ -484,6 +482,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -682,6 +681,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -765,7 +765,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!50 &1870428348725750115
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -776,8 +776,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 50
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -804,6 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   currentHealth: 0
+  enemyType: 0
   currentStateEnum: 1
   previousStateEnum: 0
   collisionManager: {fileID: 0}
@@ -887,7 +888,7 @@ MonoBehaviour:
   maxStagger: 100
   currentStagger: 0
   hitSFXs:
-  - hitType: 0
+  - hitType: 1
     sound:
     - {fileID: 8300000, guid: d91a402b04334924295bde84bee00dfe, type: 3}
     - {fileID: 8300000, guid: 4245c2c6fc3fc8749a7c8eeca3087a9c, type: 3}
@@ -1447,11 +1448,6 @@ MonoBehaviour:
   walkGroundSFX: {fileID: 8300000, guid: 63e8979eaa8545041886dd575eadf068, type: 3}
   walkGrassSFX: {fileID: 8300000, guid: 9dbe8e3c84c1c3248be7c807ff8b366a, type: 3}
   walkWoodSFX: {fileID: 8300000, guid: 1f411e15fe2775c48baeaeb6961558ff, type: 3}
-  patrolDialogues:
-  - ' More... More...'
-  - ' It hurts'
-  - ' Help me...'
-  - ' Please make it ... end'
 --- !u!82 &8254217218296372889
 AudioSource:
   m_ObjectHideFlags: 0

@@ -16,5 +16,5 @@ MonoBehaviour:
   skillDescription: Successful parry instantly  increases movement speed briefly
     by 25%
   icon: {fileID: 21300000, guid: 44fe331ac7ba6c944bf908da7a49b81b, type: 3}
-  skillCost: 20
+  skillCost: 80
   id: 6
