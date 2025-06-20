@@ -163,6 +163,17 @@ public class ZoneManager : MonoBehaviour
                 boundsTilemapGO.transform.parent = zoneHandler.transform;
                 zoneHandler.BoundsTilemap = boundsTilemapGO.GetComponent<Tilemap>();
                 break;
+            case ZoneType.plain:
+                ZoneHandler zoneHandler1;
+                zoneHandler1 = zone.AddComponent<ZoneHandler>();
+                zoneHandler1.ZoneData = generatedZones[centerCoord];
+                zoneHandler1.ZoneConfig = zoneConfig;
+                zoneHandler1.ZoneLayoutProfile = layoutProfile;
+
+                GameObject boundsTilemapGO1 = Instantiate(layoutProfile.boundsTilemapGO, zoneHandler1.transform.position, Quaternion.identity);
+                boundsTilemapGO1.transform.parent = zoneHandler1.transform;
+                
+                break;
         }
 
         return zone;
@@ -173,7 +184,7 @@ public class ZoneManager : MonoBehaviour
         //{
         //    ZoneType.plain,
         //    ZoneType.graveYard,
-        //    ZoneType.forest
+        //    //ZoneType.forest
         //};
 
         //ZoneType randomZoneType = availableTypes[Random.Range(0, availableTypes.Length)];
@@ -197,11 +208,11 @@ public class ZoneManager : MonoBehaviour
         //    else return ZoneType.plain;
 
         return ZoneType.graveYard;
-        }
-
-
+    }
 
     }
+
+    
 
 
 

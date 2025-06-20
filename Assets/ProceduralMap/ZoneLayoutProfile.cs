@@ -8,6 +8,7 @@ public class ZoneLayoutProfile : ScriptableObject
     public GameObject[] spawnableEnemies;
     public RuleTile boundsRuletile;
     public RuleTile roadRuletile;
+    public RuleTile grassRuletile;
     public GameObject boundsTilemapGO;
     public GameObject roadTilemapGO;
 

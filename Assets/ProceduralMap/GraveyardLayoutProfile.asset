@@ -19,6 +19,8 @@ MonoBehaviour:
   - {fileID: 983279250708676640, guid: 5fb84f99050db74479f957f361b51e2c, type: 3}
   spawnableEnemies: []
   boundsRuletile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
+  roadRuletile: {fileID: 11400000, guid: 2d61515541fa4894d83fc7e82242bd67, type: 2}
+  grassRuletile: {fileID: 11400000, guid: 85a8a02c8975ad04eae2847e08bdc38f, type: 2}
   boundsTilemapGO: {fileID: 7199170358617231945, guid: 667d61235b026234089e261558d853aa, type: 3}
   roadTilemapGO: {fileID: 3014794104365759543, guid: 74e646923e0cefc44a31438bd826a229, type: 3}
   clutterDensity: 0.05

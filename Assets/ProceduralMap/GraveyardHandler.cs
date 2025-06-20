@@ -8,6 +8,7 @@ public class GraveyardHandler : ZoneHandler
 {
     private Tilemap boundsTilemap;
     private Tilemap roadTilemap;
+    private Tilemap groundTilemap;
 
     private Dictionary<ZoneDir, Vector2Int[]> zoneOpenings = new Dictionary<ZoneDir, Vector2Int[]>();
 
@@ -16,6 +17,7 @@ public class GraveyardHandler : ZoneHandler
     protected override void Awake()
     {
         base.Awake();
+        groundTilemap = transform.GetChild(0).GetComponentInChildren<Tilemap>();
     }
 
     protected override void Start()
@@ -49,117 +51,152 @@ public class GraveyardHandler : ZoneHandler
     private void GenerateBoundsTilemap()
     {
         List<ZoneDir> dirs = new List<ZoneDir> { ZoneDir.Left, ZoneDir.Right, ZoneDir.Up, ZoneDir.Down };
-        int openingCount = Random.Range(2, 2);
+        int openingCount = Random.Range(2, 3);
 
+        // Always one horizontal + one vertical + one random
         List<ZoneDir> openingDir = new List<ZoneDir>();
-        List<ZoneDir> hDir = new List<ZoneDir>() { ZoneDir.Left, ZoneDir.Right };
-        openingDir.Add(hDir[Random.Range(0, hDir.Count)]);
-        List<ZoneDir> VDir = new List<ZoneDir>() { ZoneDir.Down, ZoneDir.Up };
-        openingDir.Add(VDir[Random.Range(0, VDir.Count)]);
 
-        //for (int i = 0; i < openingCount; i++)
-        //{
-        //    int randIndex = Random.Range(0, dirs.Count);
-        //    openingDir.Add(dirs[randIndex]);
-        //    dirs.RemoveAt(randIndex);
-        //}
+        ZoneDir horizontal = new List<ZoneDir> { ZoneDir.Left, ZoneDir.Right }[Random.Range(0, 2)];
+        ZoneDir vertical = new List<ZoneDir> { ZoneDir.Up, ZoneDir.Down }[Random.Range(0, 2)];
 
-        for (int i = 0; i < cellsY - 1; i++)
+        openingDir.Add(horizontal);
+        openingDir.Add(vertical);
+
+        dirs.Remove(horizontal);
+        dirs.Remove(vertical);
+
+        openingDir.Add(dirs[Random.Range(0, dirs.Count)]);
+
+        // Create border tiles
+        for (int i = 0; i < cellsY; i++)
         {
-            // Bottom (Down)
-            boundsTilemap.SetTile(PositionFromGridCell(i, 0), zoneLayoutProfile.boundsRuletile);
-            cells[i, 0].isOccupied = true;
-            // Top (Up)
-            boundsTilemap.SetTile(PositionFromGridCell(i, cellsY - 2), zoneLayoutProfile.boundsRuletile);
-            cells[i, cellsY - 2].isOccupied = true;
-            // Left
-            boundsTilemap.SetTile(PositionFromGridCell(0, i), zoneLayoutProfile.boundsRuletile);
-            cells[0, i].isOccupied = true;
-            // Right
-            boundsTilemap.SetTile(PositionFromGridCell(cellsX - 1, i), zoneLayoutProfile.boundsRuletile);
-            cells[cellsX - 1, i].isOccupied = true;
+            boundsTilemap.SetTile(PositionFromGridCell(i, 0), zoneLayoutProfile.boundsRuletile); // Down
+            boundsTilemap.SetTile(PositionFromGridCell(i, cellsY - 1), zoneLayoutProfile.boundsRuletile); // Up
+            boundsTilemap.SetTile(PositionFromGridCell(0, i), zoneLayoutProfile.boundsRuletile); // Left
+            boundsTilemap.SetTile(PositionFromGridCell(cellsX - 1, i), zoneLayoutProfile.boundsRuletile); // Right
+
+            cells[i, 0].isOccupied = false;
+            cells[i, cellsY - 1].isOccupied = false;
+            cells[0, i].isOccupied = false;
+            cells[cellsX - 1, i].isOccupied = false;
         }
 
-        // Openings
-        if (openingDir.Contains(ZoneDir.Down))
+        // Openings for each selected side
+        foreach (ZoneDir dir in openingDir)
         {
-            int[] openingCells = GenerateRandomOpeningCells();
-            zoneOpenings.Add(ZoneDir.Down, new Vector2Int[openingCells.Length]);
+            int[] openingIndices = GenerateRandomOpeningCells();
+            Vector2Int[] openings = new Vector2Int[openingIndices.Length];
+            zoneOpenings.Add(dir, openings);
 
-            for (int i = 0; i < openingCells.Length; i++)
+            for (int i = 0; i < openingIndices.Length; i++)
             {
-                boundsTilemap.SetTile(PositionFromGridCell(openingCells[i], 0), null);
-                zoneOpenings[ZoneDir.Down][i] = new Vector2Int(openingCells[i], 0);
-                cells[openingCells[i], 0].isOccupied = false;
+                Vector2Int cellCoord = Vector2Int.zero;
+
+                switch (dir)
+                {
+                    case ZoneDir.Down:
+                        cellCoord = new Vector2Int(openingIndices[i], 0);
+                        break;
+                    case ZoneDir.Up:
+                        cellCoord = new Vector2Int(openingIndices[i], cellsY - 1);
+                        break;
+                    case ZoneDir.Left:
+                        cellCoord = new Vector2Int(0, openingIndices[i]);
+                        break;
+                    case ZoneDir.Right:
+                        cellCoord = new Vector2Int(cellsX - 1, openingIndices[i]);
+                        break;
+                }
+
+                boundsTilemap.SetTile(PositionFromGridCell(cellCoord.x, cellCoord.y), null);
+                zoneOpenings[dir][i] = cellCoord;
+                cells[cellCoord.x, cellCoord.y].isOccupied = true;
             }
         }
-
-        if (openingDir.Contains(ZoneDir.Up))
-        {
-            int[] openingCells = GenerateRandomOpeningCells();
-            zoneOpenings.Add(ZoneDir.Up, new Vector2Int[openingCells.Length]);
-
-            for (int i = 0; i < openingCells.Length; i++)
-            {
-                boundsTilemap.SetTile(PositionFromGridCell(openingCells[i], cellsY - 2), null);
-                zoneOpenings[ZoneDir.Up][i] = new Vector2Int(openingCells[i], cellsY - 2);
-                cells[openingCells[i], cellsY - 2].isOccupied = false;
-            }
-        }
-
-        if (openingDir.Contains(ZoneDir.Left))
-        {
-            int[] openingCells = GenerateRandomOpeningCells();
-            zoneOpenings.Add(ZoneDir.Left, new Vector2Int[openingCells.Length]);
-
-            for (int i = 0; i < openingCells.Length; i++)
-            {
-                boundsTilemap.SetTile(PositionFromGridCell(0, openingCells[i]), null);
-                zoneOpenings[ZoneDir.Left][i] = new Vector2Int(0, openingCells[i]);
-                cells[0, openingCells[i]].isOccupied = false;
-            }
-        }
-
-        if (openingDir.Contains(ZoneDir.Right))
-        {
-            int[] openingCells = GenerateRandomOpeningCells();
-            zoneOpenings.Add(ZoneDir.Right, new Vector2Int[openingCells.Length]);
-
-            for (int i = 0; i < openingCells.Length; i++)
-            {
-                boundsTilemap.SetTile(PositionFromGridCell(cellsX - 1, openingCells[i]), null);
-                zoneOpenings[ZoneDir.Right][i] = new Vector2Int(cellsX - 1, openingCells[i]);
-                cells[cellsX - 1, openingCells[i]].isOccupied = false;
-            }
-        }
-
 
         GenerateRoadTileMap();
     }
 
+
     private void GenerateRoadTileMap()
     {
-        GameObject roadTilemapGO = Instantiate(zoneLayoutProfile.roadTilemapGO, transform.position, Quaternion.identity);
-        roadTilemapGO.transform.parent = transform;
-        roadTilemap = roadTilemapGO.GetComponent<Tilemap>();
+        SetupRoadTilemap();
 
         var firstKvp = zoneOpenings.ElementAt(0);
         var secondKvp = zoneOpenings.ElementAt(1);
 
-        
+        ConnectAll(firstKvp.Value, secondKvp.Value);
 
-        for (int i = 0; i < 3; i++)
+        // Handle third direction if it exists
+        if (zoneOpenings.Count == 3)
         {
-            Vector2Int junction = GetOpeningJunctionPoint(firstKvp.Value[i], secondKvp.Value[i]);
-            DrawStraightRoad(firstKvp.Value[i], junction);
-            DrawStraightRoad(secondKvp.Value[i] , junction);
+            var thirdKvp = zoneOpenings.ElementAt(2);
+            ZoneDir thirdDir = thirdKvp.Key;
 
-            roadTilemap.SetTile(PositionFromGridCell(junction.x, junction.y), zoneLayoutProfile.roadRuletile);
+            if (thirdDir == ZoneDir.Up || thirdDir == ZoneDir.Down)
+            {
+                if (zoneOpenings.ContainsKey(ZoneDir.Left))
+                    ConnectAll(zoneOpenings[ZoneDir.Left], thirdKvp.Value);
+
+                if (zoneOpenings.ContainsKey(ZoneDir.Right))
+                    ConnectAll(zoneOpenings[ZoneDir.Right], thirdKvp.Value);
+            }
+
+            if (thirdDir == ZoneDir.Left || thirdDir == ZoneDir.Right)
+            {
+                if (zoneOpenings.ContainsKey(ZoneDir.Up))
+                    ConnectAll(zoneOpenings[ZoneDir.Up], thirdKvp.Value);
+
+                if (zoneOpenings.ContainsKey(ZoneDir.Down))
+                    ConnectAll(zoneOpenings[ZoneDir.Down], thirdKvp.Value);
+            }
         }
 
-  
+        PaintUnoccupiedGround();
         PopulateZone();
     }
+
+    private void SetupRoadTilemap()
+    {
+        GameObject roadTilemapGO = Instantiate(zoneLayoutProfile.roadTilemapGO, transform.position, Quaternion.identity);
+        roadTilemapGO.transform.parent = transform;
+        roadTilemap = roadTilemapGO.GetComponent<Tilemap>();
+    }
+
+    private void ConnectAll(Vector2Int[] from, Vector2Int[] to)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Connect(from[i], to[i]);         // Matching index
+            Connect(from[i], to[2 - i]);     // Flipped index
+        }
+    }
+
+    private void Connect(Vector2Int p1, Vector2Int p2)
+    {
+        Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
+
+        DrawStraightRoad(p1, junction);
+        DrawStraightRoad(p2, junction);
+
+        roadTilemap.SetTile(PositionFromGridCell(junction.x, junction.y), zoneLayoutProfile.roadRuletile);
+    }
+
+    private void PaintUnoccupiedGround()
+    {
+        for (int y = 0; y < cellsY; y++)
+        {
+            for (int x = 0; x < cellsX; x++)
+            {
+                if (!cells[x, y].isOccupied)
+                {
+                    groundTilemap.SetTile(PositionFromGridCell(x, y), zoneLayoutProfile.grassRuletile);
+                }
+            }
+        }
+    }
+
+
 
 
     private void DrawStraightRoad(Vector2Int from, Vector2Int to)
@@ -182,7 +219,7 @@ public class GraveyardHandler : ZoneHandler
             int xMin = Mathf.Min(from.x, to.x);
             int xMax = Mathf.Max(from.x, to.x);
 
-            for (int x = xMin; x < xMax; x++)
+            for (int x = xMin; x < xMax +1; x++)
             {
                 roadTilemap.SetTile(PositionFromGridCell(x, from.y), zoneLayoutProfile.roadRuletile);
                 cells[x, from.y].isOccupied = true;
