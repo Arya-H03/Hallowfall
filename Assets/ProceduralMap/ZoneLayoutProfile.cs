@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "ZoneLayoutProfile", menuName = "Scriptable Objects/ZoneLayoutProfile")]
 public class ZoneLayoutProfile : ScriptableObject
 {
     public GameObject[] spawnableProps; 
     public GameObject[] spawnableEnemies;
+    public RuleTile boundsRuletile;
+    public RuleTile roadRuletile;
+    public GameObject boundsTilemapGO;
+    public GameObject roadTilemapGO;
 
     [Range(0f, 1f)] public float clutterDensity = 0.3f;
 

@@ -6,11 +6,11 @@ public class ZoneData
     public Vector2Int centerCoord;
     public Vector2 centerPos;
     public GameObject zoneGO;
-    public ZoneExpansionDir previousZoneDir;
+    public ZoneDir previousZoneDir;
     public ZoneType zoneType;
     public ZoneLayoutProfile zoneProfile;
 
-    public ZoneData (Vector2Int centerCoord, Vector2 centerPos, GameObject zoneGO, ZoneExpansionDir previousZoneDir,ZoneType zoneType,ZoneLayoutProfile zoneProfile)
+    public ZoneData (Vector2Int centerCoord, Vector2 centerPos, GameObject zoneGO, ZoneDir previousZoneDir,ZoneType zoneType,ZoneLayoutProfile zoneProfile)
     {
         this.centerCoord = centerCoord;
         this.centerPos = centerPos;

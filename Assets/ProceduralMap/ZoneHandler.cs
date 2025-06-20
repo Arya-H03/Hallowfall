@@ -5,6 +5,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 
 [System.Serializable]
+
 public class Cell
 {
     public bool isOccupied = false;
@@ -51,32 +52,31 @@ public class Cell
 
     }
 }
-public class MapZone : MonoBehaviour
+public class ZoneHandler : MonoBehaviour
 {
-    [SerializeField] private ZoneData zoneData;
-    [SerializeField] private ZoneLayoutProfile zoneLayoutProfile;
+    protected ZoneConfig zoneConfig;
+    protected ZoneData zoneData;
+    protected ZoneLayoutProfile zoneLayoutProfile;
 
-    private ZoneConfig zoneConfig;
-
-    private int cellSize = 1;
-    private int cellsX;
-    private int cellsY;
+    [SerializeField] protected Cell[,] cells;
+    protected int cellSize = 1;
+    protected int cellsX;
+    protected int cellsY;
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
     public ZoneConfig ZoneConfig { set => zoneConfig = value; }
+    public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
 
-    [SerializeField] private Cell[,] cells;
-
-    [SerializeField] GameObject [] propPrefabs;
-    private void Awake()
+    
+    protected virtual void Awake()
     {
         cellsX = Mathf.FloorToInt(40 / cellSize);
         cellsY = Mathf.FloorToInt(40 / cellSize);
         cells = new Cell[cellsX, cellsY];
 
-       
+
 
     }
-    private void Start()
+    protected virtual void Start()
     {
         for (int i = 0; i < cellsX; i++)
         {
@@ -86,95 +86,79 @@ public class MapZone : MonoBehaviour
                 cells[i, j] = new Cell(false, temp, zoneData.centerPos, cellSize);
 
             }
+
         }
 
-        PopulateZone();
+        CreateZoneEnvironemnt();
+
+    }
+
+
+    protected virtual void CreateZoneEnvironemnt()
+    {
+        //switch (zoneData.zoneType)
+        //{
+        //    case ZoneType.plain:
+        //        break;
+        //    case ZoneType.graveYard:
+        //        CreateBoundsTilemap();
+                
+        //        break;
+        //    //case ZoneType.forest:
+        //    //    CreateForestTilemap();
+        //    //    break;
+
+        //}
+    }
+    protected virtual void CreateBoundsTilemap()
+    {
        
     }
 
-    public void CreateZoneEnvironemnt()
-    {
-        switch (zoneData.zoneType)
-        {
-            case ZoneType.plain:
-                break;
-            case ZoneType.graveYard:
-                CreateFenceTilemap();
-                break;
-            case ZoneType.forest:
-                CreateForestTilemap();
-                break;
+    //private void CreateForestTilemap()
+    //{
+    //    ZoneDir dir = zoneData.previousZoneDir;
+    //    switch (dir)
+    //    {
+    //        case ZoneDir.None:
+    //            break;
+    //        case ZoneDir.Left:
+    //            GenerateTilemap(zoneConfig.forestWestOpen);
+    //            break;
+    //        case ZoneDir.Right:
+    //            GenerateTilemap(zoneConfig.forestEastOpen);
+    //            break;
+    //        case ZoneDir.Down:
+    //            GenerateTilemap(zoneConfig.forestSouthOpen);
+    //            break;
+    //        case ZoneDir.Up:
+    //            GenerateTilemap(zoneConfig.forestNorthOpen);
+    //            break;
+    //    }
+    //}
 
-        }
-
-
-
-    }
-    private void CreateFenceTilemap()
-    {
-        ZoneExpansionDir dir = zoneData.previousZoneDir;
-        switch (dir)
-        {
-            case ZoneExpansionDir.None:
-                break;
-            case ZoneExpansionDir.Left:
-                GenerateTilemap(zoneConfig.fenceWestOpen);
-                break;
-            case ZoneExpansionDir.Right:
-                GenerateTilemap(zoneConfig.fenceEastOpen);
-                break;
-            case ZoneExpansionDir.Down:
-                GenerateTilemap(zoneConfig.fenceSouthOpen);
-                break;
-            case ZoneExpansionDir.Up:
-                GenerateTilemap(zoneConfig.fenceNorthOpen);
-                break;
-        }
-    }
-
-    private void CreateForestTilemap()
-    {
-        ZoneExpansionDir dir = zoneData.previousZoneDir;
-        switch (dir)
-        {
-            case ZoneExpansionDir.None:
-                break;
-            case ZoneExpansionDir.Left:
-                GenerateTilemap(zoneConfig.forestWestOpen);
-                break;
-            case ZoneExpansionDir.Right:
-                GenerateTilemap(zoneConfig.forestEastOpen);
-                break;
-            case ZoneExpansionDir.Down:
-                GenerateTilemap(zoneConfig.forestSouthOpen);
-                break;
-            case ZoneExpansionDir.Up:
-                GenerateTilemap(zoneConfig.forestNorthOpen);
-                break;
-        }
-    }
-
-    private void GenerateTilemap(GameObject[] objs)
+    protected virtual void GenerateTilemap(GameObject[] objs)
     {
         GameObject tilemap = Instantiate(objs[Random.Range(0, objs.Length)], transform.position, Quaternion.identity);
         tilemap.transform.parent = this.transform;
     }
 
-    public void PopulateZone()
+    public virtual void PopulateZone()
     {
         for (int y = 1; y < cellsY - 1; y++)
         {
             for (int x = 1; x < cellsX - 1; x++)
             {
-                if (Random.value > zoneLayoutProfile.clutterDensity)
-                                continue;
-                    // If the origin cell and its neighbors aren't occupied
-                    if (!cells[x, y].isOccupied && !cells[x, y].AreNeighboorsOccupied(cells))
+                if (Random.value > ZoneLayoutProfile.clutterDensity)
+                    continue;
+               
+                // If the origin cell and its neighbors aren't occupied
+                if (!cells[x, y].isOccupied && !cells[x, y].AreNeighboorsOccupied(cells))
                 {
                     Cell cell = cells[x, y];
-                    GameObject propPrefab = propPrefabs[Random.Range(0, propPrefabs.Length)];   
+                    GameObject propPrefab = zoneLayoutProfile.GetRandomProps();
                     // Setup prefab appearance
-                    SpriteRenderer sr = propPrefab.GetComponent<SpriteRenderer>();
+                    SpriteRenderer sr = propPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>();
                     //propPrefab.transform.localScale = new Vector3(Random.Range(1, 10), Random.Range(1, 10), 0);
 
                     if (sr == null)
@@ -212,6 +196,7 @@ public class MapZone : MonoBehaviour
                         {
                             GameObject prop = Instantiate(propPrefab, cell.cellPos, Quaternion.identity);
                             prop.transform.parent = this.transform;
+                            prop.GetComponent<PropsBlock>().RandomizeProps();
 
                             for (int i = cell.cellID.x; i < cell.cellID.x + width; i++)
                             {
@@ -229,43 +214,6 @@ public class MapZone : MonoBehaviour
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //for (int i = 1; i < cellsX - 1; i++)
-    //{
-    //    for (int j = 1; j < cellsY - 1; j++)
-    //    {
-    //        if (Random.value > zoneData.zoneProfile.clutterDensity)
-    //            continue;
-
-    //        Vector2 cellCenter = zoneData.centerPos + new Vector2(-20, -20) + new Vector2(i * cellSize + cellSize / 2f, j * cellSize + cellSize / 2f);
-    //        Vector2 offset = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
-    //        Vector2 spawnPos = cellCenter + offset;
-
-    //        if (!Physics2D.OverlapCircle(spawnPos, 0.5f, zoneData.zoneProfile.propsMask))
-    //        {
-    //            GameObject prefab = zoneData.zoneProfile.GetRandomProps();
-    //            if (prefab != null)
-    //            {
-    //                GameObject props = Instantiate(prefab, spawnPos, Quaternion.identity);
-    //                props.transform.parent = this.transform;
-    //            }
-
-    //        }
-
-    //    }
-    //}
 }
 
 

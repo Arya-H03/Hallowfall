@@ -13,26 +13,15 @@ MonoBehaviour:
   m_Name: GraveyardLayoutProfile
   m_EditorClassIdentifier: 
   spawnableProps:
-  - {fileID: 5749592551292473230, guid: 2ac8fb71396cd314a85b625fa1763aef, type: 3}
-  - {fileID: 6162800200986904172, guid: d975fbdad4827a44290b708096187aa3, type: 3}
-  - {fileID: 682361227824954020, guid: b4c8d9ae1abf6d244a44f2d114e89c65, type: 3}
-  - {fileID: 2960029676775791820, guid: 62681f9b047acb9409d5eb45090e4acb, type: 3}
-  - {fileID: 5574557561951763885, guid: 4a46d8ae6afc08d4098641a95cd00228, type: 3}
-  - {fileID: 4140897371456412361, guid: 43f11556aa9e04d41bbf624fda9dcdf2, type: 3}
-  - {fileID: 3461613141668284165, guid: 0f58e11d12693ef438ca770f2f93e05c, type: 3}
-  - {fileID: 4291128019438856097, guid: 5f9fcb89eeb62054783bb4090c89d5fa, type: 3}
-  - {fileID: 1727737056498173627, guid: 08f25b5af2eb82e478030fd04be28907, type: 3}
-  - {fileID: 8390977233641983944, guid: a27a37db5c35ea649b600ebe70396e2c, type: 3}
-  - {fileID: 4889370756323068371, guid: 8dc3d1cae91a49f47870f0c980b8df0d, type: 3}
-  - {fileID: 5874271749174615420, guid: 1273d3d9dcadfce47be7c20f4b645ccc, type: 3}
-  - {fileID: 8275266415107149523, guid: af1f8761e0dc746429195438792296b5, type: 3}
-  - {fileID: 3731876037047276684, guid: 31c5c2ae081e75b4b90caa45505698a9, type: 3}
-  - {fileID: 3339151526449058601, guid: 0b711994b5a857f41b0855d78852d4e9, type: 3}
-  - {fileID: 3347955691634420043, guid: 3141549a10c66ba4385081382c48f29d, type: 3}
-  - {fileID: 1000106892697823695, guid: 059b98d446e1a7c4abc67fb9f83b8b19, type: 3}
-  - {fileID: 5596647563769219919, guid: 50074f375c5ac1f4f857bdfb09d42d21, type: 3}
+  - {fileID: 4035244870714783132, guid: cc66af4c3f46f6147b3d8ffc55f39b11, type: 3}
+  - {fileID: 798044102542940879, guid: b49e3eeb28d804b469f02a7abd4e9459, type: 3}
+  - {fileID: 2207269775461395259, guid: 4ea149cb192072e4fb5ff8ab56ac00b2, type: 3}
+  - {fileID: 983279250708676640, guid: 5fb84f99050db74479f957f361b51e2c, type: 3}
   spawnableEnemies: []
-  clutterDensity: 0.1
+  boundsRuletile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
+  boundsTilemapGO: {fileID: 7199170358617231945, guid: 667d61235b026234089e261558d853aa, type: 3}
+  roadTilemapGO: {fileID: 3014794104365759543, guid: 74e646923e0cefc44a31438bd826a229, type: 3}
+  clutterDensity: 0.05
   propsMask:
     serializedVersion: 2
     m_Bits: 4096
