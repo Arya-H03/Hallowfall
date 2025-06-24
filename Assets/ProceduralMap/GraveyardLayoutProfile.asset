@@ -9,21 +9,78 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd8fef8bc7ae2a43b6f3efa587e3b40, type: 3}
-  m_Name: GraveyardLayoutProfile
+  m_Script: {fileID: 11500000, guid: 27d7bf9b8d7f14e49a8e0676006c08ef, type: 3}
+  m_Name: GraveYardLayoutProfile
   m_EditorClassIdentifier: 
+  spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
   spawnableProps:
-  - {fileID: 4035244870714783132, guid: cc66af4c3f46f6147b3d8ffc55f39b11, type: 3}
-  - {fileID: 798044102542940879, guid: b49e3eeb28d804b469f02a7abd4e9459, type: 3}
-  - {fileID: 2207269775461395259, guid: 4ea149cb192072e4fb5ff8ab56ac00b2, type: 3}
-  - {fileID: 983279250708676640, guid: 5fb84f99050db74479f957f361b51e2c, type: 3}
+  - {fileID: 2116942570840021646, guid: f743b0f396aed61409333e73314d1dfb, type: 3}
+  - {fileID: 2116942570840021646, guid: f50164c213c24f840acca840e61c1554, type: 3}
+  - {fileID: 8015386513823796601, guid: 406fc3b332f0bd640a333443bcaa4c61, type: 3}
+  - {fileID: 8015386513823796601, guid: 4db9caaac95ad2b4e8ce735dd79c6f49, type: 3}
+  - {fileID: 1270424617832940648, guid: 5cd33224852931142bbad7be751c178f, type: 3}
+  - {fileID: 5810817117608583190, guid: b202e445562e03f4ca0c8fa64ee65e98, type: 3}
+  - {fileID: 5218440958719116656, guid: 0c498dc13a6d20c4b903ca591f2b88e8, type: 3}
+  - {fileID: 3954966993880544237, guid: eab41cd8c1019b745b6ebc2654d8f6b7, type: 3}
+  - {fileID: 101522738342321551, guid: 644c0e5ad384c524bbcf0ccc12581d05, type: 3}
+  - {fileID: 2217606935629649941, guid: 5a7b3548f7d02a54c824e3989979ca3c, type: 3}
+  - {fileID: 282217402429925430, guid: 2557c078c9d516847a4317692754a6f8, type: 3}
+  - {fileID: 8227567688403185011, guid: dd37334d41ab186488f5b5e20e019f74, type: 3}
+  - {fileID: 8556126852024144911, guid: 2dccd680d758a3d49a1db3143dac6fc4, type: 3}
+  - {fileID: 2437612213746698598, guid: db969f0e473783b4eb1e7e6c1407e1c3, type: 3}
+  - {fileID: 8296004847141808575, guid: 308fd7d4ff2b7dd43aab29c3a4d4a0c9, type: 3}
+  - {fileID: 7778781041282610661, guid: f68ba5cad0c0d36438a845ff7af8fe96, type: 3}
+  - {fileID: 1035728178011172678, guid: b57397cd1a0d64b40802f3c6ab7abc60, type: 3}
+  - {fileID: 4829315417201792149, guid: 12320d943b29e7b46a614c0dc63057bc, type: 3}
+  - {fileID: 4129111117221835891, guid: 5757d138093927d4ba5b7c51ca578580, type: 3}
+  - {fileID: 6859970659447716983, guid: 1df049a6d4411574fb10cb42ac86af13, type: 3}
+  - {fileID: 9162098144533018571, guid: d69c0723de4d3484ebc1e24a0b0ed3a3, type: 3}
+  - {fileID: 6721380050452957952, guid: 3245b5cc3a68a5c498fe3e878d1c026d, type: 3}
   spawnableEnemies: []
   boundsRuletile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
   roadRuletile: {fileID: 11400000, guid: 2d61515541fa4894d83fc7e82242bd67, type: 2}
   grassRuletile: {fileID: 11400000, guid: 85a8a02c8975ad04eae2847e08bdc38f, type: 2}
   boundsTilemapGO: {fileID: 7199170358617231945, guid: 667d61235b026234089e261558d853aa, type: 3}
   roadTilemapGO: {fileID: 3014794104365759543, guid: 74e646923e0cefc44a31438bd826a229, type: 3}
-  clutterDensity: 0.05
+  clutterDensity: 0.3
   propsMask:
     serializedVersion: 2
     m_Bits: 4096
+  graveStoneSprites:
+  - {fileID: 21300000, guid: 1bdff9414d65b0c4ca4ae06c42bfe888, type: 3}
+  - {fileID: 21300000, guid: a544ce095926ce2409fe75f5ec0bfffd, type: 3}
+  - {fileID: 21300000, guid: 51146efc6deb08b41af5d73a47728984, type: 3}
+  - {fileID: 21300000, guid: f1592c44ee125e442bb9f01c7d7dd877, type: 3}
+  - {fileID: 21300000, guid: 3159743d0fbc7df49abca5058c87f6bf, type: 3}
+  - {fileID: 21300000, guid: 0e310dd8b5e62a74d80185047a45d906, type: 3}
+  - {fileID: 21300000, guid: 3a49ba30e1978f646b41bb99e3b25306, type: 3}
+  - {fileID: 21300000, guid: ff91bae4180dbf345b394a817e55a35e, type: 3}
+  - {fileID: 21300000, guid: 51e072d6311682d45a4f65b9d8635699, type: 3}
+  - {fileID: 21300000, guid: a9f6858efd7d7654bb0659f92ca34b6c, type: 3}
+  - {fileID: 21300000, guid: 3abe35a5d76098740a43ed7f4e67e5a4, type: 3}
+  - {fileID: 21300000, guid: 91d183cefb0323a458e4598d68bd06d5, type: 3}
+  - {fileID: 21300000, guid: d84df709aa49ceb40bdb13701ceab3e1, type: 3}
+  - {fileID: 21300000, guid: cc3336c9fee20584b8af58cb2b9c2593, type: 3}
+  - {fileID: 21300000, guid: 0f000c936b6e5364db9cdd3245c859d5, type: 3}
+  - {fileID: 21300000, guid: 5d67858495aa31743b1080a2e43154ab, type: 3}
+  - {fileID: 21300000, guid: bab6b858d665dc2438ad529075357c82, type: 3}
+  - {fileID: 21300000, guid: aecf09af85d23e049971fb4ac3b95441, type: 3}
+  - {fileID: 21300000, guid: 14748e854e5782f4b846596389c3bc18, type: 3}
+  - {fileID: 21300000, guid: 540484fe6f1621844acf72b149ee78d7, type: 3}
+  - {fileID: 21300000, guid: 0ea2800f4a1e7e8419e3aa95d85f4173, type: 3}
+  - {fileID: 21300000, guid: 4706279ce2dd0414fb02a9db3d2e25a4, type: 3}
+  - {fileID: 21300000, guid: fc25096e66ed16c46b2279fcf02deb6e, type: 3}
+  - {fileID: 21300000, guid: ecfc8a9fd7ce55849a3728adf3ed067e, type: 3}
+  - {fileID: 21300000, guid: 8c1b43dd67dd1a841bf5f22d45405577, type: 3}
+  - {fileID: 21300000, guid: 376d5a29df7779843b4d9c0dcb35ac85, type: 3}
+  - {fileID: 21300000, guid: 44e57e2fe75fa4a4db97e7b9bcaec2c9, type: 3}
+  - {fileID: 21300000, guid: 9da6f66feb6e38d4fad874813baa274a, type: 3}
+  - {fileID: 21300000, guid: f57ac86472c06174292bfb54f1a8b13c, type: 3}
+  graveDirtSprites:
+  - {fileID: 21300000, guid: 7af68b5655aca0c4b8613c28f7ee3d84, type: 3}
+  - {fileID: 21300000, guid: ce56cb33cac560e469d02ad97a503e39, type: 3}
+  - {fileID: 21300000, guid: f81c82c62239b0045ac10e42a9c674b3, type: 3}
+  - {fileID: 21300000, guid: ced62cfddda87c444b70bc563bcdbc53, type: 3}
+  - {fileID: 21300000, guid: 8bc966adb9b874244b6e98882f781233, type: 3}
+  - {fileID: 21300000, guid: fd3aa29452ef2d74ca7f1f46367a860b, type: 3}
+  gravestonePrefab: {fileID: 3348738363997220810, guid: e59cff6052fdd5f418c62cf689582503, type: 3}

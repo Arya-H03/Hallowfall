@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4400972903511144400, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4400972903511144400, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size

@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "ZoneLayoutProfile", menuName = "Scriptable Objects/ZoneLayoutProfile")]
 public class ZoneLayoutProfile : ScriptableObject
 {
+    public GameObject   spawnablePropsBlock;
     public GameObject[] spawnableProps; 
     public GameObject[] spawnableEnemies;
     public RuleTile boundsRuletile;

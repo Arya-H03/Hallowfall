@@ -3,14 +3,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum ZoneDir
-{
-    None,
-    Right,
-    Left,
-    Up,
-    Down
-}
 
 [System.Serializable]
 public class ZoneTypeProfiles
@@ -21,18 +13,6 @@ public class ZoneTypeProfiles
 
 public class ZoneManager : MonoBehaviour
 {
-    public static readonly Vector2Int[] AllDirections = new Vector2Int[]
-{
-    Vector2Int.right,
-    Vector2Int.left,
-    Vector2Int.up,
-    Vector2Int.down,
-    new Vector2Int(1, 1),
-    new Vector2Int(1, -1),
-    new Vector2Int(-1, 1),
-    new Vector2Int(-1, -1),
-};
-
     private GameObject player;
 
     private int zoneSize = 40;
@@ -68,7 +48,7 @@ public class ZoneManager : MonoBehaviour
     {
         player = GameManager.Instance.Player;
 
-        TryGenerateZone((Vector2Int.zero), ZoneDir.None);
+        TryGenerateZone((Vector2Int.zero), DirectionEnum.None);
     }
 
   
@@ -95,43 +75,43 @@ public class ZoneManager : MonoBehaviour
         Vector2 currentZoneCenter = FindZoneCenterPosition(FindCurrentPlayerZoneCoord());
 
         Vector2 dist = (Vector2)player.transform.position - currentZoneCenter;
-        if (Mathf.Abs(dist.x) > zoneBuffer && dist.x > 0) ExpandZones(ZoneDir.Right);
-        if (Mathf.Abs(dist.x) > zoneBuffer && dist.x < 0) ExpandZones(ZoneDir.Left);
-        if (Mathf.Abs(dist.y) > zoneBuffer && dist.y > 0) ExpandZones(ZoneDir.Up);
-        if (Mathf.Abs(dist.y) > zoneBuffer && dist.y < 0) ExpandZones(ZoneDir.Down);
+        if (Mathf.Abs(dist.x) > zoneBuffer && dist.x > 0) ExpandZones(DirectionEnum.Right);
+        if (Mathf.Abs(dist.x) > zoneBuffer && dist.x < 0) ExpandZones(DirectionEnum.Left);
+        if (Mathf.Abs(dist.y) > zoneBuffer && dist.y > 0) ExpandZones(DirectionEnum.Up);
+        if (Mathf.Abs(dist.y) > zoneBuffer && dist.y < 0) ExpandZones(DirectionEnum.Down);
 
     }
 
-    private void ExpandZones(ZoneDir dir)
+    private void ExpandZones(DirectionEnum dir)
     {
         Vector2Int currentZoneCoord = FindCurrentPlayerZoneCoord();
 
         switch (dir)
         {
-            case ZoneDir.Right:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 0), ZoneDir.Left);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), ZoneDir.Left);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), ZoneDir.Left);
+            case DirectionEnum.Right:
+                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 0), DirectionEnum.Left);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.Left);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.Left);
                 break;
-            case ZoneDir.Left:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 0), ZoneDir.Right);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), ZoneDir.Right);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), ZoneDir.Right);
+            case DirectionEnum.Left:
+                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 0), DirectionEnum.Right);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.Right);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.Right);
                 break;
-            case ZoneDir.Up:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, 1), ZoneDir.Down);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), ZoneDir.Down);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), ZoneDir.Down);
+            case DirectionEnum.Up:
+                TryGenerateZone(currentZoneCoord + new Vector2Int(0, 1), DirectionEnum.Down);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.Down);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.Down);
                 break;
-            case ZoneDir.Down:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, -1), ZoneDir.Up);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), ZoneDir.Up);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), ZoneDir.Up);
+            case DirectionEnum.Down:
+                TryGenerateZone(currentZoneCoord + new Vector2Int(0, -1), DirectionEnum.Up);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.Up);
+                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.Up);
                 break;
         }
     }
 
-    private void TryGenerateZone(Vector2Int centerCoord, ZoneDir expansionDir)
+    private void TryGenerateZone(Vector2Int centerCoord, DirectionEnum expansionDir)
     {
         if (!generatedZones.ContainsKey(centerCoord))
         {
@@ -143,7 +123,7 @@ public class ZoneManager : MonoBehaviour
         }
     }
 
-    private GameObject CreateZone(Vector2Int centerCoord, ZoneDir dir, ZoneType zoneType, Vector3 pos)
+    private GameObject CreateZone(Vector2Int centerCoord, DirectionEnum dir, ZoneType zoneType, Vector3 pos)
     {
         ZoneLayoutProfile layoutProfile = zoneLayoutProfiles[zoneType];
         GameObject zone = Instantiate(zonePrefab, pos, Quaternion.identity);
@@ -158,10 +138,6 @@ public class ZoneManager : MonoBehaviour
                 zoneHandler.ZoneData = generatedZones[centerCoord];
                 zoneHandler.ZoneConfig = zoneConfig;
                 zoneHandler.ZoneLayoutProfile = layoutProfile;
-
-                GameObject boundsTilemapGO = Instantiate(layoutProfile.boundsTilemapGO, zoneHandler.transform.position, Quaternion.identity);
-                boundsTilemapGO.transform.parent = zoneHandler.transform;
-                zoneHandler.BoundsTilemap = boundsTilemapGO.GetComponent<Tilemap>();
                 break;
             case ZoneType.plain:
                 ZoneHandler zoneHandler1;
