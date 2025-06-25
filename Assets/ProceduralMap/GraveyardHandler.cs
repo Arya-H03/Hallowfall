@@ -8,7 +8,7 @@ public class GraveyardHandler : ZoneHandler
 {
     private Tilemap boundsTilemap;
     private Tilemap roadTilemap;
-    private Tilemap groundTilemap;
+   
 
     private Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new Dictionary<DirectionEnum, Vector2Int[]>();
 
@@ -16,7 +16,7 @@ public class GraveyardHandler : ZoneHandler
     protected override void Awake()
     {
         base.Awake();
-        groundTilemap = transform.GetChild(0).GetComponentInChildren<Tilemap>();
+       
     }
 
     protected override void Start()

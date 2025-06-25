@@ -1,16 +1,24 @@
+
 using UnityEngine;
+
 
 [CreateAssetMenu(fileName = "GraveYardLayoutProfile", menuName = "Scriptable Objects/GraveYardLayoutProfile")]
 public class GraveYardLayoutProfile : ZoneLayoutProfile
 {
+    public RuleTile leaveRuletile;
+
     public Sprite[] graveStoneSprites; 
     public Sprite[] graveDirtSprites;
-    public GameObject gravestonePrefab;
+    public GameObject gravestoneBasePrefab;
+
+    public GameObject [] gravestonePrefabs;
+    public GameObject [] treePrefabs;
     
+
 
     public GameObject GenerateRandomGraveStone()
     {
-        GameObject go = Instantiate(gravestonePrefab);
+        GameObject go = Instantiate(gravestoneBasePrefab);
         if(graveStoneSprites.Length > 0 && graveDirtSprites.Length > 0)
         {
             go.GetComponent<SpriteRenderer>().sprite = graveStoneSprites[Random.Range(0, graveStoneSprites.Length)];

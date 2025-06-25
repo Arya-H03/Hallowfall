@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,11 +7,14 @@ using System.Runtime.CompilerServices;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 
 
 public class ZoneHandler : MonoBehaviour
 {
+    protected Tilemap groundTilemap;
+
     protected ZoneConfig zoneConfig;
     protected ZoneData zoneData;
     protected ZoneLayoutProfile zoneLayoutProfile;
@@ -30,7 +34,7 @@ public class ZoneHandler : MonoBehaviour
     
     protected virtual void Awake()
     {
-
+        groundTilemap = transform.GetChild(0).GetComponentInChildren<Tilemap>();
     }
     protected virtual void Start()
     {
@@ -138,13 +142,22 @@ public class ZoneHandler : MonoBehaviour
     private void InstantiatePropsBlocks(List<BoundsInt> listOfPartitionedSubzoneBounds, ZoneLayoutProfile zoneLayoutProfile)
     {
         foreach (BoundsInt zone in listOfPartitionedSubzoneBounds)
-        {
-            // Instantiate zone block
+        {         
             GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zone.position, Quaternion.identity);
-            go.GetComponent<PropsBlock>().ZoneLayoutProfile = zoneLayoutProfile;
-            go.transform.parent = this.transform;
-            go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0.2f);
-            go.transform.GetChild(0).localScale = new Vector3(zone.size.x, zone.size.y, zone.size.z);
+            
+            Type componentType = zoneLayoutProfile.propsBlockClassList[Random.Range(0, zoneLayoutProfile.propsBlockClassList.Count)];
+            Component addedComponent = go.AddComponent(componentType);       
+            PropsBlock propsBlock = addedComponent as PropsBlock;
+          
+            if (propsBlock)
+            {
+                propsBlock.ZoneLayoutProfile = zoneLayoutProfile;
+                propsBlock.GroundTilemap = groundTilemap;
+                go.transform.parent = this.transform;
+                go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0);
+                go.transform.GetChild(0).localScale = new Vector3(zone.size.x, zone.size.y, zone.size.z);
+            }
+         
         }
     }
     protected Tilemap CreateTilemap(GameObject tilemapPrefab, Transform parent)
@@ -184,6 +197,7 @@ public class ZoneHandler : MonoBehaviour
 
     protected Vector3Int PositionFromGridCell(int x, int y)
     {
+       
         return new Vector3Int(
             Mathf.FloorToInt(x - 20),
             Mathf.FloorToInt(y - 20),

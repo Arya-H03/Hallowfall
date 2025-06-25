@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +14,11 @@ public class Cell
     public Vector2Int CellID { get => cellID; set => cellID = value; }
     public Vector2 CellPos { get => cellPos; set => cellPos = value; }
 
-    public Cell(bool isOccupied, Vector2Int cellID, Vector2 zoneCenterPos, int cellSize, int gridW, int gridY)
+    public Cell(bool isOccupied, Vector2Int cellID, Vector2 gridPos, int cellSize)
     {
         this.isOccupied = isOccupied;
         this.cellID = cellID;
-        this.cellPos = zoneCenterPos + new Vector2(-gridW / 2, -gridY / 2) + new Vector2(cellID.x * cellSize, cellID.y * cellSize);
+        this.cellPos = gridPos + new Vector2(cellID.x * cellSize, cellID.y * cellSize);
     }
     public Cell() { }
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
@@ -81,7 +82,7 @@ public class CellGrid
         this.cellPerCol = Mathf.FloorToInt(this.GridHeight / cellSize);
 
         cells = new Cell[CellPerRow, CellPerCol];
-        InitializeCells(gridCenterWoldPos);
+        InitializeCells(gridCenterWoldPos - new Vector2(gridWidth / 2, gridHeight / 2));
 
 
     }
@@ -93,14 +94,14 @@ public class CellGrid
     public int GridWidth { get => gridWidth; set => gridWidth = value; }
     public int GridHeight { get => gridHeight; set => gridHeight = value; }
 
-    private void InitializeCells(Vector2 gridCenterWoldPos)
+    private void InitializeCells(Vector2 gridWoldPos)
     {
-        for (int i = 0; i < CellPerRow; i++)
+        for (int i = 0; i < cellPerRow; i++)
         {
-            for (int j = 0; j < CellPerCol; j++)
+            for (int j = 0; j < cellPerCol; j++)
             {
                 Vector2Int temp = new Vector2Int(i, j);
-                Cells[i, j] = new Cell(false, temp, gridCenterWoldPos, CellSize, gridWidth, gridHeight);
+                Cells[i, j] = new Cell(false, temp, gridWoldPos, cellSize);
 
             }
 

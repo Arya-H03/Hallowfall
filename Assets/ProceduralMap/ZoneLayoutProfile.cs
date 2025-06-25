@@ -1,15 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
+using System;
 
 [CreateAssetMenu(fileName = "ZoneLayoutProfile", menuName = "Scriptable Objects/ZoneLayoutProfile")]
 public class ZoneLayoutProfile : ScriptableObject
 {
+    public List<Type> propsBlockClassList = new List<Type>()
+    {
+        { typeof(GraveClusterBlock) },
+        { typeof(TreeClusterBlock) }
+    };
+
     public GameObject   spawnablePropsBlock;
-    public GameObject[] spawnableProps; 
-    public GameObject[] spawnableEnemies;
+  
     public RuleTile boundsRuletile;
     public RuleTile roadRuletile;
     public RuleTile grassRuletile;
+
     public GameObject boundsTilemapGO;
     public GameObject roadTilemapGO;
 
@@ -17,9 +25,9 @@ public class ZoneLayoutProfile : ScriptableObject
 
     public LayerMask propsMask;
 
-    public GameObject GetRandomProps()
+    public GameObject GetRandomProps(GameObject[] props)
     {
-        if (spawnableProps.Length > 0) return spawnableProps[Random.Range(0, spawnableProps.Length)];
+        if (props.Length > 0) return props[Random.Range(0, props.Length)];
         else return null;
 
     }
