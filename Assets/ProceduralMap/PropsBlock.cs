@@ -13,65 +13,66 @@ public class PropsBlock : MonoBehaviour
     private ZoneLayoutProfile zoneLayoutProfile;
     public List<Transform> children = new List<Transform>();
 
-    [SerializeField] protected Cell[,] zoneCells;
     protected int cellSize = 1;
-    protected int cellsX;
-    protected int cellsY;
-    public  int s;
+    protected int blockWidth = 1;
+    protected int blockHeight = 1;
+
+    protected CellGrid celLGrid;
+
 
     public ZoneLayoutProfile ZoneLayoutProfile {set => zoneLayoutProfile = value; }
 
     protected virtual void Awake()
     {
-       
-       
+        
+
+
     }
     protected virtual void Start()
     {
-        InitializeCells();
-        PopulateCells();
-        PopulateZone(zoneCells, zoneLayoutProfile);
+        blockWidth = Mathf.FloorToInt(transform.GetChild(0).localScale.x);
+        blockHeight = Mathf.FloorToInt(transform.GetChild(0).localScale.y);
+        celLGrid = new CellGrid(cellSize, blockWidth, blockHeight, this.transform.position + new Vector3(blockWidth /2, blockHeight/2, 0));
+       
+        PopulateBlock(celLGrid, zoneLayoutProfile);
     }
 
-    private void InitializeCells()
-    {
-        cellsX = Mathf.FloorToInt(transform.GetChild(0).localScale.x / cellSize);
-        cellsY = Mathf.FloorToInt(transform.GetChild(0).localScale.y / cellSize);
-        zoneCells = new Cell[cellsX, cellsY];
-    }
+    //private void InitializeCells()
+    //{
+   
+    //    zoneCells = new Cell[cellsX, cellsY];
+    //}
 
-    private void PopulateCells()
-    {
-        for (int i = 0; i < cellsX; i++)
-        {
-            for (int j = 0; j < cellsY; j++)
-            {
-                Vector2Int temp = new Vector2Int(i, j);
-                zoneCells[i, j] = new Cell(false, temp, this.transform.position + new Vector3(cellsX /2 , cellsY/2,0), cellSize, cellsX, cellsY);
+    //private void PopulateCells()
+    //{
+    //    for (int i = 0; i < cellsX; i++)
+    //    {
+    //        for (int j = 0; j < cellsY; j++)
+    //        {
+    //            Vector2Int temp = new Vector2Int(i, j);
+    //            zoneCells[i, j] = new Cell(false, temp, this.transform.position + new Vector3(cellsX /2 , cellsY/2,0), cellSize, cellsX, cellsY);
 
-            }
+    //        }
 
-        }
+    //    }
 
-    }
+    //}
   
-    public virtual void PopulateZone(Cell[,] cells, ZoneLayoutProfile zoneLayoutProfile)
+    public virtual void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
         
-        int cellsHeight = cells.GetLength(1);
-        int cellsWidth = cells.GetLength(0);
-        float propsDensity = 0.75f;
+        float propsDensity = 0.6f;
 
         List<Cell> randomCellsList = new List<Cell>();
-        int listSize = Mathf.CeilToInt(cellsHeight * propsDensity) * Mathf.CeilToInt(cellsWidth * propsDensity);
-        s = listSize;
+        int listSize = Mathf.CeilToInt(cellGrid.CellPerCol * propsDensity) * Mathf.CeilToInt(celLGrid.CellPerRow * propsDensity);
+
         while (randomCellsList.Count < listSize)
         {
-            int randYindex = Random.Range(0, cellsHeight);
-            int randXindex = Random.Range(0, cellsWidth);
-            if (!randomCellsList.Contains(cells[randXindex, randYindex]))
+            int randYindex = Random.Range(0, cellGrid.CellPerCol);
+            int randXindex = Random.Range(0, celLGrid.CellPerRow);
+            if (!randomCellsList.Contains(cellGrid.Cells[randXindex, randYindex]))
             {
-                randomCellsList.Add(cells[randXindex, randYindex]);
+                randomCellsList.Add(cellGrid.Cells[randXindex, randYindex]);
             }
         }
 
@@ -80,7 +81,7 @@ public class PropsBlock : MonoBehaviour
             int maxAttempts = 20;
             int attempts = 0;
 
-            while (!cell.isOccupied && attempts < maxAttempts)
+            while (!cell.IsOccupied && attempts < maxAttempts)
             {
                 attempts++;
                 GameObject propPrefab = zoneLayoutProfile.GetRandomProps();
@@ -89,16 +90,16 @@ public class PropsBlock : MonoBehaviour
                 Vector3 propsScale = new Vector3(bounds.size.x, bounds.size.y + 1,1);
 
                 // If top-right corner of the area is within zone bounds
-                if (cell.cellID.x + propsScale.x <= cellsWidth && cell.cellID.y + propsScale.y <= cellsHeight)
+                if (cell.CellID.x + propsScale.x <= cellGrid.CellPerRow && cell.CellID.y + propsScale.y <= cellGrid.CellPerCol)
                 {
                     bool areaFree = true;
 
-                    // Check all cells in the area (and their neighbors)
-                    for (int a = cell.cellID.x; a < cell.cellID.x + propsScale.x; a++)
+                    // Check all celLGrid in the area (and their neighbors)
+                    for (int a = cell.CellID.x; a < cell.CellID.x + propsScale.x; a++)
                     {
-                        for (int b = cell.cellID.y; b < cell.cellID.y + propsScale.y; b++)
+                        for (int b = cell.CellID.y; b < cell.CellID.y + propsScale.y; b++)
                         {
-                            if (cells[a, b].isOccupied /*|| cells[a, b].CheckIfCardinalNeighboorsAreOccupied(cells)*/)
+                            if (cellGrid.Cells[a, b].IsOccupied /*|| celLGrid[a, b].CheckIfCardinalNeighboorsAreOccupied(celLGrid)*/)
                             {
                                 areaFree = false;
                             }
@@ -108,18 +109,18 @@ public class PropsBlock : MonoBehaviour
                     // Place object and mark area as occupied
                     if (areaFree)
                     {
-                        GameObject prop = Instantiate(propPrefab, cell.cellPos + new Vector2(propsScale.x / 2, 0), Quaternion.identity);
+                        GameObject prop = Instantiate(propPrefab, cell.CellPos + new Vector2(propsScale.x / 2, 0), Quaternion.identity);
                         prop.transform.parent = propsHolder.transform;
                         //prop.transform.localScale = propsScale;
                         //prop.transform.GetComponent<SpriteRenderer>().color = propsColor;
 
-                        for (int i = cell.cellID.x; i < cell.cellID.x + propsScale.x; i++)
+                        for (int i = cell.CellID.x; i < cell.CellID.x + propsScale.x; i++)
                         {
-                            for (int j = cell.cellID.y; j < cell.cellID.y + propsScale.y; j++)
+                            for (int j = cell.CellID.y; j < cell.CellID.y + propsScale.y; j++)
                             {
-                                if (i >= 0 && i < cellsWidth && j >= 0 && j < cellsHeight)
+                                if (i >= 0 && i < cellGrid.CellPerRow && j >= 0 && j < cellGrid.CellPerCol)
                                 {
-                                    cells[i, j].isOccupied = true;
+                                    cellGrid.Cells[i, j].IsOccupied = true;
                                 }
                             }
                         }

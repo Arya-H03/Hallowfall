@@ -8,72 +8,18 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-[System.Serializable]
-public class Cell
-{
-    public bool isOccupied = false;
-    public Vector2Int cellID = Vector2Int.zero;
-    public Vector2 cellPos = Vector2.zero;
 
-    public Cell(bool isOccupied, Vector2Int cellID, Vector2 zoneCenterPos, int cellSize,int cellsX,int cellsY)
-    {
-        this.isOccupied = isOccupied;
-        this.cellID = cellID;
-        this.cellPos = zoneCenterPos + new Vector2(-cellsX / 2, -cellsY/2) + new Vector2(cellID.x * cellSize, cellID.y * cellSize);
-    }
-    public Cell() { }
-    public bool CheckIfAllNeighboorsAreOccupied(Cell[,] cells)
-    {
-
-        Vector2Int[] allDirections = ProceduralUtils.GetAllDirections();
-
-        int width = cells.GetLength(0);
-        int height = cells.GetLength(1);
-
-        foreach (var dir in allDirections)
-        {
-            Vector2Int neighboorID = cellID + dir;
-            if (neighboorID.x >= 0 && neighboorID.x < width && neighboorID.y >= 0 && neighboorID.y < height)
-            {
-                Cell neighboor = cells[neighboorID.x, neighboorID.y];
-                if (neighboor.isOccupied) return true;
-            }
-        }
-
-        return false;
-    }
-    public bool CheckIfCardinalNeighboorsAreOccupied(Cell[,] cells)
-    {
-
-        Vector2Int[] allDirections = ProceduralUtils.GetCardinalDirections();
-
-        int width = cells.GetLength(0);
-        int height = cells.GetLength(1);
-
-        foreach (var dir in allDirections)
-        {
-            Vector2Int neighboorID = cellID + dir;
-            if (neighboorID.x >= 0 && neighboorID.x < width && neighboorID.y >= 0 && neighboorID.y < height)
-            {
-                Cell neighboor = cells[neighboorID.x, neighboorID.y];
-                if (neighboor.isOccupied) return true;
-            }
-        }
-
-        return false;
-    }
-
-}
 public class ZoneHandler : MonoBehaviour
 {
     protected ZoneConfig zoneConfig;
     protected ZoneData zoneData;
     protected ZoneLayoutProfile zoneLayoutProfile;
 
-    [SerializeField] protected Cell[,] zoneCells;
     protected int cellSize = 1;
-    protected int cellsX;
-    protected int cellsY;
+    protected int zoneWidth = 40;
+    protected int zoneHeight = 40;
+
+    protected CellGrid celLGrid;
 
     protected List<BoundsInt> listOfSubzoneBounds = new List<BoundsInt> ();
     protected List<BoundsInt> listOfPartitionedSubzoneBounds = new List<BoundsInt> ();
@@ -84,33 +30,11 @@ public class ZoneHandler : MonoBehaviour
     
     protected virtual void Awake()
     {
-        InitializeCells();
+
     }
     protected virtual void Start()
     {
-        PopulateCells();
-    }
-
-    private void InitializeCells()
-    {
-        cellsX = Mathf.FloorToInt(40 / cellSize);
-        cellsY = Mathf.FloorToInt(40 / cellSize);
-        zoneCells = new Cell[cellsX, cellsY];
-    }
-
-    private void PopulateCells()
-    {
-        for (int i = 0; i < cellsX; i++)
-        {
-            for (int j = 0; j < cellsY; j++)
-            {
-                Vector2Int temp = new Vector2Int(i, j);
-                zoneCells[i, j] = new Cell(false, temp, zoneData.centerPos, cellSize,40,40);
-
-            }
-
-        }
-
+        celLGrid = new CellGrid(cellSize, zoneWidth, zoneHeight, zoneData.centerPos);
     }
 
     private void VisualizeGridCells(Cell[,] cells, ZoneLayoutProfile zoneLayoutProfile)
@@ -124,13 +48,13 @@ public class ZoneHandler : MonoBehaviour
         {
             for (int j = 0; j < cellsWidth; j++)
             {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cells[j, i].cellPos, Quaternion.identity);
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cells[j, i].CellPos, Quaternion.identity);
 
-                if (!cells[j, i].isOccupied)
+                if (!cells[j, i].IsOccupied)
                 {
                     go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.2f);
                 }
-                else if (cells[j, i].isOccupied)
+                else if (cells[j, i].IsOccupied)
                 {
                     go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.2f);
                 }
@@ -139,66 +63,42 @@ public class ZoneHandler : MonoBehaviour
     }
 
    
-    public virtual void PopulateZoneWithPropBlocks(Cell[,] cells,ZoneLayoutProfile zoneLayoutProfile)
+    public virtual void PopulateZoneWithPropBlocks(CellGrid cellGrid,ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        Cell startCell = FindNextUnoccupiedCell(cells,new Vector2Int(0,0));
+        Cell startCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(0,0));
 
-        CreateSubZone(cells, startCell);
+        CreateSubZone(cellGrid, startCell);
         listOfPartitionedSubzoneBounds = ProceduralUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 10, 8);
 
         InstantiatePropsBlocks(listOfPartitionedSubzoneBounds, zoneLayoutProfile);
 
     }
 
-    private Cell FindNextUnoccupiedCell(Cell[,] cells, Vector2Int startCellID)
+  
+    private void CreateSubZone(CellGrid cellGrid, Cell startCell)
     {
-        int width = cells.GetLength(0);
-        int height = cells.GetLength(1);
-
-        for (int y = startCellID.y; y < height; y++)
-        {
-            int xStart = (y == startCellID.y) ? startCellID.x : 0;
-            for (int x = xStart; x < width; x++)
-            {
-                if (!cells[x, y].isOccupied)
-                {
-
-                    return cells[x, y];
-                }
-            }
-        }
-
-
-        return null;
-    }
-
-
-    private void CreateSubZone(Cell[,] cells, Cell startCell)
-    {
-        int maxX = cells.GetLength(0);
-        int maxY = cells.GetLength(1);
-
+       
         int h1 = 1;
-        for (int i = 1; i + startCell.cellID.y < maxY; i++)
+        for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
         {
-            if (cells[startCell.cellID.x, startCell.cellID.y + i].isOccupied)
+            if (cellGrid.Cells[startCell.CellID.x, startCell.CellID.y + i].IsOccupied)
                 break;
             h1++;
         }
 
         int w1 = 1;
-        for (int i = 1; i + startCell.cellID.x < maxX; i++)
+        for (int i = 1; i + startCell.CellID.x < cellGrid.CellPerRow; i++)
         {
-            if (cells[startCell.cellID.x + i, startCell.cellID.y].isOccupied)
+            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y].IsOccupied)
                 break;
             w1++;
         }
 
         int w2 = 1;
-        for (int i = 1; i + startCell.cellID.x < maxX; i++)
+        for (int i = 1; i + startCell.CellID.x < cellGrid.CellPerRow; i++)
         {
-            if (cells[startCell.cellID.x + i, startCell.cellID.y + h1 - 1].isOccupied)
+            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y + h1 - 1].IsOccupied)
                 break;
             w2++;
         }
@@ -206,32 +106,32 @@ public class ZoneHandler : MonoBehaviour
         int width = Mathf.Min(w1, w2);
 
         int h2 = 1;
-        for (int i = 1; i + startCell.cellID.y < maxY; i++)
+        for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
         {
-            if (cells[startCell.cellID.x + width - 1, startCell.cellID.y + i].isOccupied)
+            if (cellGrid.Cells[startCell.CellID.x + width - 1, startCell.CellID.y + i].IsOccupied)
                 break;
             h2++;
         }
 
         int height = Mathf.Min(h1, h2);
 
-        listOfSubzoneBounds.Add(new BoundsInt(new Vector3Int((int)startCell.cellPos.x, (int)startCell.cellPos.y, 0), new Vector3Int(width, height, 0)));
+        listOfSubzoneBounds.Add(new BoundsInt(new Vector3Int((int)startCell.CellPos.x, (int)startCell.CellPos.y, 0), new Vector3Int(width, height, 0)));
 
-        // Mark cells as occupied
-        for (int x = startCell.cellID.x; x < startCell.cellID.x + width; x++)
+        // Mark cellGrid as occupied
+        for (int x = startCell.CellID.x; x < startCell.CellID.x + width; x++)
         {
-            for (int y = startCell.cellID.y; y < startCell.cellID.y + height; y++)
+            for (int y = startCell.CellID.y; y < startCell.CellID.y + height; y++)
             {
-                if (x >= 0 && x < maxX && y >= 0 && y < maxY)
-                    cells[x, y].isOccupied = true;
+                if (x >= 0 && x < cellGrid.CellPerRow && y >= 0 && y < cellGrid.CellPerCol)
+                    cellGrid.Cells[x, y].IsOccupied = true;
             }
         }
 
         // Recursively continue
-        Cell nextStartCell = FindNextUnoccupiedCell(cells, new Vector2Int(startCell.cellID.x + width, startCell.cellID.y));
+        Cell nextStartCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(startCell.CellID.x + width, startCell.CellID.y));
         if (nextStartCell != null)
         {
-            CreateSubZone(cells, nextStartCell);
+            CreateSubZone(cellGrid, nextStartCell);
         }
     }
 
@@ -266,7 +166,7 @@ public class ZoneHandler : MonoBehaviour
             for (int y = yMin; y < yMax + 1; y++)
             {
                 tilemap.SetTile(PositionFromGridCell(from.x, y), ruleTile);
-                zoneCells[from.x, y].isOccupied = true;
+                celLGrid.Cells[from.x, y].IsOccupied = true;
             }
         }
         else if (delta.y == 0) // Horizontal road
@@ -277,7 +177,7 @@ public class ZoneHandler : MonoBehaviour
             for (int x = xMin; x < xMax + 1; x++)
             {
                 tilemap.SetTile(PositionFromGridCell(x, from.y), ruleTile);
-                zoneCells[x, from.y].isOccupied = true;
+                celLGrid.Cells[x, from.y].IsOccupied = true;
             }
         }
     }

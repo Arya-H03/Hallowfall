@@ -29,13 +29,13 @@ public class GraveyardHandler : ZoneHandler
         boundsTilemap = CreateTilemap(zoneLayoutProfile.boundsTilemapGO, this.transform);
 
         //Down
-        DrawStraightLineOfTiles(Vector2Int.zero, new Vector2Int(cellsX-1, 0),zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(Vector2Int.zero, new Vector2Int(celLGrid.CellPerRow -1, 0),zoneLayoutProfile.boundsRuletile,boundsTilemap);
         //Up
-        DrawStraightLineOfTiles(new Vector2Int(0, cellsY - 1), new Vector2Int(cellsX-1, cellsY - 1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(0, celLGrid.CellPerCol - 1), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
         //Left
-        DrawStraightLineOfTiles(Vector2Int.zero, new Vector2Int(0, cellsY-1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(Vector2Int.zero, new Vector2Int(0, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
         //Right
-        DrawStraightLineOfTiles(new Vector2Int(cellsX -1, 0), new Vector2Int(cellsX - 1, cellsY-1),zoneLayoutProfile.boundsRuletile, boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(celLGrid.CellPerRow - 1, 0), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile, boundsTilemap);
 
 
         List<DirectionEnum> dirs = ProceduralUtils.GetAllDirectionList();
@@ -50,12 +50,12 @@ public class GraveyardHandler : ZoneHandler
         dirs.Remove(vertical);
         openingDir.Add(dirs[Random.Range(0, dirs.Count)]);
 
-        zoneOpenings = CreateOpeningsInZone(openingDir,zoneCells,boundsTilemap);
+        zoneOpenings = CreateOpeningsInZone(openingDir,celLGrid,boundsTilemap);
 
         GenerateRoadTileMap();
     }
 
-    private Dictionary<DirectionEnum, Vector2Int[]> CreateOpeningsInZone(List<DirectionEnum> openingDir, Cell[,] cells ,Tilemap tilemap)
+    private Dictionary<DirectionEnum, Vector2Int[]> CreateOpeningsInZone(List<DirectionEnum> openingDir, CellGrid cellGrid ,Tilemap tilemap)
     {
         Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new Dictionary<DirectionEnum, Vector2Int[]>();
         // Openings for each selected side
@@ -75,19 +75,19 @@ public class GraveyardHandler : ZoneHandler
                         cellCoord = new Vector2Int(openingIndices[i], 0);
                         break;
                     case DirectionEnum.Up:
-                        cellCoord = new Vector2Int(openingIndices[i], cellsY - 1);
+                        cellCoord = new Vector2Int(openingIndices[i], cellGrid.CellPerCol - 1);
                         break;
                     case DirectionEnum.Left:
                         cellCoord = new Vector2Int(0, openingIndices[i]);
                         break;
                     case DirectionEnum.Right:
-                        cellCoord = new Vector2Int(cellsX - 1, openingIndices[i]);
+                        cellCoord = new Vector2Int(cellGrid.CellPerRow - 1, openingIndices[i]);
                         break;
                 }
 
                 tilemap.SetTile(PositionFromGridCell(cellCoord.x, cellCoord.y), null);
                 zoneOpenings[dir][i] = cellCoord;
-                cells[cellCoord.x, cellCoord.y].isOccupied = true;
+                cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
             }
         }
 
@@ -127,8 +127,8 @@ public class GraveyardHandler : ZoneHandler
             }
         }
 
-        PaintUnoccupiedGround(groundTilemap,zoneLayoutProfile.grassRuletile,zoneCells);
-        PopulateZoneWithPropBlocks(zoneCells,zoneLayoutProfile);
+        PaintUnoccupiedGround(groundTilemap,zoneLayoutProfile.grassRuletile,celLGrid);
+        PopulateZoneWithPropBlocks(celLGrid,zoneLayoutProfile);
     }
 
     private void ConnectAllCenterJunctionPoints(Vector2Int[] from, Vector2Int[] to)
@@ -151,13 +151,13 @@ public class GraveyardHandler : ZoneHandler
         roadTilemap.SetTile(PositionFromGridCell(junction.x, junction.y), zoneLayoutProfile.roadRuletile);
     }
 
-    private void PaintUnoccupiedGround(Tilemap tilemap, RuleTile ruleTile, Cell[,] cells )
+    private void PaintUnoccupiedGround(Tilemap tilemap, RuleTile ruleTile, CellGrid cellGrid )
     {
-        for (int y = 0; y < cells.GetLength(1); y++)
+        for (int y = 0; y < cellGrid.CellPerCol; y++)
         {
-            for (int x = 0; x < cells.GetLength(0); x++)
+            for (int x = 0; x < cellGrid.CellPerRow; x++)
             {
-                if (!cells[x, y].isOccupied)
+                if (!cellGrid.Cells[x, y].IsOccupied)
                 {
                     tilemap.SetTile(PositionFromGridCell(x, y), ruleTile);
                 }
