@@ -1,16 +1,27 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using System;
+
+public enum PropsBlockEnum
+{
+    graveCluster,
+    treeCluster,
+    cryptCluster
+}
+[System.Serializable]
+public struct PropsBlockStruct
+{
+    public PropsBlockEnum propsBlockEnum;
+    public MonoScript scriptReference;
+    public Vector2Int minBlockSize;
+}
 
 [CreateAssetMenu(fileName = "ZoneLayoutProfile", menuName = "Scriptable Objects/ZoneLayoutProfile")]
 public class ZoneLayoutProfile : ScriptableObject
 {
-    public List<Type> propsBlockClassList = new List<Type>()
-    {
-        { typeof(GraveClusterBlock) },
-        { typeof(TreeClusterBlock) }
-    };
+    public List<PropsBlockStruct> propsBlocksStructList;
 
     public GameObject   spawnablePropsBlock;
   

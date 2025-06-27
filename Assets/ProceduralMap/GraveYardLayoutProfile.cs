@@ -3,9 +3,10 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "GraveYardLayoutProfile", menuName = "Scriptable Objects/GraveYardLayoutProfile")]
+
 public class GraveYardLayoutProfile : ZoneLayoutProfile
 {
-    public RuleTile leaveRuletile;
+    public RuleTile leafRuleTile;
 
     public Sprite[] graveStoneSprites; 
     public Sprite[] graveDirtSprites;
@@ -13,6 +14,8 @@ public class GraveYardLayoutProfile : ZoneLayoutProfile
 
     public GameObject [] gravestonePrefabs;
     public GameObject [] treePrefabs;
+    public GameObject [] skullSpikesPrefabs;
+    public GameObject cryptPrefab;
     
 
 

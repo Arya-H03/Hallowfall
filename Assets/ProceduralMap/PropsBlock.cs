@@ -16,6 +16,7 @@ public class PropsBlock : MonoBehaviour
 {
     protected GameObject propsHolder;
     protected ZoneLayoutProfile zoneLayoutProfile;
+    protected ZoneHandler zoneHandler;
 
     protected int cellSize = 1;
     protected int blockWidth = 1;
@@ -27,6 +28,7 @@ public class PropsBlock : MonoBehaviour
 
     public ZoneLayoutProfile ZoneLayoutProfile {set => zoneLayoutProfile = value; }
     public Tilemap GroundTilemap { get => groundTilemap; set => groundTilemap = value; }
+    public ZoneHandler ZoneHandler { get => zoneHandler; set => zoneHandler = value; }
 
     protected virtual void Awake()
     {
@@ -41,6 +43,26 @@ public class PropsBlock : MonoBehaviour
         celLGrid = new CellGrid(cellSize, blockWidth, blockHeight, this.transform.position + new Vector3(blockWidth /2, blockHeight/2, 0));
        
         PopulateBlock(celLGrid, zoneLayoutProfile);
+    }
+
+    protected void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
+    {
+        for (int i = 0; i < cellGrid.CellPerCol; i++)
+        {
+            for (int j = 0; j < cellGrid.CellPerRow; j++)
+            {
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cellGrid.Cells[j, i].CellPos, Quaternion.identity);
+
+                if (!cellGrid.Cells[j, i].IsOccupied)
+                {
+                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.2f);
+                }
+                else if (cellGrid.Cells[j, i].IsOccupied)
+                {
+                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.2f);
+                }
+            }
+        }
     }
 
     protected virtual void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)

@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -41,24 +42,19 @@ public class ZoneHandler : MonoBehaviour
         celLGrid = new CellGrid(cellSize, zoneWidth, zoneHeight, zoneData.centerPos);
     }
 
-    private void VisualizeGridCells(Cell[,] cells, ZoneLayoutProfile zoneLayoutProfile)
+    private void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
-        int cellsHeight = cells.GetLength(1);
-        int cellsWidth = cells.GetLength(0);
-
-        
-
-        for (int i = 0; i < cellsHeight; i++)
+        for (int i = 0; i < cellGrid.CellPerCol; i++)
         {
-            for (int j = 0; j < cellsWidth; j++)
+            for (int j = 0; j < cellGrid.CellPerRow; j++)
             {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cells[j, i].CellPos, Quaternion.identity);
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cellGrid.Cells[j, i].CellPos, Quaternion.identity);
 
-                if (!cells[j, i].IsOccupied)
+                if (!cellGrid.Cells[j, i].IsOccupied)
                 {
                     go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.2f);
                 }
-                else if (cells[j, i].IsOccupied)
+                else if (cellGrid.Cells[j, i].IsOccupied)
                 {
                     go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.2f);
                 }
@@ -141,26 +137,51 @@ public class ZoneHandler : MonoBehaviour
 
     private void InstantiatePropsBlocks(List<BoundsInt> listOfPartitionedSubzoneBounds, ZoneLayoutProfile zoneLayoutProfile)
     {
-        foreach (BoundsInt zone in listOfPartitionedSubzoneBounds)
+        foreach (BoundsInt zoneBounds in listOfPartitionedSubzoneBounds)
         {         
-            GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zone.position, Quaternion.identity);
-            
-            Type componentType = zoneLayoutProfile.propsBlockClassList[Random.Range(0, zoneLayoutProfile.propsBlockClassList.Count)];
-            Component addedComponent = go.AddComponent(componentType);       
-            PropsBlock propsBlock = addedComponent as PropsBlock;
-          
-            if (propsBlock)
+            GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+
+            Type componentType = GetPropsBlockType(zoneLayoutProfile,zoneBounds);
+            if(componentType != null)
             {
-                propsBlock.ZoneLayoutProfile = zoneLayoutProfile;
-                propsBlock.GroundTilemap = groundTilemap;
-                go.transform.parent = this.transform;
-                go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0);
-                go.transform.GetChild(0).localScale = new Vector3(zone.size.x, zone.size.y, zone.size.z);
+                Component addedComponent = go.AddComponent(componentType);
+                PropsBlock propsBlock = addedComponent as PropsBlock;
+                propsBlock.ZoneHandler= this;
+
+                if (propsBlock)
+                {
+                    propsBlock.ZoneLayoutProfile = zoneLayoutProfile;
+                    propsBlock.GroundTilemap = groundTilemap;
+                    go.transform.parent = this.transform;
+                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0f);
+                    go.transform.GetChild(0).localScale = new Vector3(zoneBounds.size.x, zoneBounds.size.y, zoneBounds.size.z);
+                }
             }
+            
          
         }
+
+       
     }
-    protected Tilemap CreateTilemap(GameObject tilemapPrefab, Transform parent)
+
+    private Type GetPropsBlockType(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
+    {
+        Type type = null;
+
+        while(type == null)
+        {
+            PropsBlockStruct propsBlock = zoneLayoutProfile.propsBlocksStructList[Random.Range(0, zoneLayoutProfile.propsBlocksStructList.Count)];
+            if(blockBounds.size.x >= propsBlock.minBlockSize.x && blockBounds.size.y >= propsBlock.minBlockSize.y)
+            {
+                type = propsBlock.scriptReference.GetClass();
+            }
+           
+        }
+       
+
+        return type;
+    }
+    public Tilemap CreateTilemap(GameObject tilemapPrefab, Transform parent)
     {
         GameObject tilemap = Instantiate(tilemapPrefab, parent.position, Quaternion.identity);
         tilemap.transform.parent = parent;

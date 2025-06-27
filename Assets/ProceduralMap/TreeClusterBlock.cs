@@ -26,7 +26,7 @@ public class TreeClusterBlock : PropsBlock
                             {
                                 cellGrid.Cells[i, j].IsOccupied = true;
 
-                                GroundTilemap.SetTile(new Vector3Int((int)cellGrid.Cells[x, y].CellPos.x - (int)GroundTilemap.transform.position.x, (int)cellGrid.Cells[x, y].CellPos.y -(int)GroundTilemap.transform.position.y, 0), graveYardLayoutProfile.leaveRuletile);
+                                GroundTilemap.SetTile(new Vector3Int((int)cellGrid.Cells[x, y].CellPos.x - (int)GroundTilemap.transform.position.x, (int)cellGrid.Cells[x, y].CellPos.y -(int)GroundTilemap.transform.position.y, 0), graveYardLayoutProfile.leafRuleTile);
                             }
                         }
                     }

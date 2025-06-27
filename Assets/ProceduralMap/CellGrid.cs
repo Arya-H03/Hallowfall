@@ -129,4 +129,10 @@ public class CellGrid
         return null;
     }
 
+    public Cell GetCenterCellOfTheGrid()
+    {
+
+        return cells[Mathf.CeilToInt(cellPerRow/2),Mathf.CeilToInt(cellPerCol/2)];
+    }
+
 }
