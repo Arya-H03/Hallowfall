@@ -8,7 +8,7 @@ public class CryptClusterBlock : PropsBlock
         if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
         {
             GameObject propPrefab = graveYardLayoutProfile.cryptPrefab;
-            Tilemap stoneTilemap = zoneHandler.CreateTilemap(zoneLayoutProfile.roadTilemapGO, this.transform);
+            Tilemap stoneTilemap = ZoneManager.Instance.StoneTilemap;
 
             Bounds bounds = ProceduralUtils.GetCombinedBounds(propPrefab);
             int xBound = Mathf.CeilToInt(bounds.size.x);
@@ -19,7 +19,7 @@ public class CryptClusterBlock : PropsBlock
             int x = Mathf.CeilToInt(((cellGrid.GridWidth - xBound) / (cellGrid.CellSize *2)) + (xBound / 2));
             int y = Mathf.CeilToInt(((cellGrid.GridHeight - yBound) / (cellGrid.CellSize *2)) + (yBound / 2));
       
-            GameObject prop = Instantiate(propPrefab, cellGrid.Cells[x,y].CellPos, Quaternion.identity);
+            GameObject prop = Instantiate(propPrefab, (Vector3Int)cellGrid.Cells[x,y].CellPos, Quaternion.identity);
             prop.transform.parent = propsHolder.transform;
 
             int minX = x - Mathf.CeilToInt(xBound /2);
@@ -37,14 +37,14 @@ public class CryptClusterBlock : PropsBlock
                     if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                     {
                         GameObject skullSpikesPrefab = graveYardLayoutProfile.GetRandomProps(graveYardLayoutProfile.skullSpikesPrefabs);
-                        GameObject skullOnSpike = Instantiate(skullSpikesPrefab, cellGrid.Cells[i, j].CellPos, Quaternion.identity);
+                        GameObject skullOnSpike = Instantiate(skullSpikesPrefab, (Vector3Int)cellGrid.Cells[i, j].CellPos, Quaternion.identity);
                         skullOnSpike.transform.parent = propsHolder.transform;
                         cellGrid.Cells[i, j].IsOccupied = true;
 
                     }
                     if(isAroundCryptArea)
                     {
-                        GroundTilemap.SetTile(new Vector3Int((int)cellGrid.Cells[i, j].CellPos.x , (int)cellGrid.Cells[i, j].CellPos.y , 0), null);
+                        ZoneManager.Instance.GroundTilemap.SetTile(new Vector3Int((int)cellGrid.Cells[i, j].CellPos.x , (int)cellGrid.Cells[i, j].CellPos.y , 0), null);
                         stoneTilemap.SetTile(new Vector3Int((int)cellGrid.Cells[i, j].CellPos.x - (int)stoneTilemap.transform.position.x, (int)cellGrid.Cells[i, j].CellPos.y - (int)stoneTilemap.transform.position.y, 0), graveYardLayoutProfile.roadRuletile);
                     }
                    

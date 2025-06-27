@@ -8,17 +8,17 @@ public class Cell
 {
     private bool isOccupied = false;
     private Vector2Int cellID = Vector2Int.zero;
-    private Vector2 cellPos = Vector2.zero;
+    private Vector2Int cellPos = Vector2Int.zero;
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public Vector2Int CellID { get => cellID; set => cellID = value; }
-    public Vector2 CellPos { get => cellPos; set => cellPos = value; }
+    public Vector2Int CellPos { get => cellPos; set => cellPos = value; }
 
-    public Cell(bool isOccupied, Vector2Int cellID, Vector2 gridPos, int cellSize)
+    public Cell(bool isOccupied, Vector2Int cellID, Vector2Int gridPos, int cellSize)
     {
         this.isOccupied = isOccupied;
         this.cellID = cellID;
-        this.cellPos = gridPos + new Vector2(cellID.x * cellSize, cellID.y * cellSize);
+        this.cellPos = gridPos + new Vector2Int(cellID.x * cellSize, cellID.y * cellSize);
     }
     public Cell() { }
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
@@ -72,7 +72,7 @@ public class CellGrid
     private Cell [,] cells = null;
     
 
-    public CellGrid(int cellSize, int gridWidth, int gridHeight,Vector2 gridCenterWoldPos)
+    public CellGrid(int cellSize, int gridWidth, int gridHeight, Vector2Int gridCenterWoldPos)
     {
         this.cellSize = cellSize;
         this.gridWidth = gridWidth;
@@ -82,7 +82,7 @@ public class CellGrid
         this.cellPerCol = Mathf.FloorToInt(this.GridHeight / cellSize);
 
         cells = new Cell[CellPerRow, CellPerCol];
-        InitializeCells(gridCenterWoldPos - new Vector2(gridWidth / 2, gridHeight / 2));
+        InitializeCells(gridCenterWoldPos - new Vector2Int(gridWidth / 2, gridHeight / 2));
 
 
     }
@@ -94,7 +94,7 @@ public class CellGrid
     public int GridWidth { get => gridWidth; set => gridWidth = value; }
     public int GridHeight { get => gridHeight; set => gridHeight = value; }
 
-    private void InitializeCells(Vector2 gridWoldPos)
+    private void InitializeCells(Vector2Int gridWoldPos)
     {
         for (int i = 0; i < cellPerRow; i++)
         {

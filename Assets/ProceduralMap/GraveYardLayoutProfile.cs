@@ -10,10 +10,13 @@ public class GraveYardLayoutProfile : ZoneLayoutProfile
 
     public Sprite[] graveStoneSprites; 
     public Sprite[] graveDirtSprites;
+    public Sprite[] skullSprites;
     public GameObject gravestoneBasePrefab;
+    public GameObject skullPrefab;
 
     public GameObject [] gravestonePrefabs;
     public GameObject [] treePrefabs;
+   
     public GameObject [] skullSpikesPrefabs;
     public GameObject cryptPrefab;
     

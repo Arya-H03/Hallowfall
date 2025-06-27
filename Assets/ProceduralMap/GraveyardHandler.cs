@@ -6,10 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class GraveyardHandler : ZoneHandler
 {
-    private Tilemap boundsTilemap;
-    private Tilemap roadTilemap;
-   
-
     private Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new Dictionary<DirectionEnum, Vector2Int[]>();
 
 
@@ -22,18 +18,20 @@ public class GraveyardHandler : ZoneHandler
     protected override void Start()
     {
         base.Start();
-        GenerateBoundsTilemap();
+        PaintUnoccupiedGround(ZoneManager.Instance.GroundTilemap, zoneLayoutProfile.groundRuletile, celLGrid);
+        GenerateBoundsForTilemap();
     }
-    private void GenerateBoundsTilemap()
+    private void GenerateBoundsForTilemap()
     {
-        boundsTilemap = CreateTilemap(zoneLayoutProfile.boundsTilemapGO, this.transform);
+        Tilemap boundsTilemap = ZoneManager.Instance.BoundsTilemap;
 
+        Debug.Log(celLGrid.CellPerRow - 1);
         //Down
-        DrawStraightLineOfTiles(Vector2Int.zero, new Vector2Int(celLGrid.CellPerRow -1, 0),zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(0,0), new Vector2Int(celLGrid.CellPerRow - 1, 0) ,zoneLayoutProfile.boundsRuletile,boundsTilemap);
         //Up
         DrawStraightLineOfTiles(new Vector2Int(0, celLGrid.CellPerCol - 1), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
         //Left
-        DrawStraightLineOfTiles(Vector2Int.zero, new Vector2Int(0, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(0, celLGrid.CellPerCol - 1) ,zoneLayoutProfile.boundsRuletile,boundsTilemap);
         //Right
         DrawStraightLineOfTiles(new Vector2Int(celLGrid.CellPerRow - 1, 0), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile, boundsTilemap);
 
@@ -52,7 +50,7 @@ public class GraveyardHandler : ZoneHandler
 
         zoneOpenings = CreateOpeningsInZone(openingDir,celLGrid,boundsTilemap);
 
-        GenerateRoadTileMap();
+        GenerateRoads();
     }
 
     private Dictionary<DirectionEnum, Vector2Int[]> CreateOpeningsInZone(List<DirectionEnum> openingDir, CellGrid cellGrid ,Tilemap tilemap)
@@ -85,7 +83,8 @@ public class GraveyardHandler : ZoneHandler
                         break;
                 }
 
-                tilemap.SetTile(PositionFromGridCell(cellCoord.x, cellCoord.y), null);
+                Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
+                tilemap.SetTile(pos, null);
                 zoneOpenings[dir][i] = cellCoord;
                 cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
             }
@@ -93,9 +92,9 @@ public class GraveyardHandler : ZoneHandler
 
         return zoneOpenings;
     }
-    private void GenerateRoadTileMap()
+    private void GenerateRoads()
     {
-        roadTilemap = CreateTilemap(zoneLayoutProfile.roadTilemapGO, this.transform);
+       
 
         var opening1 = zoneOpenings.ElementAt(0);
         var opening2 = zoneOpenings.ElementAt(1);
@@ -127,28 +126,30 @@ public class GraveyardHandler : ZoneHandler
             }
         }
 
-        PaintUnoccupiedGround(groundTilemap,zoneLayoutProfile.grassRuletile,celLGrid);
+        PaintUnoccupiedGround(ZoneManager.Instance.GroundTilemap,zoneLayoutProfile.grassRuletile,celLGrid);
         PopulateZoneWithPropBlocks(celLGrid,zoneLayoutProfile);
     }
 
     private void ConnectAllCenterJunctionPoints(Vector2Int[] from, Vector2Int[] to)
     {
+        Tilemap stoneTilemap = ZoneManager.Instance.StoneTilemap;
         int size = from.Length;
         for (int i = 0; i < size; i++)
         {
-            ConnectTwoJunctionPoints(from[i], to[i]);         // Matching index
-            ConnectTwoJunctionPoints(from[i], to[2 - i]);     // Flipped index
+            ConnectTwoJunctionPoints(stoneTilemap,from[i], to[i]);         // Matching index
+            ConnectTwoJunctionPoints(stoneTilemap,from[i], to[2 - i]);     // Flipped index
         }
     }
 
-    private void ConnectTwoJunctionPoints(Vector2Int p1, Vector2Int p2)
+    private void ConnectTwoJunctionPoints(Tilemap stoneTilemap,Vector2Int p1, Vector2Int p2)
     {
         Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
 
-        DrawStraightLineOfTiles(p1, junction, zoneLayoutProfile.roadRuletile,roadTilemap);
-        DrawStraightLineOfTiles(p2, junction, zoneLayoutProfile.roadRuletile, roadTilemap);
+        DrawStraightLineOfTiles(p1, junction, zoneLayoutProfile.roadRuletile, stoneTilemap);
+        DrawStraightLineOfTiles(p2, junction, zoneLayoutProfile.roadRuletile, stoneTilemap);
 
-        roadTilemap.SetTile(PositionFromGridCell(junction.x, junction.y), zoneLayoutProfile.roadRuletile);
+        Vector3Int pos = TurnCellCoordToTilePos(junction.x, junction.y);
+        stoneTilemap.SetTile(pos, zoneLayoutProfile.roadRuletile);
     }
 
     private void PaintUnoccupiedGround(Tilemap tilemap, RuleTile ruleTile, CellGrid cellGrid )
@@ -159,7 +160,8 @@ public class GraveyardHandler : ZoneHandler
             {
                 if (!cellGrid.Cells[x, y].IsOccupied)
                 {
-                    tilemap.SetTile(PositionFromGridCell(x, y), ruleTile);
+                    Vector3Int pos = TurnCellCoordToTilePos(x, y);
+                    tilemap.SetTile(pos, ruleTile);
                 }
             }
         }

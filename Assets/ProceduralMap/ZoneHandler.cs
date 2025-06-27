@@ -48,7 +48,7 @@ public class ZoneHandler : MonoBehaviour
         {
             for (int j = 0; j < cellGrid.CellPerRow; j++)
             {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cellGrid.Cells[j, i].CellPos, Quaternion.identity);
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].CellPos, Quaternion.identity);
 
                 if (!cellGrid.Cells[j, i].IsOccupied)
                 {
@@ -146,12 +146,10 @@ public class ZoneHandler : MonoBehaviour
             {
                 Component addedComponent = go.AddComponent(componentType);
                 PropsBlock propsBlock = addedComponent as PropsBlock;
-                propsBlock.ZoneHandler= this;
 
                 if (propsBlock)
                 {
                     propsBlock.ZoneLayoutProfile = zoneLayoutProfile;
-                    propsBlock.GroundTilemap = groundTilemap;
                     go.transform.parent = this.transform;
                     go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0f);
                     go.transform.GetChild(0).localScale = new Vector3(zoneBounds.size.x, zoneBounds.size.y, zoneBounds.size.z);
@@ -181,51 +179,48 @@ public class ZoneHandler : MonoBehaviour
 
         return type;
     }
-    public Tilemap CreateTilemap(GameObject tilemapPrefab, Transform parent)
+    protected Tilemap CreateTilemap(GameObject tilemapPrefab, Transform parent)
     {
         GameObject tilemap = Instantiate(tilemapPrefab, parent.position, Quaternion.identity);
         tilemap.transform.parent = parent;
         return tilemap.GetComponent<Tilemap>();
     }
 
-    protected void DrawStraightLineOfTiles(Vector2Int from, Vector2Int to, RuleTile ruleTile, Tilemap tilemap)
+    protected void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, RuleTile ruleTile, Tilemap tilemap)
     {
-        Vector2Int delta = to - from;
+        Vector2Int delta = endCellCoord - beginningCellCoord;
 
         if (delta.x == 0) // Vertical road
         {
-            int yMin = Mathf.Min(from.y, to.y);
-            int yMax = Mathf.Max(from.y, to.y);
+            int yMin = Mathf.Min(beginningCellCoord.y, endCellCoord.y);
+            int yMax = Mathf.Max(beginningCellCoord.y, endCellCoord.y);
 
             for (int y = yMin; y < yMax + 1; y++)
             {
-                tilemap.SetTile(PositionFromGridCell(from.x, y), ruleTile);
-                celLGrid.Cells[from.x, y].IsOccupied = true;
+                Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
+                tilemap.SetTile(pos, ruleTile);
+                celLGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
             }
         }
         else if (delta.y == 0) // Horizontal road
         {
-            int xMin = Mathf.Min(from.x, to.x);
-            int xMax = Mathf.Max(from.x, to.x);
+            int xMin = Mathf.Min(beginningCellCoord.x, endCellCoord.x);
+            int xMax = Mathf.Max(beginningCellCoord.x, endCellCoord.x);
 
             for (int x = xMin; x < xMax + 1; x++)
             {
-                tilemap.SetTile(PositionFromGridCell(x, from.y), ruleTile);
-                celLGrid.Cells[x, from.y].IsOccupied = true;
+
+                Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
+                tilemap.SetTile(pos, ruleTile);
+                celLGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
             }
         }
     }
 
-    protected Vector3Int PositionFromGridCell(int x, int y)
+    protected Vector3Int TurnCellCoordToTilePos(int x,int y)
     {
-       
-        return new Vector3Int(
-            Mathf.FloorToInt(x - 20),
-            Mathf.FloorToInt(y - 20),
-            0
-        );
+        return (Vector3Int)celLGrid.Cells[x,y].CellPos;
     }
-
 }
 
 

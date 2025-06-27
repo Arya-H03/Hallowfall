@@ -40,6 +40,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4453864012513424715}
     m_Modifications:
+    - target: {fileID: 2442998657257393236, guid: c6b4895be3f17ef438ae51b2f1e23065, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805922317206213121, guid: c6b4895be3f17ef438ae51b2f1e23065, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2805922317206213121, guid: c6b4895be3f17ef438ae51b2f1e23065, type: 3}
       propertyPath: m_TileAssetArray.Array.data[0].m_Data
       value: 

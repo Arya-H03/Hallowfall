@@ -13,6 +13,15 @@ public class ZoneTypeProfiles
 
 public class ZoneManager : MonoBehaviour
 {
+    private static ZoneManager instance;
+
+    public static ZoneManager Instance
+    {
+        get 
+        {
+            return instance;
+        }
+    }
     private GameObject player;
 
     private int zoneSize = 40;
@@ -24,6 +33,12 @@ public class ZoneManager : MonoBehaviour
 
     [SerializeField] private ZoneConfig zoneConfig;
 
+    [SerializeField] private Tilemap propsTilemap;
+    [SerializeField] private Tilemap groundTilemap;
+    [SerializeField] private Tilemap grassTilemap;
+    [SerializeField] private Tilemap stoneTilemap;
+    [SerializeField] private Tilemap boundsTilemap;
+
     [SerializeField]
     public Dictionary<Vector2Int, ZoneData> generatedZones = new Dictionary<Vector2Int, ZoneData>();
 
@@ -33,9 +48,21 @@ public class ZoneManager : MonoBehaviour
     private Dictionary<ZoneType, ZoneLayoutProfile> zoneLayoutProfiles;
 
     public Dictionary<ZoneType, ZoneLayoutProfile> ZoneLayoutProfiles { get => zoneLayoutProfiles; }
+    public Tilemap PropsTilemap { get => propsTilemap;}
+    public Tilemap GroundTilemap { get => groundTilemap; }
+    public Tilemap GrassTilemap { get => grassTilemap; }
+    public Tilemap StoneTilemap { get => stoneTilemap; }
+    public Tilemap BoundsTilemap { get => boundsTilemap; }
 
     private void Awake()
     {
+        if (instance != null && instance !=this)
+        {
+            Destroy(this.gameObject);
+        }
+        instance = this;
+
+
         zoneLayoutProfiles = new Dictionary<ZoneType, ZoneLayoutProfile>();
         foreach (var profile in zoneTypeProfiles)
         {
@@ -66,9 +93,9 @@ public class ZoneManager : MonoBehaviour
         return currentZoneCoord;
     }
 
-    private Vector2 FindZoneCenterPosition(Vector2Int centerCoord)
+    private Vector2Int FindZoneCenterPosition(Vector2Int centerCoord)
     {
-        return new Vector2(centerCoord.x * zoneSize, centerCoord.y * zoneSize);
+        return new Vector2Int(centerCoord.x * zoneSize, centerCoord.y * zoneSize);
     }
     private void CheckForPlayerEdgeProximity()
     {
@@ -90,23 +117,23 @@ public class ZoneManager : MonoBehaviour
         {
             case DirectionEnum.Right:
                 TryGenerateZone(currentZoneCoord + new Vector2Int(1, 0), DirectionEnum.Left);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.Left);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.Left);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.Left);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.Left);
                 break;
             case DirectionEnum.Left:
                 TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 0), DirectionEnum.Right);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.Right);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.Right);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.Right);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.Right);
                 break;
             case DirectionEnum.Up:
                 TryGenerateZone(currentZoneCoord + new Vector2Int(0, 1), DirectionEnum.Down);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.Down);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.Down);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.Down);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.Down);
                 break;
             case DirectionEnum.Down:
                 TryGenerateZone(currentZoneCoord + new Vector2Int(0, -1), DirectionEnum.Up);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.Up);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.Up);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.Up);
+                //TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.Up);
                 break;
         }
     }
@@ -115,7 +142,7 @@ public class ZoneManager : MonoBehaviour
     {
         if (!generatedZones.ContainsKey(centerCoord))
         {
-            Vector3 newZonePos = FindZoneCenterPosition(centerCoord);         
+            Vector2Int newZonePos = FindZoneCenterPosition(centerCoord);         
             ZoneType zoneType = GenerateZoneType(centerCoord);
 
             GameObject zoneGO = CreateZone(centerCoord, expansionDir, zoneType, newZonePos);
@@ -123,10 +150,10 @@ public class ZoneManager : MonoBehaviour
         }
     }
 
-    private GameObject CreateZone(Vector2Int centerCoord, DirectionEnum dir, ZoneType zoneType, Vector3 pos)
+    private GameObject CreateZone(Vector2Int centerCoord, DirectionEnum dir, ZoneType zoneType, Vector2Int pos)
     {
         ZoneLayoutProfile layoutProfile = zoneLayoutProfiles[zoneType];
-        GameObject zone = Instantiate(zonePrefab, pos, Quaternion.identity);
+        GameObject zone = Instantiate(zonePrefab, (Vector3Int)pos, Quaternion.identity);
         generatedZones.Add(centerCoord, new ZoneData(centerCoord, FindZoneCenterPosition(centerCoord), zone, dir, zoneType, layoutProfile));
 
        
@@ -146,9 +173,6 @@ public class ZoneManager : MonoBehaviour
                 zoneHandler1.ZoneConfig = zoneConfig;
                 zoneHandler1.ZoneLayoutProfile = layoutProfile;
 
-                GameObject boundsTilemapGO1 = Instantiate(layoutProfile.boundsTilemapGO, zoneHandler1.transform.position, Quaternion.identity);
-                boundsTilemapGO1.transform.parent = zoneHandler1.transform;
-                
                 break;
         }
 

@@ -23,11 +23,9 @@ public class PropsBlock : MonoBehaviour
     protected int blockHeight = 1;
 
     protected CellGrid celLGrid;
-    private Tilemap groundTilemap;
-
+  
 
     public ZoneLayoutProfile ZoneLayoutProfile {set => zoneLayoutProfile = value; }
-    public Tilemap GroundTilemap { get => groundTilemap; set => groundTilemap = value; }
     public ZoneHandler ZoneHandler { get => zoneHandler; set => zoneHandler = value; }
 
     protected virtual void Awake()
@@ -40,7 +38,8 @@ public class PropsBlock : MonoBehaviour
     {
         blockWidth = Mathf.FloorToInt(transform.GetChild(0).localScale.x);
         blockHeight = Mathf.FloorToInt(transform.GetChild(0).localScale.y);
-        celLGrid = new CellGrid(cellSize, blockWidth, blockHeight, this.transform.position + new Vector3(blockWidth /2, blockHeight/2, 0));
+        
+        celLGrid = new CellGrid(cellSize, blockWidth, blockHeight, new Vector2Int((int)this.transform.position.x + blockWidth / 2, (int)this.transform.position.y + blockHeight / 2));
        
         PopulateBlock(celLGrid, zoneLayoutProfile);
     }
@@ -51,7 +50,7 @@ public class PropsBlock : MonoBehaviour
         {
             for (int j = 0; j < cellGrid.CellPerRow; j++)
             {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, cellGrid.Cells[j, i].CellPos, Quaternion.identity);
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].CellPos, Quaternion.identity);
 
                 if (!cellGrid.Cells[j, i].IsOccupied)
                 {

@@ -28,9 +28,8 @@ public class ZoneLayoutProfile : ScriptableObject
     public RuleTile boundsRuletile;
     public RuleTile roadRuletile;
     public RuleTile grassRuletile;
-
-    public GameObject boundsTilemapGO;
-    public GameObject roadTilemapGO;
+    public RuleTile treeRuletile;
+    public RuleTile groundRuletile;
 
     [Range(0f, 1f)] public float clutterDensity = 0.3f;
 
@@ -39,6 +38,13 @@ public class ZoneLayoutProfile : ScriptableObject
     public GameObject GetRandomProps(GameObject[] props)
     {
         if (props.Length > 0) return props[Random.Range(0, props.Length)];
+        else return null;
+
+    }
+
+    public Sprite GetRandomSprite(Sprite[] sprites)
+    {
+        if (sprites.Length > 0) return sprites[Random.Range(0, sprites.Length)];
         else return null;
 
     }

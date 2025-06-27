@@ -17,6 +17,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1652564120720578789, guid: b75f5510aa58ed6418906cb3752f0081, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652564120720578789, guid: b75f5510aa58ed6418906cb3752f0081, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 0.25
       objectReference: {fileID: 0}
@@ -156,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -526526291388667155, guid: b495eba99651624429fbc6a9723ad377, type: 3}
+    - target: {fileID: 7339430122462102643, guid: b75f5510aa58ed6418906cb3752f0081, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7339430122462102643, guid: b75f5510aa58ed6418906cb3752f0081, type: 3}
       propertyPath: m_SortingOrder
       value: 1
