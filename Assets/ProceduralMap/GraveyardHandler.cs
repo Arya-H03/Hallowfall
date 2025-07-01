@@ -4,7 +4,6 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static Cell;
 
 public class GraveyardHandler : ZoneHandler
 {
@@ -44,7 +43,7 @@ public class GraveyardHandler : ZoneHandler
     {
         Tilemap boundsTilemap = ZoneManager.Instance.BoundsTilemap;
 
-        TilePaint[] tilePaints = { new TilePaint { tilemap = ZoneManager.Instance.GroundTilemap, ruleTile = zoneLayoutProfile.grassRuletile }, new TilePaint { tilemap = ZoneManager.Instance.BoundsTilemap, ruleTile = zoneLayoutProfile.boundsRuletile } };
+        TilePaint[] tilePaints = { new TilePaint { tilemap = ZoneManager.Instance.GroundTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new TilePaint { tilemap = ZoneManager.Instance.BoundsTilemap, tileBase = zoneLayoutProfile.boundsRuletile } };
 
         //Down
         DrawStraightLineOfTiles(new Vector2Int(0,0), new Vector2Int(celLGrid.CellPerRow - 1, 0) , tilePaints);
@@ -165,7 +164,7 @@ public class GraveyardHandler : ZoneHandler
     private void ConnectTwoJunctionPoints(Tilemap stoneTilemap, Vector2Int p1, Vector2Int p2)
     {
         Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
-        TilePaint[] tilePaint = {new TilePaint { tilemap = ZoneManager.Instance.StoneTilemap, ruleTile = zoneLayoutProfile.roadRuletile }};
+        TilePaint[] tilePaint = {new TilePaint { tilemap = ZoneManager.Instance.StoneTilemap, tileBase = zoneLayoutProfile.roadRuletile }};
         DrawStraightLineOfTiles(p1, junction, tilePaint);
         DrawStraightLineOfTiles(p2, junction ,tilePaint);
 

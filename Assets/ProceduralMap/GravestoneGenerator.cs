@@ -6,23 +6,23 @@ public class GravestoneGenerator
 
     public static void GenerateGraveStone()
     {
-        GraveYardLayoutProfile graveYardLayoutProfile = AssetDatabase.LoadAssetAtPath<GraveYardLayoutProfile>("Assets/ProceduralMap/GraveYardLayoutProfile.asset");
-        if(graveYardLayoutProfile == null )
-        {
-            Debug.LogError("GraveYardLayoutProfile not found!");
-            return;
-        }
+        //GraveYardLayoutProfile graveYardLayoutProfile = AssetDatabase.LoadAssetAtPath<GraveYardLayoutProfile>("Assets/ProceduralMap/GraveYardLayoutProfile.asset");
+        //if(graveYardLayoutProfile == null )
+        //{
+        //    Debug.LogError("GraveYardLayoutProfile not found!");
+        //    return;
+        //}
 
-        GameObject newGravestone = graveYardLayoutProfile.GenerateRandomGraveStone();
+        //GameObject newGravestone = graveYardLayoutProfile.GenerateRandomGraveStone();
 
-        string fileName = "Gravestone_" + System.Guid.NewGuid().ToString().Substring(0, 6) + ".prefab";
-        string assetPath = "Assets/ProceduralMap/GraveyardProps/" + fileName;
+        //string fileName = "Gravestone_" + System.Guid.NewGuid().ToString().Substring(0, 6) + ".prefab";
+        //string assetPath = "Assets/ProceduralMap/GraveyardProps/" + fileName;
 
-        PrefabUtility.SaveAsPrefabAsset(newGravestone, assetPath);
-        GameObject.DestroyImmediate(newGravestone);
-        AssetDatabase.Refresh();
+        //PrefabUtility.SaveAsPrefabAsset(newGravestone, assetPath);
+        //GameObject.DestroyImmediate(newGravestone);
+        //AssetDatabase.Refresh();
 
-        Debug.Log("Gravestone prefab created at: " + assetPath);
+        //Debug.Log("Gravestone prefab created at: " + assetPath);
     }
 
     

@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static Cell;
 using Random = UnityEngine.Random;
 
 
@@ -203,7 +202,7 @@ public class ZoneHandler : MonoBehaviour
             for (int y = yMin; y < yMax + 1; y++)
             {
                 Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
-                //tilemap.SetTile(pos, ruleTile);
+                //tilemap.SetTile(pos, tileBase);
                 celLGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
                 celLGrid.Cells[beginningCellCoord.x, y].AddToTilePaints(tilePaints);
             }
@@ -217,7 +216,7 @@ public class ZoneHandler : MonoBehaviour
             {
 
                 Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
-                //tilemap.SetTile(pos, ruleTile);
+                //tilemap.SetTile(pos, tileBase);
                 celLGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
                 celLGrid.Cells[x, beginningCellCoord.y].AddToTilePaints(tilePaints);
             }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public enum PropsBlockEnum
@@ -31,6 +32,9 @@ public class ZoneLayoutProfile : ScriptableObject
     public RuleTile treeRuletile;
     public RuleTile groundRuletile;
 
+
+    public TileBase[] treeTiles;
+
     [Range(0f, 1f)] public float clutterDensity = 0.3f;
 
     public LayerMask propsMask;
@@ -46,6 +50,21 @@ public class ZoneLayoutProfile : ScriptableObject
     {
         if (sprites.Length > 0) return sprites[Random.Range(0, sprites.Length)];
         else return null;
+
+    }
+
+    public TileBase GetRandomTile(TileBase[] tiles, bool canReturnNothing)
+    {
+        if (tiles == null || tiles.Length == 0)
+            return null;
+
+        if (!canReturnNothing || Random.value > 0.25f)
+        {
+            return tiles[Random.Range(0, tiles.Length)];
+        }
+
+        return null;
+
 
     }
 }

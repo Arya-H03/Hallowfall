@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public struct TilePaint
 {
     public Tilemap tilemap;
-    public RuleTile ruleTile;
+    public TileBase tileBase;
 }
 [System.Serializable]
 public class Cell
@@ -39,6 +39,12 @@ public class Cell
         }
 
     }
+
+    public void AddToTilePaints(TilePaint tilePaint)
+    {
+        tilePaintsList.Add(tilePaint);
+    }
+
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
     {
 
@@ -83,7 +89,7 @@ public class Cell
         {
             foreach (TilePaint tilePaint in tilePaintsList)
             {
-                tilePaint.tilemap.SetTile((Vector3Int)cellPos, tilePaint.ruleTile);
+                tilePaint.tilemap.SetTile((Vector3Int)cellPos, tilePaint.tileBase);
 
             }
         }
