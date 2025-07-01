@@ -7,6 +7,8 @@ using UnityEngine;
 public class GraveYardLayoutProfile : ZoneLayoutProfile
 {
     public RuleTile leafRuleTile;
+    public RuleTile graveStoneRuletile;
+    public RuleTile graveDirstRuletile;
 
     public Sprite[] graveStoneSprites; 
     public Sprite[] graveDirtSprites;

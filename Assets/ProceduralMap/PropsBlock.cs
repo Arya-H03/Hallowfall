@@ -23,11 +23,11 @@ public class PropsBlock : MonoBehaviour
     protected int blockHeight = 1;
 
     protected CellGrid celLGrid;
-  
+    protected CellGrid parentCellGrid;
 
-    public ZoneLayoutProfile ZoneLayoutProfile {set => zoneLayoutProfile = value; }
+
     public ZoneHandler ZoneHandler { get => zoneHandler; set => zoneHandler = value; }
-
+   
     protected virtual void Awake()
     {
 
@@ -36,14 +36,21 @@ public class PropsBlock : MonoBehaviour
     }
     protected virtual void Start()
     {
-        blockWidth = Mathf.FloorToInt(transform.GetChild(0).localScale.x);
-        blockHeight = Mathf.FloorToInt(transform.GetChild(0).localScale.y);
-        
-        celLGrid = new CellGrid(cellSize, blockWidth, blockHeight, new Vector2Int((int)this.transform.position.x + blockWidth / 2, (int)this.transform.position.y + blockHeight / 2));
-       
-        PopulateBlock(celLGrid, zoneLayoutProfile);
+ 
     }
 
+    public void OnPropsBlockInstantiated(CellGrid parentCellGrid, Vector3Int firstCellPos, ZoneLayoutProfile zoneLayoutProfile)
+    {
+        
+        blockWidth = Mathf.FloorToInt(transform.GetChild(0).localScale.x);
+        blockHeight = Mathf.FloorToInt(transform.GetChild(0).localScale.y);
+
+
+        this.parentCellGrid = parentCellGrid;
+        this.zoneLayoutProfile = zoneLayoutProfile;
+        celLGrid = new CellGrid(blockWidth, blockHeight, (Vector2Int)firstCellPos, parentCellGrid);
+        PopulateBlock(celLGrid, zoneLayoutProfile);
+    }
     protected void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
         for (int i = 0; i < cellGrid.CellPerCol; i++)

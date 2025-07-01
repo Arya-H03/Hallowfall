@@ -1,18 +1,28 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.Tilemaps;
+using static Cell;
 public class TreeClusterBlock : PropsBlock
 {
     protected override void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
+       
         if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
         {
+            TilePaint[] tilePaints = { new TilePaint { tilemap = ZoneManager.Instance.PropsTilemap, ruleTile = graveYardLayoutProfile.treeRuletile }, new TilePaint { tilemap = ZoneManager.Instance.GroundTilemap, ruleTile = graveYardLayoutProfile.leafRuleTile } };
+
             for (int y = 0; y < cellGrid.CellPerCol; y++)
             {
                 for (int x = 0; x < cellGrid.CellPerRow; x++)
                 {
                     Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].CellPos.x, (int)celLGrid.Cells[x, y].CellPos.y, 0);
-                    ZoneManager.Instance.PropsTilemap.SetTile(pos, zoneLayoutProfile.treeRuletile);
-                    ZoneManager.Instance.GroundTilemap.SetTile(pos, graveYardLayoutProfile.leafRuleTile);
+                    //ZoneManager.Instance.PropsTilemap.SetTile(pos, zoneLayoutProfile.treeRuletile);
+                    //ZoneManager.Instance.GroundTilemap.SetTile(pos, graveYardLayoutProfile.leafRuleTile);
+                    cellGrid.Cells[x, y].AddToTilePaints(tilePaints);
+                    //Debug.Log(cellGrid.Cells[x, y].TilePaintsList[0].tilemap + " / " + cellGrid.Cells[x, y].TilePaintsList[0].ruleTile);
+
                     //GameObject propPrefab = graveYardLayoutProfile.GetRandomProps(graveYardLayoutProfile.treePrefabs);
 
                     //Bounds bounds = ProceduralUtils.GetCombinedBounds(propPrefab);

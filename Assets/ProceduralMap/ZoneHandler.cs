@@ -1,13 +1,10 @@
-using NUnit.Framework;
+
 using System;
-using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Cell;
 using Random = UnityEngine.Random;
 
 
@@ -26,13 +23,13 @@ public class ZoneHandler : MonoBehaviour
 
     protected CellGrid celLGrid;
 
-    protected List<BoundsInt> listOfSubzoneBounds = new List<BoundsInt> ();
-    protected List<BoundsInt> listOfPartitionedSubzoneBounds = new List<BoundsInt> ();
+    protected List<BoundsInt> listOfSubzoneBounds = new List<BoundsInt>();
+    protected List<BoundsInt> listOfPartitionedSubzoneBounds = new List<BoundsInt>();
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
     public ZoneConfig ZoneConfig { set => zoneConfig = value; }
     public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
 
-    
+
     protected virtual void Awake()
     {
         groundTilemap = transform.GetChild(0).GetComponentInChildren<Tilemap>();
@@ -40,8 +37,13 @@ public class ZoneHandler : MonoBehaviour
     protected virtual void Start()
     {
         celLGrid = new CellGrid(cellSize, zoneWidth, zoneHeight, zoneData.centerPos);
+        StartCoroutine(GenerateZoneCoroutine());
     }
 
+    protected virtual IEnumerator GenerateZoneCoroutine()
+    {
+        return null;
+    }
     private void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
         for (int i = 0; i < cellGrid.CellPerCol; i++)
@@ -62,11 +64,11 @@ public class ZoneHandler : MonoBehaviour
         }
     }
 
-   
-    public virtual void PopulateZoneWithPropBlocks(CellGrid cellGrid,ZoneLayoutProfile zoneLayoutProfile)
+
+    public virtual void PopulateZoneWithPropBlocks(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        Cell startCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(0,0));
+        Cell startCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(0, 0));
 
         CreateSubZone(cellGrid, startCell);
         listOfPartitionedSubzoneBounds = ProceduralUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 10, 8);
@@ -75,10 +77,10 @@ public class ZoneHandler : MonoBehaviour
 
     }
 
-  
+
     private void CreateSubZone(CellGrid cellGrid, Cell startCell)
     {
-       
+
         int h1 = 1;
         for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
         {
@@ -138,44 +140,46 @@ public class ZoneHandler : MonoBehaviour
     private void InstantiatePropsBlocks(List<BoundsInt> listOfPartitionedSubzoneBounds, ZoneLayoutProfile zoneLayoutProfile)
     {
         foreach (BoundsInt zoneBounds in listOfPartitionedSubzoneBounds)
-        {         
+        {
             GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
 
-            Type componentType = GetPropsBlockType(zoneLayoutProfile,zoneBounds);
-            if(componentType != null)
+            Type componentType = GetPropsBlockType(zoneLayoutProfile, zoneBounds);
+            if (componentType != null)
             {
                 Component addedComponent = go.AddComponent(componentType);
                 PropsBlock propsBlock = addedComponent as PropsBlock;
 
                 if (propsBlock)
                 {
-                    propsBlock.ZoneLayoutProfile = zoneLayoutProfile;
+                    
                     go.transform.parent = this.transform;
                     go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0f);
                     go.transform.GetChild(0).localScale = new Vector3(zoneBounds.size.x, zoneBounds.size.y, zoneBounds.size.z);
+
+                    propsBlock.OnPropsBlockInstantiated(celLGrid,zoneBounds.position,zoneLayoutProfile);
                 }
             }
-            
-         
+
+
         }
 
-       
+
     }
 
     private Type GetPropsBlockType(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
     {
         Type type = null;
 
-        while(type == null)
+        while (type == null)
         {
             PropsBlockStruct propsBlock = zoneLayoutProfile.propsBlocksStructList[Random.Range(0, zoneLayoutProfile.propsBlocksStructList.Count)];
-            if(blockBounds.size.x >= propsBlock.minBlockSize.x && blockBounds.size.y >= propsBlock.minBlockSize.y)
+            if (blockBounds.size.x >= propsBlock.minBlockSize.x && blockBounds.size.y >= propsBlock.minBlockSize.y)
             {
                 type = propsBlock.scriptReference.GetClass();
             }
-           
+
         }
-       
+
 
         return type;
     }
@@ -186,20 +190,22 @@ public class ZoneHandler : MonoBehaviour
         return tilemap.GetComponent<Tilemap>();
     }
 
-    protected void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, RuleTile ruleTile, Tilemap tilemap)
+    protected void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, TilePaint[] tilePaints)
     {
         Vector2Int delta = endCellCoord - beginningCellCoord;
 
         if (delta.x == 0) // Vertical road
         {
+            
             int yMin = Mathf.Min(beginningCellCoord.y, endCellCoord.y);
             int yMax = Mathf.Max(beginningCellCoord.y, endCellCoord.y);
 
             for (int y = yMin; y < yMax + 1; y++)
             {
                 Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
-                tilemap.SetTile(pos, ruleTile);
+                //tilemap.SetTile(pos, ruleTile);
                 celLGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
+                celLGrid.Cells[beginningCellCoord.x, y].AddToTilePaints(tilePaints);
             }
         }
         else if (delta.y == 0) // Horizontal road
@@ -211,16 +217,19 @@ public class ZoneHandler : MonoBehaviour
             {
 
                 Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
-                tilemap.SetTile(pos, ruleTile);
+                //tilemap.SetTile(pos, ruleTile);
                 celLGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
+                celLGrid.Cells[x, beginningCellCoord.y].AddToTilePaints(tilePaints);
             }
         }
     }
 
-    protected Vector3Int TurnCellCoordToTilePos(int x,int y)
+    protected Vector3Int TurnCellCoordToTilePos(int x, int y)
     {
-        return (Vector3Int)celLGrid.Cells[x,y].CellPos;
+        return (Vector3Int)celLGrid.Cells[x, y].CellPos;
     }
+
+ 
 }
 
 

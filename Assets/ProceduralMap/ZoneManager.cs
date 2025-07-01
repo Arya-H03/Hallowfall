@@ -1,7 +1,10 @@
+
+using NavMeshPlus.Components;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -41,7 +44,7 @@ public class ZoneManager : MonoBehaviour
 
     [SerializeField]
     public Dictionary<Vector2Int, ZoneData> generatedZones = new Dictionary<Vector2Int, ZoneData>();
-
+     public NavMeshSurface navMeshSurface;
 
     [SerializeField] private List<ZoneTypeProfiles> zoneTypeProfiles;
 
@@ -69,6 +72,8 @@ public class ZoneManager : MonoBehaviour
             if (!ZoneLayoutProfiles.ContainsKey(profile.zoneType)) ZoneLayoutProfiles.Add(profile.zoneType, profile.zoneLayoutProfile);
         }
         halfZoneSize = zoneSize / 2;
+
+
     }
 
     private void Start()
@@ -76,6 +81,7 @@ public class ZoneManager : MonoBehaviour
         player = GameManager.Instance.Player;
 
         TryGenerateZone((Vector2Int.zero), DirectionEnum.None);
+        //navMeshSurface.BuildNavMesh();
     }
 
   
@@ -83,6 +89,11 @@ public class ZoneManager : MonoBehaviour
     private void Update()
     {
         CheckForPlayerEdgeProximity();
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+
+        }
     }
 
     private Vector2Int FindCurrentPlayerZoneCoord()

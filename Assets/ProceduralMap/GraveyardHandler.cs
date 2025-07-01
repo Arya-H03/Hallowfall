@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Cell;
 
 public class GraveyardHandler : ZoneHandler
 {
@@ -18,22 +20,40 @@ public class GraveyardHandler : ZoneHandler
     protected override void Start()
     {
         base.Start();
-        PaintUnoccupiedGround(ZoneManager.Instance.GroundTilemap, zoneLayoutProfile.groundRuletile, celLGrid);
+       
+       
+    }
+
+    protected override IEnumerator GenerateZoneCoroutine()
+    {
         GenerateBoundsForTilemap();
+        GenerateRoads();
+        //PaintAllCells();
+        PopulateZoneWithPropBlocks(celLGrid, zoneLayoutProfile);
+
+
+
+        //yield return null;
+        //PaintUnoccupiedGround(ZoneManager.Instance.GroundTilemap, zoneLayoutProfile.grassRuletile, celLGrid);
+        //yield return null;
+
+        celLGrid.PaintAllCells();
+        yield return null;
     }
     private void GenerateBoundsForTilemap()
     {
         Tilemap boundsTilemap = ZoneManager.Instance.BoundsTilemap;
 
-        Debug.Log(celLGrid.CellPerRow - 1);
+        TilePaint[] tilePaints = { new TilePaint { tilemap = ZoneManager.Instance.GroundTilemap, ruleTile = zoneLayoutProfile.grassRuletile }, new TilePaint { tilemap = ZoneManager.Instance.BoundsTilemap, ruleTile = zoneLayoutProfile.boundsRuletile } };
+
         //Down
-        DrawStraightLineOfTiles(new Vector2Int(0,0), new Vector2Int(celLGrid.CellPerRow - 1, 0) ,zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(0,0), new Vector2Int(celLGrid.CellPerRow - 1, 0) , tilePaints);
         //Up
-        DrawStraightLineOfTiles(new Vector2Int(0, celLGrid.CellPerCol - 1), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(0, celLGrid.CellPerCol - 1), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1), tilePaints);
         //Left
-        DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(0, celLGrid.CellPerCol - 1) ,zoneLayoutProfile.boundsRuletile,boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(0, celLGrid.CellPerCol - 1) , tilePaints);
         //Right
-        DrawStraightLineOfTiles(new Vector2Int(celLGrid.CellPerRow - 1, 0), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1),zoneLayoutProfile.boundsRuletile, boundsTilemap);
+        DrawStraightLineOfTiles(new Vector2Int(celLGrid.CellPerRow - 1, 0), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1), tilePaints);
 
 
         List<DirectionEnum> dirs = ProceduralUtils.GetAllDirectionList();
@@ -50,7 +70,7 @@ public class GraveyardHandler : ZoneHandler
 
         zoneOpenings = CreateOpeningsInZone(openingDir,celLGrid,boundsTilemap);
 
-        GenerateRoads();
+        
     }
 
     private Dictionary<DirectionEnum, Vector2Int[]> CreateOpeningsInZone(List<DirectionEnum> openingDir, CellGrid cellGrid ,Tilemap tilemap)
@@ -84,9 +104,10 @@ public class GraveyardHandler : ZoneHandler
                 }
 
                 Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
-                tilemap.SetTile(pos, null);
+                ////tilemap.SetTile(pos, null);
                 zoneOpenings[dir][i] = cellCoord;
                 cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveTilePaint();
             }
         }
 
@@ -126,8 +147,8 @@ public class GraveyardHandler : ZoneHandler
             }
         }
 
-        PaintUnoccupiedGround(ZoneManager.Instance.GroundTilemap,zoneLayoutProfile.grassRuletile,celLGrid);
-        PopulateZoneWithPropBlocks(celLGrid,zoneLayoutProfile);
+       
+        
     }
 
     private void ConnectAllCenterJunctionPoints(Vector2Int[] from, Vector2Int[] to)
@@ -141,15 +162,15 @@ public class GraveyardHandler : ZoneHandler
         }
     }
 
-    private void ConnectTwoJunctionPoints(Tilemap stoneTilemap,Vector2Int p1, Vector2Int p2)
+    private void ConnectTwoJunctionPoints(Tilemap stoneTilemap, Vector2Int p1, Vector2Int p2)
     {
         Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
+        TilePaint[] tilePaint = {new TilePaint { tilemap = ZoneManager.Instance.StoneTilemap, ruleTile = zoneLayoutProfile.roadRuletile }};
+        DrawStraightLineOfTiles(p1, junction, tilePaint);
+        DrawStraightLineOfTiles(p2, junction ,tilePaint);
 
-        DrawStraightLineOfTiles(p1, junction, zoneLayoutProfile.roadRuletile, stoneTilemap);
-        DrawStraightLineOfTiles(p2, junction, zoneLayoutProfile.roadRuletile, stoneTilemap);
-
-        Vector3Int pos = TurnCellCoordToTilePos(junction.x, junction.y);
-        stoneTilemap.SetTile(pos, zoneLayoutProfile.roadRuletile);
+        //Vector3Int pos = TurnCellCoordToTilePos(junction.x, junction.y);
+        ////stoneTilemap.SetTile(pos, zoneLayoutProfile.roadRuletile);
     }
 
     private void PaintUnoccupiedGround(Tilemap tilemap, RuleTile ruleTile, CellGrid cellGrid )
