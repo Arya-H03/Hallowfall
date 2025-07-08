@@ -1,25 +1,23 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Test : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Tilemap tilemap;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        GetOccupiedCellCountFromSprite(this.gameObject, 1);
+        if (other.CompareTag("Player"))
+        {
+            
+        }
     }
 
-    public void GetOccupiedCellCountFromSprite(GameObject obj, float cellSize)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-        if (sr == null)
-        {
-            Debug.LogWarning("No SpriteRenderer found.");
-            return;
-        }
 
-        Bounds bounds = sr.bounds;
-        int widthInCells = Mathf.CeilToInt(bounds.size.x / cellSize);
-        int heightInCells = Mathf.CeilToInt(bounds.size.y / cellSize);
-        Debug.Log(widthInCells + " / " + heightInCells);
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("Out");
+        }
     }
 }

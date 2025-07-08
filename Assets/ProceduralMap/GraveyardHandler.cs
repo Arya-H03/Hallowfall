@@ -27,7 +27,6 @@ public class GraveyardHandler : ZoneHandler
     {
         GenerateBoundsForTilemap();
         GenerateRoads();
-        //PaintAllCells();
         PopulateZoneWithPropBlocks(celLGrid, zoneLayoutProfile);
 
 
@@ -38,6 +37,7 @@ public class GraveyardHandler : ZoneHandler
 
         celLGrid.PaintAllCells();
         yield return null;
+        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
     }
     private void GenerateBoundsForTilemap()
     {
@@ -55,12 +55,12 @@ public class GraveyardHandler : ZoneHandler
         DrawStraightLineOfTiles(new Vector2Int(celLGrid.CellPerRow - 1, 0), new Vector2Int(celLGrid.CellPerRow - 1, celLGrid.CellPerCol - 1), tilePaints);
 
 
-        List<DirectionEnum> dirs = ProceduralUtils.GetAllDirectionList();
+        List<DirectionEnum> dirs = MyUtils.GetAllDirectionList();
         int openingCount = Random.Range(2, 3);
         // Always one horizontal + one vertical + one random
         List<DirectionEnum> openingDir = new List<DirectionEnum>();
-        DirectionEnum horizontal = ProceduralUtils.GetRandomHorizontalDirectionEnum();
-        DirectionEnum vertical = ProceduralUtils.GetRandomVerticalDirectionEnum();
+        DirectionEnum horizontal = MyUtils.GetRandomHorizontalDirectionEnum();
+        DirectionEnum vertical = MyUtils.GetRandomVerticalDirectionEnum();
         openingDir.Add(horizontal);
         openingDir.Add(vertical);
         dirs.Remove(horizontal);

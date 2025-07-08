@@ -10,7 +10,7 @@ public class CryptClusterBlock : PropsBlock
             GameObject propPrefab = graveYardLayoutProfile.cryptPrefab;
             Tilemap stoneTilemap = ZoneManager.Instance.StoneTilemap;
 
-            Bounds bounds = ProceduralUtils.GetCombinedBounds(propPrefab);
+            Bounds bounds = MyUtils.GetCombinedBounds(propPrefab);
             int xBound = Mathf.CeilToInt(bounds.size.x);
             int yBound = Mathf.CeilToInt(bounds.size.y);
 

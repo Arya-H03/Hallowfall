@@ -17,6 +17,10 @@ public class GraveClusterBlock : PropsBlock
                     cellGrid.Cells[x, y].IsOccupied = true;
 
                     TileBase graveStoneTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.graveStoneTiles, false);
+                    //if(graveStoneTilebase is Tile tile)
+                    //{
+                    //    Debug.Log(tile.sprite);
+                    //}
                     if (graveStoneTilebase != null)
                     {
                         TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.PropsTilemap, tileBase = graveStoneTilebase };
@@ -24,7 +28,7 @@ public class GraveClusterBlock : PropsBlock
                     }                  
 
                     TryAddGraveDirt(graveYardLayoutProfile, new Vector2Int(x,y-1),celLGrid);
-                    TryAddSkulls(graveYardLayoutProfile, (Vector3Int)cellGrid.Cells[x, y].CellPos);
+                    TryAddSkulls(graveYardLayoutProfile, (Vector3Int)cellGrid.Cells[x, y-1].CellPos);
 
                 }
             }
@@ -48,7 +52,7 @@ public class GraveClusterBlock : PropsBlock
             TileBase graveDirtTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.graveDirtTiles, false);
             if (graveDirtTilebase != null)
             {
-                TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.PropsTilemap, tileBase = graveDirtTilebase };
+                TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.GroundPropsTilemap, tileBase = graveDirtTilebase };
                 cellGrid.Cells[cellCoord.x, cellCoord.y].AddToTilePaints(tilePaintGravestone);
             }
         }
@@ -60,8 +64,8 @@ public class GraveClusterBlock : PropsBlock
             int skullCount = Random.Range(1, 3);
             for (int i = 0; i < skullCount; i++)
             {
-                Vector2 offset = Random.insideUnitCircle * 0.4f; 
-                Vector3 pos = cellPos + new Vector3(offset.x, offset.y, 0);
+                Vector2 offset = new Vector2(Random.Range(-0.8f, 0.8f), Random.Range(-0.4f, 0.4f));
+                Vector3 pos = cellPos + (Vector3)offset;
                 GameObject skullGO = Instantiate(graveYardLayoutProfile.skullPrefab, pos, Quaternion.identity);
                 skullGO.GetComponent<SpriteRenderer>().sprite = graveYardLayoutProfile.GetRandomSprite(graveYardLayoutProfile.skullSprites);
                 skullGO.transform.parent = propsHolder.transform;

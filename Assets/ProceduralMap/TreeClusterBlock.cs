@@ -19,7 +19,7 @@ public class TreeClusterBlock : PropsBlock
                     TileBase treeTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.treeTiles,true);
                     if (treeTilebase != null)
                     {
-                        TilePaint tilePaintTree = new TilePaint { tilemap = ZoneManager.Instance.PropsTilemap, tileBase = treeTilebase };
+                        TilePaint tilePaintTree = new TilePaint { tilemap = ZoneManager.Instance.TreeTilemap, tileBase = treeTilebase };
                         cellGrid.Cells[x, y].AddToTilePaints(tilePaintTree);
                     }             
                     cellGrid.Cells[x, y].AddToTilePaints(tilePaintLeaves);

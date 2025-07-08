@@ -15,7 +15,7 @@ public class Cell
     private bool isOccupied = false;
     private Vector2Int cellID = Vector2Int.zero;
     private Vector2Int cellPos = Vector2Int.zero;
-    private bool isPainted = false;
+    //private bool isPainted = false;
     List<TilePaint> tilePaintsList = new List<TilePaint>();
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
@@ -48,7 +48,7 @@ public class Cell
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
     {
 
-        Vector2Int[] allDirections = ProceduralUtils.GetAllDirections();
+        Vector2Int[] allDirections = MyUtils.GetAllDirections();
 
 
         foreach (var dir in allDirections)
@@ -66,7 +66,7 @@ public class Cell
     public bool CheckIfCardinalNeighboorsAreOccupied(CellGrid cellGrid)
     {
 
-        Vector2Int[] allDirections = ProceduralUtils.GetCardinalDirections();
+        Vector2Int[] allDirections = MyUtils.GetCardinalDirections();
 
 
 

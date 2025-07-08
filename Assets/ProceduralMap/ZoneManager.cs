@@ -1,6 +1,7 @@
 
 using NavMeshPlus.Components;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -41,6 +42,8 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] private Tilemap grassTilemap;
     [SerializeField] private Tilemap stoneTilemap;
     [SerializeField] private Tilemap boundsTilemap;
+    [SerializeField] private Tilemap groundPropsTilemap;
+    [SerializeField] private Tilemap treeTilemap;
 
     [SerializeField]
     public Dictionary<Vector2Int, ZoneData> generatedZones = new Dictionary<Vector2Int, ZoneData>();
@@ -56,6 +59,23 @@ public class ZoneManager : MonoBehaviour
     public Tilemap GrassTilemap { get => grassTilemap; }
     public Tilemap StoneTilemap { get => stoneTilemap; }
     public Tilemap BoundsTilemap { get => boundsTilemap; }
+    public Tilemap GroundPropsTilemap { get => groundPropsTilemap; private set => groundPropsTilemap = value; }
+    public Tilemap TreeTilemap { get => treeTilemap; private set => treeTilemap = value; }
+
+    private void OnValidate()
+    {
+        MyUtils.ValidateFields(this, zonePrefab, nameof(zonePrefab));
+        MyUtils.ValidateFields(this, mainGrid, nameof(mainGrid));
+        MyUtils.ValidateFields(this, zoneConfig, nameof(zoneConfig));
+
+        MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
+        MyUtils.ValidateFields(this, groundTilemap, nameof(groundTilemap));
+        MyUtils.ValidateFields(this, grassTilemap, nameof(grassTilemap));
+        MyUtils.ValidateFields(this, stoneTilemap, nameof(stoneTilemap));
+        MyUtils.ValidateFields(this, boundsTilemap, nameof(boundsTilemap));
+        MyUtils.ValidateFields(this, groundPropsTilemap, nameof(groundPropsTilemap));
+        MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
+    }
 
     private void Awake()
     {
@@ -81,7 +101,7 @@ public class ZoneManager : MonoBehaviour
         player = GameManager.Instance.Player;
 
         TryGenerateZone((Vector2Int.zero), DirectionEnum.None);
-        //navMeshSurface.BuildNavMesh();
+        
     }
 
   

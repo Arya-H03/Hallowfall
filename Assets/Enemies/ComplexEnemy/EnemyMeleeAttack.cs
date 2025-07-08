@@ -6,7 +6,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 {
     [SerializeField] private Vector2 boxCastSize = new Vector2(1.75f, 0.5f);
     [SerializeField] Transform boxCastCenter;
-    private float distance = 0;
+    //private float distance = 0;
     [SerializeField] LayerMask layerMask;
     protected EnemyAttackZone attackZone;
 

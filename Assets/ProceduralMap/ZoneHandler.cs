@@ -70,7 +70,7 @@ public class ZoneHandler : MonoBehaviour
         Cell startCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(0, 0));
 
         CreateSubZone(cellGrid, startCell);
-        listOfPartitionedSubzoneBounds = ProceduralUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 10, 8);
+        listOfPartitionedSubzoneBounds = MyUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 10, 8);
 
         InstantiatePropsBlocks(listOfPartitionedSubzoneBounds, zoneLayoutProfile);
 
