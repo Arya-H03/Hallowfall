@@ -21,6 +21,7 @@ TagManager:
   - Stone
   - Wood
   - EnemyProjectile
+  - Trees
   layers:
   - Default
   - TransparentFX

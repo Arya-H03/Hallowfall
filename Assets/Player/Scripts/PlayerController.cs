@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimationController animationController;
     private PlayerMovementManager playerMovementManager;
     private AfterImageHandler afterImageHandler;
-    private PlayerCollision playerCollision;
+    private PlayerCollisionController playerCollision;
     private Material material;
 
     [HideInInspector] public Rigidbody2D rb;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAnimationController AnimationController { get => animationController; set => animationController = value; }
     public PlayerMovementManager PlayerMovementManager { get => playerMovementManager; set => playerMovementManager = value; }
     public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
-    public PlayerCollision PlayerCollision { get => playerCollision; set => playerCollision = value; }
+    public PlayerCollisionController PlayerCollision { get => playerCollision; set => playerCollision = value; }
     public Material Material { get => material; set => material = value; }
     public PlayerConfig PlayerConfig { get => playerConfig; set => playerConfig = value; }
 
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         AfterImageHandler = GetComponent<AfterImageHandler>();
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
-        PlayerCollision = GetComponent<PlayerCollision>();
+        PlayerCollision = GetComponent<PlayerCollisionController>();
 
         // State initialization
         InitializeState(ref playerIdleState);

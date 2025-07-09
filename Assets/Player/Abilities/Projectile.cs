@@ -34,12 +34,12 @@ public class Projectile : MonoBehaviour
             collision.GetComponent<PlayerController>().OnPlayerHit(damage);
             if((collision.transform.position - this.transform.position).x < 0)
             {
-                collision.GetComponent<PlayerCollision>().KnockPlayer(collision.transform.right * -1 * 5);
+                collision.GetComponent<PlayerCollisionController>().KnockPlayer(collision.transform.right * -1 * 5);
                 
             }
             else
             {
-                collision.GetComponent<PlayerCollision>().KnockPlayer(collision.transform.right * 1 * 5);
+                collision.GetComponent<PlayerCollisionController>().KnockPlayer(collision.transform.right * 1 * 5);
                 
             }
             

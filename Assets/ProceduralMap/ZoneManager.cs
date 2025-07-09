@@ -21,7 +21,7 @@ public class ZoneManager : MonoBehaviour
 
     public static ZoneManager Instance
     {
-        get 
+        get
         {
             return instance;
         }
@@ -47,14 +47,14 @@ public class ZoneManager : MonoBehaviour
 
     [SerializeField]
     public Dictionary<Vector2Int, ZoneData> generatedZones = new Dictionary<Vector2Int, ZoneData>();
-     public NavMeshSurface navMeshSurface;
+    public NavMeshSurface navMeshSurface;
 
     [SerializeField] private List<ZoneTypeProfiles> zoneTypeProfiles;
 
     private Dictionary<ZoneType, ZoneLayoutProfile> zoneLayoutProfiles;
 
     public Dictionary<ZoneType, ZoneLayoutProfile> ZoneLayoutProfiles { get => zoneLayoutProfiles; }
-    public Tilemap PropsTilemap { get => propsTilemap;}
+    public Tilemap PropsTilemap { get => propsTilemap; }
     public Tilemap GroundTilemap { get => groundTilemap; }
     public Tilemap GrassTilemap { get => grassTilemap; }
     public Tilemap StoneTilemap { get => stoneTilemap; }
@@ -79,7 +79,7 @@ public class ZoneManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null && instance !=this)
+        if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -101,10 +101,10 @@ public class ZoneManager : MonoBehaviour
         player = GameManager.Instance.Player;
 
         TryGenerateZone((Vector2Int.zero), DirectionEnum.None);
-        
+
     }
 
-  
+
 
     private void Update()
     {
@@ -120,7 +120,7 @@ public class ZoneManager : MonoBehaviour
     {
         Vector3 pos = player.transform.position;
         Vector2Int currentZoneCoord = new Vector2Int(Mathf.FloorToInt((pos.x + halfZoneSize) / zoneSize), Mathf.FloorToInt((pos.y + halfZoneSize) / zoneSize));
-     
+
         return currentZoneCoord;
     }
 
@@ -173,7 +173,7 @@ public class ZoneManager : MonoBehaviour
     {
         if (!generatedZones.ContainsKey(centerCoord))
         {
-            Vector2Int newZonePos = FindZoneCenterPosition(centerCoord);         
+            Vector2Int newZonePos = FindZoneCenterPosition(centerCoord);
             ZoneType zoneType = GenerateZoneType(centerCoord);
 
             GameObject zoneGO = CreateZone(centerCoord, expansionDir, zoneType, newZonePos);
@@ -187,7 +187,7 @@ public class ZoneManager : MonoBehaviour
         GameObject zone = Instantiate(zonePrefab, (Vector3Int)pos, Quaternion.identity);
         generatedZones.Add(centerCoord, new ZoneData(centerCoord, FindZoneCenterPosition(centerCoord), zone, dir, zoneType, layoutProfile));
 
-       
+
         switch (zoneType)
         {
             case ZoneType.graveYard:
@@ -223,7 +223,7 @@ public class ZoneManager : MonoBehaviour
         //else
         //{
         //    bool temp = true;
-        //    foreach (var dir in AllDirections)
+        //    foreach (var dir in MyUtils.GetCardinalDirections())
         //    {
         //        Vector2Int neighborCoord = centerCoord + dir;
 
@@ -243,7 +243,8 @@ public class ZoneManager : MonoBehaviour
 
     }
 
-    
+
+
 
 
 

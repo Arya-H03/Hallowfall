@@ -58,7 +58,7 @@ public class ZoneLayoutProfile : ScriptableObject
         if (tiles == null || tiles.Length == 0)
             return null;
 
-        if (!canReturnNothing || Random.value > 0.25f)
+        if (!canReturnNothing || Random.value >0.25f)
         {
             return tiles[Random.Range(0, tiles.Length)];
         }
@@ -67,4 +67,5 @@ public class ZoneLayoutProfile : ScriptableObject
 
 
     }
+
 }

@@ -6,24 +6,53 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerCamera : MonoBehaviour
 {
+    private static PlayerCamera instance;
+
+    public static PlayerCamera Instance
+    {
+        get { return instance; }
+    }
+
+  
+
     private GameObject player;
+
     private Volume volume;
     private Vignette vignette;
     private ChromaticAberration chromaticAberration;
-    private float followSpeed = 2f;
+    private ColorAdjustments colorAdjustments;
+
+    private float followSpeed = 2.5f;
 
     private PlayerController playerController;
 
+    public Volume Volume { get => volume;}
+    public Vignette Vignette { get => vignette;}
+    public ChromaticAberration ChromaticAberration { get => chromaticAberration; }
+    public ColorAdjustments ColorAdjustments { get => colorAdjustments; }
+
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerController = player.GetComponent<PlayerController>();    
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+
         volume = GetComponent<Volume>();
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out chromaticAberration);
+        volume.profile.TryGet(out colorAdjustments);
     }
 
-    
+    private void Start()
+    {
+        player = GameManager.Instance.Player;
+        playerController = GameManager.Instance.PlayerController;
+    }
+
     void Update()
     {
         if (player && !playerController.IsDead)
@@ -38,13 +67,13 @@ public class PlayerCamera : MonoBehaviour
 
     public void OnPlayerDistorted( )
     {
-        chromaticAberration.intensity.Override(1);
-        vignette.intensity.Override(0.75f);
+        ChromaticAberration.intensity.Override(1);
+        Vignette.intensity.Override(0.75f);
     }
 
     public void OnPlayerEndDistorted()
     {
-        chromaticAberration.intensity.Override(0);
-        vignette.intensity.Override(0);
+        ChromaticAberration.intensity.Override(0);
+        Vignette.intensity.Override(0);
     }
 }
