@@ -43,12 +43,12 @@ public static class MyUtils
 
     public static List<DirectionEnum> GetHorizontalDirectionList()
     {
-        return new List<DirectionEnum> {DirectionEnum.Right, DirectionEnum.Left};
+        return new List<DirectionEnum> { DirectionEnum.Right, DirectionEnum.Left };
     }
 
     public static List<DirectionEnum> GetVerticalDirectionList()
     {
-        return new List<DirectionEnum> {DirectionEnum.Up, DirectionEnum.Down };
+        return new List<DirectionEnum> { DirectionEnum.Up, DirectionEnum.Down };
     }
 
     public static DirectionEnum GetRandomVerticalDirectionEnum()
@@ -75,7 +75,7 @@ public static class MyUtils
 
         Bounds combinedBounds = root.GetComponent<SpriteRenderer>().bounds;
 
-        for (int i =0; i < renderers.Length; i++)
+        for (int i = 0; i < renderers.Length; i++)
         {
             combinedBounds.Encapsulate(renderers[i].bounds);
         }
@@ -92,22 +92,22 @@ public static class MyUtils
             zoneQueue.Enqueue(zoneBound);
 
             while (zoneQueue.Count > 0)
-            {            
+            {
                 BoundsInt zoneToSplit = zoneQueue.Dequeue();
                 //Slice horizontally first then if not slice vertically 
                 if (Random.Range(1, 3) == 1)
                 {
                     if (zoneToSplit.size.y >= minHeight * 2)
                     {
-                        SpiltZoneHorizontally(zoneQueue,zoneToSplit);
+                        SpiltZoneHorizontally(zoneQueue, zoneToSplit);
                     }
-                    else if(zoneToSplit.size.x >= minWidth * 2)
+                    else if (zoneToSplit.size.x >= minWidth * 2)
                     {
-                        SplitZoneVertically(zoneQueue,zoneToSplit);
+                        SplitZoneVertically(zoneQueue, zoneToSplit);
                     }
                     else
                     {
-                        newSpaces.Add(zoneToSplit); 
+                        newSpaces.Add(zoneToSplit);
                     }
                 }
                 //Slice vertically first then if not slice horizontally 
@@ -126,13 +126,13 @@ public static class MyUtils
                         newSpaces.Add(zoneToSplit);
                     }
                 }
-            }    
-         
+            }
+
         }
         return newSpaces;
     }
 
-    private static void SpiltZoneHorizontally(Queue<BoundsInt> zoneQueue,BoundsInt zoneToSplit)
+    private static void SpiltZoneHorizontally(Queue<BoundsInt> zoneQueue, BoundsInt zoneToSplit)
     {
         int ySplit = Random.Range(1, zoneToSplit.size.y);
         BoundsInt zone1 = new BoundsInt(zoneToSplit.min, new Vector3Int(zoneToSplit.size.x, ySplit, zoneToSplit.size.z));
@@ -145,8 +145,8 @@ public static class MyUtils
     private static void SplitZoneVertically(Queue<BoundsInt> zoneQueue, BoundsInt zoneToSplit)
     {
         int xSplit = Random.Range(1, zoneToSplit.size.x);
-        BoundsInt zone1 = new BoundsInt(zoneToSplit.min,new Vector3Int(xSplit,zoneToSplit.size.y,zoneToSplit.size.z));
-        BoundsInt zone2 = new BoundsInt(new Vector3Int(zoneToSplit.min.x + xSplit,zoneToSplit.min.y,zoneToSplit.min.z),new Vector3Int(zoneToSplit.size.x - xSplit, zoneToSplit.size.y,zoneToSplit.size.z));
+        BoundsInt zone1 = new BoundsInt(zoneToSplit.min, new Vector3Int(xSplit, zoneToSplit.size.y, zoneToSplit.size.z));
+        BoundsInt zone2 = new BoundsInt(new Vector3Int(zoneToSplit.min.x + xSplit, zoneToSplit.min.y, zoneToSplit.min.z), new Vector3Int(zoneToSplit.size.x - xSplit, zoneToSplit.size.y, zoneToSplit.size.z));
 
         zoneQueue.Enqueue(zone1);
         zoneQueue.Enqueue(zone2);
@@ -154,10 +154,75 @@ public static class MyUtils
 
     public static void ValidateFields<T>(Object owner, T field, string fieldName) where T : Object
     {
-        if(field ==  null)
+        if (field == null)
         {
-            Debug.LogWarning( $"Required reference '{fieldName}' is not set on '{owner.name}' ({owner.GetType().Name})", owner);
+            Debug.LogWarning($"Required reference '{fieldName}' is not set on '{owner.name}' ({owner.GetType().Name})", owner);
         }
     }
+
+    public static void ValidateFields<T>(Object owner, T [] field, string fieldName) where T : Object
+    {
+        if (field == null || field.Length ==0) 
+        {
+            Debug.LogWarning($"Required reference '{fieldName}' is not set on '{owner.name}' ({owner.GetType().Name})", owner);
+        }
+    }
+
+    // For reference types (e.g., GameObject, Sprite, etc.)
+    public static T GetRandomRef<T>(T[] input) where T : class
+    {
+        if (input == null || input.Length == 0)
+        {
+            Debug.LogError("Input array is null or empty");
+            return null;
+        }
+        return input[Random.Range(0, input.Length)];
+    }
+
+    public static T GetRandomRef<T>(T[] input, float chanceOfReturningNothing) where T : class
+    {
+        if (input == null || input.Length == 0)
+        {
+            Debug.LogError("Input array is null or empty");
+            return null;
+        }
+
+        if (Random.value < 1 - chanceOfReturningNothing)
+        {
+            return input[Random.Range(0, input.Length)];
+        }
+
+        return null;
+    }
+
+    // For value types (e.g., Vector3, int, etc.)
+
+    public static T? GetRandomValue<T>(T[] input) where T : struct
+    {
+        if (input == null || input.Length == 0)
+        {
+            Debug.LogError("Input array is null or empty");
+            return null;
+        }
+
+        return input[Random.Range(0, input.Length)];
+
+    }
+    public static T? GetRandomValue<T>(T[] input, float chanceOfReturningNothing) where T : struct
+    {
+        if (input == null || input.Length == 0)
+        {
+            Debug.LogError("Input array is null or empty");
+            return null;
+        }
+
+        if (Random.value < 1 - chanceOfReturningNothing)
+        {
+            return input[Random.Range(0, input.Length)];
+        }
+
+        return null;
+    }
+
    
 }

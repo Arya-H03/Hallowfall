@@ -129,10 +129,10 @@ TextureImporter:
       name: crypt - 1 - fence_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 23
-        width: 51
-        height: 57
+        x: 26
+        y: 24
+        width: 49
+        height: 55
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

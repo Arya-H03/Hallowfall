@@ -2,41 +2,20 @@ using UnityEngine;
 
 public class Crypt : MonoBehaviour
 {
-    private SpriteRenderer sr;
-    [SerializeField] Sprite[] cryptSprites;
+    [SerializeField] Transform topDecorHolder;
+    [SerializeField] Sprite [] topDecorSprites;
+
+    private void OnValidate()
+    {
+        MyUtils.ValidateFields(this, topDecorHolder, nameof(topDecorHolder));
+        MyUtils.ValidateFields(this, topDecorSprites, nameof(topDecorSprites));
+    }
 
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();    
-    }
-    private void Start()
-    {
-        //Crypt sprite
-        sr.sprite = GetRandomSprite(cryptSprites, false);
-    }
-
-
-
-
-    private Sprite GetRandomSprite(Sprite[] spritePool, bool canReturnNothing)
-    {
-        if (spritePool.Length == 0)
+        foreach (Transform child in topDecorHolder)
         {
-            Debug.LogError(spritePool + " has no sprites");
-            return null;
-        }   
-        if (canReturnNothing)
-        {
-            if (Random.value < 0.5)
-            {
-                return spritePool[Random.Range(0, spritePool.Length)];
-            }
-            else return null;
+            child.GetComponent<SpriteRenderer>().sprite = MyUtils.GetRandomRef(topDecorSprites, 0.25f);
         }
-        else
-        {
-            return spritePool[Random.Range(0, spritePool.Length)];
-        }
-       
     }
 }

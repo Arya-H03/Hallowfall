@@ -224,5 +224,31 @@ public class CellGrid
         }
     }
 
+    public GameObject TryInstantiateGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, Transform parent = null)
+    {
+        if(cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y>=0 && cellCoord.y < cellPerCol)
+        {
+            GameObject go = Object.Instantiate(prefab, (Vector3Int)cells[cellCoord.x, cellCoord.y].CellPos, rotation);
+            if (parent != null)
+                go.transform.parent = parent;
+            return go;
+        }
+        else return null;
+      
+        //if (!cells[cellCoord.x, cellCoord.y].IsOccupied)
+        //{
+        //    GameObject go = Object.Instantiate(prefab, (Vector3Int)cells[cellCoord.x, cellCoord.y].CellPos, rotation);
+        //    if (parent != null)
+        //        go.transform.parent = parent;
+        //    return go;
+        //}
+        //else
+        //{
+        //    Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + cells[cellCoord.x, cellCoord.y].CellPos + " due to cell being occupied.");
+        //}
+        //return null;
+    }
+
+
 }
 

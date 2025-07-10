@@ -38,6 +38,8 @@ public class GraveyardHandler : ZoneHandler
         celLGrid.PaintAllCells();
         yield return null;
         //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+
+    
     }
     private void GenerateBoundsForTilemap()
     {

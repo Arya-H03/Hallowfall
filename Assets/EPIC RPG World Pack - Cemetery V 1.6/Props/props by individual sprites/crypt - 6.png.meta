@@ -46,11 +46,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 7
-  spritePivot: {x: 0, y: 0}
+  spritePivot: {x: 0.5, y: 0}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -129,17 +129,21 @@ TextureImporter:
       name: crypt - 6_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 6
-        width: 153
-        height: 215
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 6
+        y: 7
+        width: 151
+        height: 213
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: -74.5, y: -106.5}
+        - {x: 73.5, y: -106.5}
+        - {x: 74.5, y: -18.5}
+        - {x: -75.5, y: -18.5}
+      tessellationDetail: 0
       bones: []
       spriteID: af06258ea0ab00a10800000000000000
       internalID: 1873702000996278522
