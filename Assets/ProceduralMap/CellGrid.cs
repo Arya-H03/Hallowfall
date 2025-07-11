@@ -11,21 +11,25 @@ public struct TilePaint
 [System.Serializable]
 public class Cell
 {
-   
+
     private bool isOccupied = false;
+    private bool isPartitioned = false;
     private Vector2Int cellID = Vector2Int.zero;
     private Vector2Int cellPos = Vector2Int.zero;
-    //private bool isPainted = false;
+
     List<TilePaint> tilePaintsList = new List<TilePaint>();
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
+    public bool IsPartitioned { get => isPartitioned; set => isPartitioned = value; }
     public Vector2Int CellID { get => cellID; set => cellID = value; }
     public Vector2Int CellPos { get => cellPos; set => cellPos = value; }
     public List<TilePaint> TilePaintsList { get => tilePaintsList; }
 
-    public Cell(bool isOccupied, Vector2Int cellID, Vector2Int gridPos, int cellSize)
+
+    public Cell(bool isOccupied, bool isPartitioned, Vector2Int cellID, Vector2Int gridPos, int cellSize)
     {
         this.isOccupied = isOccupied;
+        this.IsPartitioned = isPartitioned;
         this.cellID = cellID;
         this.cellPos = gridPos + new Vector2Int(cellID.x * cellSize, cellID.y * cellSize);
     }
@@ -143,7 +147,7 @@ public class CellGrid
 
 
         Vector2Int originCellCoord = (originCellWorldPos - parentCellGrid.Cells[0, 0].CellPos) / cellSize;
-       
+
         cells = new Cell[CellPerRow, CellPerCol];
         InitializeSubGridCells(parentCellGrid, parentCellGrid.Cells[originCellCoord.x, originCellCoord.y]);
 
@@ -166,7 +170,7 @@ public class CellGrid
             {
 
                 Vector2Int temp = new Vector2Int(i, j);
-                cells[i, j] = new Cell(false, temp, gridWoldPos, cellSize);
+                cells[i, j] = new Cell(false, false, temp, gridWoldPos, cellSize);
 
             }
 
@@ -187,7 +191,7 @@ public class CellGrid
         }
     }
 
-    public Cell FindNextUnoccupiedCell(Vector2Int startCellID)
+    public Cell FindNextUnpartitionedCell(Vector2Int startCellID)
     {
 
         for (int y = startCellID.y; y < cellPerCol; y++)
@@ -195,7 +199,7 @@ public class CellGrid
             int xStart = (y == startCellID.y) ? startCellID.x : 0;
             for (int x = xStart; x < cellPerRow; x++)
             {
-                if (!cells[x, y].IsOccupied)
+                if (!cells[x, y].IsPartitioned)
                 {
 
                     return cells[x, y];
@@ -224,29 +228,29 @@ public class CellGrid
         }
     }
 
-    public GameObject TryInstantiateGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, Transform parent = null)
+    public GameObject TryInstantiateGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, bool isTileOccupied, Transform parent = null)
     {
-        if(cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y>=0 && cellCoord.y < cellPerCol)
+        if (cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y >= 0 && cellCoord.y < cellPerCol)
         {
-            GameObject go = Object.Instantiate(prefab, (Vector3Int)cells[cellCoord.x, cellCoord.y].CellPos, rotation);
-            if (parent != null)
-                go.transform.parent = parent;
-            return go;
+            if (!cells[cellCoord.x, cellCoord.y].IsOccupied)
+            {
+                Vector3 pos = new Vector3(cells[cellCoord.x, cellCoord.y].CellPos.x, cells[cellCoord.x, cellCoord.y].CellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
+                GameObject go = Object.Instantiate(prefab, pos, rotation);
+                if (parent != null)
+                    go.transform.parent = parent;
+                if (isTileOccupied) cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                return go;
+            }
+            else
+            {
+                Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + cells[cellCoord.x, cellCoord.y].CellPos + " due to cell being occupied.");
+                return null;
+            }
+
         }
         else return null;
-      
-        //if (!cells[cellCoord.x, cellCoord.y].IsOccupied)
-        //{
-        //    GameObject go = Object.Instantiate(prefab, (Vector3Int)cells[cellCoord.x, cellCoord.y].CellPos, rotation);
-        //    if (parent != null)
-        //        go.transform.parent = parent;
-        //    return go;
-        //}
-        //else
-        //{
-        //    Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + cells[cellCoord.x, cellCoord.y].CellPos + " due to cell being occupied.");
-        //}
-        //return null;
+
+
     }
 
 

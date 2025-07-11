@@ -17,10 +17,6 @@ public class GraveClusterBlock : PropsBlock
                     cellGrid.Cells[x, y].IsOccupied = true;
 
                     TileBase graveStoneTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.graveStoneTiles, false);
-                    //if(graveStoneTilebase is Tile tile)
-                    //{
-                    //    Debug.Log(tile.sprite);
-                    //}
                     if (graveStoneTilebase != null)
                     {
                         TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.PropsTilemap, tileBase = graveStoneTilebase };
@@ -52,6 +48,7 @@ public class GraveClusterBlock : PropsBlock
             TileBase graveDirtTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.graveDirtTiles, false);
             if (graveDirtTilebase != null)
             {
+                cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
                 TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.GroundPropsTilemap, tileBase = graveDirtTilebase };
                 cellGrid.Cells[cellCoord.x, cellCoord.y].AddToTilePaints(tilePaintGravestone);
             }

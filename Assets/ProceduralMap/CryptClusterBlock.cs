@@ -27,10 +27,10 @@ public class CryptClusterBlock : PropsBlock
             int minY = y;
             int maxY = y + Mathf.FloorToInt(yBound / 2);
 
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, crypt.transform);
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX + 1, minY - 1), Quaternion.identity, crypt.transform);
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY + 1), Quaternion.identity, crypt.transform);
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX + 1, maxY + 1), Quaternion.identity, crypt.transform);
+            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
 
             for (int j = 0; j < cellGrid.CellPerCol; j++)
             {
@@ -39,6 +39,10 @@ public class CryptClusterBlock : PropsBlock
                     bool isInsideCryptArea = i >= minX && i < maxX && j >= minY && j < maxY;
                     bool isAroundCryptArea = i >= minX - 1 && i < maxX + 1 && j >= minY - 1 && j < maxY + 1;
 
+                    if (isInsideCryptArea)
+                    {
+                        cellGrid.Cells[i, j].IsOccupied = true;
+                    }
                     //if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                     //{
                     //    GameObject skullSpikesPrefab = graveYardLayoutProfile.GetRandomProps(graveYardLayoutProfile.skullSpikesPrefabs);

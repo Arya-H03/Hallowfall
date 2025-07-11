@@ -37,6 +37,7 @@ public class ZoneHandler : MonoBehaviour
     {
         celLGrid = new CellGrid(cellSize, zoneWidth, zoneHeight, zoneData.centerPos);
         StartCoroutine(GenerateZoneCoroutine());
+        //VisualizeGridCells(celLGrid, zoneLayoutProfile);
     }
 
     protected virtual IEnumerator GenerateZoneCoroutine()
@@ -53,11 +54,11 @@ public class ZoneHandler : MonoBehaviour
 
                 if (!cellGrid.Cells[j, i].IsOccupied)
                 {
-                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.2f);
+                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.3f);
                 }
                 else if (cellGrid.Cells[j, i].IsOccupied)
                 {
-                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.2f);
+                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.3f);
                 }
             }
         }
@@ -67,7 +68,7 @@ public class ZoneHandler : MonoBehaviour
     public virtual void PopulateZoneWithPropBlocks(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        Cell startCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(0, 0));
+        Cell startCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(0, 0));
 
         CreateSubZone(cellGrid, startCell);
         listOfPartitionedSubzoneBounds = MyUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 10, 8);
@@ -83,7 +84,7 @@ public class ZoneHandler : MonoBehaviour
         int h1 = 1;
         for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x, startCell.CellID.y + i].IsOccupied)
+            if (cellGrid.Cells[startCell.CellID.x, startCell.CellID.y + i].IsPartitioned)
                 break;
             h1++;
         }
@@ -91,7 +92,7 @@ public class ZoneHandler : MonoBehaviour
         int w1 = 1;
         for (int i = 1; i + startCell.CellID.x < cellGrid.CellPerRow; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y].IsOccupied)
+            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y].IsPartitioned)
                 break;
             w1++;
         }
@@ -99,7 +100,7 @@ public class ZoneHandler : MonoBehaviour
         int w2 = 1;
         for (int i = 1; i + startCell.CellID.x < cellGrid.CellPerRow; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y + h1 - 1].IsOccupied)
+            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y + h1 - 1].IsPartitioned)
                 break;
             w2++;
         }
@@ -109,7 +110,7 @@ public class ZoneHandler : MonoBehaviour
         int h2 = 1;
         for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x + width - 1, startCell.CellID.y + i].IsOccupied)
+            if (cellGrid.Cells[startCell.CellID.x + width - 1, startCell.CellID.y + i].IsPartitioned)
                 break;
             h2++;
         }
@@ -124,12 +125,12 @@ public class ZoneHandler : MonoBehaviour
             for (int y = startCell.CellID.y; y < startCell.CellID.y + height; y++)
             {
                 if (x >= 0 && x < cellGrid.CellPerRow && y >= 0 && y < cellGrid.CellPerCol)
-                    cellGrid.Cells[x, y].IsOccupied = true;
+                    cellGrid.Cells[x, y].IsPartitioned = true;
             }
         }
 
         // Recursively continue
-        Cell nextStartCell = cellGrid.FindNextUnoccupiedCell(new Vector2Int(startCell.CellID.x + width, startCell.CellID.y));
+        Cell nextStartCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(startCell.CellID.x + width, startCell.CellID.y));
         if (nextStartCell != null)
         {
             CreateSubZone(cellGrid, nextStartCell);
@@ -204,6 +205,7 @@ public class ZoneHandler : MonoBehaviour
                 Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
                 //tilemap.SetTile(pos, tileBase);
                 celLGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
+                celLGrid.Cells[beginningCellCoord.x, y].IsPartitioned = true;
                 celLGrid.Cells[beginningCellCoord.x, y].AddToTilePaints(tilePaints);
             }
         }
@@ -218,6 +220,7 @@ public class ZoneHandler : MonoBehaviour
                 Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
                 //tilemap.SetTile(pos, tileBase);
                 celLGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
+                celLGrid.Cells[x, beginningCellCoord.y].IsPartitioned = true;
                 celLGrid.Cells[x, beginningCellCoord.y].AddToTilePaints(tilePaints);
             }
         }
