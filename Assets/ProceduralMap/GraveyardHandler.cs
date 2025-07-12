@@ -10,19 +10,6 @@ public class GraveyardHandler : ZoneHandler
     private Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new Dictionary<DirectionEnum, Vector2Int[]>();
 
 
-    protected override void Awake()
-    {
-        base.Awake();
-       
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-       
-       
-    }
-
     protected override IEnumerator GenerateZoneCoroutine()
     {
 

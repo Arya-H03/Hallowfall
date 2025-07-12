@@ -41,7 +41,7 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] private Tilemap groundZeroTilemap;
     [SerializeField] private Tilemap groundOneTilemap;
     [SerializeField] private Tilemap groundTwoTilemap;
-  
+
     [SerializeField] private Tilemap boundsTilemap;
     [SerializeField] private Tilemap propsTilemap;
     [SerializeField] private Tilemap treeTilemap;
@@ -73,7 +73,7 @@ public class ZoneManager : MonoBehaviour
         MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
         MyUtils.ValidateFields(this, groundOneTilemap, nameof(groundZeroTilemap));
         MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
-   
+
         MyUtils.ValidateFields(this, boundsTilemap, nameof(boundsTilemap));
         MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
     }
@@ -198,12 +198,12 @@ public class ZoneManager : MonoBehaviour
                 zoneHandler.ZoneConfig = zoneConfig;
                 zoneHandler.ZoneLayoutProfile = layoutProfile;
                 break;
-            case ZoneType.plain:
-                ZoneHandler zoneHandler1;
-                zoneHandler1 = zone.AddComponent<ZoneHandler>();
-                zoneHandler1.ZoneData = generatedZones[centerCoord];
-                zoneHandler1.ZoneConfig = zoneConfig;
-                zoneHandler1.ZoneLayoutProfile = layoutProfile;
+            case ZoneType.openField:
+                OpenFieldHandler openFieldHandler;
+                openFieldHandler = zone.AddComponent<OpenFieldHandler>();
+                openFieldHandler.ZoneData = generatedZones[centerCoord];
+                openFieldHandler.ZoneConfig = zoneConfig;
+                openFieldHandler.ZoneLayoutProfile = layoutProfile;
 
                 break;
         }
@@ -212,37 +212,38 @@ public class ZoneManager : MonoBehaviour
     }
     private ZoneType GenerateZoneType(Vector2Int centerCoord)
     {
-        //ZoneType[] availableTypes = new ZoneType[]
-        //{
-        //    ZoneType.plain,
-        //    ZoneType.graveYard,
-        //    //ZoneType.forest
-        //};
+        ZoneType[] availableTypes = new ZoneType[]
+        {
+            ZoneType.openField,
+            ZoneType.graveYard,
+            //ZoneType.forest
+        };
 
-        //ZoneType randomZoneType = availableTypes[Random.Range(0, availableTypes.Length)];
-        //if (randomZoneType == ZoneType.plain) return ZoneType.plain;
-        //else
-        //{
-        //    bool temp = true;
-        //    foreach (var dir in MyUtils.GetCardinalDirections())
-        //    {
-        //        Vector2Int neighborCoord = centerCoord + dir;
+        ZoneType randomZoneType = availableTypes[Random.Range(0, availableTypes.Length)];
+        if (randomZoneType == ZoneType.openField) return ZoneType.openField;
+        else
+        {
+            bool temp = true;
+            foreach (var dir in MyUtils.GetCardinalDirections())
+            {
+                Vector2Int neighborCoord = centerCoord + dir;
 
-        //        if (generatedZones.TryGetValue(neighborCoord, out ZoneData neighborZone))
-        //        {
-        //            if (neighborZone.zoneType == randomZoneType)
-        //            {
-        //                temp = false;
-        //            }
-        //        }
-        //    }
-        //    if (temp == true) return randomZoneType;
-        //    else return ZoneType.plain;
+                if (generatedZones.TryGetValue(neighborCoord, out ZoneData neighborZone))
+                {
+                    if (neighborZone.zoneType == randomZoneType)
+                    {
+                        temp = false;
+                    }
+                }
+            }
+            if (temp == true) return randomZoneType;
+            else return ZoneType.openField;
 
-        return ZoneType.graveYard;
+
+        }
     }
 
-    }
+}
 
 
 

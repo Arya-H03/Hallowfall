@@ -141,11 +141,12 @@ public class ZoneHandler : MonoBehaviour
     {
         foreach (BoundsInt zoneBounds in listOfPartitionedSubzoneBounds)
         {
-            GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+            
 
             Type componentType = GetPropsBlockType(zoneLayoutProfile, zoneBounds);
             if (componentType != null)
             {
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
                 Component addedComponent = go.AddComponent(componentType);
                 PropsBlock propsBlock = addedComponent as PropsBlock;
 
@@ -170,6 +171,10 @@ public class ZoneHandler : MonoBehaviour
     {
         Type type = null;
 
+        if(zoneLayoutProfile.propsBlocksStructList.Count <1)
+        {
+            return null;
+        }
         while (type == null)
         {
             PropsBlockStruct propsBlock = zoneLayoutProfile.propsBlocksStructList[Random.Range(0, zoneLayoutProfile.propsBlocksStructList.Count)];

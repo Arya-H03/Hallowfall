@@ -29,7 +29,6 @@ public class ZoneData
 
 public enum ZoneType
 {
-    plain,
+    openField,
     graveYard,
-    forest
 }

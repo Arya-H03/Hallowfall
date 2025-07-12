@@ -15,18 +15,25 @@ public class TreeClusterBlock : PropsBlock
             {
                 for (int x = 0; x < cellGrid.CellPerRow; x++)
                 {
+                    Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].CellPos.x, (int)celLGrid.Cells[x, y].CellPos.y, 0);
+                    TileBase treeTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.treeTiles, false);
 
-                    if((y >= 1 && y < cellGrid.CellPerCol -1) && (x >= 1 && x < cellGrid.CellPerRow - 1))
+                    if (treeTilebase != null)
                     {
-                        Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].CellPos.x, (int)celLGrid.Cells[x, y].CellPos.y, 0);
-                        TileBase treeTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.treeTiles, false);
-
-                        if (treeTilebase != null)
-                        {
-                            TilePaint tilePaintTree = new TilePaint { tilemap = ZoneManager.Instance.TreeTilemap, tileBase = treeTilebase };
-                            cellGrid.Cells[x, y].AddToTilePaints(tilePaintTree);
-                        }
+                        TilePaint tilePaintTree = new TilePaint { tilemap = ZoneManager.Instance.TreeTilemap, tileBase = treeTilebase };
+                        cellGrid.Cells[x, y].AddToTilePaints(tilePaintTree);
                     }
+                    //if ((y >= 1 && y < cellGrid.CellPerCol -1) && (x >= 1 && x < cellGrid.CellPerRow - 1))
+                    //{
+                    //    Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].CellPos.x, (int)celLGrid.Cells[x, y].CellPos.y, 0);
+                    //    TileBase treeTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.treeTiles, false);
+
+                    //    if (treeTilebase != null)
+                    //    {
+                    //        TilePaint tilePaintTree = new TilePaint { tilemap = ZoneManager.Instance.TreeTilemap, tileBase = treeTilebase };
+                    //        cellGrid.Cells[x, y].AddToTilePaints(tilePaintTree);
+                    //    }
+                    //}
                   
                     cellGrid.Cells[x, y].AddToTilePaints(tilePaintLeavesOnGroundTile);
                     cellGrid.Cells[x, y].AddToTilePaints(grassTilePaint);
