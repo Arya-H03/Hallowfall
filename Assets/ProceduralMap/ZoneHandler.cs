@@ -190,6 +190,20 @@ public class ZoneHandler : MonoBehaviour
         return tilemap.GetComponent<Tilemap>();
     }
 
+    protected virtual void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
+    {
+
+        TilePaint tilePaint = new TilePaint { tilemap = ZoneManager.Instance.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
+
+        for (int j = 0; j < celLGrid.CellPerCol; j++)
+        {
+            for(int i  = 0; i < celLGrid.CellPerRow; i++)
+            {
+                celLGrid.Cells[i,j].AddToTilePaints(tilePaint);
+            }
+        }
+    }
+
     protected void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, TilePaint[] tilePaints)
     {
         Vector2Int delta = endCellCoord - beginningCellCoord;

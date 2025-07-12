@@ -32,6 +32,9 @@ public class CryptClusterBlock : PropsBlock
             cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
             cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
 
+            TilePaint tilePaintStone = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
+            TilePaint tilePaintGrass = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+
             for (int j = 0; j < cellGrid.CellPerCol; j++)
             {
                 for (int i = 0; i < cellGrid.CellPerRow; i++)
@@ -41,7 +44,7 @@ public class CryptClusterBlock : PropsBlock
 
                     if (isInsideCryptArea)
                     {
-                        cellGrid.Cells[i, j].IsOccupied = true;
+                        cellGrid.Cells[i, j].IsOccupied = true;                       
                     }
                     //if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                     //{
@@ -52,15 +55,12 @@ public class CryptClusterBlock : PropsBlock
 
                     //}
                     if (isAroundCryptArea)
-                    {
-
-                        TilePaint tilePaintStone = new TilePaint { tilemap = ZoneManager.Instance.GroundPropsTilemap, tileBase = graveYardLayoutProfile.roadRuletile };
+                    {                    
                         cellGrid.Cells[i, j].AddToTilePaints(tilePaintStone);
 
                     }
                     else
-                    {
-                        TilePaint tilePaintGrass = new TilePaint { tilemap = ZoneManager.Instance.GroundTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+                    {                      
                         cellGrid.Cells[i, j].AddToTilePaints(tilePaintGrass);
                     }
 

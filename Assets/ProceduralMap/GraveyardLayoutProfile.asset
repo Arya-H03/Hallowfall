@@ -18,16 +18,16 @@ MonoBehaviour:
     minBlockSize: {x: 0, y: 0}
   - propsBlockEnum: 1
     scriptReference: {fileID: 11500000, guid: 44994fa892de06d468aa1ef9952271eb, type: 3}
-    minBlockSize: {x: 0, y: 0}
+    minBlockSize: {x: 3, y: 3}
   - propsBlockEnum: 2
     scriptReference: {fileID: 11500000, guid: 7c7d7497d5167c74e9d807ada2a757af, type: 3}
     minBlockSize: {x: 6, y: 9}
   spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
-  boundsRuletile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
-  roadRuletile: {fileID: 11400000, guid: 2d61515541fa4894d83fc7e82242bd67, type: 2}
-  grassRuletile: {fileID: 11400000, guid: 163cedc7e8c83c04895f4d21ba665413, type: 2}
-  treeRuletile: {fileID: 11400000, guid: 1f1a0f575a6cb8244927ace52c154228, type: 2}
-  groundRuletile: {fileID: 11400000, guid: 9c184a5acf25e864bbf892497c940267, type: 2}
+  leavesRuleTile: {fileID: 11400000, guid: 261a6b7f032e3e648a3f22a6cb70410d, type: 2}
+  fenceRuleTile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
+  stoneRoadRuleTile: {fileID: 11400000, guid: 19b868459d5f5854a949002df5435afb, type: 2}
+  grassRuletile: {fileID: 11400000, guid: ea305e80b452d8540b6d6c6c708d557e, type: 2}
+  defaultGroundTile: {fileID: 11400000, guid: 79c5625cbae487c41a8da38b0e4a5ac3, type: 2}
   treeTiles:
   - {fileID: 11400000, guid: 3942063560bf3804f83e80116867f2e4, type: 2}
   - {fileID: 11400000, guid: 079499d10ff6196429ba236a9caf9249, type: 2}
@@ -48,7 +48,6 @@ MonoBehaviour:
   propsMask:
     serializedVersion: 2
     m_Bits: 4096
-  leafRuleTile: {fileID: 11400000, guid: 86c8b9a6bdcb1e840ae4c42bc484260e, type: 2}
   graveStoneTiles:
   - {fileID: 11400000, guid: fcd062601d94e12439b876f70195c87a, type: 2}
   - {fileID: 11400000, guid: 3a8f4ec25023ad14bbeb897dd51104b3, type: 2}

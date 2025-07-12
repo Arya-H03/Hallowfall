@@ -1,4 +1,5 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -17,13 +18,13 @@ public class Cell
     private Vector2Int cellID = Vector2Int.zero;
     private Vector2Int cellPos = Vector2Int.zero;
 
-    List<TilePaint> tilePaintsList = new List<TilePaint>();
+    HashSet<TilePaint> tilePaintsHasSet = new HashSet<TilePaint>();
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsPartitioned { get => isPartitioned; set => isPartitioned = value; }
     public Vector2Int CellID { get => cellID; set => cellID = value; }
     public Vector2Int CellPos { get => cellPos; set => cellPos = value; }
-    public List<TilePaint> TilePaintsList { get => tilePaintsList; }
+    public HashSet<TilePaint> TilePaintsHasSet { get => tilePaintsHasSet; }
 
 
     public Cell(bool isOccupied, bool isPartitioned, Vector2Int cellID, Vector2Int gridPos, int cellSize)
@@ -39,14 +40,14 @@ public class Cell
     {
         foreach (TilePaint tilePaint in tilePaints)
         {
-            tilePaintsList.Add(tilePaint);
+            tilePaintsHasSet.Add(tilePaint);
         }
 
     }
 
     public void AddToTilePaints(TilePaint tilePaint)
     {
-        tilePaintsList.Add(tilePaint);
+        tilePaintsHasSet.Add(tilePaint);
     }
 
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
@@ -89,9 +90,9 @@ public class Cell
 
     public void PaintCell()
     {
-        if (tilePaintsList.Count > 0)
+        if (tilePaintsHasSet.Count > 0)
         {
-            foreach (TilePaint tilePaint in tilePaintsList)
+            foreach (TilePaint tilePaint in tilePaintsHasSet)
             {
                 tilePaint.tilemap.SetTile((Vector3Int)cellPos, tilePaint.tileBase);
 
@@ -104,7 +105,7 @@ public class Cell
 
     public void RemoveTilePaint()
     {
-        tilePaintsList.Clear();
+        tilePaintsHasSet.Clear();
     }
 }
 public class CellGrid
@@ -216,8 +217,7 @@ public class CellGrid
 
         return cells[Mathf.CeilToInt(cellPerRow / 2), Mathf.CeilToInt(cellPerCol / 2)];
     }
-
-    public void PaintAllCells()
+    public IEnumerator PaintAllCellsCoroutine()
     {
         for (int j = 0; j < cellPerCol; j++)
         {
@@ -225,8 +225,47 @@ public class CellGrid
             {
                 Cells[i, j].PaintCell();
             }
+            if(j % 10 == 9) yield return null;
+
         }
     }
+
+    public void CheckAllCellsForPaints(TilePaint defaultTilePaint)
+    {
+        //for (int j = 0; j < cellPerCol; j++)
+        //{
+        //    for (int i = 0; i < cellPerRow; i++)
+        //    {
+        //        var cell = cells[i, j];
+
+        //        // Clone the set to avoid modifying it while iterating
+        //        var tilePaints = new HashSet<TilePaint>(cell.TilePaintsHasSet);
+
+        //        foreach (TilePaint tilePaint in tilePaints)
+        //        {
+        //            bool hasHorizontalNeighbor = false;
+        //            bool hasVerticalNeighbor = false;
+
+        //            // Check left/right neighbors (horizontal)
+        //            if (i > 0 && cells[i - 1, j].TilePaintsHasSet.Contains(tilePaint)) hasHorizontalNeighbor = true;
+        //            if (i < cellPerRow - 1 && cells[i + 1, j].TilePaintsHasSet.Contains(tilePaint)) hasHorizontalNeighbor = true;
+
+        //            // Check top/bottom neighbors (vertical)
+        //            if (j > 0 && cells[i, j - 1].TilePaintsHasSet.Contains(tilePaint)) hasVerticalNeighbor = true;
+        //            if (j < cellPerCol - 1 && cells[i, j + 1].TilePaintsHasSet.Contains(tilePaint)) hasVerticalNeighbor = true;
+
+        //            // If it's isolated in both directions, replace it
+        //            if (!hasHorizontalNeighbor  || !hasVerticalNeighbor)
+
+        //            {
+        //                cell.RemoveTilePaint(); // Optional: could remove just `tilePaint` instead
+        //                cell.AddToTilePaints(defaultTilePaint);
+        //            }
+        //        }
+        //    }
+        //}
+    }
+
 
     public GameObject TryInstantiateGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, bool isTileOccupied, Transform parent = null)
     {

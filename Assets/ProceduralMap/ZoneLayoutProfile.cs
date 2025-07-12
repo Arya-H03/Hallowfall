@@ -23,16 +23,13 @@ public struct PropsBlockStruct
 public class ZoneLayoutProfile : ScriptableObject
 {
     public List<PropsBlockStruct> propsBlocksStructList;
-
     public GameObject   spawnablePropsBlock;
-  
-    public RuleTile boundsRuletile;
-    public RuleTile roadRuletile;
+
+    public RuleTile leavesRuleTile;
+    public RuleTile fenceRuleTile;
+    public RuleTile stoneRoadRuleTile;
     public RuleTile grassRuletile;
-    public RuleTile treeRuletile;
-    public RuleTile groundRuletile;
-
-
+    public TileBase defaultGroundTile;
     public TileBase[] treeTiles;
 
     [Range(0f, 1f)] public float clutterDensity = 0.3f;

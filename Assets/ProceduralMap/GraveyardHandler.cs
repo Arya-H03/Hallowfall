@@ -25,27 +25,24 @@ public class GraveyardHandler : ZoneHandler
 
     protected override IEnumerator GenerateZoneCoroutine()
     {
+
         GenerateBoundsForTilemap();
         GenerateRoads();
         PopulateZoneWithPropBlocks(celLGrid, zoneLayoutProfile);
-
-
-
-        //yield return null;
-        //PaintUnoccupiedGround(ZoneManager.Instance.GroundTilemap, zoneLayoutProfile.grassRuletile, celLGrid);
-        //yield return null;
-
-        celLGrid.PaintAllCells();
+        yield return null;
+        AddDefaultGroundTileForZone(zoneLayoutProfile);
+        yield return null;
+        StartCoroutine(celLGrid.PaintAllCellsCoroutine());
         yield return null;
         //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
 
-    
+
     }
     private void GenerateBoundsForTilemap()
     {
         Tilemap boundsTilemap = ZoneManager.Instance.BoundsTilemap;
 
-        TilePaint[] tilePaints = { new TilePaint { tilemap = ZoneManager.Instance.GroundTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new TilePaint { tilemap = ZoneManager.Instance.BoundsTilemap, tileBase = zoneLayoutProfile.boundsRuletile } };
+        TilePaint[] tilePaints = { new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new TilePaint { tilemap = ZoneManager.Instance.BoundsTilemap, tileBase = zoneLayoutProfile.fenceRuleTile } };
 
         //Down
         DrawStraightLineOfTiles(new Vector2Int(0,0), new Vector2Int(celLGrid.CellPerRow - 1, 0) , tilePaints);
@@ -104,8 +101,7 @@ public class GraveyardHandler : ZoneHandler
                         break;
                 }
 
-                Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
-                ////tilemap.SetTile(pos, null);
+                Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);     
                 zoneOpenings[dir][i] = cellCoord;
                 cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
                 cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveTilePaint();
@@ -154,7 +150,7 @@ public class GraveyardHandler : ZoneHandler
 
     private void ConnectAllCenterJunctionPoints(Vector2Int[] from, Vector2Int[] to)
     {
-        Tilemap stoneTilemap = ZoneManager.Instance.StoneTilemap;
+        Tilemap stoneTilemap = ZoneManager.Instance.GroundOneTilemap;
         int size = from.Length;
         for (int i = 0; i < size; i++)
         {
@@ -166,30 +162,10 @@ public class GraveyardHandler : ZoneHandler
     private void ConnectTwoJunctionPoints(Tilemap stoneTilemap, Vector2Int p1, Vector2Int p2)
     {
         Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
-        TilePaint[] tilePaint = {new TilePaint { tilemap = ZoneManager.Instance.StoneTilemap, tileBase = zoneLayoutProfile.roadRuletile }};
+        TilePaint[] tilePaint = {new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile }};
         DrawStraightLineOfTiles(p1, junction, tilePaint);
         DrawStraightLineOfTiles(p2, junction ,tilePaint);
-
-        //Vector3Int pos = TurnCellCoordToTilePos(junction.x, junction.y);
-        ////stoneTilemap.SetTile(pos, zoneLayoutProfile.roadRuletile);
     }
-
-    private void PaintUnoccupiedGround(Tilemap tilemap, RuleTile ruleTile, CellGrid cellGrid )
-    {
-        for (int y = 0; y < cellGrid.CellPerCol; y++)
-        {
-            for (int x = 0; x < cellGrid.CellPerRow; x++)
-            {
-                if (!cellGrid.Cells[x, y].IsOccupied)
-                {
-                    Vector3Int pos = TurnCellCoordToTilePos(x, y);
-                    tilemap.SetTile(pos, ruleTile);
-                }
-            }
-        }
-    }
-  
-
     private Vector2Int GetOpeningJunctionPoint(Vector2Int p1, Vector2Int p2)
     {
         Vector2Int result = new Vector2Int(p1.x, p2.y);

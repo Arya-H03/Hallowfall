@@ -30,19 +30,20 @@ public class ZoneManager : MonoBehaviour
 
     private int zoneSize = 40;
     private int halfZoneSize;
-    private float zoneBuffer = 10f;
+    private float zoneBuffer = 7.5f;
 
     [SerializeField] private GameObject zonePrefab;
     [SerializeField] private GameObject mainGrid;
 
     [SerializeField] private ZoneConfig zoneConfig;
 
-    [SerializeField] private Tilemap propsTilemap;
-    [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap grassTilemap;
-    [SerializeField] private Tilemap stoneTilemap;
+
+    [SerializeField] private Tilemap groundZeroTilemap;
+    [SerializeField] private Tilemap groundOneTilemap;
+    [SerializeField] private Tilemap groundTwoTilemap;
+  
     [SerializeField] private Tilemap boundsTilemap;
-    [SerializeField] private Tilemap groundPropsTilemap;
+    [SerializeField] private Tilemap propsTilemap;
     [SerializeField] private Tilemap treeTilemap;
 
     [SerializeField]
@@ -55,12 +56,12 @@ public class ZoneManager : MonoBehaviour
 
     public Dictionary<ZoneType, ZoneLayoutProfile> ZoneLayoutProfiles { get => zoneLayoutProfiles; }
     public Tilemap PropsTilemap { get => propsTilemap; }
-    public Tilemap GroundTilemap { get => groundTilemap; }
-    public Tilemap GrassTilemap { get => grassTilemap; }
-    public Tilemap StoneTilemap { get => stoneTilemap; }
+    public Tilemap GroundZeroTilemap { get => groundZeroTilemap; }
+
     public Tilemap BoundsTilemap { get => boundsTilemap; }
-    public Tilemap GroundPropsTilemap { get => groundPropsTilemap; private set => groundPropsTilemap = value; }
     public Tilemap TreeTilemap { get => treeTilemap; private set => treeTilemap = value; }
+    public Tilemap GroundOneTilemap { get => groundOneTilemap; private set => groundOneTilemap = value; }
+    public Tilemap GroundTwoTilemap { get => groundTwoTilemap; private set => groundTwoTilemap = value; }
 
     private void OnValidate()
     {
@@ -69,11 +70,11 @@ public class ZoneManager : MonoBehaviour
         MyUtils.ValidateFields(this, zoneConfig, nameof(zoneConfig));
 
         MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
-        MyUtils.ValidateFields(this, groundTilemap, nameof(groundTilemap));
-        MyUtils.ValidateFields(this, grassTilemap, nameof(grassTilemap));
-        MyUtils.ValidateFields(this, stoneTilemap, nameof(stoneTilemap));
+        MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
+        MyUtils.ValidateFields(this, groundOneTilemap, nameof(groundZeroTilemap));
+        MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
+   
         MyUtils.ValidateFields(this, boundsTilemap, nameof(boundsTilemap));
-        MyUtils.ValidateFields(this, groundPropsTilemap, nameof(groundPropsTilemap));
         MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
     }
 
