@@ -21,7 +21,7 @@ MonoBehaviour:
     minBlockSize: {x: 3, y: 3}
   - propsBlockEnum: 2
     scriptReference: {fileID: 11500000, guid: 7c7d7497d5167c74e9d807ada2a757af, type: 3}
-    minBlockSize: {x: 6, y: 9}
+    minBlockSize: {x: 8, y: 10}
   spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
   fenceRuleTile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
   stoneRoadRuleTile: {fileID: 11400000, guid: 19b868459d5f5854a949002df5435afb, type: 2}

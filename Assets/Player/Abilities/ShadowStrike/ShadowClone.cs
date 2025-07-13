@@ -17,7 +17,7 @@ public class ShadowClone : MonoBehaviour
 
     public void AttackEnemy()
     {
-        enemyTarget.GetComponent<EnemyController>().OnEnemyHit(damage, enemyTarget.transform.position, HitSfxType.sword);
+        enemyTarget.GetComponent<EnemyController>().OnEnemyHit(damage, enemyTarget.transform.position, HitSfxType.sword,0.5f);
     }
 
 

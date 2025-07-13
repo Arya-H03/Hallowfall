@@ -61,6 +61,6 @@ public class EnemyRangeAttackState : EnemyBaseState
 
         yield return new WaitForSeconds(rangeAttackCooldown);
         CanRangeAttack = true;
-        //enemyController.CanMove = true;
+        enemyController.CanMove = true;
     }
 }

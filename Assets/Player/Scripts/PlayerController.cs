@@ -245,9 +245,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PlayerHitCoroutine(float damage)
     {
         if (isImmune) yield break;
-
-        OnTakingDamage(damage);
         material.SetFloat("_Flash", 1);
+        OnTakingDamage(damage);     
         yield return new WaitForSeconds(0.1f);
         material.SetFloat("_Flash", 0);
     }

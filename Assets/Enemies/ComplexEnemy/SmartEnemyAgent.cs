@@ -14,7 +14,7 @@
 //    //[SerializeField] Transform[] PspawnPos;
 
 //    //private EnemyController enemyController;
-//    //private PatrolState patrolState;
+//    //private EnemyPatrolState patrolState;
 //    //private SwordAttackState swordAttackState;
 //    //private TAD tad;
 //    //private PlayerController playerController;
@@ -23,7 +23,7 @@
 //    //{
 //    //    enemyController = GetComponent<EnemyController>();
 
-//    //    patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<PatrolState>();
+//    //    patrolState = enemyController.GetState(EnemyStateEnum.Patrol).GetComponent<EnemyPatrolState>();
 //    //    swordAttackState = enemyController.GetState(EnemyStateEnum.Combat).GetComponent<SwordAttackState>();
 
 //    //    playerController = target.GetComponent<PlayerController>();

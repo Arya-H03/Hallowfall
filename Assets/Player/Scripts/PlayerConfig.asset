@@ -30,7 +30,7 @@ MonoBehaviour:
   grassSFX:
   - {fileID: 8300000, guid: 8892b9199e7adc84dbfe412042911a66, type: 3}
   moveSpeedWhileAttaking: 3
-  hitStopDuration: 0.025
+  hitStopDuration: 0.05
   attackComboWindow: 0.5
   attackDelay: 0.3
   attackSwingSFX:

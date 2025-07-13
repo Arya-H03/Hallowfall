@@ -1,65 +1,57 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
-using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
-    #region Variables
-    public float maxHealth = 100;
-    public float currentHealth;
-    private int enemyLvl = 1;
-
-    private float damageModifier = 1;
-
-    private FloorTypeEnum currentFloorType;
-    [SerializeField] private EnemyTypeEnum enemyType;
-
-
-    [SerializeField] private EnemyStateEnum currentStateEnum;
-    private EnemyBaseState currentState;
-
-    public EnemyStateEnum previousStateEnum;
-    private EnemyBaseState previousState;
-
+    // Components
+    private EnemyAnimationManager enemyAnimationManager;
+    private EnemyMovement enemyMovement;
+    public EnemyCollisionManager collisionManager;
     private DialogueBox dialogueBox;
     private ParticleSystem bloodParticles;
     private Material material;
     private SpriteRenderer spriteRenderer;
     private EnemyItemDropHandler itemDropHandler;
-
-    private IdleState idleState;
-    private PatrolState patrolState;
-    private ChaseState chaseState;
-    private EnemyAttackState attackState;
-    private StunState stunState;
-    private EnemyDeathState deathState;
-
-
-
-    private EnemyAnimationManager enemyAnimationManager;
-    private EnemyMovement enemyMovement;
-    public EnemyCollisionManager collisionManager;
-
-
-    private GameObject player;
-    public Vector3 playerPos;
-    private PlayerController playerController;
-
-    [SerializeField] public GameObject stunEffect;
-    [SerializeField] DamagePopUp damagePopUp;
-
     private NavMeshAgent navAgent;
     private AudioSource audioSource;
 
+    // References
+    private GameObject player;
+    private PlayerController playerController;
+
+    // States
+    private EnemyIdleState idleState;
+    private EnemyPatrolState patrolState;
+    private EnemyChaseState chaseState;
+    private EnemyAttackState attackState;
+    private EnemyStunState stunState;
+    private EnemyDeathState deathState;
+
+    // Config
+    [SerializeField] private EnemyTypeEnum enemyType;
+    [SerializeField] private EnemyAbilitySO[] enemyAbilities;
+    [SerializeField] private Transform healthbarFG;
+    [SerializeField] private Transform worldCanvas;
+    [SerializeField] private DamagePopUp damagePopUp;
+    [SerializeField] public GameObject stunEffect;
+
+    // Stats
+    public float maxHealth = 100;
+    public float currentHealth;
+    private float damageModifier = 1;
+    private int enemyLvl = 1;
+
+    // State
+    private FloorTypeEnum currentFloorType;
+    [SerializeField] private EnemyStateEnum currentStateEnum;
+    private EnemyBaseState currentState;
+    public EnemyStateEnum previousStateEnum;
+    private EnemyBaseState previousState;
+
+    // Flags
     public bool hasSeenPlayer = false;
     public bool canAttack = false;
     public bool isStuned = false;
@@ -69,45 +61,33 @@ public class EnemyController : MonoBehaviour
     private bool isDead = false;
     private bool isFacingLedge = false;
     private bool isPlayerDead = false;
+    private bool isBeingknocked = false;
 
-    [SerializeField] EnemyAbilitySO[] enemyAbilities; 
-
-    [SerializeField] Transform healthbarFG; 
-    [SerializeField] Transform worldCanvas; 
-    
-
-    #endregion
-
-
-
-
+    // Runtime
+    public Vector3 playerPos;
 
     #region Getters / Setters
     public EnemyMovement EnemyMovement { get => enemyMovement; set => enemyMovement = value; }
-
-    //Eenemy States
-    public EnemyBaseState CurrentState { get => CurrentState1; set => CurrentState1 = value; }
+    public EnemyBaseState CurrentState { get => currentState; set => currentState = value; }
     public EnemyBaseState PreviousState { get => previousState; set => previousState = value; }
-    public PatrolState PatrolState { get => patrolState; set => patrolState = value; }
-    public IdleState IdleState { get => idleState; set => idleState = value; }
-    public ChaseState ChaseState { get => chaseState; set => chaseState = value; }
+    public EnemyPatrolState PatrolState { get => patrolState; set => patrolState = value; }
+    public EnemyIdleState IdleState { get => idleState; set => idleState = value; }
+    public EnemyChaseState ChaseState { get => chaseState; set => chaseState = value; }
     public EnemyAttackState AttackState { get => attackState; set => attackState = value; }
-    public StunState StunState { get => stunState; set => stunState = value; }  
-    public bool CanMove { get => canMove; set => canMove = value; }
-    public EnemyAnimationManager EnemyAnimationManager { get => enemyAnimationManager; set => enemyAnimationManager = value; }
+    public EnemyStunState StunState { get => stunState; set => stunState = value; }
     public EnemyDeathState DeathState { get => deathState; set => deathState = value; }
+    public EnemyAnimationManager EnemyAnimationManager { get => enemyAnimationManager; set => enemyAnimationManager = value; }
     public EnemyStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
-    public EnemyBaseState CurrentState1 { get => currentState; set => currentState = value; }
+    public bool CanMove { get => canMove; set => canMove = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
     public SpriteRenderer SpriteRenderer { get => spriteRenderer; set => spriteRenderer = value; }
     public bool IsFacingLedge { get => isFacingLedge; set => isFacingLedge = value; }
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
     public bool IsPlayerDead { get => isPlayerDead; set => isPlayerDead = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
-    public float DamageModifier { get => DamageModifier1; set => DamageModifier1 = value; }
+    public float DamageModifier { get => damageModifier; set => damageModifier = value; }
     public NavMeshAgent NavAgent { get => navAgent; set => navAgent = value; }
     public ParticleSystem BloodParticles { get => bloodParticles; set => bloodParticles = value; }
-    public float DamageModifier1 { get => damageModifier; set => damageModifier = value; }
     public Material Material { get => material; set => material = value; }
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
     public Vector3 PlayerPos { get => playerPos; set => playerPos = value; }
@@ -116,13 +96,69 @@ public class EnemyController : MonoBehaviour
     public Transform WorldCanvas { get => worldCanvas; set => worldCanvas = value; }
     public int EnemyLvl { get => enemyLvl; set => enemyLvl = value; }
     public EnemyItemDropHandler ItemDropHandler { get => itemDropHandler; set => itemDropHandler = value; }
-    public EnemyTypeEnum EnemyType { get => enemyType;}
-
+    public EnemyTypeEnum EnemyType { get => enemyType; }
+    public bool CanChangeState { get => canChangeState; set => canChangeState = value; }
+    public bool IsBeingknocked { get => isBeingknocked; set => isBeingknocked = value; }
     #endregion
+
+    private void Awake()
+    {
+        EnemyAnimationManager = GetComponent<EnemyAnimationManager>();
+        EnemyMovement = GetComponent<EnemyMovement>();
+        collisionManager = GetComponent<EnemyCollisionManager>();
+        dialogueBox = GetComponentInChildren<DialogueBox>();
+        BloodParticles = GetComponent<ParticleSystem>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Material = SpriteRenderer.material;
+        navAgent = GetComponent<NavMeshAgent>();
+        AudioSource = GetComponent<AudioSource>();
+        itemDropHandler = GetComponentInChildren<EnemyItemDropHandler>();
+
+        InitializeEnemyState();
+    }
+
+    private void Start()
+    {
+        navAgent.updateRotation = false;
+        navAgent.updateUpAxis = false;
+
+        Player = GameManager.Instance.Player;
+        playerController = Player.GetComponent<PlayerController>();
+        playerPos = Player.transform.position;
+
+        currentHealth = maxHealth;
+        hasSeenPlayer = true;
+
+        foreach (var ability in enemyAbilities)
+        {
+            ability.ApplyAbility(this);
+        }
+
+        CurrentStateEnum = EnemyStateEnum.Idle;
+        CurrentState = IdleState;
+    }
+
+    private void Update()
+    {
+        playerPos = Player.transform.position + new Vector3(0, Player.GetComponent<SpriteRenderer>().bounds.size.y / 2, 0);
+
+        if (!isDead)
+        {
+            HandleCooldowns();
+            canAttack = attackState.IsEnemyAbleToAttack();
+            currentState.HandleState();
+            attackState.CheckForNextAttack();
+        }
+    }
+
+    private void HandleCooldowns()
+    {
+        PatrolState.ManagePatrolDelayCooldown();
+    }
 
     public void ChangeState(EnemyStateEnum stateEnum)
     {
-        if(CurrentStateEnum != stateEnum && canChangeState &&!isDead)
+        if (CurrentStateEnum != stateEnum && canChangeState && !isDead)
         {
             //Debug.Log(CurrentStateEnum.ToString() + " to " + stateEnum.ToString());
 
@@ -146,7 +182,7 @@ public class EnemyController : MonoBehaviour
                     CurrentState = ChaseState;
                     break;
                 case EnemyStateEnum.Attack:
-                   
+
                     CurrentState = AttackState;
                     break;
                 case EnemyStateEnum.Stun:
@@ -160,74 +196,55 @@ public class EnemyController : MonoBehaviour
             CurrentStateEnum = stateEnum;
             CurrentState.OnEnterState();
         }
-        
+
     }
 
-   
-  
-    private void Awake()
+    private void InitializeEnemyState()
     {
-        EnemyAnimationManager = GetComponent<EnemyAnimationManager>();
-        EnemyMovement = GetComponent<EnemyMovement>();
-        collisionManager = GetComponent<EnemyCollisionManager>();
-        dialogueBox = GetComponentInChildren<DialogueBox>();
-        BloodParticles = GetComponent<ParticleSystem>();
-        Material = GetComponent<SpriteRenderer>().material;
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-        navAgent = GetComponent<NavMeshAgent>();
-        AudioSource = GetComponent<AudioSource>();
-        itemDropHandler = GetComponentInChildren<EnemyItemDropHandler>();
+        IdleState = GetComponentInChildren<EnemyIdleState>();
+        PatrolState = GetComponentInChildren<EnemyPatrolState>();
+        ChaseState = GetComponentInChildren<EnemyChaseState>();
+        AttackState = GetComponentInChildren<EnemyAttackState>();
+        StunState = GetComponentInChildren<EnemyStunState>();
+        DeathState = GetComponentInChildren<EnemyDeathState>();
 
-        InitializeEnemyState();
+        IdleState.SetStatesController(this);
+        PatrolState.SetStatesController(this);
+        ChaseState.SetStatesController(this);
+        AttackState.SetStatesController(this);
+        StunState.SetStatesController(this);
+        DeathState.SetStatesController(this);
     }
-    private void Start()
+
+    public IEnumerator EnemyHitCoroutine(float damage, Vector2 hitPoint, HitSfxType hitType,float knockbackForce)
     {
-        navAgent.updateRotation = false;
-        navAgent.updateUpAxis = false;
+        //VFX
+        collisionManager.PlayBloodEffect(hitPoint);
+        Material.SetFloat("_Flash", 1);
+        //SFX
+        if (hitType != HitSfxType.none) AudioManager.Instance.PlaySFX(AudioSource, collisionManager.GetHitSound(hitType), 1);
 
-        Player = GameManager.Instance.Player;
-        playerController = Player.GetComponent<PlayerController>();
-        playerPos = Player.transform.position;
+        collisionManager.StaggerEnemy(damage);
+        Vector2 knockbackVector = (GetEnemyCenter() - playerController.GetPlayerCenter()).normalized;
+        collisionManager.KnockBackEnemy(knockbackVector, knockbackForce);
 
-        currentHealth = maxHealth;
-       
-        hasSeenPlayer = true;
+        //Damage
+        OnEnemyTakingDamage(damage, DamageModifier);
 
-        foreach (var ability in enemyAbilities)
-        {
-            ability.ApplyAbility(this);
-        }
-        CurrentStateEnum = EnemyStateEnum.Idle;
-        CurrentState = IdleState;
+        //Wait
+        yield return new WaitForSeconds(0.1f);
+        Material.SetFloat("_Flash", 0);
+
 
     }
 
-    private void Update()
+
+    public void OnEnemyHit(float damage, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
     {
-        playerPos = Player.transform.position + new Vector3(0, Player.GetComponent<SpriteRenderer>().sprite.bounds.size.y / 2, 0);
-        if (!isDead)
-        {
-            HandleCooldowns();
-            canAttack = attackState.IsEnemyAbleToAttack();
-            CurrentState.HandleState();
-            attackState.CheckForNextAttack();
-        }
-      
-
+        StartCoroutine(EnemyHitCoroutine(damage, hitPoint, hitType, knockbackForce));
     }
 
-    private void HandleCooldowns()
-    {
-        PatrolState.GetComponent<PatrolState>().ManagePatrolDelayCooldown();
-    }
-
-    public void OnEnemyHit(float damage, Vector2 hitPoint, HitSfxType hitType)
-    {
-        StartCoroutine(collisionManager.EnemyHitCoroutine(damage, hitPoint, hitType));
-    }
-
-    
-    public void OnEnemyTakingDamage(float value,float modifier)
+    public void OnEnemyTakingDamage(float value, float modifier)
     {
         if (!isDead)
         {
@@ -238,18 +255,15 @@ public class EnemyController : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-               currentHealth = 0;
-               
-               ChangeState(EnemyStateEnum.Death);
-               
+                currentHealth = 0;
+                ChangeState(EnemyStateEnum.Death);
             }
         }
-      
     }
 
     private void SpawnDamagePopUp(float damage)
     {
-        DamagePopUp obj = Instantiate(damagePopUp, new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity);
+        DamagePopUp obj = Instantiate(damagePopUp, transform.position + Vector3.up, Quaternion.identity);
         obj.SetText(damage.ToString());
     }
 
@@ -258,87 +272,47 @@ public class EnemyController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public DialogueBox GetDialogueBox()
-    {
-        return dialogueBox; 
-    }
-
-  
-
-    public void SetCanChangeState(bool value)
-    {
-        this.canChangeState = value;
-    }
-
-    public bool GetCanChangeState()
-    {
-        return this.canChangeState;
-    }
-
-    private void InitializeEnemyState()
-    {
-        IdleState = GetComponentInChildren<IdleState>();
-        IdleState.SetStatesController(this);
-
-        PatrolState = GetComponentInChildren<PatrolState>();
-        PatrolState.SetStatesController(this);
-
-        ChaseState = GetComponentInChildren<ChaseState>();
-        ChaseState.SetStatesController(this);
-
-        AttackState = GetComponentInChildren<EnemyAttackState>();
-        AttackState.SetStatesController(this);
-
-        StunState = GetComponentInChildren<StunState>();
-        StunState.SetStatesController(this);
-
-        DeathState = GetComponentInChildren<EnemyDeathState>();
-        DeathState.SetStatesController(this);   
-    }
-
     public void ResetEnemy()
     {
-        
         switch (enemyType)
         {
             case EnemyTypeEnum.Arsonist:
-                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(this.gameObject);
+                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(gameObject);
                 break;
             case EnemyTypeEnum.Revenant:
-                ObjectPoolManager.Instance.RevenantPool.ReturnToPool(this.gameObject);
+                ObjectPoolManager.Instance.RevenantPool.ReturnToPool(gameObject);
                 break;
             case EnemyTypeEnum.Sinner:
-                ObjectPoolManager.Instance.SinnerPool.ReturnToPool(this.gameObject);
+                ObjectPoolManager.Instance.SinnerPool.ReturnToPool(gameObject);
                 break;
             case EnemyTypeEnum.Necromancer:
-                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(this.gameObject);
+                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(gameObject);
                 break;
         }
+
         IsDead = false;
         collisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
         collisionManager.BoxCollider.enabled = true;
-        NavAgent.enabled = true;
-        WorldCanvas.gameObject.SetActive(true);
+        navAgent.enabled = true;
+        worldCanvas.gameObject.SetActive(true);
         attackState.IsAttackDelayOver = true;
+        enemyAnimationManager.Animator.enabled = true;
 
-        EnemyAnimationManager.Animator.enabled = true;
         ResetHealth();
         UpdateEnemyHealthBar();
         ChangeState(EnemyStateEnum.Idle);
-
     }
 
     public Vector3 GetEnemyCenter()
     {
-        Vector3 center = this.transform.position;
+        Vector3 center = transform.position;
         center.y += spriteRenderer.bounds.size.y / 2;
         return center;
     }
 
     public void UpdateEnemyHealthBar()
     {
-        Vector3 healthBarScale = new Vector3(currentHealth / maxHealth, 1, 1);
-        healthbarFG.localScale = healthBarScale;
+        Vector3 scale = new Vector3(currentHealth / maxHealth, 1, 1);
+        healthbarFG.localScale = scale;
     }
-
 }

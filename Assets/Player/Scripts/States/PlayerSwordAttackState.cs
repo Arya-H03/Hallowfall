@@ -193,19 +193,19 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void FirstSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize, 1);
-        HandleHits(hitResult, firstSwingDamage);
+        HandleHits(hitResult, firstSwingDamage,2);
     }
 
     private void SecondSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize, 2);
-        HandleHits(hitResult, secondSwingDamage);
+        HandleHits(hitResult, secondSwingDamage,4);
     }
 
     public void ThirdSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize, 3);
-        HandleHits(hitResult, thirdSwingDamage);
+        HandleHits(hitResult, thirdSwingDamage, 5);
     }
 
     private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize, int index)
@@ -216,7 +216,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         return hits.Length > 0 ? hits : null;
     }
 
-    private void HandleHits(RaycastHit2D[] hits, float damage)
+    private void HandleHits(RaycastHit2D[] hits, float damage,float force)
     {
         if (hits == null) return;
 
@@ -225,7 +225,9 @@ public class PlayerSwordAttackState : PlayerBaseState
             if (hit.collider.CompareTag("Enemy"))
             {
                 EnemyController enemyController = hit.collider.GetComponent<EnemyController>();
-                enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword);
+                Vector2 knockbackVector = (playerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
+                enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword, force);
+                playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.25f);
                 GameManager.Instance.StopTime(hitStopDuration);
             }
         }

@@ -427,8 +427,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadSprite: {fileID: -898221585893318736, guid: b0473f367baadd244806f58a4e17a024, type: 3}
-  essence: {fileID: 7763349969374231519, guid: 0d78dca24fc6c224899058ac1ba294e8, type: 3}
-  skull: {fileID: 0}
   corpseLifeTime: 1
 --- !u!1 &5633359595972537000
 GameObject:
@@ -802,22 +800,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb854920733deeb4c87f5a68b299e19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionManager: {fileID: 0}
+  enemyType: 0
+  enemyAbilities: []
+  healthbarFG: {fileID: 323336408953527322}
+  worldCanvas: {fileID: 4825887145450144339}
+  damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
+  stunEffect: {fileID: 5633359595972537000}
   maxHealth: 50
   currentHealth: 0
-  enemyType: 0
   currentStateEnum: 1
   previousStateEnum: 0
-  collisionManager: {fileID: 0}
-  playerPos: {x: 0, y: 0, z: 0}
-  stunEffect: {fileID: 5633359595972537000}
-  damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
   hasSeenPlayer: 1
   canAttack: 0
   isStuned: 0
   isJumping: 0
-  enemyAbilities: []
-  healthbarFG: {fileID: 323336408953527322}
-  worldCanvas: {fileID: 4825887145450144339}
+  playerPos: {x: 0, y: 0, z: 0}
 --- !u!114 &4673660518060616811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,14 +1438,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9188536229556048115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a792508ea75ca874faa1d10f8be3c914, type: 3}
+  m_Script: {fileID: 11500000, guid: 02968df083d172c489e26580c76c0b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rightPatrolBound: {fileID: 0}
   leftPatrolBound: {fileID: 0}
-  walkGroundSFX: {fileID: 8300000, guid: 63e8979eaa8545041886dd575eadf068, type: 3}
-  walkGrassSFX: {fileID: 8300000, guid: 9dbe8e3c84c1c3248be7c807ff8b366a, type: 3}
-  walkWoodSFX: {fileID: 8300000, guid: 1f411e15fe2775c48baeaeb6961558ff, type: 3}
+  walkGroundSFX: {fileID: 0}
+  walkGrassSFX: {fileID: 0}
+  walkWoodSFX: {fileID: 0}
 --- !u!82 &8254217218296372889
 AudioSource:
   m_ObjectHideFlags: 0

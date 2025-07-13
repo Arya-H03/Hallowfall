@@ -10,12 +10,12 @@ public class EnemyCollisionManager : MonoBehaviour
     private BoxCollider2D boxCollider;
     private EnemyController enemyController;
 
-    private bool canStagger = true;    
+    private bool canStagger = true;
 
     [SerializeField] float luanchModifier = 1f;
     [SerializeField] DamagePopUp damagePopUp;
     [SerializeField] GameObject impactEffect;
-    [SerializeField] GameObject [] bloofVFX ;
+    [SerializeField] GameObject[] bloofVFX;
 
     [SerializeField] float maxStagger;
     [SerializeField] float currentStagger;
@@ -42,7 +42,7 @@ public class EnemyCollisionManager : MonoBehaviour
         FillDictionary();
 
     }
- 
+
     private void FillDictionary()
     {
         hitSFXDictionary = new Dictionary<HitSfxType, AudioClip[]>();
@@ -52,32 +52,12 @@ public class EnemyCollisionManager : MonoBehaviour
         }
     }
 
-    public IEnumerator EnemyHitCoroutine(float damage, Vector2 hitPoint, HitSfxType hitType)
+
+    public void PlayBloodEffect(Vector2 hitPoint)
     {
-        //VFX
-        PlayBloodEffect(hitPoint);
-        enemyController.Material.SetFloat("_Flash", 1);
-        //SFX
-        if(hitType != HitSfxType.none) AudioManager.Instance.PlaySFX(enemyController.AudioSource, GetHitSound(hitType),1);
-
-        //Damage
-        enemyController.OnEnemyTakingDamage(damage, enemyController.DamageModifier);
-
-        StaggerEnemy(damage);
-
-        //Wait
-        yield return new WaitForSeconds(0.1f);
-        enemyController.Material.SetFloat("_Flash", 0);
-
-
-
-    }
-
-    private void PlayBloodEffect(Vector2 hitPoint)
-    {
-        Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);   
+        Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);
         Vector2 dir = FindEffectDir(hitPoint);
-         Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
+        Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
         GameObject go = Instantiate(bloofVFX[Random.Range(0, bloofVFX.Length)], hitPoint, Quaternion.identity);
         Vector3 scale = go.transform.localScale;
         scale.x *= dir.x;
@@ -95,7 +75,7 @@ public class EnemyCollisionManager : MonoBehaviour
         return new Vector2(xDir, yDir);
     }
 
-    private AudioClip GetHitSound(HitSfxType hitType)
+    public AudioClip GetHitSound(HitSfxType hitType)
     {
         if (hitSFXDictionary.TryGetValue(hitType, out AudioClip[] sfx))
         {
@@ -107,19 +87,20 @@ public class EnemyCollisionManager : MonoBehaviour
 
     public void StaggerEnemy(float damage)
     {
-        if (currentStagger < maxStagger && canStagger) 
+        if (currentStagger < maxStagger && canStagger)
         {
             //Turn damage to stagger amount
-            float amount = 2*damage;
+            float amount = 2 * damage;
             currentStagger += amount;
+            enemyController.StunState.StunDuration = 3f;
             if (currentStagger >= maxStagger)
             {
-               
+
                 StartCoroutine(DelayStaggerCoroutine());
                 enemyController.ChangeState(EnemyStateEnum.Stun);
             }
         }
-     
+
 
     }
 
@@ -134,9 +115,25 @@ public class EnemyCollisionManager : MonoBehaviour
     {
         currentStagger = 0;
     }
-    public void LaunchEnemy(Vector2 lanunchVector)
+
+    public void KnockBackEnemy(Vector2 lanunchVector, float lunchForce)
     {
-        Rb.linearVelocity = new Vector2(Rb.linearVelocity.x + lanunchVector.x * luanchModifier, Rb.linearVelocity.y + lanunchVector.y * luanchModifier);
+        StartCoroutine(KnockBackEnemyCoroutine(lanunchVector, lunchForce));
+    }
+    private IEnumerator KnockBackEnemyCoroutine(Vector2 lanunchVector, float force)
+    {
+        enemyController.CanMove = false;
+        enemyController.IsBeingknocked = true;
+        enemyController.StunState.StunDuration = 1f;
+        enemyController.ChangeState(EnemyStateEnum.Stun);
+        Rb.linearVelocity += lanunchVector * luanchModifier * force;
+            
+        yield return new WaitForSeconds(0.25f);
+        enemyController.CanMove = true;
+        enemyController.IsBeingknocked = false;
+        Rb.linearVelocity -= lanunchVector * luanchModifier * force;
+        
+
     }
 
     public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
@@ -144,10 +141,10 @@ public class EnemyCollisionManager : MonoBehaviour
         PlayerParryState parryState = shield.GetComponentInParent<PlayerParryState>();
         parryState.SpawnImpactEffect(hitLocation);
 
-        if(parryState.CanCounter())
+        if (parryState.CanCounter())
         {
             parryState.CallOnParrySuccessfulEvent();
-            enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword);
+            enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword,2);
             Vector3 scale = transform.localScale;
             //Vector2 launchVec = Vector2.zero;
             //if (scale.x == 1)
@@ -158,13 +155,9 @@ public class EnemyCollisionManager : MonoBehaviour
             //{
             //    launchVec = new Vector2(-5 * luanchModifier, 3 * luanchModifier);
             //}
-            //LaunchEnemy(launchVec);
+            //KnockBackPlayer(launchVec);
         }
-       
-    }
-    public void ApplyVelocity(float x, float y)
-    {
-        Rb.linearVelocity = new Vector2(x, y);
+
     }
     public void SpawnImpactEffect(Vector3 position)
     {
@@ -172,15 +165,5 @@ public class EnemyCollisionManager : MonoBehaviour
         Destroy(obj, 0.5f);
     }
 
-    public override bool Equals(object obj)
-    {
-        return obj is EnemyCollisionManager manager &&
-               base.Equals(obj) &&
-               CanStagger == manager.CanStagger;
-    }
 
-    public override int GetHashCode()
-    {
-        return System.HashCode.Combine(base.GetHashCode(), CanStagger);
-    }
 }

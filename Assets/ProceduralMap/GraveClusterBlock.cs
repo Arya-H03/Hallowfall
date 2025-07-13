@@ -74,7 +74,7 @@ public class GraveClusterBlock : PropsBlock
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -87,7 +87,7 @@ public class GraveClusterBlock : PropsBlock
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected override void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -97,7 +97,7 @@ public class GraveClusterBlock : PropsBlock
 
     }
 
-    private IEnumerator SpawnEnemiesCoroutine()
+   private IEnumerator SpawnEnemiesCoroutine()
     {
         GraveYardLayoutProfile graveYardLayout = zoneLayoutProfile as GraveYardLayoutProfile;
         if(!earthShakeParticleSystem)

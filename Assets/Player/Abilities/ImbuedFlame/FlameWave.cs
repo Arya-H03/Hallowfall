@@ -8,7 +8,7 @@ public class FlameWave : BaseProjectile
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyController>().OnEnemyHit(damage, collision.transform.position, HitSfxType.fire);
+            collision.GetComponent<EnemyController>().OnEnemyHit(damage, collision.transform.position, HitSfxType.fire,0);
         }
     }
 }
