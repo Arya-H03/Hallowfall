@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnemyDeathState : EnemyBaseState
 {
     [SerializeField] Sprite deadSprite;
-    [SerializeField] GameObject essence;
-    [SerializeField] GameObject skull;
+ 
     [SerializeField] private float corpseLifeTime = 1;
 
     public delegate void EventHandler();

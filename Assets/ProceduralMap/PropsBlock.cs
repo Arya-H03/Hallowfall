@@ -14,6 +14,8 @@ public enum PropsBlockTypeEnum
 }
 public class PropsBlock : MonoBehaviour
 {
+    protected BoxCollider2D boxCollider2D;
+
     protected GameObject propsHolder;
     protected ZoneLayoutProfile zoneLayoutProfile;
     protected ZoneHandler zoneHandler;
@@ -25,31 +27,39 @@ public class PropsBlock : MonoBehaviour
     protected CellGrid celLGrid;
     protected CellGrid parentCellGrid;
 
+    protected bool isPlayerOnThisBlock = false;
+
 
     public ZoneHandler ZoneHandler { get => zoneHandler; set => zoneHandler = value; }
-   
+    public bool IsPlayerOnThisBlock { get => isPlayerOnThisBlock; set => isPlayerOnThisBlock = value; }
+
     protected virtual void Awake()
     {
-
+        boxCollider2D = GetComponent<BoxCollider2D>();
         propsHolder = transform.GetChild(2).transform.gameObject;
 
     }
     protected virtual void Start()
     {
- 
+        PopulateBlock(celLGrid, zoneLayoutProfile);
     }
 
-    public void OnPropsBlockInstantiated(CellGrid parentCellGrid, Vector3Int firstCellPos, ZoneLayoutProfile zoneLayoutProfile)
+    public void Init(CellGrid parentCellGrid, Vector3Int firstCellPos, ZoneLayoutProfile zoneLayoutProfile, BoundsInt zoneBounds)
     {
-        
-        blockWidth = Mathf.FloorToInt(transform.GetChild(0).localScale.x);
-        blockHeight = Mathf.FloorToInt(transform.GetChild(0).localScale.y);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0f);
+        transform.GetChild(0).localScale = new Vector3(zoneBounds.size.x, zoneBounds.size.y, zoneBounds.size.z);
+
+        blockWidth = zoneBounds.size.x;
+        blockHeight = zoneBounds.size.y;
+
+       boxCollider2D.size = new Vector2(blockWidth - 1 , blockHeight -1);
+       boxCollider2D.offset = new Vector2(blockWidth *0.5f, blockHeight * 0.5f);
 
 
         this.parentCellGrid = parentCellGrid;
         this.zoneLayoutProfile = zoneLayoutProfile;
         celLGrid = new CellGrid(blockWidth, blockHeight, (Vector2Int)firstCellPos, parentCellGrid);
-        PopulateBlock(celLGrid, zoneLayoutProfile);
+        
     }
     protected void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
@@ -76,4 +86,5 @@ public class PropsBlock : MonoBehaviour
         
        
     }
+
 }

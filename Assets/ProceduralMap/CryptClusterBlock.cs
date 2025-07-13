@@ -27,10 +27,10 @@ public class CryptClusterBlock : PropsBlock
             int minY = y;
             int maxY = y + Mathf.FloorToInt(yBound / 2);
 
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiateGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
 
             TilePaint tilePaintStone = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
             TilePaint tilePaintGrass = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };

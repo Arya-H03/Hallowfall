@@ -10,9 +10,8 @@ using Random = UnityEngine.Random;
 
 public class ZoneHandler : MonoBehaviour
 {
-    protected Tilemap groundTilemap;
+   
 
-    protected ZoneConfig zoneConfig;
     protected ZoneData zoneData;
     protected ZoneLayoutProfile zoneLayoutProfile;
 
@@ -25,13 +24,18 @@ public class ZoneHandler : MonoBehaviour
     protected List<BoundsInt> listOfSubzoneBounds = new List<BoundsInt>();
     protected List<BoundsInt> listOfPartitionedSubzoneBounds = new List<BoundsInt>();
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
-    public ZoneConfig ZoneConfig { set => zoneConfig = value; }
     public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
 
 
     protected virtual void Awake()
     {
-        groundTilemap = transform.GetChild(0).GetComponentInChildren<Tilemap>();
+      
+    }
+
+    public virtual void Init(ZoneData zoneData, ZoneLayoutProfile zoneLayoutProfile)
+    {
+        this.zoneData = zoneData;
+        this.zoneLayoutProfile = zoneLayoutProfile;
     }
     protected virtual void Start()
     {
@@ -147,17 +151,17 @@ public class ZoneHandler : MonoBehaviour
             if (componentType != null)
             {
                 GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+                go.transform.parent = this.transform;
                 Component addedComponent = go.AddComponent(componentType);
                 PropsBlock propsBlock = addedComponent as PropsBlock;
 
                 if (propsBlock)
                 {
-                    
-                    go.transform.parent = this.transform;
-                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0f);
-                    go.transform.GetChild(0).localScale = new Vector3(zoneBounds.size.x, zoneBounds.size.y, zoneBounds.size.z);
-
-                    propsBlock.OnPropsBlockInstantiated(celLGrid,zoneBounds.position,zoneLayoutProfile);
+                    propsBlock.Init(celLGrid, zoneBounds.position, zoneLayoutProfile,zoneBounds);
+                }
+                else
+                {
+                    Destroy(go);
                 }
             }
 
@@ -249,8 +253,8 @@ public class ZoneHandler : MonoBehaviour
     {
         return (Vector3Int)celLGrid.Cells[x, y].CellPos;
     }
-
  
+
 }
 
 

@@ -35,7 +35,6 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] private GameObject zonePrefab;
     [SerializeField] private GameObject mainGrid;
 
-    [SerializeField] private ZoneConfig zoneConfig;
 
 
     [SerializeField] private Tilemap groundZeroTilemap;
@@ -67,7 +66,7 @@ public class ZoneManager : MonoBehaviour
     {
         MyUtils.ValidateFields(this, zonePrefab, nameof(zonePrefab));
         MyUtils.ValidateFields(this, mainGrid, nameof(mainGrid));
-        MyUtils.ValidateFields(this, zoneConfig, nameof(zoneConfig));
+     
 
         MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
         MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
@@ -192,18 +191,15 @@ public class ZoneManager : MonoBehaviour
         switch (zoneType)
         {
             case ZoneType.graveYard:
-                GraveyardHandler zoneHandler;
-                zoneHandler = zone.AddComponent<GraveyardHandler>();
-                zoneHandler.ZoneData = generatedZones[centerCoord];
-                zoneHandler.ZoneConfig = zoneConfig;
-                zoneHandler.ZoneLayoutProfile = layoutProfile;
+                GraveyardHandler garveYardHandler;
+                garveYardHandler = zone.AddComponent<GraveyardHandler>();
+                garveYardHandler.Init(generatedZones[centerCoord], layoutProfile);
+                
                 break;
             case ZoneType.openField:
                 OpenFieldHandler openFieldHandler;
                 openFieldHandler = zone.AddComponent<OpenFieldHandler>();
-                openFieldHandler.ZoneData = generatedZones[centerCoord];
-                openFieldHandler.ZoneConfig = zoneConfig;
-                openFieldHandler.ZoneLayoutProfile = layoutProfile;
+                openFieldHandler.Init(generatedZones[centerCoord], layoutProfile);
 
                 break;
         }

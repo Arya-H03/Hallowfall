@@ -19,6 +19,10 @@ public class EnemySpawnManager : MonoBehaviour
         }
     }
 
+    public GameObject ArsonistPrefab { get => arsonistPrefab; set => arsonistPrefab = value; }
+    public GameObject SinnerPrefab { get => sinnerPrefab; set => sinnerPrefab = value; }
+    public GameObject NecromancerPrefab { get => necromancerPrefab; set => necromancerPrefab = value; }
+
     [SerializeField] GameObject arsonistPrefab;
     [SerializeField] GameObject sinnerPrefab;
     [SerializeField] GameObject necromancerPrefab;
@@ -37,7 +41,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(MainEnemySpawnCoroutine());
+        //StartCoroutine(MainEnemySpawnCoroutine());
     }
 
     private IEnumerator MainEnemySpawnCoroutine()

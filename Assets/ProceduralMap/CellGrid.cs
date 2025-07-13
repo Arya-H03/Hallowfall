@@ -98,9 +98,11 @@ public class Cell
 
             }
         }
+    }
 
-
-
+    public void PaintCell(Tilemap tilemap,TileBase tileBase)
+    {
+        tilemap.SetTile((Vector3Int)cellPos, tileBase);
     }
 
     public void RemoveTilePaint()
@@ -267,7 +269,7 @@ public class CellGrid
     }
 
 
-    public GameObject TryInstantiateGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, bool isTileOccupied, Transform parent = null)
+    public GameObject TryInstantiatePremanantGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, bool isTileOccupied, Transform parent = null)
     {
         if (cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y >= 0 && cellCoord.y < cellPerCol)
         {
@@ -285,6 +287,23 @@ public class CellGrid
                 Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + cells[cellCoord.x, cellCoord.y].CellPos + " due to cell being occupied.");
                 return null;
             }
+
+        }
+        else return null;
+
+
+    }
+
+    public GameObject TryInstantiateTempGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, Transform parent = null)
+    {
+        if (cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y >= 0 && cellCoord.y < cellPerCol)
+        {
+            Vector3 pos = new Vector3(cells[cellCoord.x, cellCoord.y].CellPos.x, cells[cellCoord.x, cellCoord.y].CellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
+            GameObject go = Object.Instantiate(prefab, pos, rotation);
+            if (parent != null) go.transform.parent = parent;
+
+            return go;
+
 
         }
         else return null;

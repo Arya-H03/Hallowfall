@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: OpenFieldLayoutProfile
   m_EditorClassIdentifier: 
   propsBlocksStructList: []
-  spawnablePropsBlock: {fileID: 0}
-  leavesRuleTile: {fileID: 0}
+  spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
+  leavesRuleTile: {fileID: 11400000, guid: 261a6b7f032e3e648a3f22a6cb70410d, type: 2}
   fenceRuleTile: {fileID: 0}
   stoneRoadRuleTile: {fileID: 0}
   grassRuletile: {fileID: 0}
-  defaultGroundTile: {fileID: 0}
+  defaultGroundTile: {fileID: 11400000, guid: 7e426feb20d81d247ac35c63280aa321, type: 2}
   treeTiles: []
   clutterDensity: 0.3
   propsMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096

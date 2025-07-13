@@ -12,7 +12,7 @@ public class OpenFieldHandler : ZoneHandler
         yield return null;
         StartCoroutine(celLGrid.PaintAllCellsCoroutine());
         yield return null;
-        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+        ZoneManager.Instance.navMeshSurface.BuildNavMesh();
 
 
     }
