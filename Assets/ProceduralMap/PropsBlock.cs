@@ -67,7 +67,7 @@ public class PropsBlock : MonoBehaviour
         {
             for (int j = 0; j < cellGrid.CellPerRow; j++)
             {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].CellPos, Quaternion.identity);
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity);
 
                 if (!cellGrid.Cells[j, i].IsOccupied)
                 {

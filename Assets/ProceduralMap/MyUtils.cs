@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public enum DirectionEnum
@@ -12,145 +13,62 @@ public enum DirectionEnum
 
 public static class MyUtils
 {
-    public static Vector2Int[] GetCardinalDirections()
+    // -------------------------
+    //  Direction Utilities
+    // -------------------------
+
+    public static Vector2Int[] GetCardinalDirections() => new Vector2Int[]
     {
-        return new Vector2Int[]
-        {   Vector2Int.right,
-            Vector2Int.left,
-            Vector2Int.up,
-            Vector2Int.down,
-        };
-    }
+        Vector2Int.right,
+        Vector2Int.left,
+        Vector2Int.up,
+        Vector2Int.down,
+    };
 
-    public static Vector2Int[] GetAllDirections()
+    public static Vector2Int[] GetAllDirections() => new Vector2Int[]
     {
-        return new Vector2Int[]
-        {   Vector2Int.right,
-            Vector2Int.left,
-            Vector2Int.up,
-            Vector2Int.down,
-            new Vector2Int(1, 1),
-            new Vector2Int(1, -1),
-            new Vector2Int(-1, 1),
-            new Vector2Int(-1, -1),
-        };
-    }
+        Vector2Int.right,
+        Vector2Int.left,
+        Vector2Int.up,
+        Vector2Int.down,
+        new Vector2Int(1, 1),
+        new Vector2Int(1, -1),
+        new Vector2Int(-1, 1),
+        new Vector2Int(-1, -1),
+    };
 
-    public static List<DirectionEnum> GetAllDirectionList()
+    public static List<DirectionEnum> GetAllDirectionList() => new List<DirectionEnum>
     {
-        return new List<DirectionEnum> { DirectionEnum.Right, DirectionEnum.Left, DirectionEnum.Up, DirectionEnum.Down };
-    }
+        DirectionEnum.Right,
+        DirectionEnum.Left,
+        DirectionEnum.Up,
+        DirectionEnum.Down
+    };
 
-    public static List<DirectionEnum> GetHorizontalDirectionList()
+    public static List<DirectionEnum> GetHorizontalDirectionList() => new List<DirectionEnum>
     {
-        return new List<DirectionEnum> { DirectionEnum.Right, DirectionEnum.Left };
-    }
+        DirectionEnum.Right,
+        DirectionEnum.Left
+    };
 
-    public static List<DirectionEnum> GetVerticalDirectionList()
+    public static List<DirectionEnum> GetVerticalDirectionList() => new List<DirectionEnum>
     {
-        return new List<DirectionEnum> { DirectionEnum.Up, DirectionEnum.Down };
-    }
+        DirectionEnum.Up,
+        DirectionEnum.Down
+    };
 
-    public static DirectionEnum GetRandomVerticalDirectionEnum()
-    {
-        return GetVerticalDirectionList()[Random.Range(0, 2)];
-    }
+    public static DirectionEnum GetRandomVerticalDirectionEnum() =>
+        GetVerticalDirectionList()[Random.Range(0, 2)];
 
-    public static DirectionEnum GetRandomHorizontalDirectionEnum()
-    {
-        return GetHorizontalDirectionList()[Random.Range(0, 2)];
-    }
+    public static DirectionEnum GetRandomHorizontalDirectionEnum() =>
+        GetHorizontalDirectionList()[Random.Range(0, 2)];
 
-    public static DirectionEnum GetRandomDirectionEnum(List<DirectionEnum> directions)
-    {
-        return directions[Random.Range(0, directions.Count)];
-    }
+    public static DirectionEnum GetRandomDirectionEnum(List<DirectionEnum> directions) =>
+        directions[Random.Range(0, directions.Count)];
 
-    public static Bounds GetCombinedBounds(GameObject root)
-    {
-        SpriteRenderer[] renderers = root.GetComponentsInChildren<SpriteRenderer>();
-
-        if (renderers.Length == 0)
-            return new Bounds(root.transform.position, Vector3.zero);
-
-        Bounds combinedBounds = root.GetComponent<SpriteRenderer>().bounds;
-
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            combinedBounds.Encapsulate(renderers[i].bounds);
-        }
-
-        return combinedBounds;
-    }
-
-    public static List<BoundsInt> PerformeBinarySpacePartitioning(List<BoundsInt> listOfZonesToPartition, int minWidth, int minHeight)
-    {
-        List<BoundsInt> newSpaces = new List<BoundsInt>();
-        foreach (BoundsInt zoneBound in listOfZonesToPartition)
-        {
-            Queue<BoundsInt> zoneQueue = new Queue<BoundsInt>();
-            zoneQueue.Enqueue(zoneBound);
-
-            while (zoneQueue.Count > 0)
-            {
-                BoundsInt zoneToSplit = zoneQueue.Dequeue();
-                //Slice horizontally first then if not slice vertically 
-                if (Random.Range(1, 3) == 1)
-                {
-                    if (zoneToSplit.size.y >= minHeight * 2)
-                    {
-                        SpiltZoneHorizontally(zoneQueue, zoneToSplit);
-                    }
-                    else if (zoneToSplit.size.x >= minWidth * 2)
-                    {
-                        SplitZoneVertically(zoneQueue, zoneToSplit);
-                    }
-                    else
-                    {
-                        newSpaces.Add(zoneToSplit);
-                    }
-                }
-                //Slice vertically first then if not slice horizontally 
-                else
-                {
-                    if (zoneToSplit.size.x >= minWidth * 2)
-                    {
-                        SplitZoneVertically(zoneQueue, zoneToSplit);
-                    }
-                    else if (zoneToSplit.size.y >= minHeight * 2)
-                    {
-                        SpiltZoneHorizontally(zoneQueue, zoneToSplit);
-                    }
-                    else
-                    {
-                        newSpaces.Add(zoneToSplit);
-                    }
-                }
-            }
-
-        }
-        return newSpaces;
-    }
-
-    private static void SpiltZoneHorizontally(Queue<BoundsInt> zoneQueue, BoundsInt zoneToSplit)
-    {
-        int ySplit = Random.Range(1, zoneToSplit.size.y);
-        BoundsInt zone1 = new BoundsInt(zoneToSplit.min, new Vector3Int(zoneToSplit.size.x, ySplit, zoneToSplit.size.z));
-        BoundsInt zone2 = new BoundsInt(new Vector3Int(zoneToSplit.min.x, zoneToSplit.min.y + ySplit, zoneToSplit.min.z), new Vector3Int(zoneToSplit.size.x, zoneToSplit.size.y - ySplit, zoneToSplit.size.z));
-
-        zoneQueue.Enqueue(zone1);
-        zoneQueue.Enqueue(zone2);
-    }
-
-    private static void SplitZoneVertically(Queue<BoundsInt> zoneQueue, BoundsInt zoneToSplit)
-    {
-        int xSplit = Random.Range(1, zoneToSplit.size.x);
-        BoundsInt zone1 = new BoundsInt(zoneToSplit.min, new Vector3Int(xSplit, zoneToSplit.size.y, zoneToSplit.size.z));
-        BoundsInt zone2 = new BoundsInt(new Vector3Int(zoneToSplit.min.x + xSplit, zoneToSplit.min.y, zoneToSplit.min.z), new Vector3Int(zoneToSplit.size.x - xSplit, zoneToSplit.size.y, zoneToSplit.size.z));
-
-        zoneQueue.Enqueue(zone1);
-        zoneQueue.Enqueue(zone2);
-    }
+    // -------------------------
+    //  Field Validation
+    // -------------------------
 
     public static void ValidateFields<T>(Object owner, T field, string fieldName) where T : Object
     {
@@ -160,15 +78,19 @@ public static class MyUtils
         }
     }
 
-    public static void ValidateFields<T>(Object owner, T [] field, string fieldName) where T : Object
+    public static void ValidateFields<T>(Object owner, T[] field, string fieldName) where T : Object
     {
-        if (field == null || field.Length ==0) 
+        if (field == null || field.Length == 0)
         {
             Debug.LogWarning($"Required reference '{fieldName}' is not set on '{owner.name}' ({owner.GetType().Name})", owner);
         }
     }
 
-    // For reference types (e.g., GameObject, Sprite, etc.)
+    // -------------------------
+    //  Random Utilities
+    // -------------------------
+
+    // For reference types (GameObject, Sprite, etc.)
     public static T GetRandomRef<T>(T[] input) where T : class
     {
         if (input == null || input.Length == 0)
@@ -176,6 +98,7 @@ public static class MyUtils
             Debug.LogError("Input array is null or empty");
             return null;
         }
+
         return input[Random.Range(0, input.Length)];
     }
 
@@ -187,16 +110,12 @@ public static class MyUtils
             return null;
         }
 
-        if (Random.value < 1 - chanceOfReturningNothing)
-        {
-            return input[Random.Range(0, input.Length)];
-        }
-
-        return null;
+        return Random.value < 1 - chanceOfReturningNothing
+            ? input[Random.Range(0, input.Length)]
+            : null;
     }
 
-    // For value types (e.g., Vector3, int, etc.)
-
+    // For value types (Vector3, int, etc.)
     public static T? GetRandomValue<T>(T[] input) where T : struct
     {
         if (input == null || input.Length == 0)
@@ -206,8 +125,8 @@ public static class MyUtils
         }
 
         return input[Random.Range(0, input.Length)];
-
     }
+
     public static T? GetRandomValue<T>(T[] input, float chanceOfReturningNothing) where T : struct
     {
         if (input == null || input.Length == 0)
@@ -216,13 +135,148 @@ public static class MyUtils
             return null;
         }
 
-        if (Random.value < 1 - chanceOfReturningNothing)
-        {
-            return input[Random.Range(0, input.Length)];
-        }
-
-        return null;
+        return Random.value < 1 - chanceOfReturningNothing
+            ? input[Random.Range(0, input.Length)]
+            : (T?)null;
     }
 
-   
+    // -------------------------
+    //  Bounds Utilities
+    // -------------------------
+
+    public static Bounds GetCombinedBounds(GameObject root)
+    {
+        SpriteRenderer[] renderers = root.GetComponentsInChildren<SpriteRenderer>();
+
+        if (renderers.Length == 0)
+            return new Bounds(root.transform.position, Vector3.zero);
+
+        Bounds combinedBounds = renderers[0].bounds;
+
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            combinedBounds.Encapsulate(renderers[i].bounds);
+        }
+
+        return combinedBounds;
+    }
+
+    // -------------------------
+    //  Binary Space Partitioning
+    // -------------------------
+
+    public static List<BoundsInt> PerformeBinarySpacePartitioning(List<BoundsInt> listOfZonesToPartition, int minWidth, int minHeight)
+    {
+        List<BoundsInt> newSpaces = new List<BoundsInt>();
+
+        foreach (BoundsInt zoneBound in listOfZonesToPartition)
+        {
+            Queue<BoundsInt> zoneQueue = new Queue<BoundsInt>();
+            zoneQueue.Enqueue(zoneBound);
+
+            while (zoneQueue.Count > 0)
+            {
+                BoundsInt zoneToSplit = zoneQueue.Dequeue();
+
+                if (Random.Range(1, 3) == 1)
+                {
+                    if (zoneToSplit.size.y >= minHeight * 2)
+                        SpiltZoneHorizontally(zoneQueue, zoneToSplit);
+                    else if (zoneToSplit.size.x >= minWidth * 2)
+                        SplitZoneVertically(zoneQueue, zoneToSplit);
+                    else
+                        newSpaces.Add(zoneToSplit);
+                }
+                else
+                {
+                    if (zoneToSplit.size.x >= minWidth * 2)
+                        SplitZoneVertically(zoneQueue, zoneToSplit);
+                    else if (zoneToSplit.size.y >= minHeight * 2)
+                        SpiltZoneHorizontally(zoneQueue, zoneToSplit);
+                    else
+                        newSpaces.Add(zoneToSplit);
+                }
+            }
+        }
+
+        return newSpaces;
+    }
+
+    private static void SpiltZoneHorizontally(Queue<BoundsInt> zoneQueue, BoundsInt zoneToSplit)
+    {
+        List<int> validSplits = new List<int>();
+        for (int i = 1; i < zoneToSplit.size.y; i++)
+            if (i % 2 == 0) validSplits.Add(i);
+
+        if (validSplits.Count == 0) return;
+
+        int ySplit = validSplits[Random.Range(0, validSplits.Count)];
+
+        BoundsInt zone1 = new BoundsInt(
+            zoneToSplit.min,
+            new Vector3Int(zoneToSplit.size.x, ySplit, zoneToSplit.size.z)
+        );
+
+        BoundsInt zone2 = new BoundsInt(
+            new Vector3Int(zoneToSplit.min.x, zoneToSplit.min.y + ySplit, zoneToSplit.min.z),
+            new Vector3Int(zoneToSplit.size.x, zoneToSplit.size.y - ySplit, zoneToSplit.size.z)
+        );
+
+        zoneQueue.Enqueue(zone1);
+        zoneQueue.Enqueue(zone2);
+    }
+
+    private static void SplitZoneVertically(Queue<BoundsInt> zoneQueue, BoundsInt zoneToSplit)
+    {
+        List<int> validSplits = new List<int>();
+        for (int i = 1; i < zoneToSplit.size.x; i++)
+            if (i % 2 == 0) validSplits.Add(i);
+
+        if (validSplits.Count == 0) return;
+
+        int xSplit = validSplits[Random.Range(0, validSplits.Count)];
+
+        BoundsInt zone1 = new BoundsInt(
+            zoneToSplit.min,
+            new Vector3Int(xSplit, zoneToSplit.size.y, zoneToSplit.size.z)
+        );
+
+        BoundsInt zone2 = new BoundsInt(
+            new Vector3Int(zoneToSplit.min.x + xSplit, zoneToSplit.min.y, zoneToSplit.min.z),
+            new Vector3Int(zoneToSplit.size.x - xSplit, zoneToSplit.size.y, zoneToSplit.size.z)
+        );
+
+        zoneQueue.Enqueue(zone1);
+        zoneQueue.Enqueue(zone2);
+    }
+
+    // -------------------------
+    //  Array Bound Checks
+    // -------------------------
+
+    public static bool IsWithinArrayBounds<T>(T[] array, int index)
+    {
+        return index >= 0 && index < array.Length;
+    }
+
+    public static bool IsWithinArrayBounds(int arrayLength, int index)
+    {
+        return index >= 0 && index < arrayLength;
+    }
+
+    public static bool IsWithinArrayBounds<T>(T[,] array, Vector2Int indexCoord)
+    {
+        int width = array.GetLength(0);
+        int height = array.GetLength(1);
+
+        return indexCoord.x >= 0 && indexCoord.x < width &&
+               indexCoord.y >= 0 && indexCoord.y < height;
+    }
+
+    public static bool IsWithinArrayBounds(int arrayWidth, int arrayHeight, Vector2Int indexCoord)
+    {
+     
+        return indexCoord.x >= 0 && indexCoord.x < arrayWidth &&
+               indexCoord.y >= 0 && indexCoord.y < arrayHeight;
+    }
 }

@@ -15,24 +15,35 @@ public class Cell
 
     private bool isOccupied = false;
     private bool isPartitioned = false;
-    private Vector2Int cellID = Vector2Int.zero;
-    private Vector2Int cellPos = Vector2Int.zero;
+
+    //Used within a parentgrid
+    private Vector2Int globalCellCoord = Vector2Int.zero;
+    private Vector2Int globalCellPos = Vector2Int.zero;
+
+    //Used within a subgrid
+    private Vector2Int localCellCoord = Vector2Int.zero;
 
     HashSet<TilePaint> tilePaintsHasSet = new HashSet<TilePaint>();
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsPartitioned { get => isPartitioned; set => isPartitioned = value; }
-    public Vector2Int CellID { get => cellID; set => cellID = value; }
-    public Vector2Int CellPos { get => cellPos; set => cellPos = value; }
+
+    public Vector2Int GlobalCellCoord { get => globalCellCoord;}
+    public Vector2Int GlobalCellPos { get => globalCellPos;}
+    public Vector2Int LocalCellCoord { get => localCellCoord; set => localCellCoord = value; }
+
+
+
     public HashSet<TilePaint> TilePaintsHasSet { get => tilePaintsHasSet; }
+    
 
-
-    public Cell(bool isOccupied, bool isPartitioned, Vector2Int cellID, Vector2Int gridPos, int cellSize)
+    public Cell(bool isOccupied, bool isPartitioned, Vector2Int globalCellCoord, Vector2Int gridPos, int cellSize)
     {
         this.isOccupied = isOccupied;
         this.IsPartitioned = isPartitioned;
-        this.cellID = cellID;
-        this.cellPos = gridPos + new Vector2Int(cellID.x * cellSize, cellID.y * cellSize);
+        this.globalCellCoord = globalCellCoord;
+        this.globalCellPos = gridPos + new Vector2Int(globalCellCoord.x * cellSize, globalCellCoord.y * cellSize);
+        this.LocalCellCoord = globalCellCoord;
     }
     public Cell() { }
 
@@ -58,7 +69,7 @@ public class Cell
 
         foreach (var dir in allDirections)
         {
-            Vector2Int neighboorID = CellID + dir;
+            Vector2Int neighboorID = GlobalCellCoord + dir;
             if (neighboorID.x >= 0 && neighboorID.x < cellGrid.CellPerRow && neighboorID.y >= 0 && neighboorID.y < cellGrid.CellPerCol)
             {
                 Cell neighboor = cellGrid.Cells[neighboorID.x, neighboorID.y];
@@ -77,7 +88,7 @@ public class Cell
 
         foreach (var dir in allDirections)
         {
-            Vector2Int neighboorID = CellID + dir;
+            Vector2Int neighboorID = GlobalCellCoord + dir;
             if (neighboorID.x >= 0 && neighboorID.x < cellGrid.CellPerRow && neighboorID.y >= 0 && neighboorID.y < cellGrid.CellPerCol)
             {
                 Cell neighboor = cellGrid.Cells[neighboorID.x, neighboorID.y];
@@ -94,7 +105,7 @@ public class Cell
         {
             foreach (TilePaint tilePaint in tilePaintsHasSet)
             {
-                tilePaint.tilemap.SetTile((Vector3Int)cellPos, tilePaint.tileBase);
+                tilePaint.tilemap.SetTile((Vector3Int)globalCellPos, tilePaint.tileBase);
 
             }
         }
@@ -102,7 +113,7 @@ public class Cell
 
     public void PaintCell(Tilemap tilemap,TileBase tileBase)
     {
-        tilemap.SetTile((Vector3Int)cellPos, tileBase);
+        tilemap.SetTile((Vector3Int)globalCellPos, tileBase);
     }
 
     public void RemoveTilePaint()
@@ -149,7 +160,7 @@ public class CellGrid
         this.cellPerCol = Mathf.FloorToInt(this.GridHeight / cellSize);
 
 
-        Vector2Int originCellCoord = (originCellWorldPos - parentCellGrid.Cells[0, 0].CellPos) / cellSize;
+        Vector2Int originCellCoord = (originCellWorldPos - parentCellGrid.Cells[0, 0].GlobalCellPos) / cellSize;
 
         cells = new Cell[CellPerRow, CellPerCol];
         InitializeSubGridCells(parentCellGrid, parentCellGrid.Cells[originCellCoord.x, originCellCoord.y]);
@@ -172,8 +183,9 @@ public class CellGrid
             for (int j = 0; j < cellPerCol; j++)
             {
 
-                Vector2Int temp = new Vector2Int(i, j);
-                cells[i, j] = new Cell(false, false, temp, gridWoldPos, cellSize);
+                Vector2Int cellGlobalCoord = new Vector2Int(i, j);
+
+                cells[i, j] = new Cell(false, false, cellGlobalCoord, gridWoldPos, cellSize);
 
             }
 
@@ -187,7 +199,8 @@ public class CellGrid
             for (int j = 0; j < cellPerCol; j++)
             {
 
-                cells[i, j] = parentCellGrid.cells[i + startCell.CellID.x, j + startCell.CellID.y];
+                cells[i, j] = parentCellGrid.cells[i + startCell.GlobalCellCoord.x, j + startCell.GlobalCellCoord.y];
+                cells[i, j].LocalCellCoord = cells[i, j].GlobalCellCoord - new Vector2Int(startCell.GlobalCellCoord.x, startCell.GlobalCellCoord.y);
 
             }
 
@@ -214,10 +227,9 @@ public class CellGrid
         return null;
     }
 
-    public Cell GetCenterCellOfTheGrid()
-    {
-
-        return cells[Mathf.CeilToInt(cellPerRow / 2), Mathf.CeilToInt(cellPerCol / 2)];
+    public Cell GetCenterCellOfGrid()
+    {  
+        return cells[Mathf.FloorToInt(cellPerRow / 2), Mathf.FloorToInt(cellPerCol / 2)];
     }
     public IEnumerator PaintAllCellsCoroutine()
     {
@@ -231,74 +243,41 @@ public class CellGrid
 
         }
     }
-
-    public void CheckAllCellsForPaints(TilePaint defaultTilePaint)
+    public GameObject TryInstantiatePremanantGameobjectOnTile(GameObject prefab, Vector2Int localCelCoord, Quaternion rotation, bool shouldMakeTileOccupied, Transform parent = null)
     {
-        //for (int j = 0; j < cellPerCol; j++)
-        //{
-        //    for (int i = 0; i < cellPerRow; i++)
-        //    {
-        //        var cell = cells[i, j];
-
-        //        // Clone the set to avoid modifying it while iterating
-        //        var tilePaints = new HashSet<TilePaint>(cell.TilePaintsHasSet);
-
-        //        foreach (TilePaint tilePaint in tilePaints)
-        //        {
-        //            bool hasHorizontalNeighbor = false;
-        //            bool hasVerticalNeighbor = false;
-
-        //            // Check left/right neighbors (horizontal)
-        //            if (i > 0 && cells[i - 1, j].TilePaintsHasSet.Contains(tilePaint)) hasHorizontalNeighbor = true;
-        //            if (i < cellPerRow - 1 && cells[i + 1, j].TilePaintsHasSet.Contains(tilePaint)) hasHorizontalNeighbor = true;
-
-        //            // Check top/bottom neighbors (vertical)
-        //            if (j > 0 && cells[i, j - 1].TilePaintsHasSet.Contains(tilePaint)) hasVerticalNeighbor = true;
-        //            if (j < cellPerCol - 1 && cells[i, j + 1].TilePaintsHasSet.Contains(tilePaint)) hasVerticalNeighbor = true;
-
-        //            // If it's isolated in both directions, replace it
-        //            if (!hasHorizontalNeighbor  || !hasVerticalNeighbor)
-
-        //            {
-        //                cell.RemoveTilePaint(); // Optional: could remove just `tilePaint` instead
-        //                cell.AddToTilePaints(defaultTilePaint);
-        //            }
-        //        }
-        //    }
-        //}
-    }
-
-
-    public GameObject TryInstantiatePremanantGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, bool isTileOccupied, Transform parent = null)
-    {
-        if (cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y >= 0 && cellCoord.y < cellPerCol)
+        
+        if (MyUtils.IsWithinArrayBounds(cellPerRow, cellPerCol, localCelCoord))
         {
-            if (!cells[cellCoord.x, cellCoord.y].IsOccupied)
+            if (!cells[localCelCoord.x, localCelCoord.y].IsOccupied)
             {
-                Vector3 pos = new Vector3(cells[cellCoord.x, cellCoord.y].CellPos.x, cells[cellCoord.x, cellCoord.y].CellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
+                Vector3 pos = new Vector3(cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.x, cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
                 GameObject go = Object.Instantiate(prefab, pos, rotation);
                 if (parent != null)
                     go.transform.parent = parent;
-                if (isTileOccupied) cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                if (shouldMakeTileOccupied) cells[localCelCoord.x, localCelCoord.y].IsOccupied = true;
                 return go;
             }
             else
             {
-                Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + cells[cellCoord.x, cellCoord.y].CellPos + " due to cell being occupied.");
+                Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to cell being occupied.");
                 return null;
             }
 
         }
-        else return null;
+        else
+        {
+            Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to being out of bounds. The grid bound is "+ cellPerRow + " / " + cellPerCol);
+            return null;
+        }
 
 
     }
 
-    public GameObject TryInstantiateTempGameobjectOnTile(GameObject prefab, Vector2Int cellCoord, Quaternion rotation, Transform parent = null)
+    public GameObject TryInstantiateTempGameobjectOnTile(GameObject prefab, Vector2Int localCelCoord, Quaternion rotation, Transform parent = null)
     {
-        if (cellCoord.x >= 0 && cellCoord.x < cellPerRow && cellCoord.y >= 0 && cellCoord.y < cellPerCol)
+        if (MyUtils.IsWithinArrayBounds(cellPerRow, cellPerCol, localCelCoord))
         {
-            Vector3 pos = new Vector3(cells[cellCoord.x, cellCoord.y].CellPos.x, cells[cellCoord.x, cellCoord.y].CellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
+            Vector3 pos = new Vector3(cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.x, cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
             GameObject go = Object.Instantiate(prefab, pos, rotation);
             if (parent != null) go.transform.parent = parent;
 
@@ -311,6 +290,16 @@ public class CellGrid
 
     }
 
+    public void LoopOverGrid(System.Action<int, int> function)
+    {
+        for (int j = 0; j < cellPerCol; j++)
+        {
+            for (int i = 0; i < cellPerRow; i++)
+            {
+                function(i, j);
+            }
+        }
 
+    }
 }
 

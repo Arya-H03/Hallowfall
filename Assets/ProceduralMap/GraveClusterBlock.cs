@@ -27,7 +27,7 @@ public class GraveClusterBlock : PropsBlock
                     }
 
                     TryAddGraveDirt(graveYardLayoutProfile, new Vector2Int(x, y - 1), celLGrid);
-                    TryAddSkulls(graveYardLayoutProfile, (Vector3Int)cellGrid.Cells[x, y - 1].CellPos);
+                    TryAddSkulls(graveYardLayoutProfile, (Vector3Int)cellGrid.Cells[x, y - 1].GlobalCellPos);
 
                 }
             }
@@ -78,7 +78,7 @@ public class GraveClusterBlock : PropsBlock
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("In");
+
             isPlayerOnThisBlock = true;
             StartCoroutine(SpawnEnemiesCoroutine());
         }
@@ -91,7 +91,7 @@ public class GraveClusterBlock : PropsBlock
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Out");
+
             isPlayerOnThisBlock = false;
         }
 
@@ -108,7 +108,7 @@ public class GraveClusterBlock : PropsBlock
        
 
 
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(2f);
         while (isPlayerOnThisBlock)
         {
 
@@ -122,9 +122,9 @@ public class GraveClusterBlock : PropsBlock
                 {
                     earthShakeParticleSystem.transform.position = groundShakeEffect.transform.position; 
                     earthShakeParticleSystem.Play();
-                    celLGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
+                    //celLGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
                     yield return new WaitForSeconds(0.75f);
-                    celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
+                    //celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
                 }
 
                 
@@ -132,7 +132,7 @@ public class GraveClusterBlock : PropsBlock
 
             }
 
-            yield return new WaitForSeconds(3f);
+            //yield return new WaitForSeconds(3f);
         }
     }
 

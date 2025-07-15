@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class CryptClusterBlock : PropsBlock
 {
@@ -7,33 +6,34 @@ public class CryptClusterBlock : PropsBlock
     {
         if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
         {
+            TilePaint tilePaintStone = new TilePaint { tilemap = ZoneManager.Instance.GroundTwoTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
+            TilePaint tilePaintGrass = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+
+
             GameObject cryptPrefab = MyUtils.GetRandomRef<GameObject>(graveYardLayoutProfile.cryptPrefabs);
+            Bounds cryptBounds = MyUtils.GetCombinedBounds(cryptPrefab);
+        
+            Cell centerBlockCell = cellGrid.GetCenterCellOfGrid();
 
-            Bounds bounds = MyUtils.GetCombinedBounds(cryptPrefab);
-
-            int xBound = Mathf.CeilToInt(bounds.size.x);
-            int yBound = Mathf.CeilToInt(bounds.size.y);
-
-
-
-            int x = Mathf.CeilToInt(((cellGrid.GridWidth - xBound) / (cellGrid.CellSize * 2)) + (xBound / 2));
-            int y = Mathf.CeilToInt(((cellGrid.GridHeight - yBound) / (cellGrid.CellSize * 2)) + (yBound / 2));
-
-            GameObject crypt = Instantiate(cryptPrefab, (Vector3Int)cellGrid.Cells[x, y].CellPos, Quaternion.identity);
+            GameObject crypt = Instantiate(cryptPrefab, (Vector3Int)centerBlockCell.GlobalCellPos, Quaternion.identity);
             crypt.transform.parent = propsHolder.transform;
 
-            int minX = x - Mathf.CeilToInt(xBound / 2);
-            int maxX = x + Mathf.FloorToInt(xBound / 2);
-            int minY = y;
-            int maxY = y + Mathf.FloorToInt(yBound / 2);
 
-            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);
+            //4 corners of the crypt
+            int minX = centerBlockCell.LocalCellCoord.x - Mathf.FloorToInt(cryptBounds.size.x / 2);
+            int maxX = centerBlockCell.LocalCellCoord.x + Mathf.FloorToInt(cryptBounds.size.x / 2);
+            int minY = centerBlockCell.LocalCellCoord.y;
+            int maxY = centerBlockCell.LocalCellCoord.y + Mathf.FloorToInt(cryptBounds.size.y / 2);
+
+
+
+            //Flame Holders
+            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);          
             cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
             cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
             cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
 
-            TilePaint tilePaintStone = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
-            TilePaint tilePaintGrass = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+           
 
             for (int j = 0; j < cellGrid.CellPerCol; j++)
             {
@@ -49,7 +49,7 @@ public class CryptClusterBlock : PropsBlock
                     //if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                     //{
                     //    GameObject skullSpikesPrefab = graveYardLayoutProfile.GetRandomProps(graveYardLayoutProfile.skullSpikesPrefabs);
-                    //    GameObject skullOnSpike = Instantiate(skullSpikesPrefab, (Vector3Int)cellGrid.Cells[i, j].CellPos, Quaternion.identity);
+                    //    GameObject skullOnSpike = Instantiate(skullSpikesPrefab, (Vector3Int)cellGrid.Cells[i, j].GlobalCellPos, Quaternion.identity);
                     //    skullOnSpike.transform.parent = propsHolder.transform;
                     //    cellGrid.Cells[i, j].IsOccupied = true;
 

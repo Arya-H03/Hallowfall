@@ -22,6 +22,9 @@ MonoBehaviour:
   - propsBlockEnum: 2
     scriptReference: {fileID: 11500000, guid: 7c7d7497d5167c74e9d807ada2a757af, type: 3}
     minBlockSize: {x: 8, y: 10}
+  - propsBlockEnum: 3
+    scriptReference: {fileID: 11500000, guid: e964254b163147445a81c3d42a6433e1, type: 3}
+    minBlockSize: {x: 8, y: 8}
   spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
   fenceRuleTile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
   stoneRoadRuleTile: {fileID: 11400000, guid: 19b868459d5f5854a949002df5435afb, type: 2}
@@ -220,5 +223,7 @@ MonoBehaviour:
   - {fileID: 9130032198986439478, guid: f6ea771df0e50c24c8e2ef3337b3e214, type: 3}
   - {fileID: 1719942384219870325, guid: fb87d70e2553cf34ba104a3b1248b147, type: 3}
   flameHolderPrefab: {fileID: 3729873797271816941, guid: aada94bffb834d24b8e1ecbf323ab2e6, type: 3}
+  chalicePrefab: {fileID: 4603083795610107435, guid: d5fee625e9f88a943a654c10d96998f6, type: 3}
+  candlePrefab: {fileID: 5380247749513911054, guid: aa13c81d0994b6e4ab42fd6ed5cd89e7, type: 3}
   groundShakeEffectPrefab: {fileID: 6150969979840412010, guid: 76640f1bfe5e13c46b3860055c67abd3, type: 3}
   groundShakeParticleEffectPrefab: {fileID: 1873852768652887483, guid: 3e3309c59ec647b479be1b895380c6fa, type: 3}

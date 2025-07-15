@@ -9,7 +9,9 @@ public enum PropsBlockEnum
 {
     graveCluster,
     treeCluster,
-    cryptCluster
+    cryptCluster,
+    ritualCluster
+      
 }
 [System.Serializable]
 public struct PropsBlockStruct

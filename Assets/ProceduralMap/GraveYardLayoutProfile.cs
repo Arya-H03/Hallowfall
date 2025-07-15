@@ -25,6 +25,11 @@ public class GraveYardLayoutProfile : ZoneLayoutProfile
     public GameObject[] cryptPrefabs;
     public GameObject flameHolderPrefab;
 
+
+    [Header("Ritual Cluster")]
+    public GameObject chalicePrefab;
+    public GameObject candlePrefab;
+
     [Header("Earth Shake Up")]
     public GameObject groundShakeEffectPrefab;
     public ParticleSystem groundShakeParticleEffectPrefab;

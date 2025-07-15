@@ -33,7 +33,7 @@ public class TreeClusterBlock : PropsBlock
                 {
                     if(Random.value > 1 - graveYardLayoutProfile.treeDensity && y >= 1)
                     {
-                        Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].CellPos.x, (int)celLGrid.Cells[x, y].CellPos.y, 0);
+                        Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].GlobalCellPos.x, (int)celLGrid.Cells[x, y].GlobalCellPos.y, 0);
                         TileBase treeTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.treeTiles, false);
 
                         if (treeTilebase != null)
@@ -45,7 +45,7 @@ public class TreeClusterBlock : PropsBlock
                     
                     //if ((y >= 1 && y < cellGrid.CellPerCol -1) && (x >= 1 && x < cellGrid.CellPerRow - 1))
                     //{
-                    //    Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].CellPos.x, (int)celLGrid.Cells[x, y].CellPos.y, 0);
+                    //    Vector3Int pos = new Vector3Int((int)celLGrid.Cells[x, y].GlobalCellPos.x, (int)celLGrid.Cells[x, y].GlobalCellPos.y, 0);
                     //    TileBase treeTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.treeTiles, false);
 
                     //    if (treeTilebase != null)

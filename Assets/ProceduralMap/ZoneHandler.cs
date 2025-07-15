@@ -54,7 +54,7 @@ public class ZoneHandler : MonoBehaviour
         {
             for (int j = 0; j < cellGrid.CellPerRow; j++)
             {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].CellPos, Quaternion.identity);
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity);
 
                 if (!cellGrid.Cells[j, i].IsOccupied)
                 {
@@ -75,7 +75,7 @@ public class ZoneHandler : MonoBehaviour
         Cell startCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(0, 0));
 
         CreateSubZone(cellGrid, startCell);
-        listOfPartitionedSubzoneBounds = MyUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 10, 8);
+        listOfPartitionedSubzoneBounds = MyUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 8, 8);
 
         InstantiatePropsBlocks(listOfPartitionedSubzoneBounds, zoneLayoutProfile);
 
@@ -86,25 +86,25 @@ public class ZoneHandler : MonoBehaviour
     {
 
         int h1 = 1;
-        for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
+        for (int i = 1; i + startCell.GlobalCellCoord.y < cellGrid.CellPerCol; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x, startCell.CellID.y + i].IsPartitioned)
+            if (cellGrid.Cells[startCell.GlobalCellCoord.x, startCell.GlobalCellCoord.y + i].IsPartitioned)
                 break;
             h1++;
         }
 
         int w1 = 1;
-        for (int i = 1; i + startCell.CellID.x < cellGrid.CellPerRow; i++)
+        for (int i = 1; i + startCell.GlobalCellCoord.x < cellGrid.CellPerRow; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y].IsPartitioned)
+            if (cellGrid.Cells[startCell.GlobalCellCoord.x + i, startCell.GlobalCellCoord.y].IsPartitioned)
                 break;
             w1++;
         }
 
         int w2 = 1;
-        for (int i = 1; i + startCell.CellID.x < cellGrid.CellPerRow; i++)
+        for (int i = 1; i + startCell.GlobalCellCoord.x < cellGrid.CellPerRow; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x + i, startCell.CellID.y + h1 - 1].IsPartitioned)
+            if (cellGrid.Cells[startCell.GlobalCellCoord.x + i, startCell.GlobalCellCoord.y + h1 - 1].IsPartitioned)
                 break;
             w2++;
         }
@@ -112,21 +112,21 @@ public class ZoneHandler : MonoBehaviour
         int width = Mathf.Min(w1, w2);
 
         int h2 = 1;
-        for (int i = 1; i + startCell.CellID.y < cellGrid.CellPerCol; i++)
+        for (int i = 1; i + startCell.GlobalCellCoord.y < cellGrid.CellPerCol; i++)
         {
-            if (cellGrid.Cells[startCell.CellID.x + width - 1, startCell.CellID.y + i].IsPartitioned)
+            if (cellGrid.Cells[startCell.GlobalCellCoord.x + width - 1, startCell.GlobalCellCoord.y + i].IsPartitioned)
                 break;
             h2++;
         }
 
         int height = Mathf.Min(h1, h2);
 
-        listOfSubzoneBounds.Add(new BoundsInt(new Vector3Int((int)startCell.CellPos.x, (int)startCell.CellPos.y, 0), new Vector3Int(width, height, 0)));
+        listOfSubzoneBounds.Add(new BoundsInt(new Vector3Int((int)startCell.GlobalCellPos.x, (int)startCell.GlobalCellPos.y, 0), new Vector3Int(width, height, 0)));
 
         // Mark cellGrid as occupied
-        for (int x = startCell.CellID.x; x < startCell.CellID.x + width; x++)
+        for (int x = startCell.GlobalCellCoord.x; x < startCell.GlobalCellCoord.x + width; x++)
         {
-            for (int y = startCell.CellID.y; y < startCell.CellID.y + height; y++)
+            for (int y = startCell.GlobalCellCoord.y; y < startCell.GlobalCellCoord.y + height; y++)
             {
                 if (x >= 0 && x < cellGrid.CellPerRow && y >= 0 && y < cellGrid.CellPerCol)
                     cellGrid.Cells[x, y].IsPartitioned = true;
@@ -134,7 +134,7 @@ public class ZoneHandler : MonoBehaviour
         }
 
         // Recursively continue
-        Cell nextStartCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(startCell.CellID.x + width, startCell.CellID.y));
+        Cell nextStartCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(startCell.GlobalCellCoord.x + width, startCell.GlobalCellCoord.y));
         if (nextStartCell != null)
         {
             CreateSubZone(cellGrid, nextStartCell);
@@ -251,7 +251,7 @@ public class ZoneHandler : MonoBehaviour
 
     protected Vector3Int TurnCellCoordToTilePos(int x, int y)
     {
-        return (Vector3Int)celLGrid.Cells[x, y].CellPos;
+        return (Vector3Int)celLGrid.Cells[x, y].GlobalCellPos;
     }
  
 
