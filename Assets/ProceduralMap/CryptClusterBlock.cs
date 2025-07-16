@@ -6,8 +6,8 @@ public class CryptClusterBlock : PropsBlock
     {
         if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
         {
-            TilePaint tilePaintStone = new TilePaint { tilemap = ZoneManager.Instance.GroundTwoTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
-            TilePaint tilePaintGrass = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+            TilePaint tilePaintStone = new TilePaint { /*tilemap = ZoneManager.Instance.GroundTwoTilemap*/ tilemap = zoneHandler.GroundTwoTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
+            TilePaint tilePaintGrass = new TilePaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = zoneHandler.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
 
 
             GameObject cryptPrefab = MyUtils.GetRandomRef<GameObject>(graveYardLayoutProfile.cryptPrefabs);

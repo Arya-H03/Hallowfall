@@ -9,11 +9,11 @@ public class RitualCluster : PropsBlock
         GraveYardLayoutProfile graveYardLayoutProfile = zoneLayoutProfile as GraveYardLayoutProfile;
         if(graveYardLayoutProfile)
         {
-            TilePaint grassTilePaint = new TilePaint {tilemap = ZoneManager.Instance.GroundOneTilemap,tileBase = graveYardLayoutProfile.grassRuletile};
+            TilePaint grassTilePaint = new TilePaint {/*tilemap = ZoneManager.Instance.GroundOneTilemap*/  tilemap = zoneHandler.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile};
             Cell blockCenterCell = cellGrid.GetCenterCellOfGrid();
 
             //Chalice
-            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.chalicePrefab, blockCenterCell.LocalCellCoord, Quaternion.identity, propsHolder.transform);
+            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.chalicePrefab, blockCenterCell.LocalCellCoord,  Quaternion.identity, true, propsHolder.transform);
 
             //Candles
             List<Vector2Int> candleCoordList = new List<Vector2Int>();
@@ -29,7 +29,7 @@ public class RitualCluster : PropsBlock
 
             foreach(Vector2Int candleCoord in candleCoordList)
             {
-                cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.candlePrefab, candleCoord, Quaternion.identity, propsHolder.transform);
+                cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.candlePrefab, candleCoord, Quaternion.identity, true, propsHolder.transform);
             }
 
             cellGrid.LoopOverGrid((i, j) =>

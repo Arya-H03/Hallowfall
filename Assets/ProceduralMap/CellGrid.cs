@@ -64,7 +64,7 @@ public class Cell
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
     {
 
-        Vector2Int[] allDirections = MyUtils.GetAllDirections();
+        Vector2Int[] allDirections = MyUtils.GetAllDirectionsVector();
 
 
         foreach (var dir in allDirections)
@@ -82,7 +82,7 @@ public class Cell
     public bool CheckIfCardinalNeighboorsAreOccupied(CellGrid cellGrid)
     {
 
-        Vector2Int[] allDirections = MyUtils.GetCardinalDirections();
+        Vector2Int[] allDirections = MyUtils.GetCardinalDirectionsVector();
 
 
 
@@ -99,21 +99,24 @@ public class Cell
         return false;
     }
 
-    public void PaintCell()
+    public void PaintCell(CellGrid parentGrid)
     {
         if (tilePaintsHasSet.Count > 0)
         {
             foreach (TilePaint tilePaint in tilePaintsHasSet)
             {
-                tilePaint.tilemap.SetTile((Vector3Int)globalCellPos, tilePaint.tileBase);
+                if (!tilePaint.tileBase) Debug.Log("Tilebase" + "Tilemap:" + tilePaint.tilemap);
+                if (!tilePaint.tilemap) Debug.Log("Tilemap " + "Tilebase:" + tilePaint.tileBase);
+                if (parentGrid == null) Debug.Log("(parentGrid");
+                tilePaint.tilemap.SetTile((Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow /2, parentGrid.CellPerCol/2, 0), tilePaint.tileBase);
 
             }
         }
     }
 
-    public void PaintCell(Tilemap tilemap,TileBase tileBase)
+    public void PaintCell(Tilemap tilemap,TileBase tileBase, CellGrid parentGrid)
     {
-        tilemap.SetTile((Vector3Int)globalCellPos, tileBase);
+        tilemap.SetTile((Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow/2, parentGrid.CellPerCol, 0)/2, tileBase);
     }
 
     public void RemoveTilePaint()
@@ -233,14 +236,33 @@ public class CellGrid
     }
     public IEnumerator PaintAllCellsCoroutine()
     {
+        int count = 0;
         for (int j = 0; j < cellPerCol; j++)
         {
             for (int i = 0; i < cellPerRow; i++)
             {
-                Cells[i, j].PaintCell();
+                Cells[i, j].PaintCell(this);
+                count++;
+                if (count >= 50)
+                {
+                    count = 0;
+                    yield return null;  
+                }
             }
-            if(j % 10 == 9) yield return null;
+           
 
+        }
+    }
+
+    public void PaintAllCells()
+    {
+        for (int j = 0; j < cellPerCol; j++)
+        {
+            for (int i = 0; i < cellPerRow; i++)
+            {
+                Cells[i, j].PaintCell(this);
+            }
+            
         }
     }
     public GameObject TryInstantiatePremanantGameobjectOnTile(GameObject prefab, Vector2Int localCelCoord, Quaternion rotation, bool shouldMakeTileOccupied, Transform parent = null)
@@ -252,21 +274,21 @@ public class CellGrid
             {
                 Vector3 pos = new Vector3(cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.x, cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
                 GameObject go = Object.Instantiate(prefab, pos, rotation);
-                if (parent != null)
-                    go.transform.parent = parent;
+                if (parent != null) go.transform.parent = parent;
+
                 if (shouldMakeTileOccupied) cells[localCelCoord.x, localCelCoord.y].IsOccupied = true;
                 return go;
             }
             else
             {
-                Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to cell being occupied.");
+                //Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to cell being occupied.");
                 return null;
             }
 
         }
         else
         {
-            Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to being out of bounds. The grid bound is "+ cellPerRow + " / " + cellPerCol);
+            //Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to being out of bounds. The grid bound is "+ cellPerRow + " / " + cellPerCol);
             return null;
         }
 

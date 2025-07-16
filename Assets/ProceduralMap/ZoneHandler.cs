@@ -15,16 +15,50 @@ public class ZoneHandler : MonoBehaviour
     protected ZoneData zoneData;
     protected ZoneLayoutProfile zoneLayoutProfile;
 
-    protected int cellSize = 1;
-    protected int zoneWidth = 40;
-    protected int zoneHeight = 40;
+    protected int cellSize;
+    protected int zoneWidth;
+    protected int zoneHeight;
 
     protected CellGrid celLGrid;
 
     protected List<BoundsInt> listOfSubzoneBounds = new List<BoundsInt>();
     protected List<BoundsInt> listOfPartitionedSubzoneBounds = new List<BoundsInt>();
+
+
+    [SerializeField] protected Tilemap groundZeroTilemap;
+    [SerializeField] protected Tilemap groundOneTilemap;
+    [SerializeField] protected Tilemap groundTwoTilemap;
+
+    [SerializeField] protected Tilemap boundsTilemap;
+    [SerializeField] protected Tilemap propsTilemap;
+    [SerializeField] protected Tilemap treeTilemap;
+
+
+    public Tilemap GroundZeroTilemap { get => groundZeroTilemap; }
+    public Tilemap GroundOneTilemap { get => groundOneTilemap; }
+    public Tilemap GroundTwoTilemap { get => groundTwoTilemap; }
+    public Tilemap PropsTilemap { get => propsTilemap; }
+    public Tilemap BoundsTilemap { get => boundsTilemap; }
+    public Tilemap TreeTilemap { get => treeTilemap; }
+   
+
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
     public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
+
+
+    private void OnValidate()
+    {
+      
+
+
+        MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
+        MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
+        MyUtils.ValidateFields(this, groundOneTilemap, nameof(groundZeroTilemap));
+        MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
+
+        MyUtils.ValidateFields(this, boundsTilemap, nameof(boundsTilemap));
+        MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
+    }
 
 
     protected virtual void Awake()
@@ -32,18 +66,18 @@ public class ZoneHandler : MonoBehaviour
       
     }
 
-    public virtual void Init(ZoneData zoneData, ZoneLayoutProfile zoneLayoutProfile)
+    public virtual void Init(ZoneData zoneData, ZoneLayoutProfile zoneLayoutProfile,int zoneWidth, int zoneHeight, int cellSize)
     {
         this.zoneData = zoneData;
         this.zoneLayoutProfile = zoneLayoutProfile;
-    }
-    protected virtual void Start()
-    {
+        this.zoneWidth = zoneWidth;
+        this.zoneHeight = zoneHeight;
+        this.cellSize = cellSize;
+
         celLGrid = new CellGrid(cellSize, zoneWidth, zoneHeight, zoneData.centerPos);
         StartCoroutine(GenerateZoneCoroutine());
-        //VisualizeGridCells(celLGrid, zoneLayoutProfile);
-    }
 
+    }
     protected virtual IEnumerator GenerateZoneCoroutine()
     {
         return null;
@@ -157,7 +191,7 @@ public class ZoneHandler : MonoBehaviour
 
                 if (propsBlock)
                 {
-                    propsBlock.Init(celLGrid, zoneBounds.position, zoneLayoutProfile,zoneBounds);
+                    propsBlock.Init(this,celLGrid, zoneBounds.position, zoneLayoutProfile,zoneBounds);
                 }
                 else
                 {
@@ -202,7 +236,7 @@ public class ZoneHandler : MonoBehaviour
     protected virtual void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        TilePaint tilePaint = new TilePaint { tilemap = ZoneManager.Instance.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
+        TilePaint tilePaint = new TilePaint {/* tilemap = ZoneManager.Instance.GroundZeroTilemap*/ tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
 
         for (int j = 0; j < celLGrid.CellPerCol; j++)
         {

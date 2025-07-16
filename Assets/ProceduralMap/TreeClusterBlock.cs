@@ -7,25 +7,25 @@ using UnityEngine.Tilemaps;
 public class TreeClusterBlock : PropsBlock
 {
     ///Forest Detector
-    private Tilemap treeTilemap;
+    //private Tilemap treeTilemap;
     private bool isInForest = false;
     private readonly int forestCheckRadius = 4;
     private PlayerController playerController;
 
     ///////////////////
-    protected override void Start()
+    private void Start()
     {
-        treeTilemap = ZoneManager.Instance.TreeTilemap;
+        //treeTilemap = ZoneManager.Instance.TreeTilemap;
+        //treeTilemap = zoneHandler.TreeTilemap;
         playerController = GameManager.Instance.PlayerController;
-        base.Start();
     }
     protected override void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
 
         if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
         {
-            TilePaint tilePaintLeavesOnGroundTile = new TilePaint { tilemap = ZoneManager.Instance.GroundTwoTilemap, tileBase = graveYardLayoutProfile.leavesRuleTile };
-            TilePaint grassTilePaint = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+            TilePaint tilePaintLeavesOnGroundTile = new TilePaint { /*tilemap = ZoneManager.Instance.GroundTwoTilemap*/tilemap = zoneHandler.GroundTwoTilemap, tileBase = graveYardLayoutProfile.leavesRuleTile };
+            TilePaint grassTilePaint = new TilePaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = zoneHandler.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
 
             for (int y = 0; y < cellGrid.CellPerCol; y++)
             {
@@ -38,7 +38,7 @@ public class TreeClusterBlock : PropsBlock
 
                         if (treeTilebase != null)
                         {
-                            TilePaint tilePaintTree = new TilePaint { tilemap = treeTilemap, tileBase = treeTilebase };
+                            TilePaint tilePaintTree = new TilePaint { tilemap = zoneHandler.TreeTilemap, tileBase = treeTilebase };
                             cellGrid.Cells[x, y].AddToTilePaints(tilePaintTree);
                         }
                     }
@@ -69,7 +69,7 @@ public class TreeClusterBlock : PropsBlock
     {
         if(collision.CompareTag("Player"))
         {
-            OnEnterForest(treeTilemap);
+            OnEnterForest(zoneHandler.TreeTilemap);
         }
     }
 

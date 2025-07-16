@@ -7,8 +7,14 @@ public enum DirectionEnum
     None,
     Right,
     Left,
-    Up,
-    Down
+    Top,
+    Bottom,
+    TopRight,
+    TopLeft,
+    BottomRight,
+    BottomLeft
+
+
 }
 
 public static class MyUtils
@@ -17,7 +23,7 @@ public static class MyUtils
     //  Direction Utilities
     // -------------------------
 
-    public static Vector2Int[] GetCardinalDirections() => new Vector2Int[]
+    public static Vector2Int[] GetCardinalDirectionsVector() => new Vector2Int[]
     {
         Vector2Int.right,
         Vector2Int.left,
@@ -25,43 +31,87 @@ public static class MyUtils
         Vector2Int.down,
     };
 
-    public static Vector2Int[] GetAllDirections() => new Vector2Int[]
+    public static Vector2Int[] GetAllDirectionsVector() => new Vector2Int[]
     {
         Vector2Int.right,
         Vector2Int.left,
         Vector2Int.up,
         Vector2Int.down,
         new Vector2Int(1, 1),
-        new Vector2Int(1, -1),
         new Vector2Int(-1, 1),
+        new Vector2Int(1, -1),
         new Vector2Int(-1, -1),
     };
 
-    public static List<DirectionEnum> GetAllDirectionList() => new List<DirectionEnum>
+    public static List<DirectionEnum> GetCardinalDirectionEnumList() => new List<DirectionEnum>
     {
         DirectionEnum.Right,
         DirectionEnum.Left,
-        DirectionEnum.Up,
-        DirectionEnum.Down
+        DirectionEnum.Top,
+        DirectionEnum.Bottom
     };
 
-    public static List<DirectionEnum> GetHorizontalDirectionList() => new List<DirectionEnum>
+    public static List<DirectionEnum> GetAllDirectionEnumList() => new List<DirectionEnum>
+    {
+        DirectionEnum.Right,
+        DirectionEnum.Left,
+        DirectionEnum.Top,
+        DirectionEnum.Bottom,
+        DirectionEnum.TopRight,
+        DirectionEnum.TopLeft,
+        DirectionEnum.BottomRight,
+        DirectionEnum.BottomLeft,
+    };
+
+    public static List<DirectionEnum> GetHorizontalDirectionEnumList() => new List<DirectionEnum>
     {
         DirectionEnum.Right,
         DirectionEnum.Left
     };
 
-    public static List<DirectionEnum> GetVerticalDirectionList() => new List<DirectionEnum>
+    public static List<DirectionEnum> GetVerticalDirectionEnumList() => new List<DirectionEnum>
     {
-        DirectionEnum.Up,
-        DirectionEnum.Down
+        DirectionEnum.Top,
+        DirectionEnum.Bottom
     };
 
+    public static Dictionary<DirectionEnum, Vector2Int> GetDirectionDicWithEnumKey()
+    {
+        return new Dictionary<DirectionEnum, Vector2Int>
+    {
+        { DirectionEnum.Right,        Vector2Int.right },
+        { DirectionEnum.Left,         Vector2Int.left},
+        { DirectionEnum.Top,          Vector2Int.up },
+        { DirectionEnum.Bottom,       Vector2Int.down },
+        { DirectionEnum.TopRight,     new Vector2Int(1, 1)  },
+        { DirectionEnum.TopLeft,      new Vector2Int(-1, 1) },
+        { DirectionEnum.BottomRight,  new Vector2Int(1, -1) },
+        { DirectionEnum.BottomLeft,   new Vector2Int(-1, -1) }
+    };
+    }
+
+    public static Dictionary<Vector2Int, DirectionEnum> GetDirectionDicWithVectorKey()
+    {
+        return new Dictionary<Vector2Int, DirectionEnum>
+    {
+        { Vector2Int.right,        DirectionEnum.Right },
+        { Vector2Int.left,         DirectionEnum.Left },
+        { Vector2Int.up,           DirectionEnum.Top },
+        { Vector2Int.down,         DirectionEnum.Bottom },
+        { new Vector2Int(1, 1),    DirectionEnum.TopRight },
+        { new Vector2Int(-1, 1),   DirectionEnum.TopLeft },
+        { new Vector2Int(1, -1),   DirectionEnum.BottomRight },
+        { new Vector2Int(-1, -1),  DirectionEnum.BottomLeft }
+    };
+    }
+
+
+
     public static DirectionEnum GetRandomVerticalDirectionEnum() =>
-        GetVerticalDirectionList()[Random.Range(0, 2)];
+        GetVerticalDirectionEnumList()[Random.Range(0, 2)];
 
     public static DirectionEnum GetRandomHorizontalDirectionEnum() =>
-        GetHorizontalDirectionList()[Random.Range(0, 2)];
+        GetHorizontalDirectionEnumList()[Random.Range(0, 2)];
 
     public static DirectionEnum GetRandomDirectionEnum(List<DirectionEnum> directions) =>
         directions[Random.Range(0, directions.Count)];
@@ -275,7 +325,7 @@ public static class MyUtils
 
     public static bool IsWithinArrayBounds(int arrayWidth, int arrayHeight, Vector2Int indexCoord)
     {
-     
+
         return indexCoord.x >= 0 && indexCoord.x < arrayWidth &&
                indexCoord.y >= 0 && indexCoord.y < arrayHeight;
     }

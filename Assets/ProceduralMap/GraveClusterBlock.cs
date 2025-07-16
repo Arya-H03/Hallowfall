@@ -8,7 +8,7 @@ public class GraveClusterBlock : PropsBlock
     private ParticleSystem earthShakeParticleSystem;
     protected override void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
-        TilePaint grassTilePaint = new TilePaint { tilemap = ZoneManager.Instance.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile };
+        TilePaint grassTilePaint = new TilePaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile };
         if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
         {
 
@@ -21,7 +21,7 @@ public class GraveClusterBlock : PropsBlock
                     TileBase graveStoneTilebase = graveYardLayoutProfile.GetRandomTile(graveYardLayoutProfile.graveStoneTiles, false);
                     if (graveStoneTilebase != null)
                     {
-                        TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.PropsTilemap, tileBase = graveStoneTilebase };
+                        TilePaint tilePaintGravestone = new TilePaint { /*tilemap = ZoneManager.Instance.PropsTilemap */tilemap = zoneHandler.PropsTilemap, tileBase = graveStoneTilebase };
                         cellGrid.Cells[x, y].AddToTilePaints(tilePaintGravestone);
                         cellGrid.Cells[x, y].IsOccupied = true;
                     }
@@ -52,7 +52,7 @@ public class GraveClusterBlock : PropsBlock
             if (graveDirtTilebase != null)
             {
                 cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
-                TilePaint tilePaintGravestone = new TilePaint { tilemap = ZoneManager.Instance.GroundTwoTilemap, tileBase = graveDirtTilebase };
+                TilePaint tilePaintGravestone = new TilePaint { /*tilemap = ZoneManager.Instance.GroundTwoTilemap*/ tilemap = zoneHandler.GroundTwoTilemap, tileBase = graveDirtTilebase };
                 cellGrid.Cells[cellCoord.x, cellCoord.y].AddToTilePaints(tilePaintGravestone);
             }
         }

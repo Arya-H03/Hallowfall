@@ -30,7 +30,7 @@ public class GraveYardLayoutProfile : ZoneLayoutProfile
     public GameObject chalicePrefab;
     public GameObject candlePrefab;
 
-    [Header("Earth Shake Up")]
+    [Header("Earth Shake Top")]
     public GameObject groundShakeEffectPrefab;
     public ParticleSystem groundShakeParticleEffectPrefab;
 

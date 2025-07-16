@@ -39,13 +39,10 @@ public class PropsBlock : MonoBehaviour
         propsHolder = transform.GetChild(2).transform.gameObject;
 
     }
-    protected virtual void Start()
+    public void Init(ZoneHandler zoneHandler,CellGrid parentCellGrid, Vector3Int firstCellPos, ZoneLayoutProfile zoneLayoutProfile, BoundsInt zoneBounds)
     {
-        PopulateBlock(celLGrid, zoneLayoutProfile);
-    }
+        this.zoneHandler = zoneHandler;
 
-    public void Init(CellGrid parentCellGrid, Vector3Int firstCellPos, ZoneLayoutProfile zoneLayoutProfile, BoundsInt zoneBounds)
-    {
         transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 0f);
         transform.GetChild(0).localScale = new Vector3(zoneBounds.size.x, zoneBounds.size.y, zoneBounds.size.z);
 
@@ -59,7 +56,10 @@ public class PropsBlock : MonoBehaviour
         this.parentCellGrid = parentCellGrid;
         this.zoneLayoutProfile = zoneLayoutProfile;
         celLGrid = new CellGrid(blockWidth, blockHeight, (Vector2Int)firstCellPos, parentCellGrid);
-        
+
+
+        PopulateBlock(celLGrid, zoneLayoutProfile);
+
     }
     protected void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
