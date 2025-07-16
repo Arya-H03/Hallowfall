@@ -387,7 +387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4453864012513424715}
-  - component: {fileID: -5804597161288843050}
+  - component: {fileID: -229686302446558948}
   m_Layer: 0
   m_Name: BaseZonePerfab
   m_TagString: Untagged
@@ -416,7 +416,7 @@ Transform:
   - {fileID: 4854512848326381939}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5804597161288843050
+--- !u!114 &-229686302446558948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4217808164544820586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32da23f2d1aa3e04fb2497b6bfcd8a53, type: 3}
+  m_Script: {fileID: 11500000, guid: ee6b654b0d274ec428aa8fb5bf94a393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundZeroTilemap: {fileID: 6428397631787295070}

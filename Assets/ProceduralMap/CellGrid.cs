@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,44 +9,40 @@ public struct TilePaint
 {
     public Tilemap tilemap;
     public TileBase tileBase;
+    public bool isOnGlobalTile;
 }
 [System.Serializable]
 public class Cell
 {
 
+    private CellGrid parentGrid;
     private bool isOccupied = false;
     private bool isPartitioned = false;
 
-    //Used within a parentgrid
     private Vector2Int globalCellCoord = Vector2Int.zero;
-    private Vector2Int globalCellPos = Vector2Int.zero;
-
-    //Used within a subgrid
+    private Vector3Int globalCellPos = Vector3Int.zero;
     private Vector2Int localCellCoord = Vector2Int.zero;
 
-    HashSet<TilePaint> tilePaintsHasSet = new HashSet<TilePaint>();
+    private HashSet<TilePaint> tilePaintsHasSet = new();
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsPartitioned { get => isPartitioned; set => isPartitioned = value; }
-
-    public Vector2Int GlobalCellCoord { get => globalCellCoord;}
-    public Vector2Int GlobalCellPos { get => globalCellPos;}
+    public Vector2Int GlobalCellCoord => globalCellCoord;
+    public Vector3Int GlobalCellPos => globalCellPos;
     public Vector2Int LocalCellCoord { get => localCellCoord; set => localCellCoord = value; }
+    public HashSet<TilePaint> TilePaintsHasSet => tilePaintsHasSet;
+    public CellGrid ParentGrid => parentGrid;
 
-
-
-    public HashSet<TilePaint> TilePaintsHasSet { get => tilePaintsHasSet; }
-    
-
-    public Cell(bool isOccupied, bool isPartitioned, Vector2Int globalCellCoord, Vector2Int gridPos, int cellSize)
+    public Cell(CellGrid parentGrid, bool isOccupied, bool isPartitioned, Vector2Int globalCellCoord, Vector3Int gridPos, int cellSize)
     {
+        this.parentGrid = parentGrid;
         this.isOccupied = isOccupied;
         this.IsPartitioned = isPartitioned;
         this.globalCellCoord = globalCellCoord;
-        this.globalCellPos = gridPos + new Vector2Int(globalCellCoord.x * cellSize, globalCellCoord.y * cellSize);
+        this.globalCellPos = gridPos + new Vector3Int(globalCellCoord.x * cellSize, globalCellCoord.y * cellSize, 0);
         this.LocalCellCoord = globalCellCoord;
     }
-    public Cell() { }
+
 
     public void AddToTilePaints(TilePaint[] tilePaints)
     {
@@ -63,60 +60,46 @@ public class Cell
 
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
     {
-
-        Vector2Int[] allDirections = MyUtils.GetAllDirectionsVector();
-
-
-        foreach (var dir in allDirections)
+        foreach (var dir in MyUtils.GetAllDirectionsVector())
         {
-            Vector2Int neighboorID = GlobalCellCoord + dir;
-            if (neighboorID.x >= 0 && neighboorID.x < cellGrid.CellPerRow && neighboorID.y >= 0 && neighboorID.y < cellGrid.CellPerCol)
+            Vector2Int neighborID = GlobalCellCoord + dir;
+            if (MyUtils.IsWithinArrayBounds(cellGrid.CellPerRow, cellGrid.CellPerCol, neighborID))
             {
-                Cell neighboor = cellGrid.Cells[neighboorID.x, neighboorID.y];
-                if (neighboor.IsOccupied) return true;
+                if (cellGrid.Cells[neighborID.x, neighborID.y].IsOccupied)
+                    return true;
             }
         }
-
         return false;
     }
+
     public bool CheckIfCardinalNeighboorsAreOccupied(CellGrid cellGrid)
     {
-
-        Vector2Int[] allDirections = MyUtils.GetCardinalDirectionsVector();
-
-
-
-        foreach (var dir in allDirections)
+        foreach (var dir in MyUtils.GetCardinalDirectionsVector())
         {
-            Vector2Int neighboorID = GlobalCellCoord + dir;
-            if (neighboorID.x >= 0 && neighboorID.x < cellGrid.CellPerRow && neighboorID.y >= 0 && neighboorID.y < cellGrid.CellPerCol)
+            Vector2Int neighborID = GlobalCellCoord + dir;
+            if (MyUtils.IsWithinArrayBounds(cellGrid.CellPerRow, cellGrid.CellPerCol, neighborID))
             {
-                Cell neighboor = cellGrid.Cells[neighboorID.x, neighboorID.y];
-                if (neighboor.IsOccupied) return true;
+                if (cellGrid.Cells[neighborID.x, neighborID.y].IsOccupied)
+                    return true;
             }
         }
-
         return false;
     }
 
     public void PaintCell(CellGrid parentGrid)
     {
-        if (tilePaintsHasSet.Count > 0)
+        foreach (TilePaint tilePaint in tilePaintsHasSet)
         {
-            foreach (TilePaint tilePaint in tilePaintsHasSet)
-            {
-                if (!tilePaint.tileBase) Debug.Log("Tilebase" + "Tilemap:" + tilePaint.tilemap);
-                if (!tilePaint.tilemap) Debug.Log("Tilemap " + "Tilebase:" + tilePaint.tileBase);
-                if (parentGrid == null) Debug.Log("(parentGrid");
-                tilePaint.tilemap.SetTile((Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow /2, parentGrid.CellPerCol/2, 0), tilePaint.tileBase);
+            if (!tilePaint.isOnGlobalTile) tilePaint.tilemap.SetTile((Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow / 2, parentGrid.CellPerCol / 2, 0), tilePaint.tileBase);
+            else tilePaint.tilemap.SetTile((Vector3Int)globalCellPos, tilePaint.tileBase);
 
-            }
         }
     }
 
-    public void PaintCell(Tilemap tilemap,TileBase tileBase, CellGrid parentGrid)
+    public void PaintCell(Tilemap tilemap, TileBase tileBase, CellGrid parentGrid)
     {
-        tilemap.SetTile((Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow/2, parentGrid.CellPerCol, 0)/2, tileBase);
+        Vector3Int tilePos = (Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow / 2, parentGrid.CellPerCol, 0) / 2;
+        tilemap.SetTile(tilePos, tileBase);
     }
 
     public void RemoveTilePaint()
@@ -126,112 +109,92 @@ public class Cell
 }
 public class CellGrid
 {
-    private int cellSize = 1;
-    private int gridWidth = 1;
-    private int gridHeight = 1;
+    private int cellSize;
+    private int gridWidth;
+    private int gridHeight;
 
-    private int cellPerRow = 1;
-    private int cellPerCol = 1;
+    private int cellPerRow;
+    private int cellPerCol;
 
-    private Cell[,] cells = null;
+    private Cell[,] cells;
+    private CellGrid parentCellGrid;
 
-    private CellGrid parentCellGrid = null;
+    public Cell[,] Cells { get => cells; }
+    public int CellPerCol { get => cellPerCol; }
+    public int CellPerRow { get => cellPerRow; }
+    public int CellSize { get => cellSize; }
+    public int GridWidth { get => gridWidth; }
+    public int GridHeight { get => gridHeight; }
+    public CellGrid ParentCellGrid { get => parentCellGrid; }
 
-
-    public CellGrid(int cellSize, int gridWidth, int gridHeight, Vector2Int gridCenterWoldPos)
+    public CellGrid(int cellSize, int gridWidth, int gridHeight, Vector3Int gridCenterWorldPos)
     {
         this.cellSize = cellSize;
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
 
-        this.cellPerRow = Mathf.FloorToInt(this.GridWidth / cellSize);
-        this.cellPerCol = Mathf.FloorToInt(this.GridHeight / cellSize);
+        cellPerRow = Mathf.FloorToInt(gridWidth / cellSize);
+        cellPerCol = Mathf.FloorToInt(gridHeight / cellSize);
 
-        cells = new Cell[CellPerRow, CellPerCol];
-        InitializeGridCells(gridCenterWoldPos - new Vector2Int(gridWidth / 2, gridHeight / 2));
-
-
+        cells = new Cell[cellPerRow, cellPerCol];
+        InitializeGridCells(gridCenterWorldPos - new Vector3Int(gridWidth / 2, gridHeight / 2, 0));
     }
 
-    public CellGrid(int gridWidth, int gridHeight, Vector2Int originCellWorldPos, CellGrid parentCellGrid)
+    public CellGrid(int gridWidth, int gridHeight, Vector3Int originCellWorldPos, CellGrid parentCellGrid)
     {
+        this.parentCellGrid = parentCellGrid;
         this.cellSize = parentCellGrid.cellSize;
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
 
-        this.cellPerRow = Mathf.FloorToInt(this.GridWidth / cellSize);
-        this.cellPerCol = Mathf.FloorToInt(this.GridHeight / cellSize);
+        cellPerRow = Mathf.FloorToInt(gridWidth / cellSize);
+        cellPerCol = Mathf.FloorToInt(gridHeight / cellSize);
 
-
-        Vector2Int originCellCoord = (originCellWorldPos - parentCellGrid.Cells[0, 0].GlobalCellPos) / cellSize;
-
-        cells = new Cell[CellPerRow, CellPerCol];
+        Vector3Int originCellCoord = (originCellWorldPos - parentCellGrid.Cells[0, 0].GlobalCellPos) / cellSize;
+        cells = new Cell[cellPerRow, cellPerCol];
         InitializeSubGridCells(parentCellGrid, parentCellGrid.Cells[originCellCoord.x, originCellCoord.y]);
-
-
     }
-
-    public Cell[,] Cells { get => cells; set => cells = value; }
-    public int CellPerCol { get => cellPerCol; set => cellPerCol = value; }
-    public int CellPerRow { get => cellPerRow; set => cellPerRow = value; }
-    public int CellSize { get => cellSize; set => cellSize = value; }
-    public int GridWidth { get => gridWidth; set => gridWidth = value; }
-    public int GridHeight { get => gridHeight; set => gridHeight = value; }
-    public CellGrid ParentCellGrid { get => parentCellGrid; set => parentCellGrid = value; }
-
-    private void InitializeGridCells(Vector2Int gridWoldPos)
+    private void InitializeGridCells(Vector3Int originWorldPos)
     {
         for (int i = 0; i < cellPerRow; i++)
         {
             for (int j = 0; j < cellPerCol; j++)
             {
-
-                Vector2Int cellGlobalCoord = new Vector2Int(i, j);
-
-                cells[i, j] = new Cell(false, false, cellGlobalCoord, gridWoldPos, cellSize);
-
+                Vector2Int cellCoord = new(i, j);
+                cells[i, j] = new Cell(this, false, false, cellCoord, originWorldPos, cellSize);
             }
-
         }
     }
 
-    private void InitializeSubGridCells(CellGrid parentCellGrid, Cell startCell)
+    private void InitializeSubGridCells(CellGrid parent, Cell startCell)
     {
         for (int i = 0; i < cellPerRow; i++)
         {
             for (int j = 0; j < cellPerCol; j++)
             {
-
-                cells[i, j] = parentCellGrid.cells[i + startCell.GlobalCellCoord.x, j + startCell.GlobalCellCoord.y];
-                cells[i, j].LocalCellCoord = cells[i, j].GlobalCellCoord - new Vector2Int(startCell.GlobalCellCoord.x, startCell.GlobalCellCoord.y);
-
+                cells[i, j] = parent.cells[i + startCell.GlobalCellCoord.x, j + startCell.GlobalCellCoord.y];
+                cells[i, j].LocalCellCoord = cells[i, j].GlobalCellCoord - startCell.GlobalCellCoord;
             }
-
         }
     }
 
     public Cell FindNextUnpartitionedCell(Vector2Int startCellID)
     {
-
         for (int y = startCellID.y; y < cellPerCol; y++)
         {
             int xStart = (y == startCellID.y) ? startCellID.x : 0;
             for (int x = xStart; x < cellPerRow; x++)
             {
                 if (!cells[x, y].IsPartitioned)
-                {
-
                     return cells[x, y];
-                }
             }
         }
-
-
         return null;
     }
 
+
     public Cell GetCenterCellOfGrid()
-    {  
+    {
         return cells[Mathf.FloorToInt(cellPerRow / 2), Mathf.FloorToInt(cellPerCol / 2)];
     }
     public IEnumerator PaintAllCellsCoroutine()
@@ -241,86 +204,59 @@ public class CellGrid
         {
             for (int i = 0; i < cellPerRow; i++)
             {
-                Cells[i, j].PaintCell(this);
+                cells[i, j].PaintCell(this);
                 count++;
                 if (count >= 50)
                 {
                     count = 0;
-                    yield return null;  
+                    yield return null;
                 }
             }
-           
-
         }
     }
 
     public void PaintAllCells()
     {
-        for (int j = 0; j < cellPerCol; j++)
+        LoopOverGrid((i, j) =>
         {
-            for (int i = 0; i < cellPerRow; i++)
-            {
-                Cells[i, j].PaintCell(this);
-            }
-            
-        }
+            Cells[i, j].PaintCell(this);
+        });
+
     }
-    public GameObject TryInstantiatePremanantGameobjectOnTile(GameObject prefab, Vector2Int localCelCoord, Quaternion rotation, bool shouldMakeTileOccupied, Transform parent = null)
+    public GameObject TryInstantiatePermanentGameobjectOnTile(GameObject prefab, Vector2Int localCellCoord, Quaternion rotation, bool shouldMakeTileOccupied, Transform parent = null)
     {
-        
-        if (MyUtils.IsWithinArrayBounds(cellPerRow, cellPerCol, localCelCoord))
-        {
-            if (!cells[localCelCoord.x, localCelCoord.y].IsOccupied)
-            {
-                Vector3 pos = new Vector3(cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.x, cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
-                GameObject go = Object.Instantiate(prefab, pos, rotation);
-                if (parent != null) go.transform.parent = parent;
+        if (!MyUtils.IsWithinArrayBounds(cellPerRow, cellPerCol, localCellCoord)) return null;
 
-                if (shouldMakeTileOccupied) cells[localCelCoord.x, localCelCoord.y].IsOccupied = true;
-                return go;
-            }
-            else
-            {
-                //Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to cell being occupied.");
-                return null;
-            }
+        Cell cell = cells[localCellCoord.x, localCellCoord.y];
+        if (cell.IsOccupied) return null;
 
-        }
-        else
-        {
-            //Debug.Log("Failed to instantiate" + nameof(prefab) + " at " + localCelCoord + " due to being out of bounds. The grid bound is "+ cellPerRow + " / " + cellPerCol);
-            return null;
-        }
-
-
+        Vector3 pos = (Vector3)cell.GlobalCellPos + new Vector3(0.5f, 0.5f, 0);
+        GameObject go = UnityEngine.Object.Instantiate(prefab, pos, rotation);
+        if (parent != null) go.transform.parent = parent;
+        if (shouldMakeTileOccupied) cell.IsOccupied = true;
+        return go;
     }
 
-    public GameObject TryInstantiateTempGameobjectOnTile(GameObject prefab, Vector2Int localCelCoord, Quaternion rotation, Transform parent = null)
+    public GameObject TryInstantiateTempGameobjectOnTile(GameObject prefab, Vector2Int localCellCoord, Quaternion rotation, Transform parent = null)
     {
-        if (MyUtils.IsWithinArrayBounds(cellPerRow, cellPerCol, localCelCoord))
-        {
-            Vector3 pos = new Vector3(cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.x, cells[localCelCoord.x, localCelCoord.y].GlobalCellPos.y, 0) + new Vector3(0.5f, 0.5f, 0);
-            GameObject go = Object.Instantiate(prefab, pos, rotation);
-            if (parent != null) go.transform.parent = parent;
+        if (!MyUtils.IsWithinArrayBounds(cellPerRow, cellPerCol, localCellCoord)) return null;
 
-            return go;
-
-
-        }
-        else return null;
-
-
+        Vector3 pos = (Vector3)cells[localCellCoord.x, localCellCoord.y].GlobalCellPos + new Vector3(0.5f, 0.5f, 0);
+        GameObject go = UnityEngine.Object.Instantiate(prefab, pos, rotation);
+        if (parent != null) go.transform.parent = parent;
+        return go;
     }
 
-    public void LoopOverGrid(System.Action<int, int> function)
+    public void LoopOverGrid(Action<int, int> action)
     {
         for (int j = 0; j < cellPerCol; j++)
         {
             for (int i = 0; i < cellPerRow; i++)
             {
-                function(i, j);
+                action(i, j);
             }
         }
+
 
     }
 }

@@ -1,280 +1,168 @@
-
 using NavMeshPlus.Components;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
-
-[System.Serializable]
-public class ZoneTypeProfiles
-{
-    public ZoneType zoneType;
-    public ZoneLayoutProfile zoneLayoutProfile;
-}
-
+/// <summary>
+/// Manages the procedural generation and activation of game zones based on player proximity.
+/// </summary>
 public class ZoneManager : MonoBehaviour
 {
-    private static ZoneManager instance;
-
-    public static ZoneManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-    private GameObject player;
+    public static ZoneManager Instance { get; private set; }
 
     [SerializeField] private int zoneSize = 80;
     [SerializeField] private int zoneCellSize = 1;
     [SerializeField] private float zoneBuffer = 30f;
-
-    private int halfZoneSize;
-
     [SerializeField] private GameObject zonePrefab;
     [SerializeField] private GameObject mainGrid;
+    [SerializeField] private Tilemap zoneConnectingGround;
+    [SerializeField] private ZoneLayoutProfile zoneLayoutProfile;
 
+ 
     public NavMeshSurface navMeshSurface;
 
+  
+    public Tilemap ZoneConnectingGround => zoneConnectingGround;
 
-    //[SerializeField] private Tilemap groundZeroTilemap;
-    //[SerializeField] private Tilemap groundOneTilemap;
-    //[SerializeField] private Tilemap groundTwoTilemap;
+    public Dictionary<Vector2Int, ZoneData> generatedZonesDic = new();
 
-    //[SerializeField] private Tilemap boundsTilemap;
-    //[SerializeField] private Tilemap propsTilemap;
-    //[SerializeField] private Tilemap treeTilemap;
-
-    [SerializeField]
-    public Dictionary<Vector2Int, ZoneData> generatedZonesDic = new Dictionary<Vector2Int, ZoneData>();
-
-    [SerializeField] private List<ZoneTypeProfiles> zoneTypeProfiles;
-
-    private Dictionary<ZoneType, ZoneLayoutProfile> zoneLayoutProfiles;
-
-    public Dictionary<ZoneType, ZoneLayoutProfile> ZoneLayoutProfiles { get => zoneLayoutProfiles; }
-    //public Tilemap PropsTilemap { get => propsTilemap; }
-    //public Tilemap GroundZeroTilemap { get => groundZeroTilemap; }
-
-    //public Tilemap BoundsTilemap { get => boundsTilemap; }
-    //public Tilemap TreeTilemap { get => treeTilemap; private set => treeTilemap = value; }
-    //public Tilemap GroundOneTilemap { get => groundOneTilemap; private set => groundOneTilemap = value; }
-    //public Tilemap GroundTwoTilemap { get => groundTwoTilemap; private set => groundTwoTilemap = value; }
+    private GameObject player;
+    private int halfZoneSize;
 
     private void OnValidate()
     {
+        // Validate required serialized fields
         MyUtils.ValidateFields(this, zonePrefab, nameof(zonePrefab));
         MyUtils.ValidateFields(this, mainGrid, nameof(mainGrid));
-
-
-        //MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
-        //MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
-        //MyUtils.ValidateFields(this, groundOneTilemap, nameof(groundZeroTilemap));
-        //MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
-
-        //MyUtils.ValidateFields(this, boundsTilemap, nameof(boundsTilemap));
-        //MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
+        MyUtils.ValidateFields(this, zoneConnectingGround, nameof(zoneConnectingGround));
     }
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        
+        if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+            return;
         }
-        instance = this;
 
-
-        zoneLayoutProfiles = new Dictionary<ZoneType, ZoneLayoutProfile>();
-        foreach (var profile in zoneTypeProfiles)
-        {
-            if (!ZoneLayoutProfiles.ContainsKey(profile.zoneType)) ZoneLayoutProfiles.Add(profile.zoneType, profile.zoneLayoutProfile);
-        }
+        Instance = this;
         halfZoneSize = zoneSize / 2;
-
-
     }
 
     private void Start()
     {
         player = GameManager.Instance.Player;
 
-        TryGenerateZone((Vector2Int.zero), DirectionEnum.None);
-
+        // Generate the initial zone at origin
+        TryGenerateZone(Vector2Int.zero, DirectionEnum.None);
     }
-
-
 
     private void Update()
     {
         CheckForPlayerEdgeProximity();
-
     }
 
+   
     private void TryGenerateZone(Vector2Int centerCoord, DirectionEnum expansionDir)
     {
-        if (!generatedZonesDic.ContainsKey(centerCoord))
-        {
-            Vector2Int newZoneWorldPos = FindZoneCenterPosition(centerCoord);
-            ZoneType zoneType = GenerateZoneType(centerCoord);
+        if (generatedZonesDic.ContainsKey(centerCoord)) return;
 
-            GameObject zoneGO = CreateZone(centerCoord, expansionDir, zoneType, newZoneWorldPos);
-            zoneGO.transform.parent = mainGrid.transform;
-        }
+        Vector3Int newZoneWorldPos = FindZoneCenterPosition(centerCoord);
+        GameObject newZoneGO = Instantiate(zonePrefab, newZoneWorldPos, Quaternion.identity, mainGrid.transform);
+
+        var zoneData = new ZoneData(centerCoord, newZoneWorldPos, newZoneGO, expansionDir, zoneLayoutProfile);
+        generatedZonesDic.Add(centerCoord, zoneData);
+
+        var zoneHandler = newZoneGO.GetComponent<ZoneHandler>();
+        zoneHandler.Init(zoneData, zoneLayoutProfile, zoneSize, zoneSize, zoneCellSize);
     }
 
+  
     private Vector2Int FindCurrentZoneCenterCoord()
     {
         Vector3 pos = player.transform.position;
-        Vector2Int currentZoneCoord = new Vector2Int(Mathf.FloorToInt((pos.x + halfZoneSize) / zoneSize), Mathf.FloorToInt((pos.y + halfZoneSize) / zoneSize));
-
-        return currentZoneCoord;
+        return new Vector2Int(
+            Mathf.FloorToInt((pos.x + halfZoneSize) / zoneSize),
+            Mathf.FloorToInt((pos.y + halfZoneSize) / zoneSize)
+        );
     }
 
-    private Vector2Int FindZoneCenterPosition(Vector2Int centerCoord)
+ 
+    private Vector3Int FindZoneCenterPosition(Vector2Int centerCoord)
     {
-        return new Vector2Int(centerCoord.x * zoneSize, centerCoord.y * zoneSize);
+        return new Vector3Int(centerCoord.x * zoneSize, centerCoord.y * zoneSize, 0);
     }
 
-    private ZoneType GenerateZoneType(Vector2Int centerCoord)
-    {
-        //    ZoneType[] availableTypes = new ZoneType[]
-        //    {
-        //        ZoneType.openField,
-        //        ZoneType.graveYard,
-        //    };
-
-        //    ZoneType randomZoneType = availableTypes[Random.Range(0, availableTypes.Length)];
-        //    if (randomZoneType == ZoneType.openField) return ZoneType.openField;
-        //    else
-        //    {
-        //        bool temp = true;
-        //        foreach (var dir in MyUtils.GetCardinalDirectionsVector())
-        //        {
-        //            Vector2Int neighborCoord = centerCoord + dir;
-
-        //            if (generatedZonesDic.TryGetValue(neighborCoord, out ZoneData neighborZone))
-        //            {
-        //                if (neighborZone.zoneType == randomZoneType)
-        //                {
-        //                    temp = false;
-        //                }
-        //            }
-        //        }
-        //        if (temp == true) return randomZoneType;
-        //        else return ZoneType.openField;
-
-
-        //    }
-
-        return ZoneType.graveYard;
-    }
-
-    private GameObject CreateZone(Vector2Int centerCoord, DirectionEnum dir, ZoneType zoneType, Vector2Int pos)
-    {
-        ZoneLayoutProfile layoutProfile = zoneLayoutProfiles[zoneType];
-        GameObject zone = Instantiate(zonePrefab, (Vector3Int)pos, Quaternion.identity);
-        generatedZonesDic.Add(centerCoord, new ZoneData(centerCoord, FindZoneCenterPosition(centerCoord), zone, dir, zoneType, layoutProfile));
-
-
-        switch (zoneType)
-        {
-            case ZoneType.graveYard:
-                GraveyardHandler garveYardHandler = zone.GetComponent<GraveyardHandler>();
-                //garveYardHandler = zone.AddComponent<GraveyardHandler>();
-                garveYardHandler.Init(generatedZonesDic[centerCoord], layoutProfile, zoneSize, zoneSize, zoneCellSize);
-
-                break;
-            case ZoneType.openField:
-                OpenFieldHandler openFieldHandler;
-                openFieldHandler = zone.AddComponent<OpenFieldHandler>();
-                openFieldHandler.Init(generatedZonesDic[centerCoord], layoutProfile, zoneSize, zoneSize, zoneCellSize);
-
-                break;
-        }
-
-        return zone;
-    }
-
+    /// <summary>
+    /// Checks the player's proximity to the edge of the current zone and expands nearby zones as needed.
+    /// </summary>
     private void CheckForPlayerEdgeProximity()
     {
-        Vector3 playerPos = player.transform.position;   
-        Vector2 currentZoneCenter = FindZoneCenterPosition(FindCurrentZoneCenterCoord());
-       
-        Vector2Int[] allDirection = MyUtils.GetAllDirectionsVector();
+        Vector3 playerPos = player.transform.position;
+        Vector3Int currentZoneCenter = FindZoneCenterPosition(FindCurrentZoneCenterCoord());
+
+        Vector2Int[] allDirections = MyUtils.GetAllDirectionsVector();
         Dictionary<Vector2Int, DirectionEnum> directionDic = MyUtils.GetDirectionDicWithVectorKey();
-        
-        foreach(Vector2Int dir  in allDirection)
+
+        foreach (Vector2Int dir in allDirections)
         {
-            Vector2Int nextZoneCenterCoord = FindCurrentZoneCenterCoord() + dir;
-            Vector3 nextZoneCenterPos = currentZoneCenter + (dir * halfZoneSize);
-            float dist = (nextZoneCenterPos - playerPos).sqrMagnitude;
-            if (!generatedZonesDic.ContainsKey(nextZoneCenterCoord))
-            {              
-                if (dist < zoneBuffer * zoneBuffer)
+            Vector2Int nextCoord = FindCurrentZoneCenterCoord() + dir;
+            Vector3Int nextZonePos = currentZoneCenter + ((Vector3Int)dir * halfZoneSize);
+            float distSqr = (nextZonePos - playerPos).sqrMagnitude;
+            bool withinBuffer = distSqr < zoneBuffer * zoneBuffer;
+
+            if (!generatedZonesDic.ContainsKey(nextCoord))
+            {
+                if (withinBuffer && directionDic.TryGetValue(dir, out DirectionEnum dirEnum))
                 {
-                    DirectionEnum dirEnum = directionDic[dir];
                     ExpandZones(dirEnum);
                 }
             }
             else
             {
-                bool shouldZoneBeActive = dist < zoneBuffer * zoneBuffer;
-                generatedZonesDic[nextZoneCenterCoord].zoneGO.SetActive(shouldZoneBeActive);
-              
+                generatedZonesDic[nextCoord].zoneGO.SetActive(withinBuffer);
             }
-            
         }
-      
     }
 
+    /// <summary>
+    /// Expands zones in the given direction, including diagonals.
+    /// </summary>
     private void ExpandZones(DirectionEnum dirEnum)
     {
-        Vector2Int currentZoneCoord = FindCurrentZoneCenterCoord();
+        Vector2Int currentCoord = FindCurrentZoneCenterCoord();
 
         switch (dirEnum)
         {
             case DirectionEnum.Right:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 0), DirectionEnum.Left);               
+                TryGenerateZone(currentCoord + Vector2Int.right, DirectionEnum.Left);
                 break;
             case DirectionEnum.Left:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 0), DirectionEnum.Right);               
+                TryGenerateZone(currentCoord + Vector2Int.left, DirectionEnum.Right);
                 break;
             case DirectionEnum.Top:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, 1), DirectionEnum.Bottom);             
+                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.Bottom);
                 break;
             case DirectionEnum.Bottom:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, -1), DirectionEnum.Top);             
+                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.Top);
                 break;
             case DirectionEnum.TopRight:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, 1), DirectionEnum.BottomLeft);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, 1), DirectionEnum.BottomLeft);     
+                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.BottomLeft);
+                TryGenerateZone(currentCoord + new Vector2Int(1, 1), DirectionEnum.BottomLeft);
                 break;
             case DirectionEnum.TopLeft:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, 1), DirectionEnum.BottomRight);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, 1), DirectionEnum.BottomRight);
+                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.BottomRight);
+                TryGenerateZone(currentCoord + new Vector2Int(-1, 1), DirectionEnum.BottomRight);
                 break;
             case DirectionEnum.BottomRight:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, -1), DirectionEnum.TopLeft);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(1, -1), DirectionEnum.TopLeft);
+                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.TopLeft);
+                TryGenerateZone(currentCoord + new Vector2Int(1, -1), DirectionEnum.TopLeft);
                 break;
             case DirectionEnum.BottomLeft:
-                TryGenerateZone(currentZoneCoord + new Vector2Int(0, -1), DirectionEnum.TopRight);
-                TryGenerateZone(currentZoneCoord + new Vector2Int(-1, -1), DirectionEnum.TopRight);
+                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.TopRight);
+                TryGenerateZone(currentCoord + new Vector2Int(-1, -1), DirectionEnum.TopRight);
                 break;
         }
     }
-
-
-
-
 }
-
-
-
-
-
-

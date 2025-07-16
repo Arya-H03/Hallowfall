@@ -55,10 +55,10 @@ public class PropsBlock : MonoBehaviour
 
         this.parentCellGrid = parentCellGrid;
         this.zoneLayoutProfile = zoneLayoutProfile;
-        celLGrid = new CellGrid(blockWidth, blockHeight, (Vector2Int)firstCellPos, parentCellGrid);
+        celLGrid = new CellGrid(blockWidth, blockHeight, firstCellPos, parentCellGrid);
 
 
-        PopulateBlock(celLGrid, zoneLayoutProfile);
+        PopulateBlock(celLGrid);
 
     }
     protected void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
@@ -81,7 +81,7 @@ public class PropsBlock : MonoBehaviour
         }
     }
 
-    protected virtual void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
+    protected virtual void PopulateBlock(CellGrid cellGrid)
     {
         
        

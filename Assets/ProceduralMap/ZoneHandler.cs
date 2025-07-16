@@ -2,54 +2,50 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 
-
+/// <summary>
+/// Handles the generation and setup of individual zones, including tile painting and prop block instantiation.
+/// </summary>
 public class ZoneHandler : MonoBehaviour
 {
-   
+ 
+    private ZoneData zoneData;
+    private ZoneLayoutProfile zoneLayoutProfile;
+    private int cellSize;
+    private int zoneWidth;
+    private int zoneHeight;
 
-    protected ZoneData zoneData;
-    protected ZoneLayoutProfile zoneLayoutProfile;
+  
+    private CellGrid cellGrid;
+    private readonly List<BoundsInt> listOfSubzoneBounds = new();
+    private List<BoundsInt> listOfPartitionedSubzoneBounds = new();
+    private Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new();
 
-    protected int cellSize;
-    protected int zoneWidth;
-    protected int zoneHeight;
+ 
+    [SerializeField] private Tilemap groundZeroTilemap;
+    [SerializeField] private Tilemap groundOneTilemap;
+    [SerializeField] private Tilemap groundTwoTilemap;
+    [SerializeField] private Tilemap boundsTilemap;
+    [SerializeField] private Tilemap propsTilemap;
+    [SerializeField] private Tilemap treeTilemap;
 
-    protected CellGrid celLGrid;
-
-    protected List<BoundsInt> listOfSubzoneBounds = new List<BoundsInt>();
-    protected List<BoundsInt> listOfPartitionedSubzoneBounds = new List<BoundsInt>();
-
-
-    [SerializeField] protected Tilemap groundZeroTilemap;
-    [SerializeField] protected Tilemap groundOneTilemap;
-    [SerializeField] protected Tilemap groundTwoTilemap;
-
-    [SerializeField] protected Tilemap boundsTilemap;
-    [SerializeField] protected Tilemap propsTilemap;
-    [SerializeField] protected Tilemap treeTilemap;
-
-
-    public Tilemap GroundZeroTilemap { get => groundZeroTilemap; }
-    public Tilemap GroundOneTilemap { get => groundOneTilemap; }
-    public Tilemap GroundTwoTilemap { get => groundTwoTilemap; }
-    public Tilemap PropsTilemap { get => propsTilemap; }
-    public Tilemap BoundsTilemap { get => boundsTilemap; }
-    public Tilemap TreeTilemap { get => treeTilemap; }
-   
+    public Tilemap GroundZeroTilemap => groundZeroTilemap;
+    public Tilemap GroundOneTilemap => groundOneTilemap;
+    public Tilemap GroundTwoTilemap => groundTwoTilemap;
+    public Tilemap PropsTilemap => propsTilemap;
+    public Tilemap BoundsTilemap => boundsTilemap;
+    public Tilemap TreeTilemap => treeTilemap;
 
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
     public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
 
-
     private void OnValidate()
     {
-      
-
 
         MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
         MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
@@ -60,13 +56,7 @@ public class ZoneHandler : MonoBehaviour
         MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
     }
 
-
-    protected virtual void Awake()
-    {
-      
-    }
-
-    public virtual void Init(ZoneData zoneData, ZoneLayoutProfile zoneLayoutProfile,int zoneWidth, int zoneHeight, int cellSize)
+    public void Init(ZoneData zoneData, ZoneLayoutProfile zoneLayoutProfile, int zoneWidth, int zoneHeight, int cellSize)
     {
         this.zoneData = zoneData;
         this.zoneLayoutProfile = zoneLayoutProfile;
@@ -74,51 +64,52 @@ public class ZoneHandler : MonoBehaviour
         this.zoneHeight = zoneHeight;
         this.cellSize = cellSize;
 
-        celLGrid = new CellGrid(cellSize, zoneWidth, zoneHeight, zoneData.centerPos);
+        cellGrid = new CellGrid(this.cellSize, this.zoneWidth, this.zoneHeight, this.zoneData.centerPos);
+        groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
+
         StartCoroutine(GenerateZoneCoroutine());
 
     }
-    protected virtual IEnumerator GenerateZoneCoroutine()
+    private IEnumerator GenerateZoneCoroutine()
     {
-        return null;
+
+        //GenerateBoundsForTilemap();
+        //GenerateRoads();
+
+        PopulateZoneWithPropBlocks(cellGrid, zoneLayoutProfile);
+        AddDefaultGroundTileForZone(zoneLayoutProfile);
+
+        yield return null;
+
+        cellGrid.PaintAllCells();
+        //StartCoroutine(celLGrid.PaintAllCellsCoroutine());
+
+        // yield return null;
+        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
     }
-    private void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
+   
+
+
+    private void PopulateZoneWithPropBlocks(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
-        for (int i = 0; i < cellGrid.CellPerCol; i++)
-        {
-            for (int j = 0; j < cellGrid.CellPerRow; j++)
-            {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity);
-
-                if (!cellGrid.Cells[j, i].IsOccupied)
-                {
-                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.3f);
-                }
-                else if (cellGrid.Cells[j, i].IsOccupied)
-                {
-                    go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.3f);
-                }
-            }
-        }
-    }
-
-
-    public virtual void PopulateZoneWithPropBlocks(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
-    {
-
         Cell startCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(0, 0));
+        CreateAllSubZoneBounds(cellGrid, startCell);
 
-        CreateSubZone(cellGrid, startCell);
+        //Turns big subZones to smalle blocks 
         listOfPartitionedSubzoneBounds = MyUtils.PerformeBinarySpacePartitioning(listOfSubzoneBounds, 8, 8);
 
         InstantiatePropsBlocks(listOfPartitionedSubzoneBounds, zoneLayoutProfile);
-
     }
 
 
-    private void CreateSubZone(CellGrid cellGrid, Cell startCell)
+    /// <summary>
+    /// Recursively check the zone to create the biggest subzones possile and marks them as partitioned
+    /// </summary>
+    /// <param name="cellGrid"></param>
+    /// <param name="startCell"></param>
+    private void CreateAllSubZoneBounds(CellGrid cellGrid, Cell startCell)
     {
-
+        //Check along left edge
         int h1 = 1;
         for (int i = 1; i + startCell.GlobalCellCoord.y < cellGrid.CellPerCol; i++)
         {
@@ -126,7 +117,7 @@ public class ZoneHandler : MonoBehaviour
                 break;
             h1++;
         }
-
+        //Check along bottom edge
         int w1 = 1;
         for (int i = 1; i + startCell.GlobalCellCoord.x < cellGrid.CellPerRow; i++)
         {
@@ -134,7 +125,7 @@ public class ZoneHandler : MonoBehaviour
                 break;
             w1++;
         }
-
+        //Check along top edge
         int w2 = 1;
         for (int i = 1; i + startCell.GlobalCellCoord.x < cellGrid.CellPerRow; i++)
         {
@@ -144,7 +135,7 @@ public class ZoneHandler : MonoBehaviour
         }
 
         int width = Mathf.Min(w1, w2);
-
+        //Check along right edge
         int h2 = 1;
         for (int i = 1; i + startCell.GlobalCellCoord.y < cellGrid.CellPerCol; i++)
         {
@@ -157,7 +148,7 @@ public class ZoneHandler : MonoBehaviour
 
         listOfSubzoneBounds.Add(new BoundsInt(new Vector3Int((int)startCell.GlobalCellPos.x, (int)startCell.GlobalCellPos.y, 0), new Vector3Int(width, height, 0)));
 
-        // Mark cellGrid as occupied
+        
         for (int x = startCell.GlobalCellCoord.x; x < startCell.GlobalCellCoord.x + width; x++)
         {
             for (int y = startCell.GlobalCellCoord.y; y < startCell.GlobalCellCoord.y + height; y++)
@@ -167,11 +158,10 @@ public class ZoneHandler : MonoBehaviour
             }
         }
 
-        // Recursively continue
         Cell nextStartCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(startCell.GlobalCellCoord.x + width, startCell.GlobalCellCoord.y));
         if (nextStartCell != null)
         {
-            CreateSubZone(cellGrid, nextStartCell);
+            CreateAllSubZoneBounds(cellGrid, nextStartCell);
         }
     }
 
@@ -179,8 +169,6 @@ public class ZoneHandler : MonoBehaviour
     {
         foreach (BoundsInt zoneBounds in listOfPartitionedSubzoneBounds)
         {
-            
-
             Type componentType = GetPropsBlockType(zoneLayoutProfile, zoneBounds);
             if (componentType != null)
             {
@@ -191,25 +179,21 @@ public class ZoneHandler : MonoBehaviour
 
                 if (propsBlock)
                 {
-                    propsBlock.Init(this,celLGrid, zoneBounds.position, zoneLayoutProfile,zoneBounds);
+                    propsBlock.Init(this, cellGrid, zoneBounds.position, zoneLayoutProfile, zoneBounds);
                 }
                 else
                 {
                     Destroy(go);
                 }
             }
-
-
         }
-
-
     }
 
     private Type GetPropsBlockType(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
     {
         Type type = null;
 
-        if(zoneLayoutProfile.propsBlocksStructList.Count <1)
+        if (zoneLayoutProfile.propsBlocksStructList.Count < 1)
         {
             return null;
         }
@@ -226,34 +210,24 @@ public class ZoneHandler : MonoBehaviour
 
         return type;
     }
-    protected Tilemap CreateTilemap(GameObject tilemapPrefab, Transform parent)
-    {
-        GameObject tilemap = Instantiate(tilemapPrefab, parent.position, Quaternion.identity);
-        tilemap.transform.parent = parent;
-        return tilemap.GetComponent<Tilemap>();
-    }
-
-    protected virtual void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
+    
+    private void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        TilePaint tilePaint = new TilePaint {/* tilemap = ZoneManager.Instance.GroundZeroTilemap*/ tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
-
-        for (int j = 0; j < celLGrid.CellPerCol; j++)
+        TilePaint tilePaint = new TilePaint {tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
+        cellGrid.LoopOverGrid((i, j) =>
         {
-            for(int i  = 0; i < celLGrid.CellPerRow; i++)
-            {
-                celLGrid.Cells[i,j].AddToTilePaints(tilePaint);
-            }
-        }
+            cellGrid.Cells[i, j].AddToTilePaints(tilePaint);
+        });
     }
 
-    protected void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, TilePaint[] tilePaints)
+    private void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, TilePaint[] tilePaints)
     {
         Vector2Int delta = endCellCoord - beginningCellCoord;
 
         if (delta.x == 0) // Vertical road
         {
-            
+
             int yMin = Mathf.Min(beginningCellCoord.y, endCellCoord.y);
             int yMax = Mathf.Max(beginningCellCoord.y, endCellCoord.y);
 
@@ -261,9 +235,9 @@ public class ZoneHandler : MonoBehaviour
             {
                 Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
                 //tilemap.SetTile(pos, tileBase);
-                celLGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
-                celLGrid.Cells[beginningCellCoord.x, y].IsPartitioned = true;
-                celLGrid.Cells[beginningCellCoord.x, y].AddToTilePaints(tilePaints);
+                cellGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
+                cellGrid.Cells[beginningCellCoord.x, y].IsPartitioned = true;
+                cellGrid.Cells[beginningCellCoord.x, y].AddToTilePaints(tilePaints);
             }
         }
         else if (delta.y == 0) // Horizontal road
@@ -276,19 +250,178 @@ public class ZoneHandler : MonoBehaviour
 
                 Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
                 //tilemap.SetTile(pos, tileBase);
-                celLGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
-                celLGrid.Cells[x, beginningCellCoord.y].IsPartitioned = true;
-                celLGrid.Cells[x, beginningCellCoord.y].AddToTilePaints(tilePaints);
+                cellGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
+                cellGrid.Cells[x, beginningCellCoord.y].IsPartitioned = true;
+                cellGrid.Cells[x, beginningCellCoord.y].AddToTilePaints(tilePaints);
             }
         }
     }
 
-    protected Vector3Int TurnCellCoordToTilePos(int x, int y)
+    private Vector3Int TurnCellCoordToTilePos(int x, int y)
     {
-        return (Vector3Int)celLGrid.Cells[x, y].GlobalCellPos;
+        return (Vector3Int)cellGrid.Cells[x, y].GlobalCellPos;
     }
- 
 
+
+    private void GenerateBoundsForTilemap()
+    {
+        Tilemap boundsTilemap = /*ZoneManager.Instance.BoundsTilemap;*/ this.BoundsTilemap;
+
+        TilePaint[] tilePaints = { new TilePaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new TilePaint { /*tilemap = ZoneManager.Instance.BoundsTilemap*/  tilemap = this.BoundsTilemap, tileBase = zoneLayoutProfile.fenceRuleTile } };
+
+        //Bottom
+        DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(cellGrid.CellPerRow - 1, 0), tilePaints);
+        //Top
+        DrawStraightLineOfTiles(new Vector2Int(0, cellGrid.CellPerCol - 1), new Vector2Int(cellGrid.CellPerRow - 1, cellGrid.CellPerCol - 1), tilePaints);
+        //Left
+        DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(0, cellGrid.CellPerCol - 1), tilePaints);
+        //Right
+        DrawStraightLineOfTiles(new Vector2Int(cellGrid.CellPerRow - 1, 0), new Vector2Int(cellGrid.CellPerRow - 1, cellGrid.CellPerCol - 1), tilePaints);
+
+
+        List<DirectionEnum> dirs = MyUtils.GetAllDirectionEnumList();
+        int openingCount = Random.Range(2, 3);
+        // Always one horizontal + one vertical + one random
+        List<DirectionEnum> openingDir = new List<DirectionEnum>();
+        DirectionEnum horizontal = MyUtils.GetRandomHorizontalDirectionEnum();
+        DirectionEnum vertical = MyUtils.GetRandomVerticalDirectionEnum();
+        openingDir.Add(horizontal);
+        openingDir.Add(vertical);
+        dirs.Remove(horizontal);
+        dirs.Remove(vertical);
+        openingDir.Add(dirs[Random.Range(0, dirs.Count)]);
+
+        zoneOpenings = CreateOpeningsInZone(openingDir, cellGrid, boundsTilemap);
+
+
+    }
+
+    private Dictionary<DirectionEnum, Vector2Int[]> CreateOpeningsInZone(List<DirectionEnum> openingDir, CellGrid cellGrid, Tilemap tilemap)
+    {
+        Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new Dictionary<DirectionEnum, Vector2Int[]>();
+        // Openings for each selected side
+        foreach (DirectionEnum dir in openingDir)
+        {
+            int[] openingIndices = GenerateRandomOpeningCells();
+            Vector2Int[] openings = new Vector2Int[openingIndices.Length];
+            zoneOpenings.Add(dir, openings);
+
+            for (int i = 0; i < openingIndices.Length; i++)
+            {
+                Vector2Int cellCoord = Vector2Int.zero;
+
+                switch (dir)
+                {
+                    case DirectionEnum.Bottom:
+                        cellCoord = new Vector2Int(openingIndices[i], 0);
+                        break;
+                    case DirectionEnum.Top:
+                        cellCoord = new Vector2Int(openingIndices[i], cellGrid.CellPerCol - 1);
+                        break;
+                    case DirectionEnum.Left:
+                        cellCoord = new Vector2Int(0, openingIndices[i]);
+                        break;
+                    case DirectionEnum.Right:
+                        cellCoord = new Vector2Int(cellGrid.CellPerRow - 1, openingIndices[i]);
+                        break;
+                }
+
+                Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
+                zoneOpenings[dir][i] = cellCoord;
+                cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveTilePaint();
+            }
+        }
+
+        return zoneOpenings;
+    }
+    private void GenerateRoads()
+    {
+
+
+        var opening1 = zoneOpenings.ElementAt(0);
+        var opening2 = zoneOpenings.ElementAt(1);
+
+        ConnectAllCenterJunctionPoints(opening1.Value, opening2.Value);
+
+        // Handle third direction if it exists
+        if (zoneOpenings.Count == 3)
+        {
+            var opening3 = zoneOpenings.ElementAt(2);
+            DirectionEnum thirdDir = opening3.Key;
+
+            if (thirdDir == DirectionEnum.Top || thirdDir == DirectionEnum.Bottom)
+            {
+                if (zoneOpenings.ContainsKey(DirectionEnum.Left))
+                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Left], opening3.Value);
+
+                if (zoneOpenings.ContainsKey(DirectionEnum.Right))
+                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Right], opening3.Value);
+            }
+
+            if (thirdDir == DirectionEnum.Left || thirdDir == DirectionEnum.Right)
+            {
+                if (zoneOpenings.ContainsKey(DirectionEnum.Top))
+                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Top], opening3.Value);
+
+                if (zoneOpenings.ContainsKey(DirectionEnum.Bottom))
+                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Bottom], opening3.Value);
+            }
+        }
+
+
+
+    }
+
+    private void ConnectAllCenterJunctionPoints(Vector2Int[] from, Vector2Int[] to)
+    {
+        //Tilemap stoneTilemap = ZoneManager.Instance.GroundOneTilemap;
+        Tilemap stoneTilemap = GroundOneTilemap;
+        int size = from.Length;
+        for (int i = 0; i < size; i++)
+        {
+            ConnectTwoJunctionPoints(stoneTilemap, from[i], to[i]);         // Matching index
+            ConnectTwoJunctionPoints(stoneTilemap, from[i], to[2 - i]);     // Flipped index
+        }
+    }
+
+    private void ConnectTwoJunctionPoints(Tilemap stoneTilemap, Vector2Int p1, Vector2Int p2)
+    {
+        Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
+        TilePaint[] tilePaint = { new TilePaint {/* tilemap = ZoneManager.Instance.GroundOneTilemap*/  tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile } };
+        DrawStraightLineOfTiles(p1, junction, tilePaint);
+        DrawStraightLineOfTiles(p2, junction, tilePaint);
+    }
+    private Vector2Int GetOpeningJunctionPoint(Vector2Int p1, Vector2Int p2)
+    {
+        Vector2Int result = new Vector2Int(p1.x, p2.y);
+        if (result.x == 0 || result.y == 0 || result.x >= 39 || result.y >= 39) return new Vector2Int(p2.x, p1.y);
+        return result;
+    }
+
+    private int[] GenerateRandomOpeningCells()
+    {
+        int rand = Random.Range(5, 35);
+        return new int[] { rand - 1, rand, rand + 1 };
+
+    }
+
+    private void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
+    {
+        cellGrid.LoopOverGrid((i, j) =>
+        {
+            GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity);
+
+            if (!cellGrid.Cells[j, i].IsOccupied)
+            {
+                go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.3f);
+            }
+            else if (cellGrid.Cells[j, i].IsOccupied)
+            {
+                go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.3f);
+            }
+        });
+    }
 }
 
 

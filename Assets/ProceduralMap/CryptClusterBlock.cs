@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class CryptClusterBlock : PropsBlock
 {
-    protected override void PopulateBlock(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
+    protected override void PopulateBlock(CellGrid cellGrid)
     {
-        if (zoneLayoutProfile is GraveYardLayoutProfile graveYardLayoutProfile)
-        {
-            TilePaint tilePaintStone = new TilePaint { /*tilemap = ZoneManager.Instance.GroundTwoTilemap*/ tilemap = zoneHandler.GroundTwoTilemap, tileBase = graveYardLayoutProfile.stoneRoadRuleTile };
-            TilePaint tilePaintGrass = new TilePaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = zoneHandler.GroundOneTilemap, tileBase = graveYardLayoutProfile.grassRuletile };
+        TilePaint tilePaintStone = new TilePaint {tilemap = zoneHandler.GroundTwoTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile };
+            TilePaint tilePaintGrass = new TilePaint {tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile,isOnGlobalTile = true };
 
 
-            GameObject cryptPrefab = MyUtils.GetRandomRef<GameObject>(graveYardLayoutProfile.cryptPrefabs);
+            GameObject cryptPrefab = MyUtils.GetRandomRef<GameObject>(zoneLayoutProfile.cryptPrefabs);
             Bounds cryptBounds = MyUtils.GetCombinedBounds(cryptPrefab);
         
             Cell centerBlockCell = cellGrid.GetCenterCellOfGrid();
@@ -28,10 +26,10 @@ public class CryptClusterBlock : PropsBlock
 
 
             //Flame Holders
-            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);          
-            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiatePremanantGameobjectOnTile(graveYardLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);          
+            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
+            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
 
            
 
@@ -68,9 +66,5 @@ public class CryptClusterBlock : PropsBlock
                 }
             }
 
-
-
-
-        }
     }
 }
