@@ -80,7 +80,7 @@ public class TreeClusterBlock : PropsBlock
         List<Vector3Int> cellsToUnfade = new List<Vector3Int>();
         float maxDistSqr = forestCheckRadius * forestCheckRadius;
 
-        while (isInForest)
+        while (isInForest && playerController)
         {
             Vector3Int playerCurrentCell = tilemap.WorldToCell(playerController.transform.position) - new Vector3Int(0, 1, 0);
             Vector3 playerWorldPos = tilemap.CellToWorld(playerCurrentCell);

@@ -177,7 +177,29 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: leaves to transp_1
+      name: leaves to transp 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e39bbf49e3aec7499c98bebca629ab4
+      internalID: 2020305388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaves to transp 1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -190,16 +212,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4f1c96d430b18d6c0800000000000000
-      internalID: -4118512158232690188
+      spriteID: 01a9c75f4225e4a4c94be4546d366859
+      internalID: 1274924366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_2
+      name: leaves to transp 1_2
       rect:
         serializedVersion: 2
         x: 64
@@ -212,16 +234,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e7a516c2ca97c8330800000000000000
-      internalID: 3714477573059730046
+      spriteID: 031542d3c05dc7941a24e14927acecae
+      internalID: -1697899013
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_3
+      name: leaves to transp 1_3
       rect:
         serializedVersion: 2
         x: 96
@@ -234,16 +256,38 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ad321b30f297b7010800000000000000
-      internalID: 1187676169574622170
+      spriteID: fe0aa1dad2123804daeba7421e24ce7e
+      internalID: 1818139582
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_5
+      name: leaves to transp 1_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c468284aa41aaa45a9fcc583fbbf5b6
+      internalID: -196915352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaves to transp 1_5
       rect:
         serializedVersion: 2
         x: 0
@@ -256,16 +300,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4812a3919e32a78f0800000000000000
-      internalID: -542081321087131260
+      spriteID: 8e94bb76296d5f44bb5ee629e25a9b83
+      internalID: -897555781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_6
+      name: leaves to transp 1_6
       rect:
         serializedVersion: 2
         x: 32
@@ -278,16 +322,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a517eea14212689b0800000000000000
-      internalID: -5078335090859282086
+      spriteID: 298ff4e1e7fd2154a973b878ce0622d4
+      internalID: -2126176022
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_7
+      name: leaves to transp 1_7
       rect:
         serializedVersion: 2
         x: 64
@@ -300,16 +344,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 31af926c29b189700800000000000000
-      internalID: 547217671929330195
+      spriteID: ecac95a8179749c4491b6a7d877bc106
+      internalID: -301054213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_8
+      name: leaves to transp 1_8
       rect:
         serializedVersion: 2
         x: 96
@@ -322,16 +366,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cc9e7a1e7b26b41b0800000000000000
-      internalID: -5671330763838592564
+      spriteID: 225830d4995e29a468d325d716679a8a
+      internalID: 1449286700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_9
+      name: leaves to transp 1_9
       rect:
         serializedVersion: 2
         x: 128
@@ -344,16 +388,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4cd48f579036eabe0800000000000000
-      internalID: -1464123936563769916
+      spriteID: 98d54e7c40ff1d1409c4ba6915867b4d
+      internalID: 1602147608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_10
+      name: leaves to transp 1_10
       rect:
         serializedVersion: 2
         x: 0
@@ -366,16 +410,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bcffb982d71600220800000000000000
-      internalID: 2450065387469668299
+      spriteID: b8ae3338b27e8a445a003134afaaf33c
+      internalID: 538166087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_11
+      name: leaves to transp 1_11
       rect:
         serializedVersion: 2
         x: 32
@@ -388,16 +432,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 217de738a79491e80800000000000000
-      internalID: -8207448055365052654
+      spriteID: f8809d6fbb1cbe647849d4c9bfe2e3c5
+      internalID: 1728677480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_12
+      name: leaves to transp 1_12
       rect:
         serializedVersion: 2
         x: 64
@@ -410,16 +454,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 61a00b1e257b87370800000000000000
-      internalID: 8320601878168603158
+      spriteID: 2b7c17e2328df93479e59bf21a470484
+      internalID: 255718331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_13
+      name: leaves to transp 1_13
       rect:
         serializedVersion: 2
         x: 96
@@ -432,16 +476,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c6030a0eb529c5340800000000000000
-      internalID: 4853915421706825836
+      spriteID: 23e86b4cbb22ac149a6100f5cf65daf9
+      internalID: -1672753480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_14
+      name: leaves to transp 1_14
       rect:
         serializedVersion: 2
         x: 128
@@ -454,16 +498,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9bb01ee73beb2ace0800000000000000
-      internalID: -1395343256394331207
+      spriteID: cead41cb10b3c1148a507cd836bd0bd4
+      internalID: 962150878
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_15
+      name: leaves to transp 1_15
       rect:
         serializedVersion: 2
         x: 0
@@ -476,16 +520,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 241eb07abcdf6e1e0800000000000000
-      internalID: -2168767119409553086
+      spriteID: 2f53f33704b669b44ab86a6064f59e29
+      internalID: 510250152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_16
+      name: leaves to transp 1_16
       rect:
         serializedVersion: 2
         x: 32
@@ -498,16 +542,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a4408094ee7567750800000000000000
-      internalID: 6302321409490682954
+      spriteID: 93a769ee4e163414eb1df7c4ba732fc4
+      internalID: -1618611140
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_17
+      name: leaves to transp 1_17
       rect:
         serializedVersion: 2
         x: 64
@@ -520,16 +564,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0cd49c883058d7cd0800000000000000
-      internalID: -2558742763050283584
+      spriteID: d7f460ec3aaf3b046b017ce44e23ed7c
+      internalID: 1869025616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_18
+      name: leaves to transp 1_18
       rect:
         serializedVersion: 2
         x: 96
@@ -544,14 +588,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f603e85df25c3da49911cceb40ce7056
-      internalID: 956971461
+      spriteID: 247d33040e12bff42948ac6333e226ee
+      internalID: 1766207827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_19
+      name: leaves to transp 1_19
       rect:
         serializedVersion: 2
         x: 128
@@ -566,14 +610,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bf738ecf2e75bb48b61cd1b3bc0646f
-      internalID: 329020470
+      spriteID: c64eca0e8e9481d4c991b0be265b4f69
+      internalID: -1567959462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_20
+      name: leaves to transp 1_20
       rect:
         serializedVersion: 2
         x: 32
@@ -588,14 +632,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daf5122c16195aa4481cf2954430d98d
-      internalID: 262097240
+      spriteID: 08fe76dd6325eb74aae25b18cc1e5d52
+      internalID: 154423624
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_21
+      name: leaves to transp 1_21
       rect:
         serializedVersion: 2
         x: 64
@@ -610,14 +654,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af1f00d7bff71da47a7e3aac746aebe0
-      internalID: 473493293
+      spriteID: 873bb370b28ea8e49a79503169f6b98c
+      internalID: 533955120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_22
+      name: leaves to transp 1_22
       rect:
         serializedVersion: 2
         x: 96
@@ -632,14 +676,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04fad6aa68aef37448db9d575eddb8d6
-      internalID: 595615207
+      spriteID: 9c5f25159fb80834fa79d6fe39e35b36
+      internalID: 2117066692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_23
+      name: leaves to transp 1_23
       rect:
         serializedVersion: 2
         x: 0
@@ -654,14 +698,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2c0f8678b08d494d8c896604bbcc838
-      internalID: -984694804
+      spriteID: afa34f388a9b9a746868c589457fa89f
+      internalID: -942107248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_24
+      name: leaves to transp 1_24
       rect:
         serializedVersion: 2
         x: 32
@@ -676,14 +720,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39c63d669fe609248bcf9e8d417370f8
-      internalID: 937703233
+      spriteID: d0ab6a88963ca0b4b94f0822bf20d51b
+      internalID: -567369372
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_25
+      name: leaves to transp 1_25
       rect:
         serializedVersion: 2
         x: 64
@@ -698,14 +742,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39fa960bd0457084ba690ef1478ff675
-      internalID: 1510152082
+      spriteID: 804de87b274521d4e8ea65bf2b7d9928
+      internalID: 1000458398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_26
+      name: leaves to transp 1_26
       rect:
         serializedVersion: 2
         x: 0
@@ -720,14 +764,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2d6fb3853344694f8b87334c7fbcf06
-      internalID: -1558327181
+      spriteID: a2a0d191435a01f44a03d8347f1b5455
+      internalID: 871412101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_27
+      name: leaves to transp 1_27
       rect:
         serializedVersion: 2
         x: 32
@@ -742,14 +786,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f296fa27d83988042a08102fadea35aa
-      internalID: 315086431
+      spriteID: 3e538b89846a2564bb4a81f01b2489aa
+      internalID: 1007190377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_28
+      name: leaves to transp 1_28
       rect:
         serializedVersion: 2
         x: 64
@@ -764,14 +808,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3db06e611ba91b84b97125cbd81a4990
-      internalID: -809016901
+      spriteID: 2cc4362044c8f3e4484e2afe9b376c1c
+      internalID: -1105837789
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_29
+      name: leaves to transp 1_29
       rect:
         serializedVersion: 2
         x: 0
@@ -786,14 +830,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f1030f41f07bdc4bbbf4fbd725af224
-      internalID: 1466790306
+      spriteID: 7c11c529767c5b144b83a2eaad24c3d2
+      internalID: -1145330494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_30
+      name: leaves to transp 1_30
       rect:
         serializedVersion: 2
         x: 32
@@ -808,14 +852,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5644c3db05737544a18a051049f4392
-      internalID: 443168645
+      spriteID: a8c0d4b23ef9569438ddec140ec2c242
+      internalID: 599436918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_31
+      name: leaves to transp 1_31
       rect:
         serializedVersion: 2
         x: 64
@@ -830,14 +874,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da833c31164a3724eaee5132e021779a
-      internalID: -1442583207
+      spriteID: 94f158de8d981d144801d25e41bd2216
+      internalID: -1675090115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_32
+      name: leaves to transp 1_32
       rect:
         serializedVersion: 2
         x: 0
@@ -852,14 +896,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f7f17d309ab4034c87616a7ca8f12d5
-      internalID: 1965208446
+      spriteID: 9a2b3904c1735744dbcc24e61d310692
+      internalID: -1571753863
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_33
+      name: leaves to transp 1_33
       rect:
         serializedVersion: 2
         x: 32
@@ -874,14 +918,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e94f277e94694c048b7b3235338c548b
-      internalID: -1288628555
+      spriteID: 4e073681a462aa44e873421b53f1f76b
+      internalID: 2053874973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leaves to transp_34
+      name: leaves to transp 1_34
       rect:
         serializedVersion: 2
         x: 64
@@ -896,8 +940,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4d634cc427e32c4692d541f019567a0
-      internalID: -230066537
+      spriteID: 50fb0dc414ef6ac45937bc18bf67e943
+      internalID: 1250861930
       vertices: []
       indices: 
       edges: []
@@ -918,41 +962,41 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      leaves to transp_0: 3125907722885184024
-      leaves to transp_1: -4118512158232690188
-      leaves to transp_10: 2450065387469668299
-      leaves to transp_11: -8207448055365052654
-      leaves to transp_12: 8320601878168603158
-      leaves to transp_13: 4853915421706825836
-      leaves to transp_14: -1395343256394331207
-      leaves to transp_15: -2168767119409553086
-      leaves to transp_16: 6302321409490682954
-      leaves to transp_17: -2558742763050283584
-      leaves to transp_18: 956971461
-      leaves to transp_19: 329020470
-      leaves to transp_2: 3714477573059730046
-      leaves to transp_20: 262097240
-      leaves to transp_21: 473493293
-      leaves to transp_22: 595615207
-      leaves to transp_23: -984694804
-      leaves to transp_24: 937703233
-      leaves to transp_25: 1510152082
-      leaves to transp_26: -1558327181
-      leaves to transp_27: 315086431
-      leaves to transp_28: -809016901
-      leaves to transp_29: 1466790306
-      leaves to transp_3: 1187676169574622170
-      leaves to transp_30: 443168645
-      leaves to transp_31: -1442583207
-      leaves to transp_32: 1965208446
-      leaves to transp_33: -1288628555
-      leaves to transp_34: -230066537
-      leaves to transp_4: 6809424073577103797
-      leaves to transp_5: -542081321087131260
-      leaves to transp_6: -5078335090859282086
-      leaves to transp_7: 547217671929330195
-      leaves to transp_8: -5671330763838592564
-      leaves to transp_9: -1464123936563769916
+      leaves to transp 1_0: 2020305388
+      leaves to transp 1_1: 1274924366
+      leaves to transp 1_10: 538166087
+      leaves to transp 1_11: 1728677480
+      leaves to transp 1_12: 255718331
+      leaves to transp 1_13: -1672753480
+      leaves to transp 1_14: 962150878
+      leaves to transp 1_15: 510250152
+      leaves to transp 1_16: -1618611140
+      leaves to transp 1_17: 1869025616
+      leaves to transp 1_18: 1766207827
+      leaves to transp 1_19: -1567959462
+      leaves to transp 1_2: -1697899013
+      leaves to transp 1_20: 154423624
+      leaves to transp 1_21: 533955120
+      leaves to transp 1_22: 2117066692
+      leaves to transp 1_23: -942107248
+      leaves to transp 1_24: -567369372
+      leaves to transp 1_25: 1000458398
+      leaves to transp 1_26: 871412101
+      leaves to transp 1_27: 1007190377
+      leaves to transp 1_28: -1105837789
+      leaves to transp 1_29: -1145330494
+      leaves to transp 1_3: 1818139582
+      leaves to transp 1_30: 599436918
+      leaves to transp 1_31: -1675090115
+      leaves to transp 1_32: -1571753863
+      leaves to transp 1_33: 2053874973
+      leaves to transp 1_34: 1250861930
+      leaves to transp 1_4: -196915352
+      leaves to transp 1_5: -897555781
+      leaves to transp 1_6: -2126176022
+      leaves to transp 1_7: -301054213
+      leaves to transp 1_8: 1449286700
+      leaves to transp 1_9: 1602147608
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

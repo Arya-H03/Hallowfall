@@ -1,9 +1,7 @@
-using UnityEngine;
-using UnityEditor;
+
 public class GravestoneGenerator
 {
-    [MenuItem("Tools/Generate Random Gravestone")]
-
+   
     public static void GenerateGraveStone()
     {
         //GraveYardLayoutProfile graveYardLayoutProfile = AssetDatabase.LoadAssetAtPath<GraveYardLayoutProfile>("Assets/ProceduralMap/GraveYardLayoutProfile.asset");

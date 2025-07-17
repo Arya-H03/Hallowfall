@@ -193,13 +193,13 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void FirstSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize, 1);
-        HandleHits(hitResult, firstSwingDamage,2);
+        HandleHits(hitResult, firstSwingDamage,1);
     }
 
     private void SecondSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize, 2);
-        HandleHits(hitResult, secondSwingDamage,4);
+        HandleHits(hitResult, secondSwingDamage,3);
     }
 
     public void ThirdSwingBoxCast()

@@ -18,26 +18,23 @@ public class GraveClusterBlock : PropsBlock
                 TileBase graveStoneTilebase = zoneLayoutProfile.GetRandomTile(zoneLayoutProfile.graveStoneTiles, false);
                 if (graveStoneTilebase != null)
                 {
-                    TilePaint tilePaintGravestone = new TilePaint {tilemap = zoneHandler.PropsTilemap, tileBase = graveStoneTilebase };
+                    TilePaint tilePaintGravestone = new TilePaint {tilemap = zoneHandler.PropsWithCollisionTilemap, tileBase = graveStoneTilebase };
                     cellGrid.Cells[x, y].AddToTilePaints(tilePaintGravestone);
                     cellGrid.Cells[x, y].IsOccupied = true;
                 }
 
                 TryAddGraveDirt(zoneLayoutProfile, new Vector2Int(x, y - 1), celLGrid);
-                TryAddSkulls(zoneLayoutProfile, (Vector3Int)cellGrid.Cells[x, y - 1].GlobalCellPos);
+               
 
             }
         }
 
-        for (int j = 0; j < cellGrid.CellPerCol; j++)
+        celLGrid.LoopOverGrid((i, j) =>
         {
-            for (int i = 0; i < cellGrid.CellPerRow; i++)
-            {
-
-                cellGrid.Cells[i, j].AddToTilePaints(grassTilePaint);
-            }
-        }
-        
+            if (!cellGrid.Cells[i, j].IsOccupied) TryAddSkulls(zoneLayoutProfile, celLGrid.Cells[i, j]);
+            cellGrid.Cells[i, j].AddToTilePaints(grassTilePaint);
+        });
+       
     }
     private void TryAddGraveDirt(ZoneLayoutProfile zoneLayoutProfile, Vector2Int cellCoord, CellGrid cellGrid)
     {
@@ -53,20 +50,13 @@ public class GraveClusterBlock : PropsBlock
             }
         }
     }
-    private void TryAddSkulls(ZoneLayoutProfile zoneLayoutProfile, Vector3 cellPos)
+    private void TryAddSkulls(ZoneLayoutProfile zoneLayoutProfile, Cell cell)
     {
-        if (Random.value > 0.75)
+        if (Random.value > 0.7)
         {
-            int skullCount = Random.Range(1, 3);
-            for (int i = 0; i < skullCount; i++)
-            {
-                Vector2 offset = new Vector2(Random.Range(-0.8f, 0.8f), Random.Range(-0.4f, 0.4f));
-                Vector3 pos = cellPos + (Vector3)offset;
-                GameObject skullGO = Instantiate(zoneLayoutProfile.skullPrefab, pos, Quaternion.identity);
-                skullGO.GetComponent<SpriteRenderer>().sprite = zoneLayoutProfile.GetRandomSprite(zoneLayoutProfile.skullSprites);
-                skullGO.transform.parent = propsHolder.transform;
-                skullGO.transform.localRotation = Quaternion.Euler(0f, 0f, Random.Range(-30f, 30f));
-            }
+            TileBase skullTile = MyUtils.GetRandomRef(zoneLayoutProfile.skullTiles);
+            TilePaint skullTilePaint = new TilePaint { tilemap = zoneHandler.PropsNoCollisionTilemap, tileBase = skullTile };
+            cell.AddToTilePaints(skullTilePaint);
         }
     }
 
@@ -100,10 +90,8 @@ public class GraveClusterBlock : PropsBlock
             earthShakeParticleSystem = Instantiate(zoneLayoutProfile.groundShakeParticleEffectPrefab, transform.position, Quaternion.identity);
             earthShakeParticleSystem.transform.parent = this.transform;
         }
-       
 
-
-        //yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);
         while (isPlayerOnThisBlock)
         {
 
@@ -118,16 +106,15 @@ public class GraveClusterBlock : PropsBlock
                     earthShakeParticleSystem.transform.position = groundShakeEffect.transform.position; 
                     earthShakeParticleSystem.Play();
                     //celLGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
-                    yield return new WaitForSeconds(0.75f);
-                    //celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
+                    yield return new WaitForSeconds(0.1f);
+                    celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
                 }
 
-                
-
+             
 
             }
 
-            //yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3f);
         }
     }
 

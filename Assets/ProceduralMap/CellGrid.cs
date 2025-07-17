@@ -206,7 +206,7 @@ public class CellGrid
             {
                 cells[i, j].PaintCell(this);
                 count++;
-                if (count >= 50)
+                if (count >= 25)
                 {
                     count = 0;
                     yield return null;

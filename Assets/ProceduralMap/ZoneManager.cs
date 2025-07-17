@@ -71,11 +71,11 @@ public class ZoneManager : MonoBehaviour
         Vector3Int newZoneWorldPos = FindZoneCenterPosition(centerCoord);
         GameObject newZoneGO = Instantiate(zonePrefab, newZoneWorldPos, Quaternion.identity, mainGrid.transform);
 
-        var zoneData = new ZoneData(centerCoord, newZoneWorldPos, newZoneGO, expansionDir, zoneLayoutProfile);
+        var zoneData = new ZoneData(zoneCellSize, zoneSize, zoneSize,centerCoord, newZoneWorldPos, newZoneGO, expansionDir, zoneLayoutProfile);
         generatedZonesDic.Add(centerCoord, zoneData);
 
         var zoneHandler = newZoneGO.GetComponent<ZoneHandler>();
-        zoneHandler.Init(zoneData, zoneLayoutProfile, zoneSize, zoneSize, zoneCellSize);
+        zoneHandler.Init(zoneData);
     }
 
   
@@ -113,7 +113,7 @@ public class ZoneManager : MonoBehaviour
             bool withinBuffer = distSqr < zoneBuffer * zoneBuffer;
 
             if (!generatedZonesDic.ContainsKey(nextCoord))
-            {
+            {               
                 if (withinBuffer && directionDic.TryGetValue(dir, out DirectionEnum dirEnum))
                 {
                     ExpandZones(dirEnum);
@@ -121,10 +121,20 @@ public class ZoneManager : MonoBehaviour
             }
             else
             {
-                generatedZonesDic[nextCoord].zoneGO.SetActive(withinBuffer);
+                var zone = generatedZonesDic[nextCoord];
+
+                if (!withinBuffer && zone.IsZoneFullyGenerated)
+                {
+                    zone.zoneGO.SetActive(false);
+                }
+                else
+                {
+                    zone.zoneGO.SetActive(true);
+                }
             }
         }
     }
+
 
     /// <summary>
     /// Expands zones in the given direction, including diagonals.

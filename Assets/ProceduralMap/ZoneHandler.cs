@@ -19,7 +19,6 @@ public class ZoneHandler : MonoBehaviour
     private int cellSize;
     private int zoneWidth;
     private int zoneHeight;
-
   
     private CellGrid cellGrid;
     private readonly List<BoundsInt> listOfSubzoneBounds = new();
@@ -31,23 +30,28 @@ public class ZoneHandler : MonoBehaviour
     [SerializeField] private Tilemap groundOneTilemap;
     [SerializeField] private Tilemap groundTwoTilemap;
     [SerializeField] private Tilemap boundsTilemap;
-    [SerializeField] private Tilemap propsTilemap;
+    [SerializeField] private Tilemap propsWithCollisionTilemap;
+    [SerializeField] private Tilemap propsNoCollisionTilemap;
     [SerializeField] private Tilemap treeTilemap;
 
     public Tilemap GroundZeroTilemap => groundZeroTilemap;
     public Tilemap GroundOneTilemap => groundOneTilemap;
     public Tilemap GroundTwoTilemap => groundTwoTilemap;
-    public Tilemap PropsTilemap => propsTilemap;
+    public Tilemap PropsWithCollisionTilemap => propsWithCollisionTilemap;
+    public Tilemap PropsNoCollisionTilemap => propsNoCollisionTilemap;
     public Tilemap BoundsTilemap => boundsTilemap;
     public Tilemap TreeTilemap => treeTilemap;
+   
 
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
     public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
+   
 
     private void OnValidate()
     {
 
-        MyUtils.ValidateFields(this, propsTilemap, nameof(propsTilemap));
+        MyUtils.ValidateFields(this, propsWithCollisionTilemap, nameof(propsWithCollisionTilemap));
+        MyUtils.ValidateFields(this, propsNoCollisionTilemap, nameof(propsNoCollisionTilemap));
         MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
         MyUtils.ValidateFields(this, groundOneTilemap, nameof(groundZeroTilemap));
         MyUtils.ValidateFields(this, groundZeroTilemap, nameof(groundZeroTilemap));
@@ -56,13 +60,13 @@ public class ZoneHandler : MonoBehaviour
         MyUtils.ValidateFields(this, TreeTilemap, nameof(TreeTilemap));
     }
 
-    public void Init(ZoneData zoneData, ZoneLayoutProfile zoneLayoutProfile, int zoneWidth, int zoneHeight, int cellSize)
+    public void Init(ZoneData zoneData)
     {
         this.zoneData = zoneData;
-        this.zoneLayoutProfile = zoneLayoutProfile;
-        this.zoneWidth = zoneWidth;
-        this.zoneHeight = zoneHeight;
-        this.cellSize = cellSize;
+        this.zoneLayoutProfile = this.zoneData.zoneLayoutProfile;
+        this.zoneWidth = this.zoneData.zoneWidth;
+        this.zoneHeight = this.zoneData.zoneHeight;
+        this.cellSize = this.zoneData.cellSize;
 
         cellGrid = new CellGrid(this.cellSize, this.zoneWidth, this.zoneHeight, this.zoneData.centerPos);
         groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
@@ -78,14 +82,16 @@ public class ZoneHandler : MonoBehaviour
 
         PopulateZoneWithPropBlocks(cellGrid, zoneLayoutProfile);
         AddDefaultGroundTileForZone(zoneLayoutProfile);
-
         yield return null;
 
-        cellGrid.PaintAllCells();
-        //StartCoroutine(celLGrid.PaintAllCellsCoroutine());
+        //cellGrid.PaintAllCells();
+        yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
+    
+        ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+        yield return null;
+        yield return null;
 
-        // yield return null;
-        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+        zoneData.IsZoneFullyGenerated = true;
     }
    
 
@@ -169,48 +175,76 @@ public class ZoneHandler : MonoBehaviour
     {
         foreach (BoundsInt zoneBounds in listOfPartitionedSubzoneBounds)
         {
-            Type componentType = GetPropsBlockType(zoneLayoutProfile, zoneBounds);
-            if (componentType != null)
+            PropsBlockEnum propsBlockEnum = GetPropsBlockTypeEnum(zoneLayoutProfile,zoneBounds);
+            if(propsBlockEnum != PropsBlockEnum.none)
             {
                 GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
                 go.transform.parent = this.transform;
-                Component addedComponent = go.AddComponent(componentType);
-                PropsBlock propsBlock = addedComponent as PropsBlock;
+                PropsBlock propsBlock = AddBlockComponent(go, propsBlockEnum);
+                propsBlock.Init(this, cellGrid, zoneBounds.position, zoneLayoutProfile, zoneBounds);
 
-                if (propsBlock)
-                {
-                    propsBlock.Init(this, cellGrid, zoneBounds.position, zoneLayoutProfile, zoneBounds);
-                }
-                else
-                {
-                    Destroy(go);
-                }
             }
-        }
-    }
-
-    private Type GetPropsBlockType(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
-    {
-        Type type = null;
-
-        if (zoneLayoutProfile.propsBlocksStructList.Count < 1)
-        {
-            return null;
-        }
-        while (type == null)
-        {
-            PropsBlockStruct propsBlock = zoneLayoutProfile.propsBlocksStructList[Random.Range(0, zoneLayoutProfile.propsBlocksStructList.Count)];
-            if (blockBounds.size.x >= propsBlock.minBlockSize.x && blockBounds.size.y >= propsBlock.minBlockSize.y)
+            else
             {
-                type = propsBlock.scriptReference.GetClass();
+                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+                go.transform.parent = this.transform;
             }
+                
+
+
 
         }
-
-
-        return type;
     }
-    
+
+    private PropsBlockEnum GetPropsBlockTypeEnum(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
+    {
+        if (zoneLayoutProfile.propsBlocksStructList.Count < 1) return PropsBlockEnum.none;
+
+
+        PropsBlockEnum propsBlockEnum = PropsBlockEnum.none;
+        int maxAttempts = 100;
+        int attempts = 0;
+
+        while (propsBlockEnum == PropsBlockEnum.none && attempts < maxAttempts)
+        {
+            PropsBlockStruct propsBlock = zoneLayoutProfile.propsBlocksStructList[
+                Random.Range(1, zoneLayoutProfile.propsBlocksStructList.Count)];
+
+            if (blockBounds.size.x >= propsBlock.minBlockSize.x &&
+                blockBounds.size.y >= propsBlock.minBlockSize.y &&
+                propsBlock.propsBlockEnum != PropsBlockEnum.none)
+            {
+                propsBlockEnum = propsBlock.propsBlockEnum;
+            }
+
+            attempts++;
+        }
+
+        return propsBlockEnum;
+    }
+
+    private PropsBlock AddBlockComponent(GameObject propsBlockGO, PropsBlockEnum propsBlockEnum)
+    {
+        switch (propsBlockEnum)
+        {
+            case PropsBlockEnum.cryptCluster:
+                return propsBlockGO.AddComponent<CryptClusterBlock>();
+
+            case PropsBlockEnum.graveCluster:
+                return propsBlockGO.AddComponent<GraveClusterBlock>();
+
+            case PropsBlockEnum.treeCluster:
+                return propsBlockGO.AddComponent<TreeClusterBlock>();
+
+            case PropsBlockEnum.ritualCluster:
+                return propsBlockGO.AddComponent<RitualClusterBlock>();
+
+            default:
+                return null;
+        }
+    }
+
+
     private void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
     {
 

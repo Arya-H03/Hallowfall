@@ -69,17 +69,36 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //Application.targetFrameRate = 60;
+       
 
         AudioManager.Instance.LoadSoundData();
         playerSkullCount = SaveSystem.LoadGameData().skullCount;
         UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
         //StartCoroutine(OnGameStartDialogue());
+        StartCoroutine(MyTickCoroutine());
 
-        
+
 
     }
 
+    private void Update()
+    {
+        
+    }
+
+    public void CapFPS()
+    {
+        Application.targetFrameRate = 60;
+    }
+    private IEnumerator MyTickCoroutine()
+    {
+        while(true)
+        {
+            UIManager.Instance.UpdateFPSTracker(Mathf.FloorToInt(1f / Time.unscaledDeltaTime));
+            yield return new WaitForSeconds(0.2f);
+        }
+     
+    }
     public void InitSkillsFromSkillTree()
     {
         skillsDictonary = new Dictionary<int, SkillSO>();

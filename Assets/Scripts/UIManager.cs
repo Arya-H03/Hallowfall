@@ -31,6 +31,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI skullCountText;
 
+    [SerializeField] TextMeshProUGUI fpsCountText;
+
     private PlayerController playerController;
 
     public List<GameObject> listOfFreeAbilitySlots;
@@ -51,13 +53,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public GameObject PauseMenu { get => pauseMenu; set => pauseMenu = value; }
-    public GameObject DeathMenu { get => deathMenu; set => deathMenu = value; }
-    public GameObject SettingsPanel { get => settingsPanel; set => settingsPanel = value; }
-    public GameObject AbilityWindow { get => abilityWindow; set => abilityWindow = value; }
-    public TextMeshProUGUI AbilityDescription { get => abilityDescription; set => abilityDescription = value; }
-    public DialogueBox DialogueBox { get => dialogueBox; set => dialogueBox = value; }
- 
+    public GameObject PauseMenu { get => pauseMenu; }
+    public GameObject DeathMenu { get => deathMenu;  }
+    public GameObject SettingsPanel { get => settingsPanel;  }
+    public GameObject AbilityWindow { get => abilityWindow;  }
+    public TextMeshProUGUI AbilityDescription { get => abilityDescription; }
+    public DialogueBox DialogueBox { get => dialogueBox;  }
+    public TextMeshProUGUI FpsCountText { get => fpsCountText; }
+
     private void Awake()
     {
         if(instance !=this && instance)
@@ -112,6 +115,10 @@ public class UIManager : MonoBehaviour
         atonementLvlText.text = playerController.AtonementLvl.ToString();
     }
 
+    public void UpdateFPSTracker(int  value)
+    {
+        fpsCountText.text = value.ToString();
+    }
     public void OpenDeathMenu()
     {
         SaveSystem.UpdatePlayerSkulls(GameManager.Instance.PlayerSkullCount);
