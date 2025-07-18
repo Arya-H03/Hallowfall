@@ -107,7 +107,7 @@ public class GraveClusterBlock : PropsBlock
                     earthShakeParticleSystem.Play();
                     //celLGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
                     yield return new WaitForSeconds(0.1f);
-                    celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
+                    //celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
                 }
 
              

@@ -87,7 +87,7 @@ public class ZoneHandler : MonoBehaviour
         //cellGrid.PaintAllCells();
         yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
     
-        ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
         yield return null;
         yield return null;
 

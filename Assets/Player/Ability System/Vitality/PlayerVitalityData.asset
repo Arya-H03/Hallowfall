@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f86573b64b2c9479f839df4dc459e8, type: 3}
+  m_Name: PlayerVitalityData
+  m_EditorClassIdentifier: 
+  abilityName: Vitality
+  ailityDescription: Add 25 hit points to max health
+  abilityIcon: {fileID: 21300000, guid: f4232fe3bf2d56a4c82dc04f629ab722, type: 3}
+  canLevelUp: 1
+  abilityPrefab: {fileID: 6748614864946369408, guid: 9a772c48742c9bb438a3c3f223136715, type: 3}

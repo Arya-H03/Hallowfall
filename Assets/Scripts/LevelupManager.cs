@@ -7,10 +7,10 @@ public class LevelupManager : MonoBehaviour
 {
     private static LevelupManager instance;
     private PlayerController playerController;
+    private PlayerAbilityController playerAbilityController;
 
-   
     [SerializeField] AbilityCard [] abilityCards;
-    
+    [SerializeField] private List<PlayerAbilityData> availableAbilitesForAbilityCards;
 
     public List<BaseAbility> abilities;
     public List<BaseAbility> abilitiesToAssign;
@@ -35,8 +35,6 @@ public class LevelupManager : MonoBehaviour
             return;
         }
         instance = this;
-        //DontDestroyOnLoad(gameObject);
-
        
         
     }
@@ -48,7 +46,10 @@ public class LevelupManager : MonoBehaviour
         if (!playerController)
         {
             Debug.LogWarning("Levelup manager doesn't have ref to playerGO playerController");
+           
         }
+        playerAbilityController = playerController.PlayerAbilityController;
+        availableAbilitesForAbilityCards = playerAbilityController.AvailablePlayerAbilities;
         PlayerDeathState.PlayerRespawnEvent += ResetAttonement;
 
         abilitiesToAssign = new List<BaseAbility>(abilities);
@@ -97,7 +98,9 @@ public class LevelupManager : MonoBehaviour
 
     private void CloseAbilityWindow()
     {
-        abilitiesToAssign = new List<BaseAbility>(abilities);
+        //abilitiesToAssign = new List<BaseAbility>(abilities);
+        playerAbilityController.RefillLockedPlayerAbilities();
+       
         InputManager.Instance.OnEnable();
         Time.timeScale = 1;
         GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
@@ -112,13 +115,26 @@ public class LevelupManager : MonoBehaviour
     {
         foreach (AbilityCard card in abilityCards)
         {
-            int index = Random.Range(0, abilitiesToAssign.Count);
-            BaseAbility ability = abilitiesToAssign[index];
-            abilitiesToAssign.Remove(ability);
-            card.cardIcon.sprite = ability.icon;
-            card.cardName.text = ability.abilityName;
-            card.CardDescription = ability.description;
-            card.ApplyAbilityEvent += ability.CallAbility;
+
+            //int index = Random.Range(0, abilitiesToAssign.Count);
+            //BaseAbility ability = abilitiesToAssign[index];
+            //abilitiesToAssign.Remove(ability);
+            if (availableAbilitesForAbilityCards.Count < 1) break;
+
+            int index = Random.Range(0, availableAbilitesForAbilityCards.Count);
+            PlayerAbilityData playerAbilityData = availableAbilitesForAbilityCards[index];
+            availableAbilitesForAbilityCards.Remove(playerAbilityData);
+            //playerAbilityController.UnlockAbility(playerAbilityData);
+            //BaseAbility ability = abilitiesToAssign[index];
+            //abilitiesToAssign.Remove(ability);
+
+            card.cardIcon.sprite = playerAbilityData.abilityIcon;
+            card.cardName.text = playerAbilityData.abilityName;
+            card.CardDescription = playerAbilityData.ailityDescription;
+            card.ApplyAbilityEvent += playerAbilityData.OnAbilityUnlocked;
+            card.ApplyAbilityEvent += () => playerAbilityController.UnlockAbility(playerAbilityData);
+
+
             card.ApplyAbilityEvent += CloseAbilityWindow;
 
 

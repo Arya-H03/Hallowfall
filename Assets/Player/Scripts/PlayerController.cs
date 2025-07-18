@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementManager playerMovementManager;
     private AfterImageHandler afterImageHandler;
     private PlayerCollisionController playerCollision;
+    private PlayerAbilityController playerAbilityController;
     private Material material;
 
     [HideInInspector] public Rigidbody2D rb;
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
     public PlayerMovementManager PlayerMovementManager { get => playerMovementManager; set => playerMovementManager = value; }
     public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
     public PlayerCollisionController PlayerCollision { get => playerCollision; set => playerCollision = value; }
+    public PlayerAbilityController PlayerAbilityController { get => playerAbilityController; }
     public Material Material { get => material; set => material = value; }
     public PlayerConfig PlayerConfig { get => playerConfig; set => playerConfig = value; }
 
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
     public PlayerDashState PlayerDashState { get => playerDashState; set => playerDashState = value; }
     public LayerMask EnemyLayer { get => enemyLayer; set => enemyLayer = value; }
+    
     #endregion
 
     private void Awake()
@@ -116,6 +119,7 @@ public class PlayerController : MonoBehaviour
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
         PlayerMovementManager = GetComponent<PlayerMovementManager>();
         PlayerCollision = GetComponent<PlayerCollisionController>();
+        playerAbilityController = GetComponentInChildren<PlayerAbilityController>();
 
         // State initialization
         InitializeState(ref playerIdleState);
