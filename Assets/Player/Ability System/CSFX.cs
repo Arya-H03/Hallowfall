@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent (typeof(AudioSource))]
 public class CSFX : MonoBehaviour
 {
     [SerializeField] private AudioClip audioClip;

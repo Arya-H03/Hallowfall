@@ -4,27 +4,33 @@ using UnityEngine;
 
 public class PlayerAbilityController : MonoBehaviour
 {
-    [SerializeField] private List<PlayerAbilityData> playerAbilityPool = new List<PlayerAbilityData>();
-    [SerializeField] private List<PlayerAbilityData> unlockedPlayerAbilities  = new List<PlayerAbilityData>();
-    [SerializeField] private List<PlayerAbilityData> availablePlayerAbilities = new List<PlayerAbilityData>();
+    [SerializeField] private List<PlayerBaseAbilitySO> playerAbilityPool = new();
+    [SerializeField] private Dictionary<PlayerBaseAbilitySO, bool> playerAbilityDictionary = new();
 
-    public List<PlayerAbilityData> AvailablePlayerAbilities => availablePlayerAbilities;
-    private void Start()
+    public Dictionary<PlayerBaseAbilitySO, bool> PlayerAbilityDictionary => playerAbilityDictionary;
+    public List<PlayerBaseAbilitySO> PlayerAbilityPool => playerAbilityPool;
+  
+    public void UnlockAbility(PlayerBaseAbilitySO playerAbilityBaseData)
     {
-        RefillLockedPlayerAbilities();
+        playerAbilityBaseData.TriggerAbility();
+
+        if (!PlayerAbilityDictionary.ContainsKey(playerAbilityBaseData))
+        {
+            PlayerAbilityDictionary.Add(playerAbilityBaseData, true);
+        }
+        if (!playerAbilityBaseData.canLevelUp)
+        {
+            playerAbilityPool.Remove(playerAbilityBaseData);
+        }
     }
 
-    public void RefillLockedPlayerAbilities()
+    public void AddToAbilityPool(PlayerBaseAbilitySO playerAbilityBaseData)
     {
-
-        availablePlayerAbilities = new List<PlayerAbilityData>(playerAbilityPool);
+        playerAbilityPool.Add(playerAbilityBaseData);
     }
 
-    public void UnlockAbility(PlayerAbilityData playerAbilityData)
+    public void RemoveFromAbilityPool(PlayerBaseAbilitySO playerAbilityBaseData)
     {
-        if(!unlockedPlayerAbilities.Contains(playerAbilityData))unlockedPlayerAbilities.Add(playerAbilityData);
-        
-        availablePlayerAbilities.Remove(playerAbilityData); 
-        if(!playerAbilityData.canLevelUp) playerAbilityPool.Remove(playerAbilityData);
+        playerAbilityPool.Remove(playerAbilityBaseData);
     }
 }

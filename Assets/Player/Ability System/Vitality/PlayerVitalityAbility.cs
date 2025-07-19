@@ -8,11 +8,11 @@ public class PlayerVitalityAbility : MonoBehaviour,IAbility
     {
         this.playerController = playerController;
     }
-    public void Initialize()
+    public void Init()
     {
     }
 
-    public void Perfom()
+    public void Perform()
     {
         playerController.MaxHealth += 25;
         playerController.RestoreHealth(playerController.MaxHealth);

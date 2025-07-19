@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f86573b64b2c9479f839df4dc459e8, type: 3}
+  m_Script: {fileID: 11500000, guid: f335ffbf5c87b7a4593fe1a2324a655e, type: 3}
   m_Name: PlayerHasteAbilitySO
   m_EditorClassIdentifier: 
   abilityName: Haste
-  ailityDescription: SpeedBoost
-  abilityIcon: {fileID: 21300000, guid: 7027d6fb68ed98a44a452539ec1d9c40, type: 3}
-  abilityPrefab: {fileID: 6646735024065977154, guid: 906e79f52cbd50c4e8d9f7e705109a5f, type: 3}
+  ailityDescription: Increase moevment speed by 10%
+  abilityIcon: {fileID: 21300000, guid: 064e6ca965e6ee2448c994285564d548, type: 3}
   canLevelUp: 1
+  abilityPrefab: {fileID: 6646735024065977154, guid: 906e79f52cbd50c4e8d9f7e705109a5f, type: 3}
+  listOfAbilityUpgrades: []

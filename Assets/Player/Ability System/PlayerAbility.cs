@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerAbility : MonoBehaviour
 {
-    [SerializeField] private PlayerAbilityData playerAbilityData;
+    [SerializeField] private PlayerAbilitySO playerAbilityData;
     private List<IAbilityComponent> abilityComponentsList;
-    public PlayerAbilityData PlayerAbilityData { get => playerAbilityData;}
+    public PlayerAbilitySO PlayerAbilityData { get => playerAbilityData;}
 
     private void OnValidate()
     {

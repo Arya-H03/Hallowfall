@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     // Config
     [SerializeField] private PlayerConfig playerConfig;
 
+
+    [SerializeField] private Transform playerCenterTransform;
+
     // Player Stats
     private float maxHealth;
     private float currentHealth;
@@ -280,9 +283,9 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 GetPlayerCenter()
     {
-        Vector3 center = transform.position;
-        center.y += spriteRenderer.bounds.size.y / 2;
-        return center;
+        //Vector3 center = transform.position;
+        //center.y += spriteRenderer.bounds.size.y / 2;
+        return playerCenterTransform.transform.position;
     }
 
     private void ManageTimers()

@@ -9,20 +9,20 @@ public class LevelupManager : MonoBehaviour
     private PlayerController playerController;
     private PlayerAbilityController playerAbilityController;
 
-    [SerializeField] AbilityCard [] abilityCards;
-    [SerializeField] private List<PlayerAbilityData> availableAbilitesForAbilityCards;
+    [SerializeField] AbilityCard[] abilityCards;
 
     public List<BaseAbility> abilities;
     public List<BaseAbility> abilitiesToAssign;
     public static LevelupManager Instance
     {
         get
-        {   if (!instance)
+        {
+            if (!instance)
             {
                 GameObject go = new GameObject("LevelupManager");
                 go.AddComponent<LevelupManager>();
 
-            } 
+            }
             return instance;
         }
     }
@@ -35,10 +35,10 @@ public class LevelupManager : MonoBehaviour
             return;
         }
         instance = this;
-       
-        
+
+
     }
-    
+
 
     private void Start()
     {
@@ -46,10 +46,9 @@ public class LevelupManager : MonoBehaviour
         if (!playerController)
         {
             Debug.LogWarning("Levelup manager doesn't have ref to playerGO playerController");
-           
+
         }
         playerAbilityController = playerController.PlayerAbilityController;
-        availableAbilitesForAbilityCards = playerAbilityController.AvailablePlayerAbilities;
         PlayerDeathState.PlayerRespawnEvent += ResetAttonement;
 
         abilitiesToAssign = new List<BaseAbility>(abilities);
@@ -65,7 +64,7 @@ public class LevelupManager : MonoBehaviour
 
     public void OnEssencePickUp()
     {
-        playerController.CurrentEssence ++;
+        playerController.CurrentEssence++;
         if (playerController.CurrentEssence >= playerController.AtonementToLevel)
         {
             OnLevelUp();
@@ -88,7 +87,7 @@ public class LevelupManager : MonoBehaviour
         playerController.AtonementToLevel += 2;
         playerController.CurrentHealth = playerController.MaxHealth;
         float ratio = (float)playerController.CurrentHealth / playerController.MaxHealth;
-       
+
         FillAbilityCards();
         UIManager.Instance.AbilityWindow.SetActive(true);
         InputManager.Instance.OnDisable();
@@ -99,13 +98,12 @@ public class LevelupManager : MonoBehaviour
     private void CloseAbilityWindow()
     {
         //abilitiesToAssign = new List<BaseAbility>(abilities);
-        playerAbilityController.RefillLockedPlayerAbilities();
-       
+
         InputManager.Instance.OnEnable();
         Time.timeScale = 1;
         GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
 
-        foreach(AbilityCard card in abilityCards)
+        foreach (AbilityCard card in abilityCards)
         {
             card.ResetApplyAbilityEvent();
         }
@@ -113,25 +111,25 @@ public class LevelupManager : MonoBehaviour
     }
     private void FillAbilityCards()
     {
+        List<PlayerBaseAbilitySO> availableAbilitesForAbilityCards = new List<PlayerBaseAbilitySO>(playerAbilityController.PlayerAbilityPool);
         foreach (AbilityCard card in abilityCards)
         {
-
             //int index = Random.Range(0, abilitiesToAssign.Count);
             //BaseAbility ability = abilitiesToAssign[index];
             //abilitiesToAssign.Remove(ability);
             if (availableAbilitesForAbilityCards.Count < 1) break;
 
             int index = Random.Range(0, availableAbilitesForAbilityCards.Count);
-            PlayerAbilityData playerAbilityData = availableAbilitesForAbilityCards[index];
+            PlayerBaseAbilitySO playerAbilityData = availableAbilitesForAbilityCards[index];
             availableAbilitesForAbilityCards.Remove(playerAbilityData);
-            //playerAbilityController.UnlockAbility(playerAbilityData);
+
+            //playerAbilityController.UnlockAbility(sourceAbility);
             //BaseAbility ability = abilitiesToAssign[index];
             //abilitiesToAssign.Remove(ability);
 
             card.cardIcon.sprite = playerAbilityData.abilityIcon;
             card.cardName.text = playerAbilityData.abilityName;
             card.CardDescription = playerAbilityData.ailityDescription;
-            card.ApplyAbilityEvent += playerAbilityData.OnAbilityUnlocked;
             card.ApplyAbilityEvent += () => playerAbilityController.UnlockAbility(playerAbilityData);
 
 
@@ -142,5 +140,5 @@ public class LevelupManager : MonoBehaviour
         }
     }
 
-     
+
 }

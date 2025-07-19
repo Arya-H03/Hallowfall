@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f335ffbf5c87b7a4593fe1a2324a655e, type: 3}
+  m_Name: PlayerPreySightAbilityData
+  m_EditorClassIdentifier: 
+  abilityName: Prey Sight
+  ailityDescription: Randomly you will mark an enemy as pray. Causing them to take
+    double damage for you.
+  abilityIcon: {fileID: 21300000, guid: 29a873f09ca1b954da09321a5a8af224, type: 3}
+  canLevelUp: 0
+  abilityPrefab: {fileID: 1645971315762208853, guid: 519147011da436a46b439b0958ec4a3e, type: 3}
+  listOfAbilityUpgrades: []

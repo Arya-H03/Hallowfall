@@ -7,7 +7,7 @@
 //    //SpriteRenderer spriteRenderer;
 //    //private void Start()
 //    //{
-//    //    abilityData = GetComponent<PlayerAbility>().PlayerAbilityData as PlayerPassiveStatBoostData;
+//    //    abilityData = GetComponent<PlayerAbility>().PlayerAbilitySO as PlayerPassiveStatBoostData;
 //    //    playerRunState = GameManager.Instance.PlayerController.PlayerRunState;
 //    //}
 //    //public void Perform()
