@@ -59,7 +59,7 @@ public class EnemyBaseAttack : MonoBehaviour
     {
         if (audioSource != null && attackSFX.Length > 0)
         {
-            AudioManager.Instance.PlaySFX(attackSFX,enemyController.transform.position,1);
+            AudioManager.Instance.PlaySFX(attackSFX,enemyController.transform.position,0.35f);
         }
     }
 

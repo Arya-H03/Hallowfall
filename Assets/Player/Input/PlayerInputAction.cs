@@ -110,7 +110,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Swing"",
+                    ""name"": ""SwingCoroutine"",
                     ""type"": ""Button"",
                     ""id"": ""76f069b6-837a-4ffc-a19c-bfa507f23bee"",
                     ""expectedControlType"": """",
@@ -342,7 +342,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Swing"",
+                    ""action"": ""SwingCoroutine"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -366,7 +366,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian = asset.FindActionMap("Guardian", throwIfNotFound: true);
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
-        m_Guardian_Swing = m_Guardian.FindAction("Swing", throwIfNotFound: true);
+        m_Guardian_Swing = m_Guardian.FindAction("SwingCoroutine", throwIfNotFound: true);
         m_Guardian_DoubleSwing = m_Guardian.FindAction("DoubleSwing", throwIfNotFound: true);
         m_Guardian_DashAttack = m_Guardian.FindAction("DashAttack", throwIfNotFound: true);
         m_Guardian_AirStrike = m_Guardian.FindAction("AirStrike", throwIfNotFound: true);
@@ -486,7 +486,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Guardian_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "Guardian/Swing".
+        /// Provides access to the underlying input action "Guardian/SwingCoroutine".
         /// </summary>
         public InputAction @Swing => m_Wrapper.m_Guardian_Swing;
         /// <summary>
@@ -679,7 +679,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Swing" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SwingCoroutine" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />

@@ -21,8 +21,9 @@ public class PlayerConfig : ScriptableObject
 
     public float moveSpeedWhileAttaking = 2;
     public float hitStopDuration = 0.05f;
-    public float attackComboWindow = 0.55f;
-    public float attackDelay = 0.35f;
+    public float swingComboWindow = 0.55f;
+    public float delayBetweenSwings = 0.35f;
+    public float swingInputLifeTime = 0.4f;
     public AudioClip[] attackSwingSFX;
     public float firstSwingDamage = 10;
     public float secondSwingDamage = 20;

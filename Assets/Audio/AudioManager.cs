@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup sfxMixerGroup;
     [SerializeField] private AudioMixerGroup musicMixerGroup;
 
-
+    [SerializeField] private ObjectPool audioPool;
     [SerializeField] private AudioSource audioSourcePrefab;
 
     private float masterVolumeLevel;
@@ -53,6 +53,7 @@ public class AudioManager : MonoBehaviour
         MyUtils.ValidateFields(this, audioMixer, nameof(audioMixer));
         MyUtils.ValidateFields(this, sfxMixerGroup, nameof(sfxMixerGroup));
         MyUtils.ValidateFields(this, musicMixerGroup, nameof(musicMixerGroup));
+        MyUtils.ValidateFields(this, audioPool, nameof(audioPool));
 
     }
 
@@ -78,8 +79,8 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlaySFX(AudioClip audioClip, Vector3 spawnPos, float volume)
-    {
-        AudioSource audioSource = Instantiate(audioSourcePrefab, spawnPos, Quaternion.identity);
+    {    
+        AudioSource audioSource = audioPool.GetFromPool(spawnPos,Quaternion.identity,null).GetComponent<AudioSource>();
 
         audioSource.clip = audioClip;
 
@@ -91,14 +92,12 @@ public class AudioManager : MonoBehaviour
 
         float audioClipDuration = audioSource.clip.length;
 
-
-        Destroy(audioSource.gameObject, audioClipDuration);
-
+        audioPool.ReturnToPool(audioSource.gameObject, audioClipDuration);
     }
 
     public void PlaySFX(AudioClip[] audioClips, Vector3 spawnPos, float volume)
     {
-        AudioSource audioSource = Instantiate(audioSourcePrefab, spawnPos, Quaternion.identity);
+        AudioSource audioSource = audioPool.GetFromPool(spawnPos, Quaternion.identity, null).GetComponent<AudioSource>();
 
         audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
 
@@ -110,8 +109,7 @@ public class AudioManager : MonoBehaviour
 
         float audioClipDuration = audioSource.clip.length;
 
-
-        Destroy(audioSource.gameObject, audioClipDuration);
+        audioPool.ReturnToPool(audioSource.gameObject, audioClipDuration);
     }
 
     public void PlayMusic(AudioClip audioClip, Vector3 spawnPos, float volume)

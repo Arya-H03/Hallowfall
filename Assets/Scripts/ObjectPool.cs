@@ -40,11 +40,39 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    public GameObject GetFromPool(Vector3 pos, Quaternion rotation, Transform parent = null)
+    {
+        if (pool.Count > 0)
+        {
+            GameObject obj = pool.Dequeue();
+            obj.transform.position = pos;
+            obj.transform.rotation = rotation;
+            if(parent) obj.transform.parent = parent;
+            obj.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            GeneratePool(poolIncreaseCount);
+            return GetFromPool(pos, rotation,parent);
+        }
+    }
+
     public void ReturnToPool(GameObject obj)
     {
         obj.SetActive(false);
         pool.Enqueue(obj);
     }
 
+    public void ReturnToPool(GameObject obj, float delay)
+    {
+        StartCoroutine(ReturnToPoolWithDelay(obj, delay));
+    }
+
+    private IEnumerator ReturnToPoolWithDelay(GameObject obj,float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ReturnToPool(obj);
+    }
 
 }

@@ -74,27 +74,5 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
 
 //UPGRADES
 
-[CreateAssetMenu(fileName = "FromTheShadowsUpgrade", menuName = "Scriptable Objects/ShadowStrikeUpgrades/FromTheShadows")]
-public class FromTheShadowsUpgradeData : PlayerAbilityUpgradeSO
-{
-    public override void ApplyUpgradeLogicTo(IAbility ability)
-    {
-        if(ability is PlayerShadowStrikeAbility shadowStrikeAbility)
-        {
-            shadowStrikeAbility.SpawnCount++;
-        } 
-    }
-}
 
 
-[CreateAssetMenu(fileName = "BurriedShadowUpgrade", menuName = "Scriptable Objects/ShadowStrikeUpgrades/BurriedShadow")]
-public class BurriedShadowUpgrade : PlayerAbilityUpgradeSO
-{
-    public override void ApplyUpgradeLogicTo(IAbility ability)
-    {
-        if (ability is PlayerShadowStrikeAbility shadowStrikeAbility)
-        {
-            shadowStrikeAbility.ShadowCloneDamage += 10;
-        }
-    }
-}
