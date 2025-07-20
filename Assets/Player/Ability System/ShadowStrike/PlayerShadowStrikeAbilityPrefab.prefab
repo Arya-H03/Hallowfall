@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f46b0a9cade7542801162fa262de20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shadowClonePrefab: {fileID: 1402465484376910880, guid: 1e1a8bd7e653200429ac15dd1287023b, type: 3}
-  cycleDuration: 5
-  spawnCount: 3
+  shadowClonePrefab: {fileID: 1402465484376910880, guid: c5ff68ef035bade49ad2a7153bfb86b5, type: 3}
+  cycleDuration: 4
+  spawnCount: 1
   shadowCloneDamage: 50
 --- !u!114 &4861520027123212649
 MonoBehaviour:

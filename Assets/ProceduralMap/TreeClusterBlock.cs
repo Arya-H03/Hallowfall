@@ -114,11 +114,11 @@ public class TreeClusterBlock : PropsBlock
 
             foreach (var cell in cellsToUnfade)
             {
-                StartCoroutine(FadeTile(tilemap, cell, 1f, 0.2f));
+                StartCoroutine(FadeTile(tilemap, cell, 1f, 0.1f));
                 fadedCells.Remove(cell);
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         // On forest exit

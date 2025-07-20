@@ -66,7 +66,7 @@ public class GraveClusterBlock : PropsBlock
         {
 
             isPlayerOnThisBlock = true;
-            StartCoroutine(SpawnEnemiesCoroutine());
+            //StartCoroutine(SpawnEnemiesCoroutine());
         }
 
 

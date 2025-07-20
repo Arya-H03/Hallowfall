@@ -41,7 +41,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(MainEnemySpawnCoroutine());
+        StartCoroutine(MainEnemySpawnCoroutine());
     }
 
     private IEnumerator MainEnemySpawnCoroutine()

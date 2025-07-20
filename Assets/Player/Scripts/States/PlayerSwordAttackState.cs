@@ -127,8 +127,8 @@ public class PlayerSwordAttackState : PlayerBaseState
 
         StartCoroutine(AttackCooldown());
 
-        if (comboResetCoroutine != null)
-            StopCoroutine(comboResetCoroutine);
+        if (comboResetCoroutine != null) StopCoroutine(comboResetCoroutine);
+
         comboResetCoroutine = StartCoroutine(ResetComboAfterDelay());
     }
 
@@ -199,13 +199,13 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void SecondSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize, 2);
-        HandleHits(hitResult, secondSwingDamage,3);
+        HandleHits(hitResult, secondSwingDamage,2);
     }
 
     public void ThirdSwingBoxCast()
     {
         RaycastHit2D[] hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize, 3);
-        HandleHits(hitResult, thirdSwingDamage, 5);
+        HandleHits(hitResult, thirdSwingDamage, 3);
     }
 
     private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize, int index)
@@ -227,7 +227,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 EnemyController enemyController = hit.collider.GetComponent<EnemyController>();
                 Vector2 knockbackVector = (playerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
                 enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword, force);
-                playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.25f);
+                playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.1f);
                 GameManager.Instance.StopTime(hitStopDuration);
             }
         }
