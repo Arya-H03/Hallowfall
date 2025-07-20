@@ -160,7 +160,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 break;
         }
 
-        AudioManager.Instance.PlaySFX(audioSource, attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], 1);
+        AudioManager.Instance.PlaySFX(attackSwingSFX[Random.Range(0, attackSwingSFX.Length)], playerController.transform.position, 1);
     }
 
     public void HandleFirstSwing()

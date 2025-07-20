@@ -52,7 +52,7 @@ public class PlayerJumpState : PlayerBaseState
         playerController.rb.gravityScale = 3;
         playerController.rb.linearVelocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
 
-        AudioManager.Instance.PlaySFX(audioSource, jumpUpAC, 1);
+        AudioManager.Instance.PlaySFX( jumpUpAC,playerController.transform.position, 1);
 
         playerController.AnimationController.SetTriggerForAnimations("JumpUp");
       

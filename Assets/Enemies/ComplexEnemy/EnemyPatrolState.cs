@@ -57,7 +57,7 @@ public class EnemyPatrolState : EnemyBaseState
         if(enemyController.CurrentStateEnum == EnemyStateEnum.Patrol)
         {
             SetNextPatrolPoint();
-            enemyController.EnemyMovement.StartRunningSFX(audioSource, walkGroundSFX, walkGrassSFX, walkWoodSFX);
+            enemyController.EnemyMovement.StartRunningSFX(walkGroundSFX, walkGrassSFX, walkWoodSFX);
 
             while (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {

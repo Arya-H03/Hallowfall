@@ -33,7 +33,7 @@ public class BlazingArcHandler : ActiveAbilityHandler
                 Vector3 spawnPos = player.transform.position + new Vector3 (playerController.PlayerMovementManager.CurrentDirection.x, player.GetComponent<SpriteRenderer>().bounds.size.y/2,0); 
                 GameObject effect = Instantiate(blazingArcSO.projectile, spawnPos, Quaternion.identity);
                 effect.GetComponent<PlayerProjectiles>().SetProjectileCourseForward(player);
-                AudioManager.Instance.PlayRandomSFX(audioSource, sfx, 1);
+                AudioManager.Instance.PlaySFX(sfx, playerController.transform.position, 1);
             }
 
         }

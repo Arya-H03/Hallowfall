@@ -111,19 +111,19 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    public void StartRunningSFX(AudioSource audioSource,AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
+    public void StartRunningSFX(AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
     {
         
         switch (enemyController.CurrentFloorType)
         {
             case FloorTypeEnum.Ground:
-                AudioManager.Instance.PlaySFX(audioSource, groundSFX, 1);
+                AudioManager.Instance.PlaySFX(groundSFX, enemyController.transform.position ,1);
                 break;
             case FloorTypeEnum.Grass:
-                AudioManager.Instance.PlaySFX(audioSource, grassSFX, 1);
+                AudioManager.Instance.PlaySFX(grassSFX, enemyController.transform.position, 1);
                 break;
             case FloorTypeEnum.Stone:
-                AudioManager.Instance.PlaySFX(audioSource, woodSFX, 1);
+                AudioManager.Instance.PlaySFX(woodSFX, enemyController.transform.position, 1);
                 break;
         }
 

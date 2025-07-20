@@ -57,13 +57,13 @@ public class PlayerRunState : PlayerBaseState
         switch (playerController.CurrentFloorType)
         {
             case FloorTypeEnum.Ground:
-                AudioManager.Instance.PlayRandomSFX(audioSource, groundRunSFX, 0.1f);
+                AudioManager.Instance.PlaySFX(groundRunSFX,playerController.transform.position, 0.1f);
                 break;
             case FloorTypeEnum.Grass:
-                AudioManager.Instance.PlayRandomSFX(audioSource, grassRunSFX, 0.1f);
+                AudioManager.Instance.PlaySFX(grassRunSFX, playerController.transform.position, 0.1f);
                 break;
             case FloorTypeEnum.Stone:
-                AudioManager.Instance.PlayRandomSFX(audioSource, stoneRunSFX, 0.1f);
+                AudioManager.Instance.PlaySFX(stoneRunSFX, playerController.transform.position, 0.1f);
                 break;
         }
     }

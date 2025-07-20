@@ -222,7 +222,7 @@ public class EnemyController : MonoBehaviour
         collisionManager.PlayBloodEffect(hitPoint);
         Material.SetFloat("_Flash", 1);
         //SFX
-        if (hitType != HitSfxType.none) AudioManager.Instance.PlaySFX(AudioSource, collisionManager.GetHitSound(hitType), 1);
+        if (hitType != HitSfxType.none) AudioManager.Instance.PlaySFX( collisionManager.GetHitSound(hitType),transform.position, 1);
 
         collisionManager.StaggerEnemy(damage);
         Vector2 knockbackVector = (GetEnemyCenter() - playerController.GetPlayerCenter()).normalized;

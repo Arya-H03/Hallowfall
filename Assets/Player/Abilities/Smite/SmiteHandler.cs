@@ -37,7 +37,7 @@ public class SmiteHandler : ActiveAbilityHandler
             {
                 Vector3 spawnPos = new Vector3(Random.Range(transform.position.x - 3, transform.position.x + 4), Random.Range(transform.position.y - 3, transform.position.y + 4), 0);
                 GameObject effect = Instantiate(smiteSpawnerSO.projectile, spawnPos, Quaternion.identity);
-                AudioManager.Instance.PlayRandomSFX(audioSource, sfx,1);
+                AudioManager.Instance.PlaySFX(sfx, spawnPos,1);
             }
 
         }

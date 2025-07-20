@@ -161,7 +161,7 @@ public class PlayerDashState : PlayerBaseState
     private void TriggerDashEffects()
     {
         playerController.AnimationController.SetTriggerForAnimations("Dash");
-        AudioManager.Instance.PlaySFX(audioSource, dashAttackSFX[Random.Range(0, dashAttackSFX.Length)], dashAttackSFX.Length);
+        AudioManager.Instance.PlaySFX(dashAttackSFX[Random.Range(0, dashAttackSFX.Length)], this.transform.position,1);
         afterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
     }
 

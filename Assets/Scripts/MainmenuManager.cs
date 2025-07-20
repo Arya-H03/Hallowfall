@@ -18,12 +18,9 @@ public class MainmenuManager : MonoBehaviour
         GameData gameData = SaveSystem.LoadGameData();
         
         AudioManager.Instance.LoadSoundData();
-        AudioManager.Instance.PlayMusic(audioSource, backgroundMusic, 1 );  
+        AudioManager.Instance.PlayMusic( backgroundMusic,Vector3.zero, 1 );  
     }
-    private void OnGUI()
-    {
-        audioSource.volume = AudioManager.Instance.MasterVolumeMultiplier * AudioManager.Instance.MusicVolumeMultiplier;
-    }
+  
     public void OnButtonStartClick()
     {
         AudioManager.Instance.SaveSoundData();  

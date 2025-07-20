@@ -178,6 +178,7 @@ public class UIManager : MonoBehaviour
 
     public void OnCloseSettingsMenu()
     {
+        AudioManager.Instance.SaveSoundData();
         settingsPanel.SetActive(false);
     }
 

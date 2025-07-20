@@ -61,7 +61,7 @@ public class PlayerRollState : PlayerBaseState
         }
        
         SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
-        AudioManager.Instance.PlaySFX(audioSource, rollSFX, 0.5f);
+        AudioManager.Instance.PlaySFX( rollSFX, playerController.transform.position, 0.5f);
         playerController.PlayerMovementManager.MoveSpeed = 0;
         playerController.CanRoll = false;
         yield return new WaitForSeconds(0.5f);

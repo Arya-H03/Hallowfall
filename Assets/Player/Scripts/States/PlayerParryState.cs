@@ -192,7 +192,7 @@ public class PlayerParryState : PlayerBaseState
 
     public void SpawnImpactEffect(Vector3 position)
     {
-        AudioManager.Instance.PlaySFX(audioSource, parrySFX, 1f);
+        AudioManager.Instance.PlaySFX(parrySFX, playerController.transform.position, 1f);
         GameObject obj = Instantiate(impactEffect, position, Quaternion.identity);
         Destroy(obj, 0.5f);
     }

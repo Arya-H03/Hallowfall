@@ -62,9 +62,9 @@ public static class SaveSystem
     {
         SettingsData data = LoadSettingsData();
         if (data == null) { data = new SettingsData(); }
-        data.masterVolume = audioManager.MasterVolumeMultiplier;
-        data.effectsVolume = audioManager.EffectsVolumeMultiplier;
-        data.musicVolume = audioManager.MusicVolumeMultiplier;
+        data.masterVolume = audioManager.MasterVolumeLevel;    
+        data.effectsVolume = audioManager.SFXVolumeLevel;
+        data.musicVolume = audioManager.MusicVolumeLevel;
 
         SaveSettingsData(data);
 
