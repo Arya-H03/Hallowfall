@@ -7,12 +7,17 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject objPrefab;
     [SerializeField] int poolCount;
     [SerializeField] int poolIncreaseCount;
+    [SerializeField] bool canGeneratePoolOnStart = true;    
 
     private Queue<GameObject> pool = new Queue<GameObject>();
 
     private void Start()
     {
-        GeneratePool(poolCount);
+        if(canGeneratePoolOnStart)
+        {
+            GeneratePool(poolCount);
+        }
+        
     }
     private void GeneratePool(int count)
     {
@@ -23,6 +28,11 @@ public class ObjectPool : MonoBehaviour
             obj.transform.parent = transform;
             pool.Enqueue(obj);
         }
+    }
+
+    public void GeneratePool()
+    {
+        GeneratePool(poolCount);
     }
 
     public GameObject GetFromPool()

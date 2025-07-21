@@ -4,8 +4,8 @@ public class CryptClusterBlock : PropsBlock
 {
     protected override void PopulateBlock(CellGrid cellGrid)
     {
-        TilePaint tilePaintStone = new TilePaint {tilemap = zoneHandler.GroundTwoTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile };
-            TilePaint tilePaintGrass = new TilePaint {tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile,isOnGlobalTile = true };
+        CellPaint tilePaintStone = new CellPaint {tilemap = zoneHandler.GroundTwoTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile };
+            CellPaint tilePaintGrass = new CellPaint {tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile,isOnGlobalTile = false };
 
 
             GameObject cryptPrefab = MyUtils.GetRandomRef<GameObject>(zoneLayoutProfile.cryptPrefabs);
@@ -54,12 +54,12 @@ public class CryptClusterBlock : PropsBlock
                     //}
                     if (isAroundCryptArea)
                     {                    
-                        cellGrid.Cells[i, j].AddToTilePaints(tilePaintStone);
+                        cellGrid.Cells[i, j].AddToCellPaint(tilePaintStone);
 
                     }
                     else
                     {                      
-                        cellGrid.Cells[i, j].AddToTilePaints(tilePaintGrass);
+                        cellGrid.Cells[i, j].AddToCellPaint(tilePaintGrass);
                     }
 
 

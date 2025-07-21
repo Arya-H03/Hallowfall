@@ -56,6 +56,8 @@ public class ZoneManager : MonoBehaviour
 
         // Generate the initial zone at origin
         TryGenerateZone(Vector2Int.zero, DirectionEnum.None);
+        //ObjectPoolManager.Instance.GenerateEnemyPools();
+
     }
 
     private void Update()
@@ -79,7 +81,7 @@ public class ZoneManager : MonoBehaviour
     }
 
   
-    private Vector2Int FindCurrentZoneCenterCoord()
+    private Vector2Int GetCurrentZoneCenterCoord()
     {
         Vector3 pos = player.transform.position;
         return new Vector2Int(
@@ -88,6 +90,10 @@ public class ZoneManager : MonoBehaviour
         );
     }
 
+    public ZoneHandler GetCurrentZoneHandler()
+    {
+        return generatedZonesDic[GetCurrentZoneCenterCoord()].ZoneHandler;
+    }
  
     private Vector3Int FindZoneCenterPosition(Vector2Int centerCoord)
     {
@@ -100,14 +106,14 @@ public class ZoneManager : MonoBehaviour
     private void CheckForPlayerEdgeProximity()
     {
         Vector3 playerPos = player.transform.position;
-        Vector3Int currentZoneCenter = FindZoneCenterPosition(FindCurrentZoneCenterCoord());
+        Vector3Int currentZoneCenter = FindZoneCenterPosition(GetCurrentZoneCenterCoord());
 
         Vector2Int[] allDirections = MyUtils.GetAllDirectionsVector();
         Dictionary<Vector2Int, DirectionEnum> directionDic = MyUtils.GetDirectionDicWithVectorKey();
 
         foreach (Vector2Int dir in allDirections)
         {
-            Vector2Int nextCoord = FindCurrentZoneCenterCoord() + dir;
+            Vector2Int nextCoord = GetCurrentZoneCenterCoord() + dir;
             Vector3Int nextZonePos = currentZoneCenter + ((Vector3Int)dir * halfZoneSize);
             float distSqr = (nextZonePos - playerPos).sqrMagnitude;
             bool withinBuffer = distSqr < zoneBuffer * zoneBuffer;
@@ -141,7 +147,7 @@ public class ZoneManager : MonoBehaviour
     /// </summary>
     private void ExpandZones(DirectionEnum dirEnum)
     {
-        Vector2Int currentCoord = FindCurrentZoneCenterCoord();
+        Vector2Int currentCoord = GetCurrentZoneCenterCoord();
 
         switch (dirEnum)
         {

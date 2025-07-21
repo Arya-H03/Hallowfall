@@ -36,7 +36,7 @@ public class PropsBlock : MonoBehaviour
     protected virtual void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
-        propsHolder = transform.GetChild(2).transform.gameObject;
+        propsHolder = transform.GetChild(1).transform.gameObject;
 
     }
     public void Init(ZoneHandler zoneHandler,CellGrid parentCellGrid, Vector3Int firstCellPos, ZoneLayoutProfile zoneLayoutProfile, BoundsInt zoneBounds)

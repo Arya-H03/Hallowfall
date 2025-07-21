@@ -42,7 +42,13 @@ public class ObjectPoolManager : MonoBehaviour
         }
         instance = this;
     }
-
-
+    
+    public void GenerateEnemyPools()
+    {
+        arsonistPool.GeneratePool();
+        sinnerPool.GeneratePool();
+        revenantPool.GeneratePool();
+        necroPool.GeneratePool();
+    }
 
 }

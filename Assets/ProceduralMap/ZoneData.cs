@@ -13,6 +13,8 @@ public class ZoneData
     public ZoneLayoutProfile zoneLayoutProfile;
     private bool isZoneFullyGenerated = false;
 
+    private ZoneHandler zoneHandler;
+
     public ZoneData(int cellSize, int zoneWidth, int zoneHeight, Vector2Int centerCoord, Vector3Int centerPos, GameObject zoneGO, DirectionEnum previousZoneDir,ZoneLayoutProfile zoneProfile)
     {
         this.cellSize = cellSize;
@@ -21,9 +23,11 @@ public class ZoneData
         this.centerCoord = centerCoord;
         this.centerPos = centerPos;
         this.zoneGO = zoneGO;
+        zoneHandler = zoneGO.GetComponent<ZoneHandler>(); 
         this.previousZoneDir = previousZoneDir;
         this.zoneLayoutProfile = zoneProfile;
     }
 
     public bool IsZoneFullyGenerated { get => isZoneFullyGenerated; set => isZoneFullyGenerated = value; }
+    public ZoneHandler ZoneHandler { get => zoneHandler; }
 }

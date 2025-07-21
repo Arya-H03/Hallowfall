@@ -37,24 +37,7 @@ public class PlayerCollisionController : MonoBehaviour
 
 
     }
-    //private void CheckIfPlayerOnTreeTilemap(Tilemap tilemap)
-    //{
-    //    Vector3Int playerCurrentCell = tilemap.WorldToCell(playerController.GetPlayerCenter());
-    //    bool onTreeTile = tilemap.GetTile(playerCurrentCell) != null;
-
-    //    //Enters Forest
-    //    if (onTreeTile && !isInForest)
-    //    {
-    //        OnEnterForest(tilemap);
-    //    }
-    //    //Exists Forest
-    //    else if (!onTreeTile && isInForest)
-    //    {
-    //        OnExitForest();  
-    //    }
-    //}
-  
-
+   
 }
 
 

@@ -69,7 +69,7 @@ public class ZoneHandler : MonoBehaviour
         this.cellSize = this.zoneData.cellSize;
 
         cellGrid = new CellGrid(this.cellSize, this.zoneWidth, this.zoneHeight, this.zoneData.centerPos);
-        groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
+        //groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
 
         StartCoroutine(GenerateZoneCoroutine());
 
@@ -85,12 +85,13 @@ public class ZoneHandler : MonoBehaviour
         yield return null;
 
         //cellGrid.PaintAllCells();
-        yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
-    
-        ZoneManager.Instance.navMeshSurface.BuildNavMesh();
-        yield return null;
-        yield return null;
+        
+        yield return StartCoroutine(cellGrid.PaintGrid());
+        //yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
 
+
+        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+      
         zoneData.IsZoneFullyGenerated = true;
     }
    
@@ -108,11 +109,7 @@ public class ZoneHandler : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Recursively check the zone to create the biggest subzones possile and marks them as partitioned
-    /// </summary>
-    /// <param name="cellGrid"></param>
-    /// <param name="startCell"></param>
+    
     private void CreateAllSubZoneBounds(CellGrid cellGrid, Cell startCell)
     {
         //Check along left edge
@@ -221,6 +218,8 @@ public class ZoneHandler : MonoBehaviour
         }
 
         return propsBlockEnum;
+
+      
     }
 
     private PropsBlock AddBlockComponent(GameObject propsBlockGO, PropsBlockEnum propsBlockEnum)
@@ -248,14 +247,14 @@ public class ZoneHandler : MonoBehaviour
     private void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        TilePaint tilePaint = new TilePaint {tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
+        CellPaint tilePaint = new CellPaint {tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
         cellGrid.LoopOverGrid((i, j) =>
         {
-            cellGrid.Cells[i, j].AddToTilePaints(tilePaint);
+            cellGrid.Cells[i, j].AddToCellPaint(tilePaint);
         });
     }
 
-    private void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, TilePaint[] tilePaints)
+    private void DrawStraightLineOfTiles(Vector2Int beginningCellCoord, Vector2Int endCellCoord, CellPaint[] tilePaints)
     {
         Vector2Int delta = endCellCoord - beginningCellCoord;
 
@@ -271,7 +270,7 @@ public class ZoneHandler : MonoBehaviour
                 //tilemap.SetTile(pos, tileBase);
                 cellGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
                 cellGrid.Cells[beginningCellCoord.x, y].IsPartitioned = true;
-                cellGrid.Cells[beginningCellCoord.x, y].AddToTilePaints(tilePaints);
+                cellGrid.Cells[beginningCellCoord.x, y].AddToCellPaint(tilePaints);
             }
         }
         else if (delta.y == 0) // Horizontal road
@@ -286,7 +285,7 @@ public class ZoneHandler : MonoBehaviour
                 //tilemap.SetTile(pos, tileBase);
                 cellGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
                 cellGrid.Cells[x, beginningCellCoord.y].IsPartitioned = true;
-                cellGrid.Cells[x, beginningCellCoord.y].AddToTilePaints(tilePaints);
+                cellGrid.Cells[x, beginningCellCoord.y].AddToCellPaint(tilePaints);
             }
         }
     }
@@ -301,7 +300,7 @@ public class ZoneHandler : MonoBehaviour
     {
         Tilemap boundsTilemap = /*ZoneManager.Instance.BoundsTilemap;*/ this.BoundsTilemap;
 
-        TilePaint[] tilePaints = { new TilePaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new TilePaint { /*tilemap = ZoneManager.Instance.BoundsTilemap*/  tilemap = this.BoundsTilemap, tileBase = zoneLayoutProfile.fenceRuleTile } };
+        CellPaint[] tilePaints = { new CellPaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new CellPaint { /*tilemap = ZoneManager.Instance.BoundsTilemap*/  tilemap = this.BoundsTilemap, tileBase = zoneLayoutProfile.fenceRuleTile } };
 
         //Bottom
         DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(cellGrid.CellPerRow - 1, 0), tilePaints);
@@ -363,7 +362,7 @@ public class ZoneHandler : MonoBehaviour
                 Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
                 zoneOpenings[dir][i] = cellCoord;
                 cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
-                cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveTilePaint();
+                cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveCellPaints();
             }
         }
 
@@ -422,7 +421,7 @@ public class ZoneHandler : MonoBehaviour
     private void ConnectTwoJunctionPoints(Tilemap stoneTilemap, Vector2Int p1, Vector2Int p2)
     {
         Vector2Int junction = GetOpeningJunctionPoint(p1, p2);
-        TilePaint[] tilePaint = { new TilePaint {/* tilemap = ZoneManager.Instance.GroundOneTilemap*/  tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile } };
+        CellPaint[] tilePaint = { new CellPaint {/* tilemap = ZoneManager.Instance.GroundOneTilemap*/  tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile } };
         DrawStraightLineOfTiles(p1, junction, tilePaint);
         DrawStraightLineOfTiles(p2, junction, tilePaint);
     }

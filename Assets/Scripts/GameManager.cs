@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-       
 
+        CapFPS();
         AudioManager.Instance.LoadSoundData();
         playerSkullCount = SaveSystem.LoadGameData().skullCount;
         UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);

@@ -2,14 +2,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public struct TilePaint
+public struct CellPaint
 {
     public Tilemap tilemap;
     public TileBase tileBase;
     public bool isOnGlobalTile;
+}
+
+public struct BlockPaint
+{
+    public Tilemap tilemap;
+    public TileBase tileBase;
+    public BoundsInt blockBounds;
 }
 [System.Serializable]
 public class Cell
@@ -23,14 +31,14 @@ public class Cell
     private Vector3Int globalCellPos = Vector3Int.zero;
     private Vector2Int localCellCoord = Vector2Int.zero;
 
-    private HashSet<TilePaint> tilePaintsHasSet = new();
+    private HashSet<CellPaint> cellPaintHashSet = new();
 
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsPartitioned { get => isPartitioned; set => isPartitioned = value; }
     public Vector2Int GlobalCellCoord => globalCellCoord;
     public Vector3Int GlobalCellPos => globalCellPos;
     public Vector2Int LocalCellCoord { get => localCellCoord; set => localCellCoord = value; }
-    public HashSet<TilePaint> TilePaintsHasSet => tilePaintsHasSet;
+    public HashSet<CellPaint> TilePaintsHasSet => cellPaintHashSet;
     public CellGrid ParentGrid => parentGrid;
 
     public Cell(CellGrid parentGrid, bool isOccupied, bool isPartitioned, Vector2Int globalCellCoord, Vector3Int gridPos, int cellSize)
@@ -44,18 +52,18 @@ public class Cell
     }
 
 
-    public void AddToTilePaints(TilePaint[] tilePaints)
+    public void AddToCellPaint(CellPaint[] tilePaints)
     {
-        foreach (TilePaint tilePaint in tilePaints)
+        foreach (CellPaint tilePaint in tilePaints)
         {
-            tilePaintsHasSet.Add(tilePaint);
+            cellPaintHashSet.Add(tilePaint);
         }
 
     }
 
-    public void AddToTilePaints(TilePaint tilePaint)
+    public void AddToCellPaint(CellPaint tilePaint)
     {
-        tilePaintsHasSet.Add(tilePaint);
+        cellPaintHashSet.Add(tilePaint);
     }
 
     public bool CheckIfAllNeighboorsAreOccupied(CellGrid cellGrid)
@@ -88,7 +96,7 @@ public class Cell
 
     public void PaintCell(CellGrid parentGrid)
     {
-        foreach (TilePaint tilePaint in tilePaintsHasSet)
+        foreach (CellPaint tilePaint in cellPaintHashSet)
         {
             if (!tilePaint.isOnGlobalTile) tilePaint.tilemap.SetTile((Vector3Int)GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow / 2, parentGrid.CellPerCol / 2, 0), tilePaint.tileBase);
             else tilePaint.tilemap.SetTile((Vector3Int)globalCellPos, tilePaint.tileBase);
@@ -102,9 +110,9 @@ public class Cell
         tilemap.SetTile(tilePos, tileBase);
     }
 
-    public void RemoveTilePaint()
+    public void RemoveCellPaints()
     {
-        tilePaintsHasSet.Clear();
+        cellPaintHashSet.Clear();
     }
 }
 public class CellGrid
@@ -118,6 +126,8 @@ public class CellGrid
 
     private Cell[,] cells;
     private CellGrid parentCellGrid;
+
+    private List<BlockPaint> blockPaintList = new();
 
     public Cell[,] Cells { get => cells; }
     public int CellPerCol { get => cellPerCol; }
@@ -146,6 +156,7 @@ public class CellGrid
         this.cellSize = parentCellGrid.cellSize;
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
+        this.blockPaintList = parentCellGrid.blockPaintList;
 
         cellPerRow = Mathf.FloorToInt(gridWidth / cellSize);
         cellPerCol = Mathf.FloorToInt(gridHeight / cellSize);
@@ -197,6 +208,49 @@ public class CellGrid
     {
         return cells[Mathf.FloorToInt(cellPerRow / 2), Mathf.FloorToInt(cellPerCol / 2)];
     }
+
+    public void AddToBlockPaints(Tilemap tilemap, TileBase tileBase, CellGrid cellGrid,CellGrid parentGrid)
+    {
+        BoundsInt blockBounds = new BoundsInt((Vector3Int)cellGrid.Cells[0,0].GlobalCellCoord - new Vector3Int(parentGrid.CellPerRow / 2, parentGrid.CellPerCol / 2, 0), new Vector3Int(cellGrid.cellPerRow, cellGrid.cellPerCol,1));
+        BlockPaint blockPaint = new BlockPaint { tilemap = tilemap, tileBase = tileBase, blockBounds = blockBounds };
+        
+        parentGrid.blockPaintList.Add(blockPaint);
+    }
+
+    private void PaintBlock(BlockPaint blockPaint)
+    {
+        BoundsInt blockBounds = blockPaint.blockBounds;
+       
+
+        int width = blockBounds.size.x;
+        int height = blockBounds.size.y;
+
+        TileBase[] tilePaints = new TileBase[width * height];
+
+        if (blockPaint.tileBase == null || blockPaint.tilemap == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < tilePaints.Length; i++)
+        {
+            tilePaints[i] = blockPaint.tileBase;
+        }
+
+        blockPaint.tilemap.SetTilesBlock(blockBounds, tilePaints);
+    }
+
+    public IEnumerator PaintGrid()
+    {
+        foreach (BlockPaint blockPaint in blockPaintList)
+        {
+         
+            PaintBlock(blockPaint);
+           
+        }
+        yield return null;
+        PaintAllCells();
+    }
     public IEnumerator PaintAllCellsCoroutine()
     {
         int count = 0;
@@ -206,7 +260,7 @@ public class CellGrid
             {
                 cells[i, j].PaintCell(this);
                 count++;
-                if (count >= 25)
+                if (count >= 100)
                 {
                     count = 0;
                     yield return null;

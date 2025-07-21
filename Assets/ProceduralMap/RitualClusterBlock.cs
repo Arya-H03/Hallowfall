@@ -7,7 +7,7 @@ public class RitualClusterBlock : PropsBlock
 {
     protected override void PopulateBlock(CellGrid cellGrid)
     {
-        TilePaint grassTilePaint = new TilePaint {  tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile, isOnGlobalTile = true };
+        CellPaint grassTilePaint = new CellPaint {  tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile, isOnGlobalTile = false };
         Cell blockCenterCell = cellGrid.GetCenterCellOfGrid();
 
         //Chalice
@@ -36,14 +36,15 @@ public class RitualClusterBlock : PropsBlock
             if (Random.value > 0.7f && !cellGrid.Cells[i, j].IsOccupied)
             {
                 TileBase skullTile = MyUtils.GetRandomRef(zoneLayoutProfile.skullTiles);
-                TilePaint skullTilePaint = new TilePaint { tilemap = zoneHandler.PropsNoCollisionTilemap, tileBase = skullTile };
-                cellGrid.Cells[i, j].AddToTilePaints(skullTilePaint);
+                CellPaint skullTilePaint = new CellPaint { tilemap = zoneHandler.PropsNoCollisionTilemap, tileBase = skullTile };
+                cellGrid.Cells[i, j].AddToCellPaint(skullTilePaint);
             }
 
-            cellGrid.Cells[i, j].AddToTilePaints(grassTilePaint);
         });
-      
-      
+
+        cellGrid.AddToBlockPaints(zoneHandler.GroundOneTilemap, zoneLayoutProfile.grassRuletile, cellGrid, cellGrid.ParentCellGrid);
+
+
     }
 
   

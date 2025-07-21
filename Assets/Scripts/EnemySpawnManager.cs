@@ -41,7 +41,8 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(MainEnemySpawnCoroutine());
+        
+        //StartCoroutine(MainEnemySpawnCoroutine());
     }
 
     private IEnumerator MainEnemySpawnCoroutine()
@@ -51,15 +52,15 @@ public class EnemySpawnManager : MonoBehaviour
             waveCounter++;
             yield return new WaitForSeconds(mainWaveDelay);
 
-            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Arsonist, GenerateRandomSpawnPosition(10));
+            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Arsonist, GenerateRandomSpawnPosition(5));
 
             yield return new WaitForSeconds(1);
-            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Sinner, GenerateRandomSpawnPosition(8));
+            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Sinner, GenerateRandomSpawnPosition(5));
 
             if (waveCounter >= 5)
             {
                 mainWaveDelay += 5;
-                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Necromancer, GenerateRandomSpawnPosition(8));
+                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Necromancer, GenerateRandomSpawnPosition(5));
             }
 
 
