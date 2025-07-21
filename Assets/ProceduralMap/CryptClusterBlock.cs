@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CryptClusterBlock : PropsBlock
 {
-    protected override void PopulateBlock(CellGrid cellGrid)
+    protected override void PopulateBlock(SubCellGrid subCellGrid)
     {
         CellPaint tilePaintStone = new CellPaint {tilemap = zoneHandler.GroundTwoTilemap, tileBase = zoneLayoutProfile.stoneRoadRuleTile };
             CellPaint tilePaintGrass = new CellPaint {tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile,isOnGlobalTile = false };
@@ -11,7 +11,7 @@ public class CryptClusterBlock : PropsBlock
             GameObject cryptPrefab = MyUtils.GetRandomRef<GameObject>(zoneLayoutProfile.cryptPrefabs);
             Bounds cryptBounds = MyUtils.GetCombinedBounds(cryptPrefab);
         
-            Cell centerBlockCell = cellGrid.GetCenterCellOfGrid();
+            Cell centerBlockCell = subCellGrid.GetCenterCellOfGrid();
 
             GameObject crypt = Instantiate(cryptPrefab, (Vector3Int)centerBlockCell.GlobalCellPos, Quaternion.identity);
             crypt.transform.parent = propsHolder.transform;
@@ -26,40 +26,40 @@ public class CryptClusterBlock : PropsBlock
 
 
             //Flame Holders
-            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);          
-            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
-            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
+            subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, minY - 1), Quaternion.identity, true, crypt.transform);          
+            subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(maxX, minY - 1), Quaternion.identity, true, crypt.transform);
+            subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(minX - 1, maxY ), Quaternion.identity, true, crypt.transform);
+            subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.flameHolderPrefab, new Vector2Int(maxX , maxY ), Quaternion.identity, true, crypt.transform);
 
            
 
-            for (int j = 0; j < cellGrid.CellPerCol; j++)
+            for (int j = 0; j < subCellGrid.CellPerCol; j++)
             {
-                for (int i = 0; i < cellGrid.CellPerRow; i++)
+                for (int i = 0; i < subCellGrid.CellPerRow; i++)
                 {
                     bool isInsideCryptArea = i >= minX && i < maxX && j >= minY && j < maxY;
                     bool isAroundCryptArea = i >= minX - 1 && i < maxX + 1 && j >= minY - 1 && j < maxY + 1;
 
                     if (isInsideCryptArea)
                     {
-                        cellGrid.Cells[i, j].IsOccupied = true;                       
+                        subCellGrid.Cells[i, j].IsOccupied = true;                       
                     }
                     //if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                     //{
                     //    GameObject skullSpikesPrefab = graveYardLayoutProfile.GetRandomProps(graveYardLayoutProfile.skullSpikesPrefabs);
-                    //    GameObject skullOnSpike = Instantiate(skullSpikesPrefab, (Vector3Int)cellGrid.Cells[i, j].GlobalCellPos, Quaternion.identity);
+                    //    GameObject skullOnSpike = Instantiate(skullSpikesPrefab, (Vector3Int)subCellGrid.Cells[i, j].GlobalCellPos, Quaternion.identity);
                     //    skullOnSpike.transform.parent = propsHolder.transform;
-                    //    cellGrid.Cells[i, j].IsOccupied = true;
+                    //    subCellGrid.Cells[i, j].IsOccupied = true;
 
                     //}
                     if (isAroundCryptArea)
                     {                    
-                        cellGrid.Cells[i, j].AddToCellPaint(tilePaintStone);
+                        subCellGrid.Cells[i, j].AddToCellPaint(tilePaintStone);
 
                     }
                     else
                     {                      
-                        cellGrid.Cells[i, j].AddToCellPaint(tilePaintGrass);
+                        subCellGrid.Cells[i, j].AddToCellPaint(tilePaintGrass);
                     }
 
 

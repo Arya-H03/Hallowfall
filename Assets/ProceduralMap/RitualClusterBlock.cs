@@ -5,13 +5,13 @@ using UnityEngine.Tilemaps;
 
 public class RitualClusterBlock : PropsBlock
 {
-    protected override void PopulateBlock(CellGrid cellGrid)
+    protected override void PopulateBlock(SubCellGrid subCellGrid)
     {
         CellPaint grassTilePaint = new CellPaint {  tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile, isOnGlobalTile = false };
-        Cell blockCenterCell = cellGrid.GetCenterCellOfGrid();
+        Cell blockCenterCell = subCellGrid.GetCenterCellOfGrid();
 
         //Chalice
-        cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.chalicePrefab, blockCenterCell.LocalCellCoord, Quaternion.identity, true, propsHolder.transform);
+        subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.chalicePrefab, blockCenterCell.LocalCellCoord, Quaternion.identity, true, propsHolder.transform);
 
         //Candles
         List<Vector2Int> candleCoordList = new List<Vector2Int>();
@@ -27,22 +27,22 @@ public class RitualClusterBlock : PropsBlock
 
         foreach (Vector2Int candleCoord in candleCoordList)
         {
-            cellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.candlePrefab, candleCoord, Quaternion.identity, true, propsHolder.transform);
+            subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.candlePrefab, candleCoord, Quaternion.identity, true, propsHolder.transform);
         }
 
-        cellGrid.LoopOverGrid((i, j) =>
+        subCellGrid.LoopOverGrid((i, j) =>
         {
             //Skulls             
-            if (Random.value > 0.7f && !cellGrid.Cells[i, j].IsOccupied)
+            if (Random.value > 0.7f && !subCellGrid.Cells[i, j].IsOccupied)
             {
                 TileBase skullTile = MyUtils.GetRandomRef(zoneLayoutProfile.skullTiles);
                 CellPaint skullTilePaint = new CellPaint { tilemap = zoneHandler.PropsNoCollisionTilemap, tileBase = skullTile };
-                cellGrid.Cells[i, j].AddToCellPaint(skullTilePaint);
+                subCellGrid.Cells[i, j].AddToCellPaint(skullTilePaint);
             }
 
         });
 
-        cellGrid.AddToBlockPaints(zoneHandler.GroundOneTilemap, zoneLayoutProfile.grassRuletile, cellGrid, cellGrid.ParentCellGrid);
+        subCellGrid.AddToBlockPaints(zoneHandler.GroundOneTilemap, zoneLayoutProfile.grassRuletile, subCellGrid, subCellGrid.ParentCellGrid);
 
 
     }

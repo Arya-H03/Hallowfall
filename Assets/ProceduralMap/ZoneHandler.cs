@@ -8,9 +8,6 @@ using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 
-/// <summary>
-/// Handles the generation and setup of individual zones, including tile painting and prop block instantiation.
-/// </summary>
 public class ZoneHandler : MonoBehaviour
 {
  
@@ -68,7 +65,9 @@ public class ZoneHandler : MonoBehaviour
         this.zoneHeight = this.zoneData.zoneHeight;
         this.cellSize = this.zoneData.cellSize;
 
-        cellGrid = new CellGrid(this.cellSize, this.zoneWidth, this.zoneHeight, this.zoneData.centerPos);
+        cellGrid = new CellGrid(this.cellSize, this.zoneWidth, this.zoneHeight);
+        cellGrid.InitializeGridCells(this.zoneData.centerPos);
+
         //groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
 
         StartCoroutine(GenerateZoneCoroutine());
@@ -178,7 +177,7 @@ public class ZoneHandler : MonoBehaviour
                 GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
                 go.transform.parent = this.transform;
                 PropsBlock propsBlock = AddBlockComponent(go, propsBlockEnum);
-                propsBlock.Init(this, cellGrid, zoneBounds.position, zoneLayoutProfile, zoneBounds);
+                propsBlock.Init(this, cellGrid, zoneBounds.position,  zoneBounds, zoneLayoutProfile);
 
             }
             else
@@ -439,7 +438,7 @@ public class ZoneHandler : MonoBehaviour
 
     }
 
-    private void VisualizeGridCells(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
+    private void VisualizeGridCells(SubCellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
         cellGrid.LoopOverGrid((i, j) =>
         {

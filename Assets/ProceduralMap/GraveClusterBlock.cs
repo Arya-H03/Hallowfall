@@ -6,12 +6,12 @@ using UnityEngine.Tilemaps;
 public class GraveClusterBlock : PropsBlock
 {
     private ParticleSystem earthShakeParticleSystem;
-    protected override void PopulateBlock(CellGrid cellGrid)
+    protected override void PopulateBlock(SubCellGrid subCellGrid)
     {
         //CellPaint grassTilePaint = new CellPaint { tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile, isOnGlobalTile = false };
-        for (int y = 1; y < cellGrid.CellPerCol; y += 3)
+        for (int y = 1; y < subCellGrid.CellPerCol; y += 3)
         {
-            for (int x = 1; x < cellGrid.CellPerRow - 1; x += 2)
+            for (int x = 1; x < subCellGrid.CellPerRow - 1; x += 2)
             {
 
 
@@ -19,28 +19,28 @@ public class GraveClusterBlock : PropsBlock
                 if (graveStoneTilebase != null)
                 {
                     CellPaint tilePaintGravestone = new CellPaint {tilemap = zoneHandler.PropsWithCollisionTilemap, tileBase = graveStoneTilebase };
-                    cellGrid.Cells[x, y].AddToCellPaint(tilePaintGravestone);
-                    cellGrid.Cells[x, y].IsOccupied = true;
+                    subCellGrid.Cells[x, y].AddToCellPaint(tilePaintGravestone);
+                    subCellGrid.Cells[x, y].IsOccupied = true;
                 }
 
-                TryAddGraveDirt(zoneLayoutProfile, new Vector2Int(x, y - 1), celLGrid);
+                TryAddGraveDirt(zoneLayoutProfile, new Vector2Int(x, y - 1), subCellGrid);
                
 
             }
         }
 
-        celLGrid.LoopOverGrid((i, j) =>
+        base.subCellGrid.LoopOverGrid((i, j) =>
         {
-            if (!cellGrid.Cells[i, j].IsOccupied) TryAddSkulls(zoneLayoutProfile, celLGrid.Cells[i, j]);
-            //cellGrid.Cells[i, j].AddToCellPaint(grassTilePaint);
+            if (!subCellGrid.Cells[i, j].IsOccupied) TryAddSkulls(zoneLayoutProfile, base.subCellGrid.Cells[i, j]);
+            //subCellGrid.Cells[i, j].AddToCellPaint(grassTilePaint);
         });
 
       
-        cellGrid.AddToBlockPaints(zoneHandler.GroundOneTilemap, zoneLayoutProfile.grassRuletile, cellGrid,cellGrid.ParentCellGrid);
+        subCellGrid.AddToBlockPaints(zoneHandler.GroundOneTilemap, zoneLayoutProfile.grassRuletile, subCellGrid,subCellGrid.ParentCellGrid);
 
 
     }
-    private void TryAddGraveDirt(ZoneLayoutProfile zoneLayoutProfile, Vector2Int cellCoord, CellGrid cellGrid)
+    private void TryAddGraveDirt(ZoneLayoutProfile zoneLayoutProfile, Vector2Int cellCoord, SubCellGrid subCellGrid)
     {
         if (Random.Range(1, 7) > 4)
         {
@@ -48,9 +48,9 @@ public class GraveClusterBlock : PropsBlock
             TileBase graveDirtTilebase = zoneLayoutProfile.GetRandomTile(zoneLayoutProfile.graveDirtTiles, false);
             if (graveDirtTilebase != null)
             {
-                cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                subCellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
                 CellPaint tilePaintGravestone = new CellPaint { tilemap = zoneHandler.GroundTwoTilemap, tileBase = graveDirtTilebase };
-                cellGrid.Cells[cellCoord.x, cellCoord.y].AddToCellPaint(tilePaintGravestone);
+                subCellGrid.Cells[cellCoord.x, cellCoord.y].AddToCellPaint(tilePaintGravestone);
             }
         }
     }
@@ -99,19 +99,19 @@ public class GraveClusterBlock : PropsBlock
         while (isPlayerOnThisBlock)
         {
 
-            int x = Random.Range(0, celLGrid.CellPerRow);
-            int y = Random.Range(0, celLGrid.CellPerCol);
+            int x = Random.Range(0, subCellGrid.CellPerRow);
+            int y = Random.Range(0, subCellGrid.CellPerCol);
 
-            if (!celLGrid.Cells[x, y].IsOccupied)
+            if (!subCellGrid.Cells[x, y].IsOccupied)
             {
-                GameObject groundShakeEffect = celLGrid.TryInstantiateTempGameobjectOnTile(zoneLayoutProfile.groundShakeEffectPrefab, new Vector2Int(x, y), Quaternion.identity);
+                GameObject groundShakeEffect = subCellGrid.TryInstantiateTempGameobjectOnTile(zoneLayoutProfile.groundShakeEffectPrefab, new Vector2Int(x, y), Quaternion.identity);
                 if (groundShakeEffect)
                 {
                     earthShakeParticleSystem.transform.position = groundShakeEffect.transform.position; 
                     earthShakeParticleSystem.Play();
-                    //celLGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
+                    //subCellGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
                     yield return new WaitForSeconds(0.1f);
-                    celLGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
+                    subCellGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
                 }
 
              
