@@ -42,7 +42,8 @@ public class CryptClusterBlock : PropsBlock
 
                     if (isInsideCryptArea)
                     {
-                        subCellGrid.Cells[i, j].IsOccupied = true;                       
+                        subCellGrid.Cells[i, j].MarkCellAsOccupied();             
+                        subCellGrid.Cells[i, j].MarkCellAsUnWalkable();                     
                     }
                     //if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                     //{

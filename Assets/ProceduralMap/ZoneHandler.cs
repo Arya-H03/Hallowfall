@@ -22,6 +22,7 @@ public class ZoneHandler : MonoBehaviour
     private List<BoundsInt> listOfPartitionedSubzoneBounds = new();
     private Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new();
 
+    private FlowFieldGenerator flowFieldGenerator;
  
     [SerializeField] private Tilemap groundZeroTilemap;
     [SerializeField] private Tilemap groundOneTilemap;
@@ -70,6 +71,8 @@ public class ZoneHandler : MonoBehaviour
 
         //groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
 
+        flowFieldGenerator = new FlowFieldGenerator();
+
         StartCoroutine(GenerateZoneCoroutine());
 
     }
@@ -84,16 +87,32 @@ public class ZoneHandler : MonoBehaviour
         yield return null;
 
         //cellGrid.PaintAllCells();
-        
+
         yield return StartCoroutine(cellGrid.PaintGrid());
         //yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
 
 
         //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
-      
+
         zoneData.IsZoneFullyGenerated = true;
+
+        StartCoroutine(CallFlowFieldGeneration());
+
     }
+        
    
+    private IEnumerator CallFlowFieldGeneration()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.2f);
+            flowFieldGenerator.GenerateFlowField(cellGrid, GameManager.Instance.Player.transform.position);
+            GridSystemDebugger.Instance.VisualizeCellFlowDirection(cellGrid, zoneData.centerCoord);
+            
+
+        }
+
+    }
 
 
     private void PopulateZoneWithPropBlocks(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
@@ -156,7 +175,7 @@ public class ZoneHandler : MonoBehaviour
             for (int y = startCell.GlobalCellCoord.y; y < startCell.GlobalCellCoord.y + height; y++)
             {
                 if (x >= 0 && x < cellGrid.CellPerRow && y >= 0 && y < cellGrid.CellPerCol)
-                    cellGrid.Cells[x, y].IsPartitioned = true;
+                    cellGrid.Cells[x, y].MarkCellAsPartitioned();
             }
         }
 
@@ -267,8 +286,8 @@ public class ZoneHandler : MonoBehaviour
             {
                 Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
                 //tilemap.SetTile(pos, tileBase);
-                cellGrid.Cells[beginningCellCoord.x, y].IsOccupied = true;
-                cellGrid.Cells[beginningCellCoord.x, y].IsPartitioned = true;
+                cellGrid.Cells[beginningCellCoord.x, y].MarkCellAsOccupied();
+                cellGrid.Cells[beginningCellCoord.x, y].MarkCellAsPartitioned();
                 cellGrid.Cells[beginningCellCoord.x, y].AddToCellPaint(tilePaints);
             }
         }
@@ -282,8 +301,8 @@ public class ZoneHandler : MonoBehaviour
 
                 Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
                 //tilemap.SetTile(pos, tileBase);
-                cellGrid.Cells[x, beginningCellCoord.y].IsOccupied = true;
-                cellGrid.Cells[x, beginningCellCoord.y].IsPartitioned = true;
+                cellGrid.Cells[x, beginningCellCoord.y].MarkCellAsOccupied();
+                cellGrid.Cells[x, beginningCellCoord.y].MarkCellAsPartitioned();
                 cellGrid.Cells[x, beginningCellCoord.y].AddToCellPaint(tilePaints);
             }
         }
@@ -301,9 +320,9 @@ public class ZoneHandler : MonoBehaviour
 
         CellPaint[] tilePaints = { new CellPaint { /*tilemap = ZoneManager.Instance.GroundOneTilemap*/ tilemap = this.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile }, new CellPaint { /*tilemap = ZoneManager.Instance.BoundsTilemap*/  tilemap = this.BoundsTilemap, tileBase = zoneLayoutProfile.fenceRuleTile } };
 
-        //Bottom
+        //Down
         DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(cellGrid.CellPerRow - 1, 0), tilePaints);
-        //Top
+        //Up
         DrawStraightLineOfTiles(new Vector2Int(0, cellGrid.CellPerCol - 1), new Vector2Int(cellGrid.CellPerRow - 1, cellGrid.CellPerCol - 1), tilePaints);
         //Left
         DrawStraightLineOfTiles(new Vector2Int(0, 0), new Vector2Int(0, cellGrid.CellPerCol - 1), tilePaints);
@@ -344,10 +363,10 @@ public class ZoneHandler : MonoBehaviour
 
                 switch (dir)
                 {
-                    case DirectionEnum.Bottom:
+                    case DirectionEnum.Down:
                         cellCoord = new Vector2Int(openingIndices[i], 0);
                         break;
-                    case DirectionEnum.Top:
+                    case DirectionEnum.Up:
                         cellCoord = new Vector2Int(openingIndices[i], cellGrid.CellPerCol - 1);
                         break;
                     case DirectionEnum.Left:
@@ -360,7 +379,7 @@ public class ZoneHandler : MonoBehaviour
 
                 Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
                 zoneOpenings[dir][i] = cellCoord;
-                cellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                cellGrid.Cells[cellCoord.x, cellCoord.y].MarkCellAsOccupied();
                 cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveCellPaints();
             }
         }
@@ -382,7 +401,7 @@ public class ZoneHandler : MonoBehaviour
             var opening3 = zoneOpenings.ElementAt(2);
             DirectionEnum thirdDir = opening3.Key;
 
-            if (thirdDir == DirectionEnum.Top || thirdDir == DirectionEnum.Bottom)
+            if (thirdDir == DirectionEnum.Up || thirdDir == DirectionEnum.Down)
             {
                 if (zoneOpenings.ContainsKey(DirectionEnum.Left))
                     ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Left], opening3.Value);
@@ -393,11 +412,11 @@ public class ZoneHandler : MonoBehaviour
 
             if (thirdDir == DirectionEnum.Left || thirdDir == DirectionEnum.Right)
             {
-                if (zoneOpenings.ContainsKey(DirectionEnum.Top))
-                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Top], opening3.Value);
+                if (zoneOpenings.ContainsKey(DirectionEnum.Up))
+                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Up], opening3.Value);
 
-                if (zoneOpenings.ContainsKey(DirectionEnum.Bottom))
-                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Bottom], opening3.Value);
+                if (zoneOpenings.ContainsKey(DirectionEnum.Down))
+                    ConnectAllCenterJunctionPoints(zoneOpenings[DirectionEnum.Down], opening3.Value);
             }
         }
 
@@ -438,22 +457,6 @@ public class ZoneHandler : MonoBehaviour
 
     }
 
-    private void VisualizeGridCells(SubCellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
-    {
-        cellGrid.LoopOverGrid((i, j) =>
-        {
-            GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity);
-
-            if (!cellGrid.Cells[j, i].IsOccupied)
-            {
-                go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.3f);
-            }
-            else if (cellGrid.Cells[j, i].IsOccupied)
-            {
-                go.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.3f);
-            }
-        });
-    }
 }
 
 

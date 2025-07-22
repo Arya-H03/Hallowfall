@@ -59,22 +59,22 @@ namespace TMPro.Examples
             switch (anchor_position)
             {
                 case FpsCounterAnchorPositions.TopLeft:
-                    //m_TextMeshPro.anchor = AnchorPositions.TopLeft;
+                    //m_TextMeshPro.anchor = AnchorPositions.UpLeft;
                     m_textContainer.anchorPosition = TextContainerAnchors.TopLeft;
                     m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(0, 1, 100.0f));
                     break;
                 case FpsCounterAnchorPositions.BottomLeft:
-                    //m_TextMeshPro.anchor = AnchorPositions.BottomLeft;
+                    //m_TextMeshPro.anchor = AnchorPositions.DownLeft;
                     m_textContainer.anchorPosition = TextContainerAnchors.BottomLeft;
                     m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(0, 0, 100.0f));
                     break;
                 case FpsCounterAnchorPositions.TopRight:
-                    //m_TextMeshPro.anchor = AnchorPositions.TopRight;
+                    //m_TextMeshPro.anchor = AnchorPositions.UpRight;
                     m_textContainer.anchorPosition = TextContainerAnchors.TopRight;
                     m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(1, 1, 100.0f));
                     break;
                 case FpsCounterAnchorPositions.BottomRight:
-                    //m_TextMeshPro.anchor = AnchorPositions.BottomRight;
+                    //m_TextMeshPro.anchor = AnchorPositions.DownRight;
                     m_textContainer.anchorPosition = TextContainerAnchors.BottomRight;
                     m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(1, 0, 100.0f));
                     break;

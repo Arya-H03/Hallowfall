@@ -62,7 +62,7 @@ public class ZoneManager : MonoBehaviour
 
     private void Update()
     {
-        CheckForPlayerEdgeProximity();
+        //CheckForPlayerEdgeProximity();
     }
 
    
@@ -108,7 +108,7 @@ public class ZoneManager : MonoBehaviour
         Vector3 playerPos = player.transform.position;
         Vector3Int currentZoneCenter = FindZoneCenterPosition(GetCurrentZoneCenterCoord());
 
-        Vector2Int[] allDirections = MyUtils.GetAllDirectionsVector();
+        Vector2Int[] allDirections = MyUtils.GetAllDirectionsVectorArray();
         Dictionary<Vector2Int, DirectionEnum> directionDic = MyUtils.GetDirectionDicWithVectorKey();
 
         foreach (Vector2Int dir in allDirections)
@@ -157,27 +157,27 @@ public class ZoneManager : MonoBehaviour
             case DirectionEnum.Left:
                 TryGenerateZone(currentCoord + Vector2Int.left, DirectionEnum.Right);
                 break;
-            case DirectionEnum.Top:
-                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.Bottom);
+            case DirectionEnum.Up:
+                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.Down);
                 break;
-            case DirectionEnum.Bottom:
-                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.Top);
+            case DirectionEnum.Down:
+                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.Up);
                 break;
-            case DirectionEnum.TopRight:
-                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.BottomLeft);
-                TryGenerateZone(currentCoord + new Vector2Int(1, 1), DirectionEnum.BottomLeft);
+            case DirectionEnum.UpRight:
+                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.DownLeft);
+                TryGenerateZone(currentCoord + new Vector2Int(1, 1), DirectionEnum.DownLeft);
                 break;
-            case DirectionEnum.TopLeft:
-                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.BottomRight);
-                TryGenerateZone(currentCoord + new Vector2Int(-1, 1), DirectionEnum.BottomRight);
+            case DirectionEnum.UpLeft:
+                TryGenerateZone(currentCoord + Vector2Int.up, DirectionEnum.DownRight);
+                TryGenerateZone(currentCoord + new Vector2Int(-1, 1), DirectionEnum.DownRight);
                 break;
-            case DirectionEnum.BottomRight:
-                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.TopLeft);
-                TryGenerateZone(currentCoord + new Vector2Int(1, -1), DirectionEnum.TopLeft);
+            case DirectionEnum.DownRight:
+                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.UpLeft);
+                TryGenerateZone(currentCoord + new Vector2Int(1, -1), DirectionEnum.UpLeft);
                 break;
-            case DirectionEnum.BottomLeft:
-                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.TopRight);
-                TryGenerateZone(currentCoord + new Vector2Int(-1, -1), DirectionEnum.TopRight);
+            case DirectionEnum.DownLeft:
+                TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.UpRight);
+                TryGenerateZone(currentCoord + new Vector2Int(-1, -1), DirectionEnum.UpRight);
                 break;
         }
     }

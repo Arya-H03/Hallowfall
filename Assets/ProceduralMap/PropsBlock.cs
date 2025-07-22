@@ -62,7 +62,7 @@ public class PropsBlock : MonoBehaviour
         PopulateBlock(subCellGrid);
 
     }
-    //protected void VisualizeGridCells(SubCellGrid subCellGrid, ZoneLayoutProfile zoneLayoutProfile)
+    //protected void VisualizeOccupiedCells(SubCellGrid subCellGrid, ZoneLayoutProfile zoneLayoutProfile)
     //{
     //    for (int i = 0; i < subCellGrid.CellPerCol; i++)
     //    {

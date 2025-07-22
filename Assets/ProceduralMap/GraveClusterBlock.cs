@@ -20,7 +20,8 @@ public class GraveClusterBlock : PropsBlock
                 {
                     CellPaint tilePaintGravestone = new CellPaint {tilemap = zoneHandler.PropsWithCollisionTilemap, tileBase = graveStoneTilebase };
                     subCellGrid.Cells[x, y].AddToCellPaint(tilePaintGravestone);
-                    subCellGrid.Cells[x, y].IsOccupied = true;
+                    subCellGrid.Cells[x, y].MarkCellAsOccupied();
+                    subCellGrid.Cells[x, y].MarkCellAsUnWalkable();
                 }
 
                 TryAddGraveDirt(zoneLayoutProfile, new Vector2Int(x, y - 1), subCellGrid);
@@ -48,7 +49,7 @@ public class GraveClusterBlock : PropsBlock
             TileBase graveDirtTilebase = zoneLayoutProfile.GetRandomTile(zoneLayoutProfile.graveDirtTiles, false);
             if (graveDirtTilebase != null)
             {
-                subCellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
+                //subCellGrid.Cells[cellCoord.x, cellCoord.y].IsOccupied = true;
                 CellPaint tilePaintGravestone = new CellPaint { tilemap = zoneHandler.GroundTwoTilemap, tileBase = graveDirtTilebase };
                 subCellGrid.Cells[cellCoord.x, cellCoord.y].AddToCellPaint(tilePaintGravestone);
             }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public enum DirectionEnum
@@ -7,14 +6,12 @@ public enum DirectionEnum
     None,
     Right,
     Left,
-    Top,
-    Bottom,
-    TopRight,
-    TopLeft,
-    BottomRight,
-    BottomLeft
-
-
+    Up,
+    Down,
+    UpRight,
+    UpLeft,
+    DownRight,
+    DownLeft
 }
 
 public static class MyUtils
@@ -23,7 +20,7 @@ public static class MyUtils
     //  Direction Utilities
     // -------------------------
 
-    public static Vector2Int[] GetCardinalDirectionsVector() => new Vector2Int[]
+    public static Vector2Int[] GetCardinalDirectionsVectorArray() => new Vector2Int[]
     {
         Vector2Int.right,
         Vector2Int.left,
@@ -31,7 +28,28 @@ public static class MyUtils
         Vector2Int.down,
     };
 
-    public static Vector2Int[] GetAllDirectionsVector() => new Vector2Int[]
+    public static Vector2Int[] GetAllDirectionsVectorArray() => new Vector2Int[]
+    {
+        Vector2Int.right,
+        Vector2Int.left,
+        Vector2Int.up,
+        Vector2Int.down,
+        new Vector2Int(1, 1),
+        new Vector2Int(-1, 1),
+        new Vector2Int(1, -1),
+        new Vector2Int(-1, -1),
+    };
+
+    public static List<Vector2Int> GetCardinalDirectionsVectorList() => new List<Vector2Int>
+    {
+        Vector2Int.right,
+        Vector2Int.left,
+        Vector2Int.up,
+        Vector2Int.down
+    };
+
+
+    public static List<Vector2Int> GetAllDirectionsVectorList() => new List<Vector2Int>
     {
         Vector2Int.right,
         Vector2Int.left,
@@ -47,20 +65,20 @@ public static class MyUtils
     {
         DirectionEnum.Right,
         DirectionEnum.Left,
-        DirectionEnum.Top,
-        DirectionEnum.Bottom
+        DirectionEnum.Up,
+        DirectionEnum.Down
     };
 
     public static List<DirectionEnum> GetAllDirectionEnumList() => new List<DirectionEnum>
     {
         DirectionEnum.Right,
         DirectionEnum.Left,
-        DirectionEnum.Top,
-        DirectionEnum.Bottom,
-        DirectionEnum.TopRight,
-        DirectionEnum.TopLeft,
-        DirectionEnum.BottomRight,
-        DirectionEnum.BottomLeft,
+        DirectionEnum.Up,
+        DirectionEnum.Down,
+        DirectionEnum.UpRight,
+        DirectionEnum.UpLeft,
+        DirectionEnum.DownRight,
+        DirectionEnum.DownLeft,
     };
 
     public static List<DirectionEnum> GetHorizontalDirectionEnumList() => new List<DirectionEnum>
@@ -71,8 +89,8 @@ public static class MyUtils
 
     public static List<DirectionEnum> GetVerticalDirectionEnumList() => new List<DirectionEnum>
     {
-        DirectionEnum.Top,
-        DirectionEnum.Bottom
+        DirectionEnum.Up,
+        DirectionEnum.Down
     };
 
     public static Dictionary<DirectionEnum, Vector2Int> GetDirectionDicWithEnumKey()
@@ -81,13 +99,52 @@ public static class MyUtils
     {
         { DirectionEnum.Right,        Vector2Int.right },
         { DirectionEnum.Left,         Vector2Int.left},
-        { DirectionEnum.Top,          Vector2Int.up },
-        { DirectionEnum.Bottom,       Vector2Int.down },
-        { DirectionEnum.TopRight,     new Vector2Int(1, 1)  },
-        { DirectionEnum.TopLeft,      new Vector2Int(-1, 1) },
-        { DirectionEnum.BottomRight,  new Vector2Int(1, -1) },
-        { DirectionEnum.BottomLeft,   new Vector2Int(-1, -1) }
+        { DirectionEnum.Up,          Vector2Int.up },
+        { DirectionEnum.Down,       Vector2Int.down },
+        { DirectionEnum.UpRight,     new Vector2Int(1, 1)  },
+        { DirectionEnum.UpLeft,      new Vector2Int(-1, 1) },
+        { DirectionEnum.DownRight,  new Vector2Int(1, -1) },
+        { DirectionEnum.DownLeft,   new Vector2Int(-1, -1) }
     };
+    }
+
+    public static Vector2Int GetVectorFromDir(DirectionEnum dirEnum)
+    {
+        switch (dirEnum)
+        {
+            case DirectionEnum.Right:
+                return Vector2Int.right;
+            case DirectionEnum.Left:
+                return Vector2Int.left;
+            case DirectionEnum.Up:
+                return Vector2Int.up;
+            case DirectionEnum.Down:
+                return Vector2Int.down;
+            case DirectionEnum.UpRight:
+                return new Vector2Int(1, 1);
+            case DirectionEnum.UpLeft:
+                return new Vector2Int(-1, 1);
+            case DirectionEnum.DownRight:
+                return new Vector2Int(1, -1);
+            case DirectionEnum.DownLeft:
+                return new Vector2Int(-1, -1);
+
+            default: return Vector2Int.zero;
+        }
+    }
+
+    public static DirectionEnum GetDirFromVector(Vector2Int vector)
+    {
+        if (vector == Vector2Int.right) return DirectionEnum.Right;
+        if (vector == Vector2Int.left) return DirectionEnum.Left;
+        if (vector == Vector2Int.up) return DirectionEnum.Up;
+        if (vector == Vector2Int.down) return DirectionEnum.Down;
+        if (vector == new Vector2Int(1, 1)) return DirectionEnum.UpRight;
+        if (vector == new Vector2Int(-1, 1)) return DirectionEnum.UpLeft;
+        if (vector == new Vector2Int(1, -1)) return DirectionEnum.DownRight;
+        if (vector == new Vector2Int(-1, -1)) return DirectionEnum.DownLeft;
+
+        return DirectionEnum.None;
     }
 
     public static Dictionary<Vector2Int, DirectionEnum> GetDirectionDicWithVectorKey()
@@ -96,12 +153,12 @@ public static class MyUtils
     {
         { Vector2Int.right,        DirectionEnum.Right },
         { Vector2Int.left,         DirectionEnum.Left },
-        { Vector2Int.up,           DirectionEnum.Top },
-        { Vector2Int.down,         DirectionEnum.Bottom },
-        { new Vector2Int(1, 1),    DirectionEnum.TopRight },
-        { new Vector2Int(-1, 1),   DirectionEnum.TopLeft },
-        { new Vector2Int(1, -1),   DirectionEnum.BottomRight },
-        { new Vector2Int(-1, -1),  DirectionEnum.BottomLeft }
+        { Vector2Int.up,           DirectionEnum.Up },
+        { Vector2Int.down,         DirectionEnum.Down },
+        { new Vector2Int(1, 1),    DirectionEnum.UpRight },
+        { new Vector2Int(-1, 1),   DirectionEnum.UpLeft },
+        { new Vector2Int(1, -1),   DirectionEnum.DownRight },
+        { new Vector2Int(-1, -1),  DirectionEnum.DownLeft }
     };
     }
 
