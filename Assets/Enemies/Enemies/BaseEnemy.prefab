@@ -631,7 +631,6 @@ GameObject:
   - component: {fileID: 7658940555429389368}
   - component: {fileID: 1298580672713261370}
   - component: {fileID: 7979593832236888259}
-  - component: {fileID: 4468608832272152097}
   - component: {fileID: 3752219559165162115}
   m_Layer: 6
   m_Name: BaseEnemy
@@ -891,28 +890,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d91a402b04334924295bde84bee00dfe, type: 3}
     - {fileID: 8300000, guid: 4245c2c6fc3fc8749a7c8eeca3087a9c, type: 3}
     - {fileID: 8300000, guid: 4935c70243719fa44b4cc354d895a1f4, type: 3}
---- !u!195 &4468608832272152097
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529487045021538346}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 100
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!82 &3752219559165162115
 AudioSource:
   m_ObjectHideFlags: 0

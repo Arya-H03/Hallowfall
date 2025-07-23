@@ -112,7 +112,8 @@ public class GridSystemDebugger : MonoBehaviour
             SpriteRenderer sr = visual.GetComponent<SpriteRenderer>();
             TextMeshProUGUI textComponent = sr.GetComponentInChildren<TextMeshProUGUI>(true);
 
-            sr.color = cell.IsWalkable ? Color.green : Color.red;
+            sr.color = cell.IsWalkable ? new Color(0, 1, 0, 0.15f) : new Color(1, 0, 0, 0.15f);
+            if (cell.FlowCost == 0) sr.color = new Color(1f, 0.5f, 0f); // Orange
             textComponent.enabled = true;
             textComponent.text = cell.FlowCost.ToString();
         });
@@ -123,10 +124,13 @@ public class GridSystemDebugger : MonoBehaviour
     {
         SpriteRenderer sr = visual.GetComponent<SpriteRenderer>();
         SpriteRenderer arrowSR = visual.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        TextMeshProUGUI textComponent = sr.GetComponentInChildren<TextMeshProUGUI>(true);
 
-        sr.color = cell.IsWalkable ? Color.green : Color.red;
+        sr.color = cell.IsWalkable ? new Color(0,1,0,0.15f) : new Color(1, 0, 0, 0.15f);
         if (cell.FlowCost == 0) sr.color = new Color(1f, 0.5f, 0f); // Orange
 
+        textComponent.enabled = true;
+        textComponent.text = cell.FlowCost.ToString();
         arrowSR.sprite = GetArrowSprite(cell.FlowDir);
     }
 

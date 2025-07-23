@@ -15,12 +15,13 @@ public class EnemyController : MonoBehaviour
     private Material material;
     private SpriteRenderer spriteRenderer;
     private EnemyItemDropHandler itemDropHandler;
-    private NavMeshAgent navAgent;
     private AudioSource audioSource;
 
     // References
     private GameObject player;
     private PlayerController playerController;
+
+    private CellGrid currentCellGid;
 
     // States
     private EnemyIdleState idleState;
@@ -86,7 +87,6 @@ public class EnemyController : MonoBehaviour
     public bool IsPlayerDead { get => isPlayerDead; set => isPlayerDead = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
     public float DamageModifier { get => damageModifier; set => damageModifier = value; }
-    public NavMeshAgent NavAgent { get => navAgent; set => navAgent = value; }
     public ParticleSystem BloodParticles { get => bloodParticles; set => bloodParticles = value; }
     public Material Material { get => material; set => material = value; }
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
@@ -99,6 +99,7 @@ public class EnemyController : MonoBehaviour
     public EnemyTypeEnum EnemyType { get => enemyType; }
     public bool CanChangeState { get => canChangeState; set => canChangeState = value; }
     public bool IsBeingknocked { get => isBeingknocked; set => isBeingknocked = value; }
+    public CellGrid CurrentCellGid { get => currentCellGid; set => currentCellGid = value; }
     #endregion
 
     private void Awake()
@@ -110,7 +111,7 @@ public class EnemyController : MonoBehaviour
         BloodParticles = GetComponent<ParticleSystem>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Material = SpriteRenderer.material;
-        navAgent = GetComponent<NavMeshAgent>();
+      
         AudioSource = GetComponent<AudioSource>();
         itemDropHandler = GetComponentInChildren<EnemyItemDropHandler>();
 
@@ -119,9 +120,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        navAgent.updateRotation = false;
-        navAgent.updateUpAxis = false;
-
+     
         Player = GameManager.Instance.Player;
         playerController = Player.GetComponent<PlayerController>();
         playerPos = Player.transform.position;
@@ -291,9 +290,9 @@ public class EnemyController : MonoBehaviour
         }
 
         IsDead = false;
-        collisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
+        collisionManager.Rb.bodyType = RigidbodyType2D.Kinematic;
         collisionManager.BoxCollider.enabled = true;
-        navAgent.enabled = true;
+      
         worldCanvas.gameObject.SetActive(true);
         attackState.IsAttackDelayOver = true;
         enemyAnimationManager.Animator.enabled = true;

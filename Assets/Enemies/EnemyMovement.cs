@@ -5,12 +5,14 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class EnemyMovement : MonoBehaviour
 {
-   
-   
+
+
     private EnemyController enemyController;
+    private ZoneManager zoneManager;
 
     private int currentDir = 0;
 
@@ -24,37 +26,54 @@ public class EnemyMovement : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
     }
 
- 
-    public void MoveToLocation(Vector3 startPoint, Vector3 endPoint, float speed)
+    private void Start()
     {
-       
-        Vector3 direction = endPoint - startPoint;
-        enemyController.NavAgent.speed = speed;
-        enemyController.NavAgent.SetDestination(endPoint);
-        TurnEnemy(direction);
-            
+        zoneManager = ZoneManager.Instance;
     }
+
+
+    //public void MoveToLocation(Vector3 startPoint, Vector3 endPoint, float speed)
+    //{
+
+    //    Vector3 direction = endPoint - startPoint;
+    //    TurnEnemy(direction);
+
+    //}
 
     public void MoveToPlayer(float speed)
     {
-        
-            Vector3 endPoint = enemyController.PlayerController.GetPlayerCenter();
-           
-            enemyController.NavAgent.speed = speed;
-            enemyController.NavAgent.SetDestination(endPoint);
-            FacePlayer();
-        
-    
+        //Vector3 endPoint = enemyController.PlayerController.GetPlayerCenter();       
+        //enemyController.NavAgent.speed = speed;
+        //enemyController.NavAgent.SetDestination(endPoint);
+
+        if (zoneManager)
+        {
+            ZoneData zoneData = zoneManager.FindCurrentZoneBasedOnWorldPos(enemyController.transform.position);
+            Cell currentCell = zoneData.ZoneHandler.CellGrid.GetCellFromWorldPos(enemyController.transform.position);
+
+            Vector3 flowVector = new Vector3(currentCell.FlowVect.x, currentCell.FlowVect.y, 0);
+            if (flowVector == Vector3.zero)
+            {
+                List<Cell> neighborCells = currentCell.ReturnAllNeighborCells();
+                Vector2Int newFlowVect = neighborCells[Random.Range(0, neighborCells.Count)].FlowVect;
+                flowVector = new Vector3(newFlowVect.x, newFlowVect.y, 0);
+            }
+            transform.position += flowVector * speed * Time.deltaTime;
+
+        }
+        FacePlayer();
+
+
     }
- 
+
     private int FindDirectionToPlayer()
     {
-        if(enemyController.PlayerPos.x - enemyController.transform.position.x >= 0)
+        if (enemyController.PlayerPos.x - enemyController.transform.position.x >= 0)
         {
             return 1;
         }
         else
-        {         
+        {
             return -1;
         }
     }
@@ -96,28 +115,28 @@ public class EnemyMovement : MonoBehaviour
                 CurrentDir = 1;
                 this.transform.localScale = new Vector3(CurrentDir, 1, 1);
             }
-           
- 
+
+
         }
-        if(direction.x >= 0)
+        if (direction.x >= 0)
         {
             enemyController.WorldCanvas.localScale = new Vector3(-Math.Abs(vec.x), vec.y, vec.z);
             if (CurrentDir != -1)
             {
                 CurrentDir = -1;
                 this.transform.localScale = new Vector3(CurrentDir, 1, 1);
-            }          
+            }
         }
 
     }
 
     public void StartRunningSFX(AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
     {
-        
+
         switch (enemyController.CurrentFloorType)
         {
             case FloorTypeEnum.Ground:
-                AudioManager.Instance.PlaySFX(groundSFX, enemyController.transform.position ,1);
+                AudioManager.Instance.PlaySFX(groundSFX, enemyController.transform.position, 1);
                 break;
             case FloorTypeEnum.Grass:
                 AudioManager.Instance.PlaySFX(grassSFX, enemyController.transform.position, 1);
@@ -134,5 +153,5 @@ public class EnemyMovement : MonoBehaviour
         AudioManager.Instance.StopAudioSource(audioSource);
     }
 
-   
+
 }

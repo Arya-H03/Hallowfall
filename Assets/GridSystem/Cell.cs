@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -29,9 +30,9 @@ public class Cell
 
     private HashSet<CellPaint> cellPaintHashSet = new();
 
-    public bool IsOccupied { get => isOccupied;}
-    public bool IsPartitioned { get => isPartitioned;}
-    public bool IsWalkable { get => isWalkable;}
+    public bool IsOccupied { get => isOccupied; }
+    public bool IsPartitioned { get => isPartitioned; }
+    public bool IsWalkable { get => isWalkable; }
 
     public Vector2Int GlobalCellCoord => globalCellCoord;
     public Vector3Int GlobalCellPos => globalCellPos;
@@ -39,7 +40,7 @@ public class Cell
     public HashSet<CellPaint> TilePaintsHasSet => cellPaintHashSet;
     public CellGrid ParentGrid => parentGrid;
 
-    public Vector2Int FlowVect { get => flowVect;}
+    public Vector2Int FlowVect { get => flowVect; }
     public DirectionEnum FlowDir { get => flowDir; set { flowDir = value; flowVect = MyUtils.GetVectorFromDir(flowDir); } }
 
     public int FlowCost { get => flowCost; set => flowCost = value; }
@@ -52,7 +53,7 @@ public class Cell
         this.LocalCellCoord = globalCellCoord;
     }
 
-    public void MarkCellAsOccupied ()
+    public void MarkCellAsOccupied()
     {
         isOccupied = true;
     }
@@ -127,5 +128,20 @@ public class Cell
     public void RemoveCellPaints()
     {
         cellPaintHashSet.Clear();
+    }
+
+    public List<Cell> ReturnAllNeighborCells()
+    {
+        List<Cell> result = new List<Cell>();
+        List<Vector2Int> dirVects = MyUtils.GetAllDirectionsVectorList();
+
+        foreach (Vector2Int vect in dirVects)
+        {
+            Vector2Int neighborCoord = new Vector2Int(globalCellCoord.x + vect.x, globalCellCoord.y + vect.y);
+            bool isWithinBounds = parentGrid.IsCoordWithinBounds(neighborCoord);
+            if (isWithinBounds) result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
+        }
+
+        return result;
     }
 }

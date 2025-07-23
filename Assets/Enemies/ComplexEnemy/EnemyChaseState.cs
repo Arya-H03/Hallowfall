@@ -40,13 +40,13 @@ public class EnemyChaseState : EnemyBaseState
     }
     public override void OnEnterState()
     {
-        enemyController.NavAgent.isStopped = false;
+        
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void OnExitState()
     {
-        enemyController.NavAgent.isStopped = true;
+       
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
         enemyController.EnemyMovement.StopRunningSFX(audioSource);
     }

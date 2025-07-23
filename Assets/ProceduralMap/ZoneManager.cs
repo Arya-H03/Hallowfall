@@ -1,7 +1,9 @@
 using NavMeshPlus.Components;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manages the procedural generation and activation of game zones based on player proximity.
@@ -18,7 +20,7 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] private Tilemap zoneConnectingGround;
     [SerializeField] private ZoneLayoutProfile zoneLayoutProfile;
 
- 
+    private FlowFieldGenerator flowFieldGenerator;
     public NavMeshSurface navMeshSurface;
 
   
@@ -53,7 +55,7 @@ public class ZoneManager : MonoBehaviour
     private void Start()
     {
         player = GameManager.Instance.Player;
-
+        flowFieldGenerator = new FlowFieldGenerator();
         // Generate the initial zone at origin
         TryGenerateZone(Vector2Int.zero, DirectionEnum.None);
         //ObjectPoolManager.Instance.GenerateEnemyPools();
@@ -65,7 +67,30 @@ public class ZoneManager : MonoBehaviour
         //CheckForPlayerEdgeProximity();
     }
 
-   
+    public ZoneData FindCurrentZoneBasedOnWorldPos(Vector3 worldPos)
+    {
+        Vector2Int pos = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.y));
+        foreach (KeyValuePair<Vector2Int, ZoneData> pair in generatedZonesDic)
+        {
+            ZoneData zoneData = pair.Value;
+            float dist = (pos - pair.Key).sqrMagnitude;
+            if (dist < zoneData.zoneWidth * zoneData.zoneWidth) return zoneData;
+        }
+
+        return null;
+    }
+
+    public void RequestFlowFieldGenerationOnAGrid(ZoneData zoneData,bool shouldVisualize = false)
+    {
+        ZoneHandler zoneHandler = zoneData.ZoneHandler;
+        flowFieldGenerator.GenerateFlowField(zoneHandler.CellGrid, GameManager.Instance.Player.transform.position);
+
+        if(shouldVisualize) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, zoneData.centerCoord);
+        //if(shouldVisualize) GridSystemDebugger.Instance.VisualizeCellFlowCosts(zoneHandler.CellGrid, zoneData.centerCoord);
+
+
+    }
+
     private void TryGenerateZone(Vector2Int centerCoord, DirectionEnum expansionDir)
     {
         if (generatedZonesDic.ContainsKey(centerCoord)) return;

@@ -32,6 +32,7 @@ public class FlowFieldGenerator
             {
                 Cell currentCell = cellGrid.Cells[i, j];
                 if (currentCell == targetCell) currentCell.FlowCost = 0;
+                //if (i == 0 || j == 0 || i == cellGrid.CellPerRow-1 ||i == cellGrid.CellPerRow-1) currentCell.FlowCost = 0;
                 else if (!currentCell.IsWalkable) currentCell.FlowCost = -2;
                 else currentCell.FlowCost = -1;
             }

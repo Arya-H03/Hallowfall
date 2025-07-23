@@ -6,6 +6,9 @@ public class PlayerMovementManager : MonoBehaviour
 {
     private PlayerController playerController;
     [SerializeField] private DialogueBox dialogueBox;
+    private ZoneManager zoneManager;
+    private float flowFieldGenerationDelay = 0.2f;
+    private float flowFieldGenerationTimer = 0.2f;
 
     public Vector2 currentInputDir; // -1 = "A" +1 = "D" 0= None 
     private Vector2 currentDirection = new Vector2(1,0);
@@ -20,23 +23,28 @@ public class PlayerMovementManager : MonoBehaviour
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+        zoneManager = ZoneManager.Instance;
     }
 
     private void Update()
     {
-        if (!playerController.IsPlayerJumping && !playerController.IsDead && !playerController.IsHanging /*&& !playerController.IsFalling*/)
+        if (!playerController.IsDead && currentInputDir != Vector2.zero)
         {
+            MovePlayer();
+        }
+    }
 
-            transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
-
-            Vector3 clampedPos = transform.position;
-            clampedPos.z = Mathf.Clamp(clampedPos.z,-1,2);
-            transform.position = clampedPos;
-
+    private void MovePlayer()
+    {
+        transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
+        if(zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
+        {
+            ZoneData currentZonData = zoneManager.FindCurrentZoneBasedOnWorldPos(transform.position);
+            zoneManager.RequestFlowFieldGenerationOnAGrid(currentZonData,true);
+            flowFieldGenerationTimer = 0;   
 
         }
-
-        
+        flowFieldGenerationTimer += Time.deltaTime; 
     }
 
     public void TurnPlayer(Vector2 vec)

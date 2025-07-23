@@ -64,7 +64,7 @@ public class EnemyPatrolState : EnemyBaseState
                 if (!enemyController.IsFacingLedge)
                 {
                     enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
-                    enemyController.EnemyMovement.MoveToLocation(transform.position, nextPatrollPosition, patrolSpeed);
+                    //enemyController.EnemyMovement.MoveToLocation(transform.position, nextPatrollPosition, patrolSpeed);
                     yield return new WaitForEndOfFrame();
                 }
                 else break;
