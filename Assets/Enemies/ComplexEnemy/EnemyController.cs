@@ -4,18 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(CTicker))]
 public class EnemyController : MonoBehaviour
 {
     // Components
     private EnemyAnimationManager enemyAnimationManager;
-    private EnemyMovement enemyMovement;
-    public EnemyCollisionManager collisionManager;
+    private EnemyMovementHandler enemyMovementHandler;
+    private EnemyCollisionManager collisionManager;
     private DialogueBox dialogueBox;
     private ParticleSystem bloodParticles;
     private Material material;
     private SpriteRenderer spriteRenderer;
     private EnemyItemDropHandler itemDropHandler;
-    private AudioSource audioSource;
+    private EnemyEnvironenmentCheck enemyEnvironenmentCheck;
+    private CTicker cTicker;
 
     // References
     private GameObject player;
@@ -68,7 +70,7 @@ public class EnemyController : MonoBehaviour
     public Vector3 playerPos;
 
     #region Getters / Setters
-    public EnemyMovement EnemyMovement { get => enemyMovement; set => enemyMovement = value; }
+    public EnemyMovementHandler EnemyMovementHandler { get => enemyMovementHandler; set => enemyMovementHandler = value; }
     public EnemyBaseState CurrentState { get => currentState; set => currentState = value; }
     public EnemyBaseState PreviousState { get => previousState; set => previousState = value; }
     public EnemyPatrolState PatrolState { get => patrolState; set => patrolState = value; }
@@ -89,7 +91,6 @@ public class EnemyController : MonoBehaviour
     public float DamageModifier { get => damageModifier; set => damageModifier = value; }
     public ParticleSystem BloodParticles { get => bloodParticles; set => bloodParticles = value; }
     public Material Material { get => material; set => material = value; }
-    public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
     public Vector3 PlayerPos { get => playerPos; set => playerPos = value; }
     public GameObject Player { get => player; set => player = value; }
     public Transform HealthbarFG { get => healthbarFG; set => healthbarFG = value; }
@@ -100,19 +101,21 @@ public class EnemyController : MonoBehaviour
     public bool CanChangeState { get => canChangeState; set => canChangeState = value; }
     public bool IsBeingknocked { get => isBeingknocked; set => isBeingknocked = value; }
     public CellGrid CurrentCellGid { get => currentCellGid; set => currentCellGid = value; }
+    public EnemyCollisionManager CollisionManager { get => collisionManager; set => collisionManager = value; }
+    public EnemyEnvironenmentCheck EnemyEnvironenmentCheck { get => enemyEnvironenmentCheck;}
     #endregion
 
     private void Awake()
     {
         EnemyAnimationManager = GetComponent<EnemyAnimationManager>();
-        EnemyMovement = GetComponent<EnemyMovement>();
-        collisionManager = GetComponent<EnemyCollisionManager>();
+        EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
+        CollisionManager = GetComponent<EnemyCollisionManager>();
         dialogueBox = GetComponentInChildren<DialogueBox>();
         BloodParticles = GetComponent<ParticleSystem>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Material = SpriteRenderer.material;
-      
-        AudioSource = GetComponent<AudioSource>();
+        enemyEnvironenmentCheck = GetComponentInChildren<EnemyEnvironenmentCheck>();
+        cTicker = GetComponent<CTicker>();
         itemDropHandler = GetComponentInChildren<EnemyItemDropHandler>();
 
         InitializeEnemyState();
@@ -135,9 +138,13 @@ public class EnemyController : MonoBehaviour
 
         CurrentStateEnum = EnemyStateEnum.Idle;
         CurrentState = IdleState;
+
+
+        //cTicker.OnTickEvent += EnemyUpdateLoop;
+        //cTicker.CanTick = true;
     }
 
-    private void Update()
+    private void EnemyUpdateLoop()
     {
         playerPos = Player.transform.position + new Vector3(0, Player.GetComponent<SpriteRenderer>().bounds.size.y / 2, 0);
 
@@ -149,7 +156,10 @@ public class EnemyController : MonoBehaviour
             attackState.CheckForNextAttack();
         }
     }
-
+    private void Update()
+    {
+        EnemyUpdateLoop();
+    }
     private void HandleCooldowns()
     {
         PatrolState.ManagePatrolDelayCooldown();
@@ -218,14 +228,14 @@ public class EnemyController : MonoBehaviour
     public IEnumerator EnemyHitCoroutine(float damage, Vector2 hitPoint, HitSfxType hitType,float knockbackForce)
     {
         //VFX
-        collisionManager.PlayBloodEffect(hitPoint);
+        CollisionManager.PlayBloodEffect(hitPoint);
         Material.SetFloat("_Flash", 1);
         //SFX
-        if (hitType != HitSfxType.none) AudioManager.Instance.PlaySFX( collisionManager.GetHitSound(hitType),transform.position, 0.4f);
+        if (hitType != HitSfxType.none) AudioManager.Instance.PlaySFX( CollisionManager.GetHitSound(hitType),transform.position, 0.4f);
 
-        collisionManager.StaggerEnemy(damage);
+        CollisionManager.StaggerEnemy(damage);
         Vector2 knockbackVector = (GetEnemyCenter() - playerController.GetPlayerCenter()).normalized;
-        collisionManager.KnockBackEnemy(knockbackVector, knockbackForce);
+        CollisionManager.KnockBackEnemy(knockbackVector, knockbackForce);
 
         //Damage
         OnEnemyTakingDamage(damage, DamageModifier);
@@ -290,8 +300,8 @@ public class EnemyController : MonoBehaviour
         }
 
         IsDead = false;
-        collisionManager.Rb.bodyType = RigidbodyType2D.Kinematic;
-        collisionManager.BoxCollider.enabled = true;
+        CollisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
+        CollisionManager.BoxCollider.enabled = true;
       
         worldCanvas.gameObject.SetActive(true);
         attackState.IsAttackDelayOver = true;

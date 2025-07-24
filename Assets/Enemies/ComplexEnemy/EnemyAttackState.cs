@@ -57,7 +57,7 @@ public class EnemyAttackState : EnemyBaseState
         {
             canAttack = false;
             isAttacking = true;
-            enemyController.EnemyMovement.FacePlayer();
+            enemyController.EnemyMovementHandler.FaceMovementDirection( enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter());
             nextAttack.StartAttack();
             StartCoroutine(AttackDelayCoroutine());
         }

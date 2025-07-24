@@ -104,7 +104,7 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     public override void OnEnterState()
     {
-        playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileAttaking;
+        playerController.PlayerMovementHandler.MoveSpeed = moveSpeedWhileAttaking;
        
     }
 
@@ -113,7 +113,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         playerController.IsAttacking = false;
         playerController.CanPlayerAttack = true;
         ClearAllQueuedAttacks();
-        playerController.PlayerMovementManager.TurnPlayer(playerController.PlayerMovementManager.currentInputDir);
+        playerController.PlayerMovementHandler.TurnPlayer(playerController.PlayerMovementHandler.currentInputDir);
     }
 
     public override void HandleState()
@@ -147,7 +147,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             if (comboIndex > 2) comboIndex = 1;
             //isInCombo = true;
 
-            playerController.PlayerMovementManager.TurnPlayerWithMousePos();
+            playerController.PlayerMovementHandler.TurnPlayerWithMousePos();
 
             PlaySwingAnimation(comboIndex);
 
@@ -193,7 +193,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     //    comboIndex++;
     //    if (comboIndex > 2) comboIndex = 1;
 
-    //    playerController.PlayerMovementManager.TurnPlayerWithMousePos();
+    //    playerController.PlayerMovementHandler.TurnPlayerWithMousePos();
 
     //    PlaySwingAnimation(comboIndex);
 
@@ -252,7 +252,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public void EndAttack()
     {
 
-        if (playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
+        if (playerController.PlayerMovementHandler.currentInputDir != Vector2.zero)
             playerController.ChangeState(PlayerStateEnum.Run);
         else
             playerController.ChangeState(PlayerStateEnum.Idle);

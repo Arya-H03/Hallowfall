@@ -143,7 +143,7 @@ public class PlayerDashState : PlayerBaseState
         TriggerDashEffects();
 
         Vector2 dashDirection = GetDashDirection();
-        playerController.PlayerMovementManager.TurnPlayer(dashDirection);
+        playerController.PlayerMovementHandler.TurnPlayer(dashDirection);
         dashDirection.y = Mathf.Clamp(dashDirection.y, -0.5f, 0.5f);
         playerController.rb.linearVelocity += dashDirection * dashModifier;
 
@@ -154,7 +154,7 @@ public class PlayerDashState : PlayerBaseState
         if (afterImageCoroutine != null) StopCoroutine(afterImageCoroutine);
         playerController.rb.linearVelocity = Vector2.zero;
         dashAttackBox.DisableCollider();
-        playerController.PlayerMovementManager.TurnPlayer(playerController.PlayerMovementManager.currentInputDir);
+        playerController.PlayerMovementHandler.TurnPlayer(playerController.PlayerMovementHandler.currentInputDir);
         playerController.ChangeState(PlayerStateEnum.Idle);
     }
 

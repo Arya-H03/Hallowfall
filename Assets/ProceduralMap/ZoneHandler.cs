@@ -69,9 +69,7 @@ public class ZoneHandler : MonoBehaviour
         cellGrid = new CellGrid(this.cellSize, this.zoneWidth, this.zoneHeight);
         cellGrid.InitializeGridCells(this.zoneData.centerPos);
 
-        //groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;
-
-       
+        //groundOneTilemap = ZoneManager.Instance.ZoneConnectingGround;  
 
         StartCoroutine(GenerateZoneCoroutine());
 
@@ -92,7 +90,8 @@ public class ZoneHandler : MonoBehaviour
         //yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
 
 
-        //ZoneManager.Instance.navMeshSurface.BuildNavMesh();
+        ZoneManager.Instance.RequestFlowFieldGenerationOnNonePlayerGrid(zoneData);
+
 
         zoneData.IsZoneFullyGenerated = true;
 

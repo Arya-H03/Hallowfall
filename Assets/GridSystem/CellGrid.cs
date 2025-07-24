@@ -181,9 +181,9 @@ public class CellGrid
         }
     }
 
-    public bool IsCoordWithinBounds(Vector2Int coord)
-    {
-        return coord.x >= 0 && coord.y >= 0 && coord.x < cellPerRow && coord.y < cellPerCol;
-    }
+    //public bool IsCoordWithinBounds(Vector2Int coord)
+    //{
+    //    return coord.x >= 0 && coord.y >= 0 && coord.x < cellPerRow && coord.y < cellPerCol;
+    //}
 
 }

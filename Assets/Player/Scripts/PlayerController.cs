@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     // Components
     private PlayerAnimationController animationController;
-    private PlayerMovementManager playerMovementManager;
+    private PlayerMovementHandler playerMovementHandler;
     private AfterImageHandler afterImageHandler;
     private PlayerCollisionController playerCollision;
     private PlayerAbilityController playerAbilityController;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     #region Getters / Setters
     public PlayerAnimationController AnimationController { get => animationController; set => animationController = value; }
-    public PlayerMovementManager PlayerMovementManager { get => playerMovementManager; set => playerMovementManager = value; }
+    public PlayerMovementHandler PlayerMovementHandler { get => playerMovementHandler; set => playerMovementHandler = value; }
     public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
     public PlayerCollisionController PlayerCollision { get => playerCollision; set => playerCollision = value; }
     public PlayerAbilityController PlayerAbilityController { get => playerAbilityController; }
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
         AfterImageHandler = GetComponent<AfterImageHandler>();
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
-        PlayerMovementManager = GetComponent<PlayerMovementManager>();
+        PlayerMovementHandler = GetComponent<PlayerMovementHandler>();
         PlayerCollision = GetComponent<PlayerCollisionController>();
         playerAbilityController = GetComponentInChildren<PlayerAbilityController>();
 
@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(Vector2 dir)
     {
-        PlayerMovementManager.HandleMovement(dir);
+        PlayerMovementHandler.HandleMovement(dir);
     }
 
     public void OnSwordAttack()

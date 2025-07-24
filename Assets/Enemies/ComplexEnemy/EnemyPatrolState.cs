@@ -49,7 +49,7 @@ public class EnemyPatrolState : EnemyBaseState
     public override void OnExitState()
     {
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.EnemyMovement.StopRunningSFX(audioSource);
+        enemyController.EnemyMovementHandler.StopRunningSFX(audioSource);
     }
 
     private IEnumerator PatrolToNextPoint()
@@ -57,14 +57,14 @@ public class EnemyPatrolState : EnemyBaseState
         if(enemyController.CurrentStateEnum == EnemyStateEnum.Patrol)
         {
             SetNextPatrolPoint();
-            enemyController.EnemyMovement.StartRunningSFX(walkGroundSFX, walkGrassSFX, walkWoodSFX);
+            enemyController.EnemyMovementHandler.StartRunningSFX(walkGroundSFX, walkGrassSFX, walkWoodSFX);
 
             while (Vector2.Distance(transform.position, nextPatrollPosition) >= 0.5f)
             {
                 if (!enemyController.IsFacingLedge)
                 {
                     enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
-                    //enemyController.EnemyMovement.MoveToLocation(transform.position, nextPatrollPosition, patrolSpeed);
+                    //enemyController.EnemyMovementHandler.MoveToLocation(transform.position, nextPatrollPosition, patrolSpeed);
                     yield return new WaitForEndOfFrame();
                 }
                 else break;
@@ -121,7 +121,7 @@ public class EnemyPatrolState : EnemyBaseState
 
     private void OnPatrolPointReached()
     {
-        enemyController.EnemyMovement.StopRunningSFX(audioSource);
+        enemyController.EnemyMovementHandler.StopRunningSFX(audioSource);
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
         //SetNextPatrolPoint();
         //RandomizePatrolDelay();

@@ -10,8 +10,6 @@ public class EnemyChaseState : EnemyBaseState
     private float visionRange = 3f;
     [SerializeField] Transform sightCenter;
 
-    private bool isPlayerInSight = false;
-
     private float chaseSpeed;
     [SerializeField] float minChaseSpeed = 1f;
     [SerializeField] float maxChaseSpeed = 2f;
@@ -48,7 +46,7 @@ public class EnemyChaseState : EnemyBaseState
     {
        
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.EnemyMovement.StopRunningSFX(audioSource);
+        //enemyController.EnemyMovementHandler.StopRunningSFX(audioSource);
     }
 
     public override void HandleState()
@@ -59,7 +57,7 @@ public class EnemyChaseState : EnemyBaseState
             return;
         }
 
-        CheckEnemySight();
+        //CheckEnemySight();
 
         //if (enemyController.AttackState.NextAttack == null)
         //{
@@ -72,7 +70,7 @@ public class EnemyChaseState : EnemyBaseState
 
         if (!isInRange)
         {
-            enemyController.EnemyMovement.MoveToPlayer(ChaseSpeed);
+            enemyController.EnemyMovementHandler.MoveToPlayer(ChaseSpeed);
         }
             
         else
@@ -84,21 +82,36 @@ public class EnemyChaseState : EnemyBaseState
      
     }
 
-    private void CheckEnemySight()
-    {
-        Vector2 startDirection =new Vector3(-enemyController.transform.localScale.x, 0, 0);
+    //private void CheckEnemySight()
+    //{
+    //    Vector2 startDirection =new Vector3(-enemyController.transform.localScale.x, 0, 0);
 
-        RaycastHit2D hit1 = Physics2D.Raycast(sightCenter.position, Quaternion.Euler(0f, 0f, -visionAngle / 2f) * startDirection, visionRange, playerLayer);
-        Debug.DrawRay(sightCenter.position, (Quaternion.Euler(0f, 0f, -visionAngle / 2f) * startDirection) * visionRange, Color.red);
+    //    RaycastHit2D hit1 = Physics2D.Raycast(sightCenter.position, Quaternion.Euler(0f, 0f, -visionAngle / 2f) * startDirection, visionRange, playerLayer);
+    //    Debug.DrawRay(sightCenter.position, (Quaternion.Euler(0f, 0f, -visionAngle / 2f) * startDirection) * visionRange, Color.red);
 
-        RaycastHit2D hit2 = Physics2D.Raycast(sightCenter.position, Quaternion.Euler(0f, 0f, visionAngle / 2f) * startDirection, visionRange, playerLayer);
-        Debug.DrawRay(sightCenter.position, (Quaternion.Euler(0f, 0f, visionAngle / 2f) * startDirection) * visionRange, Color.red);
+    //    RaycastHit2D hit2 = Physics2D.Raycast(sightCenter.position, Quaternion.Euler(0f, 0f, visionAngle / 2f) * startDirection, visionRange, playerLayer);
+    //    Debug.DrawRay(sightCenter.position, (Quaternion.Euler(0f, 0f, visionAngle / 2f) * startDirection) * visionRange, Color.red);
 
-        if(hit1 &&  hit2) isPlayerInSight = true;
-        else isPlayerInSight =  false;
+    //    if(hit1 &&  hit2) isPlayerInSight = true;
+    //    else isPlayerInSight =  false;
 
 
-    }
+    //}
+    //private void CheckEnemySight()
+    //{
+    //    Vector2 startDirection =new Vector3(-enemyController.transform.localScale.x, 0, 0);
+
+    //    RaycastHit2D hit1 = Physics2D.Raycast(sightCenter.position, Quaternion.Euler(0f, 0f, -visionAngle / 2f) * startDirection, visionRange, playerLayer);
+    //    Debug.DrawRay(sightCenter.position, (Quaternion.Euler(0f, 0f, -visionAngle / 2f) * startDirection) * visionRange, Color.red);
+
+    //    RaycastHit2D hit2 = Physics2D.Raycast(sightCenter.position, Quaternion.Euler(0f, 0f, visionAngle / 2f) * startDirection, visionRange, playerLayer);
+    //    Debug.DrawRay(sightCenter.position, (Quaternion.Euler(0f, 0f, visionAngle / 2f) * startDirection) * visionRange, Color.red);
+
+    //    if(hit1 &&  hit2) isPlayerInSight = true;
+    //    else isPlayerInSight =  false;
+
+
+    //}
 
 
 }

@@ -48,7 +48,7 @@ public class PlayerJumpState : PlayerBaseState
         playerController.IsPlayerJumping = true;
         playerController.CanPlayerJump = false;
 
-        jumpDirectionX = playerController.PlayerMovementManager.currentInputDir.x;
+        jumpDirectionX = playerController.PlayerMovementHandler.currentInputDir.x;
         playerController.rb.gravityScale = 3;
         playerController.rb.linearVelocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
 

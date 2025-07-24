@@ -12,6 +12,8 @@ public class RitualClusterBlock : PropsBlock
 
         //Chalice
         subCellGrid.TryInstantiatePermanentGameobjectOnTile(zoneLayoutProfile.chalicePrefab, blockCenterCell.LocalCellCoord, Quaternion.identity, true, propsHolder.transform);
+        blockCenterCell.MarkCellAsUnWalkable();
+        blockCenterCell.MarkCellAsOccupied();
 
         //Candles
         List<Vector2Int> candleCoordList = new List<Vector2Int>();

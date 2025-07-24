@@ -15,7 +15,7 @@ public class EnemySpecialAbility : EnemyBaseAttack
     {
         Vector3 spawnPos = enemyController.transform.position;
         float offset = Random.Range(1, 3);
-        spawnPos += enemyController.EnemyMovement.CurrentDir * Vector3.right * offset;
+        spawnPos += enemyController.EnemyMovementHandler.CurrentDir * Vector3.right * offset;
 
         return spawnPos;
     }

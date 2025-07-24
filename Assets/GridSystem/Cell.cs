@@ -10,6 +10,12 @@ public struct CellPaint
     public bool isOnGlobalTile;
 }
 
+public enum CellCosts
+{
+    unVisited = -1,
+    unWalkable = -10,
+    target = 0,
+}
 public class Cell
 {
 
@@ -20,8 +26,8 @@ public class Cell
     private bool isWalkable = true;
 
     private DirectionEnum flowDir = DirectionEnum.None;
-    private Vector2Int flowVect = Vector2Int.zero;
-    private int flowCost = -1; //-1 for Unvisited, 0 for target, -2 for unWalkable, 25555 for Walkable
+    private Vector2 flowVect = Vector2.zero;
+    private int flowCost = (int)CellCosts.unVisited; //-1 for Unvisited, 0 for target, -2 for unWalkable, 25555 for Walkable
 
     private Vector3Int globalCellPos = Vector3Int.zero;
 
@@ -40,7 +46,7 @@ public class Cell
     public HashSet<CellPaint> TilePaintsHasSet => cellPaintHashSet;
     public CellGrid ParentGrid => parentGrid;
 
-    public Vector2Int FlowVect { get => flowVect; }
+    public Vector2 FlowVect { get => flowVect; set => flowVect = value; }
     public DirectionEnum FlowDir { get => flowDir; set { flowDir = value; flowVect = MyUtils.GetVectorFromDir(flowDir); } }
 
     public int FlowCost { get => flowCost; set => flowCost = value; }
@@ -66,7 +72,7 @@ public class Cell
     public void MarkCellAsUnWalkable()
     {
         isWalkable = false;
-        flowCost = -2;
+        flowCost = (int)CellCosts.unWalkable;
     }
     public void AddToCellPaint(CellPaint[] tilePaints)
     {
@@ -130,7 +136,7 @@ public class Cell
         cellPaintHashSet.Clear();
     }
 
-    public List<Cell> ReturnAllNeighborCells()
+    public List<Cell> GetAllNeighborCells()
     {
         List<Cell> result = new List<Cell>();
         List<Vector2Int> dirVects = MyUtils.GetAllDirectionsVectorList();
@@ -138,7 +144,7 @@ public class Cell
         foreach (Vector2Int vect in dirVects)
         {
             Vector2Int neighborCoord = new Vector2Int(globalCellCoord.x + vect.x, globalCellCoord.y + vect.y);
-            bool isWithinBounds = parentGrid.IsCoordWithinBounds(neighborCoord);
+            bool isWithinBounds = MyUtils.IsWithinArrayBounds(parentGrid.Cells, neighborCoord);
             if (isWithinBounds) result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
         }
 

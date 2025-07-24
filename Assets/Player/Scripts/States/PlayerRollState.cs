@@ -34,7 +34,7 @@ public class PlayerRollState : PlayerBaseState
 
     public override void OnExitState()
     {
-        playerController.PlayerMovementManager.MoveSpeed = playerController.PlayerMovementManager.MoveSpeed;
+        playerController.PlayerMovementHandler.MoveSpeed = playerController.PlayerMovementHandler.MoveSpeed;
         playerController.IsRolling = false;
     }
 
@@ -49,20 +49,20 @@ public class PlayerRollState : PlayerBaseState
         playerController.IsImmune = true;
         playerController.AnimationController.SetTriggerForAnimations("Roll");
 
-        if(playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
+        if(playerController.PlayerMovementHandler.currentInputDir != Vector2.zero)
         {
-            Vector2 dir = (playerController.PlayerMovementManager.currentInputDir).normalized;
+            Vector2 dir = (playerController.PlayerMovementHandler.currentInputDir).normalized;
             playerController.PlayerCollision.Rb.linearVelocity += dir * rollModifier;
         }
         else
         {
-            Vector2 dir = (playerController.PlayerMovementManager.CurrentDirection).normalized;
+            Vector2 dir = (playerController.PlayerMovementHandler.CurrentDirection).normalized;
             playerController.PlayerCollision.Rb.linearVelocity += dir * rollModifier;
         }
        
         SpawnAfterImageCoroutine = StartCoroutine(playerController.AfterImageHandler.SpawnImage());
         AudioManager.Instance.PlaySFX( rollSFX, playerController.transform.position, 0.5f);
-        playerController.PlayerMovementManager.MoveSpeed = 0;
+        playerController.PlayerMovementHandler.MoveSpeed = 0;
         playerController.CanRoll = false;
         yield return new WaitForSeconds(0.5f);
         EndRoll();
@@ -83,7 +83,7 @@ public class PlayerRollState : PlayerBaseState
         playerController.PlayerCollision.Rb.linearVelocity = Vector2.zero;
         if (playerController.CurrentStateEnum == PlayerStateEnum.Roll) 
         {
-            if (playerController.PlayerMovementManager.currentInputDir != Vector2.zero)
+            if (playerController.PlayerMovementHandler.currentInputDir != Vector2.zero)
             {
                 playerController.ChangeState(PlayerStateEnum.Run);
             }

@@ -68,14 +68,14 @@ public class PlayerParryState : PlayerBaseState
 
     public override void OnEnterState()
     {
-        playerController.PlayerMovementManager.MoveSpeed = moveSpeedWhileParrying;
+        playerController.PlayerMovementHandler.MoveSpeed = moveSpeedWhileParrying;
         StartParry();
     }
 
     public override void OnExitState()
     {
         // Revert to default move speed if needed
-        playerController.PlayerMovementManager.MoveSpeed = playerController.PlayerMovementManager.MoveSpeed;
+        playerController.PlayerMovementHandler.MoveSpeed = playerController.PlayerMovementHandler.MoveSpeed;
     }
 
     public override void HandleState()
@@ -110,7 +110,7 @@ public class PlayerParryState : PlayerBaseState
         playerController.CanPlayerJump = true;
         playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", false);
 
-        var horizontalInput = playerController.PlayerMovementManager.currentInputDir.x;
+        var horizontalInput = playerController.PlayerMovementHandler.currentInputDir.x;
         playerController.ChangeState(horizontalInput != 0 ? PlayerStateEnum.Run : PlayerStateEnum.Idle);
     }
 
@@ -127,7 +127,7 @@ public class PlayerParryState : PlayerBaseState
     private void CreateEffectsOnParrySuccess()
     {
         playerController.AnimationController.SetBoolForAnimations("isParrySuccessful", true);
-        
+
     }
 
     #endregion
@@ -154,7 +154,7 @@ public class PlayerParryState : PlayerBaseState
             if (enemy.collider.CompareTag("Enemy"))
             {
                 enemy.collider.GetComponent<EnemyController>()
-                    .collisionManager.StaggerEnemy(100);
+                    .CollisionManager.StaggerEnemy(100);
             }
         }
     }
@@ -171,9 +171,9 @@ public class PlayerParryState : PlayerBaseState
 
     private IEnumerator MonentumShiftCoroutine()
     {
-        playerController.PlayerMovementManager.SpeedModifer = 1.25f;
+        playerController.PlayerMovementHandler.SpeedModifer = 1.25f;
         yield return new WaitForSeconds(3f);
-        playerController.PlayerMovementManager.SpeedModifer = 1f;
+        playerController.PlayerMovementHandler.SpeedModifer = 1f;
 
     }
 

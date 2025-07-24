@@ -9,7 +9,7 @@ public class GridSystemDebugger : MonoBehaviour
     public static GridSystemDebugger Instance => instance;
 
    
-    private Dictionary<Vector2Int, GameObject[,]> zoneVisualsDict = new();
+    private Dictionary<Vector2Int, CellDebugger[,]> zoneVisualsDict = new();
 
   
     [SerializeField] private GameObject cellVisualPrefab;
@@ -38,17 +38,44 @@ public class GridSystemDebugger : MonoBehaviour
 
     private void InitZoneVisual(Vector2Int zoneCenterCoord, CellGrid cellGrid)
     {
-        GameObject[,] visuals = new GameObject[cellGrid.CellPerRow, cellGrid.CellPerCol];
+        CellDebugger[,] visuals = new CellDebugger[cellGrid.CellPerRow, cellGrid.CellPerCol];
 
         cellGrid.LoopOverGrid((i, j) =>
         {
-            visuals[i, j] = Instantiate(cellVisualPrefab, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity);
+            visuals[i, j] = Instantiate(cellVisualPrefab, (Vector3Int)cellGrid.Cells[j, i].GlobalCellPos, Quaternion.identity).GetComponentInChildren<CellDebugger>();
+            visuals[i,j].gameObject.transform.parent.parent = this.transform;
         });
 
         zoneVisualsDict.Add(zoneCenterCoord, visuals);
     }
 
+    public void DisableAllVisuals()
+    {
+        foreach(KeyValuePair<Vector2Int, CellDebugger[,]> kvp in zoneVisualsDict)
+        {
+            for(int j = 0; j< kvp.Value.GetLength(1);  j++)
+            {
+                for (int i = 0; i < kvp.Value.GetLength(0); i++)
+                {
+                    kvp.Value[i,j].gameObject.transform.parent.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
 
+    public void EnableAllVisuals()
+    {
+        foreach (KeyValuePair<Vector2Int, CellDebugger[,]> kvp in zoneVisualsDict)
+        {
+            for (int j = 0; j < kvp.Value.GetLength(1); j++)
+            {
+                for (int i = 0; i < kvp.Value.GetLength(0); i++)
+                {
+                    kvp.Value[i, j].gameObject.transform.parent.gameObject.SetActive(true);
+                }
+            }
+        }
+    }
     public void VisualizeCellFlowDirection(CellGrid cellGrid, Vector2Int zoneCenterCoord)
     {
         if (!zoneVisualsDict.ContainsKey(zoneCenterCoord))
@@ -56,7 +83,7 @@ public class GridSystemDebugger : MonoBehaviour
             InitZoneVisual(zoneCenterCoord, cellGrid);
         }
 
-        GameObject[,] visuals = zoneVisualsDict[zoneCenterCoord];
+        CellDebugger[,] visuals = zoneVisualsDict[zoneCenterCoord];
 
         cellGrid.LoopOverGrid((i, j) =>
         {
@@ -64,75 +91,46 @@ public class GridSystemDebugger : MonoBehaviour
         });
     }
 
-    public void VisualizeOccupiedCells(CellGrid cellGrid, Vector2Int zoneCenterCoord)
+    //public void VisualizeOccupiedCells(CellGrid cellGrid, Vector2Int zoneCenterCoord)
+    //{
+    //    if (!zoneVisualsDict.ContainsKey(zoneCenterCoord))
+    //    {
+    //        InitZoneVisual(zoneCenterCoord, cellGrid);
+    //    }
+
+    //    GameObject[,] visuals = zoneVisualsDict[zoneCenterCoord];
+
+    //    cellGrid.LoopOverGrid((i, j) =>
+    //    {
+    //        SpriteRenderer sr = visuals[i, j].GetComponent<SpriteRenderer>();
+    //        sr.color = cellGrid.Cells[j, i].IsOccupied ? Color.red : Color.green;
+    //    });
+    //}
+
+    private void UpdateVisualForFlowDirection(Cell cell, CellDebugger visual)
     {
-        if (!zoneVisualsDict.ContainsKey(zoneCenterCoord))
+        visual.UpdateIDText(cell.GlobalCellCoord);
+        if (cell.IsWalkable) visual.UpdateColor(Color.green);
+        else visual.UpdateColor(Color.red);
+
+        if (cell.FlowCost == 0) visual.UpdateColor(Color.orange);
+
+        visual.UpdateCostText(cell.FlowCost);
+
+        Vector2 flowDir = cell.FlowVect;
+
+        if (flowDir != Vector2.zero)
         {
-            InitZoneVisual(zoneCenterCoord, cellGrid);
+            float angle = Mathf.Atan2(flowDir.y, flowDir.x) * Mathf.Rad2Deg;
+            visual.UpdateArrow(Quaternion.Euler(0, 0, angle));
+        }
+        else
+        {
+            visual.DisableArrow();
         }
 
-        GameObject[,] visuals = zoneVisualsDict[zoneCenterCoord];
-
-        cellGrid.LoopOverGrid((i, j) =>
-        {
-            SpriteRenderer sr = visuals[i, j].GetComponent<SpriteRenderer>();
-            sr.color = cellGrid.Cells[j, i].IsOccupied ? Color.red : Color.green;
-        });
     }
 
-    public void VisualizeWalkableCells(CellGrid cellGrid, Vector2Int zoneCenterCoord)
-    {
-        if (!zoneVisualsDict.ContainsKey(zoneCenterCoord))
-        {
-            InitZoneVisual(zoneCenterCoord, cellGrid);
-        }
-
-        GameObject[,] visuals = zoneVisualsDict[zoneCenterCoord];
-
-        cellGrid.LoopOverGrid((i, j) =>
-        {
-            SpriteRenderer sr = visuals[i, j].GetComponent<SpriteRenderer>();
-            sr.color = cellGrid.Cells[j, i].IsWalkable ? Color.green : Color.red;
-        });
-    }
-
-    public void VisualizeCellFlowCosts(CellGrid cellGrid, Vector2Int zoneCenterCoord)
-    {
-        if (!zoneVisualsDict.ContainsKey(zoneCenterCoord))
-        {
-            InitZoneVisual(zoneCenterCoord, cellGrid);
-        }
-
-        GameObject[,] visuals = zoneVisualsDict[zoneCenterCoord];
-
-        cellGrid.LoopOverGrid((i, j) =>
-        {
-            var cell = cellGrid.Cells[j, i];
-            GameObject visual = visuals[i, j];
-            SpriteRenderer sr = visual.GetComponent<SpriteRenderer>();
-            TextMeshProUGUI textComponent = sr.GetComponentInChildren<TextMeshProUGUI>(true);
-
-            sr.color = cell.IsWalkable ? new Color(0, 1, 0, 0.15f) : new Color(1, 0, 0, 0.15f);
-            if (cell.FlowCost == 0) sr.color = new Color(1f, 0.5f, 0f); // Orange
-            textComponent.enabled = true;
-            textComponent.text = cell.FlowCost.ToString();
-        });
-    }
-
-   
-    private void UpdateVisualForFlowDirection(Cell cell, GameObject visual)
-    {
-        SpriteRenderer sr = visual.GetComponent<SpriteRenderer>();
-        SpriteRenderer arrowSR = visual.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        TextMeshProUGUI textComponent = sr.GetComponentInChildren<TextMeshProUGUI>(true);
-
-        sr.color = cell.IsWalkable ? new Color(0,1,0,0.15f) : new Color(1, 0, 0, 0.15f);
-        if (cell.FlowCost == 0) sr.color = new Color(1f, 0.5f, 0f); // Orange
-
-        textComponent.enabled = true;
-        textComponent.text = cell.FlowCost.ToString();
-        arrowSR.sprite = GetArrowSprite(cell.FlowDir);
-    }
 
     private Sprite GetArrowSprite(DirectionEnum dir)
     {

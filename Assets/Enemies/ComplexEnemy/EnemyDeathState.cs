@@ -43,8 +43,8 @@ public class EnemyDeathState : EnemyBaseState
     private void OnEnemyDeathBegin()
     {
         enemyController.IsDead = true;
-        enemyController.collisionManager.Rb.bodyType = RigidbodyType2D.Static;
-        enemyController.collisionManager.BoxCollider.enabled = false;
+        enemyController.CollisionManager.Rb.bodyType = RigidbodyType2D.Static;
+        enemyController.CollisionManager.BoxCollider.enabled = false;
         enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
         enemyController.WorldCanvas.gameObject.SetActive(false);
 

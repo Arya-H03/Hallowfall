@@ -162,7 +162,8 @@ public static class MyUtils
     };
     }
 
-
+   
+    public static DirectionEnum FindDirectionEnumBetweenTwoPoints(Vector2Int from,Vector2Int to) =>  GetDirFromVector(GetSign(to - from)); 
 
     public static DirectionEnum GetRandomVerticalDirectionEnum() =>
         GetVerticalDirectionEnumList()[Random.Range(0, 2)];
@@ -386,4 +387,21 @@ public static class MyUtils
         return indexCoord.x >= 0 && indexCoord.x < arrayWidth &&
                indexCoord.y >= 0 && indexCoord.y < arrayHeight;
     }
+
+
+    public static Vector2Int GetSign(Vector2Int v)
+    {
+        Vector2Int result = new();
+
+        if(v.x == 0) result.x = 0;
+        else result.x = v.x / Mathf.Abs(v.x);
+      
+        if (v.y == 0) result.y = 0;
+        else result.y = v.y / Mathf.Abs(v.y);
+       
+        return result;
+
+
+    }
+
 }

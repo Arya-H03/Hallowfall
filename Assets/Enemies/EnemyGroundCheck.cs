@@ -15,10 +15,10 @@ public class EnemyGroundCheck : MonoBehaviour
     {
         enemyController = GetComponentInParent<EnemyController>();  
     }
-    private void FixedUpdate()
-    {
-        GroundCheck();
-    }
+    //private void FixedUpdate()
+    //{
+    //    GroundCheck();
+    //}
     private void GroundCheck()
     {
         RaycastHit2D[] rayCasts = new RaycastHit2D[2];

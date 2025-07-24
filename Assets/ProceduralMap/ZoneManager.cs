@@ -8,13 +8,15 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages the procedural generation and activation of game zones based on player proximity.
 /// </summary>
+
+[RequireComponent(typeof(CTicker))]
 public class ZoneManager : MonoBehaviour
 {
     public static ZoneManager Instance { get; private set; }
 
-    [SerializeField] private int zoneSize = 80;
+    [SerializeField] private int zoneSize = 40;
     [SerializeField] private int zoneCellSize = 1;
-    [SerializeField] private float zoneBuffer = 30f;
+    [SerializeField] private float zoneBuffer = 25;
     [SerializeField] private GameObject zonePrefab;
     [SerializeField] private GameObject mainGrid;
     [SerializeField] private Tilemap zoneConnectingGround;
@@ -22,11 +24,14 @@ public class ZoneManager : MonoBehaviour
 
     private FlowFieldGenerator flowFieldGenerator;
     public NavMeshSurface navMeshSurface;
+    private ZoneData currentPlayerZoneData;
+    private CTicker cTicker;
 
-  
+    private bool canVisualizeCells = false;
+
     public Tilemap ZoneConnectingGround => zoneConnectingGround;
 
-    public Dictionary<Vector2Int, ZoneData> generatedZonesDic = new();
+    private Dictionary<Vector2Int, ZoneData> generatedZonesDic = new();
 
     private GameObject player;
     private int halfZoneSize;
@@ -41,7 +46,7 @@ public class ZoneManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -49,6 +54,9 @@ public class ZoneManager : MonoBehaviour
         }
 
         Instance = this;
+
+        cTicker = GetComponent<CTicker>();
+
         halfZoneSize = zoneSize / 2;
     }
 
@@ -56,38 +64,65 @@ public class ZoneManager : MonoBehaviour
     {
         player = GameManager.Instance.Player;
         flowFieldGenerator = new FlowFieldGenerator();
-        // Generate the initial zone at origin
+        cTicker.CanTick = true;
+
+
         TryGenerateZone(Vector2Int.zero, DirectionEnum.None);
         //ObjectPoolManager.Instance.GenerateEnemyPools();
 
+        //cTicker.OnTickEvent += CheckForPlayerEdgeProximity;
     }
 
-    private void Update()
-    {
-        //CheckForPlayerEdgeProximity();
-    }
+    
 
     public ZoneData FindCurrentZoneBasedOnWorldPos(Vector3 worldPos)
     {
-        Vector2Int pos = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.y));
-        foreach (KeyValuePair<Vector2Int, ZoneData> pair in generatedZonesDic)
-        {
-            ZoneData zoneData = pair.Value;
-            float dist = (pos - pair.Key).sqrMagnitude;
-            if (dist < zoneData.zoneWidth * zoneData.zoneWidth) return zoneData;
-        }
+        Vector2Int zoneCoord = new Vector2Int(Mathf.RoundToInt(worldPos.x / zoneSize), Mathf.RoundToInt(worldPos.y / zoneSize));
+        if (generatedZonesDic.TryGetValue(zoneCoord, out ZoneData zoneData))
+            return zoneData;
 
         return null;
     }
 
-    public void RequestFlowFieldGenerationOnAGrid(ZoneData zoneData,bool shouldVisualize = false)
-    {
-        ZoneHandler zoneHandler = zoneData.ZoneHandler;
-        flowFieldGenerator.GenerateFlowField(zoneHandler.CellGrid, GameManager.Instance.Player.transform.position);
 
-        if(shouldVisualize) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, zoneData.centerCoord);
+    public void RequestFlowFieldGenerationOnPlayerGrid()
+    {
+        Vector3 playerPos = GameManager.Instance.PlayerController.transform.position;
+
+        ZoneData zoneData = FindCurrentZoneBasedOnWorldPos(playerPos);
+
+        if (currentPlayerZoneData != zoneData)
+        {
+            currentPlayerZoneData = zoneData;
+            foreach (KeyValuePair<Vector2Int, ZoneData> pair in generatedZonesDic)
+            {
+
+                if (pair.Value != currentPlayerZoneData) RequestFlowFieldGenerationOnNonePlayerGrid(pair.Value);
+            }
+        }
+
+        ZoneHandler zoneHandler = currentPlayerZoneData.ZoneHandler;
+        flowFieldGenerator.GenerateFlowFieldOnPlayerzone(zoneHandler.CellGrid, playerPos);
+
+        if (canVisualizeCells) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, currentPlayerZoneData.centerCoord);
         //if(shouldVisualize) GridSystemDebugger.Instance.VisualizeCellFlowCosts(zoneHandler.CellGrid, zoneData.centerCoord);
 
+
+    }
+
+    public void RequestFlowFieldGenerationOnNonePlayerGrid(ZoneData zoneData)
+    {
+        if(currentPlayerZoneData != null)
+        {
+            DirectionEnum direEnumToPlayer = MyUtils.FindDirectionEnumBetweenTwoPoints(new Vector2Int(zoneData.centerPos.x, zoneData.centerPos.y), new Vector2Int(currentPlayerZoneData.centerPos.x, currentPlayerZoneData.centerPos.y));
+            ZoneHandler zoneHandler = zoneData.ZoneHandler;
+            flowFieldGenerator.GenerateFlowFieldOnNonePlayerZone(zoneHandler.CellGrid, direEnumToPlayer);
+
+            if (canVisualizeCells) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, zoneData.centerCoord);
+            //if(shouldVisualize) GridSystemDebugger.Instance.VisualizeCellFlowCosts(zoneHandler.CellGrid, zoneData.centerCoord);
+
+
+        }
 
     }
 
@@ -98,14 +133,14 @@ public class ZoneManager : MonoBehaviour
         Vector3Int newZoneWorldPos = FindZoneCenterPosition(centerCoord);
         GameObject newZoneGO = Instantiate(zonePrefab, newZoneWorldPos, Quaternion.identity, mainGrid.transform);
 
-        var zoneData = new ZoneData(zoneCellSize, zoneSize, zoneSize,centerCoord, newZoneWorldPos, newZoneGO, expansionDir, zoneLayoutProfile);
+        var zoneData = new ZoneData(zoneCellSize, zoneSize, zoneSize, centerCoord, newZoneWorldPos, newZoneGO, expansionDir, zoneLayoutProfile);
         generatedZonesDic.Add(centerCoord, zoneData);
 
         var zoneHandler = newZoneGO.GetComponent<ZoneHandler>();
         zoneHandler.Init(zoneData);
     }
 
-  
+
     private Vector2Int GetCurrentZoneCenterCoord()
     {
         Vector3 pos = player.transform.position;
@@ -119,7 +154,7 @@ public class ZoneManager : MonoBehaviour
     {
         return generatedZonesDic[GetCurrentZoneCenterCoord()].ZoneHandler;
     }
- 
+
     private Vector3Int FindZoneCenterPosition(Vector2Int centerCoord)
     {
         return new Vector3Int(centerCoord.x * zoneSize, centerCoord.y * zoneSize, 0);
@@ -144,7 +179,7 @@ public class ZoneManager : MonoBehaviour
             bool withinBuffer = distSqr < zoneBuffer * zoneBuffer;
 
             if (!generatedZonesDic.ContainsKey(nextCoord))
-            {               
+            {
                 if (withinBuffer && directionDic.TryGetValue(dir, out DirectionEnum dirEnum))
                 {
                     ExpandZones(dirEnum);
@@ -204,6 +239,20 @@ public class ZoneManager : MonoBehaviour
                 TryGenerateZone(currentCoord + Vector2Int.down, DirectionEnum.UpRight);
                 TryGenerateZone(currentCoord + new Vector2Int(-1, -1), DirectionEnum.UpRight);
                 break;
+        }
+    }
+
+    public void ToggleCellDebuger()
+    {
+        if(canVisualizeCells)
+        {
+            canVisualizeCells = false;
+            GridSystemDebugger.Instance.DisableAllVisuals();
+        }
+        else if(!canVisualizeCells)
+        {
+            canVisualizeCells = true;
+            GridSystemDebugger.Instance.EnableAllVisuals();
         }
     }
 }

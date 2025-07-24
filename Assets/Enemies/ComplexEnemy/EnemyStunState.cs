@@ -26,7 +26,7 @@ public class EnemyStunState : EnemyBaseState
         stunTimer = 0f;
         enemyController.isStuned = false;
         enemyController.stunEffect.SetActive(false);
-        enemyController.collisionManager.ResetStagger();
+        enemyController.CollisionManager.ResetStagger();
     }
 
     public override void HandleState()

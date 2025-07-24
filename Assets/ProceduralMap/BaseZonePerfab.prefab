@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8274897305887802033}
   - component: {fileID: 5181877562785299248}
   - component: {fileID: 562458207000594560}
-  - component: {fileID: 6337691823357254423}
   m_Layer: 11
   m_Name: PropsWithCollisionTileMap
   m_TagString: Untagged
@@ -239,22 +238,6 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 763958277299119336}
---- !u!114 &6337691823357254423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763958277299119336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1 &2405241020817946516
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +249,6 @@ GameObject:
   - component: {fileID: 4616812027994073212}
   - component: {fileID: 3715641735537077257}
   - component: {fileID: 1026402224810696529}
-  - component: {fileID: 5207972261027688033}
   m_Layer: 11
   m_Name: PropsNoCollisionTileMap
   m_TagString: Untagged
@@ -379,22 +361,6 @@ TilemapRenderer:
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5207972261027688033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2405241020817946516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1 &3834435196328284049
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +556,6 @@ GameObject:
   - component: {fileID: 1037631796614559314}
   - component: {fileID: 5114310727246441677}
   - component: {fileID: 5035536537622168005}
-  - component: {fileID: 4142877033114730320}
   m_Layer: 11
   m_Name: BoundsTileMap
   m_TagString: Untagged
@@ -961,22 +926,6 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 4490760840421078242}
---- !u!114 &4142877033114730320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4490760840421078242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1 &6149559910383254987
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +937,6 @@ GameObject:
   - component: {fileID: 1012198557694353775}
   - component: {fileID: 6428397631787295070}
   - component: {fileID: 3111786227940607621}
-  - component: {fileID: 410946048772748689}
   m_Layer: 3
   m_Name: Ground0TileMap
   m_TagString: Ground
@@ -1101,22 +1049,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &410946048772748689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149559910383254987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 0
-  m_Area: 0
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1 &8405919373608165105
 GameObject:
   m_ObjectHideFlags: 0
