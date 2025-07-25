@@ -40,6 +40,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform worldCanvas;
     [SerializeField] private DamagePopUp damagePopUp;
     [SerializeField] public GameObject stunEffect;
+    [SerializeField] private Transform enemyCenterTransform;
 
     // Stats
     public float maxHealth = 100;
@@ -235,7 +236,7 @@ public class EnemyController : MonoBehaviour
 
         CollisionManager.StaggerEnemy(damage);
         Vector2 knockbackVector = (GetEnemyCenter() - playerController.GetPlayerCenter()).normalized;
-        CollisionManager.KnockBackEnemy(knockbackVector, knockbackForce);
+        //CollisionManager.KnockBackEnemy(knockbackVector, knockbackForce);
 
         //Damage
         OnEnemyTakingDamage(damage, DamageModifier);
@@ -314,8 +315,8 @@ public class EnemyController : MonoBehaviour
 
     public Vector3 GetEnemyCenter()
     {
-        Vector3 center = transform.position;
-        center.y += spriteRenderer.bounds.size.y / 2;
+        Vector3 center = enemyCenterTransform.position;
+        //center.y += spriteRenderer.bounds.size.y / 2;
         return center;
     }
 

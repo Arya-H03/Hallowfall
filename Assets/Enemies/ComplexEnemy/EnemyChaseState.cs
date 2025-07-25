@@ -72,14 +72,14 @@ public class EnemyChaseState : EnemyBaseState
         {
             enemyController.EnemyMovementHandler.MoveToPlayer(ChaseSpeed);
         }
-            
+
         else
         {
             enemyController.ChangeState(EnemyStateEnum.Attack);
         }
-           
 
-     
+
+
     }
 
     //private void CheckEnemySight()

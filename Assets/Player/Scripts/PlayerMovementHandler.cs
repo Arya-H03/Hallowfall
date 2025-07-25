@@ -7,16 +7,15 @@ public class PlayerMovementHandler : MonoBehaviour
     private PlayerController playerController;
     //[SerializeField] private DialogueBox dialogueBox;
     private ZoneManager zoneManager;
-    private float flowFieldGenerationDelay = 0.4f;
-    private float flowFieldGenerationTimer = 0.4f;
+    private FlowFieldManager flowFieldManager;
+    private float flowFieldGenerationDelay = 0.3f;
+    private float flowFieldGenerationTimer = 0.3f;
 
     public Vector2 currentInputDir; // -1 = "A" +1 = "D" 0= None 
     private Vector2 currentDirection = new Vector2(1,0);
     private float speedModifer = 1;
 
     private float moveSpeed;
-
-    private ZoneData currentZoneData;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public Vector2 CurrentDirection { get => currentDirection; set => currentDirection = value; }
     public float SpeedModifer { get => speedModifer; set => speedModifer = value; }
@@ -25,26 +24,29 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         zoneManager = ZoneManager.Instance;
+        flowFieldManager = FlowFieldManager.Instance;   
     }
 
     private void Update()
     {
-        if (!playerController.IsDead && currentInputDir != Vector2.zero)
-        {
-            MovePlayer();
-        }
+        //if (!playerController.IsDead && currentInputDir.magnitude > 0.1)
+        //{
+        MovePlayer();
+        //}
     }
 
     private void MovePlayer()
     {
-        transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
-        if(zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
+        
+        if(zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay /*&& flowFieldManager.ValidateTargetCellHasChanged(playerController.GetPlayerCenter())*/)
         {
-            zoneManager.RequestFlowFieldGenerationOnPlayerGrid();
+            flowFieldManager.UpdateFlowFieldFromTarget(playerController.transform.position);
             flowFieldGenerationTimer = 0;   
 
         }
-        flowFieldGenerationTimer += Time.deltaTime; 
+        flowFieldGenerationTimer += Time.deltaTime;
+
+        playerController.transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
     }
 
     public void TurnPlayer(Vector2 vec)

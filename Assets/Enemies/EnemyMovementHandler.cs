@@ -12,8 +12,7 @@ public class EnemyMovementHandler : MonoBehaviour
 
 
     private EnemyController enemyController;
-    private ZoneManager zoneManager;
-   
+    
     private int currentDir = 0;
 
     private float distanceToTarget;
@@ -21,17 +20,13 @@ public class EnemyMovementHandler : MonoBehaviour
     public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
     public int CurrentDir { get => currentDir; set => currentDir = value; }
 
+    Vector3 nextPos = Vector3.zero;
+    Vector3 lastPos = Vector3.zero;
     private void Awake()
     {
         enemyController = GetComponent<EnemyController>();
        
     }
-
-    private void Start()
-    {
-        zoneManager = ZoneManager.Instance;
-    }
-
 
     //public void MoveToLocation(Vector3 startPoint, Vector3 endPoint, float speed)
     //{
@@ -43,32 +38,44 @@ public class EnemyMovementHandler : MonoBehaviour
 
     public void MoveToPlayer(float speed)
     {
-        if (zoneManager == null) return;
+        Vector3 currentPos = enemyController.GetEnemyCenter();
 
-        ZoneData zoneData = zoneManager.FindCurrentZoneBasedOnWorldPos(enemyController.GetEnemyCenter());
-        Cell currentCell = zoneData.ZoneHandler.CellGrid.GetCellFromWorldPos(enemyController.GetEnemyCenter());
-
-        Vector3 flowVector = new Vector3(currentCell.FlowVect.x, currentCell.FlowVect.y, 0);
-        //Vector2 separationVector = enemyController.EnemyEnvironenmentCheck.CalculateSeparationForce();
-
-        // If there's no flow vector, randomly pick one from neighbors
-        if (flowVector == Vector3.zero)
+        if (nextPos == Vector3.zero || Vector3.Distance(nextPos, currentPos) < 0.3)
         {
-            List<Cell> neighborCells = currentCell.GetAllNeighborCells();
-            Vector2 newFlowVect = neighborCells[Random.Range(0, neighborCells.Count)].FlowVect;
-            flowVector = new Vector3(newFlowVect.x, newFlowVect.y, 0);
+            
+            nextPos = FlowFieldManager.Instance.RequestNewPosition(currentPos,lastPos);
+            lastPos = currentPos;
+            
+            //Debug.Log("Request for new position was sent from " + enemyController.gameObject.name + " / Dist = "+ Vector3.Distance(nextPos, currentPos) + " /Next pos = "+nextPos);
         }
 
-        if (flowVector != Vector3.zero)
-            FaceMovementDirection(flowVector);
+        //Vector2 separationVector = enemyController.EnemyEnvironenmentCheck.CalculateSeparationForce();
+        Vector3 nextDir = ((nextPos - currentPos) /** 0.7f + (Vector3)separationVector * 0.3f*/).normalized;
 
-        Vector3 finalFlowVector = (flowVector /*+ (Vector3)separationVector*/).normalized;
+        transform.position += speed * Time.deltaTime * nextDir;
+        FaceMovementDirection(nextDir);
 
-       
-       
+        if (Vector3.Distance(nextPos, currentPos) < 0.3)
+        {
+            nextPos = Vector3.zero;
+        }
+
 
         
-        transform.position += speed * Time.deltaTime * finalFlowVector;
+
+        // If there's no flow vector, randomly pick one from neighbors
+        //if (flowVector == Vector3.zero)
+        //{
+        //    List<Cell> neighborCells = currentCell.GetAllNeighborCells();
+        //    Vector2 newFlowVect = neighborCells[Random.Range(0, neighborCells.Count)].FlowVect;
+        //    flowVector = new Vector3(newFlowVect.x, newFlowVect.y, 0);
+        //}
+
+        //if (flowVector != Vector3.zero)
+        //    FaceMovementDirection(flowVector);
+
+        //Vector3 finalFlowVector = (flowVector /*+ (Vector3)separationVector*/).normalized;
+
     }
 
     public void FaceMovementDirection(Vector3 movementVector)

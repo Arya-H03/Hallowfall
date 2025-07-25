@@ -155,7 +155,7 @@ public class CellGrid
         Vector3 pos = (Vector3)cell.GlobalCellPos + new Vector3(0.5f, 0.5f, 0);
         GameObject go = UnityEngine.Object.Instantiate(prefab, pos, rotation);
         if (parent != null) go.transform.parent = parent;
-        if (markOccupied) cell.MarkCellAsOccupied();
+        if (markOccupied) cell.MarkAsOccupied();
 
         return go;
     }

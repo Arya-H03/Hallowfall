@@ -271,7 +271,6 @@ MonoBehaviour:
   attackCooldown: 2.5
   attackRange: 1.5
   attackDamage: 20
-  audioSource: {fileID: 0}
   attackSFX:
   - {fileID: 8300000, guid: be3eb9310aa56f540967f99527bea652, type: 3}
   - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}
@@ -561,6 +560,7 @@ Transform:
   - {fileID: 5680723254515527910}
   - {fileID: 1755286238328466813}
   - {fileID: 6850253613391815811}
+  - {fileID: 7243004673688686530}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1824542978293724540
@@ -676,7 +676,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 50
+  m_Mass: 0.19634955
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -686,7 +686,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -709,6 +709,7 @@ MonoBehaviour:
   worldCanvas: {fileID: 4825887145450144339}
   damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
   stunEffect: {fileID: 5633359595972537000}
+  enemyCenterTransform: {fileID: 7243004673688686530}
   maxHealth: 50
   currentHealth: 0
   currentStateEnum: 1
@@ -819,7 +820,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 6144
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 2147491775
@@ -913,7 +914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4825887145450144339
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1171,6 +1172,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   searchRadius: 0
+--- !u!1 &9181176776266435763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7243004673688686530}
+  m_Layer: 6
+  m_Name: EnemyCenterTransfrom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7243004673688686530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181176776266435763}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7251538344070392708}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9188536229556048115
 GameObject:
   m_ObjectHideFlags: 0

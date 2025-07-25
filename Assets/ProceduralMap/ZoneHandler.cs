@@ -90,7 +90,7 @@ public class ZoneHandler : MonoBehaviour
         //yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
 
 
-        ZoneManager.Instance.RequestFlowFieldGenerationOnNonePlayerGrid(zoneData);
+        FlowFieldManager.Instance.UpdateFlowFieldFromZone(zoneData);
 
 
         zoneData.IsZoneFullyGenerated = true;
@@ -157,7 +157,7 @@ public class ZoneHandler : MonoBehaviour
             for (int y = startCell.GlobalCellCoord.y; y < startCell.GlobalCellCoord.y + height; y++)
             {
                 if (x >= 0 && x < cellGrid.CellPerRow && y >= 0 && y < cellGrid.CellPerCol)
-                    cellGrid.Cells[x, y].MarkCellAsPartitioned();
+                    cellGrid.Cells[x, y].MarkAsPartitioned();
             }
         }
 
@@ -268,8 +268,8 @@ public class ZoneHandler : MonoBehaviour
             {
                 Vector3Int pos = TurnCellCoordToTilePos(beginningCellCoord.x, y);
                 //tilemap.SetTile(pos, tileBase);
-                CellGrid.Cells[beginningCellCoord.x, y].MarkCellAsOccupied();
-                CellGrid.Cells[beginningCellCoord.x, y].MarkCellAsPartitioned();
+                CellGrid.Cells[beginningCellCoord.x, y].MarkAsOccupied();
+                CellGrid.Cells[beginningCellCoord.x, y].MarkAsPartitioned();
                 CellGrid.Cells[beginningCellCoord.x, y].AddToCellPaint(tilePaints);
             }
         }
@@ -283,8 +283,8 @@ public class ZoneHandler : MonoBehaviour
 
                 Vector3Int pos = TurnCellCoordToTilePos(x, beginningCellCoord.y);
                 //tilemap.SetTile(pos, tileBase);
-                CellGrid.Cells[x, beginningCellCoord.y].MarkCellAsOccupied();
-                CellGrid.Cells[x, beginningCellCoord.y].MarkCellAsPartitioned();
+                CellGrid.Cells[x, beginningCellCoord.y].MarkAsOccupied();
+                CellGrid.Cells[x, beginningCellCoord.y].MarkAsPartitioned();
                 CellGrid.Cells[x, beginningCellCoord.y].AddToCellPaint(tilePaints);
             }
         }
@@ -361,7 +361,7 @@ public class ZoneHandler : MonoBehaviour
 
                 Vector3Int pos = TurnCellCoordToTilePos(cellCoord.x, cellCoord.y);
                 zoneOpenings[dir][i] = cellCoord;
-                cellGrid.Cells[cellCoord.x, cellCoord.y].MarkCellAsOccupied();
+                cellGrid.Cells[cellCoord.x, cellCoord.y].MarkAsOccupied();
                 cellGrid.Cells[cellCoord.x, cellCoord.y].RemoveCellPaints();
             }
         }

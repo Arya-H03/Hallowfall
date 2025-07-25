@@ -110,15 +110,16 @@ public class GridSystemDebugger : MonoBehaviour
     private void UpdateVisualForFlowDirection(Cell cell, CellDebugger visual)
     {
         visual.UpdateIDText(cell.GlobalCellCoord);
-        if (cell.IsWalkable) visual.UpdateColor(Color.green);
+        if (cell.IsWalkable) visual.UpdateColor(Color.limeGreen);
         else visual.UpdateColor(Color.red);
 
-        if (cell.FlowCost == 0) visual.UpdateColor(Color.orange);
+        if (cell.TotalCost == 0) visual.UpdateColor(Color.deepSkyBlue);
+        if (cell.HasEnemy) visual.UpdateColor(Color.orange);
 
-        visual.UpdateCostText(cell.FlowCost);
+        visual.UpdateCostText(cell.TotalCost);
 
         Vector2 flowDir = cell.FlowVect;
-
+    
         if (flowDir != Vector2.zero)
         {
             float angle = Mathf.Atan2(flowDir.y, flowDir.x) * Mathf.Rad2Deg;

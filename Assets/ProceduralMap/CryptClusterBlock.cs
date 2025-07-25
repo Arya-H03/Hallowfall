@@ -42,8 +42,8 @@ public class CryptClusterBlock : PropsBlock
 
                 if (isInsideCryptArea)
                 {
-                    subCellGrid.Cells[i, j].MarkCellAsOccupied();
-                    subCellGrid.Cells[i, j].MarkCellAsUnWalkable();
+                    subCellGrid.Cells[i, j].MarkAsOccupied();
+                    subCellGrid.Cells[i, j].MarkAsUnwalkable();
                 }
                 //if (!isInsideCryptArea && Random.value < graveYardLayoutProfile.clutterDensity)
                 //{
@@ -56,7 +56,7 @@ public class CryptClusterBlock : PropsBlock
                 if (isAroundCryptArea)
                 {
                     subCellGrid.Cells[i, j].AddToCellPaint(tilePaintStone);
-                    //subCellGrid.Cells[i, j].MarkCellAsUnWalkable();
+                    subCellGrid.Cells[i, j].MarkAsUnwalkable();
 
                 }
                 else

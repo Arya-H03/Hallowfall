@@ -9,7 +9,6 @@ public class EnemyBaseAttack : MonoBehaviour
     [SerializeField] protected float attackRange;
     [SerializeField] protected int attackDamage;
     protected bool isAvailable = true;
-    [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected AudioClip[] attackSFX;
     [SerializeField] protected EnemyAttackTypeEnum attackTypeEnum;
     [SerializeField] protected GameObject attackZoneGO;
@@ -27,13 +26,6 @@ public class EnemyBaseAttack : MonoBehaviour
     protected virtual void Awake()
     {
         enemyController = GetComponentInParent<EnemyController>();
-    }
-    private void Start()
-    {
-        if (!audioSource)
-        {
-            Debug.LogWarning(this.name + "has no audio source attached to it's serializefield");
-        }
     }
 
     public void StartAttack()
@@ -57,7 +49,7 @@ public class EnemyBaseAttack : MonoBehaviour
 
     protected void PlayAttackSFX()
     {
-        if (audioSource != null && attackSFX.Length > 0)
+        if (attackSFX.Length > 0)
         {
             AudioManager.Instance.PlaySFX(attackSFX,enemyController.transform.position,0.35f);
         }

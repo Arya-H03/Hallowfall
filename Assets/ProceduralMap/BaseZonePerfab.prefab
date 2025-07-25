@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8274897305887802033}
   - component: {fileID: 5181877562785299248}
   - component: {fileID: 562458207000594560}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: PropsWithCollisionTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
