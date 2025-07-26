@@ -90,45 +90,7 @@ public class ZoneManager : MonoBehaviour
         Cell result = zoneData.ZoneHandler.CellGrid.GetCellFromWorldPos(worldPos);
         return result;
     }
-    //public void RequestFlowFieldGenerationOnPlayerGrid()
-    //{
-    //    Vector3 playerPos = GameManager.Instance.PlayerController.transform.position;
-
-    //    ZoneData zoneData = FindZoneDateFromorldPos(playerPos);
-
-    //    if (currentPlayerZoneData != zoneData)
-    //    {
-    //        currentPlayerZoneData = zoneData;
-    //        foreach (KeyValuePair<Vector2Int, ZoneData> pair in generatedZonesDic)
-    //        {
-
-    //            if (pair.Value != currentPlayerZoneData) RequestFlowFieldGenerationOnNonePlayerGrid(pair.Value);
-    //        }
-    //    }
-
-    //    ZoneHandler zoneHandler = currentPlayerZoneData.ZoneHandler;
-    //    flowFieldGenerator.GenerateFlowFieldOnTargetZone(zoneHandler.CellGrid, playerPos);
-
-    //    if (canVisualizeCells) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, currentPlayerZoneData.centerCoord);
-      
-    //}
-
-    //public void RequestFlowFieldGenerationOnNonePlayerGrid(ZoneData zoneData)
-    //{
-    //    if(currentPlayerZoneData != null)
-    //    {
-    //        DirectionEnum direEnumToPlayer = MyUtils.FindDirectionEnumBetweenTwoPoints(new Vector2Int(zoneData.centerPos.x, zoneData.centerPos.y), new Vector2Int(currentPlayerZoneData.centerPos.x, currentPlayerZoneData.centerPos.y));
-    //        ZoneHandler zoneHandler = zoneData.ZoneHandler;
-    //        flowFieldGenerator.GenerateFlowFieldOnNonePlayerZone(zoneHandler.CellGrid, direEnumToPlayer);
-
-    //        if (canVisualizeCells) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, zoneData.centerCoord);
-    //        //if(shouldVisualize) GridSystemDebugger.Instance.VisualizeCellFlowCosts(zoneHandler.CellGrid, zoneData.centerCoord);
-
-
-    //    }
-
-    //}
-
+    
     private void TryGenerateZone(Vector2Int centerCoord, DirectionEnum expansionDir)
     {
         if (generatedZonesDic.ContainsKey(centerCoord)) return;
@@ -163,9 +125,7 @@ public class ZoneManager : MonoBehaviour
         return new Vector3Int(centerCoord.x * zoneSize, centerCoord.y * zoneSize, 0);
     }
 
-    /// <summary>
-    /// Checks the player's proximity to the edge of the current zone and expands nearby zones as needed.
-    /// </summary>
+   
     private void CheckForPlayerEdgeProximity()
     {
         Vector3 playerPos = player.transform.position;

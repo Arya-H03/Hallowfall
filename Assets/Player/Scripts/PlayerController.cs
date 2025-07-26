@@ -53,12 +53,9 @@ public class PlayerController : MonoBehaviour
     // States
     private PlayerIdleState playerIdleState;
     private PlayerRunState playerRunState;
-    private PlayerJumpState playerJumpState;
     private PlayerSwordAttackState playerSwordAttackState;
     private PlayerParryState playerParryState;
     private PlayerRollState playerRollState;
-    private PlayerHangingState playerHangingState;
-    private PlayerFallState playerFallState;
     private PlayerDeathState playerDeathState;
     private PlayerDashState playerDashState;
 
@@ -99,12 +96,9 @@ public class PlayerController : MonoBehaviour
 
     public PlayerIdleState PlayerIdleState { get => playerIdleState; set => playerIdleState = value; }
     public PlayerRunState PlayerRunState { get => playerRunState; set => playerRunState = value; }
-    public PlayerJumpState PlayerJumpState { get => playerJumpState; set => playerJumpState = value; }
     public PlayerSwordAttackState PlayerSwordAttackState { get => playerSwordAttackState; set => playerSwordAttackState = value; }
     public PlayerParryState PlayerParryState { get => playerParryState; set => playerParryState = value; }
     public PlayerRollState PlayerRollState { get => playerRollState; set => playerRollState = value; }
-    public PlayerHangingState PlayerHangingState { get => playerHangingState; set => playerHangingState = value; }
-    public PlayerFallState PlayerFallState { get => playerFallState; set => playerFallState = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
     public PlayerDashState PlayerDashState { get => playerDashState; set => playerDashState = value; }
     public LayerMask EnemyLayer { get => enemyLayer; set => enemyLayer = value; }
@@ -115,24 +109,21 @@ public class PlayerController : MonoBehaviour
     {
         // Component initialization
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         material = spriteRenderer.material;
 
-        AfterImageHandler = GetComponent<AfterImageHandler>();
+        AfterImageHandler = GetComponentInChildren<AfterImageHandler>();
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
         PlayerMovementHandler = GetComponent<PlayerMovementHandler>();
-        PlayerCollision = GetComponent<PlayerCollisionController>();
+        PlayerCollision = GetComponentInChildren<PlayerCollisionController>();
         playerAbilityController = GetComponentInChildren<PlayerAbilityController>();
 
         // State initialization
         InitializeState(ref playerIdleState);
-        InitializeState(ref playerRunState);
-        InitializeState(ref playerJumpState);
+        InitializeState(ref playerRunState);;
         InitializeState(ref playerSwordAttackState);
         InitializeState(ref playerParryState);
         InitializeState(ref playerRollState);
-        InitializeState(ref playerHangingState);
-        InitializeState(ref playerFallState);
         InitializeState(ref playerDeathState);
         InitializeState(ref playerDashState);
 
@@ -171,11 +162,9 @@ public class PlayerController : MonoBehaviour
         {
             PlayerStateEnum.Idle => playerIdleState,
             PlayerStateEnum.Run => (!IsAttacking && !IsParrying && !IsPlayerJumping) ? playerRunState : CurrentState,
-            PlayerStateEnum.Jump => playerJumpState,
             PlayerStateEnum.SwordAttack => playerSwordAttackState,
             PlayerStateEnum.Parry => playerParryState,
             PlayerStateEnum.Roll => playerRollState,
-            PlayerStateEnum.Hang => playerHangingState,
             PlayerStateEnum.Dash => playerDashState,
             PlayerStateEnum.Death => playerDeathState,
             _ => playerIdleState
@@ -285,7 +274,7 @@ public class PlayerController : MonoBehaviour
     {
         //Vector3 center = transform.position;
         //center.y += spriteRenderer.bounds.size.y / 2;
-        return playerCenterTransform.transform.position;
+        return transform.position;
     }
 
     private void ManageTimers()

@@ -113,13 +113,20 @@ public class CellGrid
         blockPaint.tilemap.SetTilesBlock(bounds, tiles);
     }
 
-    public IEnumerator PaintGrid()
+    public IEnumerator PaintAllBlocksCoroutine()
     {
-        foreach (var block in BlockPaintList) PaintBlock(block);
-
-
-        yield return null;
-        PaintAllCells();
+        int count = 0;
+        foreach (var block in BlockPaintList)
+        {
+            PaintBlock(block);
+            count++;
+            if (count >= 5)
+            {
+                count = 0;
+                yield return null;
+                
+            }
+        } 
     }
 
     public IEnumerator PaintAllCellsCoroutine()
@@ -131,7 +138,7 @@ public class CellGrid
             {
                 cells[i, j].PaintCell(this);
                 count++;
-                if (count >= 100)
+                if (count >= 200)
                 {
                     count = 0;
                     yield return null;

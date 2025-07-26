@@ -13,6 +13,7 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField] ObjectPool sinnerPool;
     [SerializeField] ObjectPool necroPool;
     [SerializeField] ObjectPool revenantPool;
+    [SerializeField] ObjectPool undeadPool;
 
     public static ObjectPoolManager Instance
     {
@@ -32,6 +33,7 @@ public class ObjectPoolManager : MonoBehaviour
     public ObjectPool SinnerPool { get => sinnerPool; }
     public ObjectPool NecroPool { get => necroPool; }
     public ObjectPool RevenantPool { get => revenantPool; }
+    public ObjectPool UndeadPool { get => undeadPool; set => undeadPool = value; }
 
     private void Awake()
     {

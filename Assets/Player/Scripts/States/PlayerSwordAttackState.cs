@@ -23,8 +23,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     private int attackIndex = 1;
     private List<int> listOfqueuedAttacks = new();
 
-
-    private AudioSource audioSource;
     private AudioClip[] attackSwingSFX;
 
 
@@ -63,11 +61,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     public PlayerSwordAttackState()
     {
         this.stateEnum = PlayerStateEnum.SwordAttack;
-    }
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
     }
 
     public override void Start()
@@ -293,10 +286,10 @@ public class PlayerSwordAttackState : PlayerBaseState
         {
             if (hit.collider.CompareTag("Enemy"))
             {
-                EnemyController enemyController = hit.collider.GetComponent<EnemyController>();
+                EnemyController enemyController = hit.collider.GetComponentInParent<EnemyController>();
                 Vector2 knockbackVector = (playerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
                 enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword, force);
-                playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.1f);
+                //playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.1f);
                 GameManager.Instance.StopTime(hitStopDuration);
             }
         }

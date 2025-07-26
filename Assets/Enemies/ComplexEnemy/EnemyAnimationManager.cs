@@ -11,7 +11,7 @@ public class EnemyAnimationManager : MonoBehaviour
 
     private void Awake()
     {
-        enemyController = GetComponent<EnemyController>(); 
+        enemyController = GetComponentInParent<EnemyController>(); 
         Animator = GetComponent<Animator>();
     }
     public void SetBoolForAnimation(string name, bool value)

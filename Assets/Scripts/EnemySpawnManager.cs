@@ -26,6 +26,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] GameObject arsonistPrefab;
     [SerializeField] GameObject sinnerPrefab;
     [SerializeField] GameObject necromancerPrefab;
+    [SerializeField] GameObject undeadPrefab;
 
     [SerializeField] private float mainWaveDelay = 3;
     [SerializeField] private int waveCounter = 0;
@@ -52,15 +53,15 @@ public class EnemySpawnManager : MonoBehaviour
             waveCounter++;
             yield return new WaitForSeconds(mainWaveDelay);
 
-            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Arsonist, GenerateRandomSpawnPosition(5));
+            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
 
             yield return new WaitForSeconds(1);
-            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Sinner, GenerateRandomSpawnPosition(5));
+            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
 
             if (waveCounter >= 5)
             {
                 mainWaveDelay += 5;
-                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Necromancer, GenerateRandomSpawnPosition(5));
+                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
             }
 
 
@@ -85,6 +86,9 @@ public class EnemySpawnManager : MonoBehaviour
                 break;
             case EnemyTypeEnum.Necromancer:
                 enemy = ObjectPoolManager.Instance.NecroPool.GetFromPool();
+                break;
+            case EnemyTypeEnum.Undead:
+                enemy = ObjectPoolManager.Instance.UndeadPool.GetFromPool();
                 break;
 
         }

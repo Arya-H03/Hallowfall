@@ -15,7 +15,7 @@ public class PlayerParryState : PlayerBaseState
     [SerializeField] private GameObject impactEffect;
     [SerializeField] private AudioClip parrySFX;
 
-    private AudioSource audioSource;
+
     private bool canCounterParry = false;
     private bool canParryProjectiles = false;
 
@@ -29,11 +29,7 @@ public class PlayerParryState : PlayerBaseState
 
     #region Unity Methods
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
-
+    
     private void OnEnable()
     {
         SkillEvents.OnCounterSkillUnlocked += CounterSkillLogic;

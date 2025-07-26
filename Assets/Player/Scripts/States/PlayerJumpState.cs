@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerBaseState
 {
-    private AudioSource audioSource;
     [SerializeField] AudioClip jumpUpAC;
     [SerializeField] float jumpSpeed;
 
@@ -15,10 +14,6 @@ public class PlayerJumpState : PlayerBaseState
         this.stateEnum = PlayerStateEnum.Jump;
     }
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();  
-    }
     public override void OnEnterState()
     {
         playerController.AnimationController.SetBoolForAnimations("isRunning", false);

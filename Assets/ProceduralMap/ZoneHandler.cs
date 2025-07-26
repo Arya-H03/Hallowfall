@@ -86,9 +86,9 @@ public class ZoneHandler : MonoBehaviour
 
         //cellGrid.PaintAllCells();
 
-        yield return StartCoroutine(CellGrid.PaintGrid());
-        //yield return StartCoroutine(cellGrid.PaintAllCellsCoroutine());
-
+        yield return StartCoroutine(CellGrid.PaintAllBlocksCoroutine());
+        yield return StartCoroutine(CellGrid.PaintAllCellsCoroutine());
+       
 
         FlowFieldManager.Instance.UpdateFlowFieldFromZone(zoneData);
 

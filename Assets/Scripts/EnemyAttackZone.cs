@@ -21,7 +21,7 @@ public class EnemyAttackZone : MonoBehaviour
         }
         else if(collision.CompareTag("Player"))
         {
-            target = collision.gameObject;
+            target = collision.gameObject.transform.parent.gameObject;
         }
     }
 

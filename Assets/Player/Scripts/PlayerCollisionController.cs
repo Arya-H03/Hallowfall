@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerCollisionController : MonoBehaviour
 {
-    private PlayerController playerController;
+
     private BoxCollider2D boxCollider2D;
     private Rigidbody2D rb;
 
@@ -18,9 +18,8 @@ public class PlayerCollisionController : MonoBehaviour
 
     void Awake()
     {
-        playerController = GetComponent<PlayerController>();
         BoxCollider2D = GetComponent<BoxCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInParent<Rigidbody2D>();
     }
 
   

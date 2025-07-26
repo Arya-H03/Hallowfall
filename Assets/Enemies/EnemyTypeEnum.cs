@@ -7,5 +7,6 @@ public enum EnemyTypeEnum
     Arsonist,
     Sinner,
     Revenant,
-    Necromancer
+    Necromancer,
+    Undead
 }

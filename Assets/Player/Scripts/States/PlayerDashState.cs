@@ -49,7 +49,6 @@ public class PlayerDashState : PlayerBaseState
     private DashAttackBox dashAttackBox;
     private AudioClip[] dashAttackSFX;
     private Coroutine afterImageCoroutine;
-    private AudioSource audioSource;
 
     private int maxDashCharges = 1;
     private int currentDashCharges = 1;
@@ -86,7 +85,6 @@ public class PlayerDashState : PlayerBaseState
     }
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         dashAttackBox = GetComponentInChildren<DashAttackBox>();
     }
 

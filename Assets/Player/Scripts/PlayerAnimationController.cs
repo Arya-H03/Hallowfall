@@ -7,32 +7,12 @@ public class PlayerAnimationController : MonoBehaviour
     private Animator animator;
     private PlayerController playerController;
 
-    [SerializeField] RuntimeAnimatorController withSwordAC;
-    [SerializeField] RuntimeAnimatorController withoutSwordAC;
-
-
-    [SerializeField] GameObject LeftHand;
-
     private string[] animConditions = { "isRunning", "isJumping", "isHit" };
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerController = GetComponent<PlayerController>();
-    }
-
-    public void ChangeAnimatorAC(bool hasSword)
-    {
-        if (hasSword)
-        {
-            animator.runtimeAnimatorController = withSwordAC;
-        }
-
-        if (!hasSword)
-        {
-            animator.runtimeAnimatorController = withoutSwordAC;
-        }
-
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     public void SetBoolForAnimations(string name, bool value)
@@ -88,11 +68,7 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-    public void SetPlayerFallStatus()
-    {
-        playerController.PlayerJumpState.SetPlayerFallStatus();
-    }
-
+  
     public void OnRollEnd()
     {
         playerController.PlayerRollState.EndRoll();

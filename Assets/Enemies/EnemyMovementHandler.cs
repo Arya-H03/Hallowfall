@@ -12,22 +12,27 @@ public class EnemyMovementHandler : MonoBehaviour
 
 
     private EnemyController enemyController;
-    
+
     private int currentDir = 0;
 
     private float distanceToTarget;
-
+    private Vector3 nextDir = Vector3.zero;
     public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
     public int CurrentDir { get => currentDir; set => currentDir = value; }
 
-    Vector3 nextPos = Vector3.zero;
     Vector3 lastPos = Vector3.zero;
+    private float flowRequestDelay = 0.15f;
+    private float flowRequestTimer;
     private void Awake()
     {
         enemyController = GetComponent<EnemyController>();
-       
+
     }
 
+    private void Start()
+    {
+        flowRequestTimer = flowRequestDelay;
+    }
     //public void MoveToLocation(Vector3 startPoint, Vector3 endPoint, float speed)
     //{
 
@@ -38,56 +43,33 @@ public class EnemyMovementHandler : MonoBehaviour
 
     public void MoveToPlayer(float speed)
     {
-        Vector3 currentPos = enemyController.GetEnemyCenter();
-
-        if (nextPos == Vector3.zero || Vector3.Distance(nextPos, currentPos) < 0.3)
+        if (flowRequestTimer >= flowRequestDelay)
         {
-            
-            nextPos = FlowFieldManager.Instance.RequestNewPosition(currentPos,lastPos);
+            Vector3 currentPos = enemyController.transform.position;
+            nextDir = FlowFieldManager.Instance.RequestNewFlowDir(currentPos, lastPos).normalized;
             lastPos = currentPos;
-            
-            //Debug.Log("Request for new position was sent from " + enemyController.gameObject.name + " / Dist = "+ Vector3.Distance(nextPos, currentPos) + " /Next pos = "+nextPos);
+            flowRequestTimer = 0;
+
         }
-
-        //Vector2 separationVector = enemyController.EnemyEnvironenmentCheck.CalculateSeparationForce();
-        Vector3 nextDir = ((nextPos - currentPos) /** 0.7f + (Vector3)separationVector * 0.3f*/).normalized;
-
+        flowRequestTimer += Time.deltaTime;
+        
         transform.position += speed * Time.deltaTime * nextDir;
         FaceMovementDirection(nextDir);
 
-        if (Vector3.Distance(nextPos, currentPos) < 0.3)
-        {
-            nextPos = Vector3.zero;
-        }
-
-
-        
-
-        // If there's no flow vector, randomly pick one from neighbors
-        //if (flowVector == Vector3.zero)
-        //{
-        //    List<Cell> neighborCells = currentCell.GetAllNeighborCells();
-        //    Vector2 newFlowVect = neighborCells[Random.Range(0, neighborCells.Count)].FlowVect;
-        //    flowVector = new Vector3(newFlowVect.x, newFlowVect.y, 0);
-        //}
-
-        //if (flowVector != Vector3.zero)
-        //    FaceMovementDirection(flowVector);
-
-        //Vector3 finalFlowVector = (flowVector /*+ (Vector3)separationVector*/).normalized;
-
+       
     }
+
 
     public void FaceMovementDirection(Vector3 movementVector)
     {
-        Vector3 movDir = enemyController.PlayerController.GetPlayerCenter() - enemyController .GetEnemyCenter();
+        Vector3 movDir = enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter();
         int xDir = movDir.x >= 0 ? -1 : 1;
 
-        
+
         Vector3 canvasScale = enemyController.WorldCanvas.localScale;
         enemyController.WorldCanvas.localScale = new Vector3(xDir * Mathf.Abs(canvasScale.x), canvasScale.y, canvasScale.z);
 
-      
+
         if (CurrentDir != xDir)
         {
             CurrentDir = xDir;

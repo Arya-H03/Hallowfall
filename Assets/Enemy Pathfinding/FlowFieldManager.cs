@@ -22,9 +22,6 @@ public class FlowFieldManager : MonoBehaviour
             Destroy(instance.gameObject);
         }
         instance = this;
-
-        
-
     }
 
     private void Start()
@@ -32,26 +29,25 @@ public class FlowFieldManager : MonoBehaviour
         flowFieldGenerator = new FlowFieldGenerator();
         zoneManager = ZoneManager.Instance;
     }
-    public Vector3 RequestNewPosition(Vector3 callerCurrentPos, Vector3 callerLastPos)
+    public Vector3 RequestNewFlowDir(Vector3 callerCurrentPos, Vector3 callerLastPos)
     {
-        ZoneData zoneData = zoneManager.FindZoneDateFromorldPos(callerCurrentPos);
-
-        Cell lastCell = zoneManager.FindCurrentCellFromWorldPos(callerLastPos);
-        lastCell.MarkClearByEnemy();
-        cellsOccupiedByEnemy.Remove(lastCell);
-
        
-        Cell currentCell = zoneData.ZoneHandler.CellGrid.GetCellFromWorldPos(callerCurrentPos);
+        Cell lastCell = zoneManager.FindCurrentCellFromWorldPos(callerLastPos);
+        Cell currentCell = zoneManager.FindCurrentCellFromWorldPos(callerCurrentPos);
+
+        if(lastCell!=currentCell)
+        {
+            lastCell.MarkClearByEnemy();
+            cellsOccupiedByEnemy.Remove(lastCell);
+
+        }
         cellsOccupiedByEnemy.Add(currentCell);
         currentCell.MarkOccupiedByEnemy();
        
 
         Vector3 flowVector = new Vector3(currentCell.FlowVect.x, currentCell.FlowVect.y, 0);
-        Vector3 newPos = flowVector + currentCell.GlobalCellPos + new Vector3(currentCell.CellSize / 2, currentCell.CellSize / 2, 0);
-
         
-
-        return newPos;
+        return flowVector;
     }
 
   

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7910444644596225047}
   - component: {fileID: 739941096552854879}
   - component: {fileID: 1056337489651912631}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HalfCircleAttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

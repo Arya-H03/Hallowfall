@@ -38,7 +38,7 @@ public class PlayerMovementHandler : MonoBehaviour
     private void MovePlayer()
     {
         
-        if(zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay /*&& flowFieldManager.ValidateTargetCellHasChanged(playerController.GetPlayerCenter())*/)
+        if(zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
         {
             flowFieldManager.UpdateFlowFieldFromTarget(playerController.transform.position);
             flowFieldGenerationTimer = 0;   

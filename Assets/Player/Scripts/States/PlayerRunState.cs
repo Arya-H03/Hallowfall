@@ -9,7 +9,6 @@ public class PlayerRunState : PlayerBaseState
 
     private float runSpeed = 0;
 
-    private AudioSource audioSource;
     private AudioClip[] groundRunSFX;
     private AudioClip[] grassRunSFX;
     private AudioClip[] stoneRunSFX;
@@ -29,10 +28,7 @@ public class PlayerRunState : PlayerBaseState
         grassRunSFX = config.grassSFX;
         stoneRunSFX = config.stoneSFX;
     }
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+ 
    
     public override void OnEnterState()
     {
@@ -105,24 +101,24 @@ public class PlayerRunState : PlayerBaseState
 
     public void StopRunningSFX()
     {
-        AudioManager.Instance.StopAudioSource(audioSource);
+        //AudioManager.Instance.StopAudioSource(audioSource);
     }
 
     public void PauseRunningSFX()
     {
-        if (audioSource.isPlaying)
-        {
-            audioSource.Pause();
+        //if (audioSource.isPlaying)
+        //{
+        //    audioSource.Pause();
             
-        }
+        //}
     }
 
     public void ResumeRunningSFX()
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.UnPause();
+        //if (!audioSource.isPlaying)
+        //{
+        //    audioSource.UnPause();
             
-        }
+        //}
     }
 }

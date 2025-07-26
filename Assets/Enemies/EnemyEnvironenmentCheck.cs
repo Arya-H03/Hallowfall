@@ -30,10 +30,10 @@ public class EnemyEnvironenmentCheck : MonoBehaviour
         {
             if (enemy == this.gameObject) continue;
 
-            Vector2 enemyForce = (Vector2)(enemyController.GetEnemyCenter() - enemy.transform.position);
+            Vector2 enemyForce = (Vector2)(enemyController.transform.position - enemy.transform.position);
             if(enemyForce.magnitude >0)
             {
-                seperationForce += enemyForce.normalized / enemyForce.magnitude;
+                seperationForce += enemyForce / enemyForce.magnitude;
                 //Debug.DrawLine(enemyController.GetEnemyCenter(), enemyController.GetEnemyCenter() + (Vector3)seperationForce,Color.red);
                 neighborCount++;
 
@@ -42,8 +42,8 @@ public class EnemyEnvironenmentCheck : MonoBehaviour
 
         if (neighborCount > 0) 
         {
-            seperationForce /= neighborCount;
-            seperationForce = seperationForce.normalized * seperationStrength;
+            //seperationForce /= neighborCount;
+            seperationForce = seperationForce.normalized;
             //Debug.DrawLine(enemyController.GetEnemyCenter(), enemyController.GetEnemyCenter() + (Vector3)seperationForce, Color.green);
         }
 

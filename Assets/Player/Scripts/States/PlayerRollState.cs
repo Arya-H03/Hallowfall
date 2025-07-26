@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerRollState : PlayerBaseState
 {
-    private AudioSource audioSource;
     private AudioClip rollSFX;
     private float rollCooldown = 0;
     private float rollModifier = 0;
@@ -23,10 +22,6 @@ public class PlayerRollState : PlayerBaseState
         rollModifier = config.rollModifier;
     }
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
     public override void OnEnterState()
     {
         StartCoroutine(BeginRollCoroutine());      

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(CTicker))]
 public class EnemyController : MonoBehaviour
 {
     // Components
@@ -17,7 +16,6 @@ public class EnemyController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private EnemyItemDropHandler itemDropHandler;
     private EnemyEnvironenmentCheck enemyEnvironenmentCheck;
-    private CTicker cTicker;
 
     // References
     private GameObject player;
@@ -108,16 +106,15 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        EnemyAnimationManager = GetComponent<EnemyAnimationManager>();
+        EnemyAnimationManager = GetComponentInChildren<EnemyAnimationManager>();
         EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
-        CollisionManager = GetComponent<EnemyCollisionManager>();
+        CollisionManager = GetComponentInChildren<EnemyCollisionManager>();
         dialogueBox = GetComponentInChildren<DialogueBox>();
         BloodParticles = GetComponent<ParticleSystem>();
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Material = SpriteRenderer.material;
-        enemyEnvironenmentCheck = GetComponentInChildren<EnemyEnvironenmentCheck>();
-        cTicker = GetComponent<CTicker>();
         itemDropHandler = GetComponentInChildren<EnemyItemDropHandler>();
+        enemyEnvironenmentCheck = GetComponentInChildren<EnemyEnvironenmentCheck>();
 
         InitializeEnemyState();
     }
@@ -147,7 +144,7 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyUpdateLoop()
     {
-        playerPos = Player.transform.position + new Vector3(0, Player.GetComponent<SpriteRenderer>().bounds.size.y / 2, 0);
+        playerPos = Player.transform.position;
 
         if (!isDead)
         {
@@ -315,7 +312,7 @@ public class EnemyController : MonoBehaviour
 
     public Vector3 GetEnemyCenter()
     {
-        Vector3 center = enemyCenterTransform.position;
+        Vector3 center = transform.position;
         //center.y += spriteRenderer.bounds.size.y / 2;
         return center;
     }
