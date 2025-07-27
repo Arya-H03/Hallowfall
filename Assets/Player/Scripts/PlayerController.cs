@@ -270,10 +270,8 @@ public class PlayerController : MonoBehaviour
         isFacingLedge = false;
     }
 
-    public Vector3 GetPlayerCenter()
+    public Vector3 GetPlayerPos()
     {
-        //Vector3 center = transform.position;
-        //center.y += spriteRenderer.bounds.size.y / 2;
         return transform.position;
     }
 

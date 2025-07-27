@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FlowFieldGenerator
 {
+    private const int COST_UNVISITED = (int)CellFlowCost.unVisited;
+    private const int COST_UNWALKABLE = (int)CellFlowCost.unWalkable;
+    private const int COST_TARGET = (int)CellFlowCost.target;
+
     public void GenerateFlowFieldOnTargetZone(CellGrid cellGrid, Vector3 targetPos)
     {
-        Queue<Cell> flowFieldCellQueue = new Queue<Cell>();
+        Queue<Cell> flowFieldCellQueue = new();
 
-        Cell targetCell = cellGrid.GetCellFromWorldPos(targetPos);
+        Cell currentFieldTargetCell = cellGrid.GetCellFromWorldPos(targetPos);
 
-        SetInitialBaseFlowCosts(cellGrid, targetCell, flowFieldCellQueue);
+        SetInitialBaseFlowCosts(cellGrid, currentFieldTargetCell, flowFieldCellQueue);
 
-        BFS(cellGrid, flowFieldCellQueue);
+        BFS(flowFieldCellQueue);
 
         AssignFlowAllDirectionsOnPlayerZone(cellGrid);
 
@@ -20,11 +24,11 @@ public class FlowFieldGenerator
 
     public void GenerateFlowFieldOnNonePlayerZone(CellGrid cellGrid, DirectionEnum dirToPlayerZone)
     {
-        Queue<Cell> flowFieldCellQueue = new Queue<Cell>();
-        
+        Queue<Cell> flowFieldCellQueue = new();
+
         FindAllEdgeCells(cellGrid, flowFieldCellQueue, dirToPlayerZone);
 
-        BFS(cellGrid, flowFieldCellQueue);
+        BFS(flowFieldCellQueue);
 
         AssignFlowAllDirectionsOnNonePlayerZone(cellGrid, dirToPlayerZone);
     }
@@ -32,56 +36,48 @@ public class FlowFieldGenerator
 
     private void FindAllEdgeCells(CellGrid cellGrid, Queue<Cell> flowFieldCellQueue, DirectionEnum dirToPlayerZone)
     {
-        List<Cell> edgeCells = new List<Cell>();
-
+        
         cellGrid.LoopOverGrid((i, j) =>
         {
             Cell currentCell = cellGrid.Cells[i, j];
             if (!currentCell.IsWalkable)
             {
-                currentCell.BaseCost = (int)CellFlowCost.unWalkable;
+                currentCell.BaseCost = COST_UNWALKABLE;
             }
-            else currentCell.BaseCost = (int)CellFlowCost.unVisited;
+            else currentCell.BaseCost = COST_UNVISITED;
         });
 
 
         switch (dirToPlayerZone)
         {
             case DirectionEnum.Right:
-                AssignRightEdgesToList(cellGrid, edgeCells);
+                FindRightEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.Left:
-                AssignLeftEdgesToList(cellGrid, edgeCells);
+                FindLeftEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.Up:
-                AssignTopEdgesToList(cellGrid, edgeCells);
+                FindTopEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.Down:
-                AssignBottomEdgesToList(cellGrid, edgeCells);
+                FindBottomEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.UpRight:
-                AssignTopEdgesToList(cellGrid, edgeCells);
-                AssignRightEdgesToList(cellGrid, edgeCells);
+                FindTopEdgeTargetCells(cellGrid, flowFieldCellQueue);
+                FindRightEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.UpLeft:
-                AssignTopEdgesToList(cellGrid, edgeCells);
-                AssignLeftEdgesToList(cellGrid, edgeCells);
+                FindTopEdgeTargetCells(cellGrid, flowFieldCellQueue);
+                FindLeftEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.DownRight:
-                AssignBottomEdgesToList(cellGrid, edgeCells);
-                AssignRightEdgesToList(cellGrid, edgeCells);
+                FindBottomEdgeTargetCells(cellGrid, flowFieldCellQueue);
+                FindRightEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
             case DirectionEnum.DownLeft:
-                AssignBottomEdgesToList(cellGrid, edgeCells);
-                AssignLeftEdgesToList(cellGrid, edgeCells);
+                FindBottomEdgeTargetCells(cellGrid, flowFieldCellQueue);
+                FindLeftEdgeTargetCells(cellGrid, flowFieldCellQueue);
                 break;
-        }
-
-        foreach(Cell edgeCell in edgeCells)
-        {
-            if (!edgeCell.IsWalkable) continue;
-            edgeCell.BaseCost = (int)CellFlowCost.target;
-            flowFieldCellQueue.Enqueue(edgeCell);
         }
     }
 
@@ -94,61 +90,49 @@ public class FlowFieldGenerator
 
             if (!currentCell.IsWalkable)
             {
-                currentCell.BaseCost = (int)CellFlowCost.unWalkable;
+                currentCell.BaseCost = COST_UNWALKABLE;
             }
             else
             {
-                currentCell.BaseCost = (int)CellFlowCost.unVisited;
+                currentCell.BaseCost = COST_UNVISITED;
 
             }
         }
         );
 
-        targetCell.BaseCost = (int)CellFlowCost.target;
+        targetCell.BaseCost = COST_TARGET;
         flowFieldCellQueue.Enqueue(targetCell);
     }
 
-    private void BFS(CellGrid cellGrid, Queue<Cell> flowFieldCellQueue)
+    private void BFS(Queue<Cell> flowFieldCellQueue)
     {
+       List<Cell> neighborList = new(8);
+
         while (flowFieldCellQueue.Count > 0)
         {
             Cell currentCell = flowFieldCellQueue.Dequeue();
-            foreach (Cell neighbor in GetAllValidNeighbors(cellGrid, currentCell))
+            neighborList.Clear();
+            neighborList.AddRange(currentCell.GetAllNeighborCells());
+            foreach (Cell neighbor in neighborList)
             {
-                if (neighbor.BaseCost == (int)CellFlowCost.unVisited)
+                if (neighbor.IsWalkable && neighbor.BaseCost == COST_UNVISITED)
                 {
                     neighbor.BaseCost = currentCell.BaseCost + 1;
                     flowFieldCellQueue.Enqueue(neighbor);
-
                 }
+
             }
         }
     }
-
-    private List<Cell> GetAllValidNeighbors(CellGrid cellGrid, Cell centerCell)
-    {
-        List<Cell> result = new List<Cell>();
-        foreach (Cell neighborCell in centerCell.GetAllNeighborCells())
-        {
-            if (/*neighborCell.IsWalkable &&*/ neighborCell.BaseCost == (int)CellFlowCost.unVisited)
-            {
-                result.Add(neighborCell);
-            }
-        }
-        return result;
-
-
-    }
-
     private void AssignFlowAllDirectionsOnPlayerZone(CellGrid cellGrid)
     {
        
         cellGrid.LoopOverGrid((i, j) =>
         {
-            cellGrid.Cells[i, j].FlowDir = FindFlowForPlayerDirection(cellGrid, cellGrid.Cells[i, j]);
-            
+            cellGrid.Cells[i, j].FlowDir = FindFlowForPlayerDirection(cellGrid.Cells[i, j]);            
         }
         );
+
     }
 
     private void AssignFlowAllDirectionsOnNonePlayerZone(CellGrid cellGrid, DirectionEnum directionEnum)
@@ -156,76 +140,73 @@ public class FlowFieldGenerator
 
         cellGrid.LoopOverGrid((i, j) =>
         {
-            cellGrid.Cells[i, j].FlowDir = FindFlowDirectionForNonePlayerZone(cellGrid, cellGrid.Cells[i, j], directionEnum);
+            cellGrid.Cells[i, j].FlowDir = FindFlowDirectionForNonePlayerZone(cellGrid.Cells[i, j], directionEnum);
            
         }
         );
     }
 
-    private DirectionEnum FindFlowForPlayerDirection(CellGrid cellGrid, Cell currentCell)
+    private DirectionEnum FindFlowForPlayerDirection(Cell currentCell)
     {
-        if (currentCell.TotalCost == (int) CellFlowCost.target) return DirectionEnum.None;
+        if (currentCell.TotalCost == COST_TARGET) return DirectionEnum.None;
+      
+        List<Cell> cheapestNeighbors = new();
+        int minCost = int.MaxValue;
 
-        Cell cheapestNeighbor = null;
-
-        foreach (Cell neighbor in currentCell.GetAllNeighborCells())
+        foreach(Cell neighbor in currentCell.GetAllNeighborCells())
         {
-            if (neighbor.TotalCost < 0 || !neighbor.IsWalkable)
+            if (!neighbor.IsWalkable) continue;
+            if(neighbor.TotalCost < minCost)
             {
-               
-                continue;
-            } 
-
-
-            if (cheapestNeighbor == null || neighbor.TotalCost < cheapestNeighbor.TotalCost)
+                cheapestNeighbors.Clear();
+                minCost = neighbor.TotalCost;
+                cheapestNeighbors.Add(neighbor);
+            }
+            else if(neighbor.TotalCost == minCost)
             {
-                
-                cheapestNeighbor = neighbor;
+                cheapestNeighbors.Add(neighbor);
             }
         }
+            
+        List<Cell> validNeighborsWithEnemy = cheapestNeighbors.Where(cell => !cell.HasEnemy).ToList();
 
-        if (cheapestNeighbor == null)
-        {
-           
-            return DirectionEnum.None;
-        }
+        if(validNeighborsWithEnemy.Count == 0) return DirectionEnum.None;
 
-        Vector2Int dirToCheapestNeighbor = (cheapestNeighbor.GlobalCellCoord - currentCell.GlobalCellCoord);
+        Cell selected = validNeighborsWithEnemy[Random.Range(0, validNeighborsWithEnemy.Count)];
+        Vector2Int dir = selected.GlobalCellCoord - currentCell.GlobalCellCoord;
+        return MyUtils.GetDirFromVector(dir);
 
-        return MyUtils.GetDirFromVector(dirToCheapestNeighbor);
     }
 
-    private DirectionEnum FindFlowDirectionForNonePlayerZone(CellGrid cellGrid, Cell currentCell,DirectionEnum directionEnum)
+    private DirectionEnum FindFlowDirectionForNonePlayerZone(Cell currentCell,DirectionEnum directionEnum)
     {
-        if (currentCell.TotalCost == (int)CellFlowCost.target) return directionEnum;
+        if (currentCell.TotalCost == COST_TARGET) return directionEnum;
 
-        Cell cheapestNeighbor = null;
+        List<Cell> cheapestNeighbors = new();
+        int minCost = int.MaxValue;
 
         foreach (Cell neighbor in currentCell.GetAllNeighborCells())
         {
-            if (neighbor.TotalCost < 0 || !neighbor.IsWalkable)
+            if (!neighbor.IsWalkable) continue;
+            if (neighbor.TotalCost < minCost)
             {
-
-                continue;
+                cheapestNeighbors.Clear();
+                minCost = neighbor.TotalCost;
+                cheapestNeighbors.Add(neighbor);
             }
-
-
-            if (cheapestNeighbor == null || neighbor.TotalCost < cheapestNeighbor.TotalCost)
+            else if (neighbor.TotalCost == minCost)
             {
-
-                cheapestNeighbor = neighbor;
+                cheapestNeighbors.Add(neighbor);
             }
         }
 
-        if (cheapestNeighbor == null)
-        {
+        List<Cell> validNeighborsWithEnemy = cheapestNeighbors.Where(cell => !cell.HasEnemy).ToList();
 
-            return DirectionEnum.None;
-        }
+        if (validNeighborsWithEnemy.Count == 0) return DirectionEnum.None;
 
-        Vector2Int dirToCheapestNeighbor = (cheapestNeighbor.GlobalCellCoord - currentCell.GlobalCellCoord);
-
-        return MyUtils.GetDirFromVector(dirToCheapestNeighbor);
+        Cell selected = validNeighborsWithEnemy[Random.Range(0, validNeighborsWithEnemy.Count)];
+        Vector2Int dir = selected.GlobalCellCoord - currentCell.GlobalCellCoord;
+        return MyUtils.GetDirFromVector(dir);
     }
 
 
@@ -319,49 +300,53 @@ public class FlowFieldGenerator
         return Vector2.zero;
     }
 
-
-
-
-    private void AssignRightEdgesToList(CellGrid grid, List<Cell> list)
+    private void FindRightEdgeTargetCells(CellGrid grid, Queue<Cell> flowFieldCellQueue)
     {
         int x = grid.CellPerRow - 1;
         for (int y = 0; y < grid.CellPerCol; y++)
         {
-            list.Add(grid.Cells[x, y]);
+            if (!grid.Cells[x, y].IsWalkable) continue;
+
+            grid.Cells[x, y].BaseCost = COST_TARGET;
+            flowFieldCellQueue.Enqueue(grid.Cells[x, y]);
+           
         }
     }
 
-    private void AssignLeftEdgesToList(CellGrid grid, List<Cell> list)
+    private void FindLeftEdgeTargetCells(CellGrid grid, Queue<Cell> flowFieldCellQueue)
     {
         int x = 0;
         for (int y = 0; y < grid.CellPerCol; y++)
         {
-            list.Add(grid.Cells[x, y]);
+            if (!grid.Cells[x, y].IsWalkable) continue;
+
+            grid.Cells[x, y].BaseCost = COST_TARGET;
+            flowFieldCellQueue.Enqueue(grid.Cells[x, y]);
         }
     }
 
-    private void AssignTopEdgesToList(CellGrid grid, List<Cell> list)
+    private void FindTopEdgeTargetCells(CellGrid grid, Queue<Cell> flowFieldCellQueue)
     {
         int y = grid.CellPerCol - 1;
         for (int x = 0; x < grid.CellPerRow; x++)
         {
-            list.Add(grid.Cells[x, y]);
+            if (!grid.Cells[x, y].IsWalkable) continue;
+
+            grid.Cells[x, y].BaseCost = COST_TARGET;
+            flowFieldCellQueue.Enqueue(grid.Cells[x, y]);
         }
     }
 
-    private void AssignBottomEdgesToList(CellGrid grid, List<Cell> list)
+    private void FindBottomEdgeTargetCells(CellGrid grid, Queue<Cell> flowFieldCellQueue)
     {
         int y = 0;
         for (int x = 0; x < grid.CellPerRow; x++)
         {
-            list.Add(grid.Cells[x, y]);
+            if (!grid.Cells[x, y].IsWalkable) continue;
+
+            grid.Cells[x, y].BaseCost = COST_TARGET;
+            flowFieldCellQueue.Enqueue(grid.Cells[x, y]);
         }
     }
 
-    //private void TryEnqueue(Cell cell,Queue<Cell> Queue)
-    //{
-    //    if (!cell.IsWalkable) return;
-
-    //    CellFlowCost
-    //}
 }

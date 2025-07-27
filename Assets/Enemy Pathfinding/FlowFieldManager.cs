@@ -11,10 +11,11 @@ public class FlowFieldManager : MonoBehaviour
     private FlowFieldGenerator flowFieldGenerator;
     private ZoneData currentTargetZoneData;
     private ZoneHandler currentTargetZoneHandler;
-    private Cell currentTargetCell;
+
     private bool canVisualizeFlowField = false;
-    private List<Cell> cellsOccupiedByEnemy = new List<Cell>();
-  
+
+    private readonly HashSet<Cell> cellsOccupiedByEnemy = new();
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -29,46 +30,43 @@ public class FlowFieldManager : MonoBehaviour
         flowFieldGenerator = new FlowFieldGenerator();
         zoneManager = ZoneManager.Instance;
     }
-    public Vector3 RequestNewFlowDir(Vector3 callerCurrentPos, Vector3 callerLastPos)
+    public Vector2 RequestNewFlowDir(Cell currentCell, Cell lastCell)
     {
-       
-        Cell lastCell = zoneManager.FindCurrentCellFromWorldPos(callerLastPos);
-        Cell currentCell = zoneManager.FindCurrentCellFromWorldPos(callerCurrentPos);
-
-        if(lastCell!=currentCell)
+        if (lastCell != currentCell)
         {
-            lastCell.MarkClearByEnemy();
-            cellsOccupiedByEnemy.Remove(lastCell);
-
+            if (cellsOccupiedByEnemy.Contains(lastCell))
+            {
+                lastCell.MarkClearByEnemy();
+                cellsOccupiedByEnemy.Remove(lastCell);
+            }
         }
-        cellsOccupiedByEnemy.Add(currentCell);
-        currentCell.MarkOccupiedByEnemy();
-       
+        if (!cellsOccupiedByEnemy.Contains(currentCell))
+        {
+            cellsOccupiedByEnemy.Add(currentCell);
+            currentCell.MarkOccupiedByEnemy();
+        }
 
-        Vector3 flowVector = new Vector3(currentCell.FlowVect.x, currentCell.FlowVect.y, 0);
-        
-        return flowVector;
+
+        return currentCell.FlowVect.normalized;
     }
 
   
-    public void UpdateFlowFieldFromTarget(Vector3 targetPos)
+    public void UpdateFlowField(Vector3 targetPos)
     {
-        ZoneData zoneData = zoneManager.FindZoneDateFromorldPos(targetPos);
-       
+        ZoneData zoneData = zoneManager.FindZoneDataFromWorldPos(targetPos);
+        if (zoneData == null) return;
+
         if (currentTargetZoneData != zoneData)
         {
             currentTargetZoneData = zoneData;
             currentTargetZoneHandler = currentTargetZoneData.ZoneHandler;
 
-            foreach (KeyValuePair<Vector2Int, ZoneData> pair in ZoneManager.Instance.GeneratedZonesDic)
+            foreach (KeyValuePair<Vector2Int, ZoneData> pair in zoneManager.GeneratedZonesDic)
             {
-
                 if (pair.Value != currentTargetZoneData) UpdateFlowFieldFromZone(pair.Value);
             }
         }
         flowFieldGenerator.GenerateFlowFieldOnTargetZone(currentTargetZoneHandler.CellGrid, targetPos);
-
-        Cell targetCell = currentTargetZoneHandler.CellGrid.GetCellFromWorldPos((Vector3)targetPos);
 
         if (canVisualizeFlowField) GridSystemDebugger.Instance.VisualizeCellFlowDirection(currentTargetZoneHandler.CellGrid, currentTargetZoneData.centerCoord);
     }
@@ -100,28 +98,4 @@ public class FlowFieldManager : MonoBehaviour
         }
     }
    
-    //public bool ValidateTargetCellHasChanged(Vector3 targetPos)
-    //{
-    //    ZoneData zoneData = zoneManager.FindZoneDateFromorldPos(targetPos);
-    //    if (currentTargetZoneData != zoneData)
-    //    {
-    //        currentTargetZoneData = zoneData;
-    //        //foreach (KeyValuePair<Vector2Int, ZoneData> pair in zoneManager.GeneratedZonesDic)
-    //        //{
-
-    //        //    if (pair.Value != currentTargetZoneData) RequestFlowFieldGenerationOnNonePlayerGrid(pair.Value);
-    //        //}
-    //    }
-    //    CellGrid cellGrid = currentTargetZoneData.ZoneHandler.CellGrid;
-    //    Cell cell = cellGrid.GetCellFromWorldPos(targetPos);
-
-    //    if (currentTargetCell != cell)
-    //    {
-    //        currentTargetCell = cell;
-    //        return true;
-    //    }
-    //    else { return true; }
-
-
-    //}
 }

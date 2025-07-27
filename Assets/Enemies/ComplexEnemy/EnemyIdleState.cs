@@ -12,14 +12,9 @@ public class EnemyIdleState : EnemyBaseState
         
     }
 
-    private void Start()
-    {
-        
-    }
-
     public override void OnEnterState()
     {
-               
+            
     }
     
     public override void OnExitState()
@@ -27,9 +22,9 @@ public class EnemyIdleState : EnemyBaseState
         
     }
 
-    public override void HandleState()
+    public override void UpdateLogic()
     {
-        if(enemyController.AttackState.NextAttack && enemyController.AttackState.IsEnemyAbleToAttack() && !enemyController.PlayerController.IsDead && enemyController.CanMove && !enemyController.IsBeingknocked)
+        if(enemyController.AttackState.NextAttack && enemyController.AttackState.IsEnemyAbleToAttack() && !enemyController.PlayerController.IsDead && enemyController.CanMove && !enemyController.IsBeingknocked && !enemyController.EnemyMovementHandler.IsCurrentCellBlockedByEnemies())
         {
             enemyController.ChangeState(EnemyStateEnum.Chase);
         }

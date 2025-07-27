@@ -80,7 +80,7 @@ public class EnemyPatrolState : EnemyBaseState
         
         
     }
-    public override void HandleState()
+    public override void UpdateLogic()
     {
 
         //if (patrolDelayTimer >= patrolDelayCooldown)

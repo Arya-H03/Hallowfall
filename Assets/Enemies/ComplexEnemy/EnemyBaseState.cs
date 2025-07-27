@@ -22,18 +22,18 @@ public class EnemyBaseState : MonoBehaviour , IEnemyState
     }
 
 
-    public virtual void OnEnterState()
-    {
-
-    }
+    public virtual void OnEnterState() { }
+   
 
     public virtual void OnExitState()
     {
 
     }
 
-    public virtual void HandleState()
+    public virtual void UpdateLogic()
     {
 
     }
+
+    public virtual void FixedUpdateLogic() { }
 }

@@ -29,7 +29,7 @@ public class EnemyStunState : EnemyBaseState
         enemyController.CollisionManager.ResetStagger();
     }
 
-    public override void HandleState()
+    public override void UpdateLogic()
     {
        if(stunTimer < StunDuration)
         {

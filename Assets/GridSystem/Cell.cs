@@ -117,14 +117,22 @@ public class Cell
 
     public void MarkOccupiedByEnemy()
     {
-        cellFlowData.hasEnemy = true;
-        cellFlowData.dynamicCost =+ 1;
+        if (!cellFlowData.hasEnemy)
+        {
+            cellFlowData.hasEnemy = true;
+            cellFlowData.dynamicCost += 1;
+        }
+       
     }
 
     public void MarkClearByEnemy()
     {
-        cellFlowData.hasEnemy = false;
-        cellFlowData.dynamicCost = 0;
+        if(cellFlowData.hasEnemy)
+        {
+            cellFlowData.hasEnemy = false;
+            cellFlowData.dynamicCost -= 1;
+        }
+       
     }
 
     public void AddToCellPaint(CellPaint[] tilePaints)

@@ -287,7 +287,7 @@ public class PlayerSwordAttackState : PlayerBaseState
             if (hit.collider.CompareTag("Enemy"))
             {
                 EnemyController enemyController = hit.collider.GetComponentInParent<EnemyController>();
-                Vector2 knockbackVector = (playerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
+                Vector2 knockbackVector = (playerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
                 enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword, force);
                 //playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.1f);
                 GameManager.Instance.StopTime(hitStopDuration);
@@ -299,20 +299,20 @@ public class PlayerSwordAttackState : PlayerBaseState
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
-        Vector3 dir = (mousePos - playerController.GetPlayerCenter()).normalized;
+        Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         GameObject effect = null;
 
         if (index == 1)
         {
-            effect = Instantiate(firstSwingEffect, playerController.GetPlayerCenter(), Quaternion.identity);
+            effect = Instantiate(firstSwingEffect, playerController.GetPlayerPos(), Quaternion.identity);
             angle -= 60;
             effect.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
         else if (index == 2)
         {
-            effect = Instantiate(secondSwingEffect, playerController.GetPlayerCenter(), Quaternion.identity);
+            effect = Instantiate(secondSwingEffect, playerController.GetPlayerPos(), Quaternion.identity);
             if (angle <= -90 || angle >= 90)
             {
                 SpriteRenderer sr = effect.GetComponent<SpriteRenderer>();

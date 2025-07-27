@@ -21,7 +21,7 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
 
     private void SpawnFirstSwingFlame()
     {
-        GameObject obj = Instantiate(flamePrefab, playerController.GetPlayerCenter(), Quaternion.Euler(0, 0, 0));
+        GameObject obj = Instantiate(flamePrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, 0));
 
 
         obj.GetComponent<PlayerProjectiles>().SetProjectileCourseToCursor();
@@ -30,7 +30,7 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
 
     private void SpawnSecondSwingFlame()
     {
-        GameObject obj = Instantiate(flamePrefab, playerController.GetPlayerCenter(), Quaternion.Euler(0,0,0));
+        GameObject obj = Instantiate(flamePrefab, playerController.GetPlayerPos(), Quaternion.Euler(0,0,0));
         // AudioManager.Instance.PlayRandomSFX(audioSource, sfx);
         obj.GetComponent<PlayerProjectiles>().SetProjectileCourseToCursor();
 
@@ -40,7 +40,7 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
 
     private void SpawnThirdSwingFlame()
     {
-        GameObject obj = Instantiate(flamePrefab, playerController.GetPlayerCenter(), Quaternion.Euler(0, 0, 0));
+        GameObject obj = Instantiate(flamePrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, 0));
         // AudioManager.Instance.PlayRandomSFX(audioSource, sfx);
 
         obj.GetComponent<PlayerProjectiles>().SetProjectileCourseToCursor();

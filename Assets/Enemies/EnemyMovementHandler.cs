@@ -9,62 +9,82 @@ using Random = UnityEngine.Random;
 
 public class EnemyMovementHandler : MonoBehaviour
 {
-
-
     private EnemyController enemyController;
+    private Transform enemyTransform;
+    private Rigidbody2D rb;
+    private FlowFieldManager flowFieldManager;
+    private ZoneManager zoneManager;
 
     private int currentDir = 0;
+    private Vector2 nextMoveDir = Vector2.zero;
+    Vector3 lastPos = Vector3.zero;
 
-    private float distanceToTarget;
-    private Vector3 nextDir = Vector3.zero;
-    public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
+    private Cell currentCell;
+    private Cell lastCell;
+
+    private bool hasNotBeenOnFlow = true;
+    [SerializeField] private float flowRequestDelay = 0.3f;
+    private float flowRequestTimer;
     public int CurrentDir { get => currentDir; set => currentDir = value; }
 
-    Vector3 lastPos = Vector3.zero;
-    private float flowRequestDelay = 0.15f;
-    private float flowRequestTimer;
+    
     private void Awake()
     {
         enemyController = GetComponent<EnemyController>();
-
+       
     }
 
     private void Start()
     {
+        enemyTransform = enemyController.transform;
+        rb = enemyController.CollisionManager.Rb;
+        flowFieldManager = FlowFieldManager.Instance;
+        zoneManager = ZoneManager.Instance; 
         flowRequestTimer = flowRequestDelay;
+
+        lastPos = enemyController.transform.position;
     }
-    //public void MoveToLocation(Vector3 startPoint, Vector3 endPoint, float speed)
-    //{
-
-    //    Vector3 direction = endPoint - startPoint;
-    //    TurnEnemy(direction);
-
-    //}
-
+   
     public void MoveToPlayer(float speed)
     {
-        if (flowRequestTimer >= flowRequestDelay)
-        {
-            Vector3 currentPos = enemyController.transform.position;
-            nextDir = FlowFieldManager.Instance.RequestNewFlowDir(currentPos, lastPos).normalized;
-            lastPos = currentPos;
-            flowRequestTimer = 0;
-
-        }
         flowRequestTimer += Time.deltaTime;
-        
-        transform.position += speed * Time.deltaTime * nextDir;
-        FaceMovementDirection(nextDir);
+        if (flowRequestTimer >= flowRequestDelay || hasNotBeenOnFlow)
+        {
+            lastCell = zoneManager.FindCurrentCellFromWorldPos(lastPos);
+            currentCell = zoneManager.FindCurrentCellFromWorldPos(enemyController.transform.position);
 
-       
+            Vector2 newDir = flowFieldManager.RequestNewFlowDir(currentCell, lastCell);
+           
+
+            if (newDir != Vector2.zero)
+            {
+                nextMoveDir = newDir;
+                lastPos = enemyTransform.position;
+                hasNotBeenOnFlow = false;
+                flowRequestTimer = 0;
+            }
+        }
+
+        Vector2 targetPos = rb.position + (nextMoveDir * speed * Time.deltaTime);
+        Vector2 smoothPos = Vector2.Lerp(rb.position, targetPos, 1f); 
+        rb.MovePosition(smoothPos);
+        FaceMovementDirection();
+  
     }
 
-
-    public void FaceMovementDirection(Vector3 movementVector)
+    public bool IsCurrentCellBlockedByEnemies()
     {
-        Vector3 movDir = enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter();
-        int xDir = movDir.x >= 0 ? -1 : 1;
+        if(hasNotBeenOnFlow) return false;
+        else if(!hasNotBeenOnFlow && currentCell.FlowVect == Vector2.zero) return true;
+       
+        return false;
+    }
 
+    public void FaceMovementDirection()
+    {
+        Vector3 moveDir = enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos();
+        int xDir = moveDir.x >= 0 ? -1 : 1;
+        //int xDir = movementDir.x >= 0 ? -1 : 1;
 
         Vector3 canvasScale = enemyController.WorldCanvas.localScale;
         enemyController.WorldCanvas.localScale = new Vector3(xDir * Mathf.Abs(canvasScale.x), canvasScale.y, canvasScale.z);
@@ -75,33 +95,6 @@ public class EnemyMovementHandler : MonoBehaviour
             CurrentDir = xDir;
             this.transform.localScale = new Vector3(xDir, 1, 1);
         }
-    }
-
-
-    private void TurnEnemy(Vector3 direction)
-    {
-        Vector3 vec = enemyController.WorldCanvas.localScale;
-        if (direction.x < 0)
-        {
-            enemyController.WorldCanvas.localScale = new Vector3(Math.Abs(vec.x), vec.y, vec.z);
-            if (CurrentDir != 1)
-            {
-                CurrentDir = 1;
-                this.transform.localScale = new Vector3(CurrentDir, 1, 1);
-            }
-
-
-        }
-        if (direction.x >= 0)
-        {
-            enemyController.WorldCanvas.localScale = new Vector3(-Math.Abs(vec.x), vec.y, vec.z);
-            if (CurrentDir != -1)
-            {
-                CurrentDir = -1;
-                this.transform.localScale = new Vector3(CurrentDir, 1, 1);
-            }
-        }
-
     }
 
     public void StartRunningSFX(AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)

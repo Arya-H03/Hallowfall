@@ -39,7 +39,7 @@ public class EnemyRangeAttackState : EnemyBaseState
         enemyController.CanMove = true;
     }
 
-    public override void HandleState()
+    public override void UpdateLogic()
     {
 
 

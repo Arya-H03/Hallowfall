@@ -25,7 +25,7 @@ public class ExplodingDeath : EnemyAbilitySO
     }
     private void CreateExplosion(EnemyController enemyController)
     {
-        Instantiate(explosionVFX, enemyController.GetEnemyCenter(), Quaternion.identity);
+        Instantiate(explosionVFX, enemyController.GetEnemyPos(), Quaternion.identity);
         AudioManager.Instance.PlaySFX(explosionSFX, enemyController.transform.position, 1);
             
         if(attackZoneGO)

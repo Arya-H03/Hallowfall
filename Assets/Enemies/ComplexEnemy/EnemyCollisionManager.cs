@@ -146,16 +146,7 @@ public class EnemyCollisionManager : MonoBehaviour
             parryState.CallOnParrySuccessfulEvent();
             enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword,2);
             Vector3 scale = transform.localScale;
-            //Vector2 launchVec = Vector2.zero;
-            //if (scale.x == 1)
-            //{
-            //    launchVec = new Vector2(5 * luanchModifier, 3 * luanchModifier);
-            //}
-            //if (scale.x == -1)
-            //{
-            //    launchVec = new Vector2(-5 * luanchModifier, 3 * luanchModifier);
-            //}
-            //KnockBackPlayer(launchVec);
+         
         }
 
     }
@@ -165,5 +156,5 @@ public class EnemyCollisionManager : MonoBehaviour
         Destroy(obj, 0.5f);
     }
 
-
+  
 }

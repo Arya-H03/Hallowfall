@@ -142,7 +142,7 @@ public class PlayerParryState : PlayerBaseState
 
     private void EchoingSteel()
     {
-        var center = playerController.GetPlayerCenter();
+        var center = playerController.GetPlayerPos();
         RaycastHit2D[] enemies = Physics2D.CircleCastAll(center, 3f, Vector2.zero, 0, playerController.EnemyLayer);
 
         foreach (var enemy in enemies)

@@ -75,7 +75,7 @@ public class ZoneManager : MonoBehaviour
 
     
 
-    public ZoneData FindZoneDateFromorldPos(Vector3 worldPos)
+    public ZoneData FindZoneDataFromWorldPos(Vector3 worldPos)
     {
         Vector2Int zoneCoord = new Vector2Int(Mathf.RoundToInt(worldPos.x / zoneSize), Mathf.RoundToInt(worldPos.y / zoneSize));
         if (generatedZonesDic.TryGetValue(zoneCoord, out ZoneData zoneData))
@@ -86,7 +86,7 @@ public class ZoneManager : MonoBehaviour
 
     public Cell FindCurrentCellFromWorldPos(Vector3 worldPos)
     {
-        ZoneData zoneData = FindZoneDateFromorldPos(worldPos);
+        ZoneData zoneData = FindZoneDataFromWorldPos(worldPos);
         Cell result = zoneData.ZoneHandler.CellGrid.GetCellFromWorldPos(worldPos);
         return result;
     }

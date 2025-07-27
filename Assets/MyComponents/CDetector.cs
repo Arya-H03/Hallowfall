@@ -69,6 +69,27 @@ public class CDetector : MonoBehaviour
         return targetList;
     }
 
+
+    public List<GameObject> DetectNearbyTargetsExcludingSelf(GameObject caller,string tTag, LayerMask tLayerMask, float searchRadius, bool debug = false)
+    {
+        List<GameObject> targetList = new List<GameObject>();
+
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(this.transform.position, searchRadius, Vector2.zero, tLayerMask);
+        foreach (RaycastHit2D target in targets)
+        {
+            if (target.collider.CompareTag(tTag) && caller != target.collider.gameObject)
+            {
+                targetList.Add(target.collider.gameObject);
+            }
+        }
+        if (debug)
+        {
+            DrawDebugCircle(this.transform.position, searchRadius, Color.red);
+            Debug.Log(targetList.Count);
+        }
+        return targetList;
+    }
+
     private void DrawDebugCircle(Vector3 center, float radius, Color color, int segments = 32)
     {
         float angleStep = 360f / segments;

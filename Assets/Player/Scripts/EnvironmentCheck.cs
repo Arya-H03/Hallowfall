@@ -56,7 +56,7 @@ public class EnvironmentCheck : MonoBehaviour
 
 
 
-        Vector3Int playerCurrentCell = tilemap.WorldToCell(playerController.GetPlayerCenter());
+        Vector3Int playerCurrentCell = tilemap.WorldToCell(playerController.GetPlayerPos());
         bool onTreeTile = tilemap.GetTile(playerCurrentCell) != null;
 
 

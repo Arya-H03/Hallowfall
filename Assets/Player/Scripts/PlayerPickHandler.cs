@@ -30,7 +30,7 @@ public class PlayerPickUpHandler : MonoBehaviour
             {
                 if (item)
                 {
-                    Vector3 dir = (playerController.GetPlayerCenter() - item.transform.position).normalized;
+                    Vector3 dir = (playerController.GetPlayerPos() - item.transform.position).normalized;
                     item.transform.position += dir * Time.deltaTime * 6f;
                 }
                

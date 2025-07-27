@@ -32,7 +32,7 @@ public class EnemyAttackState : EnemyBaseState
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
     public EnemyBaseAttack NextAttack { get => nextAttack; set => nextAttack = value; }
-
+    Cell cell;
     public EnemyAttackState() : base()
     {
         stateEnum = EnemyStateEnum.Attack;
@@ -57,11 +57,13 @@ public class EnemyAttackState : EnemyBaseState
         {
             canAttack = false;
             isAttacking = true;
-            enemyController.EnemyMovementHandler.FaceMovementDirection( enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter());
+            enemyController.EnemyMovementHandler.FaceMovementDirection();
             nextAttack.StartAttack();
             StartCoroutine(AttackDelayCoroutine());
         }
         else enemyController.ChangeState(EnemyStateEnum.Idle);
+        Cell currentEnemyCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(enemyController.transform.position);
+        cell = currentEnemyCell;
 
     }
 
@@ -74,11 +76,12 @@ public class EnemyAttackState : EnemyBaseState
         {
             nextAttack.DeactivateZoneAttack();
         }
-        
- 
+
+       
+        cell.MarkAsWalkable();
     }
 
-    public override void HandleState()
+    public override void UpdateLogic()
     {
        
     }
@@ -108,7 +111,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public bool IsEnemyInAttackRange()
     {
-        return Vector2.Distance(enemyController.PlayerController.GetPlayerCenter(), enemyController.GetEnemyCenter()) <= nextAttack.AttackRange;
+        return Vector2.Distance(enemyController.PlayerController.GetPlayerPos(), enemyController.GetEnemyPos()) <= nextAttack.AttackRange;
     }
 
     public bool IsEnemyAbleToAttack()

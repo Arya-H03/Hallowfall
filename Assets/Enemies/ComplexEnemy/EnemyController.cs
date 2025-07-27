@@ -150,13 +150,18 @@ public class EnemyController : MonoBehaviour
         {
             HandleCooldowns();
             canAttack = attackState.IsEnemyAbleToAttack();
-            currentState.HandleState();
+            currentState.UpdateLogic();
             attackState.CheckForNextAttack();
         }
     }
     private void Update()
     {
         EnemyUpdateLoop();
+    }
+
+    private void FixedUpdate()
+    {
+        currentState.FixedUpdateLogic();
     }
     private void HandleCooldowns()
     {
@@ -232,7 +237,7 @@ public class EnemyController : MonoBehaviour
         if (hitType != HitSfxType.none) AudioManager.Instance.PlaySFX( CollisionManager.GetHitSound(hitType),transform.position, 0.4f);
 
         CollisionManager.StaggerEnemy(damage);
-        Vector2 knockbackVector = (GetEnemyCenter() - playerController.GetPlayerCenter()).normalized;
+        Vector2 knockbackVector = (GetEnemyPos() - playerController.GetPlayerPos()).normalized;
         //CollisionManager.KnockBackEnemy(knockbackVector, knockbackForce);
 
         //Damage
@@ -310,11 +315,10 @@ public class EnemyController : MonoBehaviour
         ChangeState(EnemyStateEnum.Idle);
     }
 
-    public Vector3 GetEnemyCenter()
+    public Vector3 GetEnemyPos()
     {
-        Vector3 center = transform.position;
-        //center.y += spriteRenderer.bounds.size.y / 2;
-        return center;
+       
+        return transform.position;
     }
 
     public void UpdateEnemyHealthBar()
@@ -322,4 +326,32 @@ public class EnemyController : MonoBehaviour
         Vector3 scale = new Vector3(currentHealth / maxHealth, 1, 1);
         healthbarFG.localScale = scale;
     }
+
+    public bool IsEnemyFullySurrounded()
+    {
+        Cell currentEnemyCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(transform.position);
+        Cell currentPlayerCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(playerController.transform.position);
+
+        int count = 0;
+        foreach (Cell neigbor in currentEnemyCell.GetAllNeighborCells())
+        {
+            if (neigbor.HasEnemy)
+            {
+                count++;
+            }
+        }
+
+        int count1 = 0;
+        foreach (Cell neigbor in currentPlayerCell.GetAllNeighborCells())
+        {
+            if (neigbor.HasEnemy)
+            {
+                count1++;
+            }
+        }
+
+        return currentEnemyCell.TotalCost > 2 && count >= 5 && count1 <=3;
+
+    }
+
 }

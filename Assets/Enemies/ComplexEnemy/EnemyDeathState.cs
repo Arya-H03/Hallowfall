@@ -35,7 +35,7 @@ public class EnemyDeathState : EnemyBaseState
 
     }
 
-    public override void HandleState()
+    public override void UpdateLogic()
     {
         
     }

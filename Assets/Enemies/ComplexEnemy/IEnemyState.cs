@@ -9,5 +9,7 @@ public interface IEnemyState
 
     void OnExitState();
 
-    void HandleState();
+    void UpdateLogic();
+
+    void FixedUpdateLogic();
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovementHandler : MonoBehaviour
 {
     private PlayerController playerController;
-    //[SerializeField] private DialogueBox dialogueBox;
+    private Rigidbody2D rb;
     private ZoneManager zoneManager;
     private FlowFieldManager flowFieldManager;
     private float flowFieldGenerationDelay = 0.3f;
@@ -25,30 +25,31 @@ public class PlayerMovementHandler : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         zoneManager = ZoneManager.Instance;
         flowFieldManager = FlowFieldManager.Instance;   
+        rb = playerController.PlayerCollision.Rb;
     }
 
     private void Update()
     {
-        //if (!playerController.IsDead && currentInputDir.magnitude > 0.1)
-        //{
-        MovePlayer();
-        //}
-    }
-
-    private void MovePlayer()
-    {
-        
-        if(zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
+        if (zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
         {
-            flowFieldManager.UpdateFlowFieldFromTarget(playerController.transform.position);
-            flowFieldGenerationTimer = 0;   
+            flowFieldManager.UpdateFlowField(playerController.transform.position);
+            flowFieldGenerationTimer = 0;
 
         }
         flowFieldGenerationTimer += Time.deltaTime;
-
-        playerController.transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
     }
 
+    private void FixedUpdate()
+    {
+        if(playerController.CurrentStateEnum != PlayerStateEnum.Dash && playerController.CurrentStateEnum != PlayerStateEnum.Roll)
+        {
+            Vector2 targetPos = rb.position + (MoveSpeed * speedModifer * Time.deltaTime * currentInputDir);
+            Vector2 smoothPos = Vector2.Lerp(rb.position, targetPos, 1f);
+            rb.MovePosition(smoothPos);
+        }
+        //playerController.transform.position += new Vector3(currentInputDir.x, currentInputDir.y, 0) * MoveSpeed * speedModifer * Time.deltaTime;
+    }
+   
     public void TurnPlayer(Vector2 vec)
     {
         float scaleX = 1;

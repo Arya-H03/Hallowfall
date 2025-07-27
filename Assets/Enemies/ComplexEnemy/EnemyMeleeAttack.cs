@@ -28,7 +28,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
             }
             else if(attackZone.ParryShield)
             {
-                enemyController.CollisionManager.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerCenter(), parryDamage);
+                enemyController.CollisionManager.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerPos(), parryDamage);
             }
            
         }
@@ -51,7 +51,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
 
     private void SetupAttackZone()
     {
-        Vector3 dir = (enemyController.PlayerController.GetPlayerCenter() - enemyController.GetEnemyCenter()).normalized;
+        Vector3 dir = (enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (angle <= -90 || angle >= 90)
         {
@@ -59,7 +59,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         }
         attackZoneGO.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        attackZoneGO.transform.position = enemyController.GetEnemyCenter() + (dir/2);
+        attackZoneGO.transform.position = enemyController.GetEnemyPos() + (dir/2);
 
         attackZoneGO.SetActive(true);
     }
