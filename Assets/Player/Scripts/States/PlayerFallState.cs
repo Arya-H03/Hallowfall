@@ -15,20 +15,20 @@ public class PlayerFallState : PlayerBaseState
     //{
     //    this.stateEnum = PlayerStateEnum.Fall;
     //}
-    //public override void OnEnterState()
+    //public override void EnterState()
     //{
     //    playerController.IsFalling = true;
     //    playerController.AnimationController.SetBoolForAnimations("isFalling", true);
     //}
 
-    //public override void OnExitState()
+    //public override void ExitState()
     //{
     //    playerController.AnimationController.SetBoolForAnimations("isFalling", false);
     //    playerController.IsFalling = false;
 
     //}
 
-    //public override void UpdateLogic()
+    //public override void FrameUpdate()
     //{
 
 
