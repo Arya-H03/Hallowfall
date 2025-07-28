@@ -7,19 +7,19 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimationController animationController;
     private PlayerMovementHandler playerMovementHandler;
     private AfterImageHandler afterImageHandler;
-    private PlayerCollisionController playerCollision;
+    private PlayerPhysicsController playerPhysicsController;
     private PlayerAbilityController playerAbilityController;
+    private PlayerEnvironmentChecker playerEnvironmentChecker;  
     private Material material;
-
-    [HideInInspector] public Rigidbody2D rb;
-    [HideInInspector] public SpriteRenderer spriteRenderer;
-    [SerializeField] LayerMask enemyLayer;
+    private SpriteRenderer spriteRenderer;
 
     // Config
     [SerializeField] private PlayerConfig playerConfig;
 
 
     [SerializeField] private Transform playerCenterTransform;
+    [SerializeField] private string enemyTag;
+
 
     // Player Stats
     private float maxHealth;
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAnimationController AnimationController { get => animationController; set => animationController = value; }
     public PlayerMovementHandler PlayerMovementHandler { get => playerMovementHandler; set => playerMovementHandler = value; }
     public AfterImageHandler AfterImageHandler { get => afterImageHandler; set => afterImageHandler = value; }
-    public PlayerCollisionController PlayerCollision { get => playerCollision; set => playerCollision = value; }
+    public PlayerPhysicsController PlayerPhysicsController { get => playerPhysicsController; set => playerPhysicsController = value; }
     public PlayerAbilityController PlayerAbilityController { get => playerAbilityController; }
     public Material Material { get => material; set => material = value; }
     public PlayerConfig PlayerConfig { get => playerConfig; set => playerConfig = value; }
@@ -101,22 +101,23 @@ public class PlayerController : MonoBehaviour
     public PlayerRollState PlayerRollState { get => playerRollState; set => playerRollState = value; }
     public PlayerDeathState PlayerDeathState { get => playerDeathState; set => playerDeathState = value; }
     public PlayerDashState PlayerDashState { get => playerDashState; set => playerDashState = value; }
-    public LayerMask EnemyLayer { get => enemyLayer; set => enemyLayer = value; }
-    
+    public PlayerEnvironmentChecker PlayerEnvironmentChecker { get => playerEnvironmentChecker; set => playerEnvironmentChecker = value; }
+    public string EnemyTag { get => enemyTag; set => enemyTag = value; }
+
     #endregion
 
     private void Awake()
     {
-        // Component initialization
-        rb = GetComponent<Rigidbody2D>();
+       
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         material = spriteRenderer.material;
 
         AfterImageHandler = GetComponentInChildren<AfterImageHandler>();
         AnimationController = GetComponentInChildren<PlayerAnimationController>();
         PlayerMovementHandler = GetComponent<PlayerMovementHandler>();
-        PlayerCollision = GetComponentInChildren<PlayerCollisionController>();
+        PlayerPhysicsController = GetComponentInChildren<PlayerPhysicsController>();
         playerAbilityController = GetComponentInChildren<PlayerAbilityController>();
+        playerEnvironmentChecker = GetComponentInChildren<PlayerEnvironmentChecker>();
 
         // State initialization
         InitializeState(ref playerIdleState);

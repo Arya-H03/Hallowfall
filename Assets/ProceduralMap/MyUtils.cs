@@ -404,4 +404,12 @@ public static class MyUtils
 
     }
 
+    public static Vector3 GetMousePos()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+        return mousePos;
+    }
+
+ 
 }

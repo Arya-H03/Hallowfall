@@ -103,8 +103,23 @@ public class EnemySpawnManager : MonoBehaviour
 
     private Vector3 GenerateRandomSpawnPosition(float dist)
     {
-        Vector3 randomOffset = Random.insideUnitCircle.normalized * dist;
-        return GameManager.Instance.Player.transform.position + randomOffset;
+        Vector3? result = null;
+        while(result == null)
+        {
+            result = (Vector3)(Random.insideUnitCircle.normalized * dist) + GameManager.Instance.Player.transform.position;
+
+            if(!ZoneManager.Instance.FindCurrentCellFromWorldPos((Vector3)result).IsWalkable)
+            {
+                return (Vector3)result;
+            }
+        }
+
+        return (Vector3)result;
+
+       
+
+        //Vector3 randomOffset = Random.insideUnitCircle.normalized * dist;
+        //return GameManager.Instance.Player.transform.position + randomOffset;
     }
    
 }

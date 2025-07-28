@@ -28,7 +28,7 @@ public class PlayerHangingState : PlayerBaseState
         playerController.IsHanging = true;  
         playerController.CanPlayerJump= true;  
         AudioManager.Instance.PlaySFX(hangingAC,playerController.transform.position, 1);
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Static;
+        playerController.PlayerPhysicsController.Rb.bodyType = RigidbodyType2D.Static;
         
         
     }
@@ -36,7 +36,7 @@ public class PlayerHangingState : PlayerBaseState
     public override void OnExitState()
     {
         playerController.AnimationController.SetBoolForAnimations("isHanging", false);
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
+        playerController.PlayerPhysicsController.Rb.bodyType = RigidbodyType2D.Dynamic;
         playerController.IsHanging = false;
         ResetPlayerInputActions();
     }
@@ -64,11 +64,11 @@ public class PlayerHangingState : PlayerBaseState
     private void JumpAway(InputAction.CallbackContext ctx)
     {
         Vector2 dir = ctx.ReadValue<Vector2>();
-        playerController.PlayerCollision.Rb.bodyType = RigidbodyType2D.Dynamic;
+        playerController.PlayerPhysicsController.Rb.bodyType = RigidbodyType2D.Dynamic;
 
         if(dir == Vector2.up)
         {
-            playerController.PlayerCollision.Rb.linearVelocity += new Vector2(0, 10);
+            playerController.PlayerPhysicsController.Rb.linearVelocity += new Vector2(0, 10);
             playerController.AnimationController.SetTriggerForAnimations("HangingPushUp");
         }
 
@@ -76,7 +76,7 @@ public class PlayerHangingState : PlayerBaseState
         {
             if(playerController.gameObject.transform.localScale.x < 0)
             {
-                playerController.PlayerCollision.Rb.linearVelocity += new Vector2(5, 5);
+                playerController.PlayerPhysicsController.Rb.linearVelocity += new Vector2(5, 5);
                 playerController.AnimationController.SetTriggerForAnimations("HangingPushUp");
 
             }
@@ -87,7 +87,7 @@ public class PlayerHangingState : PlayerBaseState
         {
             if (playerController.gameObject.transform.localScale.x > 0)
             {
-                playerController.PlayerCollision.Rb.linearVelocity += new Vector2(-5, 5);
+                playerController.PlayerPhysicsController.Rb.linearVelocity += new Vector2(-5, 5);
                 playerController.AnimationController.SetTriggerForAnimations("HangingPushUp");
 
             }

@@ -289,7 +289,7 @@ public class PlayerSwordAttackState : PlayerBaseState
                 EnemyController enemyController = hit.collider.GetComponentInParent<EnemyController>();
                 Vector2 knockbackVector = (playerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
                 enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword, force);
-                //playerController.PlayerCollision.KnockBackPlayer(knockbackVector, 0.1f);
+                //playerController.PlayerPhysicsController.KnockBackPlayer(knockbackVector, 0.1f);
                 GameManager.Instance.StopTime(hitStopDuration);
             }
         }

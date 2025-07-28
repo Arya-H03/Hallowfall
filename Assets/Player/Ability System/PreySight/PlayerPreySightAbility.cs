@@ -7,7 +7,11 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
 {
     private CDetector cDetector;
     private CTargetMarker cTargetMarker;
+    private PlayerController playerController;
+    private LayerMask layerMask;
+    private string enemyTag;
 
+    [SerializeField] private float detectionRadius = 7.5f;
     [SerializeField] int cycleDuration;
 
     private void Awake()
@@ -16,7 +20,9 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
     }
     public void PassPlayerControllerRef(PlayerController playerController)
     {
-      
+        this.playerController = playerController;
+        layerMask = playerController.PlayerEnvironmentChecker.EnemyLayerMask;
+        enemyTag = playerController.EnemyTag;
     }
     public void Init()
     {
@@ -41,7 +47,7 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
             yield return new WaitForSeconds(cycleDuration);
 
            
-            List<GameObject> detectedEnemies = cDetector.DetectNearbyTargets();
+            List<GameObject> detectedEnemies = cDetector.DetectNearbyTargets(enemyTag, playerController.GetPlayerPos(),layerMask, detectionRadius);
 
 
             List<GameObject> unmarkedEnemies = detectedEnemies.FindAll(e => !markedEnemies.Contains(e));

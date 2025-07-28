@@ -25,7 +25,7 @@ public class PlayerMovementHandler : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         zoneManager = ZoneManager.Instance;
         flowFieldManager = FlowFieldManager.Instance;   
-        rb = playerController.PlayerCollision.Rb;
+        rb = playerController.PlayerPhysicsController.Rb;
     }
 
     private void Update()

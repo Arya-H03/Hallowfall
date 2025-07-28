@@ -33,7 +33,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void HandleState()
     {
 
-        //if(playerController.PlayerCollisionController.Rb.velocityY < 0 && !playerController.IsHanging)
+        //if(playerController.PlayerPhysicsController.Rb.velocityY < 0 && !playerController.IsHanging)
         //{
         //    playerController.ChangeState(PlayerStateEnum.Fall); 
         //}
@@ -44,8 +44,8 @@ public class PlayerJumpState : PlayerBaseState
         playerController.CanPlayerJump = false;
 
         jumpDirectionX = playerController.PlayerMovementHandler.currentInputDir.x;
-        playerController.rb.gravityScale = 3;
-        playerController.rb.linearVelocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
+        playerController.PlayerPhysicsController.Rb.gravityScale = 3;
+        playerController.PlayerPhysicsController.Rb.linearVelocity = new Vector2(jumpDirectionX * 3, jumpSpeed);
 
         AudioManager.Instance.PlaySFX( jumpUpAC,playerController.transform.position, 1);
 

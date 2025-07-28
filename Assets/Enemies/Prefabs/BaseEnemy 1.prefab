@@ -389,7 +389,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 86a373e90e3332148b74ce78ef80426b, type: 2}
+  - {fileID: 2100000, guid: f199a8948e50d0048b1055e5167a6fe9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -500,15 +500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98871af23d261b74f8c264d3d3c5766b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  enemyTag: EnemyCollider
-  seperationCheckRadius: 0.3
-  seperationStrength: 0.25
-  nearbyEnemies: []
-  disttp: 0
-  isn: 0
 --- !u!114 &7043166873139138507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,6 +1202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c0e96e8f37f8746a7200af184aa37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flowRequestDelay: 0.3
 --- !u!50 &275503532599177812
 Rigidbody2D:
   serializedVersion: 5

@@ -8,6 +8,10 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
 {
     private CDetector cDetector;
     private CSpawner cSpawner;
+    private PlayerController playerController;
+    private LayerMask layerMask;
+    private string enemyTag;
+    [SerializeField] private float detectionRadius = 7.5f;
 
     [SerializeField] private GameObject shadowClonePrefab;
 
@@ -25,7 +29,9 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
     }
     public void PassPlayerControllerRef(PlayerController controller)
     {
-
+        this.playerController = controller;
+        layerMask =playerController.PlayerEnvironmentChecker.EnemyLayerMask;
+        enemyTag = playerController.EnemyTag;
     }
     public void Init()
     {
@@ -51,7 +57,7 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
         {
             yield return new WaitForSeconds(CycleDuration);
 
-            List<GameObject> detectedEnemies = cDetector.DetectNearbyTargets();
+            List<GameObject> detectedEnemies = cDetector.DetectNearbyTargets(enemyTag,playerController.GetPlayerPos(),layerMask,detectionRadius);
 
             if (detectedEnemies.Count >= 1)
             {

@@ -4,56 +4,11 @@ using UnityEngine;
 
 public class CDetector : MonoBehaviour
 {
-    [SerializeField] private string targetTag;
-    [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private float searchRadius;
-
-    public List<GameObject> DetectNearbyTargets(bool debug = false)
+    public List<GameObject> DetectNearbyTargets(string tTag,Vector3 pos, LayerMask tLayerMask, float searchRadius, bool debug = false)
     {
         List<GameObject> targetList = new List<GameObject>();
 
-        RaycastHit2D [] targets = Physics2D.CircleCastAll(this.transform.position,searchRadius,Vector2.zero,targetLayerMask);
-        foreach (RaycastHit2D target in targets )
-        {
-            if(target.collider.CompareTag(targetTag))
-            {
-                targetList.Add(target.collider.gameObject);
-            }
-        }
-
-        if(debug)
-        {
-            DrawDebugCircle(this.transform.position, searchRadius, Color.red);
-            Debug.Log(targetList.Count);
-        }
-        return targetList;
-    }
-
-    public List<GameObject> DetectNearbyTargets(Vector3 pos, bool debug = false)
-    {
-        List<GameObject> targetList = new List<GameObject>();
-
-        RaycastHit2D[] targets = Physics2D.CircleCastAll(pos, searchRadius, Vector2.zero, targetLayerMask);
-        foreach (RaycastHit2D target in targets)
-        {
-            if (target.collider.CompareTag(targetTag))
-            {
-                targetList.Add(target.collider.gameObject);
-            }
-        }
-        if (debug)
-        {
-            DrawDebugCircle(pos, searchRadius, Color.red);
-            Debug.Log(targetList.Count);
-        }
-        return targetList;
-    }
-
-    public List<GameObject> DetectNearbyTargets(string tTag, LayerMask tLayerMask, float searchRadius, bool debug = false)
-    {
-        List<GameObject> targetList = new List<GameObject>();
-
-        RaycastHit2D[] targets = Physics2D.CircleCastAll(this.transform.position, searchRadius, Vector2.zero, tLayerMask);
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(pos, searchRadius, Vector2.zero, tLayerMask);
         foreach (RaycastHit2D target in targets)
         {
             if (target.collider.CompareTag(tTag))
@@ -63,7 +18,7 @@ public class CDetector : MonoBehaviour
         }
         if (debug)
         {
-            DrawDebugCircle(this.transform.position, searchRadius, Color.red);
+            DrawDebugCircle(pos, searchRadius, Color.red);
             Debug.Log(targetList.Count);
         }
         return targetList;
