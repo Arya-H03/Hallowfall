@@ -57,7 +57,7 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
         {
             yield return new WaitForSeconds(CycleDuration);
 
-            List<GameObject> detectedEnemies = cDetector.DetectNearbyTargets(enemyTag,playerController.GetPlayerPos(),layerMask,detectionRadius);
+            List<GameObject> detectedEnemies = cDetector.DetectNearbyGameObjectTargets(enemyTag,playerController.GetPlayerPos(),layerMask,detectionRadius);
 
             if (detectedEnemies.Count >= 1)
             {

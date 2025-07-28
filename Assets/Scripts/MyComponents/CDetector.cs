@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CDetector : MonoBehaviour
 {
-    public List<GameObject> DetectNearbyTargets(string tTag,Vector3 pos, LayerMask tLayerMask, float searchRadius, bool debug = false)
+    public List<GameObject> DetectNearbyGameObjectTargets(string tTag,Vector3 pos, LayerMask tLayerMask, float searchRadius, bool debug = false)
     {
         List<GameObject> targetList = new List<GameObject>();
 
@@ -20,6 +20,46 @@ public class CDetector : MonoBehaviour
         {
             DrawDebugCircle(pos, searchRadius, Color.red);
   
+        }
+        return targetList;
+    }
+
+    public List<T> DetectNearbyGenericTargets<T>(string tTag, Vector3 pos, LayerMask tLayerMask, float searchRadius, bool debug = false)
+    {
+        List<T> targetList = new List<T>();
+
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(pos, searchRadius, Vector2.zero, tLayerMask);
+        foreach (RaycastHit2D target in targets)
+        {
+            if (target.collider.CompareTag(tTag) && target.collider.gameObject.TryGetComponent<T>(out T comp))
+            {
+                targetList.Add(comp);
+            }
+        }
+        if (debug)
+        {
+            DrawDebugCircle(pos, searchRadius, Color.red);
+
+        }
+        return targetList;
+    }
+
+    public List<T> DetectNearbyGenericTargetsOnParent<T>(string tTag, Vector3 pos, LayerMask tLayerMask, float searchRadius, bool debug = false)
+    {
+        List<T> targetList = new List<T>();
+
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(pos, searchRadius, Vector2.zero, tLayerMask);
+        foreach (RaycastHit2D target in targets)
+        {
+            if (target.collider.CompareTag(tTag) && target.collider.gameObject.transform.parent.TryGetComponent<T>(out T comp))
+            {
+                targetList.Add(comp);
+            }
+        }
+        if (debug)
+        {
+            DrawDebugCircle(pos, searchRadius, Color.red);
+
         }
         return targetList;
     }

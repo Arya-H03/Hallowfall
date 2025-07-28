@@ -6,5 +6,6 @@ public interface IMoveable
     public Vector2 FaceDirection { get; set; }
 
     public void Move(Vector2 velocity, float speed);
+    public void StopMove();
     public void CheckForFacingDirection(Vector2 direction); 
 }

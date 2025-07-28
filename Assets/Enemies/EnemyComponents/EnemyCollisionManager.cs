@@ -17,8 +17,8 @@ public class EnemyCollisionManager : MonoBehaviour
     [SerializeField] GameObject impactEffect;
     [SerializeField] GameObject[] bloofVFX;
 
-    [SerializeField] float maxStagger;
-    [SerializeField] float currentStagger;
+    private float maxStagger;
+    private float currentStagger = 0;
 
     [System.Serializable]
     struct HitSFX
@@ -43,6 +43,10 @@ public class EnemyCollisionManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        maxStagger = enemyController.EnemyConfig.maxStagger;
+    }
     private void FillDictionary()
     {
         hitSFXDictionary = new Dictionary<HitSfxType, AudioClip[]>();
@@ -85,36 +89,35 @@ public class EnemyCollisionManager : MonoBehaviour
         return null;
     }
 
-    public void StaggerEnemy(float damage)
+    public bool TryStagger(float damageTaken)
     {
         if (currentStagger < maxStagger && canStagger)
         {
-            //Turn damage to stagger amount
-            float amount = 2 * damage;
-            currentStagger += amount;
-            enemyController.StunState.StunDuration = 3f;
+            currentStagger += (2* damageTaken);
+
             if (currentStagger >= maxStagger)
             {
+                currentStagger = 0;
+                canStagger = false;
 
-                StartCoroutine(DelayStaggerCoroutine());
-                enemyController.ChangeState(EnemyStateEnum.Stun);
+                StartCoroutine(EnemyStaggerCoroutine());               
             }
         }
 
-
+        Debug.Log(canStagger);
+        return canStagger;
     }
 
-    private IEnumerator DelayStaggerCoroutine()
+    private IEnumerator EnemyStaggerCoroutine()
     {
-        canStagger = false;
-        yield return new WaitForSeconds(enemyController.StunState.StunDuration + 2);
+      
+        enemyController.ChangeState(EnemyStateEnum.Stun);
+
+        yield return new WaitForSeconds(enemyController.EnemyConfig.timeBetweenStaggers);
         canStagger = true;
     }
 
-    public void ResetStagger()
-    {
-        currentStagger = 0;
-    }
+ 
 
     public void KnockBackEnemy(Vector2 lanunchVector, float lunchForce)
     {
@@ -144,7 +147,7 @@ public class EnemyCollisionManager : MonoBehaviour
         if (parryState.CanCounter())
         {
             parryState.CallOnParrySuccessfulEvent();
-            enemyController.OnEnemyHit(damage, hitLocation, HitSfxType.sword,2);
+            enemyController.HitEnemy(damage, hitLocation, HitSfxType.sword,2);
             Vector3 scale = transform.localScale;
          
         }

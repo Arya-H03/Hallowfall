@@ -78,6 +78,13 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable
         Rb.MovePosition(smoothPos);
     }
 
+    public void StopMove()
+    {
+        nextMoveDir = Vector2.zero;
+        Rb.linearVelocity = Vector2.zero;
+    }
+
+
     public void CheckForFacingDirection(Vector2 direction)
     {
         int xDir = direction.x >= 0 ? -1 : 1;

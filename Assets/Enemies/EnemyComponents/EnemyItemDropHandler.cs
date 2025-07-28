@@ -24,11 +24,11 @@ public class EnemyItemDropHandler : MonoBehaviour
         {
             for (int i = 0; i < count; i++)
             {
-                Vector3 offset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
-                //var go = Instantiate(item, pos + offset, Quaternion.identity);
-                var go = pool.GetFromPool();
-                go.transform.position = offset + pos;
-                go.GetComponent<BaseItem>().OnItemDrop();
+                //Vector3 offset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
+                ////var go = Instantiate(item, pos + offset, Quaternion.identity);
+                //var go = pool.GetFromPool();
+                //go.transform.position = offset + pos;
+                //go.GetComponent<BaseItem>().OnItemDrop();
             }
         }
 

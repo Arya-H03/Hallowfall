@@ -10,6 +10,8 @@ public class EnemyConfigSO : ScriptableObject
     [Header("Stats Config")]
     public float maxHealth;
     public float damageModifier;
+    public float maxStagger;
+    public float timeBetweenStaggers;
 
 
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSwordAttackState : PlayerBaseState
 {
+    private EnemyDetector enemyDetector;
 
     private float moveSpeedWhileAttaking = 0;
     private float hitStopDuration = 0;
@@ -45,19 +46,6 @@ public class PlayerSwordAttackState : PlayerBaseState
     private LayerMask layerMask;
     private float distance;
 
-    [SerializeField] private Transform firstSwingCenter;
-    private Vector2 firstSwingCastSize = Vector2.zero;
-
-    [SerializeField] private Transform secondSwingCenter;
-    private Vector2 secondSwingCastSize = Vector2.zero;
-
-    [SerializeField] private Transform thirdSwingCenter;
-    private Vector2 thirdSwingCastSize = Vector2.zero;
-
-    public Transform FirstSwingCenter => firstSwingCenter;
-    public Transform SecondSwingCenter => secondSwingCenter;
-    public Transform ThirdSwingCenter => thirdSwingCenter;
-
     public PlayerSwordAttackState()
     {
         this.stateEnum = PlayerStateEnum.SwordAttack;
@@ -66,6 +54,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     public override void Start()
     {
         base.Start();
+        enemyDetector = playerController.EnemyDetector;
         OnFirstSwordSwingEvent += FirstSwingBoxCast;
         OnSecondSwordSwingEvent += SecondSwingBoxCast;
         OnThirdSwordSwingEvent += ThirdSwingBoxCast;
@@ -90,9 +79,6 @@ public class PlayerSwordAttackState : PlayerBaseState
         layerMask = config.layerMask;
         distance = config.distance;
 
-        firstSwingCastSize = config.firstSwingCastSize;
-        secondSwingCastSize = config.secondSwingCastSize;
-        thirdSwingCastSize = config.thirdSwingCastSize;
     }
 
     public override void OnEnterState()
@@ -254,20 +240,17 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void FirstSwingBoxCast()
     {
-        RaycastHit2D[] hitResult = BoxCastForAttack(firstSwingCenter.position, firstSwingCastSize, 1);
-        HandleHits(hitResult, firstSwingDamage, 1);
+        HandleHits(enemyDetector.AvailableEnemyTargets, firstSwingDamage, 1);
     }
 
     private void SecondSwingBoxCast()
     {
-        RaycastHit2D[] hitResult = BoxCastForAttack(secondSwingCenter.position, secondSwingCastSize, 2);
-        HandleHits(hitResult, secondSwingDamage, 2);
+        HandleHits(enemyDetector.AvailableEnemyTargets, secondSwingDamage, 2);
     }
 
     public void ThirdSwingBoxCast()
     {
-        RaycastHit2D[] hitResult = BoxCastForAttack(thirdSwingCenter.position, thirdSwingCastSize, 3);
-        HandleHits(hitResult, thirdSwingDamage, 3);
+        HandleHits(enemyDetector.AvailableEnemyTargets, thirdSwingDamage, 3);
     }
 
     private RaycastHit2D[] BoxCastForAttack(Vector2 centerPoint, Vector2 boxSize, int index)
@@ -278,20 +261,17 @@ public class PlayerSwordAttackState : PlayerBaseState
         return hits.Length > 0 ? hits : null;
     }
 
-    private void HandleHits(RaycastHit2D[] hits, float damage, float force)
+    private void HandleHits(HashSet<EnemyController> enemies, float damage, float force)
     {
-        if (hits == null) return;
+        if (enemies == null || enemies.Count < 1) { Debug.Log("No"); return; }
 
-        foreach (RaycastHit2D hit in hits)
+        foreach (EnemyController enemy in enemies)
         {
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                EnemyController enemyController = hit.collider.GetComponentInParent<EnemyController>();
-                Vector2 knockbackVector = (playerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
-                enemyController.OnEnemyHit(damage, hit.point, HitSfxType.sword, force);
-                //playerController.PlayerPhysicsController.KnockBackPlayer(knockbackVector, 0.1f);
-                GameManager.Instance.StopTime(hitStopDuration);
-            }
+
+            enemy.HitEnemy(damage, enemy.transform.position, HitSfxType.sword, force);
+            Vector2 knockbackVector = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
+            //playerController.PlayerPhysicsController.KnockBackPlayer(knockbackVector, 0.1f);
+            GameManager.Instance.StopTime(hitStopDuration);
         }
     }
 

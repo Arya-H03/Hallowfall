@@ -25,7 +25,8 @@ public class EnemyChaseState : EnemyState
     }
 
     public override void ExitState()
-    {      
+    {
+        enemyController.EnemyMovementHandler.StopMove();
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);       
     }
 

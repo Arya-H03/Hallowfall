@@ -16,7 +16,9 @@ public class EnemyStunState : EnemyState
 
     public override void EnterState()
     {
+        enemyController.CollisionManager.Rb.bodyType = RigidbodyType2D.Static;
         enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
+        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);      
         enemyController.isStuned = true;
         enemyController.stunEffect.SetActive(true);
     }
@@ -26,7 +28,7 @@ public class EnemyStunState : EnemyState
         stunTimer = 0f;
         enemyController.isStuned = false;
         enemyController.stunEffect.SetActive(false);
-        enemyController.CollisionManager.ResetStagger();
+        enemyController.CollisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public override void FrameUpdate()

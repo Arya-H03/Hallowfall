@@ -229,25 +229,27 @@ public class EnemyController : MonoBehaviour, IDamagable
 
     #region Damage & Health
 
-    public void OnEnemyHit(float damage, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
+    public void HitEnemy(float damageAmount, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
     {
-        StartCoroutine(EnemyHitCoroutine(damage, hitPoint, hitType, knockbackForce));
-    }
+        CollisionManager.TryStagger(damageAmount);
+        enemyAnimationManager.SetTriggerForAnimation("Hit");
 
-    public IEnumerator EnemyHitCoroutine(float damageAmount, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
-    {
         CollisionManager.PlayBloodEffect(hitPoint);
-        material.SetFloat("_Flash", 1);
 
         if (hitType != HitSfxType.none)
             AudioManager.Instance.PlaySFX(CollisionManager.GetHitSound(hitType), transform.position, 0.4f);
 
-        CollisionManager.StaggerEnemy(damageAmount);
-        ApplyDamage(damageAmount);
-
-        yield return new WaitForSeconds(0.1f);
-        material.SetFloat("_Flash", 0);
+        ApplyDamage(damageAmount * DamageModifier);
+        SpawnDamagePopUp(damageAmount * DamageModifier);
+        UpdateEnemyHealthBar();
     }
+
+    //public IEnumerator EnemyHitCoroutine(float damageAmount, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
+    //{     
+    //    //material.SetFloat("_Flash", 1);   
+    //    yield return new WaitForSeconds(0.1f);
+    //    //material.SetFloat("_Flash", 0);
+    //}
 
     public void ApplyDamage(float amount)
     {
@@ -255,9 +257,6 @@ public class EnemyController : MonoBehaviour, IDamagable
 
         float damage = amount * DamageModifier;
         CurrentHealth -= damage;
-
-        SpawnDamagePopUp(damage);
-        UpdateEnemyHealthBar();
 
         if (CurrentHealth <= 0) Die();
     }

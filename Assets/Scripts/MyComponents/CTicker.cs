@@ -14,8 +14,6 @@ public class CTicker : MonoBehaviour
 
    
 
-
-
     private void Update()
     {
         if(!canTick) return;

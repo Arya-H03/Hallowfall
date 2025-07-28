@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private PlayerEnvironmentChecker playerEnvironmentChecker;  
     private Material material;
     private SpriteRenderer spriteRenderer;
+    private EnemyDetector enemyDetector;
 
     // Config
     [SerializeField] private PlayerConfig playerConfig;
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour
     public PlayerDashState PlayerDashState { get => playerDashState; set => playerDashState = value; }
     public PlayerEnvironmentChecker PlayerEnvironmentChecker { get => playerEnvironmentChecker; set => playerEnvironmentChecker = value; }
     public string EnemyTag { get => enemyTag; set => enemyTag = value; }
+    public EnemyDetector EnemyDetector { get => enemyDetector;}
 
     #endregion
 
@@ -118,6 +120,7 @@ public class PlayerController : MonoBehaviour
         PlayerPhysicsController = GetComponentInChildren<PlayerPhysicsController>();
         playerAbilityController = GetComponentInChildren<PlayerAbilityController>();
         playerEnvironmentChecker = GetComponentInChildren<PlayerEnvironmentChecker>();
+        enemyDetector = GetComponentInChildren<EnemyDetector>();
 
         // State initialization
         InitializeState(ref playerIdleState);

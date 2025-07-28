@@ -47,7 +47,7 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
             yield return new WaitForSeconds(cycleDuration);
 
            
-            List<GameObject> detectedEnemies = cDetector.DetectNearbyTargets(enemyTag, playerController.GetPlayerPos(),layerMask, detectionRadius);
+            List<GameObject> detectedEnemies = cDetector.DetectNearbyGameObjectTargets(enemyTag, playerController.GetPlayerPos(),layerMask, detectionRadius);
 
 
             List<GameObject> unmarkedEnemies = detectedEnemies.FindAll(e => !markedEnemies.Contains(e));

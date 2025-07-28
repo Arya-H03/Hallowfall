@@ -29,7 +29,7 @@ public class EnemyEnvironenmentCheck : MonoBehaviour
     //    Vector2 seperationForce = Vector2.zero;
     //    int neighborCount = 0;
 
-    //    List <GameObject> nearbyEnemies = detector.DetectNearbyTargets(enemyTag, enemyLayerMask, seperationCheckRadius);
+    //    List <GameObject> nearbyEnemies = detector.DetectNearbyGameObjectTargets(enemyTag, enemyLayerMask, seperationCheckRadius);
     //    foreach (GameObject enemy in nearbyEnemies)
     //    {
     //        if (enemy == this.gameObject) continue;
