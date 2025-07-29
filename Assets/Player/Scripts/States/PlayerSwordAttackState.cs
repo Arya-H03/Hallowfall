@@ -271,7 +271,7 @@ public class PlayerSwordAttackState : PlayerBaseState
         foreach (EnemyController enemy in enemies)
         {
             Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-            enemy.HitEnemy(damage, enemy.transform.position, HitSfxType.sword, force);
+            enemy.EnemyHitHandler.HitEnemy(damage, HitSfxType.sword, force);
             SpawnHitEffects(enemy, dirVectorFromPlayerToEnemy);
                
             //playerController.PlayerPhysicsController.KnockBackPlayer(knockbackVector, 0.1f);

@@ -31,4 +31,5 @@ public class EnemyConfigSO : ScriptableObject
 
     [Header("Prefabs")]
     public GameObject[] bloofVFXPrefabs;
+    public DamagePopUp damagePopUpPrefab;
 }

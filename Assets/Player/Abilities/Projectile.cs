@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("PlayerGO"))
         {
             collision.GetComponent<PlayerController>().OnPlayerHit(damage);
             if((collision.transform.position - this.transform.position).x < 0)
@@ -61,7 +61,7 @@ public class Projectile : MonoBehaviour
             //}
             //else
             //{
-            //    collision.GetComponent<EnemyCollisionManager>().HitEnemy(collision.transform.right * 1 * 5, damage);
+            //    collision.GetComponent<EnemyPhysicsHandler>().HitEnemy(collision.transform.right * 1 * 5, damage);
             //    collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
 
             //}

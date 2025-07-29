@@ -6,29 +6,35 @@ public class EnemyStunState : EnemyState
 {
     private float stunDuration;
     private float stunTimer = 0f;
+    private EnemyPhysicsHandler collisionManager;
+    private EnemyAnimationHandler animationManager;
 
     public float StunDuration { get => stunDuration; set => stunDuration = value; }
 
-    public EnemyStunState(EnemyController enemyController, EnemyStateEnum stateEnum, EnemyConfigSO enemyConfig) : base(enemyController, stateEnum, enemyConfig)
+    public EnemyStunState(EnemyController enemyController,EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController, stateMachine, stateEnum)
     {
+        this.enemyController = enemyController;
+        this.enemyConfig = enemyController.EnemyConfig;
         this.stunDuration = enemyConfig.stunDuration;
+        this.collisionManager = enemyController.EnemyPhysicsHandler;
+        this.animationManager = enemyController.EnemyAnimationHandler;
     }
-
+   
     public override void EnterState()
     {
-        enemyController.CollisionManager.Rb.bodyType = RigidbodyType2D.Static;
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isAttacking", false);      
-        enemyController.isStuned = true;
+        collisionManager.Rb.bodyType = RigidbodyType2D.Static;
+        animationManager.SetBoolForAnimation("isRunning", false);
+        animationManager.SetBoolForAnimation("isAttacking", false);      
+        enemyController.IsStuned = true;
         enemyController.stunEffect.SetActive(true);
     }
 
     public override void ExitState()
     {
         stunTimer = 0f;
-        enemyController.isStuned = false;
+        enemyController.IsStuned = false;
         enemyController.stunEffect.SetActive(false);
-        enemyController.CollisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
+        collisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public override void FrameUpdate()
@@ -42,7 +48,7 @@ public class EnemyStunState : EnemyState
         else if (stunTimer >= StunDuration)
         {
 
-            enemyController.ChangeState(EnemyStateEnum.Idle);
+            stateMachine.ChangeState(EnemyStateEnum.Idle);
 
         }
 

@@ -135,7 +135,7 @@ public class UIManager : MonoBehaviour
         CloseDeathMenu();
         SceneManager.LoadScene("Game");
         //MobManager.Instance.ResetLookingForPlayersForAllEnemies();
-        //Player.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
+        //PlayerGO.GetComponent<PlayerController>().PlayerDeathState.OnPlayerRespawn();
 
 
     }

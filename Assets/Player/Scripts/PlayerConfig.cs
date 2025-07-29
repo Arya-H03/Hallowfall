@@ -4,7 +4,7 @@ using UnityEngine;
 
 //This script will hold the data related to the playerGO
 
-[CreateAssetMenu(fileName = "PlayerConfig", menuName = "Player Config Data")]
+[CreateAssetMenu(fileName = "PlayerConfig", menuName = "PlayerGO Config Data")]
 public class PlayerConfig : ScriptableObject
 {
     [Header("Stats")]

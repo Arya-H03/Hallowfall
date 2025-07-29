@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 2115942660256956688}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -198,13 +198,14 @@ GameObject:
   - component: {fileID: 2084517182264984571}
   - component: {fileID: 8611541217668489299}
   - component: {fileID: 9139369242951618141}
+  - component: {fileID: 7696296945824681961}
   m_Layer: 6
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6826615316521220287
 RectTransform:
   m_ObjectHideFlags: 0
@@ -222,7 +223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.149, y: 0.113}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2084517182264984571
@@ -288,6 +289,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7696296945824681961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2455641426150628200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038d83b1e2f300845a72afdeaa2cefbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbarFG: {fileID: 7487181887249532756}
+  worldCanvas: {fileID: 6826615316521220287}
 --- !u!1 &3388472979647051668
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +758,7 @@ GameObject:
   - component: {fileID: 6086510315951108457}
   - component: {fileID: 6239078157756136049}
   - component: {fileID: 3112834944105888271}
+  - component: {fileID: 1775111225761219859}
   m_Layer: 6
   m_Name: BaseEnemy 1
   m_TagString: Enemy
@@ -788,16 +804,7 @@ MonoBehaviour:
   enemyConfig: {fileID: 11400000, guid: bc98e720d59eb0a45a1a6147339894db, type: 2}
   enemyType: 0
   enemyAbilities: []
-  healthbarFG: {fileID: 7487181887249532756}
-  worldCanvas: {fileID: 6826615316521220287}
-  damagePopUp: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
   stunEffect: {fileID: 2115942660256956688}
-  currentStateEnum: 1
-  hasSeenPlayer: 1
-  canAttack: 0
-  isStuned: 0
-  isPlayerDead: 0
-  isBeingknocked: 0
 --- !u!114 &5000998446449617028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,7 +879,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Radius: 0.2
 --- !u!114 &6239078157756136049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -907,12 +914,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
   attackTypeEnum: 0
   attackZoneGO: {fileID: 7351402521509278169}
-  boxCastSize: {x: 1, y: 1.45}
-  boxCastCenter: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 128
   parryDamage: 50
+--- !u!114 &1775111225761219859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127336270324118875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca02f94d192b8f949809b0b7e8217079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8273413120492838156
 PrefabInstance:
   m_ObjectHideFlags: 0

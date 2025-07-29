@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class EnemyMeleeAttack : EnemyBaseAttack
 {
-    [SerializeField] private Vector2 boxCastSize = new Vector2(1.75f, 0.5f);
-    [SerializeField] Transform boxCastCenter;
-    //private float distance = 0;
     [SerializeField] LayerMask layerMask;
     protected EnemyAttackZone attackZone;
 
     [SerializeField] private int parryDamage = 100;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
     }
     public override void CallAttackActionOnAnimFrame()
@@ -26,27 +22,27 @@ public class EnemyMeleeAttack : EnemyBaseAttack
             {
                 attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
             }
-            else if(attackZone.ParryShield)
+            else if (attackZone.ParryShield)
             {
-                enemyController.CollisionManager.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerPos(), parryDamage);
+                enemyController.EnemyPhysicsHandler.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerPos(), parryDamage);
             }
-           
+
         }
-        
-       
+
+
 
     }
     public override IEnumerator AttackCoroutine()
     {
-        
+
         isAvailable = false;
         SetupAttackZone();
-        enemyController.AttackState.RemoveFromAvailableAttacks(this);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation(AnimCondition, true);
-        
+        attackState.RemoveFromAvailableAttacks(this);
+        enemyController.EnemyAnimationHandler.SetBoolForAnimation(AnimCondition, true);
+
         yield return new WaitForSeconds(attackCooldown);
         isAvailable = true;
-        enemyController.AttackState.AddToAvailableAttacks(this);
+        attackState.AddToAvailableAttacks(this);
     }
 
     private void SetupAttackZone()
@@ -59,7 +55,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
         }
         attackZoneGO.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        attackZoneGO.transform.position = enemyController.GetEnemyPos() + (dir/2);
+        attackZoneGO.transform.position = enemyController.GetEnemyPos() + (dir / 2);
 
         attackZoneGO.SetActive(true);
     }

@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string enemyTag;
 
 
-    // Player Stats
+    // PlayerGO Stats
     private float maxHealth;
     private float currentHealth;
     private int currentEssence;

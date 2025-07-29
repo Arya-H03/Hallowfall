@@ -7,10 +7,11 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
-public class EnemyMovementHandler : MonoBehaviour, IMoveable
+public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<EnemyController>
 {
     private EnemyController enemyController;
     private Transform enemyTransform;
+
     private FlowFieldManager flowFieldManager;
     private ZoneManager zoneManager;
 
@@ -27,23 +28,21 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable
     public Rigidbody2D Rb { get; set; }
     public Vector2 FaceDirection { get; set; }
 
-    private void Awake()
+  
+    public void Init(EnemyController enemyController)
     {
-        enemyController = GetComponent<EnemyController>();
-       
-    }
+        this.enemyController = enemyController;
+        this.enemyTransform = enemyController.transform;
+        Rb = enemyController.EnemyPhysicsHandler.Rb;
 
-    private void Start()
-    {
-        enemyTransform = enemyController.transform;
-        Rb = enemyController.CollisionManager.Rb;
         flowFieldManager = FlowFieldManager.Instance;
-        zoneManager = ZoneManager.Instance; 
+        zoneManager = ZoneManager.Instance;
+
         flowRequestTimer = flowRequestDelay;
 
-        lastPos = enemyController.transform.position;
+        lastPos = enemyTransform.position;
     }
-   
+
     public void MoveToPlayer(float speed)
     {
         FindNextMovementDirection();
@@ -90,8 +89,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable
         int xDir = direction.x >= 0 ? -1 : 1;
         //int xDir = movementDir.x >= 0 ? -1 : 1;
 
-        Vector3 canvasScale = enemyController.WorldCanvas.localScale;
-        enemyController.WorldCanvas.localScale = new Vector3(xDir * Mathf.Abs(canvasScale.x), canvasScale.y, canvasScale.z);
+      enemyController.EnemyHealthbarHandler.ChangeHealthbarDirection(xDir);
 
 
         if (FaceDirection.x != xDir)

@@ -12,7 +12,7 @@ public class PlayerHealthBar : MonoBehaviour
 
     //private void Awake()
     //{
-    //    playerGo = GameObject.FindGameObjectWithTag("Player");
+    //    playerGo = GameObject.FindGameObjectWithTag("PlayerGO");
     //    playerController = playerGo.GetComponent<PlayerController>();
 
     //}

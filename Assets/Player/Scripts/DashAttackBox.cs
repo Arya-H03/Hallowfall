@@ -17,7 +17,7 @@ public class DashAttackBox : MonoBehaviour
         if(collision && collision.CompareTag("Enemy"))
         {
             Vector2 collisionPoint = collision.ClosestPoint(transform.position);
-            collision.GetComponentInParent<EnemyController>().HitEnemy(playerController.PlayerDashState.DashAttackDamage, collisionPoint,HitSfxType.sword, 1);
+            collision.GetComponentInParent<EnemyController>().EnemyHitHandler.HitEnemy(playerController.PlayerDashState.DashAttackDamage,HitSfxType.sword, 1);
         }
     }
 

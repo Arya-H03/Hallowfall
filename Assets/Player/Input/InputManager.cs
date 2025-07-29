@@ -95,7 +95,7 @@ public class InputManager : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-       /* player.OnJumpStart()*/;
+       /* playerGO.OnJumpStart()*/;
     }
 
     public void Attack(InputAction.CallbackContext ctx)

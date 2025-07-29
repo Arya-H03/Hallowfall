@@ -119,7 +119,7 @@ public class EnemySpawnManager : MonoBehaviour
        
 
         //Vector3 randomOffset = Random.insideUnitCircle.normalized * dist;
-        //return GameManager.Instance.Player.transform.position + randomOffset;
+        //return GameManager.Instance.PlayerGO.transform.position + randomOffset;
     }
    
 }

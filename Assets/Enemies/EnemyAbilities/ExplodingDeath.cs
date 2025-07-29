@@ -14,8 +14,8 @@ public class ExplodingDeath : EnemyAbilitySO
 
     public override void ApplyAbility(EnemyController enemyController)
     {
-        enemyController.DeathState.EnemyEndDeathEvent += () => CreateExplosion(enemyController);
-        enemyController.DeathState.EnemyBeginDeathEvent += () => CreateAttackZone(enemyController);
+        enemyController.EnemyStateMachine.DeathState.EnemyEndDeathEvent += () => CreateExplosion(enemyController);
+        enemyController.EnemyStateMachine.DeathState.EnemyBeginDeathEvent += () => CreateAttackZone(enemyController);
     }
 
     private void CreateAttackZone(EnemyController enemyController)

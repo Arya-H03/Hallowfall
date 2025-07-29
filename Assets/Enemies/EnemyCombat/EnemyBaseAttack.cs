@@ -6,7 +6,7 @@ public enum EnemyAbilitiesEnum
     SwordAttack,
     RangeAttack
 }
-public class EnemyBaseAttack : MonoBehaviour
+public class EnemyBaseAttack : MonoBehaviour,IInitializeable<EnemyController>
 {
     [SerializeField] protected string animCondition;
     [SerializeField] protected float attackCooldown;
@@ -19,6 +19,7 @@ public class EnemyBaseAttack : MonoBehaviour
 
 
     protected EnemyController enemyController;
+    protected EnemyAttackState attackState;
 
     public float AttackCooldown { get => attackCooldown; set => attackCooldown = value; }
     public float AttackRange { get => attackRange; set => attackRange = value; }
@@ -26,12 +27,14 @@ public class EnemyBaseAttack : MonoBehaviour
     public string AnimCondition { get => animCondition; set => animCondition = value; }
     public EnemyAttackTypeEnum AttackTypeEnum { get => attackTypeEnum;}
 
-
-    protected virtual void Awake()
+    public void Init(EnemyController enemyController)
     {
-        enemyController = GetComponentInParent<EnemyController>();
+        this.enemyController = enemyController;
+        if (enemyController == null) Debug.Log("E");
+        if (enemyController.EnemyStateMachine == null) Debug.Log("s");
+        if (enemyController.EnemyStateMachine.AttackState == null) Debug.Log("a");
+        attackState = enemyController.EnemyStateMachine.AttackState;
     }
-
     public void StartAttack()
     {
         StartCoroutine(AttackCoroutine());
@@ -39,12 +42,12 @@ public class EnemyBaseAttack : MonoBehaviour
     public virtual IEnumerator AttackCoroutine()
     {
         isAvailable = false;
-        enemyController.AttackState.RemoveFromAvailableAttacks(this);
-        enemyController.EnemyAnimationManager.SetBoolForAnimation(AnimCondition, true);
+        attackState.RemoveFromAvailableAttacks(this);
+        enemyController.EnemyAnimationHandler.SetBoolForAnimation(AnimCondition, true);
        
         yield return new WaitForSeconds(attackCooldown);
         isAvailable = true;
-        enemyController.AttackState.AddToAvailableAttacks(this);
+        attackState.AddToAvailableAttacks(this);
     }
     public virtual void CallAttackActionOnAnimFrame()
     {

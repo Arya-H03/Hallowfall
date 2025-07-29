@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 /// <summary>
-/// Manages the procedural generation and activation of game zones based on player proximity.
+/// Manages the procedural generation and activation of game zones based on playerGO proximity.
 /// </summary>
 
 [RequireComponent(typeof(CTicker))]

@@ -5,39 +5,42 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyState
 {
-    public EnemyIdleState (EnemyController enemyController, EnemyStateEnum stateEnum,EnemyConfigSO enemyConfig) :base(enemyController,stateEnum, enemyConfig)
+    private EnemyMovementHandler movementHandler;
+    public EnemyIdleState(EnemyController enemyController, EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController, stateMachine, stateEnum)
     {
-
+        this.enemyController = enemyController;
+        this.enemyConfig = enemyController.EnemyConfig;
+        movementHandler = enemyController.EnemyMovementHandler;
     }
 
     public override void EnterState()
     {
-            
+
     }
-    
+
     public override void ExitState()
     {
-        
+
     }
 
     public override void FrameUpdate()
     {
         if (CanGoToChaseState())
         {
-            enemyController.ChangeState(EnemyStateEnum.Chase);
+            stateMachine.ChangeState(EnemyStateEnum.Chase);
         }
-        
+
     }
 
     private bool CanGoToChaseState()
     {
-        return enemyController.AttackState.NextAttack &&
-               !enemyController.PlayerController.IsDead && 
-               enemyController.CanMove && 
+        return stateMachine.AttackState.NextAttack &&
+               !enemyController.PlayerController.IsDead &&
+               enemyController.CanMove &&
                !enemyController.IsBeingknocked &&
-                enemyController.AttackState.IsEnemyAbleToAttack() &&
-               !enemyController.EnemyMovementHandler.IsCurrentCellBlockedByEnemies();
+                stateMachine.AttackState.IsEnemyAbleToAttack() &&
+               !movementHandler.IsCurrentCellBlockedByEnemies();
     }
 
-   
+
 }

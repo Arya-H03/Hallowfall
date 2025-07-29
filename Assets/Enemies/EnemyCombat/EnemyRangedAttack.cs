@@ -20,6 +20,6 @@ public class EnemyRangedAttack : EnemyBaseAttack
         EnemyProjectile projectile = projGO.GetComponent<EnemyProjectile>();
         projectile.Damage = attackDamage;
         projectile.EnemyOwner = enemyController.gameObject;
-        projectile.SetProjectileCourseToTarget(enemyController.Player.gameObject);
+        projectile.SetProjectileCourseToTarget(enemyController.PlayerGO.gameObject);
     }
 }

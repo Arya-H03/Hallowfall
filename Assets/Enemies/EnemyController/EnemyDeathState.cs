@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class EnemyDeathState : EnemyState
 {
-   
+    private EnemyPhysicsHandler collisionManager;
+    private EnemyAnimationHandler animationManager;
+    private EnemyItemDropHandler itemDropHandler;
+
     public delegate void EventHandler();
     public EventHandler EnemyBeginDeathEvent;
     public EventHandler EnemyEndDeathEvent;
-    public EnemyDeathState(EnemyController enemyController, EnemyStateEnum stateEnum,EnemyConfigSO enemyConfig) : base(enemyController, stateEnum, enemyConfig)
+    public EnemyDeathState(EnemyController enemyController, EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController, stateMachine, stateEnum)
     {
+        this.enemyController = enemyController;
+        this.enemyConfig = enemyController.EnemyConfig;
+        this.itemDropHandler = enemyController.EnemyItemDropHandler;
+        this.animationManager = enemyController.EnemyAnimationHandler;
+        this.collisionManager = enemyController.EnemyPhysicsHandler;
         EnemyBeginDeathEvent += OnEnemyDeathBegin;
+       
     }
-
-  
     public override void EnterState()
     {
         EnemyBeginDeathEvent?.Invoke();
@@ -26,23 +33,23 @@ public class EnemyDeathState : EnemyState
 
     public override void FrameUpdate()
     {
-        
+
     }
 
     private void OnEnemyDeathBegin()
     {
         enemyController.IsDead = true;
-        enemyController.CollisionManager.Rb.bodyType = RigidbodyType2D.Static;
-        enemyController.CollisionManager.BoxCollider.enabled = false;
-        enemyController.EnemyAnimationManager.SetTriggerForAnimation("Death");
-        enemyController.WorldCanvas.gameObject.SetActive(false);
+        collisionManager.Rb.bodyType = RigidbodyType2D.Static;
+        collisionManager.BoxCollider.enabled = false;
+        animationManager.SetTriggerForAnimation("Death");
+        enemyController.EnemyHealthbarHandler.DeactiveateHealthbar();
 
-        enemyController.ItemDropHandler.HandleItemDrop(enemyController.transform.position);
+        itemDropHandler.HandleItemDrop(enemyController.transform.position);
     }
 
     private IEnumerator DeathAnimationEndCoroutine()
     {
-        enemyController.EnemyAnimationManager.Animator.enabled = false;
+        animationManager.Animator.enabled = false;
         enemyController.SpriteRenderer.sprite = enemyConfig.corpseSprite;
         yield return new WaitForSeconds(enemyConfig.corpseLifeTime);
         EnemyEndDeathEvent?.Invoke();

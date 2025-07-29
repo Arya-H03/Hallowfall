@@ -58,7 +58,7 @@ public class PreySightHandler : ActiveAbilityHandler
 
             markedEnemies.Add(selectedEnemy);
             selectedEnemy.GetComponent<SpriteRenderer>().material = markOutline;
-            selectedEnemy.GetComponent<EnemyController>().DamageModifier *= damageModifier;
+            selectedEnemy.GetComponent<EnemyController>().EnemyHitHandler.DamageModifier *= damageModifier;
             selectedEnemy.GetComponentInChildren<EnemyChaseState>().ChaseSpeed *= (1-speedModifier);
             
         }

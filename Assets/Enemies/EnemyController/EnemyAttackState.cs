@@ -10,10 +10,14 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.VolumeComponent;
 using Random = UnityEngine.Random;
 
 public class EnemyAttackState : EnemyState
 {
+    private EnemyMovementHandler movementHandler;
+    private EnemyAnimationHandler animationManager;
+
     private bool canAttack = true;
     private bool isAttacking = false;
     bool isAttackDelayOver = true;
@@ -28,14 +32,24 @@ public class EnemyAttackState : EnemyState
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
     public EnemyBaseAttack NextAttack { get => nextAttack; set => nextAttack = value; }
-    public EnemyAttackState(EnemyController enemyController, EnemyStateEnum stateEnum, EnemyConfigSO enemyConfig) : base(enemyController, stateEnum, enemyConfig)
+    public EnemyAttackState(EnemyController enemyController,EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController, stateMachine, stateEnum)
     {
-        attackDelay = 0;
+        this.enemyController = enemyController;
+        this.enemyConfig = enemyController.EnemyConfig;
+        this.movementHandler = enemyController.EnemyMovementHandler;
+        this.animationManager = enemyController.EnemyAnimationHandler;
+
         enemyAttackList = enemyController.Attacks;
+      
+
+        attackDelay = 0;
+
         enemyAvailableAttackList = new List<EnemyBaseAttack>(enemyAttackList);
         nextAttack = enemyAvailableAttackList[0];
+        
     }
 
+  
     public override void EnterState()
     {
         enemyController.CanMove = false;
@@ -43,13 +57,13 @@ public class EnemyAttackState : EnemyState
         {
             canAttack = false;
             isAttacking = true;
-            enemyController.EnemyMovementHandler.CheckForFacingDirection(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
+            movementHandler.CheckForFacingDirection(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
             nextAttack.StartAttack();
 
             enemyController.CoroutineRunner.RunCoroutine(AttackDelayCoroutine());
 
         }
-        else enemyController.ChangeState(EnemyStateEnum.Idle);
+        else stateMachine.ChangeState(EnemyStateEnum.Idle);
 
     }
 
@@ -66,10 +80,10 @@ public class EnemyAttackState : EnemyState
     }
     public void EndAttack()
     {
-        enemyController.EnemyAnimationManager.SetBoolForAnimation(nextAttack.AnimCondition, false);
+        animationManager.SetBoolForAnimation(nextAttack.AnimCondition, false);
         nextAttack.OnAttackEnd();
         nextAttack = null;
-        enemyController.ChangeState(EnemyStateEnum.Idle);
+        stateMachine.ChangeState(EnemyStateEnum.Idle);
     }
 
     private IEnumerator AttackDelayCoroutine()

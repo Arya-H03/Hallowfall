@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyChaseState : EnemyState
 {
-   
+    private EnemyMovementHandler movementHandler;
+    private EnemyAnimationHandler animationManager;
+
     private float chaseSpeed;
   
     private bool isInPlayerRange = false;
@@ -12,36 +14,42 @@ public class EnemyChaseState : EnemyState
 
     public float ChaseSpeed { get => chaseSpeed; set => chaseSpeed = value; }
 
-    public EnemyChaseState(EnemyController enemyController, EnemyStateEnum stateEnum, EnemyConfigSO enemyConfig) : base(enemyController, stateEnum,enemyConfig)
+    public EnemyChaseState(EnemyController enemyController,EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController,stateMachine, stateEnum)
     {
+        this.enemyController = enemyController;
+        this.enemyConfig = enemyController.EnemyConfig;
+        this.movementHandler = enemyController.EnemyMovementHandler;
+        this.animationManager = enemyController.EnemyAnimationHandler;
+
         chaseSpeed = Random.Range(enemyConfig.minChaseSpeed, enemyConfig.maxChaseSpeed + 0.1f);
+       
     }
 
     
     public override void EnterState()
     {
-        
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", true);
+
+        animationManager.SetBoolForAnimation("isRunning", true);
     }
 
     public override void ExitState()
     {
-        enemyController.EnemyMovementHandler.StopMove();
-        enemyController.EnemyAnimationManager.SetBoolForAnimation("isRunning", false);       
+        movementHandler.StopMove();
+        animationManager.SetBoolForAnimation("isRunning", false);       
     }
 
     public override void FrameUpdate()
     {
-        if (enemyController == null || enemyController.Player == null || enemyController.PlayerController.IsDead || enemyController.IsDead || enemyController.AttackState.NextAttack == null || enemyController.EnemyMovementHandler.IsCurrentCellBlockedByEnemies())          
+        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead || stateMachine.AttackState.NextAttack == null || movementHandler.IsCurrentCellBlockedByEnemies())          
         {
-            enemyController.ChangeState(EnemyStateEnum.Idle);
+            stateMachine.ChangeState(EnemyStateEnum.Idle);
             return;
         }
-        isInPlayerRange = enemyController.AttackState.IsEnemyInAttackRange();
+        isInPlayerRange = stateMachine.AttackState.IsEnemyInAttackRange();
         if (isInPlayerRange)
         {
-            attackType = enemyController.AttackState.NextAttack.AttackTypeEnum;
-            enemyController.ChangeState(EnemyStateEnum.Attack);
+            attackType = stateMachine.AttackState.NextAttack.AttackTypeEnum;
+            stateMachine.ChangeState(EnemyStateEnum.Attack);
         }
     }
 
@@ -49,7 +57,7 @@ public class EnemyChaseState : EnemyState
     {
         if (!isInPlayerRange)
         {
-            enemyController.EnemyMovementHandler.MoveToPlayer(ChaseSpeed);
+            movementHandler.MoveToPlayer(ChaseSpeed);
         }
     }
 

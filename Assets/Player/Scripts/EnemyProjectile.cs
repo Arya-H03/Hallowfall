@@ -10,7 +10,7 @@ public class EnemyProjectile : BaseProjectile
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.CompareTag("Player"))
+        if (collision != null && collision.CompareTag("PlayerGO"))
         {
             collision.GetComponent<PlayerController>().OnPlayerHit(Damage);
         }

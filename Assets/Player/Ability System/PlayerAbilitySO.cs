@@ -16,12 +16,12 @@ public abstract class PlayerBaseAbilitySO : ScriptableObject
     public IAbility AbilityRef => abilityRef;
 
 
-    //This gets called when the player clicks on an Ability Card
+    //This gets called when the playerGO clicks on an Ability Card
     public abstract void TriggerAbility();
 
 }
 
-//For all of player abilities
+//For all of playerGO abilities
 
 [CreateAssetMenu(fileName = "PlayerAbilitySO", menuName = "Scriptable Objects/PlayerAbilitySO")]
 public class PlayerAbilitySO : PlayerBaseAbilitySO
@@ -64,7 +64,7 @@ public class PlayerAbilitySO : PlayerBaseAbilitySO
 
 }
 
-//For all player ability upgrades
+//For all playerGO ability upgrades
 public abstract class PlayerAbilityUpgradeSO : PlayerBaseAbilitySO, IAbilityUpgrade
 {
     protected PlayerAbilitySO sourceAbility;

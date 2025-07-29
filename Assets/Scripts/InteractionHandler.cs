@@ -16,7 +16,7 @@ public class InteractionHandler : MonoBehaviour
 
     //private void Awake()
     //{
-    //    playerGO = GameObject.FindGameObjectWithTag("Player");
+    //    playerGO = GameObject.FindGameObjectWithTag("PlayerGO");
     //}
     //private void OnEnable()
     //{

@@ -20,16 +20,15 @@ public class EnemyState : IEntityState
     protected EnemyStateEnum stateEnum;
     protected EnemyController enemyController;
     protected EnemyConfigSO enemyConfig;
+    protected EnemyStateMachine stateMachine;
 
-    public EnemyState(EnemyController enemyController, EnemyStateEnum stateEnum, EnemyConfigSO enemyConfig)
+    public EnemyState(EnemyController enemyController,EnemyStateMachine stateMachine, EnemyStateEnum stateEnum)
     {
+        this.stateEnum = stateEnum;       
+        this.stateMachine = stateMachine;
         this.enemyController = enemyController;
-        this.stateEnum = stateEnum;
-        this.enemyConfig = enemyConfig;
-    }
+        this.enemyConfig = enemyController.EnemyConfig;
 
-    public EnemyState()
-    {
     }
 
     public EnemyStateEnum GetStateEnum()
