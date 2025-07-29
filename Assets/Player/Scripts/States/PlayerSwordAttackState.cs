@@ -36,6 +36,7 @@ public class PlayerSwordAttackState : PlayerBaseState
     private Coroutine SpawnAfterImageCoroutine;
     [SerializeField] private GameObject firstSwingEffect;
     [SerializeField] private GameObject secondSwingEffect;
+    [SerializeField] private GameObject hitSparkPrefab;
 
 
     private float firstSwingDamage = 0;
@@ -241,11 +242,13 @@ public class PlayerSwordAttackState : PlayerBaseState
     private void FirstSwingBoxCast()
     {
         HandleHits(enemyDetector.AvailableEnemyTargets, firstSwingDamage, 1);
+        SpawnSlashEffect(1);
     }
 
     private void SecondSwingBoxCast()
     {
         HandleHits(enemyDetector.AvailableEnemyTargets, secondSwingDamage, 2);
+        SpawnSlashEffect(2);
     }
 
     public void ThirdSwingBoxCast()
@@ -263,16 +266,25 @@ public class PlayerSwordAttackState : PlayerBaseState
 
     private void HandleHits(HashSet<EnemyController> enemies, float damage, float force)
     {
-        if (enemies == null || enemies.Count < 1) { Debug.Log("No"); return; }
+        if (enemies == null || enemies.Count < 1) return;
 
         foreach (EnemyController enemy in enemies)
         {
-
+            Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
             enemy.HitEnemy(damage, enemy.transform.position, HitSfxType.sword, force);
-            Vector2 knockbackVector = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
+            SpawnHitEffects(enemy, dirVectorFromPlayerToEnemy);
+               
             //playerController.PlayerPhysicsController.KnockBackPlayer(knockbackVector, 0.1f);
             GameManager.Instance.StopTime(hitStopDuration);
         }
+    }
+
+    private void SpawnHitEffects(EnemyController enemyController, Vector2 dir)
+    {
+        Vector3 randPos = new Vector3(Random.Range(-0.25f,0.25f), Random.Range(-0.25f, 0.25f),0);
+        GameObject hitSpark = Instantiate(hitSparkPrefab, enemyController.GetEnemyPos() + randPos, Quaternion.identity);
+        Vector3 scale = hitSpark.transform.localScale;
+        hitSpark.transform.localScale = dir.x < 0 ? new Vector3(Mathf.Abs(scale.x),scale.y,scale.z) : new Vector3(-Mathf.Abs(scale.x), scale.y, scale.z);
     }
 
     private GameObject SpawnSlashEffect(int index)

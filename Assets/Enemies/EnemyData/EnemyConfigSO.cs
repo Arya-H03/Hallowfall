@@ -14,7 +14,6 @@ public class EnemyConfigSO : ScriptableObject
     public float timeBetweenStaggers;
 
 
-
     [Header("Chase State Config")]
     public float minChaseSpeed;
     public float maxChaseSpeed;
@@ -30,6 +29,6 @@ public class EnemyConfigSO : ScriptableObject
     public Sprite corpseSprite;
     public float corpseLifeTime;
 
-    
-
+    [Header("Prefabs")]
+    public GameObject[] bloofVFXPrefabs;
 }

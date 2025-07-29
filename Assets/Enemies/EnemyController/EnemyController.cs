@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CCoroutineRunner))]
 public class EnemyController : MonoBehaviour, IDamagable
@@ -234,7 +235,7 @@ public class EnemyController : MonoBehaviour, IDamagable
         CollisionManager.TryStagger(damageAmount);
         enemyAnimationManager.SetTriggerForAnimation("Hit");
 
-        CollisionManager.PlayBloodEffect(hitPoint);
+        PlayBloodEffect();
 
         if (hitType != HitSfxType.none)
             AudioManager.Instance.PlaySFX(CollisionManager.GetHitSound(hitType), transform.position, 0.4f);
@@ -243,6 +244,18 @@ public class EnemyController : MonoBehaviour, IDamagable
         SpawnDamagePopUp(damageAmount * DamageModifier);
         UpdateEnemyHealthBar();
     }
+
+    private void PlayBloodEffect()
+    {
+       
+        GameObject go = Instantiate(enemyConfig.bloofVFXPrefabs[Random.Range(0, enemyConfig.bloofVFXPrefabs.Length)], GetEnemyPos(), Quaternion.identity);
+        Vector3 scale = go.transform.localScale;
+
+        int randX = (int)MyUtils.GetRandomValue<int>(new int[] { -1, 1 });
+        scale.x *= randX;
+        go.transform.localScale = scale;
+    }
+
 
     //public IEnumerator EnemyHitCoroutine(float damageAmount, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
     //{     

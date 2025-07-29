@@ -57,28 +57,6 @@ public class EnemyCollisionManager : MonoBehaviour
     }
 
 
-    public void PlayBloodEffect(Vector2 hitPoint)
-    {
-        //Vector2 distance = hitPoint - new Vector2(this.transform.position.x, this.transform.position.y);
-        Vector2 dir = FindEffectDir(hitPoint);
-        //Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
-        GameObject go = Instantiate(bloofVFX[Random.Range(0, bloofVFX.Length)], hitPoint, Quaternion.identity);
-        Vector3 scale = go.transform.localScale;
-        scale.x *= dir.x;
-        go.transform.localScale = scale;
-    }
-
-    private Vector2 FindEffectDir(Vector3 pointOfImpact)
-    {
-        //Vector3 center = new Vector3(transform.position.x, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z);
-        Vector3 dist = (enemyController.transform.position - pointOfImpact).normalized;
-
-        float xDir = dist.x >= 0 ? -1 : 1;
-        float yDir = dist.y >= 0 ? 1 : -1;
-
-        return new Vector2(xDir, yDir);
-    }
-
     public AudioClip GetHitSound(HitSfxType hitType)
     {
         if (hitSFXDictionary.TryGetValue(hitType, out AudioClip[] sfx))
