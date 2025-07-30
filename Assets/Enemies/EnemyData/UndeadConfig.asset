@@ -22,7 +22,6 @@ MonoBehaviour:
   maxAttackDelay: 2
   abilitylist:
   - {fileID: 11400000, guid: 03c5bcf465a445c4cb3d08016aec2718, type: 2}
-  - {fileID: 11400000, guid: 7b7f3996d5839614f8be15dea56e3b5f, type: 2}
   stunDuration: 3
   corpseSprite: {fileID: -6414532256806120174, guid: 7df81ec2572ff8b43ba9f7bc16815bc4, type: 3}
   corpseLifeTime: 1

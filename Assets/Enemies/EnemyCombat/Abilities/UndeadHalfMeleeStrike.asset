@@ -16,9 +16,14 @@ MonoBehaviour:
   range: 1
   animCondition: isAttacking
   abilitySFX:
-  - {fileID: 8300000, guid: be3eb9310aa56f540967f99527bea652, type: 3}
-  - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}
-  - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
+  - {fileID: 8300000, guid: f81ad59e73f158646b18af7bc7b73f8e, type: 3}
+  - {fileID: 8300000, guid: 3e1212a6d07129340b4637c4ddd9cba8, type: 3}
+  - {fileID: 8300000, guid: c3836259d73f3cc4f82102d9f8c31e0c, type: 3}
+  - {fileID: 8300000, guid: 42f19a1bb63140b48817002ec2c80db8, type: 3}
+  - {fileID: 8300000, guid: 6f754c31a67828345b38a38fb931455a, type: 3}
+  - {fileID: 8300000, guid: 9eb131135b9f70a499197e46ae9709d2, type: 3}
+  - {fileID: 8300000, guid: 716888515a5230d4b846c2078efbcade, type: 3}
+  - {fileID: 8300000, guid: dd6515134fc9e7c40964f3d05e89f1af, type: 3}
   attackZonePrefab: {fileID: 1056337489651912631, guid: ec46428e97a66974faeff565a1f8ef20, type: 3}
   strikeDamage: 20
   parryDamage: 40
