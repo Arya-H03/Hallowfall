@@ -87,7 +87,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     public void CheckForFacingDirection(Vector2 direction)
     {
         int xDir = direction.x >= 0 ? -1 : 1;
-        //int xDir = movementDir.x >= 0 ? -1 : 1;
+        
 
       enemyController.EnemyHealthbarHandler.ChangeHealthbarDirection(xDir);
 

@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
    
     #region Components
 
+    private EnemySignalHub signalHub;
     private BoxCollider2D boxCollider;
     private CCoroutineRunner coroutineRunner;
     private EnemyAnimationHandler enemyAnimationHandler;
@@ -27,6 +28,8 @@ public class EnemyController : MonoBehaviour
     private EnemyItemDropHandler enemyItemDropHandler;
     private EnemyMovementHandler enemyMovementHandler;
     private EnemyPhysicsHandler enemyPhysicsHandler;
+    private EnemySFXHandler enemySFXHandler;
+    private EnemyVFXHandler enemyVFXHandler;
     private Material material;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -68,9 +71,11 @@ public class EnemyController : MonoBehaviour
     public EnemyTypeEnum EnemyType => enemyType;
     public FloorTypeEnum CurrentFloorType { get => currentFloorType; set => currentFloorType = value; }
 
+    public EnemySignalHub SignalHub { get => signalHub; }
     public BoxCollider2D BoxCollider => boxCollider;
     public CCoroutineRunner CoroutineRunner => coroutineRunner;
     public EnemyAnimationHandler EnemyAnimationHandler => enemyAnimationHandler;
+    public EnemySFXHandler EnemySFXHandler { get => enemySFXHandler; }
     public EnemyConfigSO EnemyConfig => enemyConfig;
     public EnemyEnvironenmentCheckHandler EnemyEnvironenmentCheckHandler => enemyEnvironenmentCheckHandler;
     public EnemyHealthbarHandler EnemyHealthbarHandler => enemyHealthbarHandler;
@@ -78,6 +83,7 @@ public class EnemyController : MonoBehaviour
     public EnemyItemDropHandler EnemyItemDropHandler => enemyItemDropHandler;    
     public EnemyMovementHandler EnemyMovementHandler => enemyMovementHandler;
     public EnemyPhysicsHandler EnemyPhysicsHandler => enemyPhysicsHandler;
+    public EnemyVFXHandler EnemyVFXHandler { get => enemyVFXHandler; }
     public EnemyStateMachine EnemyStateMachine => stateMachine; 
     public Material Material { get => material; set => material = value; }
     public PlayerController PlayerController => playerController;
@@ -94,6 +100,8 @@ public class EnemyController : MonoBehaviour
     public bool HasSeenPlayer { get => hasSeenPlayer; set => hasSeenPlayer = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool IsStuned { get => isStuned; set => isStuned = value; }
+    
+
 
     #endregion
 
@@ -113,7 +121,10 @@ public class EnemyController : MonoBehaviour
         enemyEnvironenmentCheckHandler = GetComponentInChildren<EnemyEnvironenmentCheckHandler>();
         enemyHitHandler = GetComponent<EnemyHitHandler>();
         enemyHealthbarHandler = GetComponentInChildren<EnemyHealthbarHandler>();
+        enemySFXHandler = GetComponent<EnemySFXHandler>();
+        enemyVFXHandler = GetComponent<EnemyVFXHandler>();
 
+        signalHub = new EnemySignalHub();
        
     }
 
@@ -152,6 +163,9 @@ public class EnemyController : MonoBehaviour
         enemyMovementHandler.Init(this);
         enemyHitHandler.Init(this);
         enemyHealthbarHandler.Init(this);
+        enemySFXHandler.Init(this);
+        enemyVFXHandler.Init(this);
+        enemyItemDropHandler.Init(this);
     }
     private void Update()
     {
@@ -167,8 +181,16 @@ public class EnemyController : MonoBehaviour
         stateMachine.CurrentState?.PhysicsUpdate();
     }
 
-  
-    public void ResetEnemy()
+    public void DeSpawnEnemy()
+    {
+        ReturnEnemyToPool();
+        isDead = false;
+        stateMachine.ChangeState(EnemyStateEnum.Idle);
+        signalHub.OnEnemyDeSpawn?.Invoke();        
+        EnemyHealthbarHandler.UpdateEnemyHealthBar(enemyHitHandler.MaxHealth, enemyHitHandler.CurrentHealth);
+     
+    }
+    public void ReturnEnemyToPool()
     {
         switch (enemyType)
         {
@@ -184,20 +206,7 @@ public class EnemyController : MonoBehaviour
             case EnemyTypeEnum.Necromancer:
                 ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(gameObject);
                 break;
-        }
-
-        IsDead = false;
-
-        EnemyPhysicsHandler.Rb.bodyType = RigidbodyType2D.Dynamic;
-        EnemyPhysicsHandler.BoxCollider.enabled = true;
-        enemyHealthbarHandler.ActiveateHealthbar();
-
-        enemyHitHandler.RestoreHealth(enemyHitHandler.MaxHealth);
-        EnemyHealthbarHandler.UpdateEnemyHealthBar();
-
-        enemyAnimationHandler.Animator.enabled = true;
-        stateMachine.AttackState.IsAttackDelayOver = true;
-        stateMachine.ChangeState(EnemyStateEnum.Idle);
+        }       
     }
     public Vector3 GetEnemyPos() => transform.position;
 

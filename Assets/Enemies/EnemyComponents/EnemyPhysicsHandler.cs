@@ -7,98 +7,41 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
 {
 
     private Rigidbody2D rb;
+
     private BoxCollider2D boxCollider;
+    private CircleCollider2D circleCollider;
+
+    private EnemySignalHub signalHub;
     private EnemyController enemyController;
     private EnemyStateMachine stateMachine;
 
-    private bool canStagger = true;
+    
 
     [SerializeField] float luanchModifier = 1f;
-    [SerializeField] DamagePopUp damagePopUp;
     [SerializeField] GameObject impactEffect;
-    [SerializeField] GameObject[] bloofVFX;
-
-    private float maxStagger;
-    private float currentStagger = 0;
-
-    [System.Serializable]
-    struct HitSFX
-    {
-        public HitSfxType hitType;
-        public AudioClip[] sound;
-    }
-
-    [SerializeField] HitSFX[] hitSFXs;
-    private Dictionary<HitSfxType, AudioClip[]> hitSFXDictionary;
+   
     public BoxCollider2D BoxCollider { get => boxCollider; set => boxCollider = value; }
     public Rigidbody2D Rb { get => rb; set => rb = value; }
-    public bool CanStagger { get => canStagger; set => canStagger = value; }
-
-    private void Awake()
-    {
-        FillDictionary();
-    }
+  
 
     public void Init(EnemyController enemyController)
     {
         this.enemyController = enemyController;
+        signalHub = enemyController.SignalHub;
         this.Rb = enemyController.Rb;
         this.boxCollider = enemyController.BoxCollider;
+        circleCollider = GetComponent<CircleCollider2D>();
         this.stateMachine = enemyController.EnemyStateMachine;
-        maxStagger = enemyController.EnemyConfig.maxStagger;
+
+        signalHub.OnEnemyDeath += DisablePhysicsAndCollision;
+        signalHub.OnEnemyDeSpawn += EnablePhysicsAndCollision;
     }
-    private void Start()
+
+    private void OnDisable()
     {
-       
+        signalHub.OnEnemyDeath -= DisablePhysicsAndCollision;
+        signalHub.OnEnemyDeSpawn -= EnablePhysicsAndCollision;
     }
-    private void FillDictionary()
-    {
-        hitSFXDictionary = new Dictionary<HitSfxType, AudioClip[]>();
-        foreach (var hitSfx in hitSFXs)
-        {
-            hitSFXDictionary[hitSfx.hitType] = hitSfx.sound;
-        }
-    }
-
-
-    public AudioClip GetHitSound(HitSfxType hitType)
-    {
-        if (hitSFXDictionary.TryGetValue(hitType, out AudioClip[] sfx))
-        {
-            return sfx.Length > 0 ? sfx[Random.Range(0, sfx.Length)] : null;
-
-        }
-        return null;
-    }
-
-    public bool TryStagger(float damageTaken)
-    {
-        if (currentStagger < maxStagger && canStagger)
-        {
-            currentStagger += (2* damageTaken);
-
-            if (currentStagger >= maxStagger)
-            {
-                currentStagger = 0;
-                canStagger = false;
-
-                StartCoroutine(EnemyStaggerCoroutine());               
-            }
-        }
-        return canStagger;
-    }
-
-    private IEnumerator EnemyStaggerCoroutine()
-    {
-
-        stateMachine.ChangeState(EnemyStateEnum.Stun);
-
-        yield return new WaitForSeconds(enemyController.EnemyConfig.timeBetweenStaggers);
-        canStagger = true;
-    }
-
- 
-
     public void KnockBackEnemy(Vector2 lanunchVector, float lunchForce)
     {
         StartCoroutine(KnockBackEnemyCoroutine(lanunchVector, lunchForce));
@@ -139,5 +82,17 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         Destroy(obj, 0.5f);
     }
 
-  
+    private void DisablePhysicsAndCollision()
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        circleCollider.enabled = false;
+        boxCollider.enabled = false;
+    }
+
+    private void EnablePhysicsAndCollision()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        circleCollider.enabled = true;
+        boxCollider.enabled = true;
+    }
 }

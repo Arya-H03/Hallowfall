@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -17,6 +18,7 @@ public class EnemyAttackState : EnemyState
 {
     private EnemyMovementHandler movementHandler;
     private EnemyAnimationHandler animationManager;
+    private EnemySignalHub signalHub;
 
     private bool canAttack = true;
     private bool isAttacking = false;
@@ -38,15 +40,13 @@ public class EnemyAttackState : EnemyState
         this.enemyConfig = enemyController.EnemyConfig;
         this.movementHandler = enemyController.EnemyMovementHandler;
         this.animationManager = enemyController.EnemyAnimationHandler;
-
-        enemyAttackList = enemyController.Attacks;
-      
+        signalHub = enemyController.SignalHub;
+        enemyAttackList = enemyController.Attacks; 
 
         attackDelay = 0;
 
         enemyAvailableAttackList = new List<EnemyBaseAttack>(enemyAttackList);
-        nextAttack = enemyAvailableAttackList[0];
-        
+        nextAttack = enemyAvailableAttackList[0];       
     }
 
   
@@ -57,7 +57,7 @@ public class EnemyAttackState : EnemyState
         {
             canAttack = false;
             isAttacking = true;
-            movementHandler.CheckForFacingDirection(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
+            //movementHandler.CheckForFacingDirection(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
             nextAttack.StartAttack();
 
             enemyController.CoroutineRunner.RunCoroutine(AttackDelayCoroutine());
@@ -72,6 +72,8 @@ public class EnemyAttackState : EnemyState
         enemyController.CanMove = true;
         canAttack = true;
         isAttacking = false;
+        IsAttackDelayOver = true;
+        attackDelay = 0;
         if (nextAttack != null)
         {
             nextAttack.DeactivateZoneAttack();
@@ -121,4 +123,5 @@ public class EnemyAttackState : EnemyState
             nextAttack = enemyAvailableAttackList[0];
         }
     }
+
 }

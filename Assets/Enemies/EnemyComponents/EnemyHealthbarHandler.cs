@@ -6,15 +6,25 @@ public class EnemyHealthbarHandler : MonoBehaviour,IInitializeable<EnemyControll
     [SerializeField] private Transform healthbarFG;
     [SerializeField] private Transform worldCanvas;
 
-    private EnemyHitHandler hitHandler;
+    EnemySignalHub signalHub;
     public void Init(EnemyController enemyController)
     {
-        hitHandler = enemyController.EnemyHitHandler;
+        signalHub = enemyController.SignalHub;
+
+        signalHub.OnEnemyHealthChange += UpdateEnemyHealthBar;
+        signalHub.OnEnemyDeath += DeactiveateHealthbar;
+        signalHub.OnEnemyDeSpawn += ActivateHealthbar;
     }
 
-    public void UpdateEnemyHealthBar()
+    private void OnDisable()
     {
-        Vector3 scale = new(hitHandler.CurrentHealth / hitHandler.MaxHealth, 1, 1);
+        signalHub.OnEnemyHealthChange -= UpdateEnemyHealthBar;
+        signalHub.OnEnemyDeath -= DeactiveateHealthbar;
+    }
+
+    public void UpdateEnemyHealthBar(float maxHealth, float currentHealth)
+    {
+        Vector3 scale = new(currentHealth / maxHealth, 1, 1);
         healthbarFG.localScale = scale;
     }
 
@@ -23,7 +33,7 @@ public class EnemyHealthbarHandler : MonoBehaviour,IInitializeable<EnemyControll
         worldCanvas.gameObject.SetActive(false);
     }
 
-    public void ActiveateHealthbar()
+    public void ActivateHealthbar()
     {
         worldCanvas.gameObject.SetActive(true);
     }

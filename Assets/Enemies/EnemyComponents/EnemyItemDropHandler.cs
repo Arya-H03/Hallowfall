@@ -2,19 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyItemDropHandler : MonoBehaviour
+public class EnemyItemDropHandler : MonoBehaviour,IInitializeable<EnemyController>
 {
-   
-    [SerializeField] float essenceDropChance = 0.75f;
+    private EnemySignalHub signalHub;
+    private EnemyController enemyController;
+
+     [SerializeField] float essenceDropChance = 0.75f;
     [SerializeField] float skullDropChance = 0.50f;
 
     [SerializeField] int essenceDropCount = 1;
     [SerializeField] int skullDropCount = 1;
 
-    public void HandleItemDrop(Vector3 pos)
+    public void Init(EnemyController enemyController)
+    {
+        this.enemyController = enemyController;
+        signalHub  = enemyController.SignalHub;
+
+        signalHub.OnEnemyDeath += HandleItemDrop;
+    }
+
+    private void OnDisable()
+    {
+        signalHub.OnEnemyDeath -= HandleItemDrop;
+    }
+
+    public void HandleItemDrop()
     {      
-        DropItem(ObjectPoolManager.Instance.EssencePool, essenceDropChance, essenceDropCount, pos);
-        DropItem(ObjectPoolManager.Instance.SkullPool, skullDropChance, skullDropCount, pos);
+        DropItem(ObjectPoolManager.Instance.EssencePool, essenceDropChance, essenceDropCount, enemyController.GetEnemyPos());
+        DropItem(ObjectPoolManager.Instance.SkullPool, skullDropChance, skullDropCount, enemyController.GetEnemyPos());
     }
 
     private void DropItem(ObjectPool pool, float dropChance, int count, Vector3 pos)

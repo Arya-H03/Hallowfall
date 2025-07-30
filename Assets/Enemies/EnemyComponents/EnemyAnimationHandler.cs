@@ -6,35 +6,43 @@ using UnityEngine;
 public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyController>
 {
     private Animator animator;
-    private RuntimeAnimatorController runtimeAnimatorController;
-    private EnemyController enemyController;
+    //private RuntimeAnimatorController runtimeAnimatorController;
     private EnemyStateMachine stateMachine;
-
-    private float hitAnimDuration;
+    private EnemySignalHub signalHub;
     public Animator Animator { get => animator; set => animator = value; }
-    public float HitAnimDuration { get => hitAnimDuration; set => hitAnimDuration = value; }
-
     private void Awake()
     {
         Animator = GetComponent<Animator>();
-        runtimeAnimatorController = animator.runtimeAnimatorController;
+        //runtimeAnimatorController = animator.runtimeAnimatorController;
     }
 
     public void Init(EnemyController enemyController)
     {
-        this.enemyController = enemyController;
         this.stateMachine = enemyController.EnemyStateMachine;
+        signalHub = enemyController.SignalHub;
+
+        signalHub.OnEnemyHit += CallHitAnim;
+        signalHub.OnEnemyDeath += CallDeathAnim;
     }
-    private void Start()
+
+    private void OnDisable()
     {
-        foreach (AnimationClip clip in runtimeAnimatorController.animationClips)
-        {
-            if (clip.name == "Hit") 
-            {
-                hitAnimDuration = clip.length;
-            }
-        }
+        signalHub.OnEnemyHit -= CallHitAnim;
+        signalHub.OnEnemyDeath -= CallDeathAnim;
     }
+ 
+
+    private void CallHitAnim(float f, HitSfxType h)
+    {
+        animator.SetTrigger("Hit");
+    }
+
+    private void CallDeathAnim()
+    {
+        animator.SetTrigger("Death");
+    }
+
+
     public void SetBoolForAnimation(string name, bool value)
     {
         Animator.SetBool(name, value);
@@ -56,6 +64,9 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
     {
         stateMachine.AttackState.EndAttack();
     }
+
+   
+
 }
- 
+
 

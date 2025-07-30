@@ -10,7 +10,6 @@ public class EnemyChaseState : EnemyState
     private float chaseSpeed;
   
     private bool isInPlayerRange = false;
-    EnemyAttackTypeEnum attackType;
 
     public float ChaseSpeed { get => chaseSpeed; set => chaseSpeed = value; }
 
@@ -28,7 +27,6 @@ public class EnemyChaseState : EnemyState
     
     public override void EnterState()
     {
-
         animationManager.SetBoolForAnimation("isRunning", true);
     }
 
@@ -48,7 +46,6 @@ public class EnemyChaseState : EnemyState
         isInPlayerRange = stateMachine.AttackState.IsEnemyInAttackRange();
         if (isInPlayerRange)
         {
-            attackType = stateMachine.AttackState.NextAttack.AttackTypeEnum;
             stateMachine.ChangeState(EnemyStateEnum.Attack);
         }
     }

@@ -150,7 +150,7 @@ public class PlayerParryState : PlayerBaseState
             if (enemy.collider.CompareTag("Enemy"))
             {
                 enemy.collider.GetComponent<EnemyController>()
-                    .EnemyPhysicsHandler.TryStagger(100);
+                    .EnemyHitHandler.TryStagger(100);
             }
         }
     }
