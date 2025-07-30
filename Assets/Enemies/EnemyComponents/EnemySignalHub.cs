@@ -10,5 +10,7 @@ public class EnemySignalHub
 
     public Action OnEnemyDeath;
     public Action OnEnemyDeSpawn;
+
+    public Action<int> OnEnemyTurn;
    
 }

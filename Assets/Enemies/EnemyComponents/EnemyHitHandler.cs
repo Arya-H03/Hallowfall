@@ -35,6 +35,7 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
 
     private void OnDisable()
     {
+        if (signalHub == null) return;
         signalHub.OnEnemyHit -= HandleHit;
         signalHub.OnEnemyDamage -= HandleDamage;
         signalHub.OnEnemyDeSpawn -= RestoreHealth;
@@ -53,6 +54,7 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
     }
     public void HitEnemy(float damageAmount, HitSfxType hitType, float knockbackForce)
     {
+        if(enemyController.IsDead) return;
         signalHub.OnEnemyHit?.Invoke(damageAmount, hitType);
     }
 

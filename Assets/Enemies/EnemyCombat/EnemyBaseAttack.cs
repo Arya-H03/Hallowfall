@@ -30,9 +30,6 @@ public class EnemyBaseAttack : MonoBehaviour,IInitializeable<EnemyController>
     public void Init(EnemyController enemyController)
     {
         this.enemyController = enemyController;
-        if (enemyController == null) Debug.Log("E");
-        if (enemyController.EnemyStateMachine == null) Debug.Log("s");
-        if (enemyController.EnemyStateMachine.AttackState == null) Debug.Log("a");
         attackState = enemyController.EnemyStateMachine.AttackState;
     }
     public void StartAttack()

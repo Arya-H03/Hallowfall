@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyController>
 {
     private Animator animator;
+    EnemyController enemyController;
     //private RuntimeAnimatorController runtimeAnimatorController;
     private EnemyStateMachine stateMachine;
     private EnemySignalHub signalHub;
@@ -20,6 +21,7 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
     {
         this.stateMachine = enemyController.EnemyStateMachine;
         signalHub = enemyController.SignalHub;
+        this.enemyController = enemyController;
 
         signalHub.OnEnemyHit += CallHitAnim;
         signalHub.OnEnemyDeath += CallDeathAnim;
@@ -27,6 +29,7 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
 
     private void OnDisable()
     {
+        if (signalHub == null) return;
         signalHub.OnEnemyHit -= CallHitAnim;
         signalHub.OnEnemyDeath -= CallDeathAnim;
     }
@@ -39,9 +42,9 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
 
     private void CallDeathAnim()
     {
+        animator.ResetTrigger("Hit");
         animator.SetTrigger("Death");
     }
-
 
     public void SetBoolForAnimation(string name, bool value)
     {

@@ -30,34 +30,41 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         signalHub = enemyController.SignalHub;
         this.Rb = enemyController.Rb;
         this.boxCollider = enemyController.BoxCollider;
-        circleCollider = GetComponent<CircleCollider2D>();
+        circleCollider = GetComponentInParent<CircleCollider2D>();
         this.stateMachine = enemyController.EnemyStateMachine;
 
         signalHub.OnEnemyDeath += DisablePhysicsAndCollision;
         signalHub.OnEnemyDeSpawn += EnablePhysicsAndCollision;
+        signalHub.OnEnemyHit += KnockBackEnemy;
     }
 
     private void OnDisable()
     {
+        if (signalHub == null) return;
         signalHub.OnEnemyDeath -= DisablePhysicsAndCollision;
         signalHub.OnEnemyDeSpawn -= EnablePhysicsAndCollision;
+        signalHub.OnEnemyHit -= KnockBackEnemy;
     }
-    public void KnockBackEnemy(Vector2 lanunchVector, float lunchForce)
+    public void KnockBackEnemy(float f, HitSfxType h)
     {
-        StartCoroutine(KnockBackEnemyCoroutine(lanunchVector, lunchForce));
+        if(!enemyController.IsBeingknocked)
+        {
+            StartCoroutine(KnockBackEnemyCoroutine(1));
+        }
+       
     }
-    private IEnumerator KnockBackEnemyCoroutine(Vector2 lanunchVector, float force)
+    private IEnumerator KnockBackEnemyCoroutine(float force)
     {
+        Vector2 dir = -(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
         enemyController.CanMove = false;
         enemyController.IsBeingknocked = true;
         stateMachine.StunState.StunDuration = 1f;
-        stateMachine.ChangeState(EnemyStateEnum.Stun);
-        Rb.linearVelocity += lanunchVector * luanchModifier * force;
+        Rb.linearVelocity += dir * luanchModifier * force;
             
         yield return new WaitForSeconds(0.25f);
         enemyController.CanMove = true;
         enemyController.IsBeingknocked = false;
-        Rb.linearVelocity -= lanunchVector * luanchModifier * force;
+        Rb.linearVelocity = Vector2.zero;
         
 
     }

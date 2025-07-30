@@ -61,6 +61,7 @@ public class EnemyAttackState : EnemyState
             nextAttack.StartAttack();
 
             enemyController.CoroutineRunner.RunCoroutine(AttackDelayCoroutine());
+            enemyController.CoroutineRunner.RunCoroutine(AttackDelayCoroutine());
 
         }
         else stateMachine.ChangeState(EnemyStateEnum.Idle);
@@ -87,7 +88,11 @@ public class EnemyAttackState : EnemyState
         nextAttack = null;
         stateMachine.ChangeState(EnemyStateEnum.Idle);
     }
-
+    
+    private IEnumerator AbilityCooldownCoroutine(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+    }
     private IEnumerator AttackDelayCoroutine()
     {
         attackDelay = Random.Range(enemyConfig.minAttackDelay, enemyConfig.maxAttackDelay + 0.1f);

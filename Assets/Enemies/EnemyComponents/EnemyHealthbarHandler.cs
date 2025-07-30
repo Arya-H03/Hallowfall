@@ -14,10 +14,12 @@ public class EnemyHealthbarHandler : MonoBehaviour,IInitializeable<EnemyControll
         signalHub.OnEnemyHealthChange += UpdateEnemyHealthBar;
         signalHub.OnEnemyDeath += DeactiveateHealthbar;
         signalHub.OnEnemyDeSpawn += ActivateHealthbar;
+        signalHub.OnEnemyTurn += ChangeHealthbarDirection;
     }
 
     private void OnDisable()
     {
+        if (signalHub == null) return;
         signalHub.OnEnemyHealthChange -= UpdateEnemyHealthBar;
         signalHub.OnEnemyDeath -= DeactiveateHealthbar;
     }

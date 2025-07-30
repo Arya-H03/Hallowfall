@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum HitSfxType
 {
@@ -25,18 +27,22 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
     [SerializeField] HitSFX[] hitSFXs;
     private Dictionary<HitSfxType, AudioClip[]> hitSFXDictionary;
 
+    private Action<float, HitSfxType> cachedSFXHitHandler;
     public void Init(EnemyController enemyController)
     {
         this.enemyController = enemyController;
         signalHub = enemyController.SignalHub;
 
         audioManager = AudioManager.Instance;
-        signalHub.OnEnemyHit += (damageAmount, hitSfxType) => { PlayHitSFX(hitSfxType); };
+
+        cachedSFXHitHandler = (damageAmount, hitSfxType) => { PlayHitSFX(hitSfxType); };
+        signalHub.OnEnemyHit += cachedSFXHitHandler;
     }
 
     private void OnDisable()
     {
-        signalHub.OnEnemyHit -= (damageAmount, hitSfxType) => { PlayHitSFX(hitSfxType); };
+        if(signalHub == null) return;
+        signalHub.OnEnemyHit -= cachedSFXHitHandler;
     }
     private void Start()
     {

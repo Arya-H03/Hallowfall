@@ -18,7 +18,7 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
         this.enemyConfig = enemyController.EnemyConfig;
         this.signalHub = enemyController.SignalHub;
         originalScale = enemyController.transform.localScale;
-        signalHub.OnEnemyHit += HandleEnemySquash;
+        //signalHub.OnEnemyHit += HandleEnemySquash;
 
         signalHub.OnEnemyDamage += PlayBloodEffect;
         signalHub.OnEnemyDamage += SpawnDamagePopUp;
@@ -27,8 +27,8 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
 
     private void OnDisable()
     {
-        signalHub.OnEnemyHit -= HandleEnemySquash;
-
+        //signalHub.OnEnemyHit -= HandleEnemySquash;
+        if (signalHub == null) return;
         signalHub.OnEnemyDamage -= PlayBloodEffect;
         signalHub.OnEnemyDamage -= SpawnDamagePopUp;
     }

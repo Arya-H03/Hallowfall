@@ -23,6 +23,7 @@ public class EnemyItemDropHandler : MonoBehaviour,IInitializeable<EnemyControlle
 
     private void OnDisable()
     {
+        if (signalHub == null) return;
         signalHub.OnEnemyDeath -= HandleItemDrop;
     }
 

@@ -110,7 +110,7 @@ public class EnemyController : MonoBehaviour
     {
         coroutineRunner = GetComponent<CCoroutineRunner>();
         rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponentInChildren<BoxCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         material = spriteRenderer.material;
 

@@ -52,7 +52,7 @@ public class EnemyChaseState : EnemyState
 
     public override void PhysicsUpdate()
     {
-        if (!isInPlayerRange)
+        if (!isInPlayerRange && enemyController.CanMove && !enemyController.IsBeingknocked)
         {
             movementHandler.MoveToPlayer(ChaseSpeed);
         }

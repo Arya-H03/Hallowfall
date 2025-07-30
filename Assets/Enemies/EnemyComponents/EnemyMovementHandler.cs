@@ -15,6 +15,8 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     private FlowFieldManager flowFieldManager;
     private ZoneManager zoneManager;
 
+    EnemySignalHub signalHub;
+
     private Vector2 nextMoveDir = Vector2.zero;
     Vector3 lastPos = Vector3.zero;
 
@@ -33,7 +35,8 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     {
         this.enemyController = enemyController;
         this.enemyTransform = enemyController.transform;
-        Rb = enemyController.EnemyPhysicsHandler.Rb;
+        Rb = enemyController.Rb;
+        signalHub = enemyController.SignalHub;
 
         flowFieldManager = FlowFieldManager.Instance;
         zoneManager = ZoneManager.Instance;
@@ -87,13 +90,9 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     public void CheckForFacingDirection(Vector2 direction)
     {
         int xDir = direction.x >= 0 ? -1 : 1;
-        
-
-      enemyController.EnemyHealthbarHandler.ChangeHealthbarDirection(xDir);
-
-
         if (FaceDirection.x != xDir)
         {
+            signalHub.OnEnemyTurn?.Invoke(xDir);
             FaceDirection = new Vector2(xDir,0);
             this.transform.localScale = new Vector3(xDir, 1, 1);
         }

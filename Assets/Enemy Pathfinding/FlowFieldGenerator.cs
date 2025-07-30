@@ -172,7 +172,7 @@ public class FlowFieldGenerator
 
         if(validNeighborsWithEnemy.Count == 0) return DirectionEnum.None;
 
-        Cell selected = validNeighborsWithEnemy[Random.Range(0, validNeighborsWithEnemy.Count)];
+        Cell selected = validNeighborsWithEnemy[/*Random.Range(0, validNeighborsWithEnemy.Count)*/ 0];
         Vector2Int dir = selected.GlobalCellCoord - currentCell.GlobalCellCoord;
         return MyUtils.GetDirFromVector(dir);
 
