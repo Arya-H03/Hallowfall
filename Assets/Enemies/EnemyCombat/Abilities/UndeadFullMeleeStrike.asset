@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30dba227a8279194b8028604441f8701, type: 3}
+  m_Name: UndeadFullMeleeStrike
+  m_EditorClassIdentifier: 
+  cooldown: 8
+  range: 1
+  animCondition: isAttacking
+  abilitySFX:
+  - {fileID: 8300000, guid: be3eb9310aa56f540967f99527bea652, type: 3}
+  - {fileID: 8300000, guid: 0ac828ddf193d74468c7aec3523bb5f7, type: 3}
+  - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
+  attackZonePrefab: {fileID: 719441939471803738, guid: 168228d751af89a4992173c3ed0a4971, type: 3}
+  strikeDamage: 30
+  parryDamage: 60

@@ -70,4 +70,9 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
     {
         audioManager.PlaySFX(GetHitSound(hitType), enemyController.GetEnemyPos(), 0.4f);
     }
+
+    public void PlaySFX(AudioClip audioClip)
+    {
+        audioManager.PlaySFX(audioClip, enemyController.GetEnemyPos(), 0.4f);
+    }
 }

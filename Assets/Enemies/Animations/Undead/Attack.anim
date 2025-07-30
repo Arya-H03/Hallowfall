@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -5055687102269039410, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
+      value: {fileID: 4202149804854981020, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - time: 0.083333336
       value: {fileID: -2303347388528244832, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - time: 0.16666667
@@ -56,6 +56,8 @@ AnimationClip:
       value: {fileID: 720284984180095449, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - time: 1.4166666
       value: {fileID: 4202149804854981020, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
+    - time: 1.5
+      value: {fileID: 4202149804854981020, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -78,7 +80,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -5055687102269039410, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
+    - {fileID: 4202149804854981020, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - {fileID: -2303347388528244832, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - {fileID: -1208690513829804722, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - {fileID: 145508032832784862, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
@@ -96,12 +98,13 @@ AnimationClip:
     - {fileID: 4714876816345707201, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - {fileID: 720284984180095449, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
     - {fileID: 4202149804854981020, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
+    - {fileID: 4202149804854981020, guid: fa51dca31cd9b7344ac328570ad2f96a, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5
+    m_StopTime: 1.5833334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -122,14 +125,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.5
-    functionName: PerformAttack
+    functionName: ActionOnAttackAnimFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3333334
-    functionName: OnEndAttackAnim
+  - time: 1.4166666
+    functionName: OnAttackAnimEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

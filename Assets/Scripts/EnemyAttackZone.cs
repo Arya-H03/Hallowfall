@@ -1,23 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
-public class EnemyAttackZone : MonoBehaviour
+public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeData>
 {
     private GameObject target;
     private GameObject parryShield;
-    [SerializeField] private bool canAttackBeParried = true;
-    private bool isAttackParry = false;
-    public GameObject Target { get => target; set => target = value; }
-    public bool IsAttackParry { get => isAttackParry; set => isAttackParry = value; }
-    public GameObject ParryShield { get => parryShield;}
+    private EnemyController owner;
 
+    private float strikeDamage;
+    private float parryDamage;
+
+    [SerializeField] private bool canAttackBeParried = true;
+  
+
+    public void Init(EnemyMeleeStrikeData data)
+    {
+        owner = data.owner;   
+        strikeDamage = data.strikeDamage;
+        parryDamage = data.parryDamage;
+    }
+
+    private void Start()
+    {
+        Destroy(this.gameObject,1.5f);
+    }
+    public void TryHitTarget(EnemyController owner)
+    {
+        if(parryShield)
+        {
+            owner.EnemyPhysicsHandler.OnEnemyParried(parryShield, owner.PlayerController.GetPlayerPos(), parryDamage);
+        }
+        else if(target)
+        {
+            target.GetComponent<PlayerController>().OnPlayerHit(strikeDamage);
+        }
+
+        Destroy(this.gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(canAttackBeParried && collision.CompareTag("ParryShield"))
         {
             parryShield = collision.gameObject;
-            isAttackParry = true;
+
         }
         else if(collision.CompareTag("Player"))
         {
@@ -30,13 +57,13 @@ public class EnemyAttackZone : MonoBehaviour
         if (canAttackBeParried && collision.CompareTag("ParryShield"))
         {
             parryShield = null;
-            isAttackParry = false;
         }
         else if (collision.CompareTag("Player"))
         {
             target = null;
         }
     }
+   
 }
 
 

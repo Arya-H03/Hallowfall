@@ -1,10 +1,53 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyMeleeStrike", menuName = "Scriptable Objects/Enemy Abilites/Enemy Melee Strike")]
 public class EnemyMeleeStrike : BaseEnemyAbilitySO
 {
+    public EnemyAttackZone attackZonePrefab;
+    private EnemyAttackZone attackZone;
+
+    public float strikeDamage;
+    public float parryDamage;
+
     public override void ExecuteAbility(EnemyController enemy)
     {
+        enemy.EnemyAnimationHandler.SetBoolForAnimation(animCondition, true);
+        attackZone = Instantiate(attackZonePrefab,enemy.GetEnemyPos(),Quaternion.identity);
+        SetupAttackZone(attackZone.gameObject,enemy);
+        attackZone.Init(new EnemyMeleeStrikeData { owner = enemy, strikeDamage = this.strikeDamage, parryDamage = this.parryDamage });
+    }
+
+    public override void ActionOnAnimFrame(EnemyController enemy)
+    {
+        enemy.EnemySFXHandler.PlaySFX(MyUtils.GetRandomRef(abilitySFX));
+        if (attackZone != null) 
+        {
+            attackZone.TryHitTarget(enemy);            
+            attackZone = null;
+        }
         
     }
+
+    public override void EndAbility(EnemyController enemy)
+    {
+        enemy.EnemyAnimationHandler.SetBoolForAnimation(animCondition, false);
+    }
+
+    private void SetupAttackZone(GameObject attackZoneGO, EnemyController enemyController)
+    {
+        Vector3 dir = (enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
+        attackZoneGO.transform.SetPositionAndRotation(enemyController.GetEnemyPos() + (dir / 2), Quaternion.Euler(0, 0, angle + 180));
+    }
+
+
+}
+
+public struct EnemyMeleeStrikeData
+{
+    public EnemyController owner;
+    public float strikeDamage;
+    public float parryDamage;
 }

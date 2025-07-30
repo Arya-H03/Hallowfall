@@ -21,6 +21,7 @@ public class EnemyConfigSO : ScriptableObject
     [Header("Attack State Config")]
     public float minAttackDelay;
     public float maxAttackDelay;
+    public List<BaseEnemyAbilitySO> abilitylist;
 
     [Header("Stun State Config")]
     public float stunDuration;

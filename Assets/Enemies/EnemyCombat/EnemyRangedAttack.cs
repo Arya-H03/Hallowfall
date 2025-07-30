@@ -7,12 +7,12 @@ public class EnemyRangedAttack : EnemyBaseAttack
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
 
-    public override void CallAttackActionOnAnimFrame()
-    {
-        SpawnProjectile();
-        PlayAttackSFX();
+    //public override void CallAttackActionOnAnimFrame()
+    //{
+    //    SpawnProjectile();
+    //    PlayAttackSFX();
 
-    }
+    //}
 
     private void SpawnProjectile()
     {

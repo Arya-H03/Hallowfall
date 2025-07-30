@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,19 +8,15 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
 {
     private Animator animator;
     EnemyController enemyController;
-    //private RuntimeAnimatorController runtimeAnimatorController;
-    private EnemyStateMachine stateMachine;
     private EnemySignalHub signalHub;
     public Animator Animator { get => animator; set => animator = value; }
     private void Awake()
     {
         Animator = GetComponent<Animator>();
-        //runtimeAnimatorController = animator.runtimeAnimatorController;
     }
 
     public void Init(EnemyController enemyController)
     {
-        this.stateMachine = enemyController.EnemyStateMachine;
         signalHub = enemyController.SignalHub;
         this.enemyController = enemyController;
 
@@ -58,17 +55,22 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
 
     }
 
-    public void PerformAttack()
+    //Gets called on the impact frame of the attack anim
+    public void ActionOnAttackAnimFrame()
     {
-        stateMachine.AttackState.NextAttack.CallAttackActionOnAnimFrame();
+        signalHub.OnAbilityAnimFrame?.Invoke(enemyController);
     }
 
-    public void OnEndAttackAnim()
+    //Gets Called on the last frame of attack anim
+    public void OnAttackAnimEnd()
     {
-        stateMachine.AttackState.EndAttack();
+        signalHub.OnAbilityFinished?.Invoke(enemyController);
     }
 
-   
+   public float GetAnimationLength(string  name)
+    {
+        return animator.runtimeAnimatorController.animationClips.First(clip => clip.name == name).length;
+    }
 
 }
 

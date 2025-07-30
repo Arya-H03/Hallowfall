@@ -49,7 +49,9 @@ public class EnemyController : MonoBehaviour
     #region Flags
 
     private bool hasSeenPlayer = false;
-    private bool canAttack = false;
+    private bool canAttack = true;
+    private bool isAttacking = false;
+    bool isAttackDelayOver = true;
     private bool isStuned = false;
     private bool isPlayerDead = false;
     private bool isBeingknocked = false;
@@ -100,7 +102,9 @@ public class EnemyController : MonoBehaviour
     public bool HasSeenPlayer { get => hasSeenPlayer; set => hasSeenPlayer = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool IsStuned { get => isStuned; set => isStuned = value; }
-    
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
+    public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
+
 
 
     #endregion
@@ -171,9 +175,10 @@ public class EnemyController : MonoBehaviour
     {
         if (isDead) return;
 
-        canAttack = stateMachine.AttackState.IsEnemyAbleToAttack();
+        //canAttack = stateMachine.AttackState.IsEnemyAbleToAttack();
+        //stateMachine.AttackState.CheckForNextAttack();
         stateMachine.CurrentState?.FrameUpdate();
-        stateMachine.AttackState.CheckForNextAttack();
+        
     }
 
     private void FixedUpdate()
@@ -181,6 +186,16 @@ public class EnemyController : MonoBehaviour
         stateMachine.CurrentState?.PhysicsUpdate();
     }
 
+    public List<BaseEnemyAbilitySO> GetListOfAllAbilities()
+    {
+        List<BaseEnemyAbilitySO> abilityList = new List<BaseEnemyAbilitySO>();
+        foreach (BaseEnemyAbilitySO ability in enemyConfig.abilitylist)
+        {
+            abilityList.Add((Instantiate(ability)));
+        }
+
+        return abilityList;
+    }
     public void DeSpawnEnemy()
     {
         ReturnEnemyToPool();

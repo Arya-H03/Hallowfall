@@ -32,44 +32,44 @@ public class EnemyBaseAttack : MonoBehaviour,IInitializeable<EnemyController>
         this.enemyController = enemyController;
         attackState = enemyController.EnemyStateMachine.AttackState;
     }
-    public void StartAttack()
-    {
-        StartCoroutine(AttackCoroutine());
-    }
-    public virtual IEnumerator AttackCoroutine()
-    {
-        isAvailable = false;
-        attackState.RemoveFromAvailableAttacks(this);
-        enemyController.EnemyAnimationHandler.SetBoolForAnimation(AnimCondition, true);
+    //public void StartAttack()
+    //{
+    //    StartCoroutine(AttackCoroutine());
+    //}
+    //public virtual IEnumerator AttackCoroutine()
+    //{
+    //    //isAvailable = false;
+    //    //attackState.RemoveFromAvailableAttacks(this);
+    //    //enemyController.EnemyAnimationHandler.SetBoolForAnimation(AnimCondition, true);
        
-        yield return new WaitForSeconds(attackCooldown);
-        isAvailable = true;
-        attackState.AddToAvailableAttacks(this);
-    }
-    public virtual void CallAttackActionOnAnimFrame()
-    {
+    //    //yield return new WaitForSeconds(attackCooldown);
+    //    //isAvailable = true;
+    //    //attackState.AddToAvailableAttacks(this);
+    //}
+    //public virtual void CallAttackActionOnAnimFrame()
+    //{
         
-    }
+    //}
 
-    protected void PlayAttackSFX()
-    {
-        if (attackSFX.Length > 0)
-        {
-            AudioManager.Instance.PlaySFX(attackSFX,enemyController.transform.position,0.35f);
-        }
-    }
+    //protected void PlayAttackSFX()
+    //{
+    //    if (attackSFX.Length > 0)
+    //    {
+    //        AudioManager.Instance.PlaySFX(attackSFX,enemyController.transform.position,0.35f);
+    //    }
+    //}
 
-    public virtual void OnAttackEnd()
-    {
-        DeactivateZoneAttack();
-    }
+    //public virtual void OnAttackEnd()
+    //{
+    //    DeactivateZoneAttack();
+    //}
 
-    public void DeactivateZoneAttack()
-    {
-        if (attackZoneGO)
-        {
-            attackZoneGO.SetActive(false);
-        }
+    //public void DeactivateZoneAttack()
+    //{
+    //    if (attackZoneGO)
+    //    {
+    //        attackZoneGO.SetActive(false);
+    //    }
 
-    }
+    //}
 }

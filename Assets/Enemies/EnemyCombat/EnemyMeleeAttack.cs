@@ -13,37 +13,35 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     {
         attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
     }
-    public override void CallAttackActionOnAnimFrame()
-    {
-        PlayAttackSFX();
-        if (attackZone.Target)
-        {
-            if (!attackZone.IsAttackParry)
-            {
-                attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
-            }
-            else if (attackZone.ParryShield)
-            {
-                enemyController.EnemyPhysicsHandler.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerPos(), parryDamage);
-            }
+    //public override void CallAttackActionOnAnimFrame()
+    //{
+    //    PlayAttackSFX();
+    //    if (attackZone.Target)
+    //    {
+    //        if (!attackZone.IsAttackParry)
+    //        {
+    //            attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
+    //        }
+    //        else if (attackZone.ParryShield)
+    //        {
+    //            enemyController.EnemyPhysicsHandler.OnEnemyParried(attackZone.ParryShield, enemyController.PlayerController.GetPlayerPos(), parryDamage);
+    //        }
 
-        }
+    //    }
 
+    //}
+    //public override IEnumerator AttackCoroutine()
+    //{
 
+    //    isAvailable = false;
+    //    SetupAttackZone();
+    //    attackState.RemoveFromAvailableAttacks(this);
+    //    enemyController.EnemyAnimationHandler.SetBoolForAnimation(AnimCondition, true);
 
-    }
-    public override IEnumerator AttackCoroutine()
-    {
-
-        isAvailable = false;
-        SetupAttackZone();
-        attackState.RemoveFromAvailableAttacks(this);
-        enemyController.EnemyAnimationHandler.SetBoolForAnimation(AnimCondition, true);
-
-        yield return new WaitForSeconds(attackCooldown);
-        isAvailable = true;
-        attackState.AddToAvailableAttacks(this);
-    }
+    //    yield return new WaitForSeconds(attackCooldown);
+    //    isAvailable = true;
+    //    attackState.AddToAvailableAttacks(this);
+    //}
 
     private void SetupAttackZone()
     {

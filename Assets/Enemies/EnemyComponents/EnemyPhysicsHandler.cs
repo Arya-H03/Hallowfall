@@ -47,7 +47,7 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
     }
     public void KnockBackEnemy(float f, HitSfxType h)
     {
-        if(!enemyController.IsBeingknocked)
+        if(!enemyController.IsBeingknocked && rb.bodyType != RigidbodyType2D.Static)
         {
             StartCoroutine(KnockBackEnemyCoroutine(1));
         }
@@ -64,12 +64,13 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         yield return new WaitForSeconds(0.25f);
         enemyController.CanMove = true;
         enemyController.IsBeingknocked = false;
-        Rb.linearVelocity = Vector2.zero;
-        
+        if(rb.bodyType != RigidbodyType2D.Static) Rb.linearVelocity = Vector2.zero;
+
+
 
     }
 
-    public void OnEnemyParried(GameObject shield, Vector2 hitLocation, int damage)
+    public void OnEnemyParried(GameObject shield, Vector2 hitLocation, float damage)
     {
         PlayerParryState parryState = shield.GetComponentInParent<PlayerParryState>();
         parryState.SpawnImpactEffect(hitLocation);

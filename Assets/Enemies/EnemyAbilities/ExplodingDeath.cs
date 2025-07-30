@@ -31,10 +31,10 @@ public class ExplodingDeath : EnemyAbilitySO
         if(attackZoneGO)
         {
             EnemyAttackZone attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
-            if (attackZone != null && attackZone.Target)
-            {
-                attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(damage);
-            }
+            //if (attackZone != null && attackZone.Target)
+            //{
+            //    attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(damage);
+            //}
 
             
         }

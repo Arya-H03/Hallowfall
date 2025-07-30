@@ -25,20 +25,21 @@ public class EnemyIdleState : EnemyState
 
     public override void FrameUpdate()
     {
+        
         if (CanGoToChaseState())
         {
             stateMachine.ChangeState(EnemyStateEnum.Chase);
         }
-
+       
     }
 
     private bool CanGoToChaseState()
     {
-        return stateMachine.AttackState.NextAttack &&
+        return 
                !enemyController.PlayerController.IsDead &&
                enemyController.CanMove &&
                !enemyController.IsBeingknocked &&
-                stateMachine.AttackState.IsEnemyAbleToAttack() &&
+                stateMachine.AttackState.CanChasePlayerToAttack() &&
                !movementHandler.IsCurrentCellBlockedByEnemies();
     }
 

@@ -38,13 +38,12 @@ public class EnemyChaseState : EnemyState
 
     public override void FrameUpdate()
     {
-        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead || stateMachine.AttackState.NextAttack == null || movementHandler.IsCurrentCellBlockedByEnemies())          
+        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead || /*!stateMachine.AttackState.CanChangeToAttackState() ||*/ movementHandler.IsCurrentCellBlockedByEnemies())          
         {
             stateMachine.ChangeState(EnemyStateEnum.Idle);
             return;
         }
-        isInPlayerRange = stateMachine.AttackState.IsEnemyInAttackRange();
-        if (isInPlayerRange)
+        else if (stateMachine.AttackState.CanChangeToAttackState())
         {
             stateMachine.ChangeState(EnemyStateEnum.Attack);
         }

@@ -12,5 +12,9 @@ public class EnemySignalHub
     public Action OnEnemyDeSpawn;
 
     public Action<int> OnEnemyTurn;
+
+    public Action<BaseEnemyAbilitySO> OnAbilityStart;
+    public Action <EnemyController> OnAbilityFinished;
+    public Action <EnemyController> OnAbilityAnimFrame;
    
 }
