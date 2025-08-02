@@ -33,7 +33,7 @@ public class EnemyAttackState : EnemyState
     public override void EnterState()
     {
 
-        if (enemyController.IsAttackDelayOver)
+        if (enemyController.IsAttackDelayOver && availaleAbilityList.Count > 0)
         {
             enemyController.CanMove = false;
             enemyController.CanAttack = false;

@@ -19,7 +19,7 @@ public class EndPlayerParry : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.GetComponent<PlayerAnimationController>().OnParryEnd();
+        //animator.transform.GetComponent<PlayerAnimationHandler>().EndingParryA();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

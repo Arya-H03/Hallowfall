@@ -7,8 +7,8 @@ public class EndPlayerSwordAttack : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.GetComponent<PlayerAnimationController>().EndSwordAttack();
-        //animator.transform.GetComponent<PlayerAnimationController>().SetBoolForAnimations("isDoubleSwinging", false);
+        animator.transform.GetComponent<PlayerAnimationHandler>().EndSwordAttack();
+        //animator.transform.GetComponent<PlayerAnimationHandler>().SetBoolForAnimations("isDoubleSwinging", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

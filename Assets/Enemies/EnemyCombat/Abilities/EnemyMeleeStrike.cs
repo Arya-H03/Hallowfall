@@ -38,6 +38,7 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
 
     private void SetupAttackZone(GameObject attackZoneGO, EnemyController enemyController)
     {
+        attackZoneGO.transform.parent = enemyController.transform;
         Vector3 dir = (enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
         attackZoneGO.transform.SetPositionAndRotation(enemyController.GetEnemyPos() + (dir / 2), Quaternion.Euler(0, 0, angle + 180));

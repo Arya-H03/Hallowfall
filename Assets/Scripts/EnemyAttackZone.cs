@@ -30,11 +30,11 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
     {
         if(parryShield)
         {
-            owner.EnemyPhysicsHandler.OnEnemyParried(parryShield, owner.PlayerController.GetPlayerPos(), parryDamage);
+            owner.EnemyPhysicsHandler.OnEnemyParried(parryDamage);
         }
         else if(target)
         {
-            target.GetComponent<PlayerController>().OnPlayerHit(strikeDamage);
+            target.GetComponent<PlayerController>().PlayerHitHandler.TryHitPlayer(strikeDamage);
         }
 
         Destroy(this.gameObject);

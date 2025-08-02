@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject settingsPanel;
     [SerializeField] GameObject abilityWindow;
 
+    [SerializeField] private Transform chargebar1;
+    [SerializeField] private Transform chargebar2;
+
     [SerializeField] Transform healthBar;
     [SerializeField] TextMeshProUGUI healthText;
 
@@ -60,6 +63,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI AbilityDescription { get => abilityDescription; }
     public DialogueBox DialogueBox { get => dialogueBox;  }
     public TextMeshProUGUI FpsCountText { get => fpsCountText; }
+    public Transform HealthBar { get => healthBar;}
+    public TextMeshProUGUI HealthText { get => healthText;}
+    public Transform Chargebar1 { get => chargebar1;}
+    public Transform Chargebar2 { get => chargebar2; }
 
     private void Awake()
     {
@@ -84,7 +91,6 @@ public class UIManager : MonoBehaviour
     {
         if (playerController)
         {
-            UpdateHealthUI(playerController);
             UpdateEssenceUI(playerController);
         }
     }
@@ -99,13 +105,7 @@ public class UIManager : MonoBehaviour
         skullCountText.text = value.ToString();
     }
 
-    private void UpdateHealthUI(PlayerController playerController)
-    {
-        float ratio = (float)playerController.CurrentHealth / playerController.MaxHealth;
-        healthBar.localScale = new Vector3(ratio, 1, 1);
-
-        healthText.text = playerController.CurrentHealth.ToString() + "/" + playerController.MaxHealth.ToString();
-    }
+   
 
     private void UpdateEssenceUI(PlayerController playerController)
     {
@@ -158,7 +158,7 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
-        InputManager.Instance.OnDisable();
+        playerController.PlayerInputHandler.OnDisable();
         SaveSystem.UpdatePlayerSkulls(GameManager.Instance.PlayerSkullCount);
     }
 
@@ -166,7 +166,7 @@ public class UIManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
-        InputManager.Instance.OnEnable();
+        playerController.PlayerInputHandler.OnEnable();
     }
 
     public void OnOpenSettingsMenu()

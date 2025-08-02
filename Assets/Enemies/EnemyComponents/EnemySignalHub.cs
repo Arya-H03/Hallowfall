@@ -16,5 +16,6 @@ public class EnemySignalHub
     public Action<BaseEnemyAbilitySO> OnAbilityStart;
     public Action <EnemyController> OnAbilityFinished;
     public Action <EnemyController> OnAbilityAnimFrame;
+    public Func<string,float> RequestAnimLength;
    
 }

@@ -12,7 +12,7 @@ public class EnemyProjectile : BaseProjectile
     {
         if (collision != null && collision.CompareTag("PlayerGO"))
         {
-            collision.GetComponent<PlayerController>().OnPlayerHit(Damage);
+            collision.GetComponent<PlayerController>().PlayerHitHandler.TryHitPlayer(Damage);
         }
     }
 }

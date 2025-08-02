@@ -70,19 +70,9 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
 
     }
 
-    public void OnEnemyParried(GameObject shield, Vector2 hitLocation, float damage)
+    public void OnEnemyParried(float damage)
     {
-        PlayerParryState parryState = shield.GetComponentInParent<PlayerParryState>();
-        parryState.SpawnImpactEffect(hitLocation);
-
-        if (parryState.CanCounter())
-        {
-            parryState.CallOnParrySuccessfulEvent();
-            enemyController.EnemyHitHandler.HitEnemy(damage, HitSfxType.sword,2);
-            Vector3 scale = transform.localScale;
-         
-        }
-
+        enemyController.PlayerController.PlayerSignalHub.OnEnemyParried?.Invoke(enemyController, damage);
     }
     public void SpawnImpactEffect(Vector3 position)
     {

@@ -144,25 +144,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator OnGameStartDialogue()
     {
-        InputManager.Instance.OnDisable();
+        playerController.PlayerInputHandler.OnDisable();
         DistortCamera();
         yield return new WaitForSeconds(2f);
         UIManager.Instance.DialogueBox.StartDialogue("Find the Statue",10f);
         yield return new WaitForSeconds(1f);
         EndPlayerDistortion();
-        InputManager.Instance.OnEnable();
+        playerController.PlayerInputHandler.OnEnable();
 
     }
 
     public void DistortCamera()
     {
-        playerCamera.GetComponent<PlayerCamera>().OnPlayerDistorted();
+        playerCamera.GetComponent<PlayerCameraHandler>().OnPlayerDistorted();
     }
 
    
     public void EndPlayerDistortion()
     {
-        playerCamera.GetComponent<PlayerCamera>().OnPlayerEndDistorted();
+        playerCamera.GetComponent<PlayerCameraHandler>().OnPlayerEndDistorted();
         
     }
 }

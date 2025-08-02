@@ -30,13 +30,6 @@ public class EnemyState : IEntityState
         this.enemyConfig = enemyController.EnemyConfig;
 
     }
-
-    public EnemyStateEnum GetStateEnum()
-    {
-        return stateEnum;
-    }
-
-
     public virtual void EnterState() { }
     public virtual void ExitState() { }
     public virtual void FrameUpdate() { }

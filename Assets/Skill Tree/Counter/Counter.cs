@@ -5,6 +5,6 @@ public class Counter : SkillSO
 {
     public override void ApplySkill(PlayerController playerController)
     {
-        SkillEvents.UnlockCounter();
+        playerController.StateMachine.PlayerParryState.CanCounterParry = true;
     }
 }

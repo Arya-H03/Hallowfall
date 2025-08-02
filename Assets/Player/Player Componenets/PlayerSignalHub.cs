@@ -1,0 +1,55 @@
+using System;
+using UnityEngine;
+
+public class PlayerSignalHub
+{
+    //Hit Handler
+    public Action<float> OnPlayerHit;
+    public Action<float> OnPlayerDamage;
+    public Action<float, float> OnPlayerHealthChange;
+
+    public Action OnPlayerDeath;
+    public Action OnPlayereDeSpawn;
+
+    
+
+    // Anim Handler
+    public Action<string,bool> OnAnimBool;
+    public Action<string> OnAnimTrigger;
+    public Action OnPlayerStep;
+
+    //SFX Handler
+    public Action<AudioClip,float> OnPlaySFX;
+    public Action<AudioClip[],float> OnPlayRandomSFX;
+
+    //Movement Handler
+    public Action<float> OnChangeMoveSpeed;
+    public Action<bool> OnAllowMovement;
+    public Action<float> OnApplyForwardVelocity;
+    public Action<Vector2,float> OnApplyDirectionVelocity;
+    public Action OnResetVelocity;
+    public Action <Vector2> OnTurning;
+    public Action  OnTurningToMousePos;
+    public Action<PlayerStateEnum> OnStateTransitionBasedOnMovement;
+
+    //VFX Handler
+    public Action OnAfterImageStart;
+    public Action OnAfterImageStop;
+    public Action<GameObject,Vector3,Quaternion,float> OnSpawnVFX;
+    public Action<GameObject,Vector3,Quaternion,float,Vector3> OnSpawnScaledVFX;
+
+    //State Machine
+    public Action<PlayerStateEnum> OnChangeState;
+
+    //SwordAttack
+    public Action OnFirstSwordSwing;
+    public Action OnSecondSwordSwing;
+    public Action OnSwordSwingEnd;
+
+    //Parry
+    public Action OnActivatingParryShield;
+    public Action <EnemyController,float> OnEnemyParried;
+
+    //Death
+    public Action OnDeath;
+}

@@ -14,9 +14,9 @@ public class ImbuedFlameHandler : ActiveAbilityHandler
     {
         swordAttackState = GameManager.Instance.Player.GetComponentInChildren<PlayerSwordAttackState>();
         playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
-        swordAttackState.OnFirstSwordSwingEvent += SpawnFirstSwingFlame;
-        swordAttackState.OnSecondSwordSwingEvent += SpawnSecondSwingFlame;
-        swordAttackState.OnThirdSwordSwingEvent += SpawnThirdSwingFlame;
+        //swordAttackState.OnFirstSwordSwingEvent += SpawnFirstSwingFlame;
+        //swordAttackState.OnSecondSwordSwingEvent += SpawnSecondSwingFlame;
+        //swordAttackState.OnThirdSwordSwingEvent += SpawnThirdSwingFlame;
     }
 
     private void SpawnFirstSwingFlame()

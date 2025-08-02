@@ -24,12 +24,10 @@ public class EnemyStateMachine
     public bool CanChangeState { get => canChangeState;}
     public EnemyStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
 
-    public EnemyStateMachine(EnemyConfigSO enemyConfig, EnemyController enemyController)
+
+    public EnemyStateMachine(EnemyController enemyController)
     {
         this.enemyController = enemyController;
-     
-     
-        
     }
    
     public void InitAllStates()
@@ -40,7 +38,7 @@ public class EnemyStateMachine
         stunState = new EnemyStunState(enemyController, this, EnemyStateEnum.Stun);
         deathState = new EnemyDeathState(enemyController, this, EnemyStateEnum.Death);
 
-        currentState = idleState;
+        currentState =  idleState;
         currentStateEnum = EnemyStateEnum.Idle;
     }
     public void ChangeState(EnemyStateEnum stateEnum)

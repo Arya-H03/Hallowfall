@@ -23,8 +23,8 @@ public class PassiveAbilityHandler : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        PlayerRunState playerRunState = playerController.PlayerRunState;
-        playerRunState.RunSpeed *= 1 + speedIncrease.modifier;
+        //PlayerRunState playerRunState = playerController.StateMachine.PlayerRunState;
+        ///playerRunState.RunSpeed *= 1 + speedIncrease.modifier;
     }
 
 }

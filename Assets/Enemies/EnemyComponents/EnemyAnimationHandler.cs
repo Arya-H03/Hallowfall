@@ -9,7 +9,7 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
     private Animator animator;
     EnemyController enemyController;
     private EnemySignalHub signalHub;
-    public Animator Animator { get => animator; set => animator = value; }
+    private Animator Animator { get => animator; set => animator = value; }
     private void Awake()
     {
         Animator = GetComponent<Animator>();
@@ -22,6 +22,8 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
 
         signalHub.OnEnemyHit += CallHitAnim;
         signalHub.OnEnemyDeath += CallDeathAnim;
+
+        signalHub.RequestAnimLength += GetAnimationLength;
     }
 
     private void OnDisable()
@@ -67,7 +69,7 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
         signalHub.OnAbilityFinished?.Invoke(enemyController);
     }
 
-   public float GetAnimationLength(string  name)
+    private float GetAnimationLength(string  name)
     {
         return animator.runtimeAnimatorController.animationClips.First(clip => clip.name == name).length;
     }

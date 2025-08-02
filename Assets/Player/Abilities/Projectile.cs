@@ -31,15 +31,15 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("PlayerGO"))
         {
-            collision.GetComponent<PlayerController>().OnPlayerHit(damage);
+            collision.GetComponent<PlayerController>().PlayerHitHandler.TryHitPlayer(damage);
             if((collision.transform.position - this.transform.position).x < 0)
             {
-                //collision.GetComponent<PlayerPhysicsController>().KnockPlayer(collision.transform.right * -1 * 5);
+                //collision.GetComponent<PlayerPhysicsHandler>().KnockPlayer(collision.transform.right * -1 * 5);
                 
             }
             else
             {
-                //collision.GetComponent<PlayerPhysicsController>().KnockPlayer(collision.transform.right * 1 * 5);
+                //collision.GetComponent<PlayerPhysicsHandler>().KnockPlayer(collision.transform.right * 1 * 5);
                 
             }
             
@@ -55,13 +55,13 @@ public class Projectile : MonoBehaviour
         {
             //if ((collision.transform.position - this.transform.position).x < 0)
             //{
-            //    collision.GetComponent<Ene>().HitEnemy(collision.transform.right * -1 * 5, damage);
+            //    collision.GetComponent<Ene>().TryHitEnemy(collision.transform.right * -1 * 5, damage);
             //    collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
 
             //}
             //else
             //{
-            //    collision.GetComponent<EnemyPhysicsHandler>().HitEnemy(collision.transform.right * 1 * 5, damage);
+            //    collision.GetComponent<EnemyPhysicsHandler>().TryHitEnemy(collision.transform.right * 1 * 5, damage);
             //    collision.GetComponent<EnemyController>().PlayBloodEffect(EnemyController.transform.position);
 
             //}

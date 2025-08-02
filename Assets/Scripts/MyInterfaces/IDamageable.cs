@@ -6,7 +6,7 @@ public interface IDamagable
     public float CurrentHealth { get; set; }
     public float DamageModifier { get; set; }
 
-    public void RestoreHealth(); 
+    public void RestoreFullHealth(); 
     public void ApplyDamage(float amount);
     public void Die();
 }

@@ -22,14 +22,14 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
         this.signalHub = enemyController.SignalHub;
 
         MaxHealth = enemyController.EnemyConfig.maxHealth;
-        CurrentHealth = MaxHealth;
+        RestoreFullHealth();
         DamageModifier = enemyController.EnemyConfig.damageModifier;
         maxStagger = enemyController.EnemyConfig.maxStagger;
       
 
         signalHub.OnEnemyHit += HandleHit;
         signalHub.OnEnemyDamage += HandleDamage;
-        signalHub.OnEnemyDeSpawn += RestoreHealth;
+        signalHub.OnEnemyDeSpawn += RestoreFullHealth;
 
     }
 
@@ -38,7 +38,13 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
         if (signalHub == null) return;
         signalHub.OnEnemyHit -= HandleHit;
         signalHub.OnEnemyDamage -= HandleDamage;
-        signalHub.OnEnemyDeSpawn -= RestoreHealth;
+        signalHub.OnEnemyDeSpawn -= RestoreFullHealth;
+    }
+
+    public void TryHitEnemy(float damageAmount, HitSfxType hitType, float knockbackForce)
+    {
+        if (enemyController.IsDead) return;
+        signalHub.OnEnemyHit?.Invoke(damageAmount, hitType);
     }
 
     private void HandleHit(float damage, HitSfxType hitSfx)
@@ -52,12 +58,7 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
         TryStagger(value);
         signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
     }
-    public void HitEnemy(float damageAmount, HitSfxType hitType, float knockbackForce)
-    {
-        if(enemyController.IsDead) return;
-        signalHub.OnEnemyHit?.Invoke(damageAmount, hitType);
-    }
-
+   
  
 
     public void ApplyDamage(float amount)
@@ -70,9 +71,10 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
         if (CurrentHealth <= 0) Die();
     }
 
-    public void RestoreHealth()
+    public void RestoreFullHealth()
     {
         CurrentHealth = MaxHealth;
+        signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
     }
 
     public bool TryStagger(float damageTaken)

@@ -16,12 +16,6 @@ public class AfterImage : MonoBehaviour
     {
         StartCoroutine(FadeImageCoroutine());
     }
-
-    void Update()
-    {
-        
-    }
-
     public void InitializeImage(Sprite sprite, bool flipBool,float lifeTime,Color color,float xScale)
     {
         spriteRenderer.sprite = sprite;
@@ -34,6 +28,7 @@ public class AfterImage : MonoBehaviour
         else localScale = new Vector3(localScale.x, localScale.y, localScale.z);
 
         this.transform.localScale = localScale;
+        this.transform.position -= new Vector3(0, spriteRenderer.size.y / 4,0);
 
         this.color = color;
         this.lifeTime = lifeTime;

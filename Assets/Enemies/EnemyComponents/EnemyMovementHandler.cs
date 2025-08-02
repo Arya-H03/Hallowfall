@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
+[System.Serializable]
 public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<EnemyController>
 {
     private EnemyController enemyController;
@@ -50,7 +51,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     {
         FindNextMovementDirection();
         Move(nextMoveDir, speed);
-        CheckForFacingDirection(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
+        TryToTurn(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
     }
 
     private void FindNextMovementDirection()
@@ -87,7 +88,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     }
 
 
-    public void CheckForFacingDirection(Vector2 direction)
+    public void TryToTurn(Vector2 direction)
     {
         int xDir = direction.x >= 0 ? -1 : 1;
         if (FaceDirection.x != xDir)

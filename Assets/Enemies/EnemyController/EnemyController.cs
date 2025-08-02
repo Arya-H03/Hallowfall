@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour
     private bool hasSeenPlayer = false;
     private bool canAttack = true;
     private bool isAttacking = false;
-    bool isAttackDelayOver = true;
+    private bool isAttackDelayOver = true;
     private bool isStuned = false;
     private bool isPlayerDead = false;
     private bool isBeingknocked = false;
@@ -139,7 +139,7 @@ public class EnemyController : MonoBehaviour
         playerGO = GameManager.Instance.Player;
         playerController = GameManager.Instance.PlayerController;
 
-        stateMachine = new EnemyStateMachine(enemyConfig, this);
+        stateMachine = new EnemyStateMachine(this);
 
         //Call before Initialzing enemy states
         InjectDependencies();
@@ -154,6 +154,9 @@ public class EnemyController : MonoBehaviour
 
         foreach (var ability in enemyAbilities)
             ability.ApplyAbility(this);
+
+
+        stateMachine.ChangeState(EnemyStateEnum.Chase); 
     }
     private void InitializeEnemyStats()
     {
@@ -162,11 +165,12 @@ public class EnemyController : MonoBehaviour
     }
     private void InjectDependencies()
     {
+        enemyHealthbarHandler.Init(this);
         enemyAnimationHandler.Init(this);
         enemyPhysicsHandler.Init(this);
         enemyMovementHandler.Init(this);
         enemyHitHandler.Init(this);
-        enemyHealthbarHandler.Init(this);
+       
         enemySFXHandler.Init(this);
         enemyVFXHandler.Init(this);
         enemyItemDropHandler.Init(this);
@@ -174,9 +178,6 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
-
-        //canAttack = stateMachine.AttackState.IsEnemyAbleToAttack();
-        //stateMachine.AttackState.CheckForNextAttack();
         stateMachine.CurrentState?.FrameUpdate();
         
     }

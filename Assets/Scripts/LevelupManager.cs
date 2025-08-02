@@ -7,7 +7,7 @@ public class LevelupManager : MonoBehaviour
 {
     private static LevelupManager instance;
     private PlayerController playerController;
-    private PlayerAbilityController playerAbilityController;
+    private PlayerAbilityHandler playerAbilityController;
 
     [SerializeField] AbilityCard[] abilityCards;
 
@@ -49,7 +49,6 @@ public class LevelupManager : MonoBehaviour
 
         }
         playerAbilityController = playerController.PlayerAbilityController;
-        PlayerDeathState.PlayerRespawnEvent += ResetAttonement;
 
         abilitiesToAssign = new List<BaseAbility>(abilities);
     }
@@ -90,8 +89,8 @@ public class LevelupManager : MonoBehaviour
 
         FillAbilityCards();
         UIManager.Instance.AbilityWindow.SetActive(true);
-        InputManager.Instance.OnDisable();
-        GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().PauseRunningSFX();
+        playerController.PlayerInputHandler.OnDisable();
+        //GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().PauseRunningSFX();
         Time.timeScale = 0;
     }
 
@@ -99,9 +98,9 @@ public class LevelupManager : MonoBehaviour
     {
         //abilitiesToAssign = new List<BaseAbility>(abilities);
 
-        InputManager.Instance.OnEnable();
+        playerController.PlayerInputHandler.OnEnable();
         Time.timeScale = 1;
-        GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
+        //GameManager.Instance.Player.GetComponentInChildren<PlayerRunState>().ResumeRunningSFX();
 
         foreach (AbilityCard card in abilityCards)
         {

@@ -20,7 +20,7 @@ public class EnemyMeleeAttack : EnemyBaseAttack
     //    {
     //        if (!attackZone.IsAttackParry)
     //        {
-    //            attackZone.Target.GetComponent<PlayerController>().OnPlayerHit(AttackDamage);
+    //            attackZone.Target.GetComponent<PlayerController>().TryHitPlayer(AttackDamage);
     //        }
     //        else if (attackZone.ParryShield)
     //        {

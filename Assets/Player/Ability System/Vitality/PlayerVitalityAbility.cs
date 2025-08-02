@@ -15,6 +15,6 @@ public class PlayerVitalityAbility : MonoBehaviour,IAbility
     public void Perform()
     {
         playerController.MaxHealth += 25;
-        playerController.RestoreHealth(playerController.MaxHealth);
+        playerController.PlayerHitHandler.RestoreHealth(playerController.MaxHealth);
     }
 }

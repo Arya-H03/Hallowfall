@@ -5,6 +5,6 @@ public class BladeReflection : SkillSO
 {
     public override void ApplySkill(PlayerController playerController)
     {
-        SkillEvents.UnlockBladeReflection();
+        playerController.StateMachine.PlayerParryState.CanParryProjectiles = true;
     }
 }

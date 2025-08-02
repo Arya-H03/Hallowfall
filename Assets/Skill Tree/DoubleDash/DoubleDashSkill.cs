@@ -5,6 +5,6 @@ public class DoubleDashSkillSO : SkillSO
 {
     public override void ApplySkill(PlayerController playerController)
     {
-        SkillEvents.UnlockDoubleDash();
+        playerController.StateMachine.PlayerDashState.CreateSecondDashCharge();
     }
 }

@@ -22,7 +22,7 @@ public class PlayerHasteAbility : MonoBehaviour,IAbility
 
     public void Perform()
     {     
-        playerController.PlayerRunState.RunSpeed *= 1 + speedModifier;
+        //playerController.StateMachine.PlayerRunState.RunSpeed *= 1 + speedModifier;
         //cSFX.PlaySound(playerController.transform.position);
     }
 }

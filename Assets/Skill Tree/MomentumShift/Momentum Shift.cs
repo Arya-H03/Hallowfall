@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MomentumShift", menuName = "SkillSO/MomentumShift")]
@@ -5,6 +6,13 @@ public class MomentumShift : SkillSO
 {
     public override void ApplySkill(PlayerController playerController)
     {
-        SkillEvents.UnlockMomentumShift();
+        playerController.PlayerSignalHub.OnEnemyParried += (EC, F) => { playerController.CoroutineRunner.StartCoroutine(MonentumShiftCoroutine(playerController)); };
+    }
+    private IEnumerator MonentumShiftCoroutine(PlayerController playerController)
+    {
+        playerController.PlayerMovementHandler.SpeedModifer = 1.25f;
+        yield return new WaitForSeconds(3f);
+        playerController.PlayerMovementHandler.SpeedModifer = 1f;
+
     }
 }

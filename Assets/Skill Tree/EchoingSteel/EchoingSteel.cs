@@ -1,10 +1,16 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EchoingSteel", menuName = "SkillSO/EchoingSteel")]
+[CreateAssetMenu(fileName = "TryStagger", menuName = "SkillSO/TryStagger")]
 public class EchoingSteel : SkillSO
 {
     public override void ApplySkill(PlayerController playerController)
     {
-        SkillEvents.UnlockEchoingSteel();
+        playerController.PlayerSignalHub.OnEnemyParried += (EC, F) => { TryStagger(EC); };
+    }
+
+    private void TryStagger(EnemyController enemyController)
+    {
+        enemyController.EnemyHitHandler.TryStagger(100);
+
     }
 }
