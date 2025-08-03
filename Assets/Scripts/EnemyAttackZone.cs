@@ -34,7 +34,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
         }
         else if(target)
         {
-            target.GetComponent<PlayerController>().PlayerHitHandler.TryHitPlayer(strikeDamage);
+            target.GetComponent<PlayerController>().PlayerSignalHub.OnPlayerHit?.Invoke(strikeDamage);
         }
 
         Destroy(this.gameObject);

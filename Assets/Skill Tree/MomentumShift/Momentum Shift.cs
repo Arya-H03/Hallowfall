@@ -10,9 +10,9 @@ public class MomentumShift : SkillSO
     }
     private IEnumerator MonentumShiftCoroutine(PlayerController playerController)
     {
-        playerController.PlayerMovementHandler.SpeedModifer = 1.25f;
+        playerController.PlayerSignalHub.OnChangeMoveSpeed?.Invoke(1.25f);
         yield return new WaitForSeconds(3f);
-        playerController.PlayerMovementHandler.SpeedModifer = 1f;
+        playerController.PlayerSignalHub.OnChangeMoveSpeed?.Invoke(1f);
 
     }
 }

@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: beb1458da63befd4cbe7d3de636e4bfb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7195332018370197455
+    second: FallenKnight_DeathNoBlood_0
+  - first:
+      213: -1347323564153182455
+    second: FallenKnight_DeathNoBlood_1
+  - first:
+      213: 6550290566051003645
+    second: FallenKnight_DeathNoBlood_2
+  - first:
+      213: 4997525193442723618
+    second: FallenKnight_DeathNoBlood_3
+  - first:
+      213: 4853749631090954788
+    second: FallenKnight_DeathNoBlood_4
+  - first:
+      213: 3033159934726568005
+    second: FallenKnight_DeathNoBlood_5
+  - first:
+      213: -116194168674958600
+    second: FallenKnight_DeathNoBlood_6
+  - first:
+      213: 5123328894287212126
+    second: FallenKnight_DeathNoBlood_7
+  - first:
+      213: 5037890567118006025
+    second: FallenKnight_DeathNoBlood_8
+  - first:
+      213: -2431024356257322812
+    second: FallenKnight_DeathNoBlood_9
+  - first:
+      213: -5908121485432743958
+    second: FallenKnight_DeathNoBlood_10
+  - first:
+      213: 8466979630064990539
+    second: FallenKnight_DeathNoBlood_11
+  - first:
+      213: -2497087550283095238
+    second: FallenKnight_DeathNoBlood_12
+  - first:
+      213: 4855418971748150023
+    second: FallenKnight_DeathNoBlood_13
+  - first:
+      213: 8597671896800498570
+    second: FallenKnight_DeathNoBlood_14
+  - first:
+      213: 2951980269369814512
+    second: FallenKnight_DeathNoBlood_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 0
+        width: 86
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc733f32954fad360800000000000000
+      internalID: 7195332018370197455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_1
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 0
+        width: 82
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 907e2295b585d4de0800000000000000
+      internalID: -1347323564153182455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_2
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 0
+        width: 86
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfcff0d909e47ea50800000000000000
+      internalID: 6550290566051003645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_3
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 0
+        width: 81
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22708377fa6ca5540800000000000000
+      internalID: 4997525193442723618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_4
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 0
+        width: 81
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4221cddb29bfb5340800000000000000
+      internalID: 4853749631090954788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_5
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 0
+        width: 81
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 548f258e3e2f71a20800000000000000
+      internalID: 3033159934726568005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_6
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 0
+        width: 81
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f2482be402336ef0800000000000000
+      internalID: -116194168674958600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_7
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 0
+        width: 81
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5eeb7b1c78b91740800000000000000
+      internalID: 5123328894287212126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_8
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 0
+        width: 81
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9072c5667ce2ae540800000000000000
+      internalID: 5037890567118006025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_9
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 0
+        width: 81
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8a5f46a34434ed0800000000000000
+      internalID: -2431024356257322812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_10
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 0
+        width: 81
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae79de2cfc2220ea0800000000000000
+      internalID: -5908121485432743958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_11
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 0
+        width: 81
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b49fd721d11c08570800000000000000
+      internalID: 8466979630064990539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_12
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 0
+        width: 81
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3363586a10985dd0800000000000000
+      internalID: -2497087550283095238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_13
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 0
+        width: 80
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70badb664d9e16340800000000000000
+      internalID: 4855418971748150023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_14
+      rect:
+        serializedVersion: 2
+        x: 2027
+        y: 0
+        width: 68
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a831728a901115770800000000000000
+      internalID: 8597671896800498570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallenKnight_DeathNoBlood_15
+      rect:
+        serializedVersion: 2
+        x: 2173
+        y: 0
+        width: 65
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fdefbb2a6a87f820800000000000000
+      internalID: 2951980269369814512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FallenKnight_DeathNoBlood_0: 7195332018370197455
+      FallenKnight_DeathNoBlood_1: -1347323564153182455
+      FallenKnight_DeathNoBlood_10: -5908121485432743958
+      FallenKnight_DeathNoBlood_11: 8466979630064990539
+      FallenKnight_DeathNoBlood_12: -2497087550283095238
+      FallenKnight_DeathNoBlood_13: 4855418971748150023
+      FallenKnight_DeathNoBlood_14: 8597671896800498570
+      FallenKnight_DeathNoBlood_15: 2951980269369814512
+      FallenKnight_DeathNoBlood_2: 6550290566051003645
+      FallenKnight_DeathNoBlood_3: 4997525193442723618
+      FallenKnight_DeathNoBlood_4: 4853749631090954788
+      FallenKnight_DeathNoBlood_5: 3033159934726568005
+      FallenKnight_DeathNoBlood_6: -116194168674958600
+      FallenKnight_DeathNoBlood_7: 5123328894287212126
+      FallenKnight_DeathNoBlood_8: 5037890567118006025
+      FallenKnight_DeathNoBlood_9: -2431024356257322812
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -13,13 +13,13 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     private float flowFieldGenerationDelay = 0.3f;
     private float flowFieldGenerationTimer = 0.3f;
 
-    public Vector2 currentInputDir;  
+    public Vector2 currentInputDir;
     private float speedModifer = 1;
 
     private float moveSpeed;
     private bool canMove = false;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
-    public float SpeedModifer { get => speedModifer; set => speedModifer = value; }
+    public float SpeedModifer { get => speedModifer; }
     public Rigidbody2D Rb { get; set; }
     public Vector2 FaceDirection { get; set; }
 
@@ -39,6 +39,12 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
         signalHub.OnStateTransitionBasedOnMovement += ManageSateTransitionBasedOnMovementInput;
         signalHub.OnTurning += TryToTurn;
         signalHub.OnTurningToMousePos += TurnPlayerWithMousePos;
+        signalHub.OnChangeSpeedModifier += ChangeModifySpeed;
+        signalHub.FacingDirctionBinding = new PropertyBinding<Vector2>
+            (
+                () => FaceDirection,
+                (value) => FaceDirection = value
+            );
     }
 
     private void OnDisable()
@@ -51,6 +57,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
         signalHub.OnStateTransitionBasedOnMovement -= ManageSateTransitionBasedOnMovementInput;
         signalHub.OnTurning += TryToTurn;
         signalHub.OnTurningToMousePos -= TurnPlayerWithMousePos;
+        signalHub.OnChangeSpeedModifier -= ChangeModifySpeed;
     }
     private void Update()
     {
@@ -180,5 +187,8 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
             }
         }
     }
-
+    private void ChangeModifySpeed(float modifir)
+    {
+        speedModifer = modifir;
+    }
 }

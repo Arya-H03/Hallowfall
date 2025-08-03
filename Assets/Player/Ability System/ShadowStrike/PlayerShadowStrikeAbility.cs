@@ -30,7 +30,7 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
     public void PassPlayerControllerRef(PlayerController controller)
     {
         this.playerController = controller;
-        layerMask =playerController.PlayerEnvironmentChecker.EnemyLayerMask;
+        layerMask = playerController.PlayerConfig.enemyMask;
         enemyTag = playerController.EnemyTag;
     }
     public void Init()

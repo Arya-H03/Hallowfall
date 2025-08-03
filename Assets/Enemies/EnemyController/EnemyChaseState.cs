@@ -21,7 +21,7 @@ public class EnemyChaseState : EnemyState
         this.animationManager = enemyController.EnemyAnimationHandler;
 
         chaseSpeed = Random.Range(enemyConfig.minChaseSpeed, enemyConfig.maxChaseSpeed + 0.1f);
-       
+     
     }
 
     
@@ -38,7 +38,7 @@ public class EnemyChaseState : EnemyState
 
     public override void FrameUpdate()
     {
-        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead || /*!stateMachine.AttackState.CanChangeToAttackState() ||*/ movementHandler.IsCurrentCellBlockedByEnemies())          
+        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead || /*!stateMachine.AttackState.CanChangeToAttackState() ||*/ !movementHandler.CanMoveToNextCell())          
         {
             stateMachine.ChangeState(EnemyStateEnum.Idle);
             return;

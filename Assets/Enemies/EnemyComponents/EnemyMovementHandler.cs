@@ -15,7 +15,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
 
     private FlowFieldManager flowFieldManager;
     private ZoneManager zoneManager;
-
+    [SerializeField] LayerMask layerMask;
     EnemySignalHub signalHub;
 
     private Vector2 nextMoveDir = Vector2.zero;
@@ -45,6 +45,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
         flowRequestTimer = flowRequestDelay;
 
         lastPos = enemyTransform.position;
+        currentCell = zoneManager.FindCurrentCellFromWorldPos(enemyController.transform.position);
     }
 
     public void MoveToPlayer(float speed)
@@ -53,7 +54,27 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
         Move(nextMoveDir, speed);
         TryToTurn(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
     }
+    private Vector2 CalculateRepulsionForce()
+    {
+        Vector2 repulsion = Vector2.zero;
+        float repulsionStrength = 0.2f;
+        float detectionRadius = 1.0f;
 
+        foreach (EnemyController otherEnemy in enemyController.Detector.DetectNearbyGenericTargetsOnParent<EnemyController>("EnemyCollider", enemyController.GetEnemyPos(), layerMask, detectionRadius))
+        {
+            if (otherEnemy == enemyController /*|| otherEnemy.IsAttacking*/) continue;
+            Vector2 diff = (Vector2)(transform.position - otherEnemy.transform.position);   
+            float distance = diff.magnitude;
+
+            if(distance < detectionRadius && distance >0.01f)
+            {
+                repulsion += diff.normalized / distance;
+            }
+        }
+
+        return repulsion * repulsionStrength;
+
+    }
     private void FindNextMovementDirection()
     {
         flowRequestTimer += Time.deltaTime;
@@ -62,9 +83,9 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
             lastCell = zoneManager.FindCurrentCellFromWorldPos(lastPos);
             currentCell = zoneManager.FindCurrentCellFromWorldPos(enemyController.transform.position);
 
-            Vector2 newDir = flowFieldManager.RequestNewFlowDir(currentCell, lastCell);
-
-
+            Vector2 newDir = (flowFieldManager.RequestNewFlowDir(currentCell, lastCell) + CalculateRepulsionForce()) .normalized;
+            
+           
             if (newDir != Vector2.zero)
             {
                 nextMoveDir = newDir;
@@ -72,18 +93,20 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
                 hasNotBeenOnFlow = false;
                 flowRequestTimer = 0;
             }
+           
         }
     }
     public void Move(Vector2 movementDirection, float speed)
     {
-        Vector2 targetPos = Rb.position + (movementDirection * speed * Time.deltaTime);
+        Vector2 targetPos = Rb.position + (speed * Time.deltaTime * movementDirection);
         Vector2 smoothPos = Vector2.Lerp(Rb.position, targetPos, 1f);
+        Debug.Log("smooth :" + targetPos);
         Rb.MovePosition(smoothPos);
     }
 
     public void StopMove()
     {
-        nextMoveDir = Vector2.zero;
+        //nextMoveDir = Vector2.zero;
         Rb.linearVelocity = Vector2.zero;
     }
 
@@ -99,12 +122,9 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
         }
     }
 
-    public bool IsCurrentCellBlockedByEnemies()
-    {
-        if(hasNotBeenOnFlow) return false;
-        else if(!hasNotBeenOnFlow && currentCell.FlowVect == Vector2.zero) return true;
-       
-        return false;
+    public bool CanMoveToNextCell()
+    {      
+        return true;
     }
 
     public void StartRunningSFX(AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)

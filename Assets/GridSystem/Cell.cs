@@ -22,6 +22,7 @@ public enum CellFlowCost
 {
     unVisited = -1,
     unWalkable = 255,
+    hasEnemy = 125,
     target = 0,
 }
 
@@ -120,7 +121,7 @@ public class Cell
         if (!cellFlowData.hasEnemy)
         {
             cellFlowData.hasEnemy = true;
-            cellFlowData.dynamicCost += 1;
+            cellFlowData.dynamicCost += (int)CellFlowCost.hasEnemy;
         }
        
     }
@@ -130,7 +131,7 @@ public class Cell
         if(cellFlowData.hasEnemy)
         {
             cellFlowData.hasEnemy = false;
-            cellFlowData.dynamicCost -= 1;
+            cellFlowData.dynamicCost -= (int)CellFlowCost.hasEnemy;
         }
        
     }
@@ -209,9 +210,23 @@ public class Cell
     public List<Cell> GetAllNeighborCells()
     {
         List<Cell> result = new();
-        var directions = MyUtils.GetAllDirectionsVectorList();
+   
+        foreach (var vect in MyUtils.GetAllDirectionsVectorList())
+        {
+            Vector2Int neighborCoord = globalCellCoord + vect;
+            if (MyUtils.IsWithinArrayBounds(parentGrid.Cells, neighborCoord))
+                result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
+        }
 
-        foreach (var vect in directions)
+        return result;
+    }
+
+    public List<Cell> GetCardinalNeighborCells()
+    {
+        List<Cell> result = new();
+      
+
+        foreach (var vect in MyUtils.GetCardinalDirectionsVectorList())
         {
             Vector2Int neighborCoord = globalCellCoord + vect;
             if (MyUtils.IsWithinArrayBounds(parentGrid.Cells, neighborCoord))

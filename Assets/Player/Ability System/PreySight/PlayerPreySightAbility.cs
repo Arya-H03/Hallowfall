@@ -21,7 +21,7 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
     public void PassPlayerControllerRef(PlayerController playerController)
     {
         this.playerController = playerController;
-        layerMask = playerController.PlayerEnvironmentChecker.EnemyLayerMask;
+        layerMask = playerController.PlayerConfig.enemyMask;
         enemyTag = playerController.EnemyTag;
     }
     public void Init()

@@ -83,7 +83,6 @@ public class PlayerController : MonoBehaviour
     public int CurrentEssence { get => currentEssence; set => currentEssence = value; }
     public int AtonementLvl { get => atonementLvl; set => atonementLvl = value; }
     public int AtonementToLevel { get => atonementToLevel; set => atonementToLevel = value; }
-
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool CanDash { get => stateMachine.PlayerDashState.CanDashAttack();}
     public bool IsParrying { get => isParrying; set => isParrying = value; }
@@ -176,7 +175,7 @@ public class PlayerController : MonoBehaviour
         stateMachine.PlayerSwordAttackState.HandleAttack();
     }
 
-    public void OnDashAttackInput()
+    public void OnDashInput()
     {
         if (CanDash)
         {
@@ -184,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnStartParryInput()
+    public void OnParryInput()
     {
         if (!isRolling)
         {

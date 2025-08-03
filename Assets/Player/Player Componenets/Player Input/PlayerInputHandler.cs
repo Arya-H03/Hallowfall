@@ -98,12 +98,12 @@ public class PlayerInputHandler : MonoBehaviour,IInitializeable<PlayerController
 
     public void StartParry(InputAction.CallbackContext ctx)
     {
-        playerController.OnStartParryInput();
+        playerController.OnParryInput();
     }
 
     public void DashAttack(InputAction.CallbackContext ctx)
     {
-        playerController.OnDashAttackInput();
+        playerController.OnDashInput();
 
         
     }

@@ -14,7 +14,7 @@ public class PlayerVitalityAbility : MonoBehaviour,IAbility
 
     public void Perform()
     {
-        playerController.MaxHealth += 25;
-        playerController.PlayerHitHandler.RestoreHealth(playerController.MaxHealth);
+        playerController.PlayerSignalHub.MaxHealthBinding.Setter(playerController.PlayerSignalHub.MaxHealthBinding.Getter() + healthModifier);
+        playerController.PlayerSignalHub.OnRestoreHealth?.Invoke(healthModifier);
     }
 }

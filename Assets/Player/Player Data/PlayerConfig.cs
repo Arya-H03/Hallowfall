@@ -33,7 +33,7 @@ public class PlayerConfig : ScriptableObject
     public float firstSwingDamage = 10;
     public float secondSwingDamage = 20;
     public float thirdSwingDamage = 30;
-    public LayerMask layerMask; 
+    public LayerMask enemyMask; 
     public float distance = 0; 
     public Vector2 firstSwingCastSize = new (1.7f, 1.5f);
     public Vector2 secondSwingCastSize = new (1.3f, 1f);

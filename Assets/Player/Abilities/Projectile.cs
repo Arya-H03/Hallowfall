@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("PlayerGO"))
         {
-            collision.GetComponent<PlayerController>().PlayerHitHandler.TryHitPlayer(damage);
+            collision.GetComponent<PlayerController>().PlayerSignalHub.OnPlayerHit?.Invoke(damage);
             if((collision.transform.position - this.transform.position).x < 0)
             {
                 //collision.GetComponent<PlayerPhysicsHandler>().KnockPlayer(collision.transform.right * -1 * 5);

@@ -40,7 +40,7 @@ public class EnemyIdleState : EnemyState
                enemyController.CanMove &&
                !enemyController.IsBeingknocked &&
                 stateMachine.AttackState.CanChasePlayerToAttack() &&
-               !movementHandler.IsCurrentCellBlockedByEnemies();
+               movementHandler.CanMoveToNextCell();
     }
 
 

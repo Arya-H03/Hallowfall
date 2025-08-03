@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(CCoroutineRunner))]
+[RequireComponent(typeof(CDetector))]
 public class EnemyController : MonoBehaviour
 {
    
@@ -33,6 +34,7 @@ public class EnemyController : MonoBehaviour
     private Material material;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private CDetector detector;
 
     private EnemyStateMachine stateMachine;
 
@@ -92,6 +94,7 @@ public class EnemyController : MonoBehaviour
     public GameObject PlayerGO { get => playerGO; set => playerGO = value; }
     public Rigidbody2D Rb => rb;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public CDetector Detector { get => detector; }
     public List<EnemyBaseAttack> Attacks => attacks;
 
     public bool CanMove { get => canMove; set => canMove = value; }
@@ -104,6 +107,7 @@ public class EnemyController : MonoBehaviour
     public bool IsStuned { get => isStuned; set => isStuned = value; }
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
+   
 
 
 
@@ -117,6 +121,7 @@ public class EnemyController : MonoBehaviour
         boxCollider = GetComponentInChildren<BoxCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         material = spriteRenderer.material;
+        detector = GetComponent<CDetector>();
 
         enemyAnimationHandler = GetComponentInChildren<EnemyAnimationHandler>();
         enemyMovementHandler = GetComponent<EnemyMovementHandler>();

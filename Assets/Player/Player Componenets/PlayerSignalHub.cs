@@ -1,12 +1,26 @@
 using System;
 using UnityEngine;
 
+public class PropertyBinding<T>
+{
+    public Func<T> Getter { get; }
+    public Action<T> Setter { get; }
+
+    public PropertyBinding(Func<T> getter, Action<T> setter)
+    {
+        Getter = getter;
+        Setter = setter;
+    }
+}
 public class PlayerSignalHub
 {
     //Hit Handler
     public Action<float> OnPlayerHit;
     public Action<float> OnPlayerDamage;
     public Action<float, float> OnPlayerHealthChange;
+    public Action<float> OnRestoreHealth;
+    public Action OnRestoreFullHealth;
+    public PropertyBinding<float> MaxHealthBinding;
 
     public Action OnPlayerDeath;
     public Action OnPlayereDeSpawn;
@@ -31,6 +45,8 @@ public class PlayerSignalHub
     public Action <Vector2> OnTurning;
     public Action  OnTurningToMousePos;
     public Action<PlayerStateEnum> OnStateTransitionBasedOnMovement;
+    public Action <float> OnChangeSpeedModifier;
+    public PropertyBinding<Vector2> FacingDirctionBinding;
 
     //VFX Handler
     public Action OnAfterImageStart;

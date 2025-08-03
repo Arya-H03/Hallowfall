@@ -20,7 +20,6 @@ public class EnemyDeathState : EnemyState
     {
         enemyController.IsDead = true;
         signalHub.OnEnemyDeath?.Invoke();
-        Debug.Log(signalHub.RequestAnimLength?.Invoke("Death"));
     }
 
 }

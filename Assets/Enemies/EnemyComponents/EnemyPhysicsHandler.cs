@@ -64,7 +64,7 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         yield return new WaitForSeconds(0.25f);
         enemyController.CanMove = true;
         enemyController.IsBeingknocked = false;
-        if(rb.bodyType != RigidbodyType2D.Static) Rb.linearVelocity = Vector2.zero;
+        Rb.linearVelocity = Vector2.zero;
 
 
 

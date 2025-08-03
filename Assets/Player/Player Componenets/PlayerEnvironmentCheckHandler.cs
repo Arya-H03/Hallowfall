@@ -16,7 +16,6 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     [SerializeField] Transform groundCheckOrigin2;
 
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] LayerMask layerMask;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] LayerMask interactionLayerMask;
 

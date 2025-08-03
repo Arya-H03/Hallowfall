@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -23,6 +24,10 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
 
         signalHub.OnPlayerHit += HandleHit;
         signalHub.OnPlayerDamage += HandleDamage;   
+        signalHub.OnRestoreHealth += RestoreHealth;   
+        signalHub.OnRestoreFullHealth += RestoreFullHealth;   
+
+        signalHub.MaxHealthBinding = new PropertyBinding<float> (() =>  MaxHealth, (value=> MaxHealth = value));
     }
 
     private void OnDisable()
@@ -30,16 +35,14 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
 
         signalHub.OnPlayerHit -= HandleHit;
         signalHub.OnPlayerDamage -= HandleDamage;
+        signalHub.OnRestoreHealth -= RestoreHealth;
+        signalHub.OnRestoreFullHealth -= RestoreFullHealth;
     }
 
-    public void TryHitPlayer(float damage)
-    {
-        if(playerController.IsDead || playerController.IsImmune) return;
-        signalHub.OnPlayerHit?.Invoke(damage);
-    }
 
     private void HandleHit(float damage)
     {
+        if (playerController.IsDead || playerController.IsImmune) return;
         signalHub.OnPlayerDamage?.Invoke(damage);
     }
 
@@ -66,7 +69,7 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
         signalHub.OnChangeState?.Invoke(PlayerStateEnum.Death);
     }
 
-   
+
 
     public void RestoreFullHealth()
     {
