@@ -90,7 +90,7 @@ public class PlayerParryState : PlayerState
         signalHub.OnAnimBool?.Invoke("isParrySuccessful", true);
         signalHub.OnSpawnVFX?.Invoke(impactEffectPrefab, playerController.GetPlayerPos(), Quaternion.identity, 0.3f);
         signalHub.OnPlaySFX?.Invoke(parrySFX, 0.5f);
-        if (CanCounterParry) enemyController.EnemyHitHandler.TryHitEnemy(parryDamage, HitSfxType.sword, 2);
+        if (CanCounterParry) enemyController.SignalHub.OnEnemyHit?.Invoke(parryDamage, HitSfxType.sword, playerController.GetPlayerPos(), 2);
     }
 
     #endregion

@@ -18,8 +18,9 @@ public class PlayerConfig : ScriptableObject
     public AudioClip[] stoneSFX;
     public AudioClip[] grassSFX;
 
-    [Header("Attack State")]
+    [Header("Attack1 State")]
 
+    public List<ComboAttack> comboAttacks;
     public GameObject firstSwingEffect;
     public GameObject secondSwingEffect;
     public GameObject hitEffect;
@@ -27,17 +28,9 @@ public class PlayerConfig : ScriptableObject
     public float moveSpeedWhileAttaking = 2;
     public float hitStopDuration = 0.05f;
     public float swingComboWindow = 0.55f;
-    public float delayBetweenSwings = 0.35f;
-    public float swingInputLifeTime = 0.4f;
     public AudioClip[] attackSwingSFX;
-    public float firstSwingDamage = 10;
-    public float secondSwingDamage = 20;
-    public float thirdSwingDamage = 30;
     public LayerMask enemyMask; 
-    public float distance = 0; 
-    public Vector2 firstSwingCastSize = new (1.7f, 1.5f);
-    public Vector2 secondSwingCastSize = new (1.3f, 1f);
-    public Vector2 thirdSwingCastSize = new (1.2f, 2f);
+
 
     [Header("Dash State")]
     public float dashModifier = 6;

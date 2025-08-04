@@ -35,7 +35,7 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
 
         signalHub.OnEnemyDeath += DisablePhysicsAndCollision;
         signalHub.OnEnemyDeSpawn += EnablePhysicsAndCollision;
-        signalHub.OnEnemyHit += KnockBackEnemy;
+        signalHub.OnEnemyKnockBack += KnockBackEnemy;
     }
 
     private void OnDisable()
@@ -43,22 +43,19 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         if (signalHub == null) return;
         signalHub.OnEnemyDeath -= DisablePhysicsAndCollision;
         signalHub.OnEnemyDeSpawn -= EnablePhysicsAndCollision;
-        signalHub.OnEnemyHit -= KnockBackEnemy;
+        signalHub.OnEnemyKnockBack -= KnockBackEnemy;
     }
-    public void KnockBackEnemy(float f, HitSfxType h)
+    private void KnockBackEnemy(Vector2 dir,float force)
     {
-        if(!enemyController.IsBeingknocked && rb.bodyType != RigidbodyType2D.Static)
-        {
-            StartCoroutine(KnockBackEnemyCoroutine(1));
-        }
-       
+        StartCoroutine(KnockBackEnemyCoroutine(dir,force));
     }
-    private IEnumerator KnockBackEnemyCoroutine(float force)
+    private IEnumerator KnockBackEnemyCoroutine(Vector2 dir,float force)
     {
-        Vector2 dir = -(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
+        if (enemyController.IsBeingknocked) yield break;
+
         enemyController.CanMove = false;
         enemyController.IsBeingknocked = true;
-        stateMachine.StunState.StunDuration = 1f;
+
         Rb.linearVelocity += dir * luanchModifier * force;
             
         yield return new WaitForSeconds(0.25f);

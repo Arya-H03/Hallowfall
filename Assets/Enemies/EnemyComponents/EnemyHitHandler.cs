@@ -41,15 +41,16 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
         signalHub.OnEnemyDeSpawn -= RestoreFullHealth;
     }
 
-    public void TryHitEnemy(float damageAmount, HitSfxType hitType, float knockbackForce)
+    private void HandleHit(float damage, HitSfxType hitSfx, Vector3 positionOfOther, float knockbackForce)
     {
         if (enemyController.IsDead) return;
-        signalHub.OnEnemyHit?.Invoke(damageAmount, hitType);
-    }
 
-    private void HandleHit(float damage, HitSfxType hitSfx)
-    {
+        signalHub.OnAnimTrigger?.Invoke("Hit");
+        signalHub.OnPlayHitSFX?.Invoke(hitSfx,0.5f);
         signalHub.OnEnemyDamage?.Invoke(damage);
+
+        Vector2 hitDir = (enemyController.GetEnemyPos() - positionOfOther).normalized;
+        signalHub.OnEnemyKnockBack?.Invoke(hitDir, knockbackForce);
     }
 
     private void HandleDamage(float value)

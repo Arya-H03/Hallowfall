@@ -27,13 +27,13 @@ public class EnemyChaseState : EnemyState
     
     public override void EnterState()
     {
-        animationManager.SetBoolForAnimation("isRunning", true);
+        enemyController.SignalHub.OnAnimBool?.Invoke("isRunning",true);
     }
 
     public override void ExitState()
     {
         movementHandler.StopMove();
-        animationManager.SetBoolForAnimation("isRunning", false);       
+        enemyController.SignalHub.OnAnimBool?.Invoke("isRunning",false);
     }
 
     public override void FrameUpdate()

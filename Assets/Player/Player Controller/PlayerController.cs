@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region === Player State Flags ===
-    [SerializeField] private bool canAttack = true;
     [SerializeField] private bool isParrying = false;
     [SerializeField] private bool isDead = false;
     [SerializeField] private bool isAttacking = false;
@@ -83,7 +82,6 @@ public class PlayerController : MonoBehaviour
     public int CurrentEssence { get => currentEssence; set => currentEssence = value; }
     public int AtonementLvl { get => atonementLvl; set => atonementLvl = value; }
     public int AtonementToLevel { get => atonementToLevel; set => atonementToLevel = value; }
-    public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool CanDash { get => stateMachine.PlayerDashState.CanDashAttack();}
     public bool IsParrying { get => isParrying; set => isParrying = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
@@ -172,7 +170,7 @@ public class PlayerController : MonoBehaviour
     public void OnSwordAttackInput()
     {
         signalHub.OnChangeState?.Invoke(PlayerStateEnum.SwordAttack);
-        stateMachine.PlayerSwordAttackState.HandleAttack();
+        stateMachine.PlayerSwordAttackState.TrySwordAttack();
     }
 
     public void OnDashInput()
@@ -203,7 +201,6 @@ public class PlayerController : MonoBehaviour
     #region === Utilities ===
     public void ResetPlayerVariables()
     {
-        canAttack = true;
         isParrying = false;
         isDead = false;
         isAttacking = false;

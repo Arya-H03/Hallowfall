@@ -31,6 +31,7 @@ public class PlayerSignalHub
     public Action<string,bool> OnAnimBool;
     public Action<string> OnAnimTrigger;
     public Action OnPlayerStep;
+    public Func<string, float> RequestAnimLength;
 
     //SFX Handler
     public Action<AudioClip,float> OnPlaySFX;
@@ -58,8 +59,8 @@ public class PlayerSignalHub
     public Action<PlayerStateEnum> OnChangeState;
 
     //SwordAttack
-    public Action OnFirstSwordSwing;
-    public Action OnSecondSwordSwing;
+    public Action OnSwordAttackHitFrame;
+    public Action OnSwordAttackSFXFrame;
     public Action OnSwordSwingEnd;
 
     //Parry

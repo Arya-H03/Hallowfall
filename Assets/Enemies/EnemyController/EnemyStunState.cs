@@ -22,9 +22,10 @@ public class EnemyStunState : EnemyState
    
     public override void EnterState()
     {
-        collisionManager.Rb.bodyType = RigidbodyType2D.Static;
-        animationManager.SetBoolForAnimation("isRunning", false);
-        animationManager.SetBoolForAnimation("isAttacking", false);      
+        //collisionManager.Rb.bodyType = RigidbodyType2D.Static;
+        enemyController.SignalHub.OnAnimBool?.Invoke("isRunning", false);
+        enemyController.SignalHub.OnAnimBool?.Invoke("isAttacking", false);
+ 
         enemyController.IsStuned = true;
         enemyController.stunEffect.SetActive(true);
     }
@@ -34,7 +35,7 @@ public class EnemyStunState : EnemyState
         stunTimer = 0f;
         enemyController.IsStuned = false;
         enemyController.stunEffect.SetActive(false);
-        collisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
+        //collisionManager.Rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public override void FrameUpdate()

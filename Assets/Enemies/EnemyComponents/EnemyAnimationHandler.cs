@@ -20,8 +20,8 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
         signalHub = enemyController.SignalHub;
         this.enemyController = enemyController;
 
-        signalHub.OnEnemyHit += CallHitAnim;
-        signalHub.OnEnemyDeath += CallDeathAnim;
+        signalHub.OnAnimTrigger += SetTriggerForAnimation;
+        signalHub.OnAnimBool += SetBoolForAnimation;
 
         signalHub.RequestAnimLength += GetAnimationLength;
     }
@@ -29,29 +29,26 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
     private void OnDisable()
     {
         if (signalHub == null) return;
-        signalHub.OnEnemyHit -= CallHitAnim;
-        signalHub.OnEnemyDeath -= CallDeathAnim;
-    }
- 
+        signalHub.OnAnimTrigger -= SetTriggerForAnimation;
+        signalHub.OnAnimBool -= SetBoolForAnimation;
 
-    private void CallHitAnim(float f, HitSfxType h)
+        signalHub.RequestAnimLength -= GetAnimationLength;
+
+    }
+
+    private void ResetAnimTrigger(string name)
     {
-        animator.SetTrigger("Hit");
+        animator.ResetTrigger(name);
     }
 
-    private void CallDeathAnim()
-    {
-        animator.ResetTrigger("Hit");
-        animator.SetTrigger("Death");
-    }
 
-    public void SetBoolForAnimation(string name, bool value)
+    private void SetBoolForAnimation(string name, bool value)
     {
         Animator.SetBool(name, value);
         
     }
 
-    public void SetTriggerForAnimation(string name)
+    private void SetTriggerForAnimation(string name)
     {
         Animator.SetTrigger(name);
 

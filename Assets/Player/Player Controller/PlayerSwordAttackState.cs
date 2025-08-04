@@ -1,8 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum ComboState
+{
+    None,
+    Attack1,
+    Attack2,
+    Attack3
+}
+[System.Serializable]
+public struct ComboAttack
+{
+    public ComboState comboState;
+    public float attackDamge;
+    public float knockbackForce;
+}
 public class PlayerSwordAttackState : PlayerState
 {
     private EnemyDetector enemyDetector;
@@ -10,17 +25,14 @@ public class PlayerSwordAttackState : PlayerState
     private float moveSpeedWhileAttaking = 0;
     private float hitStopDuration = 0;
 
-    private float swingComboWindow = 0;
-    private float delayBetweenSwings = 0;
-    private float swingInputLifeTime = 0;
+    private Dictionary<ComboState,ComboAttack> combosDict = new Dictionary<ComboState,ComboAttack>();
+    private ComboState currentComboState = ComboState.None;
+    private ComboAttack currentAttack;
 
-
-    private int comboIndex = 0;
-
-    private Coroutine comboResetCoroutine;
-
-    private int attackIndex = 1;
-    private List<int> listOfqueuedAttacks = new();
+    private float swingComboWindow;
+    private float lastAttackTime;
+    private bool isWithinCombo = false;
+    private bool isNextAttackQueued = false;
 
     private AudioClip[] attackSwingSFX;
 
@@ -28,159 +40,142 @@ public class PlayerSwordAttackState : PlayerState
      private GameObject secondSwingEffect;
      private GameObject hitSparkPrefab;
 
-
-    private float firstSwingDamage = 0;
-    private float secondSwingDamage = 0;
-
     public PlayerSwordAttackState(PlayerController playerController, PlayerStateMachine stateMachine, PlayerConfig playerConfig, PlayerStateEnum stateEnum) : base(playerController, stateMachine, playerConfig, stateEnum)
     {
         this.stateEnum = PlayerStateEnum.SwordAttack;
 
         enemyDetector = playerController.EnemyDetector;
 
-        signalHub.OnFirstSwordSwing += FirstSwingBoxCast;
-        signalHub.OnSecondSwordSwing += SecondSwingBoxCast;
-        signalHub.OnSwordSwingEnd += EndAttack;
+        signalHub.OnSwordAttackHitFrame += HandleHitingTarget;
+        signalHub.OnSwordAttackSFXFrame += () => { signalHub.OnPlayRandomSFX?.Invoke(attackSwingSFX, 0.5f); };
+
+        signalHub.OnSwordSwingEnd += OnAttackAnimationComplete;
 
         this.firstSwingEffect = playerConfig.firstSwingEffect;
         this.secondSwingEffect = playerConfig.secondSwingEffect;
         hitSparkPrefab = playerConfig.hitEffect;
-
+        InitializeComboData(playerConfig.comboAttacks);
         moveSpeedWhileAttaking = playerConfig.moveSpeedWhileAttaking;
 
         hitStopDuration = playerConfig.hitStopDuration;
 
         swingComboWindow = playerConfig.swingComboWindow;
-        swingInputLifeTime = playerConfig.swingInputLifeTime;
-        delayBetweenSwings = playerConfig.delayBetweenSwings;
-
         attackSwingSFX = playerConfig.attackSwingSFX;
 
-        firstSwingDamage = playerConfig.firstSwingDamage;
-        secondSwingDamage = playerConfig.secondSwingDamage;
-
     }
-    public override void EnterState()
+
+    private void InitializeComboData(List<ComboAttack> comboAttacksList)
     {
-        
+        foreach (ComboAttack comboAttack in comboAttacksList)
+        {
+            if (!combosDict.ContainsKey(comboAttack.comboState)) combosDict.Add(comboAttack.comboState, comboAttack);
+        }
+    }
+    #region State Events
+
+
+    public override void FrameUpdate()
+    {
+        if (Time.time - lastAttackTime > swingComboWindow)
+        {
+            ResetCombo();
+        }
+
+        if (isNextAttackQueued && !playerController.IsAttacking)
+        {
+            isNextAttackQueued = false;
+            TryCombo();
+        }
     }
 
     public override void ExitState()
     {
-        playerController.IsAttacking = false;
-        playerController.CanAttack = true;
-        ClearAllQueuedAttacks();
+        ResetCombo();
     }
-    public void HandleAttack()
-    {
-        listOfqueuedAttacks.Add(attackIndex);
-        playerController.CoroutineRunner.RunCoroutine(RemoveAttackFromQueue(listOfqueuedAttacks, attackIndex));
-        attackIndex++;
+    #endregion
 
-        if (!playerController.IsAttacking)
+    #region Combo Logic
+
+    public void TrySwordAttack()
+    {
+        if (playerController.IsAttacking)
         {
-            playerController.CoroutineRunner.RunCoroutine(SwingCoroutine(listOfqueuedAttacks));
+           isNextAttackQueued = true;
+        }
+        else
+        {
+            TryCombo();
         }
     }
 
-    private IEnumerator SwingCoroutine(List<int> QueuedAttacks)
+    private void TryCombo()
     {
-        if (playerController.StateMachine.CurrentStateEnum == PlayerStateEnum.SwordAttack)
+        if (playerController.IsAttacking) return;
+
+        playerController.IsAttacking = true;
+        lastAttackTime = Time.time;
+        isWithinCombo = true;
+
+        signalHub.OnTurningToMousePos?.Invoke();
+
+        switch (currentComboState)
         {
-            playerController.IsAttacking = true;
-
-            int index = listOfqueuedAttacks[0];
-            listOfqueuedAttacks.Remove(index);
-
-            comboIndex++;
-            if (comboIndex > 2) comboIndex = 1;
-           
-
-            signalHub.OnTurningToMousePos?.Invoke();
-
-            PlaySwingAnimation(comboIndex);
-
-            signalHub.OnPlayRandomSFX?.Invoke(attackSwingSFX,0.5f);
-
-            yield return new WaitForSeconds(delayBetweenSwings);
-            playerController.IsAttacking = false;
-
-            if (comboResetCoroutine != null) playerController.CoroutineRunner.EndCoroutine(comboResetCoroutine);
-
-            comboResetCoroutine = playerController.CoroutineRunner.RunCoroutine(ResetSwingComboCoroutine());
-
-            if (QueuedAttacks.Count > 0) playerController.CoroutineRunner.RunCoroutine(SwingCoroutine(QueuedAttacks));
-        }
-
-    }
-
-  
-    private IEnumerator RemoveAttackFromQueue(List<int> attackQueue, int attackIndex)
-    {
-        yield return new WaitForSeconds(swingInputLifeTime);
-        if (attackQueue.Contains(attackIndex))
-        {
-            attackQueue.Remove(attackIndex);
-        }
-
-    }
-
-    private IEnumerator ResetSwingComboCoroutine()
-    {
-        yield return new WaitForSeconds(swingComboWindow);
-        comboIndex = 0;       
-    }
-
-    private void ClearAllQueuedAttacks()
-    {
-        listOfqueuedAttacks.Clear();
-        attackIndex = 1;
-    }
-    private void PlaySwingAnimation(int comboIndex)
-    {
-        switch (comboIndex)
-        {
-            case 1:
+            case ComboState.None:
+                currentComboState = ComboState.Attack1;
                 signalHub.OnAnimTrigger?.Invoke("FirstSwing");
                 break;
-            case 2:
+            case ComboState.Attack1:
+                currentComboState = ComboState.Attack2;
                 signalHub.OnAnimTrigger?.Invoke("SecondSwing");
                 break;
-            case 3:
+            case ComboState.Attack2:
+                currentComboState = ComboState.Attack3;
                 signalHub.OnAnimTrigger?.Invoke("ThirdSwing");
                 break;
         }
-      
+
+        currentAttack = combosDict[currentComboState];
     }
 
-    private void EndAttack()
+    public void OnAttackAnimationComplete()
     {
-        signalHub.OnStateTransitionBasedOnMovement?.Invoke(PlayerStateEnum.SwordAttack);
+        playerController.IsAttacking = false;
+  
+        if (currentComboState == ComboState.Attack3 || !isWithinCombo || !isNextAttackQueued)
+        {
+            ResetCombo();
+
+            signalHub.OnStateTransitionBasedOnMovement?.Invoke(PlayerStateEnum.SwordAttack);
+        }
     }
 
+    private void ResetCombo()
+    {
+        isWithinCombo = false;
+        isNextAttackQueued = false;
+        currentComboState = ComboState.None;
+        currentAttack = combosDict[currentComboState];
+        playerController.IsAttacking = false;
+    }
 
-    private void FirstSwingBoxCast()
+    #endregion
+ 
+    private void HandleHitingTarget()
     {
         //SpawnSlashEffect(1);
-        HandleHits(enemyDetector.AvailableEnemyTargets, firstSwingDamage, 1);
+        TryHit(enemyDetector.AvailableEnemyTargets, currentAttack.attackDamge, currentAttack.knockbackForce);
        
     }
 
-    private void SecondSwingBoxCast()
-    {
-        //SpawnSlashEffect(2);
-        HandleHits(enemyDetector.AvailableEnemyTargets, secondSwingDamage, 2);
-        
-    }
-
-    private void HandleHits(HashSet<EnemyController> enemies, float damage, float force)
+   
+    private void TryHit(HashSet<EnemyController> enemies, float damage, float force)
     {
         if (enemies == null || enemies.Count < 1) return;
 
         foreach (EnemyController enemy in enemies)
         {
             Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-            enemy.EnemyHitHandler.TryHitEnemy(damage, HitSfxType.sword, force);
+            enemy.SignalHub.OnEnemyHit?.Invoke(damage,HitSfxType.sword,playerController.GetPlayerPos(),force);
             SpawnHitEffects(enemy, dirVectorFromPlayerToEnemy);
 
             //playerController.PlayerPhysicsHandler.KnockBackPlayer(knockbackVector, 0.1f);

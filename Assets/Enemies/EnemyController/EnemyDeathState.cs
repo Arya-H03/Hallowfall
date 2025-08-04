@@ -19,6 +19,9 @@ public class EnemyDeathState : EnemyState
     public override void EnterState()
     {
         enemyController.IsDead = true;
+
+        signalHub.OnResetAnimTrigger?.Invoke("Hit");
+        signalHub.OnAnimTrigger?.Invoke("Death");
         signalHub.OnEnemyDeath?.Invoke();
     }
 

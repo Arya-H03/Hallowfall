@@ -14,10 +14,11 @@ public class DashAttackBox : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision && collision.CompareTag(playerController.EnemyTag))
+        
+        if (collision.CompareTag(playerController.EnemyTag))
         {
-            Vector2 collisionPoint = collision.ClosestPoint(transform.position);
-            collision.GetComponentInParent<EnemyController>().EnemyHitHandler.TryHitEnemy(playerController.StateMachine.PlayerDashState.DashAttackDamage,HitSfxType.sword, 1);
+            ;    
+            collision.GetComponentInParent<EnemyController>().SignalHub.OnEnemyHit?.Invoke(playerController.PlayerConfig.dashAttackDamage, HitSfxType.sword, playerController.GetPlayerPos(), 2);
         }
     }
 

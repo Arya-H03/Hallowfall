@@ -18,7 +18,7 @@ public class EnemyConfigSO : ScriptableObject
     public float minChaseSpeed;
     public float maxChaseSpeed;
 
-    [Header("Attack State Config")]
+    [Header("Attack1 State Config")]
     public float minAttackDelay;
     public float maxAttackDelay;
     public List<BaseEnemyAbilitySO> abilitylist;
@@ -33,4 +33,6 @@ public class EnemyConfigSO : ScriptableObject
     [Header("Prefabs")]
     public GameObject[] bloofVFXPrefabs;
     public DamagePopUp damagePopUpPrefab;
+
+    public List<HitSFX> hitSFXList;
 }

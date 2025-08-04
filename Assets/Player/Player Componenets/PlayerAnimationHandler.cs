@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 
@@ -14,7 +15,7 @@ public class PlayerAnimationHandler : MonoBehaviour,IInitializeable<PlayerContro
         signalHub = playerController.PlayerSignalHub;
         animator = GetComponent<Animator>();
 
-
+        signalHub.RequestAnimLength += GetAnimationLength;
         signalHub.OnAnimBool += SetBoolForAnimations;
         signalHub.OnAnimTrigger += SetTriggerForAnimations;
        
@@ -40,18 +41,14 @@ public class PlayerAnimationHandler : MonoBehaviour,IInitializeable<PlayerContro
     }
 
 
-    public void FirstAttackSwing()
+    public void OnHitFrameOfAttackAnim()
     {
-      signalHub.OnFirstSwordSwing?.Invoke();
+      signalHub.OnSwordAttackHitFrame?.Invoke();
     }
-
-    public void SecondAttackSwing()
+    public void OnSFXFrameOfAttackAnim()
     {
-        signalHub.OnSecondSwordSwing?.Invoke();
+        signalHub.OnSwordAttackSFXFrame?.Invoke();
     }
-
- 
-
     //Gets call when entering the parry hold anim
     public void ActivateParryShield()
     {
@@ -64,4 +61,8 @@ public class PlayerAnimationHandler : MonoBehaviour,IInitializeable<PlayerContro
         signalHub.OnPlayerStep?.Invoke();
     }
 
+    private float GetAnimationLength(string name)
+    {
+        return animator.runtimeAnimatorController.animationClips.First(clip => clip.name == name).length;
+    }
 }

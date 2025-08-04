@@ -55,7 +55,7 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _ColorToReplace: {r: 0.26666668, g: 0.82745105, b: 0.9960785, a: 1}
+    - _ColorToReplace: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
     - _NewColor: {r: 1, g: 1, b: 1, a: 1}
     - _ReplaceColor: {r: 0.49411768, g: 0.9960785, b: 0.9960785, a: 1}
   m_BuildTextureStacks: []

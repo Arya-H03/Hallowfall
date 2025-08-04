@@ -10,39 +10,41 @@ public enum HitSfxType
     sword,
     fire
 }
+[System.Serializable]
+public struct HitSFX
+{
+    public HitSfxType hitType;
+    public AudioClip[] clips;
+}
 
 public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
 {
-    [System.Serializable]
-    struct HitSFX
-    {
-        public HitSfxType hitType;
-        public AudioClip[] sound;
-    }
 
-    AudioManager audioManager;
-    EnemySignalHub signalHub;
-    EnemyController enemyController;
+    private AudioManager audioManager;
+    private EnemySignalHub signalHub;
+    private EnemyController enemyController;
 
-    [SerializeField] HitSFX[] hitSFXs;
-    private Dictionary<HitSfxType, AudioClip[]> hitSFXDictionary;
+    private Dictionary<HitSfxType, AudioClip[]> hitSFXDict = new();
 
-    private Action<float, HitSfxType> cachedSFXHitHandler;
     public void Init(EnemyController enemyController)
     {
         this.enemyController = enemyController;
         signalHub = enemyController.SignalHub;
 
         audioManager = AudioManager.Instance;
+        signalHub.OnPlayRandomSFX += PlayRandomSFX;
+        signalHub.OnPlaySFX += PlaySFX;
+        signalHub.OnPlayHitSFX += PlayHitSFX;
 
-        cachedSFXHitHandler = (damageAmount, hitSfxType) => { PlayHitSFX(hitSfxType); };
-        signalHub.OnEnemyHit += cachedSFXHitHandler;
+       
     }
 
     private void OnDisable()
     {
         if(signalHub == null) return;
-        signalHub.OnEnemyHit -= cachedSFXHitHandler;
+        signalHub.OnPlayRandomSFX -= PlayRandomSFX;
+        signalHub.OnPlaySFX -= PlaySFX;
+        signalHub.OnPlayHitSFX = PlayHitSFX;
     }
     private void Start()
     {
@@ -50,28 +52,23 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
     }
     private void FillDictionary()
     {
-        hitSFXDictionary = new Dictionary<HitSfxType, AudioClip[]>();
-        foreach (var hitSfx in hitSFXs)
+        foreach (HitSFX hitSFX in enemyController.EnemyConfig.hitSFXList)
         {
-            hitSFXDictionary[hitSfx.hitType] = hitSfx.sound;
+            if (!hitSFXDict.ContainsKey(hitSFX.hitType)) hitSFXDict.Add(hitSFX.hitType, hitSFX.clips);
+
         }
     }
-    private AudioClip GetHitSound(HitSfxType hitType)
+    private void PlayRandomSFX(AudioClip[] audioClip, float volume)
     {
-        if (hitSFXDictionary.TryGetValue(hitType, out AudioClip[] sfx))
-        {
-            return sfx.Length > 0 ? sfx[Random.Range(0, sfx.Length)] : null;
-
-        }
-        return null;
+        audioManager.PlaySFX(audioClip, enemyController.GetEnemyPos(), volume);
     }
 
-    private void PlayHitSFX(HitSfxType hitType)
+    private void PlayHitSFX(HitSfxType hitType, float volume)
     {
-        audioManager.PlaySFX(GetHitSound(hitType), enemyController.GetEnemyPos(), 0.4f);
+        audioManager.PlaySFX(hitSFXDict[hitType], enemyController.GetEnemyPos(), volume);
     }
 
-    public void PlaySFX(AudioClip audioClip,float volume)
+    private void PlaySFX(AudioClip audioClip,float volume)
     {
         audioManager.PlaySFX(audioClip, enemyController.GetEnemyPos(), volume);
     }

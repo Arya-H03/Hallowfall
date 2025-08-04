@@ -32,3 +32,9 @@ MonoBehaviour:
   - {fileID: 75484156988579803, guid: 561ffd620c922a44d97184a616a0a5be, type: 3}
   - {fileID: 7966208263463872114, guid: 8491c9387e001084c8d3d030e752d097, type: 3}
   damagePopUpPrefab: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
+  hitSFXList:
+  - hitType: 1
+    clips:
+    - {fileID: 8300000, guid: d91a402b04334924295bde84bee00dfe, type: 3}
+    - {fileID: 8300000, guid: 4245c2c6fc3fc8749a7c8eeca3087a9c, type: 3}
+    - {fileID: 8300000, guid: 4935c70243719fa44b4cc354d895a1f4, type: 3}

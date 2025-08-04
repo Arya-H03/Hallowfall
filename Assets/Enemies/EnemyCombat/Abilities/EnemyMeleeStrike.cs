@@ -13,11 +13,11 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
 
     public override void ExecuteAbility(EnemyController enemy)
     {
-        enemy.EnemyAnimationHandler.SetBoolForAnimation(animCondition, true);
+        enemy.SignalHub.OnAnimBool?.Invoke(animCondition, true);
         attackZone = Instantiate(attackZonePrefab,enemy.GetEnemyPos(),Quaternion.identity);
         SetupAttackZone(attackZone.gameObject,enemy);
         attackZone.Init(new EnemyMeleeStrikeData { owner = enemy, strikeDamage = this.strikeDamage, parryDamage = this.parryDamage });
-        enemy.EnemySFXHandler.PlaySFX(MyUtils.GetRandomRef(abilitySFX),0.075f);
+        enemy.SignalHub.OnPlayRandomSFX?.Invoke(abilitySFX, 0.075f);
     }
 
     public override void ActionOnAnimFrame(EnemyController enemy)
@@ -33,7 +33,7 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
 
     public override void EndAbility(EnemyController enemy)
     {
-        enemy.EnemyAnimationHandler.SetBoolForAnimation(animCondition, false);
+        enemy.SignalHub.OnAnimBool?.Invoke(animCondition, false);
     }
 
     private void SetupAttackZone(GameObject attackZoneGO, EnemyController enemyController)

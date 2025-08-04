@@ -100,7 +100,6 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
     {
         Vector2 targetPos = Rb.position + (speed * Time.deltaTime * movementDirection);
         Vector2 smoothPos = Vector2.Lerp(Rb.position, targetPos, 1f);
-        Debug.Log("smooth :" + targetPos);
         Rb.MovePosition(smoothPos);
     }
 
