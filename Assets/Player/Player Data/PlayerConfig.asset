@@ -66,7 +66,10 @@ MonoBehaviour:
   rollModifier: 6
   rollDuration: 0.5
   impactEffectPrefab: {fileID: 1916495257564162046, guid: c503dc455835bb14e99d9413ecb4db9c, type: 3}
-  parrySFX: {fileID: 8300000, guid: b76458e40abf6bb44b04cfec86c24566, type: 3}
-  parryWindow: 0.3
+  parrySFX:
+  - {fileID: 8300000, guid: f15b9fe06f39abd45b2e4d44b18d6b99, type: 3}
+  - {fileID: 8300000, guid: 7806e6478b02c04408d0c3040124967e, type: 3}
+  - {fileID: 8300000, guid: 27bdecea2433d9a45bffb72891aa0db5, type: 3}
+  parryWindow: 0.5
   afterImagePefab: {fileID: 6114310249164132006, guid: 17ffc06f76d78364abc37eebd45e239d, type: 3}
   afterImageLifeTime: 0.35

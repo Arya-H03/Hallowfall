@@ -44,11 +44,10 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
         if(canAttackBeParried && collision.CompareTag("ParryShield"))
         {
             parryShield = collision.gameObject;
-
         }
         else if(collision.CompareTag("Player"))
         {
-            target = collision.gameObject.transform.parent.gameObject;
+            target = collision.transform.parent.parent.gameObject;
         }
     }
 

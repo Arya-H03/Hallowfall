@@ -47,7 +47,7 @@ public class PlayerConfig : ScriptableObject
 
     [Header("Parry State")]
     public GameObject impactEffectPrefab;
-    public AudioClip parrySFX;
+    public AudioClip [] parrySFX;
     public float parryWindow = 0.3f;
 
     [Header("VFX")]

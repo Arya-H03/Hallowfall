@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnParryInput()
     {
-        if (!isRolling)
+        if (!isRolling && !isParrying)
         {
             signalHub.OnChangeState?.Invoke(PlayerStateEnum.Parry);
         }

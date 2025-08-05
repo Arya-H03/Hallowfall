@@ -45,6 +45,15 @@ public class PlayerAnimationHandler : MonoBehaviour,IInitializeable<PlayerContro
     {
       signalHub.OnSwordAttackHitFrame?.Invoke();
     }
+    public void OnHitFrameOfParryAttackAnim()
+    {
+        signalHub.OnParryAttackHit?.Invoke();
+    }
+
+    public void OnEndFrameOfParryAttackAnim()
+    {
+        signalHub.OnParryEnd?.Invoke();
+    }
     public void OnSFXFrameOfAttackAnim()
     {
         signalHub.OnSwordAttackSFXFrame?.Invoke();

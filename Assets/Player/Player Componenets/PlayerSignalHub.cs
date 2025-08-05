@@ -66,6 +66,8 @@ public class PlayerSignalHub
     //Parry
     public Action OnActivatingParryShield;
     public Action <EnemyController,float> OnEnemyParried;
+    public Action OnParryAttackHit;
+    public Action OnParryEnd;
 
     //Death
     public Action OnDeath;

@@ -25,5 +25,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 716888515a5230d4b846c2078efbcade, type: 3}
   - {fileID: 8300000, guid: dd6515134fc9e7c40964f3d05e89f1af, type: 3}
   attackZonePrefab: {fileID: 1056337489651912631, guid: ec46428e97a66974faeff565a1f8ef20, type: 3}
-  strikeDamage: 0
+  strikeDamage: 20
   parryDamage: 40

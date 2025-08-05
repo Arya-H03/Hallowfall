@@ -9,10 +9,10 @@ public class PlayerParryState : PlayerState
      
      private PlayerParryShield parryShield;
      private GameObject impactEffectPrefab;
-     private AudioClip  parrySFX;
+     private AudioClip  [] parrySFX;
      private float parryWindow;
 
-
+    private bool isParrySuccessful = false;
     private bool canCounterParry = true;
     private bool canParryProjectiles = false;
 
@@ -34,6 +34,8 @@ public class PlayerParryState : PlayerState
 
         signalHub.OnActivatingParryShield += ActivateParryShield;
         signalHub.OnEnemyParried += OnSuccessfulParry;
+        signalHub.OnEnemyParried += OnSuccessfulParry;
+        signalHub.OnParryEnd += OnParryHoldAnimEnd;
 
     }
 
@@ -45,7 +47,9 @@ public class PlayerParryState : PlayerState
 
     public override void ExitState()
     {
+        
         playerController.IsParrying = false;
+        isParrySuccessful = false;
     }
 
   
@@ -54,9 +58,9 @@ public class PlayerParryState : PlayerState
     #region Parry Logic
 
     private void StartParry()
-    {    
-        signalHub.OnAnimTrigger?.Invoke("Parry");
-        signalHub.OnAnimBool?.Invoke("isParrying", true); 
+    {
+        signalHub.OnTurningToMousePos?.Invoke();
+        signalHub.OnAnimBool?.Invoke("isParrying",true);
         
         playerController.CoroutineRunner.RunCoroutine(StopParryCoroutine());
     }
@@ -64,15 +68,19 @@ public class PlayerParryState : PlayerState
     private IEnumerator StopParryCoroutine()
     {
         yield return new WaitForSeconds(parryWindow);
-        signalHub.OnAnimBool?.Invoke("isParrying", false);
-        OnParryEnd();
+        OnParryHoldAnimEnd();
     }
 
-    private void OnParryEnd()
+    private void OnParryHoldAnimEnd()
     {
         parryShield.BoxCollider.enabled = false;
-        signalHub.OnAnimBool?.Invoke("isParrySuccessful", false);
-        signalHub.OnStateTransitionBasedOnMovement?.Invoke(PlayerStateEnum.Parry);
+        if (!isParrySuccessful)
+        {
+            signalHub.OnAnimBool?.Invoke("isParrying", false);
+            signalHub.OnAnimBool?.Invoke("isParrySuccessful", false);
+            signalHub.OnStateTransitionBasedOnMovement?.Invoke(PlayerStateEnum.Parry);
+        }
+        else isParrySuccessful = false;
     }
 
     private void ActivateParryShield()
@@ -80,18 +88,22 @@ public class PlayerParryState : PlayerState
         parryShield.BoxCollider.enabled = true;
     }
 
-    //public void CallOnParrySuccessfulEvent()
-    //{
-    //    OnParrySuccessful?.Invoke();
-    //}
-
     private void OnSuccessfulParry(EnemyController enemyController, float parryDamage)
     {
-        signalHub.OnAnimBool?.Invoke("isParrySuccessful", true);
-        signalHub.OnSpawnVFX?.Invoke(impactEffectPrefab, playerController.GetPlayerPos(), Quaternion.identity, 0.3f);
-        signalHub.OnPlaySFX?.Invoke(parrySFX, 0.5f);
-        if (CanCounterParry) enemyController.SignalHub.OnEnemyHit?.Invoke(parryDamage, HitSfxType.sword, playerController.GetPlayerPos(), 2);
+        
+        parryShield.BoxCollider.enabled = false;
+        signalHub.OnPlayRandomSFX?.Invoke(parrySFX, 1f);
+        if (CanCounterParry)
+        {
+            isParrySuccessful = true;
+            signalHub.OnAnimBool?.Invoke("isParrySuccessful", true);
+         
+        }
+            
+        //signalHub.OnSpawnVFX?.Invoke(impactEffectPrefab, playerController.GetPlayerPos(), Quaternion.identity, 0.3f);
     }
+
+ 
 
     #endregion
 }

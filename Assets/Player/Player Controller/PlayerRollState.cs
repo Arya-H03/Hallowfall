@@ -23,7 +23,7 @@ public class PlayerRollState : PlayerState
     public override void EnterState()
     {
         playerController.IsRolling = true;
-        playerController.IsImmune = true;
+        //playerController.IsImmune = true;
         playerController.CanRoll = false;
 
         signalHub.OnAnimTrigger?.Invoke("Roll");
@@ -49,7 +49,7 @@ public class PlayerRollState : PlayerState
         yield return new WaitForSeconds(rollCooldown);
 
         playerController.CanRoll = true;
-        playerController.IsImmune = false;
+        //playerController.IsImmune = false;
 
     }
     private void EndRoll()

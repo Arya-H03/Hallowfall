@@ -46,10 +46,11 @@ public class PlayerSwordAttackState : PlayerState
 
         enemyDetector = playerController.EnemyDetector;
 
-        signalHub.OnSwordAttackHitFrame += HandleHitingTarget;
+        signalHub.OnSwordAttackHitFrame += HandleHittingTarget;
         signalHub.OnSwordAttackSFXFrame += () => { signalHub.OnPlayRandomSFX?.Invoke(attackSwingSFX, 0.5f); };
 
         signalHub.OnSwordSwingEnd += OnAttackAnimationComplete;
+        signalHub.OnParryAttackHit += HandleHittingTargetForPattayAttack;
 
         this.firstSwingEffect = playerConfig.firstSwingEffect;
         this.secondSwingEffect = playerConfig.secondSwingEffect;
@@ -160,14 +161,17 @@ public class PlayerSwordAttackState : PlayerState
 
     #endregion
  
-    private void HandleHitingTarget()
+    private void HandleHittingTarget()
     {
         //SpawnSlashEffect(1);
         TryHit(enemyDetector.AvailableEnemyTargets, currentAttack.attackDamge, currentAttack.knockbackForce);
        
     }
+    private void HandleHittingTargetForPattayAttack()
+    {
+        TryHit(enemyDetector.AvailableEnemyTargets, combosDict[ComboState.Attack2].attackDamge, combosDict[ComboState.Attack2].knockbackForce);
+    }
 
-   
     private void TryHit(HashSet<EnemyController> enemies, float damage, float force)
     {
         if (enemies == null || enemies.Count < 1) return;
@@ -179,8 +183,9 @@ public class PlayerSwordAttackState : PlayerState
             SpawnHitEffects(enemy, dirVectorFromPlayerToEnemy);
 
             //playerController.PlayerPhysicsHandler.KnockBackPlayer(knockbackVector, 0.1f);
-            GameManager.Instance.StopTime(hitStopDuration);
+            
         }
+        GameManager.Instance.StopTime(hitStopDuration);
     }
 
     private void SpawnHitEffects(EnemyController enemyController, Vector2 dir)
