@@ -44,19 +44,23 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
     {
         if (playerController.IsDead || playerController.IsImmune) return;
         signalHub.OnPlayerDamage?.Invoke(damage);
+        signalHub.OnPlaySFX?.Invoke(playerConfig.hitSFX,0.25f);
     }
 
     private void HandleDamage(float damage)
     {
         ApplyDamage(damage);
         signalHub.OnPlayerHealthChange?.Invoke(MaxHealth,CurrentHealth);
+        
     }
     public void ApplyDamage(float amount)
     {
         if (CurrentHealth <= 0) return;
 
         CurrentHealth -= amount;
-
+        signalHub.OnCameraShake?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.cameraShakeOnHitIntensity);
+        signalHub.OnVignetteFlash?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.vignetteFlashOnHitIntensity,playerConfig.vignetteFlashOnHitColor);
+        signalHub.OnMaterialFlash?.Invoke(playerConfig.cameraShakeOnHitDuration);
         if (CurrentHealth <= 0)
         {
             Die();

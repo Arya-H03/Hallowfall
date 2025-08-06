@@ -13,9 +13,13 @@ public class PlayerCameraHandler : MonoBehaviour
         get { return instance; }
     }
 
-  
 
+    private PlayerController playerController;
     private GameObject player;
+
+    private Coroutine currentCameraShakeCoroutine;
+
+    private bool isShaking = false;
 
     private Volume volume;
     private Vignette vignette;
@@ -24,10 +28,9 @@ public class PlayerCameraHandler : MonoBehaviour
 
     private float followSpeed = 2.5f;
 
-    private PlayerController playerController;
 
-    public Volume Volume { get => volume;}
-    public Vignette Vignette { get => vignette;}
+    public Volume Volume { get => volume; }
+    public Vignette Vignette { get => vignette; }
     public ChromaticAberration ChromaticAberration { get => chromaticAberration; }
     public ColorAdjustments ColorAdjustments { get => colorAdjustments; }
 
@@ -51,21 +54,102 @@ public class PlayerCameraHandler : MonoBehaviour
     {
         player = GameManager.Instance.Player;
         playerController = GameManager.Instance.PlayerController;
+
+        playerController.PlayerSignalHub.OnCameraShake += ShakeCamera;
+        playerController.PlayerSignalHub.OnVignetteFlash += FlashVignette;
     }
 
+    private void OnDisable()
+    {
+        playerController.PlayerSignalHub.OnCameraShake -= ShakeCamera;
+        playerController.PlayerSignalHub.OnVignetteFlash -= FlashVignette;
+    }
     void Update()
     {
-        if (player && !playerController.IsDead)
-        {
-
-            Vector3 currentPosition = transform.position;
-            Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
-
-            transform.position = Vector3.Lerp(currentPosition, targetPosition, followSpeed * Time.deltaTime);
-        }
+        FollowPlayer();
     }
 
-    public void OnPlayerDistorted( )
+    private void FollowPlayer()
+    {
+        if (!player || playerController.IsDead || isShaking) return;
+
+        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+    }
+    private IEnumerator ShakeCameraCoroutine(float duration, float magnitude)
+    {
+        Vector3 posBeforeShake = transform.position;
+        float timer = 0f;
+        isShaking = true;
+
+        float seedX = Random.Range(0f, 100f);
+        float seedY = Random.Range(0f, 100f);
+
+        float frequency = 20f;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float time = timer * frequency;
+
+            float x = (Mathf.PerlinNoise(seedX, time) - 0.5f) * 2f;
+            float y = (Mathf.PerlinNoise(seedY, time) - 0.5f) * 2f;
+
+            transform.position = posBeforeShake + new Vector3(x, y, 0) * magnitude;
+            yield return null;
+        }
+        ResetCameraAfterShake();
+    }
+
+    private void ResetCameraAfterShake()
+    {
+        isShaking = false;
+    }
+    private void ShakeCamera(float duration, float magnitude)
+    {
+        if (currentCameraShakeCoroutine != null)
+        {
+            StopCoroutine(currentCameraShakeCoroutine);
+            ResetCameraAfterShake();
+        }
+
+        currentCameraShakeCoroutine = StartCoroutine(ShakeCameraCoroutine(duration, magnitude));
+    }
+
+    private void FlashVignette(float duration, float intensity, Color newColor)
+    {
+        StartCoroutine(FlashVignetteCoroutine(duration, intensity, newColor));
+    }
+    private IEnumerator FlashVignetteCoroutine(float duration,float intensity,Color newColor)
+    {
+        float timer = 0;
+
+        while(timer < duration / 2)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            vignette.intensity.Override(Mathf.Lerp(0, intensity, t));
+            vignette.color.Override(Color.Lerp(Color.clear, newColor, t));
+            yield return null;
+        }
+        vignette.intensity.Override(intensity);
+        vignette.color.Override(newColor);
+
+
+        timer = 0;
+
+        while (timer < duration / 2)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            vignette.intensity.Override(Mathf.Lerp(intensity, 0, t));
+            vignette.color.Override(Color.Lerp(newColor, Color.clear, t));
+            yield return null;
+        }
+        vignette.color.Override(Color.clear);
+        vignette.intensity.Override(0f);
+    }
+
+    public void OnPlayerDistorted()
     {
         ChromaticAberration.intensity.Override(1);
         Vignette.intensity.Override(0.75f);
@@ -76,4 +160,6 @@ public class PlayerCameraHandler : MonoBehaviour
         ChromaticAberration.intensity.Override(0);
         Vignette.intensity.Override(0);
     }
+
+     
 }

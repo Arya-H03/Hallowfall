@@ -73,3 +73,8 @@ MonoBehaviour:
   parryWindow: 0.5
   afterImagePefab: {fileID: 6114310249164132006, guid: 17ffc06f76d78364abc37eebd45e239d, type: 3}
   afterImageLifeTime: 0.35
+  cameraShakeOnHitDuration: 0.3
+  cameraShakeOnHitIntensity: 0.05
+  vignetteFlashOnHitIntensity: 0.5
+  vignetteFlashOnHitColor: {r: 0.5450981, g: 0, b: 0, a: 1}
+  hitSFX: {fileID: 8300000, guid: fd2d6bb8aef21744f859a308bd5c6d89, type: 3}

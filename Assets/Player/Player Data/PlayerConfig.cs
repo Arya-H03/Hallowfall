@@ -53,4 +53,13 @@ public class PlayerConfig : ScriptableObject
     [Header("VFX")]
     public GameObject afterImagePefab;
     public float afterImageLifeTime = 0.35f;
+
+    [Header("Hit Handler")]
+    public float cameraShakeOnHitDuration = 0.3f;
+    public float cameraShakeOnHitIntensity = 0.05f;
+
+    public float vignetteFlashOnHitIntensity = 0.5f;
+    public Color vignetteFlashOnHitColor = Color.darkRed;
+
+    public AudioClip hitSFX;
 }

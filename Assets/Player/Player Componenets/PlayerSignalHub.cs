@@ -25,7 +25,10 @@ public class PlayerSignalHub
     public Action OnPlayerDeath;
     public Action OnPlayereDeSpawn;
 
-    
+    //Camera Handler
+
+    public Action <float,float> OnCameraShake;
+    public Action <float,float,Color> OnVignetteFlash;
 
     // Anim Handler
     public Action<string,bool> OnAnimBool;
@@ -52,6 +55,7 @@ public class PlayerSignalHub
     //VFX Handler
     public Action OnAfterImageStart;
     public Action OnAfterImageStop;
+    public Action <float>OnMaterialFlash;
     public Action<GameObject,Vector3,Quaternion,float> OnSpawnVFX;
     public Action<GameObject,Vector3,Quaternion,float,Vector3> OnSpawnScaledVFX;
 

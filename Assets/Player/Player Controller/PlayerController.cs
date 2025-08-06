@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     private CCoroutineRunner coroutineRunner;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private Material material;
     #endregion
 
     #region === Serialized Config & Objects ===
@@ -71,7 +70,6 @@ public class PlayerController : MonoBehaviour
     public CCoroutineRunner CoroutineRunner => coroutineRunner;
     public Rigidbody2D Rb => rb;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public Material Material => material;
     public PlayerConfig PlayerConfig => playerConfig;
     public PlayerStateMachine StateMachine => stateMachine;
     public DashAttackBox DashAttackBox => dashAttackBox;
@@ -98,12 +96,12 @@ public class PlayerController : MonoBehaviour
     #region === Unity Callbacks ===
     private void Awake()
     {
-        playerInputHandler = GetComponent<PlayerInputHandler>();
+       
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        material = spriteRenderer.material;
 
         coroutineRunner = GetComponent<CCoroutineRunner>();
+        playerInputHandler = GetComponent<PlayerInputHandler>();
         afterImageHandler = GetComponentInChildren<AfterImageHandler>();
         playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();
         playerMovementHandler = GetComponent<PlayerMovementHandler>();
