@@ -21,7 +21,7 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
         //signalHub.OnEnemyHit += HandleEnemySquash;
 
         signalHub.OnEnemyDamage += PlayBloodEffect;
-        signalHub.OnEnemyDamage += SpawnDamagePopUp;
+        //signalHub.OnEnemyDamage += SpawnDamagePopUp;
 
     }
 
@@ -30,7 +30,7 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
         //signalHub.OnEnemyHit -= HandleEnemySquash;
         if (signalHub == null) return;
         signalHub.OnEnemyDamage -= PlayBloodEffect;
-        signalHub.OnEnemyDamage -= SpawnDamagePopUp;
+        //signalHub.OnEnemyDamage -= SpawnDamagePopUp;
     }
 
     private void HandleEnemySquash(float f, HitSfxType h)
@@ -83,8 +83,8 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
     }
     private void PlayBloodEffect(float f)
     {
-        Vector3 randPos = new Vector3(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f), 0);
-        GameObject go = Instantiate(enemyConfig.bloofVFXPrefabs[Random.Range(0, enemyConfig.bloofVFXPrefabs.Length)], enemyController.GetEnemyPos() + randPos, Quaternion.identity);
+        Vector3 randPos = new Vector3(Random.Range(-0.15f, 0.15f), Random.Range(-0.15f, 0.15f), 0);
+        GameObject go = Instantiate(enemyConfig.bloofVFXPrefabs[Random.Range(0, enemyConfig.bloofVFXPrefabs.Length)], enemyController.GetEnemyPos() /*+ randPos*/, Quaternion.identity);
         Vector3 scale = go.transform.localScale;
 
         int randX = (int)MyUtils.GetRandomValue<int>(new int[] { -1, 1 });

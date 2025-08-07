@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf97f82f743c707418da74acce7ef5dc, type: 3}
   m_Name: UndeadConfig
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1000
   damageModifier: 1
   maxStagger: 100
   timeBetweenStaggers: 4
@@ -26,11 +26,10 @@ MonoBehaviour:
   corpseSprite: {fileID: -6414532256806120174, guid: 7df81ec2572ff8b43ba9f7bc16815bc4, type: 3}
   corpseLifeTime: 1
   bloofVFXPrefabs:
-  - {fileID: 7551873788485074240, guid: 1a9f5cc88576e0b418c6671f36164e8d, type: 3}
-  - {fileID: 5943691410822740196, guid: 058ddb457967a4245839806831321f39, type: 3}
-  - {fileID: 1449012242258039333, guid: 32fe59578060e914c873c0a025dfa509, type: 3}
+  - {fileID: 6878304020406498456, guid: a68c921bd90c3d3498f15cecc10f3085, type: 3}
   - {fileID: 75484156988579803, guid: 561ffd620c922a44d97184a616a0a5be, type: 3}
-  - {fileID: 7966208263463872114, guid: 8491c9387e001084c8d3d030e752d097, type: 3}
+  - {fileID: 5027845091527398000, guid: bc1b1084d7e7d1047ac799e7fd4a80d9, type: 3}
+  - {fileID: 8519671031934768056, guid: bab76cf040b3ec742b6074bbe27a4ee1, type: 3}
   damagePopUpPrefab: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
   hitSFXList:
   - hitType: 1
