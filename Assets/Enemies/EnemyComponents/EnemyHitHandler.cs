@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
-public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyController>
+public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyController>, IHitable
 {
     private EnemyController enemyController;
     private EnemySignalHub signalHub;
 
-  
+
     private bool canStagger = true;
     private float maxStagger;
     private float currentStagger = 0;
@@ -25,42 +26,38 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
         RestoreFullHealth();
         DamageModifier = enemyController.EnemyConfig.damageModifier;
         maxStagger = enemyController.EnemyConfig.maxStagger;
-      
 
-        signalHub.OnEnemyHit += HandleHit;
-        signalHub.OnEnemyDamage += HandleDamage;
-        signalHub.OnEnemyDeSpawn += RestoreFullHealth;
+        signalHub.OnRestoreFullHealth += RestoreFullHealth;
+        signalHub.OnRestoreHealth += RestoreHealth;
 
     }
 
     private void OnDisable()
     {
         if (signalHub == null) return;
-        signalHub.OnEnemyHit -= HandleHit;
-        signalHub.OnEnemyDamage -= HandleDamage;
-        signalHub.OnEnemyDeSpawn -= RestoreFullHealth;
+
+        signalHub.OnRestoreFullHealth -= RestoreFullHealth;
+        signalHub.OnRestoreHealth -= RestoreHealth;
     }
 
-    private void HandleHit(float damage, HitSfxType hitSfx, Vector3 positionOfOther, float knockbackForce)
+    public void HandleHit(HitInfo hitInfo)
     {
         if (enemyController.IsDead) return;
 
         signalHub.OnAnimTrigger?.Invoke("Hit");
-        signalHub.OnPlayHitSFX?.Invoke(hitSfx,0.5f);
-        signalHub.OnEnemyDamage?.Invoke(damage);
+        signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
+        ApplyDamage(hitInfo.Damage);
 
-        Vector2 hitDir = (enemyController.GetEnemyPos() - positionOfOther).normalized;
-        signalHub.OnEnemyKnockBack?.Invoke(hitDir, knockbackForce);
+        Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.AttackerPosition).normalized;
+        signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.KnockbackForce);
     }
 
     private void HandleDamage(float value)
     {
-        ApplyDamage(value * DamageModifier);
-        TryStagger(value);
-        signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
+
     }
-   
- 
+
+
 
     public void ApplyDamage(float amount)
     {
@@ -68,13 +65,26 @@ public class EnemyHitHandler : MonoBehaviour,IDamagable,IInitializeable<EnemyCon
 
         float damage = amount * DamageModifier;
         CurrentHealth -= damage;
-
+        signalHub.OnPlayBloodEffect?.Invoke();
+        TryStagger(amount);
+        signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
         if (CurrentHealth <= 0) Die();
     }
 
     public void RestoreFullHealth()
     {
         CurrentHealth = MaxHealth;
+        signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
+    }
+
+    private void RestoreHealth(int amount)
+    {
+        CurrentHealth += amount;
+        if (CurrentHealth > MaxHealth)
+        {
+            CurrentHealth = MaxHealth;
+        }
+
         signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
     }
 

@@ -14,7 +14,7 @@ public class Smite : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyController>().SignalHub.OnEnemyHit?.Invoke(damage, HitSfxType.fire, this.transform.position, 0);
+            collision.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.fire, AttackerPosition = this.transform.position, KnockbackForce = 0 });
         }
     }
 }

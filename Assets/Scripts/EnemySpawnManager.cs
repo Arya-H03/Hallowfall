@@ -56,11 +56,11 @@ public class EnemySpawnManager : MonoBehaviour
             for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
 
             yield return new WaitForSeconds(1);
-            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
+            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Spectrum, GenerateRandomSpawnPosition(5));
 
             if (waveCounter >= 5)
             {
-                mainWaveDelay += 5;
+                mainWaveDelay += 2;
                 for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
             }
 
@@ -89,6 +89,9 @@ public class EnemySpawnManager : MonoBehaviour
                 break;
             case EnemyTypeEnum.Undead:
                 enemy = ObjectPoolManager.Instance.UndeadPool.GetFromPool();
+                break;
+            case EnemyTypeEnum.Spectrum:
+                enemy = ObjectPoolManager.Instance.SpectrumPool.GetFromPool();
                 break;
 
         }

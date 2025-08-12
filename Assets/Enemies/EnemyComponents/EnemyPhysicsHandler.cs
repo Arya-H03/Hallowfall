@@ -33,16 +33,16 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         circleCollider = GetComponentInParent<CircleCollider2D>();
         this.stateMachine = enemyController.EnemyStateMachine;
 
-        signalHub.OnEnemyDeath += DisablePhysicsAndCollision;
-        signalHub.OnEnemyDeSpawn += EnablePhysicsAndCollision;
+        signalHub.OnDisablePhysicsAndCollision += DisablePhysicsAndCollision;
+        signalHub.OnEnablePhysicsAndCollision += EnablePhysicsAndCollision;
         signalHub.OnEnemyKnockBack += KnockBackEnemy;
     }
 
     private void OnDisable()
     {
         if (signalHub == null) return;
-        signalHub.OnEnemyDeath -= DisablePhysicsAndCollision;
-        signalHub.OnEnemyDeSpawn -= EnablePhysicsAndCollision;
+        signalHub.OnDisablePhysicsAndCollision -= DisablePhysicsAndCollision;
+        signalHub.OnEnablePhysicsAndCollision -= EnablePhysicsAndCollision;
         signalHub.OnEnemyKnockBack -= KnockBackEnemy;
     }
     private void KnockBackEnemy(Vector2 dir,float force)

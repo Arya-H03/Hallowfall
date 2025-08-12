@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         afterImageHandler = GetComponentInChildren<AfterImageHandler>();
         playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();
         playerMovementHandler = GetComponent<PlayerMovementHandler>();
-        playerPhysicsController = GetComponentInChildren<PlayerPhysicsHandler>();
+        playerPhysicsController = GetComponent<PlayerPhysicsHandler>();
         playerAbilityController = GetComponentInChildren<PlayerAbilityHandler>();
         playerEnvironmentChecker = GetComponentInChildren<PlayerEnvironmentCheckHandler>();
         playerHealthBarHandler = GetComponent<PlayerHealthBarHandler>();

@@ -18,16 +18,16 @@ public class EnemyItemDropHandler : MonoBehaviour,IInitializeable<EnemyControlle
         this.enemyController = enemyController;
         signalHub  = enemyController.SignalHub;
 
-        signalHub.OnEnemyDeath += HandleItemDrop;
+        signalHub.OnItemDrop += HandleItemDrop;
     }
 
     private void OnDisable()
     {
         if (signalHub == null) return;
-        signalHub.OnEnemyDeath -= HandleItemDrop;
+        signalHub.OnItemDrop -= HandleItemDrop;
     }
 
-    public void HandleItemDrop()
+    private void HandleItemDrop()
     {      
         DropItem(ObjectPoolManager.Instance.EssencePool, essenceDropChance, essenceDropCount, enemyController.GetEnemyPos());
         DropItem(ObjectPoolManager.Instance.SkullPool, skullDropChance, skullDropCount, enemyController.GetEnemyPos());

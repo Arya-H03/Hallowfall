@@ -202,33 +202,7 @@ public class EnemyController : MonoBehaviour
 
         return abilityList;
     }
-    public void DeSpawnEnemy()
-    {
-        ReturnEnemyToPool();
-        isDead = false;
-        stateMachine.ChangeState(EnemyStateEnum.Idle);
-        signalHub.OnEnemyDeSpawn?.Invoke();        
-        EnemyHealthbarHandler.UpdateEnemyHealthBar(enemyHitHandler.MaxHealth, enemyHitHandler.CurrentHealth);
-     
-    }
-    public void ReturnEnemyToPool()
-    {
-        switch (enemyType)
-        {
-            case EnemyTypeEnum.Arsonist:
-                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(gameObject);
-                break;
-            case EnemyTypeEnum.Revenant:
-                ObjectPoolManager.Instance.RevenantPool.ReturnToPool(gameObject);
-                break;
-            case EnemyTypeEnum.Sinner:
-                ObjectPoolManager.Instance.SinnerPool.ReturnToPool(gameObject);
-                break;
-            case EnemyTypeEnum.Necromancer:
-                ObjectPoolManager.Instance.ArsonistPool.ReturnToPool(gameObject);
-                break;
-        }       
-    }
+
     public Vector3 GetEnemyPos() => transform.position;
 
 }

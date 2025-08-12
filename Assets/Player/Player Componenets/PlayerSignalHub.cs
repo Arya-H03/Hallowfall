@@ -15,8 +15,6 @@ public class PropertyBinding<T>
 public class PlayerSignalHub
 {
     //Hit Handler
-    public Action<float> OnPlayerHit;
-    public Action<float> OnPlayerDamage;
     public Action<float, float> OnPlayerHealthChange;
     public Action<float> OnRestoreHealth;
     public Action OnRestoreFullHealth;

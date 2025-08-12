@@ -57,6 +57,8 @@ public class EnemyAttackState : EnemyState
         enemyController.CanMove = true;
         enemyController.CanAttack = true;
         enemyController.IsAttacking = false;
+
+        currentAbility?.EndAbility(enemyController);
     }
     public void EndAttack()
     {

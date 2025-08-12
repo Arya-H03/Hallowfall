@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -62,11 +62,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -85,12 +85,12 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -111,8 +111,21 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -131,13 +144,14 @@ TextureImporter:
       name: Walk_0
       rect:
         serializedVersion: 2
-        x: 54
-        y: 36
-        width: 29
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -152,13 +166,14 @@ TextureImporter:
       name: Walk_1
       rect:
         serializedVersion: 2
-        x: 199
-        y: 37
-        width: 28
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 144
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -173,13 +188,14 @@ TextureImporter:
       name: Walk_2
       rect:
         serializedVersion: 2
-        x: 344
-        y: 38
-        width: 27
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 288
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -194,13 +210,14 @@ TextureImporter:
       name: Walk_3
       rect:
         serializedVersion: 2
-        x: 487
-        y: 37
-        width: 28
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 432
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -215,13 +232,14 @@ TextureImporter:
       name: Walk_4
       rect:
         serializedVersion: 2
-        x: 630
-        y: 37
-        width: 29
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 576
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -236,33 +254,39 @@ TextureImporter:
       name: Walk_5
       rect:
         serializedVersion: 2
-        x: 774
-        y: 37
-        width: 29
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 720
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2b3cb802166e88120800000000000000
+      spriteID: fd411ab277f6803498ba9163bd9f8225
       internalID: 2416434504916517810
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e69ad1cc103c9594197264b5e6fdced5
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":144.0,"y":112.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.3499999940395355},"autoSlicingMethod":0,"spriteAlignment":9,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Walk_0: 4035959289877228764
       Walk_1: -982904232830982447

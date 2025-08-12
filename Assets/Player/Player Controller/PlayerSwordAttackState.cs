@@ -17,6 +17,7 @@ public struct ComboAttack
     public ComboState comboState;
     public float attackDamge;
     public float knockbackForce;
+    public GameObject slashEffectPrefab;
 }
 public class PlayerSwordAttackState : PlayerState
 {
@@ -164,6 +165,7 @@ public class PlayerSwordAttackState : PlayerState
     private void HandleHittingTarget()
     {
         //SpawnSlashEffect(1);
+        //signalHub.OnSpawnVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos() +  new Vector3(0, 1, 0), Quaternion.identity, 3);
         TryHit(enemyDetector.AvailableEnemyTargets, currentAttack.attackDamge, currentAttack.knockbackForce);
        
     }
@@ -179,7 +181,8 @@ public class PlayerSwordAttackState : PlayerState
         foreach (EnemyController enemy in enemies)
         {
             Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-            enemy.SignalHub.OnEnemyHit?.Invoke(damage,HitSfxType.sword,playerController.GetPlayerPos(),force);
+            enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force });
+
             SpawnHitEffects(enemy, dirVectorFromPlayerToEnemy);
 
             //playerController.PlayerPhysicsHandler.KnockBackPlayer(knockbackVector, 0.1f);

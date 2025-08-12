@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>, IDamagable
+public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>, IDamagable,IHitable
 {
     private PlayerController playerController;
     private PlayerConfig playerConfig;
@@ -21,9 +21,7 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
         MaxHealth = playerConfig.maxHealth;
         DamageModifier = playerConfig.damageModifier;
         RestoreFullHealth();
-
-        signalHub.OnPlayerHit += HandleHit;
-        signalHub.OnPlayerDamage += HandleDamage;   
+ 
         signalHub.OnRestoreHealth += RestoreHealth;   
         signalHub.OnRestoreFullHealth += RestoreFullHealth;   
 
@@ -32,32 +30,24 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
 
     private void OnDisable()
     {
-
-        signalHub.OnPlayerHit -= HandleHit;
-        signalHub.OnPlayerDamage -= HandleDamage;
         signalHub.OnRestoreHealth -= RestoreHealth;
         signalHub.OnRestoreFullHealth -= RestoreFullHealth;
     }
 
 
-    private void HandleHit(float damage)
+    public void HandleHit(HitInfo hitInfo)
     {
         if (playerController.IsDead || playerController.IsImmune) return;
-        signalHub.OnPlayerDamage?.Invoke(damage);
+        ApplyDamage(hitInfo.Damage);
         signalHub.OnPlaySFX?.Invoke(playerConfig.hitSFX,0.25f);
     }
 
-    private void HandleDamage(float damage)
-    {
-        ApplyDamage(damage);
-        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth,CurrentHealth);
-        
-    }
     public void ApplyDamage(float amount)
     {
         if (CurrentHealth <= 0) return;
 
         CurrentHealth -= amount;
+        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth);
         signalHub.OnCameraShake?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.cameraShakeOnHitIntensity);
         signalHub.OnVignetteFlash?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.vignetteFlashOnHitIntensity,playerConfig.vignetteFlashOnHitColor);
         signalHub.OnMaterialFlash?.Invoke(playerConfig.cameraShakeOnHitDuration);

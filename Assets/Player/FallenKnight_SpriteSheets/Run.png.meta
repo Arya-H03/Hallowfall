@@ -141,133 +141,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FallenKnight_Run_0
+      name: Run_1
       rect:
         serializedVersion: 2
-        x: 0
+        x: 182
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 54
+        height: 63
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 469882abad1903ff0800000000000000
-      internalID: -58386426543699612
+      spriteID: a5979895741687f47b1816a829f90e6d
+      internalID: 2024344892
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Run_1
+      name: Run_2
       rect:
         serializedVersion: 2
-        x: 143
+        x: 325
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 54
+        height: 63
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 96c47133ff98e0580800000000000000
-      internalID: -8858991687824356247
+      spriteID: 115e11c8bf3d454478684bbce9290672
+      internalID: 563314379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Run_2
+      name: Run_3
       rect:
         serializedVersion: 2
-        x: 286
+        x: 466
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 54
+        height: 63
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ae9ee28c180791b70800000000000000
-      internalID: 8870244643794512362
+      spriteID: 1e8dd07add229ef42b07c7bd2b2c62ef
+      internalID: 2033305192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Run_3
+      name: Run_4
       rect:
         serializedVersion: 2
-        x: 429
+        x: 608
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 54
+        height: 63
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8ce4672e05411a5b0800000000000000
-      internalID: -5358979743964836152
+      spriteID: 452fda53c45dd5c41b755941fbe6fcc1
+      internalID: 966553658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Run_4
+      name: Run_5
       rect:
         serializedVersion: 2
-        x: 572
+        x: 751
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 54
+        height: 63
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6a11858c5962c5ff0800000000000000
-      internalID: -46119471427350106
+      spriteID: 04ac9e3b182412748a744944afd3444f
+      internalID: 1472114139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Run_5
+      name: Run_0
       rect:
         serializedVersion: 2
-        x: 715
+        x: 38
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 54
+        height: 63
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e7c24e9e090f011f0800000000000000
-      internalID: -1076095805751546754
+      spriteID: 1863853aac19313488de464343718927
+      internalID: 1138536515
       vertices: []
       indices: 
       edges: []
@@ -286,14 +286,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":143.0,"y":97.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":143.0,"y":97.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      FallenKnight_Run_0: -58386426543699612
-      FallenKnight_Run_1: -8858991687824356247
-      FallenKnight_Run_2: 8870244643794512362
-      FallenKnight_Run_3: -5358979743964836152
-      FallenKnight_Run_4: -46119471427350106
-      FallenKnight_Run_5: -1076095805751546754
+      Run_0: 1138536515
+      Run_1: 2024344892
+      Run_2: 563314379
+      Run_3: 2033305192
+      Run_4: 966553658
+      Run_5: 1472114139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

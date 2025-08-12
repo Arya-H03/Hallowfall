@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4847049418431757757}
   - component: {fileID: 6360978464536914759}
   - component: {fileID: 2161127802467491549}
-  - component: {fileID: 4305462095184434502}
-  m_Layer: 0
+  - component: {fileID: 6065629262166773514}
+  m_Layer: 14
   m_Name: NecromancerFireball
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
@@ -132,10 +132,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147499903
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -153,10 +153,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147499903
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -186,7 +186,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.55539805, y: 0.296875}
   m_EdgeRadius: 0
---- !u!114 &4305462095184434502
+--- !u!114 &6065629262166773514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,9 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3757319058761393601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68fbce5bb27d58d42845c082bc9f2e7a, type: 3}
+  m_Script: {fileID: 11500000, guid: ba1e43ed5eb961842926819e7d7bb7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTag: Player
   damage: 20
-  speed: 4
+  speed: 2
   lifeTime: 2

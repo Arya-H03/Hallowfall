@@ -34,7 +34,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
         }
         else if(target)
         {
-            target.GetComponent<PlayerController>().PlayerSignalHub.OnPlayerHit?.Invoke(strikeDamage);
+            target.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = strikeDamage});
         }
 
         Destroy(this.gameObject);
@@ -47,7 +47,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
         }
         else if(collision.CompareTag("Player"))
         {
-            target = collision.transform.parent.parent.gameObject;
+            target = collision./*transform.parent.parent*.*/gameObject;
         }
     }
 

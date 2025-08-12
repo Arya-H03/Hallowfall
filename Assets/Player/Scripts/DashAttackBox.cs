@@ -17,8 +17,7 @@ public class DashAttackBox : MonoBehaviour
         
         if (collision.CompareTag(playerController.EnemyTag))
         {
-            ;    
-            collision.GetComponentInParent<EnemyController>().SignalHub.OnEnemyHit?.Invoke(playerController.PlayerConfig.dashAttackDamage, HitSfxType.sword, playerController.GetPlayerPos(), 2);
+            collision.GetComponentInParent<IHitable>().HandleHit(new HitInfo { Damage = playerController.PlayerConfig.dashAttackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = 2 });
         }
     }
 

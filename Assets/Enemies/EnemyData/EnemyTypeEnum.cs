@@ -8,5 +8,6 @@ public enum EnemyTypeEnum
     Sinner,
     Revenant,
     Necromancer,
-    Undead
+    Undead,
+    Spectrum
 }

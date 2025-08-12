@@ -27,7 +27,8 @@ public class PlayerRollState : PlayerState
         playerController.CanRoll = false;
 
         signalHub.OnAnimTrigger?.Invoke("Roll");
-        signalHub.OnApplyForwardVelocity?.Invoke(rollModifier);
+        //signalHub.OnApplyForwardVelocity?.Invoke(rollModifier);
+        signalHub.OnApplyDirectionVelocity?.Invoke(GeRollDirection(),rollModifier);
         signalHub.OnAfterImageStart?.Invoke();
         signalHub.OnPlaySFX?.Invoke(rollSFX, 0.5f);
 
@@ -40,6 +41,12 @@ public class PlayerRollState : PlayerState
         playerController.IsRolling = false;
     }
 
+    private Vector2 GeRollDirection()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+        return (mousePos - playerController.transform.position).normalized;
+    }
     private IEnumerator WaitingForRollEndCoroutine()
     {
         yield return new WaitForSeconds(rollDuration);

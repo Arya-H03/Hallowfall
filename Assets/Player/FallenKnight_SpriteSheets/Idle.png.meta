@@ -159,265 +159,265 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FallenKnight_Idle_0
+      name: Idle_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 48
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 31fdbfd20d6c5cb10800000000000000
-      internalID: 2001224206863032083
+      spriteID: f39f45f2cc079fb4fafcb8256030e8b3
+      internalID: -1128057686
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_1
+      name: Idle_1
       rect:
         serializedVersion: 2
-        x: 143
+        x: 157
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 48
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 480aabaf5e2ed3aa0800000000000000
-      internalID: -6179533636300529532
+      spriteID: eaab6db2add946b46b75c4c16f7b5db9
+      internalID: 1271224276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_2
+      name: Idle_2
       rect:
         serializedVersion: 2
-        x: 286
+        x: 300
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 47182de830e0061f0800000000000000
-      internalID: -1053826904360844940
+      spriteID: 8f6da8e8382e8594f809f876dea6d797
+      internalID: -1585727491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_3
+      name: Idle_3
       rect:
         serializedVersion: 2
-        x: 429
+        x: 443
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 903267de16f1a9a10800000000000000
-      internalID: 1916879096855798537
+      spriteID: 5d28951965a0544449a6c7d4b7ef24ae
+      internalID: 620020472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_4
+      name: Idle_4
       rect:
         serializedVersion: 2
-        x: 572
+        x: 586
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8e0d49507ecd69840800000000000000
-      internalID: 5230610902026604776
+      spriteID: 1170109bbaca11144b360045ef2e9db8
+      internalID: -1782922052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_5
+      name: Idle_5
       rect:
         serializedVersion: 2
-        x: 715
+        x: 729
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 367fdb86d8294da30800000000000000
-      internalID: 4239174285307803491
+      spriteID: 1bb71b831bee8ab42baae14755dbf39d
+      internalID: 1731972931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_6
+      name: Idle_6
       rect:
         serializedVersion: 2
-        x: 858
+        x: 872
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 91e1c55216b148670800000000000000
-      internalID: 8539980897453874713
+      spriteID: 62c9ab5477958a848bba91ea61e405bd
+      internalID: -1893885617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_7
+      name: Idle_7
       rect:
         serializedVersion: 2
-        x: 1001
+        x: 1015
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6f382d8024fc3e7e0800000000000000
-      internalID: -1737317148712074250
+      spriteID: 260152cd1ec85f54ba45d5f345b82f77
+      internalID: -2047507280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_8
+      name: Idle_8
       rect:
         serializedVersion: 2
-        x: 1144
+        x: 1158
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fc63367c4d1dc97f0800000000000000
-      internalID: -604377538166049073
+      spriteID: 459dc8f0a02f6dc488668bee6fa23a4e
+      internalID: 1625042064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_9
+      name: Idle_9
       rect:
         serializedVersion: 2
-        x: 1287
+        x: 1301
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 23f2d91e4f51dded0800000000000000
-      internalID: -2387728085935116494
+      spriteID: 2963c905e57724e4dbd61b6c684f6349
+      internalID: -1357057981
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_10
+      name: Idle_10
       rect:
         serializedVersion: 2
-        x: 1430
+        x: 1444
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fd575e6215e5ae700800000000000000
-      internalID: 570372005453723103
+      spriteID: 25ece6d212e18dd47a71de2540377d65
+      internalID: -1781244788
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Idle_11
+      name: Idle_11
       rect:
         serializedVersion: 2
-        x: 1573
+        x: 1587
         y: 0
-        width: 143
-        height: 97
+        width: 81
+        height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0d8810b429fe5fee0800000000000000
-      internalID: -1227811911785936688
+      spriteID: f206139ce1b9c73489a9b2f71bc10823
+      internalID: -1818398468
       vertices: []
       indices: 
       edges: []
@@ -436,20 +436,20 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":12.0,"y":1.0},"gridSpriteSize":{"x":143.0,"y":97.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":12.0,"y":1.0},"gridSpriteSize":{"x":143.0,"y":97.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      FallenKnight_Idle_0: 2001224206863032083
-      FallenKnight_Idle_1: -6179533636300529532
-      FallenKnight_Idle_10: 570372005453723103
-      FallenKnight_Idle_11: -1227811911785936688
-      FallenKnight_Idle_2: -1053826904360844940
-      FallenKnight_Idle_3: 1916879096855798537
-      FallenKnight_Idle_4: 5230610902026604776
-      FallenKnight_Idle_5: 4239174285307803491
-      FallenKnight_Idle_6: 8539980897453874713
-      FallenKnight_Idle_7: -1737317148712074250
-      FallenKnight_Idle_8: -604377538166049073
-      FallenKnight_Idle_9: -2387728085935116494
+      Idle_0: -1128057686
+      Idle_1: 1271224276
+      Idle_10: -1781244788
+      Idle_11: -1818398468
+      Idle_2: -1585727491
+      Idle_3: 620020472
+      Idle_4: -1782922052
+      Idle_5: 1731972931
+      Idle_6: -1893885617
+      Idle_7: -2047507280
+      Idle_8: 1625042064
+      Idle_9: -1357057981
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

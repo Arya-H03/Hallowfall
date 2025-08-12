@@ -49,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -59,11 +59,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -82,12 +82,12 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +95,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -108,8 +108,21 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -128,13 +141,14 @@ TextureImporter:
       name: Hit_0
       rect:
         serializedVersion: 2
-        x: 56
-        y: 36
-        width: 27
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -149,13 +163,14 @@ TextureImporter:
       name: Hit_1
       rect:
         serializedVersion: 2
-        x: 198
-        y: 36
-        width: 29
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 144
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -170,13 +185,14 @@ TextureImporter:
       name: Hit_2
       rect:
         serializedVersion: 2
-        x: 340
-        y: 35
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 288
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -191,13 +207,14 @@ TextureImporter:
       name: Hit_3
       rect:
         serializedVersion: 2
-        x: 484
-        y: 35
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 432
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -212,13 +229,14 @@ TextureImporter:
       name: Hit_4
       rect:
         serializedVersion: 2
-        x: 628
-        y: 35
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 576
+        y: 0
+        width: 144
+        height: 112
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -230,15 +248,20 @@ TextureImporter:
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 61754f2004181b84981432da4bc8c9d7
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":144.0,"y":112.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.3499999940395355},"autoSlicingMethod":0,"spriteAlignment":9,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Hit_0: 4457663794195168306
       Hit_1: -5364657433725072944

@@ -36,14 +36,14 @@ public class FlowFieldManager : MonoBehaviour
         {
             if (cellsOccupiedByEnemy.Contains(lastCell))
             {
-                lastCell.MarkClearByEnemy();
+                //lastCell.MarkClearByEnemy();
                 cellsOccupiedByEnemy.Remove(lastCell);
             }
         }
         if (!cellsOccupiedByEnemy.Contains(currentCell))
         {
             cellsOccupiedByEnemy.Add(currentCell);
-            currentCell.MarkOccupiedByEnemy();
+            //currentCell.MarkOccupiedByEnemy();
         }
 
 

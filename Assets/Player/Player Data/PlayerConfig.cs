@@ -23,6 +23,7 @@ public class PlayerConfig : ScriptableObject
     public List<ComboAttack> comboAttacks;
     public GameObject firstSwingEffect;
     public GameObject secondSwingEffect;
+    public GameObject thirdSwingEffect;
     public GameObject hitEffect;
 
     public float moveSpeedWhileAttaking = 2;

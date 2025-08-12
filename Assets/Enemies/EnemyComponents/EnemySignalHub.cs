@@ -4,13 +4,8 @@ using UnityEngine;
 public class EnemySignalHub
 {
     
-    public Action<float,HitSfxType,Vector3,float> OnEnemyHit;
-    public Action<float> OnEnemyDamage;
     public Action<float,float> OnEnemyHealthChange;
     public Action<Vector2,float> OnEnemyKnockBack;
-
-    public Action OnEnemyDeath;
-    public Action OnEnemyDeSpawn;
 
     public Action<int> OnEnemyTurn;
 
@@ -27,4 +22,16 @@ public class EnemySignalHub
     public Action<string> OnAnimTrigger;
     public Action<string> OnResetAnimTrigger;
 
+    public Action OnItemDrop;
+
+    public Action OnActivateHealthbar;
+    public Action OnDeActivateHealthbar;
+
+    public Action OnDisablePhysicsAndCollision;
+    public Action OnEnablePhysicsAndCollision;
+
+    public Action<int> OnRestoreHealth;
+    public Action OnRestoreFullHealth;
+
+    public Action OnPlayBloodEffect;
 }

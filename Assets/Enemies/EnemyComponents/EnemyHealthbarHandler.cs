@@ -12,8 +12,9 @@ public class EnemyHealthbarHandler : MonoBehaviour,IInitializeable<EnemyControll
         signalHub = enemyController.SignalHub;
 
         signalHub.OnEnemyHealthChange += UpdateEnemyHealthBar;
-        signalHub.OnEnemyDeath += DeactiveateHealthbar;
-        signalHub.OnEnemyDeSpawn += ActivateHealthbar;
+        signalHub.OnDeActivateHealthbar += DeactiveateHealthbar;
+        signalHub.OnActivateHealthbar += ActivateHealthbar;
+
         signalHub.OnEnemyTurn += ChangeHealthbarDirection;
     }
 
@@ -21,7 +22,8 @@ public class EnemyHealthbarHandler : MonoBehaviour,IInitializeable<EnemyControll
     {
         if (signalHub == null) return;
         signalHub.OnEnemyHealthChange -= UpdateEnemyHealthBar;
-        signalHub.OnEnemyDeath -= DeactiveateHealthbar;
+        signalHub.OnDeActivateHealthbar -= DeactiveateHealthbar;
+        signalHub.OnActivateHealthbar -= ActivateHealthbar;
     }
 
     public void UpdateEnemyHealthBar(float maxHealth, float currentHealth)

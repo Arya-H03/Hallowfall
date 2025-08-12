@@ -25,6 +25,7 @@ public class PlayerAnimationHandler : MonoBehaviour,IInitializeable<PlayerContro
         signalHub.OnAnimBool -= SetBoolForAnimations;
         signalHub.OnAnimTrigger -= SetTriggerForAnimations;
     }
+
     public void SetBoolForAnimations(string name, bool value)
     {
         animator.SetBool(name, value);

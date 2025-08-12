@@ -36,8 +36,9 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
         playerController.PlayerSignalHub.OnSpawnVFX -= SpawnVFX;
         playerController.PlayerSignalHub.OnSpawnScaledVFX -= SpawnVFX;
         playerController.PlayerSignalHub.OnMaterialFlash -= FlashMaterial;
-    }
 
+    }
+    
     private void StartAfterImageEffect()
     {
         if (afterImageCoroutine == null) afterImageCoroutine = StartCoroutine(SpawnImages());
@@ -64,13 +65,13 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
 
     public void SpawnVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime)
     {
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+        GameObject obj = Instantiate(prefab, position, rotation);
         Destroy(obj, lifetime);
     }
 
     public void SpawnVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime, Vector3 scale)
     {
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+        GameObject obj = Instantiate(prefab, position, rotation);
         obj.transform.localScale = scale;   
         Destroy(obj, lifetime);
     }
@@ -88,11 +89,11 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
             timer += Time.deltaTime;
             float t = timer / duration;
             float value = Mathf.Lerp(0, 2, t);
-            material.SetFloat("_Flash", value);
+            material.SetFloat(flashID, value);
           
             yield return null;
         }
-        material.SetFloat("_Flash", 2);
+        material.SetFloat(flashID, 2);
         timer = 0;
 
         while (timer < duration / 2)
@@ -100,9 +101,11 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
             timer += Time.deltaTime;
             float t = timer / duration;
             float value = Mathf.Lerp(2, 0, t);
-            material.SetFloat("_Flash", value);
+            material.SetFloat(flashID, value);
             yield return null;
         }
-        material.SetFloat("_Flash", 0);
+        material.SetFloat(flashID, 0);
     }
+
+  
 }

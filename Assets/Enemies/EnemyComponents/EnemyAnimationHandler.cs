@@ -21,6 +21,7 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
         this.enemyController = enemyController;
 
         signalHub.OnAnimTrigger += SetTriggerForAnimation;
+        signalHub.OnResetAnimTrigger += ResetAnimTrigger;
         signalHub.OnAnimBool += SetBoolForAnimation;
 
         signalHub.RequestAnimLength += GetAnimationLength;
@@ -31,7 +32,7 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
         if (signalHub == null) return;
         signalHub.OnAnimTrigger -= SetTriggerForAnimation;
         signalHub.OnAnimBool -= SetBoolForAnimation;
-
+        signalHub.OnResetAnimTrigger -= ResetAnimTrigger;
         signalHub.RequestAnimLength -= GetAnimationLength;
 
     }

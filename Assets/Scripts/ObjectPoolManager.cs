@@ -14,6 +14,7 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField] ObjectPool necroPool;
     [SerializeField] ObjectPool revenantPool;
     [SerializeField] ObjectPool undeadPool;
+    [SerializeField] ObjectPool spectrumPool;
 
     public static ObjectPoolManager Instance
     {
@@ -33,7 +34,8 @@ public class ObjectPoolManager : MonoBehaviour
     public ObjectPool SinnerPool { get => sinnerPool; }
     public ObjectPool NecroPool { get => necroPool; }
     public ObjectPool RevenantPool { get => revenantPool; }
-    public ObjectPool UndeadPool { get => undeadPool; set => undeadPool = value; }
+    public ObjectPool UndeadPool { get => undeadPool; }
+    public ObjectPool SpectrumPool { get => spectrumPool; }
 
     private void Awake()
     {
@@ -51,6 +53,8 @@ public class ObjectPoolManager : MonoBehaviour
         sinnerPool.GeneratePool();
         revenantPool.GeneratePool();
         necroPool.GeneratePool();
+        spectrumPool.GeneratePool();
+        undeadPool.GeneratePool() ;
     }
 
 }

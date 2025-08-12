@@ -144,155 +144,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FallenKnight_Roll_0
+      name: Roll_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 27
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 77
+        height: 66
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 04b4a52f684a9a2a0800000000000000
-      internalID: -6725663669002548416
+      spriteID: 6e8a4a1ad16fed3459698a9626e2168a
+      internalID: -1764692360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Roll_1
+      name: Roll_1
       rect:
         serializedVersion: 2
-        x: 143
+        x: 171
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 77
+        height: 66
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b21fefae4aaff52d0800000000000000
-      internalID: -3287633616733015765
+      spriteID: 48dbb3cc4ecbb9d40b0007ff4d79c653
+      internalID: 22975220
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Roll_2
+      name: Roll_2
       rect:
         serializedVersion: 2
-        x: 286
+        x: 305
         y: 0
-        width: 143
-        height: 97
-      alignment: 9
+        width: 77
+        height: 66
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 33a4a69741761ffc0800000000000000
-      internalID: -3462873300837184973
+      spriteID: 74c7984b6a20ef045ad21bbe6cd5cbc7
+      internalID: 580218442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Roll_3
+      name: Roll_3
       rect:
         serializedVersion: 2
-        x: 429
+        x: 460
         y: 0
-        width: 143
-        height: 97
+        width: 77
+        height: 66
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.4492453, y: -0.00000005399466}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d451fd7bb284216a0800000000000000
-      internalID: -6480037561227078323
+      spriteID: e5071d9d45fefe84e97262cb60b1beaf
+      internalID: -1358490014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Roll_4
+      name: Roll_4
       rect:
         serializedVersion: 2
-        x: 572
+        x: 599
         y: 0
-        width: 143
-        height: 97
+        width: 77
+        height: 66
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.4337388, y: 0.00000004099006}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b8eb0c8289aab6800800000000000000
-      internalID: 606766145306934923
+      spriteID: 78d3fd1b9820fec4c8a820ddd2522a9e
+      internalID: -1867370301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Roll_5
+      name: Roll_5
       rect:
         serializedVersion: 2
-        x: 715
+        x: 722
         y: 0
-        width: 143
-        height: 97
+        width: 77
+        height: 66
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.56751204, y: -0.0032818587}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 92e6b7cb5c336b4e0800000000000000
-      internalID: -1966327262936863191
+      spriteID: 9000e39fbfcfb7b4ebd878fbcbff1997
+      internalID: -507928364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FallenKnight_Roll_6
+      name: Roll_6
       rect:
         serializedVersion: 2
-        x: 858
+        x: 883
         y: 0
-        width: 143
-        height: 97
+        width: 77
+        height: 66
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.47902372, y: 0.005930648}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0410b056b4cf694c0800000000000000
-      internalID: -4280956995021110976
+      spriteID: 7fd1dbbeb7f9c604d822a2c087a1f74e
+      internalID: 1922284257
       vertices: []
       indices: 
       edges: []
@@ -311,15 +311,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":7.0,"y":1.0},"gridSpriteSize":{"x":143.0,"y":97.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":12.0,"y":1.0},"gridSpriteSize":{"x":143.0,"y":97.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      FallenKnight_Roll_0: -6725663669002548416
-      FallenKnight_Roll_1: -3287633616733015765
-      FallenKnight_Roll_2: -3462873300837184973
-      FallenKnight_Roll_3: -6480037561227078323
-      FallenKnight_Roll_4: 606766145306934923
-      FallenKnight_Roll_5: -1966327262936863191
-      FallenKnight_Roll_6: -4280956995021110976
+      Roll_0: -1764692360
+      Roll_1: 22975220
+      Roll_2: 580218442
+      Roll_3: -1358490014
+      Roll_4: -1867370301
+      Roll_5: -507928364
+      Roll_6: 1922284257
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
