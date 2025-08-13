@@ -87,6 +87,7 @@ public class ZoneManager : MonoBehaviour
     public Cell FindCurrentCellFromWorldPos(Vector3 worldPos)
     {
         ZoneData zoneData = FindZoneDataFromWorldPos(worldPos);
+        if(zoneData == null) return null;
         Cell result = zoneData.ZoneHandler.CellGrid.GetCellFromWorldPos(worldPos);
         return result;
     }

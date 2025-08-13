@@ -38,7 +38,7 @@ public class EnemyChaseState : EnemyState
 
     public override void FrameUpdate()
     {
-        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead || /*!stateMachine.AttackState.CanChangeToAttackState() ||*/ !movementHandler.CanMoveToNextCell())          
+        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead ||!movementHandler.CanMoveToNextCell())          
         {
             stateMachine.ChangeState(EnemyStateEnum.Idle);
             return;

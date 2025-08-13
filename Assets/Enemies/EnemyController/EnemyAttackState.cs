@@ -24,7 +24,7 @@ public class EnemyAttackState : EnemyState
 
         abilityList = enemyController.GetListOfAllAbilities();
         availaleAbilityList = new List<BaseEnemyAbilitySO>(abilityList);
-        currentAbility = availaleAbilityList[0];
+        currentAbility = MyUtils.GetRandomRef<BaseEnemyAbilitySO>(availaleAbilityList);
 
         signalHub.OnAbilityFinished += (value) => { EndAttack(); };
         signalHub.OnAbilityStart += SetupNextAbility;
@@ -39,10 +39,7 @@ public class EnemyAttackState : EnemyState
             enemyController.CanAttack = false;
             enemyController.IsAttacking = true;
 
-            currentAbility = availaleAbilityList[0];
             signalHub.OnAbilityStart.Invoke(currentAbility);
-
-
 
             enemyController.CoroutineRunner.RunCoroutine(PutAbilityOnCooldownCoroutine(currentAbility));
 
@@ -95,9 +92,15 @@ public class EnemyAttackState : EnemyState
 
     private void TrySetcurrentAbiliy()
     {
-        if (currentAbility == null && availaleAbilityList.Count > 0)
+        if (availaleAbilityList.Count > 0)
         {
-            currentAbility = availaleAbilityList[0];
+            BaseEnemyAbilitySO abilityWithBiggestRange =  null;
+            foreach (var ability in availaleAbilityList)
+            {
+                if(abilityWithBiggestRange == null ) abilityWithBiggestRange = ability;
+                else if (ability.range > abilityWithBiggestRange.range ) abilityWithBiggestRange = ability;
+            }
+            currentAbility = abilityWithBiggestRange;
         }
     }
     private bool IsEnemyInAttackRange()

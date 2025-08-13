@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4694afc9506f1641ad9c0683113d08d, type: 3}
   m_Name: SpectrumRangedAttack
   m_EditorClassIdentifier: 
-  cooldown: 5
+  cooldown: 6
   range: 10
   animCondition: isShooting
   abilitySFX:

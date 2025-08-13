@@ -210,6 +210,17 @@ public static class MyUtils
         return input[Random.Range(0, input.Length)];
     }
 
+    public static T GetRandomRef<T>(List<T> input) where T : class
+    {
+        if (input == null || input.Count == 0)
+        {
+            Debug.LogError("Input List is null or empty");
+            return null;
+        }
+
+        return input[Random.Range(0, input.Count)];
+    }
+
     public static T GetRandomRef<T>(T[] input, float chanceOfReturningNothing) where T : class
     {
         if (input == null || input.Length == 0)

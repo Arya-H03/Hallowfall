@@ -36,7 +36,7 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
         signalHub.OnPlaySFX += PlaySFX;
         signalHub.OnPlayHitSFX += PlayHitSFX;
 
-       
+        FillDictionary(); 
     }
 
     private void OnDisable()
@@ -46,10 +46,7 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
         signalHub.OnPlaySFX -= PlaySFX;
         signalHub.OnPlayHitSFX = PlayHitSFX;
     }
-    private void Start()
-    {
-        FillDictionary();
-    }
+    
     private void FillDictionary()
     {
         foreach (HitSFX hitSFX in enemyController.EnemyConfig.hitSFXList)

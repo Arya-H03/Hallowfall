@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf97f82f743c707418da74acce7ef5dc, type: 3}
   m_Name: UndeadConfig
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 75
   damageModifier: 1
-  maxStagger: 100
-  timeBetweenStaggers: 4
-  minChaseSpeed: 0.5
-  maxChaseSpeed: 2
+  maxStagger: 150
+  timeBetweenStaggers: 3.5
+  minChaseSpeed: 1.5
+  maxChaseSpeed: 1.75
   minAttackDelay: 1
-  maxAttackDelay: 2
+  maxAttackDelay: 1.5
   abilitylist:
   - {fileID: 11400000, guid: 03c5bcf465a445c4cb3d08016aec2718, type: 2}
   stunDuration: 3
