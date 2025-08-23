@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerVitalityAbility : MonoBehaviour,IAbility
 {
     private PlayerController playerController;
-    [SerializeField] float healthModifier = 25f;
+    [SerializeField] int healthModifier = 25;
     public void PassPlayerControllerRef(PlayerController playerController)
     {
         this.playerController = playerController;

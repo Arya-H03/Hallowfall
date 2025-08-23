@@ -15,10 +15,10 @@ public class PropertyBinding<T>
 public class PlayerSignalHub
 {
     //Hit Handler
-    public Action<float, float> OnPlayerHealthChange;
-    public Action<float> OnRestoreHealth;
+    public Action<int, int, int> OnPlayerHealthChange;
+    public Action<int> OnRestoreHealth;
     public Action OnRestoreFullHealth;
-    public PropertyBinding<float> MaxHealthBinding;
+    public PropertyBinding<int> MaxHealthBinding;
 
     public Action OnPlayerDeath;
     public Action OnPlayereDeSpawn;

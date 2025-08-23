@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f335ffbf5c87b7a4593fe1a2324a655e, type: 3}
+  m_Name: DeathStrikeSO
+  m_EditorClassIdentifier: 
+  abilityName: Death Strike
+  ailityDescription: Heal portion of the recent taken damage.
+  abilityIcon: {fileID: 21300000, guid: 2436b8e1d465f774a9b99fc3960dd1bf, type: 3}
+  canLevelUp: 0
+  abilityPrefab: {fileID: 7166448452220480895, guid: 353def7f7ccbe3240b6240ce3b668af4, type: 3}
+  listOfAbilityUpgrades: []

@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerConfig : ScriptableObject
 {
     [Header("Stats")]
-    public float maxHealth = 100;
+    public int maxHealth = 100;
     public int toLevel = 3;
     public float damageModifier = 1;
 
@@ -37,7 +37,7 @@ public class PlayerConfig : ScriptableObject
     public float dashModifier = 6;
     public float dashAttackDelay = 2f;
     public AudioClip[] dashAttackSFX;
-    public float dashAttackDamage = 20;
+    public int dashAttackDamage = 20;
     public float dashduration = 0.5f;
 
     [Header("Roll State")]

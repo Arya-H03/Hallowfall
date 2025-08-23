@@ -5,9 +5,9 @@ using UnityEngine;
 public class ShadowClone : MonoBehaviour
 {
     GameObject enemyTarget;
-    private float damage ;
+    private int damage ;
     public GameObject EnemyTarget { get => enemyTarget; set => enemyTarget = value; }
-    public float Damage { get => damage; set => damage = value; }
+    public int Damage { get => damage; set => damage = value; }
 
     public void DestroyClone()
     {

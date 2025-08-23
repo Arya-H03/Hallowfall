@@ -8,8 +8,8 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
     private PlayerController playerController;
     private PlayerConfig playerConfig;
     private PlayerSignalHub signalHub;
-    public float MaxHealth { get; set; }
-    public float CurrentHealth { get; set ; }
+    public int MaxHealth { get; set; }
+    public int CurrentHealth { get; set ; }
     public float DamageModifier { get; set; }
 
     public void Init(PlayerController playerController)
@@ -25,7 +25,7 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
         signalHub.OnRestoreHealth += RestoreHealth;   
         signalHub.OnRestoreFullHealth += RestoreFullHealth;   
 
-        signalHub.MaxHealthBinding = new PropertyBinding<float> (() =>  MaxHealth, (value=> MaxHealth = value));
+        signalHub.MaxHealthBinding = new PropertyBinding<int> (() =>  MaxHealth, (value=> MaxHealth = value));
     }
 
     private void OnDisable()
@@ -42,12 +42,12 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
         signalHub.OnPlaySFX?.Invoke(playerConfig.hitSFX,0.25f);
     }
 
-    public void ApplyDamage(float amount)
+    public void ApplyDamage(int amount)
     {
         if (CurrentHealth <= 0) return;
 
         CurrentHealth -= amount;
-        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth);
+        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth, -amount);
         signalHub.OnCameraShake?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.cameraShakeOnHitIntensity);
         signalHub.OnVignetteFlash?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.vignetteFlashOnHitIntensity,playerConfig.vignetteFlashOnHitColor);
         signalHub.OnMaterialFlash?.Invoke(playerConfig.cameraShakeOnHitDuration);
@@ -67,18 +67,19 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
 
     public void RestoreFullHealth()
     {
+        int changedAmount = (int)(MaxHealth - CurrentHealth);  
         CurrentHealth = MaxHealth;
-        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth,CurrentHealth);
+        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth,CurrentHealth, changedAmount);
     }
 
-    public void RestoreHealth(float amount)
+    public void RestoreHealth(int amount)
     {
         CurrentHealth += amount;
         if (CurrentHealth > MaxHealth)
         {
             CurrentHealth = MaxHealth;
         }
-        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth);
+        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth, amount);
     }
 
    

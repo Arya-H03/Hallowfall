@@ -60,7 +60,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  dashModifier: 8
+  dashModifier: 6
   dashAttackDelay: 3
   dashAttackSFX:
   - {fileID: 8300000, guid: f645405aa66244042ab36b72242e2fbb, type: 3}
@@ -77,7 +77,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 27bdecea2433d9a45bffb72891aa0db5, type: 3}
   parryWindow: 0.5
   afterImagePefab: {fileID: 6114310249164132006, guid: 17ffc06f76d78364abc37eebd45e239d, type: 3}
-  afterImageLifeTime: 0.35
+  afterImageLifeTime: 0.2
   cameraShakeOnHitDuration: 0.3
   cameraShakeOnHitIntensity: 0.05
   vignetteFlashOnHitIntensity: 0.5

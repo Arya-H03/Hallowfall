@@ -9,7 +9,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
     private GameObject parryShield;
     private EnemyController owner;
 
-    private float strikeDamage;
+    private int strikeDamage;
     private float parryDamage;
 
     [SerializeField] private bool canAttackBeParried = true;

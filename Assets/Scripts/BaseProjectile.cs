@@ -6,12 +6,12 @@ using UnityEngine.UIElements;
 public class BaseProjectile : MonoBehaviour, IProjectile
 {
     [SerializeField] private string targetTag;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
 
     public string TargetTag { get => targetTag; set => targetTag = value; }
-    public float Damage { get => damage; set => damage = value; }
+    public int Damage { get => damage; set => damage = value; }
     public float Speed { get => speed; set => speed = value; }
     public float LifeTime { get => lifeTime; set => lifeTime = value; }
     public Rigidbody2D RB { get; set; }

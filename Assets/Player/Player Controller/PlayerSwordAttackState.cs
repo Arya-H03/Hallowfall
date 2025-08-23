@@ -15,7 +15,7 @@ public enum ComboState
 public struct ComboAttack
 {
     public ComboState comboState;
-    public float attackDamge;
+    public int attackDamge;
     public float knockbackForce;
     public GameObject slashEffectPrefab;
 }
@@ -51,7 +51,7 @@ public class PlayerSwordAttackState : PlayerState
         signalHub.OnSwordAttackSFXFrame += () => { signalHub.OnPlayRandomSFX?.Invoke(attackSwingSFX, 0.5f); };
 
         signalHub.OnSwordSwingEnd += OnAttackAnimationComplete;
-        signalHub.OnParryAttackHit += HandleHittingTargetForPattayAttack;
+        signalHub.OnParryAttackHit += HandleHittingTargetForParryAttack;
 
         this.firstSwingEffect = playerConfig.firstSwingEffect;
         this.secondSwingEffect = playerConfig.secondSwingEffect;
@@ -169,12 +169,12 @@ public class PlayerSwordAttackState : PlayerState
         TryHit(enemyDetector.AvailableEnemyTargets, currentAttack.attackDamge, currentAttack.knockbackForce);
        
     }
-    private void HandleHittingTargetForPattayAttack()
+    private void HandleHittingTargetForParryAttack()
     {
         TryHit(enemyDetector.AvailableEnemyTargets, combosDict[ComboState.Attack2].attackDamge, combosDict[ComboState.Attack2].knockbackForce);
     }
 
-    private void TryHit(HashSet<EnemyController> enemies, float damage, float force)
+    private void TryHit(HashSet<EnemyController> enemies, int damage, float force)
     {
         if (enemies == null || enemies.Count < 1) return;
 

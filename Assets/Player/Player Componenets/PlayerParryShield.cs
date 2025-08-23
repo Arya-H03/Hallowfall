@@ -26,7 +26,7 @@ public class PlayerParryShield : MonoBehaviour
         EnemyProjectile enemyProjectile = proj.GetComponent<EnemyProjectile>();
         if (enemyProjectile == null) yield break;
 
-        float damage = enemyProjectile.Damage;
+        int damage = enemyProjectile.Damage;
         float speed = enemyProjectile.Speed;
         float lifeTime = enemyProjectile.LifeTime;
         GameObject enemy = enemyProjectile.EnemyOwner;

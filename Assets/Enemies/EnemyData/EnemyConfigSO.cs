@@ -8,7 +8,7 @@ using UnityEngine;
 public class EnemyConfigSO : ScriptableObject
 {
     [Header("Stats Config")]
-    public float maxHealth;
+    public int maxHealth;
     public float damageModifier;
     public float maxStagger;
     public float timeBetweenStaggers;

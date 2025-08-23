@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerHealthBarHandler : MonoBehaviour, IInitializeable<PlayerController>
 {
-   private PlayerController playerController;
-   private Transform healthBar;
-   private TextMeshProUGUI healthText;
+    private PlayerController playerController;
+    private Transform healthBar;
+    private TextMeshProUGUI healthText;
     private PlayerSignalHub signalHub;
     public void Init(PlayerController playerController)
     {
@@ -25,11 +25,11 @@ public class PlayerHealthBarHandler : MonoBehaviour, IInitializeable<PlayerContr
     {
         signalHub.OnPlayerHealthChange -= UpdateHealthUI;
     }
-    private void UpdateHealthUI(float maxHealth, float currentHealth)
+    private void UpdateHealthUI(int maxHealth, int currentHealth, int changedAmount)
     {
         float ratio = (float)currentHealth / maxHealth;
         healthBar.localScale = new Vector3(ratio, 1, 1);
 
-        healthText.text = currentHealth.ToString() + "/" + maxHealth.ToString();
+        healthText.text = currentHealth .ToString() + "/" + maxHealth.ToString();
     }
 }

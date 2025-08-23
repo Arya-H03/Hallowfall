@@ -13,8 +13,8 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
     private float currentStagger = 0;
 
     public bool CanStagger { get => canStagger; set => canStagger = value; }
-    public float MaxHealth { get; set; }
-    public float CurrentHealth { get; set; }
+    public int MaxHealth { get; set; }
+    public int CurrentHealth { get; set; }
     public float DamageModifier { get; set; }
 
     public void Init(EnemyController enemyController)
@@ -59,11 +59,11 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
 
 
 
-    public void ApplyDamage(float amount)
+    public void ApplyDamage(int amount)
     {
         if (enemyController.IsDead) return;
 
-        float damage = amount * DamageModifier;
+        int damage = (int)(amount * DamageModifier);
         CurrentHealth -= damage;
         signalHub.OnPlayBloodEffect?.Invoke();
         TryStagger(amount);

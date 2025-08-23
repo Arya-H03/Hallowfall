@@ -8,8 +8,8 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
     public EnemyAttackZone attackZonePrefab;
     private EnemyAttackZone attackZone;
 
-    public float strikeDamage;
-    public float parryDamage;
+    public int strikeDamage;
+    public int parryDamage;
 
     public override void ExecuteAbility(EnemyController enemy)
     {
@@ -50,6 +50,6 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
 public struct EnemyMeleeStrikeData
 {
     public EnemyController owner;
-    public float strikeDamage;
-    public float parryDamage;
+    public int strikeDamage;
+    public int parryDamage;
 }
