@@ -1,0 +1,13 @@
+{
+    "asset": "48a92b1e3cbd2dd4b82617456d734349",
+    "fileName": "0198d98e-2b04-7707-8061-aa20c3872c38.wav",
+    "prompt": "Footsteps of a knight wearing plate armor walking on the ground",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "b3dd6d3aa67cff2a8d39e729cdd49fb1",
+    "duration": 5.0,
+    "autoTrim": true,
+    "hasReference": false
+}
