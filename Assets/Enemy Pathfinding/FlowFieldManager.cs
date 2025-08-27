@@ -35,22 +35,20 @@ public class FlowFieldManager : MonoBehaviour
         if (lastCell != currentCell)
         {
             if (cellsOccupiedByEnemy.Contains(lastCell))
-            {
-                //lastCell.MarkClearByEnemy();
+            {          
                 cellsOccupiedByEnemy.Remove(lastCell);
             }
         }
         if (!cellsOccupiedByEnemy.Contains(currentCell))
         {
-            cellsOccupiedByEnemy.Add(currentCell);
-            //currentCell.MarkOccupiedByEnemy();
+            cellsOccupiedByEnemy.Add(currentCell);         
         }
 
 
         return currentCell.FlowVect.normalized;
     }
 
-  
+ 
     public void UpdateFlowField(Vector3 targetPos)
     {
         ZoneData zoneData = zoneManager.FindZoneDataFromWorldPos(targetPos);
@@ -82,7 +80,6 @@ public class FlowFieldManager : MonoBehaviour
             if (canVisualizeFlowField) GridSystemDebugger.Instance.VisualizeCellFlowDirection(zoneHandler.CellGrid, zoneData.centerCoord);
             
         }
-
     }
     public void ToggleCellDebuger()
     {

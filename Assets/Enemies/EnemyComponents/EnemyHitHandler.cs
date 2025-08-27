@@ -52,13 +52,7 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
         signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.KnockbackForce);
     }
 
-    private void HandleDamage(float value)
-    {
-
-    }
-
-
-
+ 
     public void ApplyDamage(int amount)
     {
         if (enemyController.IsDead) return;

@@ -21,14 +21,12 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
     }
 
     public override void ActionOnAnimFrame(EnemyController enemy)
-    {
-      
+    {     
         if (attackZone != null) 
         {
             attackZone.TryHitTarget(enemy);            
             attackZone = null;
-        }
-        
+        }   
     }
 
     public override void EndAbility(EnemyController enemy)
@@ -43,8 +41,6 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
         attackZoneGO.transform.SetPositionAndRotation(enemyController.GetEnemyPos() + (dir / 2), Quaternion.Euler(0, 0, angle + 180));
     }
-
-
 }
 
 public struct EnemyMeleeStrikeData

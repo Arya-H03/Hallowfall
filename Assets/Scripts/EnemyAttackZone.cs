@@ -39,6 +39,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
 
         Destroy(this.gameObject);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(canAttackBeParried && collision.CompareTag("ParryShield"))

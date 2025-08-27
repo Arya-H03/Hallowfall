@@ -5,10 +5,6 @@ using UnityEngine;
 public class EnemyDeathState : EnemyState
 {
     private EnemySignalHub signalHub;
-
-    public delegate void EventHandler();
-    public EventHandler EnemyBeginDeathEvent;
-    public EventHandler EnemyEndDeathEvent;
     public EnemyDeathState(EnemyController enemyController, EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController, stateMachine, stateEnum)
     {
         this.enemyController = enemyController;
@@ -32,6 +28,8 @@ public class EnemyDeathState : EnemyState
         signalHub.OnDeActivateHealthbar?.Invoke();
         signalHub.OnDisablePhysicsAndCollision?.Invoke();
 
+        signalHub.OnEnemyDeathBegin?.Invoke();
+
         float deathAnimDuration = (float)signalHub.RequestAnimLength?.Invoke("Death");
         yield return new WaitForSeconds(deathAnimDuration);
 
@@ -42,6 +40,8 @@ public class EnemyDeathState : EnemyState
     }
     private void DeSpawnEnemy()
     {
+        signalHub.OnEnemyDeathEnd?.Invoke();
+
         ReturnEnemyToPool();
 
         enemyController.IsDead = false;

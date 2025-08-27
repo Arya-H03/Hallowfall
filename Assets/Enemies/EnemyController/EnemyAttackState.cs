@@ -113,8 +113,6 @@ public class EnemyAttackState : EnemyState
         return (enemyController.CanAttack && !enemyController.IsAttacking && enemyController.IsAttackDelayOver);
     }
 
-
-
     public bool CanChangeToAttackState()
     {
         return IsEnemyInAttackRange() && IsEnemyAbleToAttack() && currentAbility != null;
@@ -124,5 +122,4 @@ public class EnemyAttackState : EnemyState
     {
         return IsEnemyAbleToAttack() && currentAbility != null;
     }
-
 }

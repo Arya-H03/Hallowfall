@@ -17,6 +17,9 @@ public class EnemyRangedAttack : BaseEnemyAbilitySO
         }
         
         enemy.SignalHub.OnAnimBool?.Invoke(animCondition,true);
+        Vector2 dir = enemy.PlayerController.GetPlayerPos() - enemy.GetEnemyPos();
+        int xDir = dir.x >= 0 ? -1 : 1;
+        enemy.SignalHub.OnEnemyTurn?.Invoke(xDir);
     }
     public override void ActionOnAnimFrame(EnemyController enemy)
     {

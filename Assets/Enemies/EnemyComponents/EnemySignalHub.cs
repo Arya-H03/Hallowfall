@@ -34,4 +34,7 @@ public class EnemySignalHub
     public Action OnRestoreFullHealth;
 
     public Action OnPlayBloodEffect;
+
+    public Action OnEnemyDeathBegin;
+    public Action OnEnemyDeathEnd;
 }

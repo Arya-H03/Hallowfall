@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     [Header("Data")]
     [SerializeField] private EnemyConfigSO enemyConfig;
     [SerializeField] private EnemyTypeEnum enemyType;
-    [SerializeField] private EnemyAbilitySO[] enemyAbilities;
+    [SerializeField] private EnemyBehaviorSO[] enemyBehaviors;
 
     [Header("Prefabs")]
     [SerializeField] public GameObject stunEffect;
@@ -149,16 +149,11 @@ public class EnemyController : MonoBehaviour
         //Call before Initialzing enemy states
         InjectDependencies();
 
-        attacks = GetComponents<EnemyBaseAttack>().ToList();
-
         //Call after Dependency Injection
         stateMachine.InitAllStates();
-        
-        foreach (var attack in attacks)
-            attack.Init(this);
+      
+        foreach (var ability in enemyBehaviors) ability.InitBehavior(this);
 
-        foreach (var ability in enemyAbilities)
-            ability.ApplyAbility(this);
 
 
         stateMachine.ChangeState(EnemyStateEnum.Chase); 
