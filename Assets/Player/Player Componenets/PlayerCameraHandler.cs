@@ -161,5 +161,36 @@ public class PlayerCameraHandler : MonoBehaviour
         Vignette.intensity.Override(0);
     }
 
-     
+    public Vector3 GetRandomOffScreenPos(float offSet)
+    {
+        Vector3 result = new();
+        Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
+        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, Camera.main.nearClipPlane));
+
+        float minX = bottomLeft.x;
+        float maxX = topRight.x;
+
+        float minY = bottomLeft.y;
+        float maxY = topRight.y;
+
+        int side = Random.Range(1, 5); //1 top, 2 right, 3 left, 4 bottom
+
+        switch (side)
+        {
+            case 1:
+                result = new Vector3(Random.Range(minX,maxX),maxY + offSet, 0);
+                break;
+            case 2:
+                result = new Vector3(maxX + offSet,Random.Range(minY,maxY), 0);
+                break;
+            case 3:
+                result = new Vector3(minX - offSet, Random.Range(minY, maxY), 0);
+                break;
+            case 4:
+                result = new Vector3(Random.Range(minX, maxX), minY - offSet, 0);
+                break;
+        }
+
+        return result;
+    }
 }

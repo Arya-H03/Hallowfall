@@ -109,7 +109,7 @@ public class EnemySpawnManager : MonoBehaviour
         Vector3? result = null;
         while(result == null)
         {
-            Vector3 temp  = (Vector3)(Random.insideUnitCircle.normalized * dist) + GameManager.Instance.Player.transform.position;
+            Vector3 temp  = PlayerCameraHandler.Instance.GetRandomOffScreenPos(1);
 
             if(ZoneManager.Instance.FindCurrentCellFromWorldPos((Vector3)temp).IsWalkable)
             {
