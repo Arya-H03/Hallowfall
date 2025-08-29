@@ -99,8 +99,8 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
     }
     //public IEnumerator EnemyHitCoroutine(float damageAmount, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
     //{     
-    //    //material.SetFloat("_Flash", 1);   
+    //    //playerMat.SetFloat("_Flash", 1);   
     //    yield return new WaitForSeconds(0.1f);
-    //    //material.SetFloat("_Flash", 0);
+    //    //playerMat.SetFloat("_Flash", 0);
     //}
 }

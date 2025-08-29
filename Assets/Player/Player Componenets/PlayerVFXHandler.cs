@@ -1,8 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
 {
@@ -10,9 +7,10 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
     private GameObject imagePrefab;
     private float imageLifeTime;
     private PlayerController playerController;
-    private Material material;
+    private Material playerMat;
 
     int flashID = Shader.PropertyToID("_Flash");
+    int dissolveAmountID = Shader.PropertyToID("_DissolveAmount");
     private Coroutine afterImageCoroutine;
     public void Init(PlayerController playerController)
     {
@@ -20,13 +18,16 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
         spriteRenderer = playerController.SpriteRenderer;
         imagePrefab = playerController.PlayerConfig.afterImagePefab;
         imageLifeTime = playerController.PlayerConfig.afterImageLifeTime;
-        material = spriteRenderer.material;
+        playerMat = spriteRenderer.material;
 
         playerController.PlayerSignalHub.OnAfterImageStart += StartAfterImageEffect;
         playerController.PlayerSignalHub.OnAfterImageStop += StopAfterImageEffect;
         playerController.PlayerSignalHub.OnSpawnVFX += SpawnVFX;
         playerController.PlayerSignalHub.OnSpawnScaledVFX += SpawnVFX;
         playerController.PlayerSignalHub.OnMaterialFlash += FlashMaterial;
+        playerController.PlayerSignalHub.OnDissolveEffect += DissolveEffect;
+        playerController.PlayerSignalHub.OnScaleEffect += ScaleEffect;
+        playerController.PlayerSignalHub.RequestSpawnedVFX += ReturnSpawnedVFX;
     }
 
     private void OnDisable()
@@ -36,6 +37,9 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
         playerController.PlayerSignalHub.OnSpawnVFX -= SpawnVFX;
         playerController.PlayerSignalHub.OnSpawnScaledVFX -= SpawnVFX;
         playerController.PlayerSignalHub.OnMaterialFlash -= FlashMaterial;
+        playerController.PlayerSignalHub.OnDissolveEffect -= DissolveEffect;
+        playerController.PlayerSignalHub.OnScaleEffect -= ScaleEffect;
+        playerController.PlayerSignalHub.RequestSpawnedVFX -= ReturnSpawnedVFX;
 
     }
     
@@ -63,13 +67,20 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
         }
     }
 
-    public void SpawnVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime)
+    private void SpawnVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime)
     {
         GameObject obj = Instantiate(prefab, position, rotation);
-        Destroy(obj, lifetime);
+        Destroy(obj, lifetime + 0.05f);
     }
 
-    public void SpawnVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime, Vector3 scale)
+    private GameObject ReturnSpawnedVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime)
+    {
+        GameObject obj = Instantiate(prefab, position, rotation);
+        Destroy(obj, lifetime + 0.05f);
+        return obj;
+    }
+
+    private void SpawnVFX(GameObject prefab, Vector3 position, Quaternion rotation, float lifetime, Vector3 scale)
     {
         GameObject obj = Instantiate(prefab, position, rotation);
         obj.transform.localScale = scale;   
@@ -89,11 +100,12 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
             timer += Time.deltaTime;
             float t = timer / duration;
             float value = Mathf.Lerp(0, 2, t);
-            material.SetFloat(flashID, value);
+            playerMat.SetFloat(flashID, value);
           
             yield return null;
         }
-        material.SetFloat(flashID, 2);
+        playerMat.SetFloat(flashID, 2);
+
         timer = 0;
 
         while (timer < duration / 2)
@@ -101,11 +113,49 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
             timer += Time.deltaTime;
             float t = timer / duration;
             float value = Mathf.Lerp(2, 0, t);
-            material.SetFloat(flashID, value);
+            playerMat.SetFloat(flashID, value);
             yield return null;
         }
-        material.SetFloat(flashID, 0);
+        playerMat.SetFloat(flashID, 0);
     }
+    private void DissolveEffect(GameObject effect, float duration)
+    {
+        StartCoroutine(DissolveEffectCoroutine(effect,duration));
+    }
+    private IEnumerator DissolveEffectCoroutine(GameObject effect, float duration)
+    {
+        Material effectMat = effect.GetComponent<SpriteRenderer>().material;
+        float timer = 0;
+        while(timer < duration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            float value = Mathf.Lerp(0, 1, t);
+            effectMat.SetFloat(dissolveAmountID, value);
 
-  
+            yield return null;
+        }
+        effectMat.SetFloat(dissolveAmountID, 1.1f);
+
+    }
+    private void ScaleEffect(GameObject effect, Vector3 targetScale, float duration)
+    {
+        StartCoroutine(ScaleEffectCoroutine(effect, targetScale, duration));
+    }
+    private IEnumerator ScaleEffectCoroutine(GameObject effect, Vector3 targetScale, float duration)
+    {
+        float timer = 0;
+        Vector3 startScale = effect.transform.localScale;
+
+        while(timer < duration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            effect.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+
+            yield return null;
+        }
+        effect.transform.localScale = targetScale;
+
+    }
 }

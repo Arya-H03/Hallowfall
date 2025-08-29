@@ -53,8 +53,11 @@ public class PlayerSignalHub
     //VFX Handler
     public Action OnAfterImageStart;
     public Action OnAfterImageStop;
+    public Action <GameObject, float> OnDissolveEffect;
+    public Action <GameObject,Vector3,float>OnScaleEffect;
     public Action <float>OnMaterialFlash;
     public Action<GameObject,Vector3,Quaternion,float> OnSpawnVFX;
+    public Func<GameObject,Vector3,Quaternion,float,GameObject> RequestSpawnedVFX;
     public Action<GameObject,Vector3,Quaternion,float,Vector3> OnSpawnScaledVFX;
 
     //State Machine

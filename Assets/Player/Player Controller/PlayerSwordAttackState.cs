@@ -164,8 +164,7 @@ public class PlayerSwordAttackState : PlayerState
  
     private void HandleHittingTarget()
     {
-        //SpawnSlashEffect(1);
-        //signalHub.OnSpawnVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos() +  new Vector3(0, 1, 0), Quaternion.identity, 3);
+        HandleSlashEffect(0.3f);
         TryHit(enemyDetector.AvailableEnemyTargets, currentAttack.attackDamge, currentAttack.knockbackForce);
        
     }
@@ -183,7 +182,7 @@ public class PlayerSwordAttackState : PlayerState
             Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
             enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force });
 
-            SpawnHitEffects(enemy, dirVectorFromPlayerToEnemy);
+            HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
 
             //playerController.PlayerPhysicsHandler.KnockBackPlayer(knockbackVector, 0.1f);
             
@@ -191,7 +190,7 @@ public class PlayerSwordAttackState : PlayerState
         GameManager.Instance.StopTime(hitStopDuration);
     }
 
-    private void SpawnHitEffects(EnemyController enemyController, Vector2 dir)
+    private void HandleHitEffects(EnemyController enemyController, Vector2 dir)
     {
         Vector3 randPos = new Vector3(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f), 0);
         Vector3 originScale = hitSparkPrefab.transform.localScale;
@@ -199,36 +198,14 @@ public class PlayerSwordAttackState : PlayerState
         signalHub.OnSpawnScaledVFX?.Invoke(hitSparkPrefab, enemyController.GetEnemyPos() + randPos, Quaternion.identity, 2, newScale);  
     }
 
-    private void SpawnSlashEffect(int index)
+    private void HandleSlashEffect(float effectLifeTime)
     {
         Vector3 mousePos = MyUtils.GetMousePos();
         Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        GameObject slashEffect = signalHub.RequestSpawnedVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, angle), effectLifeTime);
 
-        //GameObject effect = null;
-
-        if (index == 1)
-        {
-            signalHub.OnSpawnVFX?.Invoke(firstSwingEffect, playerController.GetPlayerPos() + dir, Quaternion.Euler(0, 0, angle - 60),2);
-            //effect = Instantiate(firstSwingEffect, playerController.GetPlayerPos(), Quaternion.identity);
-            //angle -= 60;
-            //effect.transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
-        else if (index == 2)
-        {
-            signalHub.OnSpawnVFX?.Invoke(firstSwingEffect, playerController.GetPlayerPos() + dir, Quaternion.Euler(0, 0, angle - 60), 2);
-            //signalHub.OnSpawnVFX?.Invoke(secondSwingEffect, playerController.GetPlayerPos() + dir, Quaternion.Euler(65, 180, angle + 180), 2);
-            //effect = Instantiate(secondSwingEffect, playerController.GetPlayerPos(), Quaternion.identity);
-            //if (angle > -90 && angle < 90)
-            //{
-            //    SpriteRenderer sr = effect.GetComponent<SpriteRenderer>();
-            //    sr.flipX = false;
-            //    sr.flipY = false;
-            //}
-            //effect.transform.rotation = Quaternion.Euler(65, 0, angle);
-        }
-
-        //effect.transform.position += dir;
-
+        signalHub.OnDissolveEffect?.Invoke(slashEffect, effectLifeTime);
+        signalHub.OnScaleEffect?.Invoke(slashEffect, new Vector3(1.25f, 1.25f, 1.25f), effectLifeTime);
     }
 }

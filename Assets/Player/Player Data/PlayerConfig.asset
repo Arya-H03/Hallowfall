@@ -51,7 +51,7 @@ MonoBehaviour:
   secondSwingEffect: {fileID: 3155597501727793528, guid: 359778928ef60ce428bd37d5238ffdce, type: 3}
   thirdSwingEffect: {fileID: 0}
   hitEffect: {fileID: 8638527193001808518, guid: 2693d854cbcd425448b0d54932cbf365, type: 3}
-  moveSpeedWhileAttaking: 0
+  moveSpeedWhileAttaking: 2
   hitStopDuration: 0.075
   swingComboWindow: 1.5
   attackSwingSFX:
@@ -67,7 +67,7 @@ MonoBehaviour:
   dashAttackDamage: 10
   dashduration: 0.5
   rollSFX: {fileID: 8300000, guid: d4ed0ea0527d768449ff49139d403910, type: 3}
-  rollCooldown: 0.5
+  rollCooldown: 0.4
   rollModifier: 6
   rollDuration: 0.5
   impactEffectPrefab: {fileID: 1916495257564162046, guid: c503dc455835bb14e99d9413ecb4db9c, type: 3}
