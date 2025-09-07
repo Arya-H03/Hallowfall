@@ -45,7 +45,7 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
         if (enemyController.IsDead) return;
 
         signalHub.OnAnimTrigger?.Invoke("Hit");
-        signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
+        //signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
         ApplyDamage(hitInfo.Damage);
 
         Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.AttackerPosition).normalized;

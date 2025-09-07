@@ -3,8 +3,9 @@ using UnityEngine;
 public class PlayerVitalityAbility : MonoBehaviour,IAbility
 {
     private PlayerController playerController;
+    public PlayerAbilitySO AbilitySO { get; set; }
     [SerializeField] int healthModifier = 25;
-    public void PassPlayerControllerRef(PlayerController playerController)
+    public void InjectReferences(PlayerController playerController, PlayerAbilitySO abilitySO)
     {
         this.playerController = playerController;
     }

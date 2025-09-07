@@ -43,9 +43,7 @@ public class PlayerRollState : PlayerState
 
     private Vector2 GeRollDirection()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-        return (mousePos - playerController.transform.position).normalized;
+        return (Vector2)signalHub.RequestInputDir?.Invoke().normalized;
     }
     private IEnumerator WaitingForRollEndCoroutine()
     {

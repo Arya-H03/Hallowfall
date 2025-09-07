@@ -13,7 +13,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     private float flowFieldGenerationDelay = 0.3f;
     private float flowFieldGenerationTimer = 0.3f;
 
-    public Vector2 currentInputDir;
+    private Vector2 currentInputDir;
     private float speedModifer = 1;
 
     private float moveSpeed;
@@ -22,6 +22,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     public float SpeedModifer { get => speedModifer; }
     public Rigidbody2D Rb { get; set; }
     public Vector2 FaceDirection { get; set; }
+
 
     public void Init(PlayerController playerController)
     {
@@ -40,6 +41,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
         signalHub.OnTurning += TryToTurn;
         signalHub.OnTurningToMousePos += TurnPlayerWithMousePos;
         signalHub.OnChangeSpeedModifier += ChangeModifySpeed;
+        signalHub.RequestInputDir += GetCurrentInputDir;
         signalHub.FacingDirctionBinding = new PropertyBinding<Vector2>
             (
                 () => FaceDirection,
@@ -58,6 +60,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
         signalHub.OnTurning += TryToTurn;
         signalHub.OnTurningToMousePos -= TurnPlayerWithMousePos;
         signalHub.OnChangeSpeedModifier -= ChangeModifySpeed;
+        signalHub.RequestInputDir -= GetCurrentInputDir;
     }
     private void Update()
     {
@@ -191,4 +194,6 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     {
         speedModifer = modifir;
     }
+
+    public Vector2 GetCurrentInputDir() { return currentInputDir; }
 }

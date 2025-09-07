@@ -611,7 +611,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 32896
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 2147499903
@@ -677,7 +677,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 32896
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 2147499903
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyConfig: {fileID: 11400000, guid: bc98e720d59eb0a45a1a6147339894db, type: 2}
   enemyType: 4
-  enemyAbilities: []
+  enemyBehaviors: []
   stunEffect: {fileID: 2115942660256956688}
 --- !u!114 &5000998446449617028
 MonoBehaviour:

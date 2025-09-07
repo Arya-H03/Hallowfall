@@ -7,14 +7,14 @@ public class DeathStrikeAbility : MonoBehaviour, IAbility
 {
     private PlayerController playerController;
     private int damageBucket = 0;
-
+    public PlayerAbilitySO AbilitySO { get; set; }
     private List<Coroutine> damageInstanceCoroutineList = new();
     public void Init()
     {
         
     }
 
-    public void PassPlayerControllerRef(PlayerController controller)
+    public void InjectReferences(PlayerController controller, PlayerAbilitySO abilitySO)
     {
         this.playerController = controller;
     }

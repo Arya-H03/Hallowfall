@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CCoroutineRunner))]
+[RequireComponent(typeof(CInstantiater))]
 public class PlayerController : MonoBehaviour
 {
     #region === Component References ===
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private PlayerSignalHub signalHub;
     private EnemyDetector enemyDetector;
     private CCoroutineRunner coroutineRunner;
+    private CInstantiater instantiater;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     #endregion
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private DashAttackBox dashAttackBox;
     [SerializeField] private PlayerParryShield parryShield;
     [SerializeField] private string enemyTag;
+
+   
     #endregion
 
     #region === Runtime Data ===
@@ -68,6 +72,7 @@ public class PlayerController : MonoBehaviour
     public PlayerSignalHub PlayerSignalHub => signalHub;
     public EnemyDetector EnemyDetector => enemyDetector;
     public CCoroutineRunner CoroutineRunner => coroutineRunner;
+    public CInstantiater Instantiater => instantiater;
     public Rigidbody2D Rb => rb;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public PlayerConfig PlayerConfig => playerConfig;
@@ -101,6 +106,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         coroutineRunner = GetComponent<CCoroutineRunner>();
+        instantiater = GetComponent<CInstantiater>();
         playerInputHandler = GetComponent<PlayerInputHandler>();
         afterImageHandler = GetComponentInChildren<AfterImageHandler>();
         playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();

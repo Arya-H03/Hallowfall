@@ -31,7 +31,7 @@ public class PlayerAbilitySO : PlayerBaseAbilitySO
     public List<PlayerAbilityUpgradeSO> listOfAbilityUpgrades;
 
     public override void TriggerAbility()
-    {;
+    {
         playerController = GameManager.Instance.PlayerController;
         //First time an ability is selected
         if (!playerController.PlayerAbilityController.PlayerAbilityDictionary.ContainsKey(this))
@@ -42,7 +42,7 @@ public class PlayerAbilitySO : PlayerBaseAbilitySO
             abilityGO.transform.rotation = Quaternion.identity;
 
             abilityRef = abilityGO.GetComponent<IAbility>();
-            abilityRef.PassPlayerControllerRef(playerController);
+            abilityRef.InjectReferences(playerController,this);
 
             abilityRef.Perform();
 

@@ -2,6 +2,7 @@ using UnityEngine;
 public class PlayerHasteAbility : MonoBehaviour,IAbility
 {
     private PlayerController playerController;
+    public PlayerAbilitySO AbilitySO { get; set; }
     [SerializeField] float speedModifier = 0.1f;
 
     private CSFX cSFX;
@@ -10,7 +11,7 @@ public class PlayerHasteAbility : MonoBehaviour,IAbility
     {
         Init();      
     }
-    public void PassPlayerControllerRef(PlayerController playerController)
+    public void InjectReferences(PlayerController playerController, PlayerAbilitySO abilitySO)
     {
         this.playerController = playerController;
     }

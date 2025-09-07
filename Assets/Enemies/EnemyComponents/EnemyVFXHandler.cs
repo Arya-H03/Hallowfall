@@ -21,7 +21,7 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
         //signalHub.OnEnemyHit += HandleEnemySquash;
 
         signalHub.OnPlayBloodEffect += PlayBloodEffect;
-        //signalHub.OnEnemyDamage += SpawnDamagePopUp;
+     
 
     }
 

@@ -8,17 +8,18 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
 {
     private CDetector cDetector;
     private CSpawner cSpawner;
+
     private PlayerController playerController;
     private LayerMask layerMask;
     private string enemyTag;
-    [SerializeField] private float detectionRadius = 7.5f;
 
-    [SerializeField] private GameObject shadowClonePrefab;
+    private float detectionRadius;
+    private GameObject shadowClonePrefab;
+    private int cycleDuration;
+    private int spawnCount;
+    private int shadowCloneDamage;
 
-    [SerializeField] private int cycleDuration;
-    [SerializeField] private int spawnCount;
-    [SerializeField] private int shadowCloneDamage = 50;
-
+    public PlayerAbilitySO AbilitySO { get; set; }
     public int CycleDuration { get => cycleDuration; set => cycleDuration = value; }
     public int SpawnCount { get => spawnCount; set => spawnCount = value; }
     public int ShadowCloneDamage { get => shadowCloneDamage; set => shadowCloneDamage = value; }
@@ -27,11 +28,24 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
     {
         Init();
     }
-    public void PassPlayerControllerRef(PlayerController controller)
+    public void InjectReferences(PlayerController controller, PlayerAbilitySO abilitySO)
     {
         this.playerController = controller;
+        AbilitySO = abilitySO;
+
+        if(AbilitySO is PlayerShadowStrikeSO shadowStrikeSO)
+        {
+            this.detectionRadius = shadowStrikeSO.detectionRadius;
+            this.shadowClonePrefab = shadowStrikeSO.shadowClonePrefab;
+            this.shadowCloneDamage = shadowStrikeSO.shadowCloneDamage;
+            this.cycleDuration = shadowStrikeSO.cycleDuration;
+            this.ShadowCloneDamage = shadowStrikeSO.shadowCloneDamage;
+        }
+        
+
         layerMask = playerController.PlayerConfig.enemyMask;
         enemyTag = playerController.EnemyTag;
+        
     }
     public void Init()
     {
@@ -55,7 +69,7 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
     {
         while (true)
         {
-            yield return new WaitForSeconds(CycleDuration);
+            yield return new WaitForSeconds(cycleDuration);
 
             List<GameObject> detectedEnemies = cDetector.DetectNearbyGameObjectTargets(enemyTag,playerController.GetPlayerPos(),layerMask,detectionRadius);
 
@@ -77,8 +91,5 @@ public class PlayerShadowStrikeAbility : MonoBehaviour, IAbility,IUpgradeableAbi
         }
     }
 }
-
-//UPGRADES
-
 
 

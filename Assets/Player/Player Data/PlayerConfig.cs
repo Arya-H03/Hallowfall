@@ -20,7 +20,7 @@ public class PlayerConfig : ScriptableObject
 
     [Header("Attack1 State")]
 
-    public List<ComboAttack> comboAttacks;
+    public List<ComboAttackConfigStruct> comboAttacks;
     public GameObject firstSwingEffect;
     public GameObject secondSwingEffect;
     public GameObject thirdSwingEffect;

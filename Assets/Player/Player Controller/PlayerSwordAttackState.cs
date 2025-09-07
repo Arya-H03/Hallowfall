@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public enum ComboState
 {
@@ -12,13 +14,35 @@ public enum ComboState
     Attack3
 }
 [System.Serializable]
-public struct ComboAttack
+public struct ComboAttackConfigStruct
 {
     public ComboState comboState;
     public int attackDamge;
     public float knockbackForce;
     public GameObject slashEffectPrefab;
+    public GameObject slashCollisionPrefab;
 }
+
+[System.Serializable]
+public class ComboAttack
+{
+    public ComboState comboState;
+    public int attackDamage;
+    public float knockbackForce;
+    public GameObject slashEffectPrefab;
+    public GameObject slashCollisionPrefab;
+    public PlayerSlashCollision slashCollisionRef;
+
+    public ComboAttack(ComboAttackConfigStruct config)
+    {
+        comboState = config.comboState;
+        attackDamage = config.attackDamge;
+        knockbackForce = config.knockbackForce;
+        slashCollisionPrefab = config.slashCollisionPrefab;
+        slashEffectPrefab = config.slashEffectPrefab;
+    }
+}
+
 public class PlayerSwordAttackState : PlayerState
 {
     private EnemyDetector enemyDetector;
@@ -26,7 +50,7 @@ public class PlayerSwordAttackState : PlayerState
     private float moveSpeedWhileAttaking = 0;
     private float hitStopDuration = 0;
 
-    private Dictionary<ComboState,ComboAttack> combosDict = new Dictionary<ComboState,ComboAttack>();
+    private Dictionary<ComboState, ComboAttack> combosDict = new Dictionary<ComboState, ComboAttack>();
     private ComboState currentComboState = ComboState.None;
     private ComboAttack currentAttack;
 
@@ -37,8 +61,6 @@ public class PlayerSwordAttackState : PlayerState
 
     private AudioClip[] attackSwingSFX;
 
-     private GameObject firstSwingEffect;
-     private GameObject secondSwingEffect;
      private GameObject hitSparkPrefab;
 
     public PlayerSwordAttackState(PlayerController playerController, PlayerStateMachine stateMachine, PlayerConfig playerConfig, PlayerStateEnum stateEnum) : base(playerController, stateMachine, playerConfig, stateEnum)
@@ -53,8 +75,7 @@ public class PlayerSwordAttackState : PlayerState
         signalHub.OnSwordSwingEnd += OnAttackAnimationComplete;
         signalHub.OnParryAttackHit += HandleHittingTargetForParryAttack;
 
-        this.firstSwingEffect = playerConfig.firstSwingEffect;
-        this.secondSwingEffect = playerConfig.secondSwingEffect;
+        
         hitSparkPrefab = playerConfig.hitEffect;
         InitializeComboData(playerConfig.comboAttacks);
         moveSpeedWhileAttaking = playerConfig.moveSpeedWhileAttaking;
@@ -66,13 +87,28 @@ public class PlayerSwordAttackState : PlayerState
 
     }
 
-    private void InitializeComboData(List<ComboAttack> comboAttacksList)
+    private void InitializeComboData(List<ComboAttackConfigStruct> comboAttacksList)
     {
-        foreach (ComboAttack comboAttack in comboAttacksList)
+        foreach (ComboAttackConfigStruct config in comboAttacksList)
         {
-            if (!combosDict.ContainsKey(comboAttack.comboState)) combosDict.Add(comboAttack.comboState, comboAttack);
+            if (config.comboState == ComboState.None)
+            {
+                ComboAttack c = new ComboAttack(config);
+                combosDict[c.comboState] = c;
+                continue;
+            }
+
+            ComboAttack combo = new ComboAttack(config);
+
+            PlayerSlashCollision slashCollision = playerController.Instantiater.InstantiateGOUnderParent(combo.slashCollisionPrefab, Vector3.zero, Quaternion.identity, playerController.transform).GetComponent<PlayerSlashCollision>();
+            combo.slashCollisionRef = slashCollision;
+
+            combosDict[combo.comboState] = combo;
         }
+
+       
     }
+
     #region State Events
 
 
@@ -165,31 +201,46 @@ public class PlayerSwordAttackState : PlayerState
     private void HandleHittingTarget()
     {
         HandleSlashEffect(0.3f);
-        TryHit(enemyDetector.AvailableEnemyTargets, currentAttack.attackDamge, currentAttack.knockbackForce);
+
+        List<EnemyController> targets = new List<EnemyController>(currentAttack.slashCollisionRef.EnemyTargets);
+
+        foreach (EnemyController enemy in targets)
+        {
+            TryHit(enemy);
+        }
        
+
+        GameManager.Instance.StopTime(hitStopDuration);
+
     }
     private void HandleHittingTargetForParryAttack()
     {
-        TryHit(enemyDetector.AvailableEnemyTargets, combosDict[ComboState.Attack2].attackDamge, combosDict[ComboState.Attack2].knockbackForce);
-    }
 
-    private void TryHit(HashSet<EnemyController> enemies, int damage, float force)
-    {
-        if (enemies == null || enemies.Count < 1) return;
-
-        foreach (EnemyController enemy in enemies)
+        List<EnemyController> targets = new List<EnemyController>(combosDict[ComboState.Attack2].slashCollisionRef.EnemyTargets);
+        foreach (EnemyController enemy in targets)
         {
-            Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-            enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force });
-
-            HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
-
-            //playerController.PlayerPhysicsHandler.KnockBackPlayer(knockbackVector, 0.1f);
-            
+            TryHit(enemy, combosDict[ComboState.Attack2].attackDamage, combosDict[ComboState.Attack2].knockbackForce);
         }
+
         GameManager.Instance.StopTime(hitStopDuration);
     }
 
+    private void TryHit(EnemyController enemy,int damage, float force)
+    {
+        Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
+        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force });
+
+        HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
+    }
+
+    private void TryHit(EnemyController enemy)
+    {
+        Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
+        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = currentAttack.attackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = currentAttack.knockbackForce });
+
+        HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
+             
+    }
     private void HandleHitEffects(EnemyController enemyController, Vector2 dir)
     {
         Vector3 randPos = new Vector3(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f), 0);
@@ -202,10 +253,14 @@ public class PlayerSwordAttackState : PlayerState
     {
         Vector3 mousePos = MyUtils.GetMousePos();
         Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
         GameObject slashEffect = signalHub.RequestSpawnedVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, angle), effectLifeTime);
-
+        if (dir.x < 0) angle += 180;
+        currentAttack.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);
+        //PlayerSlashCollision attackSlash = slashEffect.GetComponent<PlayerSlashCollision>();
+        //attackSlash.Init(playerController);
         signalHub.OnDissolveEffect?.Invoke(slashEffect, effectLifeTime);
         signalHub.OnScaleEffect?.Invoke(slashEffect, new Vector3(1.25f, 1.25f, 1.25f), effectLifeTime);
+      
     }
 }

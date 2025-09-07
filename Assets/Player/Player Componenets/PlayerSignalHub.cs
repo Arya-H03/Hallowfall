@@ -49,6 +49,7 @@ public class PlayerSignalHub
     public Action<PlayerStateEnum> OnStateTransitionBasedOnMovement;
     public Action <float> OnChangeSpeedModifier;
     public PropertyBinding<Vector2> FacingDirctionBinding;
+    public Func<Vector2> RequestInputDir;
 
     //VFX Handler
     public Action OnAfterImageStart;

@@ -71,6 +71,9 @@ public class EnemyDeathState : EnemyState
             case EnemyTypeEnum.Spectrum:
                 ObjectPoolManager.Instance.SpectrumPool.ReturnToPool(enemyController.gameObject);
                 break;
+            case EnemyTypeEnum.Undead:
+                ObjectPoolManager.Instance.UndeadPool.ReturnToPool(enemyController.gameObject);
+                break;
         }
     }
 }

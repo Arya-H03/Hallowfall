@@ -25,11 +25,11 @@ public class EnemyDetector : MonoBehaviour
     void Start()
     {
         playerController = GetComponentInParent<PlayerController>();
-        environmentCheck = GetComponentInParent<PlayerEnvironmentCheckHandler>();
-        cDetector = environmentCheck.Detector;
+        //environmentCheck = GetComponentInParent<PlayerEnvironmentCheckHandler>();
+        //cDetector = environmentCheck.Detector;
 
 
-        cTicker.OnTickEvent += CheckForEnemies;
+        //cTicker.OnTickEvent += CheckForEnemies;
         cTicker.CanTick = true;
     }
 
@@ -57,4 +57,11 @@ public class EnemyDetector : MonoBehaviour
         return playerController.GetPlayerPos() + ((MyUtils.GetMousePos() - playerController.GetPlayerPos()).normalized * 1f) ;
    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyCollider"))
+        {
+            //availableEnemyTargets.Add(collision.gameObject.GetComponentInParent<EnemyController>());
+        }
+    }
 }

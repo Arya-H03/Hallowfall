@@ -10,7 +10,7 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
     private PlayerController playerController;
     private LayerMask layerMask;
     private string enemyTag;
-
+    public PlayerAbilitySO AbilitySO { get; set; }
     [SerializeField] private float detectionRadius = 7.5f;
     [SerializeField] int cycleDuration;
 
@@ -18,7 +18,7 @@ public class PlayerPreySightAbility : MonoBehaviour,IAbility
     {
         Init();
     }
-    public void PassPlayerControllerRef(PlayerController playerController)
+    public void InjectReferences(PlayerController playerController,PlayerAbilitySO abilitySO)
     {
         this.playerController = playerController;
         layerMask = playerController.PlayerConfig.enemyMask;

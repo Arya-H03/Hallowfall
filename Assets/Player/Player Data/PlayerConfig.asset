@@ -35,18 +35,22 @@ MonoBehaviour:
     attackDamge: 0
     knockbackForce: 0
     slashEffectPrefab: {fileID: 0}
+    slashCollisionPrefab: {fileID: 0}
   - comboState: 1
     attackDamge: 20
     knockbackForce: 2
     slashEffectPrefab: {fileID: 8035721610148658217, guid: 31be50dca6cfa124586f5fabc7c76c5b, type: 3}
+    slashCollisionPrefab: {fileID: 8955781490851776381, guid: dc68b0f4790059e459ee1a9261ba7205, type: 3}
   - comboState: 2
     attackDamge: 25
     knockbackForce: 5
     slashEffectPrefab: {fileID: 5667632423599408628, guid: 7fe6bfdf51af62f4dbd654605b983fdb, type: 3}
+    slashCollisionPrefab: {fileID: 6551190355783920334, guid: 2856034e215bf0549b7e25b63efcfc62, type: 3}
   - comboState: 3
     attackDamge: 40
     knockbackForce: 3
     slashEffectPrefab: {fileID: 5241420599669219969, guid: 814285f7251a0df44a66d2a2c6e4db4f, type: 3}
+    slashCollisionPrefab: {fileID: 6341647712093069671, guid: 0d1c1c2ebe2285f42b0e7e6d67ac2e04, type: 3}
   firstSwingEffect: {fileID: 1622055756329075702, guid: a780c2efa0a205940a22d519afdfab26, type: 3}
   secondSwingEffect: {fileID: 3155597501727793528, guid: 359778928ef60ce428bd37d5238ffdce, type: 3}
   thirdSwingEffect: {fileID: 0}

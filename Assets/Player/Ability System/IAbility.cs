@@ -2,7 +2,8 @@ using UnityEngine;
 
 public interface IAbility
 {
-    public void PassPlayerControllerRef(PlayerController controller);
+    public PlayerAbilitySO AbilitySO { get; set; }
+    public void InjectReferences(PlayerController controller, PlayerAbilitySO abilitySO);
     public void Init();
     public void Perform();
 }
