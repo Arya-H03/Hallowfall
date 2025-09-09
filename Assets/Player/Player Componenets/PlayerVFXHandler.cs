@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
@@ -128,6 +129,7 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
         float timer = 0;
         while(timer < duration)
         {
+            if (effect == null) yield break;
             timer += Time.deltaTime;
             float t = timer / duration;
             float value = Mathf.Lerp(0, 1, t);
@@ -135,6 +137,7 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
 
             yield return null;
         }
+        if (effect == null) yield break;
         effectMat.SetFloat(dissolveAmountID, 1.1f);
 
     }
@@ -149,12 +152,14 @@ public class PlayerVFXHandler : MonoBehaviour, IInitializeable<PlayerController>
 
         while(timer < duration)
         {
+            if (effect == null) yield break;
             timer += Time.deltaTime;
             float t = timer / duration;
             effect.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
 
             yield return null;
         }
+        if (effect == null) yield break;
         effect.transform.localScale = targetScale;
 
     }

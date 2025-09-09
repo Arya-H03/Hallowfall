@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInputAction",
     "maps": [
         {
@@ -33,19 +34,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DoubleSwing",
-                    "type": "Button",
-                    "id": "8dbd18eb-7c3d-4642-9918-335c51e1041a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "DashAttack",
                     "type": "Button",
                     "id": "55693191-f4d4-4db1-9aeb-453e367276d6",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -96,10 +88,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ThirdAttack",
+                    "name": "Potion",
                     "type": "Button",
-                    "id": "255b6f87-1368-4cfc-ab84-03cf4477407c",
-                    "expectedControlType": "Button",
+                    "id": "2eacde01-9ccb-431a-bc03-71de1b721d25",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -240,17 +232,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c8e3408e-342d-4494-b7fc-e77755ce22ea",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "MultiTap(tapDelay=0.5,tapCount=3)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ThirdAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "51ba7a73-d9a3-4f09-b871-757191b4b650",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -262,12 +243,12 @@
                 },
                 {
                     "name": "",
-                    "id": "fbf2ee2f-d0db-4a5a-a0fe-aa5c1e6e7b11",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "MultiTap(tapDelay=0.25)",
+                    "id": "9c163da1-5e6b-4d85-b299-30cb481fd3f4",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "DoubleSwing",
+                    "action": "Potion",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

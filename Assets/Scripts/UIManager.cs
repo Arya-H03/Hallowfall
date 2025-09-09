@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform healthBar;
     [SerializeField] TextMeshProUGUI healthText;
 
+    [SerializeField] Transform potionBar;
+
     [SerializeField] Transform atonementBar;
     [SerializeField] TextMeshProUGUI atonementLvlText;
 
@@ -67,6 +69,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI HealthText { get => healthText;}
     public Transform Chargebar1 { get => chargebar1;}
     public Transform Chargebar2 { get => chargebar2; }
+    public Transform PotionBar { get => potionBar;}
 
     private void Awake()
     {

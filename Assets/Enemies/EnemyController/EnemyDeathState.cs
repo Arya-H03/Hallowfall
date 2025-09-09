@@ -29,11 +29,13 @@ public class EnemyDeathState : EnemyState
         signalHub.OnDisablePhysicsAndCollision?.Invoke();
 
         signalHub.OnEnemyDeathBegin?.Invoke();
+        PlayerHealthPotionHandler.Instance.OnPotionChargeRestored?.Invoke(5);
+        signalHub.OnItemDrop?.Invoke();
 
         float deathAnimDuration = (float)signalHub.RequestAnimLength?.Invoke("Death");
         yield return new WaitForSeconds(deathAnimDuration);
 
-        signalHub.OnItemDrop?.Invoke();
+       
 
         DeSpawnEnemy();
 

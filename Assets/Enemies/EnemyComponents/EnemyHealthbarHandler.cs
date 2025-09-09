@@ -18,13 +18,13 @@ public class EnemyHealthbarHandler : MonoBehaviour,IInitializeable<EnemyControll
         signalHub.OnEnemyTurn += ChangeHealthbarDirection;
     }
 
-    private void OnDisable()
-    {
-        if (signalHub == null) return;
-        signalHub.OnEnemyHealthChange -= UpdateEnemyHealthBar;
-        signalHub.OnDeActivateHealthbar -= DeactiveateHealthbar;
-        signalHub.OnActivateHealthbar -= ActivateHealthbar;
-    }
+    //private void OnDisable()
+    //{
+    //    if (signalHub == null) return;
+    //    signalHub.OnEnemyHealthChange -= UpdateEnemyHealthBar;
+    //    signalHub.OnDeActivateHealthbar -= DeactiveateHealthbar;
+    //    signalHub.OnActivateHealthbar -= ActivateHealthbar;
+    //}
 
     public void UpdateEnemyHealthBar(float maxHealth, float currentHealth)
     {

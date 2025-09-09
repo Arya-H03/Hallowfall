@@ -114,6 +114,8 @@ public class PlayerSwordAttackState : PlayerState
 
     public override void FrameUpdate()
     {
+        RotateSlashCollisions();
+
         if (Time.time - lastAttackTime > swingComboWindow)
         {
             ResetCombo();
@@ -124,6 +126,7 @@ public class PlayerSwordAttackState : PlayerState
             isNextAttackQueued = false;
             TryCombo();
         }
+        
     }
 
     public override void ExitState()
@@ -256,11 +259,25 @@ public class PlayerSwordAttackState : PlayerState
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
         GameObject slashEffect = signalHub.RequestSpawnedVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, angle), effectLifeTime);
         if (dir.x < 0) angle += 180;
-        currentAttack.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);
+        //currentAttack.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);
         //PlayerSlashCollision attackSlash = slashEffect.GetComponent<PlayerSlashCollision>();
         //attackSlash.Init(playerController);
         signalHub.OnDissolveEffect?.Invoke(slashEffect, effectLifeTime);
         signalHub.OnScaleEffect?.Invoke(slashEffect, new Vector3(1.25f, 1.25f, 1.25f), effectLifeTime);
       
+    }
+
+    public void RotateSlashCollisions()
+    {
+        Vector3 mousePos = MyUtils.GetMousePos();
+        Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (dir.x < 0) angle += 180;
+
+        foreach(KeyValuePair<ComboState,ComboAttack> kvp in combosDict)
+        {
+            if(kvp.Key == ComboState.None) continue;
+            kvp.Value.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 }

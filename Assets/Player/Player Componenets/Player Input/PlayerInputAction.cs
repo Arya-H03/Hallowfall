@@ -120,19 +120,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DoubleSwing"",
-                    ""type"": ""Button"",
-                    ""id"": ""8dbd18eb-7c3d-4642-9918-335c51e1041a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""DashAttack"",
                     ""type"": ""Button"",
                     ""id"": ""55693191-f4d4-4db1-9aeb-453e367276d6"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -183,10 +174,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ThirdAttack"",
+                    ""name"": ""Potion"",
                     ""type"": ""Button"",
-                    ""id"": ""255b6f87-1368-4cfc-ab84-03cf4477407c"",
-                    ""expectedControlType"": ""Button"",
+                    ""id"": ""2eacde01-9ccb-431a-bc03-71de1b721d25"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -327,17 +318,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c8e3408e-342d-4494-b7fc-e77755ce22ea"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""MultiTap(tapDelay=0.5,tapCount=3)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ThirdAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""51ba7a73-d9a3-4f09-b871-757191b4b650"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -349,12 +329,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fbf2ee2f-d0db-4a5a-a0fe-aa5c1e6e7b11"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""MultiTap(tapDelay=0.25)"",
+                    ""id"": ""9c163da1-5e6b-4d85-b299-30cb481fd3f4"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""DoubleSwing"",
+                    ""action"": ""Potion"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -368,14 +348,13 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Guardian_Movement = m_Guardian.FindAction("Movement", throwIfNotFound: true);
         m_Guardian_Jump = m_Guardian.FindAction("Jump", throwIfNotFound: true);
         m_Guardian_Swing = m_Guardian.FindAction("Swing", throwIfNotFound: true);
-        m_Guardian_DoubleSwing = m_Guardian.FindAction("DoubleSwing", throwIfNotFound: true);
         m_Guardian_DashAttack = m_Guardian.FindAction("DashAttack", throwIfNotFound: true);
         m_Guardian_AirStrike = m_Guardian.FindAction("AirStrike", throwIfNotFound: true);
         m_Guardian_Interact = m_Guardian.FindAction("Interact", throwIfNotFound: true);
         m_Guardian_Roll = m_Guardian.FindAction("Roll", throwIfNotFound: true);
         m_Guardian_Pause = m_Guardian.FindAction("Pause", throwIfNotFound: true);
         m_Guardian_Parry = m_Guardian.FindAction("Parry", throwIfNotFound: true);
-        m_Guardian_ThirdAttack = m_Guardian.FindAction("ThirdAttack", throwIfNotFound: true);
+        m_Guardian_Potion = m_Guardian.FindAction("Potion", throwIfNotFound: true);
     }
 
     ~@PlayerInputAction()
@@ -459,14 +438,13 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guardian_Movement;
     private readonly InputAction m_Guardian_Jump;
     private readonly InputAction m_Guardian_Swing;
-    private readonly InputAction m_Guardian_DoubleSwing;
     private readonly InputAction m_Guardian_DashAttack;
     private readonly InputAction m_Guardian_AirStrike;
     private readonly InputAction m_Guardian_Interact;
     private readonly InputAction m_Guardian_Roll;
     private readonly InputAction m_Guardian_Pause;
     private readonly InputAction m_Guardian_Parry;
-    private readonly InputAction m_Guardian_ThirdAttack;
+    private readonly InputAction m_Guardian_Potion;
     /// <summary>
     /// Provides access to input actions defined in input action map "Guardian".
     /// </summary>
@@ -490,10 +468,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Guardian/Swing".
         /// </summary>
         public InputAction @Swing => m_Wrapper.m_Guardian_Swing;
-        /// <summary>
-        /// Provides access to the underlying input action "Guardian/DoubleSwing".
-        /// </summary>
-        public InputAction @DoubleSwing => m_Wrapper.m_Guardian_DoubleSwing;
         /// <summary>
         /// Provides access to the underlying input action "Guardian/DashAttack".
         /// </summary>
@@ -519,9 +493,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Parry => m_Wrapper.m_Guardian_Parry;
         /// <summary>
-        /// Provides access to the underlying input action "Guardian/ThirdAttack".
+        /// Provides access to the underlying input action "Guardian/Potion".
         /// </summary>
-        public InputAction @ThirdAttack => m_Wrapper.m_Guardian_ThirdAttack;
+        public InputAction @Potion => m_Wrapper.m_Guardian_Potion;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -557,9 +531,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Swing.started += instance.OnSwing;
             @Swing.performed += instance.OnSwing;
             @Swing.canceled += instance.OnSwing;
-            @DoubleSwing.started += instance.OnDoubleSwing;
-            @DoubleSwing.performed += instance.OnDoubleSwing;
-            @DoubleSwing.canceled += instance.OnDoubleSwing;
             @DashAttack.started += instance.OnDashAttack;
             @DashAttack.performed += instance.OnDashAttack;
             @DashAttack.canceled += instance.OnDashAttack;
@@ -578,9 +549,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Parry.started += instance.OnParry;
             @Parry.performed += instance.OnParry;
             @Parry.canceled += instance.OnParry;
-            @ThirdAttack.started += instance.OnThirdAttack;
-            @ThirdAttack.performed += instance.OnThirdAttack;
-            @ThirdAttack.canceled += instance.OnThirdAttack;
+            @Potion.started += instance.OnPotion;
+            @Potion.performed += instance.OnPotion;
+            @Potion.canceled += instance.OnPotion;
         }
 
         /// <summary>
@@ -601,9 +572,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Swing.started -= instance.OnSwing;
             @Swing.performed -= instance.OnSwing;
             @Swing.canceled -= instance.OnSwing;
-            @DoubleSwing.started -= instance.OnDoubleSwing;
-            @DoubleSwing.performed -= instance.OnDoubleSwing;
-            @DoubleSwing.canceled -= instance.OnDoubleSwing;
             @DashAttack.started -= instance.OnDashAttack;
             @DashAttack.performed -= instance.OnDashAttack;
             @DashAttack.canceled -= instance.OnDashAttack;
@@ -622,9 +590,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Parry.started -= instance.OnParry;
             @Parry.performed -= instance.OnParry;
             @Parry.canceled -= instance.OnParry;
-            @ThirdAttack.started -= instance.OnThirdAttack;
-            @ThirdAttack.performed -= instance.OnThirdAttack;
-            @ThirdAttack.canceled -= instance.OnThirdAttack;
+            @Potion.started -= instance.OnPotion;
+            @Potion.performed -= instance.OnPotion;
+            @Potion.canceled -= instance.OnPotion;
         }
 
         /// <summary>
@@ -687,13 +655,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSwing(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "DoubleSwing" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDoubleSwing(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "DashAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -736,11 +697,11 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnParry(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ThirdAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Potion" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnThirdAttack(InputAction.CallbackContext context);
+        void OnPotion(InputAction.CallbackContext context);
     }
 }

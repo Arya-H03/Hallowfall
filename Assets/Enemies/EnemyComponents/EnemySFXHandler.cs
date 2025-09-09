@@ -39,13 +39,13 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
         FillDictionary(); 
     }
 
-    private void OnDisable()
-    {
-        if(signalHub == null) return;
-        signalHub.OnPlayRandomSFX -= PlayRandomSFX;
-        signalHub.OnPlaySFX -= PlaySFX;
-        signalHub.OnPlayHitSFX = PlayHitSFX;
-    }
+    //private void OnDisable()
+    //{
+    //    if(signalHub == null) return;
+    //    signalHub.OnPlayRandomSFX -= PlayRandomSFX;
+    //    signalHub.OnPlaySFX -= PlaySFX;
+    //    signalHub.OnPlayHitSFX = PlayHitSFX;
+    //}
     
     private void FillDictionary()
     {

@@ -50,6 +50,7 @@ public class PlayerInputHandler : MonoBehaviour,IInitializeable<PlayerController
         InputActions.Guardian.Roll.performed += Roll;
         InputActions.Guardian.Parry.performed += StartParry;
         InputActions.Guardian.Pause.performed += Pause;
+        InputActions.Guardian.Potion.performed += UseHealthPostion;
         InputActions.Enable();
     }
 
@@ -67,7 +68,7 @@ public class PlayerInputHandler : MonoBehaviour,IInitializeable<PlayerController
         InputActions.Guardian.Parry.performed -= StartParry;
 
         InputActions.Guardian.Pause.performed -= Pause;
-
+        InputActions.Guardian.Potion.performed -= UseHealthPostion;
 
         InputActions.Disable();
     }
@@ -104,7 +105,10 @@ public class PlayerInputHandler : MonoBehaviour,IInitializeable<PlayerController
     public void DashAttack(InputAction.CallbackContext ctx)
     {
         playerController.OnDashInput();
+    }
 
-        
+    public void UseHealthPostion(InputAction.CallbackContext ctx)
+    {
+        PlayerHealthPotionHandler.Instance.OnHealthPotionUsed?.Invoke();
     }
 }

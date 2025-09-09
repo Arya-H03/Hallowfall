@@ -38,13 +38,13 @@ public class EnemyPhysicsHandler : MonoBehaviour, IInitializeable<EnemyControlle
         signalHub.OnEnemyKnockBack += KnockBackEnemy;
     }
 
-    private void OnDisable()
-    {
-        if (signalHub == null) return;
-        signalHub.OnDisablePhysicsAndCollision -= DisablePhysicsAndCollision;
-        signalHub.OnEnablePhysicsAndCollision -= EnablePhysicsAndCollision;
-        signalHub.OnEnemyKnockBack -= KnockBackEnemy;
-    }
+    //private void OnDisable()
+    //{
+    //    if (signalHub == null) return;
+    //    signalHub.OnDisablePhysicsAndCollision -= DisablePhysicsAndCollision;
+    //    signalHub.OnEnablePhysicsAndCollision -= EnablePhysicsAndCollision;
+    //    signalHub.OnEnemyKnockBack -= KnockBackEnemy;
+    //}
     private void KnockBackEnemy(Vector2 dir,float force)
     {
         StartCoroutine(KnockBackEnemyCoroutine(dir,force));

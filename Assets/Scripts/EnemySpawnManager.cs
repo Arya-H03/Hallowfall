@@ -30,6 +30,8 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField] private float mainWaveDelay = 3;
     [SerializeField] private int waveCounter = 0;
+
+    [SerializeField] AudioClip[] waveIncomingSFX; 
     private void Awake()
     {
         if(instance != null && instance != this)
@@ -52,18 +54,22 @@ public class EnemySpawnManager : MonoBehaviour
         {
             waveCounter++;
             yield return new WaitForSeconds(mainWaveDelay);
-
-            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
+            AudioManager.Instance.PlaySFX(waveIncomingSFX,GameManager.Instance.Player.transform.position, 1);
+            for(int i = 0; i < waveCounter; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition());
 
             yield return new WaitForSeconds(1);
-            for (int i = 0; i < waveCounter - 1 ; i++) SpawnEnemy(EnemyTypeEnum.Spectrum, GenerateRandomSpawnPosition(5));
+            for (int i = 0; i < waveCounter - 3 ; i++) SpawnEnemy(EnemyTypeEnum.Spectrum, GenerateRandomSpawnPosition());
 
-            if (waveCounter >= 5)
+            if (waveCounter >= 3)
             {
-                mainWaveDelay += 2;
-                for (int i = 0; i < (waveCounter / 5) + 1; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition(5));
+                mainWaveDelay += 1;
+                for (int i = 0; i < (waveCounter / 3) + 1; i++) SpawnEnemy(EnemyTypeEnum.Undead, GenerateRandomSpawnPosition());
+                for (int i = 0; i < (waveCounter / 3) + 1; i++) SpawnEnemy(EnemyTypeEnum.Sinner, GenerateRandomSpawnPosition());
             }
 
+
+
+            mainWaveDelay += 1;
 
         }
         
@@ -104,7 +110,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
     }
 
-    private Vector3 GenerateRandomSpawnPosition(float dist)
+    private Vector3 GenerateRandomSpawnPosition()
     {
         Vector3? result = null;
         while(result == null)

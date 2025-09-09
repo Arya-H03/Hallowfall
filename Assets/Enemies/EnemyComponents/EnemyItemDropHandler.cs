@@ -21,11 +21,11 @@ public class EnemyItemDropHandler : MonoBehaviour,IInitializeable<EnemyControlle
         signalHub.OnItemDrop += HandleItemDrop;
     }
 
-    private void OnDisable()
-    {
-        if (signalHub == null) return;
-        signalHub.OnItemDrop -= HandleItemDrop;
-    }
+    //private void OnDisable()
+    //{
+    //    if (signalHub == null) return;
+    //    signalHub.OnItemDrop -= HandleItemDrop;
+    //}
 
     private void HandleItemDrop()
     {      

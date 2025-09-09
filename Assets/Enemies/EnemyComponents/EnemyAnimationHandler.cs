@@ -27,15 +27,15 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
         signalHub.RequestAnimLength += GetAnimationLength;
     }
 
-    private void OnDisable()
-    {
-        if (signalHub == null) return;
-        signalHub.OnAnimTrigger -= SetTriggerForAnimation;
-        signalHub.OnAnimBool -= SetBoolForAnimation;
-        signalHub.OnResetAnimTrigger -= ResetAnimTrigger;
-        signalHub.RequestAnimLength -= GetAnimationLength;
+    //private void OnDisable()
+    //{
+    //    if (signalHub == null) return;
+    //    signalHub.OnAnimTrigger -= SetTriggerForAnimation;
+    //    signalHub.OnAnimBool -= SetBoolForAnimation;
+    //    signalHub.OnResetAnimTrigger -= ResetAnimTrigger;
+    //    signalHub.RequestAnimLength -= GetAnimationLength;
 
-    }
+    //}
 
     private void ResetAnimTrigger(string name)
     {

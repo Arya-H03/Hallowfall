@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -32,22 +33,23 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
 
     }
 
-    private void OnDisable()
-    {
-        if (signalHub == null) return;
+    //private void OnDisable()
+    //{
+    //    if (signalHub == null) return;
 
-        signalHub.OnRestoreFullHealth -= RestoreFullHealth;
-        signalHub.OnRestoreHealth -= RestoreHealth;
-    }
+    //    signalHub.OnRestoreFullHealth -= RestoreFullHealth;
+    //    signalHub.OnRestoreHealth -= RestoreHealth;
+    //}
 
     public void HandleHit(HitInfo hitInfo)
     {
         if (enemyController.IsDead) return;
 
         signalHub.OnAnimTrigger?.Invoke("Hit");
-        //signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
-        ApplyDamage(hitInfo.Damage);
+        signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
 
+        ApplyDamage(hitInfo.Damage);
+      
         Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.AttackerPosition).normalized;
         signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.KnockbackForce);
     }

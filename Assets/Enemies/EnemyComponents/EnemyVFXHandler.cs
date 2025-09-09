@@ -25,13 +25,13 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
 
     }
 
-    private void OnDisable()
-    {
-        //signalHub.OnEnemyHit -= HandleEnemySquash;
-        if (signalHub == null) return;
-        signalHub.OnPlayBloodEffect -= PlayBloodEffect;
-        //signalHub.OnEnemyDamage -= SpawnDamagePopUp;
-    }
+    //private void OnDisable()
+    //{
+    //    //signalHub.OnEnemyHit -= HandleEnemySquash;
+    //    if (signalHub == null) return;
+    //    signalHub.OnPlayBloodEffect -= PlayBloodEffect;
+    //    //signalHub.OnEnemyDamage -= SpawnDamagePopUp;
+    //}
 
     private void HandleEnemySquash(float f, HitSfxType h)
     {

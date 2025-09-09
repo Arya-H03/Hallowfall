@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] Slider masterVolumeSlider;
     [SerializeField] Slider effectsVolumeSlider;
     [SerializeField] Slider musicVolumeSlider;
+
     public static AudioManager Instance
     {
         get
