@@ -16,6 +16,7 @@ public enum ComboState
 [System.Serializable]
 public struct ComboAttackConfigStruct
 {
+    public float moveSpeed;
     public ComboState comboState;
     public int attackDamge;
     public float knockbackForce;
@@ -28,6 +29,7 @@ public class ComboAttack
 {
     public ComboState comboState;
     public int attackDamage;
+    public float moveSpeed;
     public float knockbackForce;
     public GameObject slashEffectPrefab;
     public GameObject slashCollisionPrefab;
@@ -40,6 +42,7 @@ public class ComboAttack
         knockbackForce = config.knockbackForce;
         slashCollisionPrefab = config.slashCollisionPrefab;
         slashEffectPrefab = config.slashEffectPrefab;
+        moveSpeed = config.moveSpeed;
     }
 }
 
@@ -47,8 +50,8 @@ public class PlayerSwordAttackState : PlayerState
 {
     private EnemyDetector enemyDetector;
 
-    private float moveSpeedWhileAttaking = 0;
-    private float hitStopDuration = 0;
+    private float moveSpeedWhileAttaking;
+    private float hitStopDuration;
 
     private Dictionary<ComboState, ComboAttack> combosDict = new Dictionary<ComboState, ComboAttack>();
     private ComboState currentComboState = ComboState.None;
@@ -129,9 +132,15 @@ public class PlayerSwordAttackState : PlayerState
         
     }
 
+    public override void EnterState()
+    {
+        signalHub.OnAllowMovement?.Invoke(true);
+    }
+
     public override void ExitState()
     {
         ResetCombo();
+        signalHub.OnAllowMovement?.Invoke(false);
     }
     #endregion
 
@@ -175,7 +184,9 @@ public class PlayerSwordAttackState : PlayerState
                 break;
         }
 
+        
         currentAttack = combosDict[currentComboState];
+        signalHub.OnChangeMoveSpeed?.Invoke(currentAttack.moveSpeed);
     }
 
     public void OnAttackAnimationComplete()

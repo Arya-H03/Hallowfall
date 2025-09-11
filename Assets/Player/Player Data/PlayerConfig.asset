@@ -31,22 +31,26 @@ MonoBehaviour:
   grassSFX:
   - {fileID: 8300000, guid: 8892b9199e7adc84dbfe412042911a66, type: 3}
   comboAttacks:
-  - comboState: 0
+  - moveSpeed: 0
+    comboState: 0
     attackDamge: 0
     knockbackForce: 0
     slashEffectPrefab: {fileID: 0}
     slashCollisionPrefab: {fileID: 0}
-  - comboState: 1
+  - moveSpeed: 0.75
+    comboState: 1
     attackDamge: 20
     knockbackForce: 2
     slashEffectPrefab: {fileID: 8035721610148658217, guid: 31be50dca6cfa124586f5fabc7c76c5b, type: 3}
     slashCollisionPrefab: {fileID: 8955781490851776381, guid: dc68b0f4790059e459ee1a9261ba7205, type: 3}
-  - comboState: 2
+  - moveSpeed: 0.5
+    comboState: 2
     attackDamge: 25
     knockbackForce: 5
     slashEffectPrefab: {fileID: 5667632423599408628, guid: 7fe6bfdf51af62f4dbd654605b983fdb, type: 3}
     slashCollisionPrefab: {fileID: 6551190355783920334, guid: 2856034e215bf0549b7e25b63efcfc62, type: 3}
-  - comboState: 3
+  - moveSpeed: 0
+    comboState: 3
     attackDamge: 40
     knockbackForce: 3
     slashEffectPrefab: {fileID: 5241420599669219969, guid: 814285f7251a0df44a66d2a2c6e4db4f, type: 3}

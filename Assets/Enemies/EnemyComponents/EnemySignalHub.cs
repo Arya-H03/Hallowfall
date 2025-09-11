@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemySignalHub
 {
-    
+    public Action<EnemyController> OnInitWithEnemyController;
+
     public Action<float,float> OnEnemyHealthChange;
     public Action<Vector2,float> OnEnemyKnockBack;
 

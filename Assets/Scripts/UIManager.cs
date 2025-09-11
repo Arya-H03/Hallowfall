@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI fpsCountText;
 
+    [SerializeField] BossTimer bossTimer;
+
     private PlayerController playerController;
 
     public List<GameObject> listOfFreeAbilitySlots;
@@ -70,6 +72,7 @@ public class UIManager : MonoBehaviour
     public Transform Chargebar1 { get => chargebar1;}
     public Transform Chargebar2 { get => chargebar2; }
     public Transform PotionBar { get => potionBar;}
+    public BossTimer BossTimer { get => bossTimer;}
 
     private void Awake()
     {

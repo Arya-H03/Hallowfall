@@ -63,8 +63,13 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
         CurrentHealth -= damage;
         signalHub.OnPlayBloodEffect?.Invoke();
         TryStagger(amount);
+
+        if (CurrentHealth <= 0) 
+        {
+            CurrentHealth = 0;
+            Die(); 
+        }
         signalHub.OnEnemyHealthChange?.Invoke(MaxHealth, CurrentHealth);
-        if (CurrentHealth <= 0) Die();
     }
 
     public void RestoreFullHealth()

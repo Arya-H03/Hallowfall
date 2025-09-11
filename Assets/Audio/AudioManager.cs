@@ -80,7 +80,8 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlaySFX(AudioClip audioClip, Vector3 spawnPos, float volume)
-    {    
+    {
+        if (!audioClip) return;
         AudioSource audioSource = audioPool.GetFromPool(spawnPos,Quaternion.identity,null).GetComponent<AudioSource>();
 
         audioSource.clip = audioClip;
@@ -98,6 +99,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip[] audioClips, Vector3 spawnPos, float volume)
     {
+        if (audioClips.Length <= 0) return;
         AudioSource audioSource = audioPool.GetFromPool(spawnPos, Quaternion.identity, null).GetComponent<AudioSource>();
 
         audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];

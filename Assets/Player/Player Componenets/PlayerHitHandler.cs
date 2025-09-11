@@ -47,14 +47,16 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
         if (CurrentHealth <= 0) return;
 
         CurrentHealth -= amount;
-        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth, -amount);
+       
         signalHub.OnCameraShake?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.cameraShakeOnHitIntensity);
         signalHub.OnVignetteFlash?.Invoke(playerConfig.cameraShakeOnHitDuration, playerConfig.vignetteFlashOnHitIntensity,playerConfig.vignetteFlashOnHitColor);
         signalHub.OnMaterialFlash?.Invoke(playerConfig.cameraShakeOnHitDuration);
         if (CurrentHealth <= 0)
         {
+            CurrentHealth = 0;
             Die();
         }
+        signalHub.OnPlayerHealthChange?.Invoke(MaxHealth, CurrentHealth, -amount);
     }
 
     public void Die()

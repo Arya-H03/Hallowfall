@@ -27,11 +27,15 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] GameObject sinnerPrefab;
     [SerializeField] GameObject necromancerPrefab;
     [SerializeField] GameObject undeadPrefab;
+    [SerializeField] GameObject death;
 
     [SerializeField] private float mainWaveDelay = 3;
     [SerializeField] private int waveCounter = 0;
+    [SerializeField] private float bossSpawnDelay = 2;
 
-    [SerializeField] AudioClip[] waveIncomingSFX; 
+    [SerializeField] AudioClip[] waveIncomingSFX;
+    
+
     private void Awake()
     {
         if(instance != null && instance != this)
@@ -46,6 +50,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         
         StartCoroutine(MainEnemySpawnCoroutine());
+        StartCoroutine(SpawnBossCoroutine());
     }
 
     private IEnumerator MainEnemySpawnCoroutine()
@@ -75,6 +80,14 @@ public class EnemySpawnManager : MonoBehaviour
         
     }
 
+    private IEnumerator SpawnBossCoroutine()
+    {
+        UIManager.Instance.BossTimer.StartBossTimer(bossSpawnDelay);
+        yield return new WaitForSeconds(bossSpawnDelay);
+        GameObject bossGO = Instantiate(death, GenerateRandomSpawnPosition(), Quaternion.identity);
+        EnemyController enemyController = bossGO.GetComponent<EnemyController>();
+        BossHealthBarHandler.Instance.SetupHealthbar(enemyController);
+    }
     public void SpawnEnemy(EnemyTypeEnum enemyType, Vector3 pos)
     {
         GameObject enemy = null;

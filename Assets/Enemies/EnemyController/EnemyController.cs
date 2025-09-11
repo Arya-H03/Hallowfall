@@ -9,9 +9,9 @@ public class EnemyController : MonoBehaviour
 {
    
     [Header("Data")]
-    [SerializeField] private EnemyConfigSO enemyConfig;
-    [SerializeField] private EnemyTypeEnum enemyType;
-    [SerializeField] private EnemyBehaviorSO[] enemyBehaviors;
+    [SerializeField] protected EnemyConfigSO enemyConfig;
+    [SerializeField] protected EnemyTypeEnum enemyType;
+    [SerializeField] protected EnemyBehaviorSO[] enemyBehaviors;
 
     [Header("Prefabs")]
     [SerializeField] public GameObject stunEffect;
@@ -19,24 +19,24 @@ public class EnemyController : MonoBehaviour
    
     #region Components
 
-    private EnemySignalHub signalHub;
-    private BoxCollider2D boxCollider;
-    private CCoroutineRunner coroutineRunner;
-    private EnemyAnimationHandler enemyAnimationHandler;
-    private EnemyEnvironenmentCheckHandler enemyEnvironenmentCheckHandler;
-    private EnemyHealthbarHandler enemyHealthbarHandler;
-    private EnemyHitHandler enemyHitHandler;
-    private EnemyItemDropHandler enemyItemDropHandler;
-    private EnemyMovementHandler enemyMovementHandler;
-    private EnemyPhysicsHandler enemyPhysicsHandler;
-    private EnemySFXHandler enemySFXHandler;
-    private EnemyVFXHandler enemyVFXHandler;
-    private Material material;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
-    private CDetector detector;
+    protected EnemySignalHub signalHub;
+    protected BoxCollider2D boxCollider;
+    protected CCoroutineRunner coroutineRunner;
+    protected EnemyAnimationHandler enemyAnimationHandler;
+    protected EnemyEnvironenmentCheckHandler enemyEnvironenmentCheckHandler;
+    protected EnemyHealthbarHandler enemyHealthbarHandler;
+    protected EnemyHitHandler enemyHitHandler;
+    protected EnemyItemDropHandler enemyItemDropHandler;
+    protected EnemyMovementHandler enemyMovementHandler;
+    protected EnemyPhysicsHandler enemyPhysicsHandler;
+    protected EnemySFXHandler enemySFXHandler;
+    protected EnemyVFXHandler enemyVFXHandler;
+    protected Material material;
+    protected Rigidbody2D rb;
+    protected SpriteRenderer spriteRenderer;
+    protected CDetector detector;
 
-    private EnemyStateMachine stateMachine;
+    protected EnemyStateMachine stateMachine;
 
     #endregion
 
@@ -154,7 +154,7 @@ public class EnemyController : MonoBehaviour
       
         foreach (var ability in enemyBehaviors) ability.InitBehavior(this);
 
-
+        signalHub.OnInitWithEnemyController?.Invoke(this);
 
         stateMachine.ChangeState(EnemyStateEnum.Chase); 
     }

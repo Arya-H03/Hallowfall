@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf97f82f743c707418da74acce7ef5dc, type: 3}
+  m_Name: DeathConfig
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyConfigSO
+  maxHealth: 60
+  damageModifier: 1
+  maxStagger: 1000
+  timeBetweenStaggers: 5
+  minChaseSpeed: 2
+  maxChaseSpeed: 3
+  minAttackDelay: 0
+  maxAttackDelay: 0
+  abilitylist:
+  - {fileID: 11400000, guid: 01fe1f26c77b9a4448d6416e32901471, type: 2}
+  stunDuration: 2
+  corpseSprite: {fileID: 0}
+  corpseLifeTime: 0
+  bloofVFXPrefabs:
+  - {fileID: 6878304020406498456, guid: a68c921bd90c3d3498f15cecc10f3085, type: 3}
+  - {fileID: 75484156988579803, guid: 561ffd620c922a44d97184a616a0a5be, type: 3}
+  - {fileID: 5027845091527398000, guid: bc1b1084d7e7d1047ac799e7fd4a80d9, type: 3}
+  - {fileID: 8519671031934768056, guid: bab76cf040b3ec742b6074bbe27a4ee1, type: 3}
+  damagePopUpPrefab: {fileID: 3068930537172100448, guid: 60f9427739bff4d48ba656bf64651414, type: 3}
+  hitSFXList:
+  - hitType: 1
+    clips:
+    - {fileID: 8300000, guid: d91a402b04334924295bde84bee00dfe, type: 3}
+    - {fileID: 8300000, guid: 4245c2c6fc3fc8749a7c8eeca3087a9c, type: 3}
+    - {fileID: 8300000, guid: 4935c70243719fa44b4cc354d895a1f4, type: 3}

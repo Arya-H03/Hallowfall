@@ -23,7 +23,7 @@ public class PlayerRollState : PlayerState
     public override void EnterState()
     {
         playerController.IsRolling = true;
-        //playerController.IsImmune = true;
+        playerController.IsImmune = true;
         playerController.CanRoll = false;
 
         signalHub.OnAnimTrigger?.Invoke("Roll");
@@ -39,6 +39,7 @@ public class PlayerRollState : PlayerState
     public override void ExitState()
     {
         playerController.IsRolling = false;
+        
     }
 
     private Vector2 GeRollDirection()
@@ -61,6 +62,7 @@ public class PlayerRollState : PlayerState
     {
         signalHub.OnAfterImageStop?.Invoke();
         signalHub.OnResetVelocity?.Invoke();
+        playerController.IsImmune = false;
         signalHub.OnStateTransitionBasedOnMovement?.Invoke(stateEnum);
     }
 
