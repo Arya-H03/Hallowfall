@@ -37,8 +37,6 @@ public class BossHealthBarHandler : MonoBehaviour
         bossController.SignalHub.OnEnemyHealthChange += UpdateHealthbar;
         bossController.SignalHub.OnEnemyDeathEnd += DisableHealthbar;
 
-        Debug.Log(bossController.EnemyHitHandler.MaxHealth);
-        Debug.Log(bossController.EnemyHitHandler.CurrentHealth);
         UpdateHealthbar(bossController.EnemyHitHandler.MaxHealth, bossController.EnemyHitHandler.CurrentHealth);
 
         foreground.gameObject.SetActive(true);

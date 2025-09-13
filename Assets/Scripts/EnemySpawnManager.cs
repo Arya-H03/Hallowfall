@@ -49,7 +49,7 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         
-        StartCoroutine(MainEnemySpawnCoroutine());
+        //StartCoroutine(MainEnemySpawnCoroutine());
         StartCoroutine(SpawnBossCoroutine());
     }
 

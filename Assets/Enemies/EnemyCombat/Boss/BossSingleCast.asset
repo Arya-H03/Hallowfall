@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d0748a316dc534aac2db0ae3365672, type: 3}
+  m_Name: BossSingleCast
+  m_EditorClassIdentifier: Assembly-CSharp::BossSingleCast
+  cooldown: 3
+  range: 20
+  animCondition: isCasting
+  abilitySFX: []
+  projectileTop: {fileID: 4149031125767113927, guid: 2320260bce1a00642bbe981bec5a4746, type: 3}
+  projectileDown: {fileID: 0}
+  projectileLeft: {fileID: 0}
+  projectileRight: {fileID: 0}
+  projectileTopRight: {fileID: 0}
+  projectileTopLeft: {fileID: 0}
+  projectileDownRight: {fileID: 0}
+  projectileDownLeft: {fileID: 0}
