@@ -38,4 +38,6 @@ public class EnemySignalHub
 
     public Action OnEnemyDeathBegin;
     public Action OnEnemyDeathEnd;
+
+    public Action<float,Color> OnEnemyFlash;
 }

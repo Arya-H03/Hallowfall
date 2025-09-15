@@ -61,6 +61,7 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
 
         int damage = (int)(amount * DamageModifier);
         CurrentHealth -= damage;
+        if (enemyController.CanFlashOnHit) signalHub.OnEnemyFlash?.Invoke(0.15f, Color.white);
         signalHub.OnPlayBloodEffect?.Invoke();
         TryStagger(amount);
 

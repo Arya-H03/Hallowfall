@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Xml.Serialization;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.Rendering.STP;
 
 public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
 {
+
     private EnemyController enemyController;
     private EnemyConfigSO enemyConfig;
     private EnemySignalHub signalHub;
+    private Material enemyMat;
 
     private Coroutine squashCoroutine;
     private Vector3 originalScale;
 
+    int flashID = Shader.PropertyToID("_Flash");
+    int flashColorID = Shader.PropertyToID("_FlashColor");
     public void Init(EnemyController enemyController)
     {
         this.enemyController = enemyController;
         this.enemyConfig = enemyController.EnemyConfig;
         this.signalHub = enemyController.SignalHub;
         originalScale = enemyController.transform.localScale;
+        enemyMat = enemyController.Material;
         //signalHub.OnEnemyHit += HandleEnemySquash;
+        signalHub.OnEnemyFlash += FlashMaterial;
 
         signalHub.OnPlayBloodEffect += PlayBloodEffect;
      
@@ -97,10 +104,40 @@ public class EnemyVFXHandler : MonoBehaviour,IInitializeable<EnemyController>
         var obj = Instantiate(enemyConfig.damagePopUpPrefab, transform.position + Vector3.up, Quaternion.identity);
         obj.SetText(damage.ToString());
     }
-    //public IEnumerator EnemyHitCoroutine(float damageAmount, Vector2 hitPoint, HitSfxType hitType, float knockbackForce)
-    //{     
-    //    //playerMat.SetFloat("_Flash", 1);   
-    //    yield return new WaitForSeconds(0.1f);
-    //    //playerMat.SetFloat("_Flash", 0);
-    //}
+
+    private void FlashMaterial(float duration,Color flashColor)
+    {
+        StartCoroutine(FlashMaterialCoroutine(duration, flashColor));
+    }
+    private IEnumerator FlashMaterialCoroutine(float duration, Color flashColor)
+    {
+        float timer = 0;
+
+        enemyMat.SetColor(flashColorID, flashColor);
+        while (timer < duration / 2)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            float value = Mathf.Lerp(0, 2, t);
+            enemyMat.SetFloat(flashID, value);
+            
+
+            yield return null;
+        }
+        enemyMat.SetFloat(flashID, 2);
+
+        timer = 0;
+
+        while (timer < duration / 2)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            float value = Mathf.Lerp(2, 0, t);
+            enemyMat.SetFloat(flashID, value);
+            yield return null;
+        }
+        enemyMat.SetColor(flashColorID, Color.black);
+        enemyMat.SetFloat(flashID, 0);
+
+    }
 }

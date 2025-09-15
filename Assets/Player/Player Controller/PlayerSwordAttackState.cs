@@ -215,7 +215,7 @@ public class PlayerSwordAttackState : PlayerState
     private void HandleHittingTarget()
     {
         HandleSlashEffect(0.3f);
-
+        if (currentAttack.slashCollisionRef == null|| currentAttack.slashCollisionRef.EnemyTargets == null || currentAttack.slashCollisionRef.EnemyTargets.Count == 0) return;
         List<EnemyController> targets = new List<EnemyController>(currentAttack.slashCollisionRef.EnemyTargets);
 
         foreach (EnemyController enemy in targets)
@@ -242,7 +242,7 @@ public class PlayerSwordAttackState : PlayerState
     private void TryHit(EnemyController enemy,int damage, float force)
     {
         Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force });
+        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force, isImmuneable = false });
 
         HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
     }
@@ -250,7 +250,7 @@ public class PlayerSwordAttackState : PlayerState
     private void TryHit(EnemyController enemy)
     {
         Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = currentAttack.attackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = currentAttack.knockbackForce });
+        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = currentAttack.attackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = currentAttack.knockbackForce , isImmuneable = false });
 
         HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
              
@@ -265,9 +265,11 @@ public class PlayerSwordAttackState : PlayerState
 
     private void HandleSlashEffect(float effectLifeTime)
     {
+        if (currentAttack.slashEffectPrefab == null) return;
         Vector3 mousePos = MyUtils.GetMousePos();
         Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
+        
         GameObject slashEffect = signalHub.RequestSpawnedVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, angle), effectLifeTime);
         if (dir.x < 0) angle += 180;
         //currentAttack.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);

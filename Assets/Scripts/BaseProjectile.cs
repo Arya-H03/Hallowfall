@@ -72,8 +72,8 @@ public class BaseProjectile : MonoBehaviour, IProjectile
     public void SetProjectileCourseToRandomOffSet(Transform target)
     {
         Vector3 dir = (target.transform.position - this.transform.position).normalized;
-        float xOffset = dir.x >= 0 ? Random.Range(1, 12f) : Random.Range(-12f, -1);
-        float yOffset = dir.y >= 0 ? Random.Range(1, 12f) : Random.Range(-12f, -1);
+        float xOffset = dir.x >= 0 ? Random.Range(4, 12f) : Random.Range(-12f, -4);
+        float yOffset = dir.y >= 0 ? Random.Range(4, 12f) : Random.Range(-12f, -4);
         Vector3 offSet = new Vector3(xOffset, yOffset);
 
         RotateProjectileToDirection(dir + offSet);
@@ -229,7 +229,7 @@ public class BaseProjectile : MonoBehaviour, IProjectile
     {
         if(collision.CompareTag(TargetTag))
         {
-            collision.gameObject.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = this.Damage });
+            collision.gameObject.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = this.Damage, isImmuneable = false });
             Destroy(0);
         }
     }

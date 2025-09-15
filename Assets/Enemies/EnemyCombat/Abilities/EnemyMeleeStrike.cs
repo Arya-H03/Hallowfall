@@ -17,11 +17,12 @@ public class EnemyMeleeStrike : BaseEnemyAbilitySO
         attackZone = Instantiate(attackZonePrefab,enemy.GetEnemyPos(),Quaternion.identity);
         SetupAttackZone(attackZone.gameObject,enemy);
         attackZone.Init(new EnemyMeleeStrikeData { owner = enemy, strikeDamage = this.strikeDamage, parryDamage = this.parryDamage });
-        enemy.SignalHub.OnPlayRandomSFX?.Invoke(abilitySFX, 0.075f);
+        
     }
 
     public override void ActionOnAnimFrame(EnemyController enemy)
-    {     
+    {
+        enemy.SignalHub.OnPlayRandomSFX?.Invoke(abilitySFX, 0.075f);
         if (attackZone != null) 
         {
             attackZone.TryHitTarget(enemy);            

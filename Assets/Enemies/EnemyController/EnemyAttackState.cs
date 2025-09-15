@@ -39,7 +39,9 @@ public class EnemyAttackState : EnemyState
             enemyController.CanAttack = false;
             enemyController.IsAttacking = true;
 
+            signalHub.OnEnemyFlash?.Invoke(0.5f, Color.darkRed);
             signalHub.OnAbilityStart.Invoke(currentAbility);
+            
 
             enemyController.CoroutineRunner.RunCoroutine(PutAbilityOnCooldownCoroutine(currentAbility));
 

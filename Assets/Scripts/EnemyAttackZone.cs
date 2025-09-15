@@ -34,7 +34,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
         }
         else if(target)
         {
-            target.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = strikeDamage});
+            target.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = strikeDamage, isImmuneable = true });
         }
 
         Destroy(this.gameObject);

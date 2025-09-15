@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected EnemyConfigSO enemyConfig;
     [SerializeField] protected EnemyTypeEnum enemyType;
     [SerializeField] protected EnemyBehaviorSO[] enemyBehaviors;
+    [SerializeField] bool canFlashOnHit = false;
 
     [Header("Prefabs")]
     [SerializeField] public GameObject stunEffect;
@@ -107,7 +108,8 @@ public class EnemyController : MonoBehaviour
     public bool IsStuned { get => isStuned; set => isStuned = value; }
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
-   
+    public bool CanFlashOnHit { get => canFlashOnHit;}
+
 
 
 

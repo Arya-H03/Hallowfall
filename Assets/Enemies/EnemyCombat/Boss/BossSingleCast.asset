@@ -12,15 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0748a316dc534aac2db0ae3365672, type: 3}
   m_Name: BossSingleCast
   m_EditorClassIdentifier: Assembly-CSharp::BossSingleCast
-  cooldown: 3
-  range: 20
+  cooldown: 8
+  range: 8
   animCondition: isCasting
-  abilitySFX: []
-  projectileTop: {fileID: 4149031125767113927, guid: 2320260bce1a00642bbe981bec5a4746, type: 3}
-  projectileDown: {fileID: 0}
-  projectileLeft: {fileID: 0}
-  projectileRight: {fileID: 0}
-  projectileTopRight: {fileID: 0}
-  projectileTopLeft: {fileID: 0}
-  projectileDownRight: {fileID: 0}
-  projectileDownLeft: {fileID: 0}
+  abilitySFX:
+  - {fileID: 8300000, guid: 63496705482bf864da859392c05aa553, type: 3}
+  - {fileID: 8300000, guid: 8fa31f597f5023b42be9a46c5e18f486, type: 3}
+  - {fileID: 8300000, guid: b9f3f9b0bc8e5d148a7a760d5c7b53c7, type: 3}
+  projectile: {fileID: 4149031125767113927, guid: 2320260bce1a00642bbe981bec5a4746, type: 3}
+  spawnCount: 3

@@ -16,7 +16,7 @@ MonoBehaviour:
   range: 2.2
   animCondition: isMeleeAttacking
   abilitySFX:
-  - {fileID: 8300000, guid: e198a810ec777004bafb0b4382826555, type: 3}
+  - {fileID: 8300000, guid: e6ac4fa9fa8fe9e4ba43fe551b37441e, type: 3}
   attackZonePrefab: {fileID: 6002917993455791366, guid: 2df39a447d64c8b47b23f087ab9cf425, type: 3}
-  strikeDamage: 50
+  strikeDamage: 25
   parryDamage: 20

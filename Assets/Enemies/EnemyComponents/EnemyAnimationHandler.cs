@@ -72,6 +72,10 @@ public class EnemyAnimationHandler : MonoBehaviour, IInitializeable<EnemyControl
         return animator.runtimeAnimatorController.animationClips.First(clip => clip.name == name).length;
     }
 
+    public void EnemyAttackWarningFlash()
+    {
+        //signalHub.OnEnemyFlash?.Invoke(0.5f, Color.darkRed);
+    }
 }
 
 

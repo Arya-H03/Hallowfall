@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf97f82f743c707418da74acce7ef5dc, type: 3}
   m_Name: DeathConfig
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfigSO
-  maxHealth: 60
+  maxHealth: 400
   damageModifier: 1
   maxStagger: 1000
   timeBetweenStaggers: 5
   minChaseSpeed: 2
   maxChaseSpeed: 3
-  minAttackDelay: 0
-  maxAttackDelay: 0
+  minAttackDelay: 1
+  maxAttackDelay: 1.5
   abilitylist:
   - {fileID: 11400000, guid: ce570761bc2a68749bfa6c1c799f9d4c, type: 2}
+  - {fileID: 11400000, guid: ccee2869e4874624d8deb4c1c01e4e7a, type: 2}
+  - {fileID: 11400000, guid: 01fe1f26c77b9a4448d6416e32901471, type: 2}
   stunDuration: 2
   corpseSprite: {fileID: 0}
   corpseLifeTime: 0
