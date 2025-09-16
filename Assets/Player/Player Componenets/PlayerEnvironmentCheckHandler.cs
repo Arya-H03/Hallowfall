@@ -57,7 +57,8 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
 
     private void CheckIfPlayerOnTreeTilemap()
     {
-        Tilemap tilemap = ZoneManager.Instance.GetCurrentZoneHandler().TreeTilemap;
+        Tilemap tilemap = ZoneManager.Instance?.GetCurrentZoneHandler()?.TreeTilemap;
+        if(tilemap ==null) return;
         if(lastTreeTilemap == null) lastTreeTilemap = tilemap;
 
         if(lastTreeTilemap != tilemap)

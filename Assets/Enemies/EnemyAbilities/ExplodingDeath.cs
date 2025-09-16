@@ -6,11 +6,11 @@ using UnityEngine;
 public class ExplodingDeath : EnemyBehaviorSO
 {
     [SerializeField] GameObject explosionVFX;
-    [SerializeField] GameObject attackZonePrefab;
+    [SerializeField] EnemyAttackZone attackZonePrefab;
     [SerializeField] AudioClip explosionSFX;
-    [SerializeField] float damage = 20;
+    [SerializeField] int damage = 20;
 
-    private GameObject attackZoneGO;
+    private EnemyAttackZone attackZone;
     private EnemyController enemyController;
 
     public override void InitBehavior(EnemyController enemyController)
@@ -22,27 +22,22 @@ public class ExplodingDeath : EnemyBehaviorSO
 
     private void CreateAttackZone()
     {
-        attackZoneGO = Instantiate(attackZonePrefab, enemyController.GetEnemyPos(),Quaternion.identity);
-        attackZoneGO.transform.parent = enemyController.transform;
+        attackZone = Instantiate(attackZonePrefab, enemyController.GetEnemyPos(),Quaternion.identity);
+        attackZone.transform.parent = enemyController.transform;
+        attackZone.transform.position = enemyController.transform.position;
+        attackZone.Init(new EnemyMeleeStrikeData { owner = enemyController, strikeDamage = damage, parryDamage = 0 });
     }
     private void CreateExplosion()
     {
         Instantiate(explosionVFX, enemyController.GetEnemyPos(), Quaternion.identity);
         enemyController.SignalHub.OnPlaySFX?.Invoke(explosionSFX, 0.25f);
             
-        if(attackZoneGO)
+        if(attackZone)
         {
-            EnemyAttackZone attackZone = attackZoneGO.GetComponent<EnemyAttackZone>();
-            if (attackZone != null)
-            {
-                attackZone.TryHitTarget(enemyController);
-                //attackZone.Target.GetComponent<PlayerController>().TryHitPlayer(damage);
-            }
-
-
+            attackZone.TryHitTarget(enemyController);
         }
 
-        Destroy(attackZoneGO);
+        Destroy(attackZone.gameObject);
 
 
     }

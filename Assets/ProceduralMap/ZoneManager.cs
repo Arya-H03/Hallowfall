@@ -65,8 +65,6 @@ public class ZoneManager : MonoBehaviour
         player = GameManager.Instance.Player;
         
         cTicker.CanTick = true;
-
-
         TryGenerateZone(Vector2Int.zero, DirectionEnum.None);
         //ObjectPoolManager.Instance.GenerateEnemyPools();
 
@@ -118,7 +116,10 @@ public class ZoneManager : MonoBehaviour
 
     public ZoneHandler GetCurrentZoneHandler()
     {
-        return generatedZonesDic[GetCurrentZoneCenterCoord()].ZoneHandler;
+        generatedZonesDic.TryGetValue(GetCurrentZoneCenterCoord(), out ZoneData zonedata);
+        return zonedata?.ZoneHandler;
+
+        //return generatedZonesDic[GetCurrentZoneCenterCoord()].ZoneHandler;
     }
 
     private Vector3Int FindZoneCenterPosition(Vector2Int centerCoord)

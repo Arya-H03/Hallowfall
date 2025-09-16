@@ -11,7 +11,7 @@ using Image = UnityEngine.UI.Image;
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
-
+    [SerializeField] Canvas worldCanvas;
     [SerializeField] DialogueBox dialogueBox;
 
     [SerializeField] GameObject pauseMenu;
@@ -73,6 +73,7 @@ public class UIManager : MonoBehaviour
     public Transform Chargebar2 { get => chargebar2; }
     public Transform PotionBar { get => potionBar;}
     public BossTimer BossTimer { get => bossTimer;}
+    public Canvas WorldCanvas { get => worldCanvas; }
 
     private void Awake()
     {

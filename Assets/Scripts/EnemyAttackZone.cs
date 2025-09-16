@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeData>
 {
+    
     private GameObject target;
     private GameObject parryShield;
     private EnemyController owner;
@@ -13,7 +14,8 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
     private float parryDamage;
 
     [SerializeField] private bool canAttackBeParried = true;
-  
+    [SerializeField] bool isImmuneable = false;
+
 
     public void Init(EnemyMeleeStrikeData data)
     {
@@ -34,7 +36,7 @@ public class EnemyAttackZone : MonoBehaviour,IInitializeable<EnemyMeleeStrikeDat
         }
         else if(target)
         {
-            target.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = strikeDamage, isImmuneable = true });
+            target.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = strikeDamage, isImmuneable = this.isImmuneable });
         }
 
         Destroy(this.gameObject);

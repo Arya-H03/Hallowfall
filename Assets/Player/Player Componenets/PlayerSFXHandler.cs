@@ -34,12 +34,13 @@ public class PlayerSFXHandler : MonoBehaviour, IInitializeable<PlayerController>
         audioManager.PlaySFX(audioClip, playerController.GetPlayerPos(), volume);
     }
 
-    public void PlayRandomSFX(AudioClip []audioClip, float volume)
+    public void PlayRandomSFX(AudioClip[] audioClip, float volume)
     {
         audioManager.PlaySFX(audioClip, playerController.GetPlayerPos(), volume);
     }
     public void PlayStepSound()
     {
+
         switch (playerController.CurrentFloorType)
         {
             case FloorTypeEnum.Ground:

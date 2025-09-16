@@ -11,7 +11,8 @@ public class EnemyController : MonoBehaviour
     [Header("Data")]
     [SerializeField] protected EnemyConfigSO enemyConfig;
     [SerializeField] protected EnemyTypeEnum enemyType;
-    [SerializeField] protected EnemyBehaviorSO[] enemyBehaviors;
+    [SerializeField] protected List<EnemyBehaviorSO> listOfBehaviorSO;
+    private List<EnemyBehaviorSO> listOfBehaviors;
     [SerializeField] bool canFlashOnHit = false;
 
     [Header("Prefabs")]
@@ -97,6 +98,7 @@ public class EnemyController : MonoBehaviour
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public CDetector Detector { get => detector; }
     public List<EnemyBaseAttack> Attacks => attacks;
+    public List<EnemyBehaviorSO> ListOfBehaviors { get => listOfBehaviors; }
 
     public bool CanMove { get => canMove; set => canMove = value; }
     public bool IsBeingknocked { get => isBeingknocked; set => isBeingknocked = value; }
@@ -109,6 +111,7 @@ public class EnemyController : MonoBehaviour
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public bool IsAttackDelayOver { get => isAttackDelayOver; set => isAttackDelayOver = value; }
     public bool CanFlashOnHit { get => canFlashOnHit;}
+    
 
 
 
@@ -153,8 +156,14 @@ public class EnemyController : MonoBehaviour
 
         //Call after Dependency Injection
         stateMachine.InitAllStates();
-      
-        foreach (var ability in enemyBehaviors) ability.InitBehavior(this);
+
+        listOfBehaviors = new List<EnemyBehaviorSO>();
+        foreach (var behavior in listOfBehaviorSO)
+        {
+            var copy = Instantiate(behavior);
+            listOfBehaviors.Add(copy);
+            copy.InitBehavior(this);
+        }
 
         signalHub.OnInitWithEnemyController?.Invoke(this);
 

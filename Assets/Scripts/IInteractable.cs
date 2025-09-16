@@ -7,7 +7,6 @@ public interface IInteractable
 {
 
     public void Interact(InputAction.CallbackContext ctx);
-
     public void OnIntercationBegin();
     public void OnIntercationEnd();
 }

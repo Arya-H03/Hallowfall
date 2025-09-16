@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DeathExplosion
   m_EditorClassIdentifier: 
   explosionVFX: {fileID: 1717146494003728187, guid: 4ba4f75736b838948ac23cf21ff7ba44, type: 3}
-  attackZonePrefab: {fileID: 21755520655178558, guid: 168228d751af89a4992173c3ed0a4971, type: 3}
+  attackZonePrefab: {fileID: 719441939471803738, guid: 168228d751af89a4992173c3ed0a4971, type: 3}
   explosionSFX: {fileID: 8300000, guid: e2259b95b4c563b498b1960e5eff49ae, type: 3}
   damage: 35

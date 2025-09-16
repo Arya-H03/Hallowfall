@@ -34,8 +34,8 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private float bossSpawnDelay = 2;
 
     [SerializeField] AudioClip[] waveIncomingSFX;
-    
 
+    private Coroutine mobWavesCoroutine;
     private void Awake()
     {
         if(instance != null && instance != this)
@@ -48,8 +48,8 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        
-        //StartCoroutine(MainEnemySpawnCoroutine());
+
+        mobWavesCoroutine =StartCoroutine(MainEnemySpawnCoroutine());
         StartCoroutine(SpawnBossCoroutine());
     }
 
@@ -87,6 +87,8 @@ public class EnemySpawnManager : MonoBehaviour
         GameObject bossGO = Instantiate(death, GenerateRandomSpawnPosition(), Quaternion.identity);
         EnemyController enemyController = bossGO.GetComponent<EnemyController>();
         BossHealthBarHandler.Instance.SetupHealthbar(enemyController);
+
+        StopCoroutine(mobWavesCoroutine);
     }
     public void SpawnEnemy(EnemyTypeEnum enemyType, Vector3 pos)
     {

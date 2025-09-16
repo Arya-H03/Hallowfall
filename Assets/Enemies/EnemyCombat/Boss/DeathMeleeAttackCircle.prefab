@@ -65,6 +65,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 719441939471803738, guid: 168228d751af89a4992173c3ed0a4971, type: 3}
+      propertyPath: isImmuneable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 719441939471803738, guid: 168228d751af89a4992173c3ed0a4971, type: 3}
       propertyPath: canAttackBeParried
       value: 1
       objectReference: {fileID: 0}
