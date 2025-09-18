@@ -45,6 +45,7 @@ public class GraveyardEntranceGate : MonoBehaviour,IInteractable
     public void OnIntercationEnd()
     {
         PlayerInputHandler.Instance.InputActions.Guardian.Interact.performed -= Interact;
-        interactionIcon.SetActive(false);
+        if(interactionIcon) interactionIcon.SetActive(false);
+
     }
 }

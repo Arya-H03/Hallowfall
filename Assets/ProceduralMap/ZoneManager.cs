@@ -107,6 +107,7 @@ public class ZoneManager : MonoBehaviour
 
     private Vector2Int GetCurrentZoneCenterCoord()
     {
+        if (player == null) return Vector2Int.zero;
         Vector3 pos = player.transform.position;
         return new Vector2Int(
             Mathf.FloorToInt((pos.x + halfZoneSize) / zoneSize),

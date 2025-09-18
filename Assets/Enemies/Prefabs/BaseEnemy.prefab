@@ -826,7 +826,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyConfig: {fileID: 11400000, guid: bc98e720d59eb0a45a1a6147339894db, type: 2}
   enemyType: 4
-  enemyBehaviors: []
+  listOfBehaviorSO: []
+  canFlashOnHit: 0
   stunEffect: {fileID: 2115942660256956688}
 --- !u!114 &5000998446449617028
 MonoBehaviour:
@@ -877,7 +878,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9127336270324118875}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -900,7 +901,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
