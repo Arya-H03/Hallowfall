@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAbilityHandler : MonoBehaviour
 {
+    
     [SerializeField] private List<PlayerBaseAbilitySO> playerAbilityPool = new();
     [SerializeField] private Dictionary<PlayerBaseAbilitySO, bool> playerAbilityDictionary = new();
 

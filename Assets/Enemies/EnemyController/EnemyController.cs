@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CCoroutineRunner))]
 [RequireComponent(typeof(CDetector))]
-public class EnemyController : MonoBehaviour
+public class EnemyController : EntityController
 {
    
     [Header("Data")]

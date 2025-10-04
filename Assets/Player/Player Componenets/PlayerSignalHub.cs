@@ -68,6 +68,7 @@ public class PlayerSignalHub
     public Action OnSwordAttackHitFrame;
     public Action OnSwordAttackSFXFrame;
     public Action OnSwordSwingEnd;
+    public Action <EnemyController,int>OnEnemyHit;
 
     //Parry
     public Action OnActivatingParryShield;

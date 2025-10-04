@@ -259,6 +259,12 @@ public static class MyUtils
             : (T?)null;
     }
 
+    public static bool EvaluateChance(float percentChance) // chance has to be in %. 
+    {
+        float chanceWeight = percentChance * 100;
+
+        return (chanceWeight >= (int)Random.Range(1, 101)); 
+    }
     // -------------------------
     //  Bounds Utilities
     // -------------------------

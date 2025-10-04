@@ -35,11 +35,12 @@ public class PlayerHitHandler : MonoBehaviour, IInitializeable<PlayerController>
     }
 
 
-    public void HandleHit(HitInfo hitInfo)
+    public bool HandleHit(HitInfo hitInfo)
     {
-        if (playerController.IsDead || (playerController.IsImmune && hitInfo.isImmuneable == true)) return;
+        if (playerController.IsDead || (playerController.IsImmune && hitInfo.isImmuneable == true)) return false;
         ApplyDamage(hitInfo.Damage);
         signalHub.OnPlaySFX?.Invoke(playerConfig.hitSFX,0.25f);
+        return true;
     }
 
     public void ApplyDamage(int amount)

@@ -14,9 +14,7 @@ public class EnemyDeathState : EnemyState
     }
     public override void EnterState()
     {
-        enemyController.IsDead = true;
-
-       
+        enemyController.IsDead = true;      
         enemyController.CoroutineRunner.StartCoroutine(HandleDeathCoroutine());
     }
 

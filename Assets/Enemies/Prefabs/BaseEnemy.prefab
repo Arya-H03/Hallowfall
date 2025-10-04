@@ -824,6 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb854920733deeb4c87f5a68b299e19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityType: 1
   enemyConfig: {fileID: 11400000, guid: bc98e720d59eb0a45a1a6147339894db, type: 2}
   enemyType: 4
   listOfBehaviorSO: []

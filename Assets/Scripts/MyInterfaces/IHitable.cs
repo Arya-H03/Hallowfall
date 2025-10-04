@@ -19,5 +19,5 @@ public struct HitInfo
 }
 public interface IHitable
 {
-    void HandleHit(HitInfo hitInfo);
+    bool HandleHit(HitInfo hitInfo);
 }

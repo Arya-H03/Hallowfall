@@ -72,11 +72,12 @@ public class PlayerSwordAttackState : PlayerState
 
         enemyDetector = playerController.EnemyDetector;
 
-        signalHub.OnSwordAttackHitFrame += HandleHittingTarget;
+        signalHub.OnSwordAttackHitFrame += HandleHittingTargetWithSwordAttacks;
         signalHub.OnSwordAttackSFXFrame += () => { signalHub.OnPlayRandomSFX?.Invoke(attackSwingSFX, 0.5f); };
+        signalHub.OnEnemyHit += (enemy,damge) => { CreateSwordImpactEffect(enemy);};
 
         signalHub.OnSwordSwingEnd += OnAttackAnimationComplete;
-        signalHub.OnParryAttackHit += HandleHittingTargetForParryAttack;
+        signalHub.OnParryAttackHit += HandleHittingTargetWithParryAttack;
 
         
         hitSparkPrefab = playerConfig.hitEffect;
@@ -212,58 +213,55 @@ public class PlayerSwordAttackState : PlayerState
 
     #endregion
  
-    private void HandleHittingTarget()
+    private void HandleHittingTargetWithSwordAttacks()
     {
-        HandleSlashEffect(0.3f);
+        CreateSworkSlashEffect(0.3f);
         if (currentAttack.slashCollisionRef == null|| currentAttack.slashCollisionRef.EnemyTargets == null || currentAttack.slashCollisionRef.EnemyTargets.Count == 0) return;
         List<EnemyController> targets = new List<EnemyController>(currentAttack.slashCollisionRef.EnemyTargets);
 
         foreach (EnemyController enemy in targets)
-        {
-            TryHit(enemy);
+        {          
+            TryHitWithSwordAttack(enemy);
         }
-       
-
         GameManager.Instance.StopTime(hitStopDuration);
-
     }
-    private void HandleHittingTargetForParryAttack()
+    private void HandleHittingTargetWithParryAttack()
     {
 
         List<EnemyController> targets = new List<EnemyController>(combosDict[ComboState.Attack2].slashCollisionRef.EnemyTargets);
         foreach (EnemyController enemy in targets)
         {
-            TryHit(enemy, combosDict[ComboState.Attack2].attackDamage, combosDict[ComboState.Attack2].knockbackForce);
+            TryHitWithParryAttack(enemy, combosDict[ComboState.Attack2].attackDamage, combosDict[ComboState.Attack2].knockbackForce);
         }
 
         GameManager.Instance.StopTime(hitStopDuration);
     }
 
-    private void TryHit(EnemyController enemy,int damage, float force)
-    {
-        Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force, isImmuneable = false });
-
-        HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
+    private void TryHitWithParryAttack(EnemyController enemy,int damage, float force)
+    {     
+        bool isHit = enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force, isImmuneable = false });
+        if (isHit) signalHub.OnEnemyHit?.Invoke(enemy, damage);
     }
 
-    private void TryHit(EnemyController enemy)
-    {
-        Vector2 dirVectorFromPlayerToEnemy = (playerController.GetPlayerPos() - enemy.GetEnemyPos()).normalized;
-        enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = currentAttack.attackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = currentAttack.knockbackForce , isImmuneable = false });
+    private void TryHitWithSwordAttack(EnemyController enemy)
+    {      
+        bool isHit = enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = currentAttack.attackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = currentAttack.knockbackForce , isImmuneable = false });
+        if (isHit)
+        {
+            signalHub.OnEnemyHit?.Invoke(enemy, currentAttack.attackDamage);
+        }
 
-        HandleHitEffects(enemy, dirVectorFromPlayerToEnemy);
-             
     }
-    private void HandleHitEffects(EnemyController enemyController, Vector2 dir)
+    private void CreateSwordImpactEffect(EnemyController enemyController)
     {
+        Vector2 dir = (playerController.GetPlayerPos() - enemyController.GetEnemyPos()).normalized;
         Vector3 randPos = new Vector3(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f), 0);
         Vector3 originScale = hitSparkPrefab.transform.localScale;
         Vector3 newScale = dir.x < 0 ? new Vector3(Mathf.Abs(originScale.x), originScale.y, originScale.z) : new Vector3(-Mathf.Abs(originScale.x), originScale.y, originScale.z);
         signalHub.OnSpawnScaledVFX?.Invoke(hitSparkPrefab, enemyController.GetEnemyPos() + randPos, Quaternion.identity, 2, newScale);  
     }
 
-    private void HandleSlashEffect(float effectLifeTime)
+    private void CreateSworkSlashEffect(float effectLifeTime)
     {
         if (currentAttack.slashEffectPrefab == null) return;
         Vector3 mousePos = MyUtils.GetMousePos();
@@ -272,15 +270,11 @@ public class PlayerSwordAttackState : PlayerState
         
         GameObject slashEffect = signalHub.RequestSpawnedVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, angle), effectLifeTime);
         if (dir.x < 0) angle += 180;
-        //currentAttack.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);
-        //PlayerSlashCollision attackSlash = slashEffect.GetComponent<PlayerSlashCollision>();
-        //attackSlash.Init(playerController);
         signalHub.OnDissolveEffect?.Invoke(slashEffect, effectLifeTime);
         signalHub.OnScaleEffect?.Invoke(slashEffect, new Vector3(1.25f, 1.25f, 1.25f), effectLifeTime);
       
     }
-
-    public void RotateSlashCollisions()
+    private void RotateSlashCollisions()
     {
         Vector3 mousePos = MyUtils.GetMousePos();
         Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;

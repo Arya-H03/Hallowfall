@@ -41,26 +41,30 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
     //    signalHub.OnRestoreHealth -= RestoreHealth;
     //}
 
-    public void HandleHit(HitInfo hitInfo)
+    public bool HandleHit(HitInfo hitInfo)
     {
-        if (enemyController.IsDead) return;
+        if (enemyController.IsDead) return false;
 
         signalHub.OnAnimTrigger?.Invoke("Hit");
-        signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
 
-        ApplyDamage(hitInfo.Damage);
+        if(hitInfo.HitSfx != HitSfxType.none) signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
+        
+        ApplyDamage((int)(hitInfo.Damage * DamageModifier));
       
-        Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.AttackerPosition).normalized;
-        signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.KnockbackForce);
+        if(hitInfo.KnockbackForce > 0)
+        {
+            Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.AttackerPosition).normalized;
+            signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.KnockbackForce);
+        }    
+
+        return true;
     }
 
  
     public void ApplyDamage(int amount)
     {
         if (enemyController.IsDead) return;
-
-        int damage = (int)(amount * DamageModifier);
-        CurrentHealth -= damage;
+        CurrentHealth -= amount;
         if (enemyController.CanFlashOnHit) signalHub.OnEnemyFlash?.Invoke(0.15f, Color.white);
         signalHub.OnPlayBloodEffect?.Invoke();
         TryStagger(amount);

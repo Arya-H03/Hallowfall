@@ -1,9 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CCoroutineRunner))]
 [RequireComponent(typeof(CInstantiater))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityController
 {
     #region === Component References ===
     private PlayerAnimationHandler playerAnimationHandler;
@@ -31,7 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerParryShield parryShield;
     [SerializeField] private string enemyTag;
 
-   
+    [SerializeField] private BaseSkillSO skillSO;
+
     #endregion
 
     #region === Runtime Data ===
@@ -183,6 +185,9 @@ public class PlayerController : MonoBehaviour
         {
             signalHub.OnChangeState?.Invoke(PlayerStateEnum.Dash);
         }
+
+
+        skillSO.Init(this);
     }
 
     public void OnParryInput()

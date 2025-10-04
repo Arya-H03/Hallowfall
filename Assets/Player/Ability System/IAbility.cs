@@ -19,3 +19,4 @@ public interface IUpgradeableAbility
     //When an ability calls one for it's upgrades to apple it's logic to the source.
     void ApplyUpgrade(IAbilityUpgrade upgrade);
 }
+
