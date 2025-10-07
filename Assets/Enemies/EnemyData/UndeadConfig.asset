@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf97f82f743c707418da74acce7ef5dc, type: 3}
   m_Name: UndeadConfig
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 50
   damageModifier: 1
   maxStagger: 150
   timeBetweenStaggers: 3.5

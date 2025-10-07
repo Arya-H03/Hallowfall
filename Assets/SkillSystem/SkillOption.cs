@@ -7,8 +7,10 @@ public class SkillOption : MonoBehaviour
 {
     private SkillStatue skillStatue;
     private BaseSkillSO currentSkill;
+
     private GameObject descriptionFrame;
-    private TextMeshProUGUI textComp;
+    private TextMeshProUGUI skillNameTextComp;
+    private TextMeshProUGUI skillDescriptionTextComp;
 
     [SerializeField] GameObject iconGO;
     private Image optionImage;
@@ -22,13 +24,14 @@ public class SkillOption : MonoBehaviour
         originalLocalScale = transform.localScale;
     }
 
-    public void Init(BaseSkillSO skillSO,SkillStatue skillStatue,GameObject descriptionFrame)
+    public void Init(BaseSkillSO skillSO,SkillStatue skillStatue,GameObject infoFrame, TextMeshProUGUI skillNameTextComp, TextMeshProUGUI skillDescriptionTextComp)
     {
         currentSkill = skillSO;
         this.skillStatue = skillStatue;
         optionImage.sprite = currentSkill.icon;
-        this.descriptionFrame = descriptionFrame;
-        textComp = descriptionFrame.GetComponentInChildren<TextMeshProUGUI>();
+        this.descriptionFrame = infoFrame;
+        this.skillNameTextComp = skillNameTextComp;
+        this.skillDescriptionTextComp = skillDescriptionTextComp;
 
     }
 
@@ -36,7 +39,9 @@ public class SkillOption : MonoBehaviour
     {
         StartCoroutine(HighlightOptionCoroutine());
         descriptionFrame.SetActive(true);
-        textComp.text = currentSkill.description;
+
+        skillNameTextComp.text = currentSkill.abilityName;
+        skillDescriptionTextComp.text = currentSkill.GetDescription();
     }
 
     public void ResetHighlightOption()
@@ -46,11 +51,15 @@ public class SkillOption : MonoBehaviour
 
         if (skillStatue.SelectedSkillOption != null && skillStatue.SelectedSkillOption != currentSkill)
         {
-            textComp.text = skillStatue.SelectedSkillOption.description;
+            skillNameTextComp.text = skillStatue.SelectedSkillOption.abilityName;
+            skillDescriptionTextComp.text = skillStatue.SelectedSkillOption.GetDescription();
+           
             return;
         }
-           
-        textComp.text = "";
+
+        skillNameTextComp.text = "";
+        skillDescriptionTextComp.text = "";
+
         descriptionFrame.SetActive(false);
     }
 

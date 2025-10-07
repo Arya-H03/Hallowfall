@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TheCullingSkill", menuName = "Scriptable Objects/Skills/TheCullingSkill")]
@@ -18,6 +19,11 @@ public class TheCullingSkill : BaseSkillSO, ITreshold
             playerController.PlayerSignalHub.OnEnemyHit += TheCullingLogic;
             Debug.Log(abilityName);
         }
+    }
+
+    public override string GetDescription()
+    {
+        return $"Once an enemy reaches <color=orange>{Treshold*100}%</color>, your next sword attack will instantly kill the enemy regardless of the remaining health";
     }
     private void TheCullingLogic(EnemyController enemyController, int swordHitDmage)
     {

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,9 @@ public class SkillStatue : MonoBehaviour, IInteractable
     [SerializeField] GameObject skillOptionsFrame;
     [SerializeField] GameObject skillDescriptionFrame;
     [SerializeField] GameObject skillSelectBtn;
+
+    [SerializeField] TextMeshProUGUI skillDescriptionTextComp;
+    [SerializeField] TextMeshProUGUI skillNameTextComp;
 
     [SerializeField] SkillOption option1;
     [SerializeField] SkillOption option2;
@@ -77,9 +81,9 @@ public class SkillStatue : MonoBehaviour, IInteractable
 
     private void InitAllOptions()
     {
-        option1.Init(skill1, this, skillDescriptionFrame);
-        option2.Init(skill2, this, skillDescriptionFrame);
-        option3.Init(skill3, this, skillDescriptionFrame);
+        option1.Init(skill1, this, skillDescriptionFrame, skillNameTextComp,skillDescriptionTextComp);
+        option2.Init(skill2, this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
+        option3.Init(skill3, this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
     }
 
     private void HandleChoosingSkill(BaseSkillSO skill)

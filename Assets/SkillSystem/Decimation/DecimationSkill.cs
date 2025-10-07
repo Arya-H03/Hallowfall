@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DecimationSkill", menuName = "Scriptable Objects/Skills/DecimationSkill")]
@@ -16,6 +17,12 @@ public class DecimationSkill : BaseSkillSO, IFloatRange
             playerController.PlayerSignalHub.OnEnemyHit += DecimationLogic;
             Debug.Log(abilityName);
         }
+    }
+
+    public override string GetDescription()
+    {
+
+        return $"Your first damaging sword attack on an enemy will deal an additional <color=red>{LowerEnd * 100}%</color> to <color=red>{UpperEnd * 100}%</color> of the enemies max health";
     }
     private void DecimationLogic(EnemyController enemyController, int swordHitDmage)
     {
