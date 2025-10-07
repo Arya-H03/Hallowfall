@@ -722,6 +722,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Attack_24
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 26
+        width: 52
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 072d1093974425e479763c32236f70b8
+      internalID: 1173888904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -755,6 +777,7 @@ TextureImporter:
       Attack_21: -1684743275
       Attack_22: 165364615
       Attack_23: -1329850746
+      Attack_24: 1173888904
       Attack_3: 1148053165
       Attack_4: -1690025396
       Attack_5: -1485264970

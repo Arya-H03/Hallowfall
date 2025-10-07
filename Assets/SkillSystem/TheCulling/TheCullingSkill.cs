@@ -16,6 +16,7 @@ public class TheCullingSkill : BaseSkillSO, ITreshold
         if (ownerEntity is PlayerController playerController)
         {
             playerController.PlayerSignalHub.OnEnemyHit += TheCullingLogic;
+            Debug.Log(abilityName);
         }
     }
     private void TheCullingLogic(EnemyController enemyController, int swordHitDmage)

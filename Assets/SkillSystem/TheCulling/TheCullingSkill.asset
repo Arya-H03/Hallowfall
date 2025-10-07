@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f776c09f1b8c3a54a8febff28e239ede, type: 3}
   m_Name: TheCullingSkill
   m_EditorClassIdentifier: Assembly-CSharp::TheCullingSkill
-  abilityName: 
-  description: 
-  icon: {fileID: 0}
+  abilityName: The Culling
+  description: Once an enemy reaches 10% health, your next sword attack with kill
+    the enemy regardless of the damage dealt.
+  icon: {fileID: 21300000, guid: c14f8c454da5adf4b8265d55cdca76ec, type: 3}
   cullingTreshold: 0.1

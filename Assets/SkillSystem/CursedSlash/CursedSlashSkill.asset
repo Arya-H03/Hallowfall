@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2afa5a9914515ec468eb951b18aaa85c, type: 3}
   m_Name: CursedSlashSkill
   m_EditorClassIdentifier: Assembly-CSharp::CursedSlashSkill
-  abilityName: 
-  description: 
-  icon: {fileID: 0}
+  abilityName: Cursed Slash
+  description: Your sword hits have a chance to create cursed trail under the enemy
+    hit. This trail will do damage to enemies that stand in it.
+  icon: {fileID: 21300000, guid: 557b5b2eab946604bbfa8c28b35af4c9, type: 3}
   cursedTrailPrefab: {fileID: 1314506115633534147, guid: b17d00cfc09f4d540bb591b00ad75970, type: 3}
   damage: 5
   chance: 0.2

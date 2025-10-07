@@ -23,6 +23,7 @@ public class CursedSlashSkill : BaseSkillSO,IDamage,IChance,IAreaOfEffect,ILifeT
         if(ownerEntity is PlayerController playerController)
         {
             playerController.PlayerSignalHub.OnEnemyHit += CursedSlashLogic;
+            Debug.Log(abilityName);
         }
     }
     private void CursedSlashLogic(EnemyController enemy,int swordHitDmage)

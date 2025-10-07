@@ -14,6 +14,7 @@ public class DecimationSkill : BaseSkillSO, IFloatRange
         if (controller is PlayerController playerController)
         {
             playerController.PlayerSignalHub.OnEnemyHit += DecimationLogic;
+            Debug.Log(abilityName);
         }
     }
     private void DecimationLogic(EnemyController enemyController, int swordHitDmage)

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71eeb965154baf4cb259002359de48b, type: 3}
   m_Name: DecimationSkill
   m_EditorClassIdentifier: Assembly-CSharp::DecimationSkill
-  abilityName: 
-  description: 
-  icon: {fileID: 0}
-  lowerEnd: 0.5
-  upperEnd: 0.7
+  abilityName: Decimation
+  description: Your first sword attack on an enemy has the chance to deal additional
+    10% to 30% of their max health.
+  icon: {fileID: 21300000, guid: c27b5fa528c94d345a7dfd76094abee8, type: 3}
+  lowerEnd: 0.1
+  upperEnd: 0.3
