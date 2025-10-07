@@ -45,16 +45,19 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
     {
         if (enemyController.IsDead) return false;
 
-        signalHub.OnAnimTrigger?.Invoke("Hit");
-
-        if(hitInfo.HitSfx != HitSfxType.none) signalHub.OnPlayHitSFX?.Invoke(hitInfo.HitSfx, 0.5f);
+        if(hitInfo.canPlaySFXOnHit) signalHub.OnPlayHitSFX?.Invoke (0.5f);
         
-        ApplyDamage((int)(hitInfo.Damage * DamageModifier));
-      
-        if(hitInfo.KnockbackForce > 0)
+        ApplyDamage((int)(hitInfo.damage * DamageModifier));
+
+        if(hitInfo.canPlayAnimOnHit) signalHub.OnAnimTrigger?.Invoke("Hit");
+        if(hitInfo.canFlashOnHit) signalHub.OnEnemyFlash?.Invoke(0.15f, Color.white);
+        if (hitInfo.canPlayVFXOnHit) signalHub.OnPlayBloodEffect?.Invoke();
+
+       
+        if (hitInfo.knockbackInfo.canKnockback)
         {
-            Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.AttackerPosition).normalized;
-            signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.KnockbackForce);
+            Vector2 hitDir = (enemyController.GetEnemyPos() - hitInfo.knockbackInfo.forceSourcePosition).normalized;
+            signalHub.OnEnemyKnockBack?.Invoke(hitDir, hitInfo.knockbackInfo.knockbackForce);
         }    
 
         return true;
@@ -65,8 +68,7 @@ public class EnemyHitHandler : MonoBehaviour, IDamagable, IInitializeable<EnemyC
     {
         if (enemyController.IsDead) return;
         CurrentHealth -= amount;
-        if (enemyController.CanFlashOnHit) signalHub.OnEnemyFlash?.Invoke(0.15f, Color.white);
-        signalHub.OnPlayBloodEffect?.Invoke();
+   
         TryStagger(amount);
 
         if (CurrentHealth <= 0) 

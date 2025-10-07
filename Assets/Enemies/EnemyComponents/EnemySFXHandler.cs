@@ -60,9 +60,9 @@ public class EnemySFXHandler : MonoBehaviour, IInitializeable<EnemyController>
         audioManager.PlaySFX(audioClip, enemyController.GetEnemyPos(), volume);
     }
 
-    private void PlayHitSFX(HitSfxType hitType, float volume)
+    private void PlayHitSFX(float volume)
     {
-        audioManager.PlaySFX(hitSFXDict[hitType], enemyController.GetEnemyPos(), volume);
+        audioManager.PlaySFX(enemyController.EnemyConfig.hitSFX, enemyController.GetEnemyPos(), volume);
     }
 
     private void PlaySFX(AudioClip audioClip,float volume)

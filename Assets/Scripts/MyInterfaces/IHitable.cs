@@ -2,19 +2,41 @@ using UnityEngine;
 
 public struct HitInfo
 {
-    public int Damage;
-    public HitSfxType HitSfx;
-    public Vector3 AttackerPosition;
-    public float KnockbackForce;
-    public bool isImmuneable;
+    public int damage;
+    public bool canBeImmune;
+    public KnockbackInfo knockbackInfo;
+    public bool canFlashOnHit;
+    public bool canPlayVFXOnHit;
+    public bool canPlaySFXOnHit;
+    public bool canPlayAnimOnHit;
 
-    public HitInfo(int damage, HitSfxType hitSfx, Vector3 attackerPosition, float knockbackForce, bool isImmuneable)
+
+    public HitInfo(int damage, bool canBeImmune, KnockbackInfo knockbackInfo,
+               bool canFlashOnHit = false, bool canPlayVFXOnHit = false,
+               bool canPlaySFXOnHit = false, bool canPlayAnimOnHit = false)
     {
-        Damage = damage;
-        HitSfx = hitSfx;
-        AttackerPosition = attackerPosition;
-        KnockbackForce = knockbackForce;
-        this.isImmuneable = isImmuneable;
+        this.damage = damage;
+        this.knockbackInfo = knockbackInfo;
+        this.canBeImmune = canBeImmune;
+        this.canFlashOnHit = canFlashOnHit;
+        this.canPlayVFXOnHit = canPlayVFXOnHit;
+        this.canPlaySFXOnHit = canPlaySFXOnHit;
+        this.canPlayAnimOnHit = canPlayAnimOnHit;
+    }
+
+}
+
+public struct KnockbackInfo
+{
+    public bool canKnockback;
+    public Vector3 forceSourcePosition;
+    public float knockbackForce;
+
+    public KnockbackInfo(bool canKnockback = false, Vector3? forceSourcePosition = null, float knockbackForce = 0)
+    {
+        this.canKnockback = canKnockback;
+        this.forceSourcePosition = forceSourcePosition ?? Vector3.zero;
+        this.knockbackForce = knockbackForce;
     }
 }
 public interface IHitable

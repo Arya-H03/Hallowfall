@@ -828,7 +828,7 @@ MonoBehaviour:
   enemyConfig: {fileID: 11400000, guid: bc98e720d59eb0a45a1a6147339894db, type: 2}
   enemyType: 4
   listOfBehaviorSO: []
-  canFlashOnHit: 0
+  canFlashOnHit: 1
   stunEffect: {fileID: 2115942660256956688}
 --- !u!114 &5000998446449617028
 MonoBehaviour:

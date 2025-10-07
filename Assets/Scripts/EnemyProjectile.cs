@@ -12,7 +12,7 @@ public class EnemyProjectile : BaseProjectile
     {
         if (collision != null && collision.CompareTag("Player"))
         {
-            collision.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = this.Damage });
+            collision.GetComponent<IHitable>().HandleHit(new HitInfo { damage = this.Damage });
         }
     }
 }

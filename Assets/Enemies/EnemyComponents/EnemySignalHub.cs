@@ -17,7 +17,7 @@ public class EnemySignalHub
 
     public Action<AudioClip, float> OnPlaySFX;
     public Action<AudioClip[], float> OnPlayRandomSFX;
-    public Action<HitSfxType, float> OnPlayHitSFX;
+    public Action<float> OnPlayHitSFX;
 
     public Action<string, bool> OnAnimBool;
     public Action<string> OnAnimTrigger;

@@ -64,7 +64,7 @@ public class PlayerSwordAttackState : PlayerState
 
     private AudioClip[] attackSwingSFX;
 
-     private GameObject hitSparkPrefab;
+    private GameObject hitSparkPrefab;
 
     public PlayerSwordAttackState(PlayerController playerController, PlayerStateMachine stateMachine, PlayerConfig playerConfig, PlayerStateEnum stateEnum) : base(playerController, stateMachine, playerConfig, stateEnum)
     {
@@ -74,12 +74,12 @@ public class PlayerSwordAttackState : PlayerState
 
         signalHub.OnSwordAttackHitFrame += HandleHittingTargetWithSwordAttacks;
         signalHub.OnSwordAttackSFXFrame += () => { signalHub.OnPlayRandomSFX?.Invoke(attackSwingSFX, 0.5f); };
-        signalHub.OnEnemyHit += (enemy,damge) => { CreateSwordImpactEffect(enemy);};
+        signalHub.OnEnemyHit += (enemy, damge) => { CreateSwordImpactEffect(enemy); };
 
         signalHub.OnSwordSwingEnd += OnAttackAnimationComplete;
         signalHub.OnParryAttackHit += HandleHittingTargetWithParryAttack;
 
-        
+
         hitSparkPrefab = playerConfig.hitEffect;
         InitializeComboData(playerConfig.comboAttacks);
         moveSpeedWhileAttaking = playerConfig.moveSpeedWhileAttaking;
@@ -110,7 +110,7 @@ public class PlayerSwordAttackState : PlayerState
             combosDict[combo.comboState] = combo;
         }
 
-       
+
     }
 
     #region State Events
@@ -130,7 +130,7 @@ public class PlayerSwordAttackState : PlayerState
             isNextAttackQueued = false;
             TryCombo();
         }
-        
+
     }
 
     public override void EnterState()
@@ -151,7 +151,7 @@ public class PlayerSwordAttackState : PlayerState
     {
         if (playerController.IsAttacking)
         {
-           isNextAttackQueued = true;
+            isNextAttackQueued = true;
         }
         else
         {
@@ -185,7 +185,7 @@ public class PlayerSwordAttackState : PlayerState
                 break;
         }
 
-        
+
         currentAttack = combosDict[currentComboState];
         signalHub.OnChangeMoveSpeed?.Invoke(currentAttack.moveSpeed);
     }
@@ -193,7 +193,7 @@ public class PlayerSwordAttackState : PlayerState
     public void OnAttackAnimationComplete()
     {
         playerController.IsAttacking = false;
-  
+
         if (currentComboState == ComboState.Attack3 || !isWithinCombo || !isNextAttackQueued)
         {
             ResetCombo();
@@ -212,15 +212,15 @@ public class PlayerSwordAttackState : PlayerState
     }
 
     #endregion
- 
+
     private void HandleHittingTargetWithSwordAttacks()
     {
         CreateSworkSlashEffect(0.3f);
-        if (currentAttack.slashCollisionRef == null|| currentAttack.slashCollisionRef.EnemyTargets == null || currentAttack.slashCollisionRef.EnemyTargets.Count == 0) return;
+        if (currentAttack.slashCollisionRef == null || currentAttack.slashCollisionRef.EnemyTargets == null || currentAttack.slashCollisionRef.EnemyTargets.Count == 0) return;
         List<EnemyController> targets = new List<EnemyController>(currentAttack.slashCollisionRef.EnemyTargets);
 
         foreach (EnemyController enemy in targets)
-        {          
+        {
             TryHitWithSwordAttack(enemy);
         }
         GameManager.Instance.StopTime(hitStopDuration);
@@ -237,15 +237,33 @@ public class PlayerSwordAttackState : PlayerState
         GameManager.Instance.StopTime(hitStopDuration);
     }
 
-    private void TryHitWithParryAttack(EnemyController enemy,int damage, float force)
-    {     
-        bool isHit = enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = force, isImmuneable = false });
+    private void TryHitWithParryAttack(EnemyController enemy, int damage, float force)
+    {
+        bool isHit = enemy.GetComponent<IHitable>().HandleHit(new HitInfo
+        {
+            damage = damage,
+            canBeImmune = false,
+            knockbackInfo = new KnockbackInfo { canKnockback = true, forceSourcePosition = playerController.GetPlayerPos(), knockbackForce = currentAttack.knockbackForce },
+            canFlashOnHit = true,
+            canPlayAnimOnHit = true,
+            canPlaySFXOnHit = true,
+            canPlayVFXOnHit = true
+        });
         if (isHit) signalHub.OnEnemyHit?.Invoke(enemy, damage);
     }
 
     private void TryHitWithSwordAttack(EnemyController enemy)
-    {      
-        bool isHit = enemy.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = currentAttack.attackDamage, HitSfx = HitSfxType.sword, AttackerPosition = playerController.GetPlayerPos(), KnockbackForce = currentAttack.knockbackForce , isImmuneable = false });
+    {
+        bool isHit = enemy.GetComponent<IHitable>().HandleHit(new HitInfo
+        {
+            damage = currentAttack.attackDamage,
+            canBeImmune = false,
+            knockbackInfo = new KnockbackInfo { canKnockback = true, forceSourcePosition = playerController.GetPlayerPos(), knockbackForce = currentAttack.knockbackForce },
+            canFlashOnHit = true,
+            canPlayAnimOnHit = true,
+            canPlaySFXOnHit = true,
+            canPlayVFXOnHit = true
+        });
         if (isHit)
         {
             signalHub.OnEnemyHit?.Invoke(enemy, currentAttack.attackDamage);
@@ -258,7 +276,7 @@ public class PlayerSwordAttackState : PlayerState
         Vector3 randPos = new Vector3(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f), 0);
         Vector3 originScale = hitSparkPrefab.transform.localScale;
         Vector3 newScale = dir.x < 0 ? new Vector3(Mathf.Abs(originScale.x), originScale.y, originScale.z) : new Vector3(-Mathf.Abs(originScale.x), originScale.y, originScale.z);
-        signalHub.OnSpawnScaledVFX?.Invoke(hitSparkPrefab, enemyController.GetEnemyPos() + randPos, Quaternion.identity, 2, newScale);  
+        signalHub.OnSpawnScaledVFX?.Invoke(hitSparkPrefab, enemyController.GetEnemyPos() + randPos, Quaternion.identity, 2, newScale);
     }
 
     private void CreateSworkSlashEffect(float effectLifeTime)
@@ -266,13 +284,13 @@ public class PlayerSwordAttackState : PlayerState
         if (currentAttack.slashEffectPrefab == null) return;
         Vector3 mousePos = MyUtils.GetMousePos();
         Vector3 dir = (mousePos - playerController.GetPlayerPos()).normalized;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;   
-        
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
         GameObject slashEffect = signalHub.RequestSpawnedVFX?.Invoke(currentAttack.slashEffectPrefab, playerController.GetPlayerPos(), Quaternion.Euler(0, 0, angle), effectLifeTime);
         if (dir.x < 0) angle += 180;
         signalHub.OnDissolveEffect?.Invoke(slashEffect, effectLifeTime);
         signalHub.OnScaleEffect?.Invoke(slashEffect, new Vector3(1.25f, 1.25f, 1.25f), effectLifeTime);
-      
+
     }
     private void RotateSlashCollisions()
     {
@@ -281,9 +299,9 @@ public class PlayerSwordAttackState : PlayerState
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (dir.x < 0) angle += 180;
 
-        foreach(KeyValuePair<ComboState,ComboAttack> kvp in combosDict)
+        foreach (KeyValuePair<ComboState, ComboAttack> kvp in combosDict)
         {
-            if(kvp.Key == ComboState.None) continue;
+            if (kvp.Key == ComboState.None) continue;
             kvp.Value.slashCollisionRef.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }

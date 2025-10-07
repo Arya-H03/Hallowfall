@@ -228,7 +228,7 @@ public class BaseProjectile : MonoBehaviour, IProjectile
     {
         if(collision.CompareTag(TargetTag))
         {
-            collision.gameObject.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = this.Damage, isImmuneable = false });
+            collision.gameObject.GetComponent<IHitable>().HandleHit(new HitInfo { damage = this.Damage, canBeImmune = false });
             Destroy(0);
         }
     }

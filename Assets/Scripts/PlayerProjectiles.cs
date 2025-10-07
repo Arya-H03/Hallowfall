@@ -11,7 +11,7 @@ public class PlayerProjectiles : BaseProjectile
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = this.Damage, HitSfx = hitSfxType, AttackerPosition = this.transform.position, KnockbackForce = 0 });
+           // collision.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = this.Damage, HitSfx = hitSfxType, AttackerPosition = this.transform.position, KnockbackForce = 0 });
             Destroy(this.gameObject);
         }
     }

@@ -60,7 +60,15 @@ public class LifeDrain : BaseSkillSO, IAreaOfEffect,ICooldown,ILifeTime,IDamage
             {
                 if(hit.collider != null && hit.collider.transform.parent.TryGetComponent<EnemyController>(out EnemyController enemyController ))
                 {
-                    enemyController.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.none, isImmuneable = false });
+                    enemyController.GetComponent<IHitable>().HandleHit(new HitInfo
+                    {
+                        damage = Damage,
+                        canBeImmune = false,
+                        canFlashOnHit = true,
+                        canPlayAnimOnHit = false,
+                        canPlaySFXOnHit = false,
+                        canPlayVFXOnHit = false
+                    });
                     playerController.PlayerSignalHub.OnRestoreHealth?.Invoke(damage);
                 }
             }

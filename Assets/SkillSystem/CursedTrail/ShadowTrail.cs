@@ -32,19 +32,7 @@ public class ShadowTrail : MonoBehaviour
         switch(targetEntityType)
         {
             case EntityTypeEnum.player:
-                while (true)
-                {
-                    RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, this.transform.localScale.x / 2, transform.forward, 10f, layerMask);
-                    
-                    foreach (RaycastHit2D hit in hits)
-                    {
-
-                        if (hit.collider != null && hit.collider.transform.TryGetComponent<PlayerController>(out PlayerController playerController))
-                        {
-                            playerController.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, isImmuneable = false });
-                        }
-                    }
-                }
+             
             case EntityTypeEnum.enemy:
                 while (true)
                 {
@@ -55,7 +43,15 @@ public class ShadowTrail : MonoBehaviour
 
                         if (hit.collider != null && hit.collider.transform.parent.TryGetComponent<EnemyController>(out EnemyController enemyController))
                         {
-                            enemyController.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.none, isImmuneable = false });
+                            enemyController.GetComponent<IHitable>().HandleHit(new HitInfo
+                            {
+                                damage = damage,
+                                canBeImmune = false,
+                                canFlashOnHit = true,
+                                canPlayAnimOnHit = false,
+                                canPlaySFXOnHit = true,
+                                canPlayVFXOnHit = false
+                            });
                         }
                     }
 

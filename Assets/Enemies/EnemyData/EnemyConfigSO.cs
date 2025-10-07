@@ -35,4 +35,5 @@ public class EnemyConfigSO : ScriptableObject
     public DamagePopUp damagePopUpPrefab;
 
     public List<HitSFX> hitSFXList;
+    public AudioClip [] hitSFX;
 }

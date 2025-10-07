@@ -14,7 +14,7 @@ public class Smite : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.fire, AttackerPosition = this.transform.position, KnockbackForce = 0 ,isImmuneable = false });
+            //collision.GetComponent<IHitable>().HandleHit(new HitInfo { Damage = damage, HitSfx = HitSfxType.fire, AttackerPosition = this.transform.position, KnockbackForce = 0 ,canBeImmune = false });
         }
     }
 }
