@@ -27,9 +27,9 @@ public class MassRetaliationSkill : BaseSkillSO, IDamage, IAreaOfEffect,IKnockba
 
     private void MassRetaliationLogic(PlayerController controller)
     {
-        GameObject retaliationEffect = Instantiate(retaliationEffectPrefab, controller.GetPlayerPos(), Quaternion.identity);
+        GameObject retaliationEffect = Instantiate(retaliationEffectPrefab, controller.GetPlayerPos(), Quaternion.Euler(60,0,0));
         retaliationEffect.transform.localScale *= effectSize;
-        Destroy(retaliationEffect, 0.5f);
+        Destroy(retaliationEffect, 0.33f);
         RaycastHit2D[] hits = Physics2D.CircleCastAll(controller.GetPlayerPos(), (effectSize / 2) + 0.25f, retaliationEffect.transform.forward, 10, enemyLayerMask);
         foreach (RaycastHit2D hit in hits)
         {

@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Bits: 64
   retaliationEffectPrefab: {fileID: 8392290777217968898, guid: 39897891bdf4b8943afee60667d32eea, type: 3}
   damage: 10
-  effectSize: 2
+  effectSize: 3
   knockbackForce: 7
   effectSFX:
   - {fileID: 8300000, guid: fc59e1e4ab595b940ad821c56601fc13, type: 3}

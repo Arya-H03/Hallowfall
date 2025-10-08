@@ -40,8 +40,6 @@ public class PlayerAnimationHandler : MonoBehaviour,IInitializeable<PlayerContro
     {
         signalHub.OnSwordSwingEnd?.Invoke();
     }
-
-
     public void OnHitFrameOfAttackAnim()
     {
       signalHub.OnSwordAttackHitFrame?.Invoke();

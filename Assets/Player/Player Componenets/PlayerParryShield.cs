@@ -34,7 +34,7 @@ public class PlayerParryShield : MonoBehaviour
         Destroy(enemyProjectile);
         yield return null; // Wait 1 frame
 
-        PlayerProjectiles playerProjectiles = proj.AddComponent<PlayerProjectiles>();
+        PlayerProjectile playerProjectiles = proj.AddComponent<PlayerProjectile>();
         playerProjectiles.Damage = damage;
         playerProjectiles.Speed = speed;
         playerProjectiles.LifeTime = lifeTime;

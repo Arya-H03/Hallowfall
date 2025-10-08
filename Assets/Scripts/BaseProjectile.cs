@@ -4,19 +4,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BaseProjectile : MonoBehaviour, IProjectile
+public class BaseProjectile : MonoBehaviour, IProjectile,IDamage,ISpeed,ILifeTime, IPierceCount
 {
-    [SerializeField] private string targetTag;
-    [SerializeField] private int damage;
-    [SerializeField] private float speed;
-    [SerializeField] private float lifeTime;
-    [SerializeField] private float homingTime;
-    [SerializeField] private float angleOffSet;
-
-    public string TargetTag { get => targetTag; set => targetTag = value; }
+    [SerializeField] protected string targetTag;
+    [SerializeField] protected int damage;
+    [SerializeField] protected float speed;
+    [SerializeField] protected float lifeTime;
+    [SerializeField] protected float homingTime;
+    [SerializeField] protected float angleOffSet;
+    [SerializeField] private int pierceCount = 1;
+    public int PierceCount { get => pierceCount; set => pierceCount = value; }
     public int Damage { get => damage; set => damage = value; }
     public float Speed { get => speed; set => speed = value; }
     public float LifeTime { get => lifeTime; set => lifeTime = value; }
+    public string TargetTag { get => targetTag; set => targetTag = value; }
     public Rigidbody2D RB { get; set; }
  
 
@@ -27,6 +28,14 @@ public class BaseProjectile : MonoBehaviour, IProjectile
     private void Start()
     {
         Destroy(LifeTime);   
+    }
+
+    public void Init(int damage, float speed, float lifeTime, int pierceCount)
+    {
+        this.Damage = damage;
+        this.Speed = speed;
+        this.LifeTime = lifeTime;
+        this.PierceCount = pierceCount;
     }
 
     public void SetVelocity(Vector2 vel)
