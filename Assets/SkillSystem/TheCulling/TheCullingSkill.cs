@@ -10,15 +10,12 @@ public class TheCullingSkill : BaseSkillSO, ITreshold
     private EntityController ownerEntity;
 
  
-    public override void Init(EntityController controller)
+    public override void Init(PlayerController controller)
     {
         if (controller == null) return;
         ownerEntity = controller;
-        if (ownerEntity is PlayerController playerController)
-        {
-            playerController.PlayerSignalHub.OnEnemyHit += TheCullingLogic;
-            Debug.Log(abilityName);
-        }
+        controller.PlayerSignalHub.OnEnemyHit += TheCullingLogic;
+        Debug.Log(abilityName);
     }
 
     public override string GetDescription()

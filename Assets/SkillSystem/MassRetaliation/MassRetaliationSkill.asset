@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9a7efb08fd26c4097b4ff55e11818e, type: 3}
+  m_Name: MassRetaliationSkill
+  m_EditorClassIdentifier: Assembly-CSharp::MassRetaliationSkill
+  abilityName: Mass Retaliation
+  description: 
+  icon: {fileID: 21300000, guid: 7dc413c40fbc5bf4090dbf96bd942073, type: 3}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  retaliationEffectPrefab: {fileID: 8392290777217968898, guid: 39897891bdf4b8943afee60667d32eea, type: 3}
+  damage: 10
+  effectSize: 2
+  knockbackForce: 7
+  effectSFX:
+  - {fileID: 8300000, guid: fc59e1e4ab595b940ad821c56601fc13, type: 3}
+  - {fileID: 8300000, guid: 9da57c3433cd0a342b180e4dfc602ace, type: 3}
+  - {fileID: 8300000, guid: 7ac6847463428704ca46b0aead340982, type: 3}

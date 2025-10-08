@@ -38,3 +38,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d91a402b04334924295bde84bee00dfe, type: 3}
     - {fileID: 8300000, guid: 4245c2c6fc3fc8749a7c8eeca3087a9c, type: 3}
     - {fileID: 8300000, guid: 4935c70243719fa44b4cc354d895a1f4, type: 3}
+  hitSFX:
+  - {fileID: 8300000, guid: d91a402b04334924295bde84bee00dfe, type: 3}
+  - {fileID: 8300000, guid: 4245c2c6fc3fc8749a7c8eeca3087a9c, type: 3}
+  - {fileID: 8300000, guid: 4935c70243719fa44b4cc354d895a1f4, type: 3}

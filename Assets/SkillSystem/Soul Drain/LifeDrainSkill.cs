@@ -16,13 +16,10 @@ public class LifeDrain : BaseSkillSO, IAreaOfEffect,ICooldown,ILifeTime,IDamage
     public int Damage { get => damage; set => damage = value; }
     public float LifeTime { get => lifeTime; set => lifeTime = value; }
 
-    public override void Init(EntityController controller)
+    public override void Init(PlayerController controller)
     {
         if (controller == null) return;
-        if (controller is PlayerController playerController)
-        {
-            playerController.CoroutineRunner.StartCoroutine(SpawnSoulDrainCircleCoroutine(playerController));
-        }
+        controller.CoroutineRunner.StartCoroutine(SpawnSoulDrainCircleCoroutine(controller));
     }
 
     public override string GetDescription()

@@ -84,8 +84,6 @@ public class ZoneHandler : MonoBehaviour
         AddDefaultGroundTileForZone(zoneLayoutProfile);
         yield return null;
 
-        //cellGrid.PaintAllCells();
-
         yield return StartCoroutine(CellGrid.PaintAllBlocksCoroutine());
         yield return StartCoroutine(CellGrid.PaintAllCellsCoroutine());
        

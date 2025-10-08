@@ -10,7 +10,8 @@ public enum PropsBlockEnum
     graveCluster,
     treeCluster,
     cryptCluster,
-    ritualCluster
+    ritualCluster,
+    skillStatueCluster
 }
 
 [System.Serializable]

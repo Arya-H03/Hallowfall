@@ -34,7 +34,6 @@ public class PlayerParryState : PlayerState
 
         signalHub.OnActivatingParryShield += ActivateParryShield;
         signalHub.OnEnemyParried += OnSuccessfulParry;
-        signalHub.OnEnemyParried += OnSuccessfulParry;
         signalHub.OnParryEnd += OnParryHoldAnimEnd;
 
     }

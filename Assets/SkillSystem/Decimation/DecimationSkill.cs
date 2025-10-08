@@ -9,14 +9,11 @@ public class DecimationSkill : BaseSkillSO, IFloatRange
     public float LowerEnd { get => lowerEnd; set => lowerEnd = value; }
     public float UpperEnd { get => upperEnd; set => upperEnd = value; }
 
-    public override void Init(EntityController controller)
+    public override void Init(PlayerController controller)
     {
         if (controller == null) return;
-        if (controller is PlayerController playerController)
-        {
-            playerController.PlayerSignalHub.OnEnemyHit += DecimationLogic;
-            Debug.Log(abilityName);
-        }
+        controller.PlayerSignalHub.OnEnemyHit += DecimationLogic;
+        Debug.Log(abilityName);
     }
 
     public override string GetDescription()

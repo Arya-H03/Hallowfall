@@ -17,15 +17,11 @@ public class CursedTrail : BaseSkillSO,IDamage,IChance,IAreaOfEffect,ILifeTime
     public float AreaOfEffect { get => effectSize; set => effectSize = value; }
     public float LifeTime { get => lifeTime; set => lifeTime = value; }
 
-    public override void Init(EntityController controller)
+    public override void Init(PlayerController controller)
     {
         if (controller == null) return;
         ownerEntity = controller;
-        if(ownerEntity is PlayerController playerController)
-        {
-            playerController.PlayerSignalHub.OnEnemyHit += CursedSlashLogic;
-            Debug.Log(abilityName);
-        }
+        controller.PlayerSignalHub.OnEnemyHit += CursedSlashLogic;
     }
     public override string GetDescription()
     {
