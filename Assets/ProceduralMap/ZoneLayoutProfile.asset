@@ -18,16 +18,19 @@ MonoBehaviour:
     maxBlockSize: {x: 0, y: 0}
   - propsBlockEnum: 1
     minBlockSize: {x: 3, y: 3}
-    maxBlockSize: {x: 0, y: 0}
+    maxBlockSize: {x: 20, y: 20}
   - propsBlockEnum: 2
     minBlockSize: {x: 2, y: 2}
-    maxBlockSize: {x: 0, y: 0}
+    maxBlockSize: {x: 20, y: 20}
   - propsBlockEnum: 3
     minBlockSize: {x: 8, y: 8}
-    maxBlockSize: {x: 0, y: 0}
+    maxBlockSize: {x: 10, y: 10}
   - propsBlockEnum: 4
     minBlockSize: {x: 5, y: 5}
-    maxBlockSize: {x: 0, y: 0}
+    maxBlockSize: {x: 10, y: 10}
+  - propsBlockEnum: 5
+    minBlockSize: {x: 5, y: 5}
+    maxBlockSize: {x: 10, y: 10}
   spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
   fenceRuleTile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
   stoneRoadRuleTile: {fileID: 11400000, guid: 19b868459d5f5854a949002df5435afb, type: 2}
@@ -192,6 +195,7 @@ MonoBehaviour:
   flameHolderPrefab: {fileID: 3729873797271816941, guid: aada94bffb834d24b8e1ecbf323ab2e6, type: 3}
   chalicePrefab: {fileID: 4603083795610107435, guid: d5fee625e9f88a943a654c10d96998f6, type: 3}
   candlePrefab: {fileID: 5380247749513911054, guid: aa13c81d0994b6e4ab42fd6ed5cd89e7, type: 3}
+  skillStatuePrefab: {fileID: 5020401689168045722, guid: b0f1f9b0231d93a4f94883c635e9fe23, type: 3}
   groundShakeEffectPrefab: {fileID: 6150969979840412010, guid: 76640f1bfe5e13c46b3860055c67abd3, type: 3}
   groundShakeParticleEffectPrefab: {fileID: 1873852768652887483, guid: 3e3309c59ec647b479be1b895380c6fa, type: 3}
   clutterDensity: 0.3

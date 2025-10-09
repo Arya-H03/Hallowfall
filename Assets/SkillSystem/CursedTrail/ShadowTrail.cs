@@ -49,7 +49,7 @@ public class ShadowTrail : MonoBehaviour
                                 canBeImmune = false,
                                 canFlashOnHit = true,
                                 canPlayAnimOnHit = false,
-                                canPlaySFXOnHit = true,
+                                canPlaySFXOnHit = false,
                                 canPlayVFXOnHit = false
                             });
                         }

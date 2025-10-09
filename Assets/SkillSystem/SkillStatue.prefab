@@ -1036,7 +1036,7 @@ MonoBehaviour:
   option1: {fileID: 3440360332507002411}
   option2: {fileID: 4843744376854822555}
   option3: {fileID: 6172798707058162406}
-  skill1: {fileID: 11400000, guid: e6cb77a076460144fbd50e54c369a2e4, type: 2}
+  skill1: {fileID: 11400000, guid: 8f74c62bb11998a4ba44d25a9a772559, type: 2}
   skill2: {fileID: 11400000, guid: 50f635d22ae14fd4cb936717c97b6368, type: 2}
   skill3: {fileID: 11400000, guid: a3cbe5a2f20b3ca4eb82f275ddeb1eda, type: 2}
   skillSelectionSFX:

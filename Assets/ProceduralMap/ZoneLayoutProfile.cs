@@ -55,6 +55,9 @@ public class ZoneLayoutProfile : ScriptableObject
     public GameObject chalicePrefab;
     public GameObject candlePrefab;
 
+    [Header("SkillStatue Cluster")]
+    public GameObject skillStatuePrefab;
+
     [Header("Earth ShakeCamera Effect")]
     public GameObject groundShakeEffectPrefab;
     public ParticleSystem groundShakeParticleEffectPrefab;

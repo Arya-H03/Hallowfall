@@ -187,7 +187,6 @@ public class ZoneHandler : MonoBehaviour
                 
 
 
-
         }
     }
 
@@ -207,6 +206,8 @@ public class ZoneHandler : MonoBehaviour
 
             if (blockBounds.size.x >= propsBlock.minBlockSize.x &&
                 blockBounds.size.y >= propsBlock.minBlockSize.y &&
+                blockBounds.size.x < propsBlock.maxBlockSize.x &&
+                blockBounds.size.y < propsBlock.maxBlockSize.y &&
                 propsBlock.propsBlockEnum != PropsBlockEnum.none)
             {
                 propsBlockEnum = propsBlock.propsBlockEnum;
@@ -235,6 +236,8 @@ public class ZoneHandler : MonoBehaviour
 
             case PropsBlockEnum.ritualCluster:
                 return propsBlockGO.AddComponent<RitualClusterBlock>();
+                case PropsBlockEnum.skillStatueCluster:
+                    return propsBlockGO.AddComponent<SkillStatueClusterBlock>();
 
             default:
                 return null;
