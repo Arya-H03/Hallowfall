@@ -26,6 +26,7 @@ public class SkillOption : MonoBehaviour
 
     public void Init(BaseSkillSO skillSO,SkillStatue skillStatue,GameObject infoFrame, TextMeshProUGUI skillNameTextComp, TextMeshProUGUI skillDescriptionTextComp)
     {
+        if (skillSO == null) return;
         currentSkill = skillSO;
         this.skillStatue = skillStatue;
         optionImage.sprite = currentSkill.icon;

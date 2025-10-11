@@ -8,6 +8,7 @@ public class SkillStatue : MonoBehaviour, IInteractable
 
     [SerializeField] GameObject statue;
 
+    [SerializeField] GameObject interactionIcon;
     [SerializeField] GameObject skillOptionsFrame;
     [SerializeField] GameObject skillDescriptionFrame;
     [SerializeField] GameObject skillSelectBtn;
@@ -19,19 +20,19 @@ public class SkillStatue : MonoBehaviour, IInteractable
     [SerializeField] SkillOption option2;
     [SerializeField] SkillOption option3;
 
-    [SerializeField] BaseSkillSO skill1;
-    [SerializeField] BaseSkillSO skill2;
-    [SerializeField] BaseSkillSO skill3;
+    [SerializeField] Color defaultStatueOutlineColor;
+    [SerializeField] Color interactedStatueOutlineColor;
 
-    [SerializeField] AudioClip[] skillSelectionSFX; 
+    [SerializeField] AudioClip[] skillSelectionSFX;
 
-    public Action <BaseSkillSO> OnSkillChosen;
+    public Action<BaseSkillSO> OnSkillChosen;
     private BaseSkillSO selectedSkillOption;
     private Material material;
 
     private bool isSkillSelected = false;
+    private bool isStatueUnlocked = false;
 
-    public BaseSkillSO SelectedSkillOption { get=> selectedSkillOption; set => selectedSkillOption = value; }
+    public BaseSkillSO SelectedSkillOption { get => selectedSkillOption; set => selectedSkillOption = value; }
 
     private void OnEnable()
     {
@@ -45,27 +46,46 @@ public class SkillStatue : MonoBehaviour, IInteractable
     private void Awake()
     {
         material = statue.GetComponent<SpriteRenderer>().material;
+        material.SetColor("_OutlineColor", defaultStatueOutlineColor);
+    }
+    public void OnIntercationBegin()
+    {
+        if(!isStatueUnlocked)
+        {
+            interactionIcon.SetActive(true);
+            PlayerInputHandler.Instance.InputActions.Guardian.Interact.performed += Interact;
+
+        }
+        else if(!isSkillSelected)
+        {
+            skillOptionsFrame.SetActive(true);
+        }      
+    }
+    public void OnIntercationEnd()
+    {
+        if (!isStatueUnlocked)
+        {
+            interactionIcon.SetActive(false);
+        }
+        else if (!isSkillSelected)
+        {
+            DeactivateSkillFrame();
+        }
+      
     }
     public void Interact(InputAction.CallbackContext ctx)
     {
+        isStatueUnlocked = true;
+        interactionIcon.SetActive(false);
 
-    }
-
-    public void OnIntercationBegin()
-    {
         skillOptionsFrame.SetActive(true);
         InitAllOptions();
-    }
 
-    public void OnIntercationEnd()
-    {
-        skillOptionsFrame.SetActive(false);
-        skillSelectBtn.SetActive(false);
-        skillDescriptionFrame.SetActive(false);
+        PlayerInputHandler.Instance.InputActions.Guardian.Interact.performed -= Interact;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !isSkillSelected)
+        if (collision.CompareTag("Player"))
         {
             OnIntercationBegin();
         }
@@ -78,12 +98,12 @@ public class SkillStatue : MonoBehaviour, IInteractable
             OnIntercationEnd();
         }
     }
-
     private void InitAllOptions()
     {
-        option1.Init(skill1, this, skillDescriptionFrame, skillNameTextComp,skillDescriptionTextComp);
-        option2.Init(skill2, this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
-        option3.Init(skill3, this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
+        BaseSkillSO [] skills = PlayerSkillManager.Instance.GetThreeRandomSkills();
+        option1.Init(skills[0], this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
+        option2.Init(skills[1], this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
+        option3.Init(skills[2], this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
     }
 
     private void HandleChoosingSkill(BaseSkillSO skill)
@@ -95,11 +115,20 @@ public class SkillStatue : MonoBehaviour, IInteractable
     {
         if (!selectedSkillOption) return;
         isSkillSelected = true;
+  
+        PlayerSkillManager.Instance.UnlockPlayerSkill(selectedSkillOption);
+
+        DeactivateSkillFrame();
+
+        material.SetColor("_OutlineColor", interactedStatueOutlineColor);
+
+        AudioManager.Instance.PlaySFX(skillSelectionSFX, this.transform.position, 1);
+    }
+
+    private void DeactivateSkillFrame()
+    {
         skillOptionsFrame.SetActive(false);
         skillDescriptionFrame.SetActive(false);
         skillSelectBtn.SetActive(false);
-        selectedSkillOption.Init(GameManager.Instance.PlayerController);
-        material.SetFloat("_OutlineThickness", 0);
-        AudioManager.Instance.PlaySFX(skillSelectionSFX, this.transform.position, 1);
     }
 }

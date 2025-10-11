@@ -12,14 +12,6 @@ public class SkillStatueClusterBlock : PropsBlock
         GameObject statue = Instantiate(zoneLayoutProfile.skillStatuePrefab, (Vector3Int)centerBlockCell.GlobalCellPos, Quaternion.identity);
         statue.transform.parent = propsHolder.transform;
 
-        //for (int j = centerBlockCell.LocalCellCoord.y - 2 ; j < centerBlockCell.LocalCellCoord.y + 2; j++) 
-        //{
-        //    for (int i = centerBlockCell.LocalCellCoord.x - 2; i < centerBlockCell.LocalCellCoord.x + 2; i++) 
-        //    {
-                
-        //    }
-        //}
-
         for (int j = 0; j < subCellGrid.CellPerCol; j++)
         {
             for (int i = 0; i < subCellGrid.CellPerRow; i++)
