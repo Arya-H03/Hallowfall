@@ -1,3 +1,4 @@
+using Unity.InferenceEngine;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -28,7 +29,9 @@ public class MassRetaliationSkill : BaseSkillSO, IDamage, IAreaOfEffect,IKnockba
     }
     public override string GetSkillDescription()
     {
-        return $"Successful parries trigger an explosion, dealing <color=red>{damage + (10 * lvl)}</color> damage and knocking back nearby enemies.";
+        if (lvl == 0) return $"Successful parries trigger an explosion, dealing <color=red>{damage}</color> damage and knocking back nearby enemies.";
+        else return $"Successful parries trigger an explosion, dealing <color=red>{damage +10}</color> damage and knocking back nearby enemies.";
+         
 
     }
     private void MassRetaliationLogic(PlayerController controller)

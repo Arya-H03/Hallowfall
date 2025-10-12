@@ -9,7 +9,13 @@ using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 public class UIManager : MonoBehaviour
-{
+{   private struct SkillSlot
+    {
+        public GameObject SlotGO;
+        public TextMeshProUGUI TextComp;
+        public Image ImageComp;
+    }
+
     private static UIManager instance;
     [SerializeField] Canvas worldCanvas;
     [SerializeField] DialogueBox dialogueBox;
@@ -42,7 +48,8 @@ public class UIManager : MonoBehaviour
 
     private PlayerController playerController;
 
-    public List<GameObject> listOfFreeAbilitySlots;
+    [SerializeField] List<GameObject> listOfAllSkillSlots;
+    private Dictionary<SkillSlot, BaseSkillSO> skillSlotDict;
     private Dictionary<BaseAbility, GameObject> dictionaryOfAbilitySlots ;
     private Dictionary<BaseAbility, int> dictionaryOfAbilityLvls ;
 
@@ -84,7 +91,7 @@ public class UIManager : MonoBehaviour
         }
         instance = this;
 
-
+        InitAllSkillSlots();
     }
 
     private void Start()
@@ -189,34 +196,58 @@ public class UIManager : MonoBehaviour
         settingsPanel.SetActive(false);
     }
 
+    private void InitAllSkillSlots()
+    {
+        skillSlotDict = new();
+        foreach (GameObject skillSlot in listOfAllSkillSlots)
+        {
+            skillSlotDict.Add(new SkillSlot { SlotGO = skillSlot, TextComp = skillSlot.GetComponentInChildren<TextMeshProUGUI>(), ImageComp = skillSlot.GetComponent<Image>() }, null);
+        }
+    }
+    public void AddToSkillFrame(BaseSkillSO skill)
+    {
+        if (skill == null) return;
+        foreach (KeyValuePair<SkillSlot, BaseSkillSO> keyValuePair in skillSlotDict)
+        {
+            if (keyValuePair.Value == null || keyValuePair.Value == skill)
+            {
+                keyValuePair.Key.SlotGO.SetActive(true);
+                keyValuePair.Key.ImageComp.sprite = skill.icon;
+                keyValuePair.Key.TextComp.text = MyUtils.ToRomanNumeral(skill.lvl);
+                skillSlotDict[keyValuePair.Key] = skill;
+                break;
+            }
+        }
+    }
     public void AddAbilitySlot(BaseAbility ability)
     {
-        if (!dictionaryOfAbilitySlots.ContainsKey(ability))
-        {
-            GameObject abilitySlot = listOfFreeAbilitySlots[0];
-            dictionaryOfAbilitySlots.Add(ability, abilitySlot);
+        
+        //if (!dictionaryOfAbilitySlots.ContainsKey(ability))
+        //{
+        //    GameObject abilitySlot = listOfFreeAbilitySlots[0];
+        //    dictionaryOfAbilitySlots.Add(ability, abilitySlot);
             
 
-            listOfFreeAbilitySlots.Remove(abilitySlot);
-            dictionaryOfAbilitySlots[ability].GetComponent<Image>().sprite = ability.icon;
+        //    listOfFreeAbilitySlots.Remove(abilitySlot);
+        //    dictionaryOfAbilitySlots[ability].GetComponent<Image>().sprite = ability.icon;
 
-            if (ability.canLevel)
-            {
-                dictionaryOfAbilityLvls.Add(ability, 1);
-                dictionaryOfAbilitySlots[ability].GetComponentInChildren<TextMeshProUGUI>().text = "1";
-            }
+        //    if (ability.canLevel)
+        //    {
+        //        dictionaryOfAbilityLvls.Add(ability, 1);
+        //        dictionaryOfAbilitySlots[ability].GetComponentInChildren<TextMeshProUGUI>().text = "1";
+        //    }
 
-            dictionaryOfAbilitySlots[ability].SetActive(true);
-
-
+        //    dictionaryOfAbilitySlots[ability].SetActive(true);
 
 
-        }
-        else if(ability.canLevel)
-        {
-            dictionaryOfAbilityLvls[ability] += 1;
-            dictionaryOfAbilitySlots[ability].GetComponentInChildren<TextMeshProUGUI>().text = dictionaryOfAbilityLvls[ability].ToString();
-        }
+
+
+        //}
+        //else if(ability.canLevel)
+        //{
+        //    dictionaryOfAbilityLvls[ability] += 1;
+        //    dictionaryOfAbilitySlots[ability].GetComponentInChildren<TextMeshProUGUI>().text = dictionaryOfAbilityLvls[ability].ToString();
+        //}
 
     }
 

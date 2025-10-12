@@ -25,7 +25,10 @@ public class LifeDrain : BaseSkillSO, IAreaOfEffect,ICooldown,ILifeTime,IDamage
   
     public override string GetSkillDescription()
     {
-        return $"A life draining circle appears around you every <color=yellow>{Cooldown - (0.5f * lvl)}s</color>, lasting <color=yellow>{LifeTime + (0.5f * lvl)}s</color>. It damages nearby enemies and heals you for a portion of the damage dealt.";
+        if (lvl == 0) return $"A life draining circle appears around you every <color=yellow>{Cooldown}s</color>, lasting <color=yellow>{LifeTime}s</color>. It damages nearby enemies and heals you for a portion of the damage dealt.";
+        else return  $"A life draining circle appears around you every <color=yellow>{Cooldown - 0.5f}s</color>, lasting <color=yellow>{LifeTime + 0.5f * lvl}s</color>. It damages nearby enemies and heals you for a portion of the damage dealt.";
+
+
     }
     public override void LevelUpSkill(PlayerController controller)
     {

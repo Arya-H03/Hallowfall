@@ -35,7 +35,10 @@ public class UmbralWaveSkill : BaseSkillSO, IChance, IDamage, ILifeTime,IAreaOfE
 
     public override string GetSkillDescription()
     {
-        return $"Your sword swings have a <color=purple>{Chance * 100 + (5 * lvl)}%</color> chance to unleash an Umbral Wave, dealing <color=red>{Damage + (10 * lvl)}</color> damage to enemies hit.";
+        if (lvl == 0) return $"Your sword swings have a <color=purple>{Chance * 100}%</color> chance to unleash an Umbral Wave, dealing <color=red>{Damage}</color> damage to enemies hit.";
+        else return $"Your sword swings have a <color=purple>{Chance * 100 + 5 }%</color> chance to unleash an Umbral Wave, dealing <color=red>{Damage + 10}</color> damage to enemies hit.";
+
+ 
     }
 
     private void UmbralWaveLogic(PlayerController playerController)

@@ -54,10 +54,12 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d91817f9f9fe97d449e595eb1945ffb4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,15 +77,16 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3709568497139087027, guid: 64a0d26f71092da4f8d2aebc4f149297, type: 3}
-  m_Color: {r: 1, g: 0.7647059, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: f83073ff12227b8439de9737110a0aa0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.46875, y: 0.53125}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -123,17 +126,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.037736855, y: 0.53539354}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.40625, y: 0.46875}
-    newSize: {x: 0.46875, y: 0.53125}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.46875, y: 0.53125}
+  m_Size: {x: 0.5442237, y: 0.53596723}
   m_EdgeRadius: 0
 --- !u!114 &167505733051463213
 MonoBehaviour:
@@ -148,11 +151,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 4472038230385408424, guid: a51fa58a7b43282418f4708b900676ba, type: 3}
-  - {fileID: -9076872907675973594, guid: 64c4d0a48e20b6a4eb9e5d69c6456584, type: 3}
-  - {fileID: 2333926605776154470, guid: 9ca20b1ee3ddbaf4b8672c6b41ac9485, type: 3}
-  - {fileID: -1548202794734976310, guid: 8e6b6dcd2311faa4ab5236f6017d1426, type: 3}
-  - {fileID: 3049750151832575908, guid: e6368247d8ca9594b983bad10db3f64d, type: 3}
-  - {fileID: -5215372878394063389, guid: abca6e72ac97ce24f90c391c8e2a0822, type: 3}
-  - {fileID: -8295205166747605359, guid: f83073ff12227b8439de9737110a0aa0, type: 3}
-  - {fileID: 3709568497139087027, guid: 64a0d26f71092da4f8d2aebc4f149297, type: 3}
+  - {fileID: 21300000, guid: 97f0f9e7eb4833446bdb67678393192e, type: 3}
+  - {fileID: 21300000, guid: 5b69fa6e7452dbf4b9ad5b011471f2dc, type: 3}
+  - {fileID: 21300000, guid: c98ee426befe94a4c894f7c8ba6c0736, type: 3}
+  - {fileID: 21300000, guid: bf1a98d6d8dfc3541ad07f5f3d0b2c59, type: 3}
+  - {fileID: 21300000, guid: 30c6eb95d886c2b49af69eda40a28be3, type: 3}
+  - {fileID: 21300000, guid: f83073ff12227b8439de9737110a0aa0, type: 3}
+  - {fileID: 21300000, guid: 5f37356e77387c645b9b116b538f5ed6, type: 3}
+  - {fileID: 21300000, guid: abca6e72ac97ce24f90c391c8e2a0822, type: 3}
+  - {fileID: 21300000, guid: a31743594cee78e458bbf9e270a1efbe, type: 3}

@@ -9,9 +9,13 @@ public abstract class BaseSkillSO : ScriptableObject
     public void Init(PlayerController playerController)
     {
         if(!playerController || lvl < 0) return;
-        
-        if(lvl == 0) ApplySkillLogic(playerController);
+
+        UIManager.Instance.AddToSkillFrame(this);
+
+        if (lvl == 0) ApplySkillLogic(playerController);
         else LevelUpSkill(playerController);
+
+       
     }
 
     public string GetSkillName()

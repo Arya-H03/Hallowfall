@@ -6,7 +6,6 @@ public class ObjectPoolManager : MonoBehaviour
 {
     private static ObjectPoolManager instance;
 
-    [SerializeField] ObjectPool essencePool;
     [SerializeField] ObjectPool skullPool;
 
     [SerializeField] ObjectPool arsonistPool;
@@ -28,7 +27,6 @@ public class ObjectPoolManager : MonoBehaviour
             return instance;
         }
     }
-    public ObjectPool EssencePool { get => essencePool;}
     public ObjectPool SkullPool { get => skullPool; }
     public ObjectPool ArsonistPool { get => arsonistPool; }
     public ObjectPool SinnerPool { get => sinnerPool; }

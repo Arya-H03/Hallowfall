@@ -6,11 +6,9 @@ public class EnemyItemDropHandler : MonoBehaviour,IInitializeable<EnemyControlle
 {
     private EnemySignalHub signalHub;
     private EnemyController enemyController;
+   
 
-     [SerializeField] float essenceDropChance = 0.75f;
     [SerializeField] float skullDropChance = 0.50f;
-
-    [SerializeField] int essenceDropCount = 1;
     [SerializeField] int skullDropCount = 1;
 
     public void Init(EnemyController enemyController)
@@ -29,23 +27,18 @@ public class EnemyItemDropHandler : MonoBehaviour,IInitializeable<EnemyControlle
 
     private void HandleItemDrop()
     {      
-        DropItem(ObjectPoolManager.Instance.EssencePool, essenceDropChance, essenceDropCount, enemyController.GetEnemyPos());
         DropItem(ObjectPoolManager.Instance.SkullPool, skullDropChance, skullDropCount, enemyController.GetEnemyPos());
     }
 
     private void DropItem(ObjectPool pool, float dropChance, int count, Vector3 pos)
     {
-        int rand = Random.Range(1,101);
-        if (rand < dropChance * 100)
+        if(!MyUtils.EvaluateChance(dropChance)) return;
+        for (int i = 0; i < count; i++)
         {
-            for (int i = 0; i < count; i++)
-            {
-                //Vector3 offset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
-                ////var go = Instantiate(item, pos + offset, Quaternion.identity);
-                //var go = pool.GetFromPool();
-                //go.transform.position = offset + pos;
-                //go.GetComponent<BaseItem>().OnItemDrop();
-            }
+            Vector3 offset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
+            var go = pool.GetFromPool();
+            go.transform.position = offset + pos;
+            go.GetComponent<BaseItem>().OnItemDrop();
         }
 
     }

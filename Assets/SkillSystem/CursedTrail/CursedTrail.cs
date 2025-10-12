@@ -32,7 +32,9 @@ public class CursedTrail : BaseSkillSO,IDamage,IChance,IAreaOfEffect,ILifeTime
 
     public override string GetSkillDescription()
     {
-        return $"Your sword attacks have a <color=purple>{Chance * 100 + (2 * lvl)}%</color> chance to leave a cursed trail under hit enemies, lasting <color=yellow>{LifeTime + (1 * lvl)}s</color> and dealing damage over time.";
+        if (lvl == 0) return $"Your sword attacks have a <color=purple>{Chance * 100 }%</color> chance to leave a cursed trail under hit enemies, lasting <color=yellow>{LifeTime }s</color> and dealing damage over time.";
+        else return $"Your sword attacks have a <color=purple>{Chance * 100 + 2}%</color> chance to leave a cursed trail under hit enemies, lasting <color=yellow>{LifeTime + 1}s</color> and dealing damage over time.";
+       
     }
     private void CursedSlashLogic(EnemyController enemy,int swordHitDmage)
     {

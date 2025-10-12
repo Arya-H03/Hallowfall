@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Essence : BaseItem
 {
-    public override void OnItemPickUp()
-    {
-        LevelupManager.Instance.OnEssencePickUp();
-        ObjectPoolManager.Instance.EssencePool.ReturnToPool(gameObject);
+    //public override void OnItemPickUp()
+    //{
+    //    LevelupManager.Instance.OnEssencePickUp();
+    //    //ObjectPoolManager.Instance.EssencePool.ReturnToPool(gameObject);
 
-    }
+    //}
 }
