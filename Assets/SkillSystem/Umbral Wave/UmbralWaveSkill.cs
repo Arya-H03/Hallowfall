@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [CreateAssetMenu(fileName = "UmbralWaveSkill", menuName = "Scriptable Objects/Skills/UmbralWaveSkill")]
 public class UmbralWaveSkill : BaseSkillSO, IChance, IDamage, ILifeTime,IAreaOfEffect,ISpeed,IPierceCount
@@ -19,15 +20,22 @@ public class UmbralWaveSkill : BaseSkillSO, IChance, IDamage, ILifeTime,IAreaOfE
     public float Speed { get => speed; set => speed = value; }
     public int PierceCount { get => pierceCount; set => pierceCount = value; }
 
-    public override string GetDescription()
+    public override void ApplySkillLogic(PlayerController playerController)
     {
-        return $"Your sword swings have a <color=purple>{Chance * 100}%</color> chance to unleash an Umbral Wave, dealing <color=red>{Damage}</color> damage to enemies hit.";
+        playerController.PlayerSignalHub.OnSwordAttackHitFrame += () => UmbralWaveLogic(playerController);
+        lvl = 1;
     }
 
-    public override void Init(PlayerController controller)
+    public override void LevelUpSkill(PlayerController playerController)
     {
-        if (controller == null) return;
-        controller.PlayerSignalHub.OnSwordAttackHitFrame += () => UmbralWaveLogic(controller);
+        lvl++;
+        Chance += 0.05f;
+        Damage += 10;
+    }
+
+    public override string GetSkillDescription()
+    {
+        return $"Your sword swings have a <color=purple>{Chance * 100 + (5 * lvl)}%</color> chance to unleash an Umbral Wave, dealing <color=red>{Damage + (10 * lvl)}</color> damage to enemies hit.";
     }
 
     private void UmbralWaveLogic(PlayerController playerController)
@@ -38,4 +46,6 @@ public class UmbralWaveSkill : BaseSkillSO, IChance, IDamage, ILifeTime,IAreaOfE
         umbralWave.Init(Damage,Speed,LifeTime,PierceCount);
         umbralWave.SetProjectileCourseToCursor();
     }
+
+    
 }

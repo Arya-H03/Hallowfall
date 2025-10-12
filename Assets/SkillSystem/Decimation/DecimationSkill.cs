@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [CreateAssetMenu(fileName = "DecimationSkill", menuName = "Scriptable Objects/Skills/DecimationSkill")]
 public class DecimationSkill : BaseSkillSO, IFloatRange
@@ -9,17 +10,22 @@ public class DecimationSkill : BaseSkillSO, IFloatRange
     public float LowerEnd { get => lowerEnd; set => lowerEnd = value; }
     public float UpperEnd { get => upperEnd; set => upperEnd = value; }
 
-    public override void Init(PlayerController controller)
+    public override void ApplySkillLogic(PlayerController playerController)
     {
-        if (controller == null) return;
-        controller.PlayerSignalHub.OnEnemyHit += DecimationLogic;
-        Debug.Log(abilityName);
+        playerController.PlayerSignalHub.OnEnemyHit += DecimationLogic;
+        lvl = 1;
     }
 
-    public override string GetDescription()
+    public override void LevelUpSkill(PlayerController playerController)
+    {
+        lvl++;
+        LowerEnd += 0.02f;
+        UpperEnd += 0.02f;
+    }
+    public override string GetSkillDescription()
     {
 
-        return $"Your first damaging sword attack on an enemy will deal an additional <color=red>{LowerEnd * 100}%</color> to <color=red>{UpperEnd * 100}%</color> of the enemies max health";
+        return $"Your first damaging sword attack on an enemy will deal an additional <color=red>{LowerEnd * 100 + (2 * lvl)}%</color> to <color=red>{UpperEnd * 100 + (2 * lvl)}%</color> of the enemies max health";
     }
     private void DecimationLogic(EnemyController enemyController, int swordHitDmage)
     {
@@ -32,4 +38,5 @@ public class DecimationSkill : BaseSkillSO, IFloatRange
         }
     }
 
+   
 }

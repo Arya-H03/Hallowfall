@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [CreateAssetMenu(fileName = "LifeDrainSkill", menuName = "Scriptable Objects/Skills/LifeDrainSkill")]
 public class LifeDrain : BaseSkillSO, IAreaOfEffect,ICooldown,ILifeTime,IDamage
@@ -16,15 +17,23 @@ public class LifeDrain : BaseSkillSO, IAreaOfEffect,ICooldown,ILifeTime,IDamage
     public int Damage { get => damage; set => damage = value; }
     public float LifeTime { get => lifeTime; set => lifeTime = value; }
 
-    public override void Init(PlayerController controller)
+    public override void ApplySkillLogic(PlayerController playerController)
     {
-        if (controller == null) return;
-        controller.CoroutineRunner.StartCoroutine(SpawnSoulDrainCircleCoroutine(controller));
+        playerController.CoroutineRunner.StartCoroutine(SpawnSoulDrainCircleCoroutine(playerController));
+        lvl = 1;
     }
-
-    public override string GetDescription()
+  
+    public override string GetSkillDescription()
     {
-        return $"A life draining circle appears around you every <color=yellow>{Cooldown}s</color>, lasting <color=yellow>{lifeTime}s</color>. It damages nearby enemies and heals you for a portion of the damage dealt.";
+        return $"A life draining circle appears around you every <color=yellow>{Cooldown - (0.5f * lvl)}s</color>, lasting <color=yellow>{LifeTime + (0.5f * lvl)}s</color>. It damages nearby enemies and heals you for a portion of the damage dealt.";
+    }
+    public override void LevelUpSkill(PlayerController controller)
+    {
+        lvl++;
+        Cooldown -= 0.5f;
+        LifeTime += 0.5f;
+        Damage += 1;
+
     }
 
     private IEnumerator SpawnSoulDrainCircleCoroutine(PlayerController playerController)
@@ -74,4 +83,6 @@ public class LifeDrain : BaseSkillSO, IAreaOfEffect,ICooldown,ILifeTime,IDamage
 
         }
     }
+
+  
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 
 [CreateAssetMenu(fileName = "MassRetaliationSkill", menuName = "Scriptable Objects/Skills/MassRetaliationSkill")]
@@ -14,17 +15,22 @@ public class MassRetaliationSkill : BaseSkillSO, IDamage, IAreaOfEffect,IKnockba
     public float AreaOfEffect { get => effectSize; set => effectSize = value; }
     public float KnockbackForce { get => knockbackForce; set => knockbackForce = value; }
 
-    public override string GetDescription()
+    public override void ApplySkillLogic(PlayerController playerController)
     {
-        return $"Successful parries trigger an explosion, dealing <color=red>{damage}</color> damage and knocking back nearby enemies.";
+        playerController.PlayerSignalHub.OnEnemyParried += (enemy, parryDamage) => MassRetaliationLogic(playerController);
+        lvl = 1;
+    }
+    public override void LevelUpSkill(PlayerController playerController)
+    {
+        lvl++;
+        Damage += 10;
+        KnockbackForce *= 1.2f;
+    }
+    public override string GetSkillDescription()
+    {
+        return $"Successful parries trigger an explosion, dealing <color=red>{damage + (10 * lvl)}</color> damage and knocking back nearby enemies.";
 
     }
-
-    public override void Init(PlayerController controller)
-    {
-        controller.PlayerSignalHub.OnEnemyParried += (enemy, parryDamage) => MassRetaliationLogic(controller);
-    }
-
     private void MassRetaliationLogic(PlayerController controller)
     {
         GameObject retaliationEffect = Instantiate(retaliationEffectPrefab, controller.GetPlayerPos(), Quaternion.Euler(60,0,0));

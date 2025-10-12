@@ -7,19 +7,15 @@ using UnityEngine.InputSystem.XR;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public class ShadowTrail : MonoBehaviour
 {
-    private EntityController owner;
     private int damage;
-    private EntityTypeEnum targetEntityType;
 
     [SerializeField] LayerMask layerMask;
 
     private Coroutine damageCoroutine;
-    public void Init(EntityController owner, int damage, EntityTypeEnum ownerEntityType)
+    public void Init(int damage)
     {
-        this.owner = owner;
         this.damage = damage;
-        this.targetEntityType = (ownerEntityType == EntityTypeEnum.player) ? EntityTypeEnum.enemy : EntityTypeEnum.player;
-
+   
         damageCoroutine = StartCoroutine(TryDamageTargets());
     }
 
@@ -29,35 +25,29 @@ public class ShadowTrail : MonoBehaviour
     }
     private IEnumerator TryDamageTargets()
     {
-        switch(targetEntityType)
+        while (true)
         {
-            case EntityTypeEnum.player:
-             
-            case EntityTypeEnum.enemy:
-                while (true)
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, this.transform.localScale.x / 2, transform.forward, 10f, layerMask);
+
+            foreach (RaycastHit2D hit in hits)
+            {
+
+                if (hit.collider != null && hit.collider.transform.parent.TryGetComponent<EnemyController>(out EnemyController enemyController))
                 {
-                    RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, this.transform.localScale.x / 2, transform.forward, 10f, layerMask);
-           
-                    foreach (RaycastHit2D hit in hits)
+                    enemyController.GetComponent<IHitable>().HandleHit(new HitInfo
                     {
-
-                        if (hit.collider != null && hit.collider.transform.parent.TryGetComponent<EnemyController>(out EnemyController enemyController))
-                        {
-                            enemyController.GetComponent<IHitable>().HandleHit(new HitInfo
-                            {
-                                damage = damage,
-                                canBeImmune = false,
-                                canFlashOnHit = true,
-                                canPlayAnimOnHit = false,
-                                canPlaySFXOnHit = false,
-                                canPlayVFXOnHit = false
-                            });
-                        }
-                    }
-
-                    yield return new WaitForSeconds(0.75f);
+                        damage = damage,
+                        canBeImmune = false,
+                        canFlashOnHit = true,
+                        canPlayAnimOnHit = false,
+                        canPlaySFXOnHit = false,
+                        canPlayVFXOnHit = false
+                    });
                 }
+            }
+
+            yield return new WaitForSeconds(0.75f);
         }
-      
+
     }
 }

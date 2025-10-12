@@ -21,14 +21,24 @@ public class PlayerSkillManager : MonoBehaviour
             Destroy(instance.gameObject);
         }
         instance = this;
-
-        unlockedPlayerSkills = new List<BaseSkillSO>();
-        lockedPlayerSkills = new List<BaseSkillSO>(totalAvailablePlayerSkills);
+    
+        InstantiateAllSkills();
     }
 
     private void Start()
     {
         playerController = GameManager.Instance.PlayerController;
+    }
+
+    private void InstantiateAllSkills()
+    {
+        unlockedPlayerSkills = new List<BaseSkillSO>();
+        lockedPlayerSkills = new List<BaseSkillSO>();
+
+        foreach (BaseSkillSO skill in totalAvailablePlayerSkills)
+        {
+            lockedPlayerSkills.Add(Instantiate(skill));
+        }
     }
     public BaseSkillSO[] GetThreeRandomSkills()
     {
@@ -45,8 +55,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void UnlockPlayerSkill(BaseSkillSO skill) 
     {
-        lockedPlayerSkills.Remove(skill);
-        unlockedPlayerSkills.Add(skill);
+        //unlockedPlayerSkills.Add(skill);
         skill.Init(playerController);
     }
 }

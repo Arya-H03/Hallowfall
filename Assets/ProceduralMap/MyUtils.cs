@@ -428,5 +428,53 @@ public static class MyUtils
         return mousePos;
     }
 
- 
+    public static string ToRomanNumeral(int number)
+    {
+        if (number <= 0) return string.Empty;
+
+        var sb = new System.Text.StringBuilder();
+
+        // 1000 (M)
+        int nM = number / 1000;
+        number %= 1000;
+        sb.Append('M', nM);
+
+        // 100 (C), 500 (D)
+        int nC = number / 100;
+        number %= 100;
+        if (nC == 9) sb.Append("CM");
+        else if (nC >= 5)
+        {
+            sb.Append('D');
+            sb.Append('C', nC - 5);
+        }
+        else if (nC == 4) sb.Append("CD");
+        else sb.Append('C', nC);
+
+        // 10 (X), 50 (L)
+        int nX = number / 10;
+        number %= 10;
+        if (nX == 9) sb.Append("XC");
+        else if (nX >= 5)
+        {
+            sb.Append('L');
+            sb.Append('X', nX - 5);
+        }
+        else if (nX == 4) sb.Append("XL");
+        else sb.Append('X', nX);
+
+        // 1 (I), 5 (V)
+        if (number == 9) sb.Append("IX");
+        else if (number == 4) sb.Append("IV");
+        else if (number >= 5)
+        {
+            sb.Append('V');
+            sb.Append('I', number - 5);
+        }
+        else sb.Append('I', number);
+
+        return sb.ToString();
+    }
+
+
 }

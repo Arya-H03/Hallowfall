@@ -41,19 +41,21 @@ public class SkillOption : MonoBehaviour
         StartCoroutine(HighlightOptionCoroutine());
         descriptionFrame.SetActive(true);
 
-        skillNameTextComp.text = currentSkill.abilityName;
-        skillDescriptionTextComp.text = currentSkill.GetDescription();
+        skillNameTextComp.text = currentSkill.GetSkillName();
+        skillDescriptionTextComp.text = currentSkill.GetSkillDescription();
     }
 
     public void ResetHighlightOption()
     {
+       if (skillStatue.SelectedSkill == currentSkill) return;
         StartCoroutine(ResetHighlightOptionCoroutine());
-        if (skillStatue.SelectedSkillOption == currentSkill) return;
+        
 
-        if (skillStatue.SelectedSkillOption != null && skillStatue.SelectedSkillOption != currentSkill)
+        if (skillStatue.SelectedSkill != null && skillStatue.SelectedSkill != currentSkill)
         {
-            skillNameTextComp.text = skillStatue.SelectedSkillOption.abilityName;
-            skillDescriptionTextComp.text = skillStatue.SelectedSkillOption.GetDescription();
+            skillStatue.SelectedOption.HighlightOption();
+            //skillNameTextComp.text = skillStatue.SelectedSkill.abilityName;
+            //skillDescriptionTextComp.text = skillStatue.SelectedSkill.GetSkillDescription();
            
             return;
         }
@@ -67,7 +69,7 @@ public class SkillOption : MonoBehaviour
     private IEnumerator HighlightOptionCoroutine()
     {
         float timer = 0;
-        Vector3 targetScale = this.transform.localScale * hightlightScale;
+        Vector3 targetScale = originalLocalScale * hightlightScale;
         while (timer < 0.25f)
         {
             float t = timer / 0.25f;
@@ -94,7 +96,7 @@ public class SkillOption : MonoBehaviour
 
     public void OnSkillOptionClicked()
     {
-        if(skillStatue.SelectedSkillOption != currentSkill) skillStatue.OnSkillChosen?.Invoke(currentSkill);
+        if(skillStatue.SelectedSkill != currentSkill) skillStatue.OnSkillChosen?.Invoke(currentSkill,this);
     }
 
 }

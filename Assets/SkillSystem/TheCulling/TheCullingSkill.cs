@@ -1,26 +1,26 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [CreateAssetMenu(fileName = "TheCullingSkill", menuName = "Scriptable Objects/Skills/TheCullingSkill")]
 public class TheCullingSkill : BaseSkillSO, ITreshold
 {
     [SerializeField] private float cullingTreshold; 
     public float Treshold { get => cullingTreshold; set => cullingTreshold = value; }
-   
-    private EntityController ownerEntity;
-
- 
-    public override void Init(PlayerController controller)
+    public override void ApplySkillLogic(PlayerController playerController)
     {
-        if (controller == null) return;
-        ownerEntity = controller;
-        controller.PlayerSignalHub.OnEnemyHit += TheCullingLogic;
-        Debug.Log(abilityName);
+        playerController.PlayerSignalHub.OnEnemyHit += TheCullingLogic;
+        lvl = 1;
     }
 
-    public override string GetDescription()
+    public override void LevelUpSkill(PlayerController playerController)
     {
-        return $"Once an enemy reaches <color=orange>{Treshold*100}%</color>, your next sword attack will instantly kill the enemy regardless of the remaining health";
+        lvl++;
+        Treshold += 0.05f;
+    }
+    public override string GetSkillDescription()
+    {
+        return $"Once an enemy reaches <color=orange>{Treshold*100 + (5 * lvl)}%</color> health, your next sword attack will instantly kill the enemy regardless of the remaining health";
     }
     private void TheCullingLogic(EnemyController enemyController, int swordHitDmage)
     {
@@ -31,4 +31,6 @@ public class TheCullingSkill : BaseSkillSO, ITreshold
             damagable.ApplyDamage(damagable.MaxHealth);
         }
     }
+
+    
 }

@@ -1,12 +1,11 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [CreateAssetMenu(fileName = "CursedTrail", menuName = "Scriptable Objects/Skills/CursedTrail")]
 public class CursedTrail : BaseSkillSO,IDamage,IChance,IAreaOfEffect,ILifeTime
 {
     [SerializeField] GameObject cursedTrailPrefab;
-
-    private EntityController ownerEntity;
 
     [SerializeField] private int damage;
     [SerializeField] private float chance;
@@ -17,15 +16,23 @@ public class CursedTrail : BaseSkillSO,IDamage,IChance,IAreaOfEffect,ILifeTime
     public float AreaOfEffect { get => effectSize; set => effectSize = value; }
     public float LifeTime { get => lifeTime; set => lifeTime = value; }
 
-    public override void Init(PlayerController controller)
+    public override void ApplySkillLogic(PlayerController playerController)
     {
-        if (controller == null) return;
-        ownerEntity = controller;
-        controller.PlayerSignalHub.OnEnemyHit += CursedSlashLogic;
+        playerController.PlayerSignalHub.OnEnemyHit += CursedSlashLogic;
+        lvl = 1;
     }
-    public override string GetDescription()
+
+    public override void LevelUpSkill(PlayerController playerController)
     {
-        return $"Your sword attacks have a <color=purple>{Chance * 100}%</color> chance to leave a cursed trail under hit enemies, lasting <color=yellow>{lifeTime}s</color> and dealing damage over time.";
+        lvl++;
+        Chance += 0.02f;
+        LifeTime += 1;
+        Damage += 2;
+    }
+
+    public override string GetSkillDescription()
+    {
+        return $"Your sword attacks have a <color=purple>{Chance * 100 + (2 * lvl)}%</color> chance to leave a cursed trail under hit enemies, lasting <color=yellow>{LifeTime + (1 * lvl)}s</color> and dealing damage over time.";
     }
     private void CursedSlashLogic(EnemyController enemy,int swordHitDmage)
     {
@@ -36,8 +43,10 @@ public class CursedTrail : BaseSkillSO,IDamage,IChance,IAreaOfEffect,ILifeTime
 
         GameObject cursedTrailGO = Instantiate(cursedTrailPrefab, cursedTrailSpawnPos,Quaternion.Euler(60,0,0));
         cursedTrailGO.transform.localScale *= AreaOfEffect;
-        cursedTrailGO.GetComponent<ShadowTrail>().Init(ownerEntity, Damage, ownerEntity.EntityType);
+        cursedTrailGO.GetComponent<ShadowTrail>().Init(Damage);
 
         Destroy(cursedTrailGO, LifeTime);
     }
+
+   
 }

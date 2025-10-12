@@ -25,14 +25,16 @@ public class SkillStatue : MonoBehaviour, IInteractable
 
     [SerializeField] AudioClip[] skillSelectionSFX;
 
-    public Action<BaseSkillSO> OnSkillChosen;
-    private BaseSkillSO selectedSkillOption;
+    public Action<BaseSkillSO,SkillOption> OnSkillChosen;
+    private BaseSkillSO selectedSkill;
+    private SkillOption selectedOption;
     private Material material;
 
     private bool isSkillSelected = false;
     private bool isStatueUnlocked = false;
 
-    public BaseSkillSO SelectedSkillOption { get => selectedSkillOption; set => selectedSkillOption = value; }
+    public BaseSkillSO SelectedSkill { get => selectedSkill; set => selectedSkill = value; }
+    public SkillOption SelectedOption { get => selectedOption; set => selectedOption = value; }
 
     private void OnEnable()
     {
@@ -106,17 +108,20 @@ public class SkillStatue : MonoBehaviour, IInteractable
         option3.Init(skills[2], this, skillDescriptionFrame, skillNameTextComp, skillDescriptionTextComp);
     }
 
-    private void HandleChoosingSkill(BaseSkillSO skill)
+    private void HandleChoosingSkill(BaseSkillSO skill,SkillOption option)
     {
-        selectedSkillOption = skill;
+        SkillOption lastSelectedOption = selectedOption;
+        selectedOption = option;
+        selectedSkill = skill;
         skillSelectBtn.SetActive(true);
+        lastSelectedOption?.ResetHighlightOption();
     }
     public void OnSelectSkillBtnClicked()
     {
-        if (!selectedSkillOption) return;
+        if (!selectedSkill) return;
         isSkillSelected = true;
   
-        PlayerSkillManager.Instance.UnlockPlayerSkill(selectedSkillOption);
+        PlayerSkillManager.Instance.UnlockPlayerSkill(selectedSkill);
 
         DeactivateSkillFrame();
 
