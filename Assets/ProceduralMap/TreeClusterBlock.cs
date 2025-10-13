@@ -25,6 +25,13 @@ public class TreeClusterBlock : PropsBlock
                 {
                     CellPaint tilePaintTree = new CellPaint { tilemap = treeTilemap, tileBase = treeTilebase, isOnGlobalTile = true};
                     subCellGrid.Cells[x, y].AddToCellPaint(tilePaintTree);
+
+                    if(MyUtils.EvaluateChance(zoneLayoutProfile.crowSpawerChance))
+                    {
+                        GameObject crowSpawner = Instantiate(zoneLayoutProfile.crowSpawnerPrefab, subCellGrid.Cells[x, y].GlobalCellPos, Quaternion.identity);
+                        crowSpawner.transform.parent = this.transform;
+                    }
+                    
                 }
                 //if (/*Random.value > 1 - zoneLayoutProfile.treeDensity && */y >= 1)
                 //{

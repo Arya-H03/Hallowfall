@@ -30,6 +30,9 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     private HashSet<Vector3Int> tilesToFade = new();
     private HashSet<Vector3Int> tilesToUnfade = new();
     private Dictionary<Vector3Int, Coroutine> fadingTilesDict = new();
+    [SerializeField] Color vignetteColorInTrees;
+
+    private bool isFullyInForest = false;
 
 
 
@@ -65,16 +68,31 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     private void CheckForNearbyTreeTiles(Vector3 centerPos)
     {
         Vector3Int centerTilePos = new Vector3Int((int)centerPos.x, (int)centerPos.y, (int)centerPos.z);
+        int count = 0;
         for (int i = -treeCheckRadius; i < treeCheckRadius; i++)
         {
             for (int j = -treeCheckRadius; j < treeCheckRadius; j++)
             {
                 Vector3Int tilePos = centerTilePos + new Vector3Int(i, j, 0);
+                if (!treeTilemap.HasTile(tilePos)) continue;
 
+                count++;    
                 if (!fadedTiles.Contains(tilePos)) tilesToFade.Add(tilePos);
 
             }
         }
+
+        if(!isFullyInForest && treeTilemap.HasTile(centerTilePos))
+        {
+            isFullyInForest = true;
+            playerController.PlayerSignalHub.OnVignette?.Invoke(0.3f,vignetteColorInTrees);
+        }
+        if(isFullyInForest && !treeTilemap.HasTile(centerTilePos))
+        {
+            isFullyInForest = false;
+            playerController.PlayerSignalHub.OnVignette?.Invoke(0, Color.white);
+        }
+
     }
     private void HandleTiles(Vector3 centerPos)
     {

@@ -27,6 +27,7 @@ public class PlayerSignalHub
 
     public Action <float,float> OnCameraShake;
     public Action <float,float,Color> OnVignetteFlash;
+    public Action <float,Color> OnVignette;
 
     // Anim Handler
     public Action<string,bool> OnAnimBool;

@@ -259,6 +259,13 @@ public static class MyUtils
             : (T?)null;
     }
 
+    public static Vector3 GetRandomOffset(float multiplier)
+    {
+        float x = Random.Range(-1, 1);
+        float y = Random.Range(-1, 1);
+
+        return new Vector3 (x, y, 0) * multiplier;
+    }
     public static bool EvaluateChance(float percentChance) // chance has to be in %. 
     {
         float chanceWeight = percentChance * 100;

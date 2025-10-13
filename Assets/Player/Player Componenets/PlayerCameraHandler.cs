@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -57,12 +58,14 @@ public class PlayerCameraHandler : MonoBehaviour
 
         playerController.PlayerSignalHub.OnCameraShake += ShakeCamera;
         playerController.PlayerSignalHub.OnVignetteFlash += FlashVignette;
+        playerController.PlayerSignalHub.OnVignette += OnVignette;
     }
 
     private void OnDisable()
     {
         playerController.PlayerSignalHub.OnCameraShake -= ShakeCamera;
         playerController.PlayerSignalHub.OnVignetteFlash -= FlashVignette;
+        playerController.PlayerSignalHub.OnVignette -= OnVignette;
     }
     void Update()
     {
@@ -149,6 +152,26 @@ public class PlayerCameraHandler : MonoBehaviour
         vignette.intensity.Override(0f);
     }
 
+    private void OnVignette(float intensity, Color newColor)
+    {
+        StartCoroutine(OnVignetteCoroutine(intensity, newColor));
+    }
+    private IEnumerator OnVignetteCoroutine(float intensity, Color newColor)
+    {
+        float timer = 0;
+
+        while (timer < 1f)
+        {
+            timer += Time.deltaTime;
+            float t = timer / 1f;
+            vignette.intensity.Override(Mathf.Lerp(0, intensity, t));
+            vignette.color.Override(Color.Lerp(Color.clear, newColor, t));
+            yield return null;
+        }
+        vignette.intensity.Override(intensity);
+        vignette.color.Override(newColor);
+
+    }
     public void OnPlayerDistorted()
     {
         ChromaticAberration.intensity.Override(1);

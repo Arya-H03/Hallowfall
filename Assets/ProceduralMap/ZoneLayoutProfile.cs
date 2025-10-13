@@ -44,6 +44,8 @@ public class ZoneLayoutProfile : ScriptableObject
     [Header("Tree Cluster")]
     public RuleTile leavesRuleTile;
     public TileBase[] treeTiles;
+    public GameObject crowSpawnerPrefab;
+    public float crowSpawerChance;
     [Range(0f, 1f)] public float treeDensity = 1f;
 
     [Header("Crypt Cluster")]
