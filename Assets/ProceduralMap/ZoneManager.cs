@@ -22,6 +22,8 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] private Tilemap zoneConnectingGround;
     [SerializeField] private ZoneLayoutProfile zoneLayoutProfile;
 
+    [SerializeField] private Tilemap globalTreeTilemap;
+
 
     private CTicker cTicker;
 
@@ -30,6 +32,7 @@ public class ZoneManager : MonoBehaviour
     public Tilemap ZoneConnectingGround => zoneConnectingGround;
 
     public Dictionary<Vector2Int, ZoneData> GeneratedZonesDic { get => generatedZonesDic;}
+    public Tilemap GlobalTreeTilemap { get => globalTreeTilemap;}
 
     private Dictionary<Vector2Int, ZoneData> generatedZonesDic = new();
 

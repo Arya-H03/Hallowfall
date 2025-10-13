@@ -12,6 +12,8 @@ public class TreeClusterBlock : PropsBlock
         CellPaint tilePaintLeavesOnGroundTile = new CellPaint {tilemap = zoneHandler.GroundTwoTilemap, tileBase = zoneLayoutProfile.leavesRuleTile };
         CellPaint grassTilePaint = new CellPaint {tilemap = zoneHandler.GroundOneTilemap, tileBase = zoneLayoutProfile.grassRuletile, isOnGlobalTile = false };
 
+        Tilemap treeTilemap = ZoneManager.Instance.GlobalTreeTilemap;
+
         for (int y = 0; y < subCellGrid.CellPerCol; y++)
         {
             for (int x = 0; x < subCellGrid.CellPerRow; x++)
@@ -21,7 +23,7 @@ public class TreeClusterBlock : PropsBlock
 
                 if (treeTilebase != null)
                 {
-                    CellPaint tilePaintTree = new CellPaint { tilemap = zoneHandler.TreeTilemap, tileBase = treeTilebase };
+                    CellPaint tilePaintTree = new CellPaint { tilemap = treeTilemap, tileBase = treeTilebase, isOnGlobalTile = true};
                     subCellGrid.Cells[x, y].AddToCellPaint(tilePaintTree);
                 }
                 //if (/*Random.value > 1 - zoneLayoutProfile.treeDensity && */y >= 1)

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using UnityEngine.Tilemaps;
 public class PlayerEnvironmentCheckHandler : MonoBehaviour
 {
     private CDetector detector;
-    
+
     [SerializeField] Transform groundCheckOrigin1;
     [SerializeField] Transform groundCheckOrigin2;
 
@@ -21,198 +22,108 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
 
     PlayerController playerController;
 
-    private bool isInForest = false;
-    private readonly int forestCheckRadius = 4;
+    private readonly int treeCheckRadius = 4;
 
-   
-    private Tilemap lastTreeTilemap;
 
-    private HashSet<Vector3Int> fadedCells = new();
-    private Dictionary<Vector3Int,Coroutine> fadeCoroutinesDict = new();
+    private Tilemap treeTilemap;
+    private HashSet<Vector3Int> fadedTiles = new();
+    private HashSet<Vector3Int> tilesToFade = new();
+    private HashSet<Vector3Int> tilesToUnfade = new();
+    private Dictionary<Vector3Int, Coroutine> fadingTilesDict = new();
 
-    public CDetector Detector { get => detector;}
-    public LayerMask EnemyLayerMask { get => enemyLayer;}
+
+
+    public CDetector Detector { get => detector; }
+    public LayerMask EnemyLayerMask { get => enemyLayer; }
 
     private void Awake()
     {
         playerController = GetComponentInParent<PlayerController>();
-        detector = GetComponent<CDetector>(); 
+        detector = GetComponent<CDetector>();
     }
-
+    private void Start()
+    {
+        treeTilemap = ZoneManager.Instance.GlobalTreeTilemap;
+    }
     private void FixedUpdate()
     {
         CheckForFloorType();
     }
     private void Update()
     {
-        
-        if (playerController && !playerController.IsDead)
-        {
 
-            CheckIfPlayerOnTreeTilemap();
+        if (!playerController || playerController.IsDead) return;
+                                                              
+        Vector3 playerPos = playerController.GetPlayerPos() - new Vector3(0,2,0);
 
-        }
-
-    }
-
-    private void CheckIfPlayerOnTreeTilemap()
-    {
-        Tilemap tilemap = ZoneManager.Instance?.GetCurrentZoneHandler()?.TreeTilemap;
-        if(tilemap ==null) return;
-        if(lastTreeTilemap == null) lastTreeTilemap = tilemap;
-
-        if(lastTreeTilemap != tilemap)
-        {
-            UnfadeAllFadedCells(lastTreeTilemap);
-            lastTreeTilemap = tilemap;
-        }
-
-
-
-        Vector3Int playerCurrentCell = tilemap.WorldToCell(playerController.GetPlayerPos());
-        bool onTreeTile = tilemap.GetTile(playerCurrentCell) != null;
-
-
-        if (onTreeTile && !isInForest)
-        {
-            StartCoroutine(EnterForest(tilemap));
-        }
-
-        else if (!onTreeTile && isInForest)
-        {
-            ExitForest(tilemap);
-           
-        }
-    }
-
-    private IEnumerator EnterForest(Tilemap tilemap)
-    {
-        isInForest= true;
-        while(isInForest && playerController)
-        {
-            Vector3Int playerCurrentCell = tilemap.WorldToCell(playerController.transform.position) - new Vector3Int(0, 1, 0);
-
-            FindAllCloseByCells(tilemap, playerCurrentCell);
-            HandleAllCellsMarkedAsFaded(tilemap, playerCurrentCell);
-
-            yield return null;
-        }
-        
-       
-
-    }
-
-    private void ExitForest(Tilemap tilemap)
-    {
-        isInForest = false;
-        UnfadeAllFadedCells(tilemap);
-    
-    }
-
-    private void FindAllCloseByCells(Tilemap tilemap, Vector3Int playerCurrentCell)
-    {
-        
-        for (int i = -forestCheckRadius; i <= forestCheckRadius; i++)
-        {
-            for (int j = -forestCheckRadius; j <= forestCheckRadius; j++)
-            {
-                Vector3Int cell = playerCurrentCell + new Vector3Int(j, i, 0);
-                if (!tilemap.HasTile(cell) || fadedCells.Contains(cell)) continue;
-                fadedCells.Add(cell);
-
-            }
-        }
+        CheckForNearbyTreeTiles(playerPos);
+        HandleTiles(playerPos);
       
+
+
+    }
+    private void CheckForNearbyTreeTiles(Vector3 centerPos)
+    {
+        Vector3Int centerTilePos = new Vector3Int((int)centerPos.x, (int)centerPos.y, (int)centerPos.z);
+        for (int i = -treeCheckRadius; i < treeCheckRadius; i++)
+        {
+            for (int j = -treeCheckRadius; j < treeCheckRadius; j++)
+            {
+                Vector3Int tilePos = centerTilePos + new Vector3Int(i, j, 0);
+
+                if (!fadedTiles.Contains(tilePos)) tilesToFade.Add(tilePos);
+
+            }
+        }
+    }
+    private void HandleTiles(Vector3 centerPos)
+    {
+        float sqrRadius = treeCheckRadius * treeCheckRadius;
+
+        // Fade tiles that should be faded
+        foreach (Vector3Int tilePos in tilesToFade)
+        {
+            if (fadedTiles.Contains(tilePos)) continue;
+
+            if ((centerPos - (Vector3)tilePos).sqrMagnitude <= sqrRadius)
+            {
+                StartFade(tilePos, 0.2f, 0.3f);
+                fadedTiles.Add(tilePos);
+            }
+        }
+
+
+        tilesToFade.Clear();
+
+
+        // Unfade tiles that left the radius
+        foreach (Vector3Int tilePos in fadedTiles)
+        {
+            if ((centerPos - (Vector3)tilePos).sqrMagnitude > sqrRadius)
+            {
+                tilesToUnfade.Add(tilePos);
+            }
+        }
+
+        foreach (Vector3Int tilePos in tilesToUnfade)
+        {
+            StartFade(tilePos, 1f, 0.2f);
+            fadedTiles.Remove(tilePos);
+        }
+
+        tilesToUnfade.Clear();
     }
 
-    private void HandleAllCellsMarkedAsFaded(Tilemap tilemap, Vector3Int playerCurrentCell)
+    private void StartFade(Vector3Int tilePos,float targetAlpha, float duration)
     {
+        if(fadingTilesDict.TryGetValue(tilePos,out Coroutine coroutine)) StopCoroutine(coroutine);
         
-        float maxDistSqr = forestCheckRadius * forestCheckRadius;
-
-        Vector3 playerWorldPos = tilemap.CellToWorld(playerCurrentCell);
-        HashSet<Vector3Int> cellsToRemove = new();
-        foreach (var cell in fadedCells)
-        {
-            Vector3 cellWorldPos = tilemap.CellToWorld(cell);
-           
-            //Close
-            if ((playerWorldPos - cellWorldPos).sqrMagnitude <= maxDistSqr)
-            {
-
-                if (fadeCoroutinesDict.ContainsKey(cell))
-                {
-                    StopCoroutine(fadeCoroutinesDict[cell]);
-                    fadeCoroutinesDict[cell] = null;
-                    fadeCoroutinesDict[cell] = StartCoroutine(FadeTile(tilemap, cell, 0.20f, 0.3f));
-                    
-                }
-                else
-                {
-                    fadeCoroutinesDict.Add(cell, StartCoroutine(FadeTile(tilemap, cell, 0.20f, 0.3f)));
-                }
-            }
-            //Far
-            else
-            {
-                if (fadeCoroutinesDict.ContainsKey(cell))
-                {
-                    StopCoroutine(fadeCoroutinesDict[cell]);
-                    fadeCoroutinesDict[cell] = null;
-                    fadeCoroutinesDict[cell] = StartCoroutine(FadeTile(tilemap, cell, 1f, 0.3f));
-
-           
-                }
-                else
-                {
-                    fadeCoroutinesDict.Add(cell, StartCoroutine(FadeTile(tilemap, cell, 1f, 0.3f)));
-                }
-
-
-                cellsToRemove.Add(cell);
-            }
-        }
-
-        foreach (var cell in cellsToRemove)
-        {
-            fadedCells.Remove(cell);
-        }
-
+        fadingTilesDict[tilePos] = StartCoroutine(FadeTileCoroutine(treeTilemap, tilePos, targetAlpha, duration));
     }
 
-  
-    private void UnfadeAllFadedCells(Tilemap tilemap)
+    private IEnumerator FadeTileCoroutine(Tilemap tilemap, Vector3Int tilePos, float targetAlpha, float duration)
     {
-        HashSet<Vector3Int> cellsToRemove = new();
-        foreach (var cell in fadedCells)
-        {
-           
-            if (fadeCoroutinesDict.ContainsKey(cell))
-            {
-                StopCoroutine(fadeCoroutinesDict[cell]);
-                fadeCoroutinesDict[cell] = null;
-
-                fadeCoroutinesDict.Remove(cell);
-            }
-          
-            Coroutine coroutine = StartCoroutine(FadeTile(tilemap, cell, 1f, 0.2f));
-            fadeCoroutinesDict.Add(cell, coroutine);
-            cellsToRemove.Add(cell);
-
-
-        }
-        foreach (var cell in cellsToRemove)
-        {
-            fadedCells.Remove(cell);
-        }
-        fadedCells.Clear();
-        fadeCoroutinesDict.Clear();
-
-    }
-
-    private IEnumerator FadeTile(Tilemap tilemap, Vector3Int cellPos, float targetAlpha, float duration)
-    {
-        Color startColor = tilemap.GetColor(cellPos);
+        Color startColor = tilemap.GetColor(tilePos);
         Color endColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
 
         float timer = 0;
@@ -220,14 +131,16 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
         {
             timer += Time.deltaTime;
             float t = timer / duration;
-            tilemap.SetColor(cellPos, Color.Lerp(startColor, endColor, t));
+            tilemap.SetColor(tilePos, Color.Lerp(startColor, endColor, t));
             yield return null;
         }
 
-        tilemap.SetColor(cellPos, endColor);
-        fadeCoroutinesDict.Remove(cellPos);
-
+        tilemap.SetColor(tilePos, endColor);
+        fadingTilesDict.Remove(tilePos);
     }
+
+
+
     private void CheckForFloorType()
     {
         RaycastHit2D rayCast = Physics2D.Raycast(groundCheckOrigin1.transform.position, Vector2.down, 0.25f, groundLayer);
@@ -284,6 +197,6 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     //        }
     //    }
     //}
-   
-   
+
+
 }
