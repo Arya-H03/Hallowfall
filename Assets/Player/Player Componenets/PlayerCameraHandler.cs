@@ -125,16 +125,18 @@ public class PlayerCameraHandler : MonoBehaviour
     private IEnumerator FlashVignetteCoroutine(float duration,float intensity,Color newColor)
     {
         float timer = 0;
+        bool shouldChangeIntensity = vignette.intensity == 0;
 
         while(timer < duration / 2)
         {
             timer += Time.deltaTime;
             float t = timer / duration;
-            vignette.intensity.Override(Mathf.Lerp(0, intensity, t));
             vignette.color.Override(Color.Lerp(Color.clear, newColor, t));
+            if (shouldChangeIntensity) vignette.intensity.Override(Mathf.Lerp(0, intensity, t));
+           
             yield return null;
         }
-        vignette.intensity.Override(intensity);
+        if (shouldChangeIntensity)  vignette.intensity.Override(intensity);
         vignette.color.Override(newColor);
 
 
@@ -144,12 +146,12 @@ public class PlayerCameraHandler : MonoBehaviour
         {
             timer += Time.deltaTime;
             float t = timer / duration;
-            vignette.intensity.Override(Mathf.Lerp(intensity, 0, t));
+            if (shouldChangeIntensity)  vignette.intensity.Override(Mathf.Lerp(intensity, 0, t));
             vignette.color.Override(Color.Lerp(newColor, Color.clear, t));
             yield return null;
         }
         vignette.color.Override(Color.clear);
-        vignette.intensity.Override(0f);
+        if (shouldChangeIntensity)  vignette.intensity.Override(0f);
     }
 
     private void OnVignette(float intensity, Color newColor)
