@@ -10,20 +10,21 @@ using Random = UnityEngine.Random;
 
 public class ZoneHandler : MonoBehaviour
 {
- 
+
     private ZoneData zoneData;
     private ZoneLayoutProfile zoneLayoutProfile;
     private int cellSize;
     private int zoneWidth;
     private int zoneHeight;
-  
+
     private CellGrid cellGrid;
     private readonly List<BoundsInt> listOfSubzoneBounds = new();
     private List<BoundsInt> listOfPartitionedSubzoneBounds = new();
     private Dictionary<DirectionEnum, Vector2Int[]> zoneOpenings = new();
+    private Dictionary<Cell, BlockTypeEnum> cellBlockTypeDic = new();
 
-    
- 
+
+
     [SerializeField] private Tilemap groundZeroTilemap;
     [SerializeField] private Tilemap groundOneTilemap;
     [SerializeField] private Tilemap groundTwoTilemap;
@@ -39,11 +40,11 @@ public class ZoneHandler : MonoBehaviour
     public Tilemap PropsNoCollisionTilemap => propsNoCollisionTilemap;
     public Tilemap BoundsTilemap => boundsTilemap;
     public Tilemap TreeTilemap => treeTilemap;
-   
+
 
     public ZoneData ZoneData { get => zoneData; set => zoneData = value; }
     public ZoneLayoutProfile ZoneLayoutProfile { get => zoneLayoutProfile; set => zoneLayoutProfile = value; }
-    public CellGrid CellGrid { get => cellGrid;}
+    public CellGrid CellGrid { get => cellGrid; }
 
     private void OnValidate()
     {
@@ -86,7 +87,7 @@ public class ZoneHandler : MonoBehaviour
 
         yield return StartCoroutine(CellGrid.PaintAllBlocksCoroutine());
         yield return StartCoroutine(CellGrid.PaintAllCellsCoroutine());
-       
+
 
         FlowFieldManager.Instance.UpdateFlowFieldFromZone(zoneData);
 
@@ -94,7 +95,7 @@ public class ZoneHandler : MonoBehaviour
         zoneData.IsZoneFullyGenerated = true;
 
     }
-     
+
     private void PopulateZoneWithPropBlocks(CellGrid cellGrid, ZoneLayoutProfile zoneLayoutProfile)
     {
         Cell startCell = cellGrid.FindNextUnpartitionedCell(new Vector2Int(0, 0));
@@ -107,7 +108,7 @@ public class ZoneHandler : MonoBehaviour
     }
 
 
-    
+
     private void CreateAllSubZoneBounds(CellGrid cellGrid, Cell startCell)
     {
         //Check along left edge
@@ -149,7 +150,7 @@ public class ZoneHandler : MonoBehaviour
 
         listOfSubzoneBounds.Add(new BoundsInt(new Vector3Int((int)startCell.GlobalCellPos.x, (int)startCell.GlobalCellPos.y, 0), new Vector3Int(width, height, 0)));
 
-        
+
         for (int x = startCell.GlobalCellCoord.x; x < startCell.GlobalCellCoord.x + width; x++)
         {
             for (int y = startCell.GlobalCellCoord.y; y < startCell.GlobalCellCoord.y + height; y++)
@@ -170,36 +171,45 @@ public class ZoneHandler : MonoBehaviour
     {
         foreach (BoundsInt zoneBounds in listOfPartitionedSubzoneBounds)
         {
-            PropsBlockEnum propsBlockEnum = GetPropsBlockTypeEnum(zoneLayoutProfile,zoneBounds);
-            if(propsBlockEnum != PropsBlockEnum.none)
-            {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
-                go.transform.parent = this.transform;
-                PropsBlock propsBlock = AddBlockComponent(go, propsBlockEnum);
-                propsBlock.Init(this, CellGrid, zoneBounds.position,  zoneBounds, zoneLayoutProfile);
+            BlockTypeEnum propsBlockEnum = GetPropsBlockTypeEnum(zoneLayoutProfile, zoneBounds);
 
-            }
-            else
-            {
-                GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
-                go.transform.parent = this.transform;
-            }
-                
+            GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+            go.transform.parent = this.transform;
+            PropsBlock propsBlock = AddBlockComponent(go, propsBlockEnum);
+            propsBlock.Init(this, CellGrid, zoneBounds.position, zoneBounds, zoneLayoutProfile);
+            AddToCellBockDict(propsBlock.SubCellGrid.Cells, propsBlockEnum);
+            //if(propsBlockEnum)
+            //if (propsBlockEnum != BlockTypeEnum.none)
+            //{
+            //    GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+            //    go.transform.parent = this.transform;
+            //    PropsBlock propsBlock = AddBlockComponent(go, propsBlockEnum);
+            //    propsBlock.Init(this, CellGrid, zoneBounds.position, zoneBounds, zoneLayoutProfile);
+            //    AddToCellBockDict(propsBlock.SubCellGrid.Cells, propsBlockEnum);
+
+            //}
+            //else
+            //{
+            //    GameObject go = Instantiate(zoneLayoutProfile.spawnablePropsBlock, zoneBounds.position, Quaternion.identity);
+            //    go.transform.parent = this.transform;
+            //}
+
 
 
         }
     }
 
-    private PropsBlockEnum GetPropsBlockTypeEnum(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
+    private BlockTypeEnum GetPropsBlockTypeEnum(ZoneLayoutProfile zoneLayoutProfile, BoundsInt blockBounds)
     {
-        if (zoneLayoutProfile.propsBlocksStructList.Count < 1) return PropsBlockEnum.none;
+        if (zoneLayoutProfile.propsBlocksStructList.Count < 1) return BlockTypeEnum.none;
 
 
-        PropsBlockEnum propsBlockEnum = PropsBlockEnum.none;
+        BlockTypeEnum propsBlockEnum = BlockTypeEnum.none;
         int maxAttempts = 100;
         int attempts = 0;
 
-        while (propsBlockEnum == PropsBlockEnum.none && attempts < maxAttempts)
+        while (propsBlockEnum == BlockTypeEnum
+            .none && attempts < maxAttempts)
         {
             PropsBlockStruct propsBlock = zoneLayoutProfile.propsBlocksStructList[
                 Random.Range(1, zoneLayoutProfile.propsBlocksStructList.Count)];
@@ -208,7 +218,7 @@ public class ZoneHandler : MonoBehaviour
                 blockBounds.size.y >= propsBlock.minBlockSize.y &&
                 blockBounds.size.x < propsBlock.maxBlockSize.x &&
                 blockBounds.size.y < propsBlock.maxBlockSize.y &&
-                propsBlock.propsBlockEnum != PropsBlockEnum.none)
+                propsBlock.propsBlockEnum != BlockTypeEnum.none)
             {
                 propsBlockEnum = propsBlock.propsBlockEnum;
             }
@@ -218,27 +228,28 @@ public class ZoneHandler : MonoBehaviour
 
         return propsBlockEnum;
 
-      
+
     }
 
-    private PropsBlock AddBlockComponent(GameObject propsBlockGO, PropsBlockEnum propsBlockEnum)
+    private PropsBlock AddBlockComponent(GameObject propsBlockGO, BlockTypeEnum propsBlockEnum)
     {
         switch (propsBlockEnum)
         {
-            case PropsBlockEnum.cryptCluster:
+            case BlockTypeEnum.cryptCluster:
                 return propsBlockGO.AddComponent<CryptClusterBlock>();
 
-            case PropsBlockEnum.graveCluster:
+            case BlockTypeEnum.graveCluster:
                 return propsBlockGO.AddComponent<GraveClusterBlock>();
 
-            case PropsBlockEnum.treeCluster:
+            case BlockTypeEnum.treeCluster:
                 return propsBlockGO.AddComponent<TreeClusterBlock>();
 
-            case PropsBlockEnum.ritualCluster:
+            case BlockTypeEnum.ritualCluster:
                 return propsBlockGO.AddComponent<RitualClusterBlock>();
-                case PropsBlockEnum.skillStatueCluster:
-                    return propsBlockGO.AddComponent<SkillStatueClusterBlock>();
-
+            case BlockTypeEnum.skillStatueCluster:
+                return propsBlockGO.AddComponent<SkillStatueClusterBlock>();
+            case BlockTypeEnum.none:
+                return propsBlockGO.AddComponent<EmptyBlock>();
             default:
                 return null;
         }
@@ -248,7 +259,7 @@ public class ZoneHandler : MonoBehaviour
     private void AddDefaultGroundTileForZone(ZoneLayoutProfile zoneLayoutProfile)
     {
 
-        CellPaint tilePaint = new CellPaint {tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
+        CellPaint tilePaint = new CellPaint { tilemap = this.GroundZeroTilemap, tileBase = zoneLayoutProfile.defaultGroundTile };
         CellGrid.LoopOverGrid((i, j) =>
         {
             CellGrid.Cells[i, j].AddToCellPaint(tilePaint);
@@ -296,7 +307,22 @@ public class ZoneHandler : MonoBehaviour
         return (Vector3Int)CellGrid.Cells[x, y].GlobalCellPos;
     }
 
-
+    private void AddToCellBockDict(Cell[,] cells, BlockTypeEnum blockTypeEnum)
+    {
+        for (int j = 0; j < cells.GetLength(1); j++)
+        {
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                cellBlockTypeDic.Add(cells[i, j], blockTypeEnum);
+            }
+        }
+    }
+    public BlockTypeEnum FindCellBlockType(Cell cell)
+    {
+        BlockTypeEnum result = BlockTypeEnum.none;
+        if(cellBlockTypeDic.ContainsKey(cell)) result = cellBlockTypeDic[cell];
+        return result;
+    }
     private void GenerateBoundsForTilemap()
     {
         Tilemap boundsTilemap = /*ZoneManager.Instance.BoundsTilemap;*/ this.BoundsTilemap;

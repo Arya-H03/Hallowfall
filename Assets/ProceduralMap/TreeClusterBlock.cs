@@ -18,7 +18,7 @@ public class TreeClusterBlock : PropsBlock
         {
             for (int x = 0; x < subCellGrid.CellPerRow; x++)
             {
-                Vector3Int pos = new Vector3Int((int)base.subCellGrid.Cells[x, y].GlobalCellPos.x, (int)base.subCellGrid.Cells[x, y].GlobalCellPos.y, 0);
+                Vector3Int pos = new Vector3Int((int)base.SubCellGrid.Cells[x, y].GlobalCellPos.x, (int)base.SubCellGrid.Cells[x, y].GlobalCellPos.y, 0);
                 TileBase treeTilebase = zoneLayoutProfile.GetRandomTile(zoneLayoutProfile.treeTiles, false);
 
                 if (treeTilebase != null)

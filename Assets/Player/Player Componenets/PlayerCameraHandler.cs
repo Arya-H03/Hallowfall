@@ -26,10 +26,11 @@ public class PlayerCameraHandler : MonoBehaviour
     private Vignette vignette;
     private ChromaticAberration chromaticAberration;
     private ColorAdjustments colorAdjustments;
+    private Coroutine fogCoroutine;
 
     private float followSpeed = 2.5f;
 
-
+    [SerializeField] private GameObject fogSheet;
     public Volume Volume { get => volume; }
     public Vignette Vignette { get => vignette; }
     public ChromaticAberration ChromaticAberration { get => chromaticAberration; }
@@ -78,6 +79,58 @@ public class PlayerCameraHandler : MonoBehaviour
 
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+    }
+
+    public void EnableFog(float duration)
+    {
+
+        if (fogCoroutine != null) 
+        {
+            StopCoroutine(fogCoroutine);
+        } 
+        fogCoroutine = StartCoroutine(CameraFogCoroutine(1, duration));
+    }
+
+    public void DisableFog(float duration)
+    {
+
+        if (fogCoroutine != null)
+        {
+            StopCoroutine(fogCoroutine);
+        }
+        fogCoroutine = StartCoroutine(CameraFogCoroutine(0, duration));
+
+    }
+
+    private IEnumerator CameraFogCoroutine(float targetAplha,float duration)
+    {
+        SpriteRenderer fogSheetSR = fogSheet.GetComponent<SpriteRenderer>();
+        Color fogColor = fogSheetSR.color;
+        Color newColor = new Color(fogColor.r, fogColor.g, fogColor.b,targetAplha);
+        float timer = 0f;
+
+        if(targetAplha == 1)
+        {
+            duration = (duration * (1 - fogColor.a));
+        }
+        else if (targetAplha == 0)
+        {
+            duration = (duration * (fogColor.a));
+        }
+
+
+        if (targetAplha == 1) fogSheet.SetActive(true);
+
+        while (timer <= duration)
+        {
+            float t = timer / duration;
+            fogSheetSR.color = Color.Lerp(fogColor, newColor, t);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        fogSheetSR.color = newColor;
+
+        if (targetAplha == 0) fogSheet.SetActive(false);
     }
     private IEnumerator ShakeCameraCoroutine(float duration, float magnitude)
     {

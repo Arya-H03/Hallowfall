@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6826615316521220287
 RectTransform:
   m_ObjectHideFlags: 0
@@ -760,9 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3a396521b4a9840b86c4ec44ecff09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essenceDropChance: 0.75
   skullDropChance: 0.5
-  essenceDropCount: 1
   skullDropCount: 1
 --- !u!1 &9127336270324118875
 GameObject:

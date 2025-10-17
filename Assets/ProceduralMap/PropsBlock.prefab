@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5926190347773793705}
   - component: {fileID: 8297749528574832988}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PropsFrame(Don't Touch)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +52,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,6 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -98,7 +101,7 @@ GameObject:
   - component: {fileID: 431756709392356507}
   - component: {fileID: -4632635130832208515}
   - component: {fileID: 4232637875365351528}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PropsBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +141,7 @@ BoxCollider2D:
     m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2147491711
+    m_Bits: 2147549055
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -187,10 +190,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147549055
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -204,7 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3206537486113276594}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PropsHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

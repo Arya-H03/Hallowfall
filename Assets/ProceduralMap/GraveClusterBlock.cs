@@ -30,9 +30,9 @@ public class GraveClusterBlock : PropsBlock
             }
         }
 
-        base.subCellGrid.LoopOverGrid((i, j) =>
+        base.SubCellGrid.LoopOverGrid((i, j) =>
         {
-            if (!subCellGrid.Cells[i, j].IsOccupied) TryAddSkulls(zoneLayoutProfile, base.subCellGrid.Cells[i, j]);
+            if (!subCellGrid.Cells[i, j].IsOccupied) TryAddSkulls(zoneLayoutProfile, base.SubCellGrid.Cells[i, j]);
             //subCellGrid.Cells[i, j].AddToCellPaint(grassTilePaint);
         });
 
@@ -69,21 +69,34 @@ public class GraveClusterBlock : PropsBlock
     {
         if (collision.CompareTag("Player"))
         {
-
-            isPlayerOnThisBlock = true;
-            //StartCoroutine(SpawnEnemiesCoroutine());
+            //PlayerCameraHandler.Instance.isInFog = true;
+            //isPlayerOnThisBlock = true;
+            ////StartCoroutine(SpawnEnemiesCoroutine());
+            //PlayerCameraHandler.Instance.EnableFog(3);
+            
         }
 
 
 
     }
 
+    protected override void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            //PlayerCameraHandler.Instance.isInFog = true;
+           
+
+        }
+    }
+
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-
-            isPlayerOnThisBlock = false;
+            //PlayerCameraHandler.Instance.isInFog = false;
+            //isPlayerOnThisBlock = false;
+            //PlayerCameraHandler.Instance.DisableFog(3);
         }
 
     }
@@ -100,19 +113,19 @@ public class GraveClusterBlock : PropsBlock
         while (isPlayerOnThisBlock)
         {
 
-            int x = Random.Range(0, subCellGrid.CellPerRow);
-            int y = Random.Range(0, subCellGrid.CellPerCol);
+            int x = Random.Range(0, SubCellGrid.CellPerRow);
+            int y = Random.Range(0, SubCellGrid.CellPerCol);
 
-            if (!subCellGrid.Cells[x, y].IsOccupied)
+            if (!SubCellGrid.Cells[x, y].IsOccupied)
             {
-                GameObject groundShakeEffect = subCellGrid.TryInstantiateTempGameobjectOnTile(zoneLayoutProfile.groundShakeEffectPrefab, new Vector2Int(x, y), Quaternion.identity);
+                GameObject groundShakeEffect = SubCellGrid.TryInstantiateTempGameobjectOnTile(zoneLayoutProfile.groundShakeEffectPrefab, new Vector2Int(x, y), Quaternion.identity);
                 if (groundShakeEffect)
                 {
                     earthShakeParticleSystem.transform.position = groundShakeEffect.transform.position; 
                     earthShakeParticleSystem.Play();
                     //subCellGrid.Cells[x, y].PaintCell(ZoneManager.Instance.GroundOneTilemap, graveYardLayout.defaultDirtTile);
                     yield return new WaitForSeconds(0.1f);
-                    subCellGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
+                    SubCellGrid.TryInstantiateTempGameobjectOnTile(EnemySpawnManager.Instance.SinnerPrefab, new Vector2Int(x, y), Quaternion.identity);
                 }
 
              

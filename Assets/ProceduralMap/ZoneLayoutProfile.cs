@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public enum PropsBlockEnum
+public enum BlockTypeEnum
 {
     none,
     graveCluster,
@@ -17,7 +17,7 @@ public enum PropsBlockEnum
 [System.Serializable]
 public struct PropsBlockStruct
 {
-    public PropsBlockEnum propsBlockEnum;
+    public BlockTypeEnum propsBlockEnum;
     public Vector2Int minBlockSize;
     public Vector2Int maxBlockSize;
 }

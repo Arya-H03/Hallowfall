@@ -205,3 +205,6 @@ MonoBehaviour:
   damage: 20
   speed: 5
   lifeTime: 2
+  homingTime: 0
+  angleOffSet: 180
+  pierceCount: 1

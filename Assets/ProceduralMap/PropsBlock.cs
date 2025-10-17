@@ -24,7 +24,7 @@ public class PropsBlock : MonoBehaviour
     protected int blockWidth = 1;
     protected int blockHeight = 1;
 
-    protected SubCellGrid subCellGrid;
+    private SubCellGrid subCellGrid;
     protected CellGrid parentCellGrid;
 
     protected bool isPlayerOnThisBlock = false;
@@ -32,6 +32,7 @@ public class PropsBlock : MonoBehaviour
 
     public ZoneHandler ZoneHandler { get => zoneHandler; set => zoneHandler = value; }
     public bool IsPlayerOnThisBlock { get => isPlayerOnThisBlock; set => isPlayerOnThisBlock = value; }
+    public SubCellGrid SubCellGrid { get => subCellGrid; }
 
     protected virtual void Awake()
     {
@@ -59,7 +60,7 @@ public class PropsBlock : MonoBehaviour
         subCellGrid = new SubCellGrid(parentCellGrid, blockWidth, blockHeight, firstCellPos);
 
 
-        PopulateBlock(subCellGrid);
+        PopulateBlock(SubCellGrid);
 
     }
     //protected void VisualizeOccupiedCells(SubCellGrid subCellGrid, ZoneLayoutProfile zoneLayoutProfile)
@@ -93,9 +94,6 @@ public class PropsBlock : MonoBehaviour
 
 
     }
-
-
-
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
 

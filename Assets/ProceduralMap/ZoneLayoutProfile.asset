@@ -15,7 +15,7 @@ MonoBehaviour:
   propsBlocksStructList:
   - propsBlockEnum: 0
     minBlockSize: {x: 0, y: 0}
-    maxBlockSize: {x: 0, y: 0}
+    maxBlockSize: {x: 1000, y: 1000}
   - propsBlockEnum: 1
     minBlockSize: {x: 3, y: 3}
     maxBlockSize: {x: 20, y: 20}
@@ -24,19 +24,19 @@ MonoBehaviour:
     maxBlockSize: {x: 20, y: 20}
   - propsBlockEnum: 3
     minBlockSize: {x: 8, y: 8}
-    maxBlockSize: {x: 10, y: 10}
+    maxBlockSize: {x: 15, y: 15}
   - propsBlockEnum: 4
     minBlockSize: {x: 5, y: 5}
     maxBlockSize: {x: 10, y: 10}
   - propsBlockEnum: 5
     minBlockSize: {x: 5, y: 5}
-    maxBlockSize: {x: 10, y: 10}
+    maxBlockSize: {x: 11, y: 11}
   spawnablePropsBlock: {fileID: 4491994773692467318, guid: 728a2a7f89e48a6459ab17d14feb0f42, type: 3}
   fenceRuleTile: {fileID: 11400000, guid: 9fb4437f457113049ac6dfb7ea505794, type: 2}
   stoneRoadRuleTile: {fileID: 11400000, guid: 19b868459d5f5854a949002df5435afb, type: 2}
   grassRuletile: {fileID: 11400000, guid: ea305e80b452d8540b6d6c6c708d557e, type: 2}
   defaultGroundTile: {fileID: 11400000, guid: 7e426feb20d81d247ac35c63280aa321, type: 2}
-  defaultDirtTile: {fileID: 11400000, guid: 1c3e5647e208be14e83aaaf663c7b9f2, type: 2}
+  defaultDirtTile: {fileID: 0}
   skullTiles:
   - {fileID: 11400000, guid: 5a8b2982ca04e5d4cacc0af30cb81fc2, type: 2}
   - {fileID: 11400000, guid: 9cf04e4fd1de69e4b88d97e6c301087e, type: 2}

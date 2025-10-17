@@ -26,6 +26,13 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     [SerializeField] private int detectionRadius = 4;
     [SerializeField] Color vignetteColorInForest;
 
+    [SerializeField] BlockTypeEnum currentBlockType;
+    private BaseBlockInteractionState currentBlockState;
+
+    private NoneBlockState noneBlockState;
+    private ForestBlockState forestBlockState;
+    private GraveyardBlockState graveyardBlockState;
+    
     
 
     public CDetector Detector { get => detector; }
@@ -39,6 +46,11 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     private void Start()
     {
         forestDetector = new ForestDetector(playerController, ZoneManager.Instance.GlobalTreeTilemap, detectionRadius, vignetteColorInForest);
+        noneBlockState = new NoneBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.none);
+        forestBlockState = new ForestBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.treeCluster);
+        graveyardBlockState = new GraveyardBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.graveCluster);
+
+        currentBlockState = noneBlockState;
     }
     private void FixedUpdate()
     {
@@ -47,7 +59,37 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     private void Update()
     {
         if (!playerController || playerController.IsDead) return;
+
+        ChangeEnvironemntState();
+
         forestDetector.TryDetectForest();                                                         
+    }
+
+    private void ChangeEnvironemntState()
+    {
+        Cell currentCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(playerController.GetPlayerPos() - new Vector3(0, 2, 0));
+        BlockTypeEnum newblockType = ZoneManager.Instance.GetCurrentZoneHandler().FindCellBlockType(currentCell);
+
+        if (currentBlockType == newblockType) return;
+
+        currentBlockState.OnExitBlock();
+
+        currentBlockType = newblockType;
+        switch (newblockType)
+        {
+            case BlockTypeEnum.none:
+                currentBlockState = noneBlockState;
+                break;
+            case BlockTypeEnum.treeCluster:
+                currentBlockState = forestBlockState;
+                break;
+            case BlockTypeEnum.graveCluster:
+                currentBlockState = graveyardBlockState;
+                break;
+        };
+
+        currentBlockState.OnEnterBlock();
+
     }
     private void CheckForFloorType()
     {
