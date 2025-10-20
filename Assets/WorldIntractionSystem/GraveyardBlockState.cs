@@ -17,4 +17,9 @@ public class GraveyardBlockState : BaseBlockInteractionState
     {
         PlayerCameraHandler.Instance.DisableFog(3);
     }
+
+    public override void OnStayBlock()
+    {
+        return;
+    }
 }

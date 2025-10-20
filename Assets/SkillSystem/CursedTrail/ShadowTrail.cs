@@ -4,7 +4,7 @@ using Unity.AppUI.UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+
 public class ShadowTrail : MonoBehaviour
 {
     private int damage;

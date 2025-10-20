@@ -176,7 +176,7 @@ public class EnemyController : EntityController
     }
     private void InjectDependencies()
     {
-        enemyHealthbarHandler.Init(this);
+        //enemyHealthbarHandler.Init(this);
         enemyAnimationHandler.Init(this);
         enemyPhysicsHandler.Init(this);
         enemyMovementHandler.Init(this);

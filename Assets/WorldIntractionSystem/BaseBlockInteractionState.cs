@@ -16,4 +16,5 @@ public abstract class BaseBlockInteractionState
 
     public abstract void OnEnterBlock();
     public abstract void OnExitBlock();
+    public abstract void OnStayBlock();
 }

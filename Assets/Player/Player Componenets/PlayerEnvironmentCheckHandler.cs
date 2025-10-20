@@ -21,7 +21,6 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     [SerializeField] LayerMask interactionLayerMask;
 
     private PlayerController playerController;
-    private ForestDetector forestDetector;
 
     [SerializeField] private int detectionRadius = 4;
     [SerializeField] Color vignetteColorInForest;
@@ -45,9 +44,8 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     }
     private void Start()
     {
-        forestDetector = new ForestDetector(playerController, ZoneManager.Instance.GlobalTreeTilemap, detectionRadius, vignetteColorInForest);
         noneBlockState = new NoneBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.none);
-        forestBlockState = new ForestBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.treeCluster);
+        forestBlockState = new ForestBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.treeCluster,ZoneManager.Instance.GlobalTreeTilemap,detectionRadius,vignetteColorInForest);
         graveyardBlockState = new GraveyardBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.graveCluster);
 
         currentBlockState = noneBlockState;
@@ -58,15 +56,16 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     }
     private void Update()
     {
-        if (!playerController || playerController.IsDead) return;
+        if (!playerController || playerController.IsDead || !ZoneManager.Instance) return;
 
         ChangeEnvironemntState();
-
-        forestDetector.TryDetectForest();                                                         
+        currentBlockState?.OnStayBlock();
+       
     }
 
     private void ChangeEnvironemntState()
     {
+        
         Cell currentCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(playerController.GetPlayerPos() - new Vector3(0, 2, 0));
         BlockTypeEnum newblockType = ZoneManager.Instance.GetCurrentZoneHandler().FindCellBlockType(currentCell);
 
