@@ -76,7 +76,8 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdatePlayerSkullText(PlayerSkullCount);
         //StartCoroutine(OnGameStartDialogue());
         StartCoroutine(MyTickCoroutine());
-
+        ObjectiveManager.Instance.CreateObjectiveBox("Slay monsters.");
+        ObjectiveManager.Instance.CreateObjectiveBox("Defeat Death.");
 
 
     }

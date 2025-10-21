@@ -18,7 +18,6 @@ public class ForestBlockState : BaseBlockInteractionState
     private HashSet<Vector3Int> tilesToUnfade = new();
     private Dictionary<Vector3Int, Coroutine> fadingTilesDict = new();
 
-    private bool isFullyInForest = false;
     public ForestBlockState(PlayerController playerController, CCoroutineRunner coroutineRunner, BlockTypeEnum blockType, Tilemap treeTilemap, int detectionRadius, Color vignetteColor) : base(playerController, coroutineRunner, blockType)
     {
         this.coroutineRunner = coroutineRunner;
@@ -33,12 +32,14 @@ public class ForestBlockState : BaseBlockInteractionState
 
     public override void OnEnterBlock()
     {
-        Debug.Log("We in Forest");
+
+        //playerController.PlayerSignalHub.OnVignette?.Invoke(0.9f, vignetteColor);
     }
 
     public override void OnExitBlock()
     {
-        Debug.Log("We out Forest");
+      
+        //playerController.PlayerSignalHub.OnVignette?.Invoke(0, Color.white);
     }
 
     public override void OnStayBlock()
@@ -71,18 +72,6 @@ public class ForestBlockState : BaseBlockInteractionState
 
             }
         }
-
-        if (!isFullyInForest && treeTilemap.HasTile(centerTilePos))
-        {
-            isFullyInForest = true;
-            playerController.PlayerSignalHub.OnVignette?.Invoke(0.9f, vignetteColor);
-        }
-        if (isFullyInForest && !treeTilemap.HasTile(centerTilePos))
-        {
-            isFullyInForest = false;
-            playerController.PlayerSignalHub.OnVignette?.Invoke(0, Color.white);
-        }
-
     }
     private void HandleTiles(Vector3 centerPos)
     {
