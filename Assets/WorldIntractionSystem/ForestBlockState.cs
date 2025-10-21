@@ -38,8 +38,22 @@ public class ForestBlockState : BaseBlockInteractionState
 
     public override void OnExitBlock()
     {
-      
+
         //playerController.PlayerSignalHub.OnVignette?.Invoke(0, Color.white);
+        // Unfade tiles that left the radius
+        //Vector3 playerPos = playerController.GetPlayerPos() - new Vector3(0, 1.5f, 0);
+        foreach (Vector3Int tilePos in fadedTiles)
+        {
+            tilesToUnfade.Add(tilePos);
+        }
+
+        foreach (Vector3Int tilePos in tilesToUnfade)
+        {
+            StartFade(tilePos, 1f, 0.1f);
+            fadedTiles.Remove(tilePos);
+        }
+
+        tilesToUnfade.Clear();
     }
 
     public override void OnStayBlock()
@@ -58,17 +72,16 @@ public class ForestBlockState : BaseBlockInteractionState
 
     private void CheckForNearbyTreeTiles(Vector3 centerPos)
     {
-        Vector3Int centerTilePos = new Vector3Int((int)centerPos.x, (int)centerPos.y, (int)centerPos.z);
-        int count = 0;
-        for (int i = -detectionRadius; i < detectionRadius; i++)
+        Vector3Int centerTilePos = treeTilemap.WorldToCell(centerPos);
+        for (int i = -detectionRadius; i <= detectionRadius; i++)
         {
-            for (int j = -detectionRadius; j < detectionRadius; j++)
+            for (int j = -detectionRadius; j <= detectionRadius; j++)
             {
+                if (i * i + j * j > detectionRadius * detectionRadius) continue;
                 Vector3Int tilePos = centerTilePos + new Vector3Int(i, j, 0);
                 if (!treeTilemap.HasTile(tilePos)) continue;
-
-                count++;
                 if (!fadedTiles.Contains(tilePos)) tilesToFade.Add(tilePos);
+                
 
             }
         }
@@ -84,6 +97,7 @@ public class ForestBlockState : BaseBlockInteractionState
             {
                 StartFade(tilePos, 0.2f, 0.3f);
                 fadedTiles.Add(tilePos);
+               
             }
         }
 
@@ -104,6 +118,7 @@ public class ForestBlockState : BaseBlockInteractionState
         {
             StartFade(tilePos, 1f, 0.2f);
             fadedTiles.Remove(tilePos);
+          
         }
 
         tilesToUnfade.Clear();

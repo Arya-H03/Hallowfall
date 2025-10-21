@@ -15,6 +15,7 @@ public class EnemyController : EntityController
     private List<EnemyBehaviorSO> listOfBehaviors;
     [SerializeField] bool canFlashOnHit = false;
 
+
     [Header("Prefabs")]
     [SerializeField] public GameObject stunEffect;
 
@@ -171,7 +172,7 @@ public class EnemyController : EntityController
     }
     private void InitializeEnemyStats()
     {
-        hasSeenPlayer = true;
+        //hasSeenPlayer = true;
         enemyLvl = 1;
     }
     private void InjectDependencies()

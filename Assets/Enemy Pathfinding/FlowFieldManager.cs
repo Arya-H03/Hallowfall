@@ -30,7 +30,7 @@ public class FlowFieldManager : MonoBehaviour
         flowFieldGenerator = new FlowFieldGenerator();
         zoneManager = ZoneManager.Instance;
     }
-    public Vector2 RequestNewFlowDir(Cell currentCell, Cell lastCell)
+    public Vector2 RequestNewGlobalFlowDir(Cell currentCell, Cell lastCell)
     {
         if (lastCell != currentCell)
         {
@@ -49,7 +49,7 @@ public class FlowFieldManager : MonoBehaviour
     }
 
  
-    public void UpdateFlowField(Vector3 targetPos)
+    public void UpdateGlobalFlowField(Vector3 targetPos)
     {
         ZoneData zoneData = zoneManager.FindZoneDataFromWorldPos(targetPos);
         if (zoneData == null) return;

@@ -49,8 +49,8 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
 
-        mobWavesCoroutine =StartCoroutine(MainEnemySpawnCoroutine());
-        StartCoroutine(SpawnBossCoroutine());
+        //mobWavesCoroutine =StartCoroutine(MainEnemySpawnCoroutine());
+        //StartCoroutine(SpawnBossCoroutine());
     }
 
     private IEnumerator MainEnemySpawnCoroutine()

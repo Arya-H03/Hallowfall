@@ -70,9 +70,10 @@ public class GraveClusterBlock : PropsBlock
         if (collision.CompareTag("Player"))
         {
             //PlayerCameraHandler.Instance.isInFog = true;
-            //isPlayerOnThisBlock = true;
+            isPlayerOnThisBlock = true;
             ////StartCoroutine(SpawnEnemiesCoroutine());
             //PlayerCameraHandler.Instance.EnableFog(3);
+            StartCoroutine(SpawnEnemiesCoroutine());
             
         }
 
@@ -95,7 +96,7 @@ public class GraveClusterBlock : PropsBlock
         if (collision.CompareTag("Player"))
         {
             //PlayerCameraHandler.Instance.isInFog = false;
-            //isPlayerOnThisBlock = false;
+            isPlayerOnThisBlock = false;
             //PlayerCameraHandler.Instance.DisableFog(3);
         }
 
@@ -103,13 +104,13 @@ public class GraveClusterBlock : PropsBlock
 
    private IEnumerator SpawnEnemiesCoroutine()
     {
-        if(!earthShakeParticleSystem)
+        if (!earthShakeParticleSystem)
         {
             earthShakeParticleSystem = Instantiate(zoneLayoutProfile.groundShakeParticleEffectPrefab, transform.position, Quaternion.identity);
             earthShakeParticleSystem.transform.parent = this.transform;
         }
 
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(2f);
         while (isPlayerOnThisBlock)
         {
 
@@ -132,7 +133,7 @@ public class GraveClusterBlock : PropsBlock
 
             }
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
         }
     }
 

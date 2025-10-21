@@ -64,7 +64,7 @@ public class Cell
     private bool isOccupied = false;
     private bool isPartitioned = false;
 
-    private float cellSize;
+    private int cellSize;
     private Vector3Int globalCellPos = Vector3Int.zero;
     private Vector2Int globalCellCoord = Vector2Int.zero;
     private Vector2Int localCellCoord = Vector2Int.zero;
@@ -75,7 +75,7 @@ public class Cell
     public bool IsPartitioned => isPartitioned;
     public bool IsWalkable => cellFlowData.isWalkable;
 
-    public float CellSize => cellSize;
+    public int CellSize => cellSize;
     public Vector2Int GlobalCellCoord => globalCellCoord;
     public Vector3Int GlobalCellPos => globalCellPos;
     public Vector2Int LocalCellCoord { get => localCellCoord; set => localCellCoord = value; }
@@ -106,6 +106,23 @@ public class Cell
         this.globalCellPos = gridPos + new Vector3Int(globalCellCoord.x * cellSize, globalCellCoord.y * cellSize, 0);
         this.LocalCellCoord = globalCellCoord;
         this.cellFlowData = new CellFlowData(true, false, DirectionEnum.None, Vector2.zero, 1, 0);
+    }
+
+    public Cell Clone()
+    {
+        
+        Cell clone = new Cell(parentGrid, globalCellCoord,
+            globalCellPos - new Vector3Int(globalCellCoord.x * cellSize, globalCellCoord.y * cellSize, 0),
+            cellSize);
+
+        clone.isOccupied = this.isOccupied;
+        clone.isPartitioned = this.isPartitioned;
+
+        clone.cellFlowData = this.cellFlowData;
+
+        foreach (var paint in this.cellPaintHashSet) clone.cellPaintHashSet.Add(paint);
+
+        return clone;
     }
 
     public void MarkAsOccupied() => isOccupied = true;
@@ -217,6 +234,19 @@ public class Cell
                 result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
         }
 
+        return result;
+    }
+
+    public List<Cell> GetAllNeighborCellsAndSelf()
+    {
+        List<Cell> result = new();
+        foreach (var vect in MyUtils.GetAllDirectionsVectorList())
+        {
+            Vector2Int neighborCoord = globalCellCoord + vect;
+            if (MyUtils.IsWithinArrayBounds(parentGrid.Cells, neighborCoord))
+                result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
+        }
+        result.Add(this);
         return result;
     }
 

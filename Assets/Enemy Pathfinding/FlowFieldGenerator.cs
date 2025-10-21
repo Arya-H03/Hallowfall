@@ -16,7 +16,7 @@ public class FlowFieldGenerator
 
         SetInitialBaseFlowCosts(cellGrid, currentFieldTargetCell, flowFieldCellQueue);
 
-        ApplyCostsForPlayerZone(flowFieldCellQueue, currentFieldTargetCell);
+        ApplyCostsForTargetZone(flowFieldCellQueue, currentFieldTargetCell);
 
         AssignFlowAllDirectionsOnPlayerZone(cellGrid);
 
@@ -33,6 +33,27 @@ public class FlowFieldGenerator
         AssignFlowAllDirectionsOnNonePlayerZone(cellGrid, dirToPlayerZone);
     }
 
+    public void GenerateFlowFieldForPatrol(CellGrid cellGrid)
+    {
+        Queue<Cell> flowFieldCellQueue = new();
+        Cell targetCell = null;
+        while(targetCell == null)
+        {
+            Cell checkToCheck = cellGrid.Cells[Random.Range(0, cellGrid.CellPerRow), Random.Range(0, cellGrid.CellPerCol)];
+            if (checkToCheck.IsWalkable)
+            { 
+                targetCell = checkToCheck;
+                break;  
+            } 
+        }
+
+        SetInitialBaseFlowCosts(cellGrid, targetCell, flowFieldCellQueue);
+
+        ApplyCostsForTargetZone(flowFieldCellQueue, targetCell);
+
+        AssignFlowAllDirectionsOnPlayerZone(cellGrid);
+
+    }
 
     private void FindAllEdgeCells(CellGrid cellGrid, Queue<Cell> flowFieldCellQueue, DirectionEnum dirToPlayerZone)
     {
@@ -104,7 +125,7 @@ public class FlowFieldGenerator
         flowFieldCellQueue.Enqueue(targetCell);
     }
 
-    private void ApplyCostsForPlayerZone(Queue<Cell> flowFieldCellQueue, Cell targetCell)
+    private void ApplyCostsForTargetZone(Queue<Cell> flowFieldCellQueue, Cell targetCell)
     {
         List<Cell> neighborList = new(8);
 

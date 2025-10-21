@@ -43,7 +43,7 @@ public class EnemyChaseState : EnemyState
             stateMachine.ChangeState(EnemyStateEnum.Idle);
             return;
         }
-        else if (stateMachine.AttackState.CanChangeToAttackState())
+        else if (stateMachine.AttackState.CanChangeToAttackState() && enemyController.HasSeenPlayer)
         {
             stateMachine.ChangeState(EnemyStateEnum.Attack);
         }

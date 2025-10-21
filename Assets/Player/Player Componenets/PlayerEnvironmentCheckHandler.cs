@@ -1,11 +1,8 @@
-using NUnit.Framework;
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Tilemaps;
+
 
 
 [RequireComponent(typeof(CDetector))]
@@ -25,14 +22,15 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     [SerializeField] private int detectionRadius = 4;
     [SerializeField] Color vignetteColorInForest;
 
-    [SerializeField] BlockTypeEnum currentBlockType;
-    private BaseBlockInteractionState currentBlockState;
-
     private NoneBlockState noneBlockState;
     private ForestBlockState forestBlockState;
     private GraveyardBlockState graveyardBlockState;
-    
-    
+    public List<BlockTypeEnum> currentBlocks = new();
+    public List<BlockTypeEnum> newBlocks = new();
+    private Dictionary<BlockTypeEnum, BaseBlockInteractionState> blockStateDic = new();
+
+
+
 
     public CDetector Detector { get => detector; }
     public LayerMask EnemyLayerMask { get => enemyLayer; }
@@ -45,10 +43,16 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
     private void Start()
     {
         noneBlockState = new NoneBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.none);
-        forestBlockState = new ForestBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.treeCluster,ZoneManager.Instance.GlobalTreeTilemap,detectionRadius,vignetteColorInForest);
+        forestBlockState = new ForestBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.treeCluster, ZoneManager.Instance.GlobalTreeTilemap, detectionRadius, vignetteColorInForest);
         graveyardBlockState = new GraveyardBlockState(playerController, playerController.CoroutineRunner, BlockTypeEnum.graveCluster);
 
-        currentBlockState = noneBlockState;
+        blockStateDic.Add(BlockTypeEnum.none, noneBlockState);
+        blockStateDic.Add(BlockTypeEnum.treeCluster, forestBlockState);
+        blockStateDic.Add(BlockTypeEnum.graveCluster, graveyardBlockState);
+        blockStateDic.Add(BlockTypeEnum.ritualCluster, noneBlockState);
+        blockStateDic.Add(BlockTypeEnum.skillStatueCluster, noneBlockState);
+        blockStateDic.Add(BlockTypeEnum.cryptCluster, noneBlockState);
+
     }
     private void FixedUpdate()
     {
@@ -59,35 +63,37 @@ public class PlayerEnvironmentCheckHandler : MonoBehaviour
         if (!playerController || playerController.IsDead || !ZoneManager.Instance) return;
 
         ChangeEnvironemntState();
-        currentBlockState?.OnStayBlock();
-       
+
+        foreach (BlockTypeEnum blockType in currentBlocks)
+        {
+            blockStateDic[blockType].OnStayBlock();
+        }
     }
 
     private void ChangeEnvironemntState()
     {
-        
-        Cell currentCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(playerController.GetPlayerPos() - new Vector3(0, 2, 0));
-        BlockTypeEnum newblockType = ZoneManager.Instance.GetCurrentZoneHandler().FindCellBlockType(currentCell);
 
-        if (currentBlockType == newblockType) return;
-
-        currentBlockState.OnExitBlock();
-
-        currentBlockType = newblockType;
-        switch (newblockType)
+        foreach (Vector2Int vect in MyUtils.GetAllDirectionsVectorList())
         {
-            case BlockTypeEnum.none:
-                currentBlockState = noneBlockState;
-                break;
-            case BlockTypeEnum.treeCluster:
-                currentBlockState = forestBlockState;
-                break;
-            case BlockTypeEnum.graveCluster:
-                currentBlockState = graveyardBlockState;
-                break;
-        };
+            Cell neighboor = ZoneManager.Instance.FindCurrentCellFromWorldPos(playerController.GetPlayerPos() + (Vector3Int)vect);
+            newBlocks.Add(ZoneManager.Instance.GetCurrentZoneHandler().FindCellBlockType(neighboor));
+        }
+        Cell currentCell = ZoneManager.Instance.FindCurrentCellFromWorldPos(playerController.GetPlayerPos() - new Vector3(0, 0, 0));
+        newBlocks.Add(ZoneManager.Instance.GetCurrentZoneHandler().FindCellBlockType(currentCell));
 
-        currentBlockState.OnEnterBlock();
+        foreach (var blockType in newBlocks.Except(currentBlocks))
+        {
+            currentBlocks.Add(blockType);
+            blockStateDic[blockType].OnEnterBlock();
+        }
+
+        foreach (var blockType in currentBlocks.Except(newBlocks).ToList())
+        {
+            currentBlocks.Remove(blockType);
+            blockStateDic[blockType].OnExitBlock();
+        }
+
+        newBlocks.Clear();
 
     }
     private void CheckForFloorType()

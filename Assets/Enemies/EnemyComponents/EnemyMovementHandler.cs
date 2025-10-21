@@ -83,7 +83,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
             lastCell = zoneManager.FindCurrentCellFromWorldPos(lastPos);
             currentCell = zoneManager.FindCurrentCellFromWorldPos(enemyController.transform.position);
 
-            Vector2 newDir = (flowFieldManager.RequestNewFlowDir(currentCell, lastCell) + CalculateRepulsionForce()) .normalized;
+            Vector2 newDir = (flowFieldManager.RequestNewGlobalFlowDir(currentCell, lastCell) + CalculateRepulsionForce()).normalized;
             
            
             if (newDir != Vector2.zero)

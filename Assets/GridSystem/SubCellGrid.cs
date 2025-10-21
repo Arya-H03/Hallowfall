@@ -22,7 +22,7 @@ public class SubCellGrid : CellGrid
         InitializeSubGridCells(originCellWorldPos);
     }
 
-    private void InitializeSubGridCells(Vector3Int originCellWorldPos)
+    public void InitializeSubGridCells(Vector3Int originCellWorldPos)
     {
         Vector3Int offset = originCellWorldPos - parentCellGrid.Cells[0, 0].GlobalCellPos;
         Vector2Int originCellCoord = new Vector2Int(offset.x / CellSize, offset.y / CellSize);

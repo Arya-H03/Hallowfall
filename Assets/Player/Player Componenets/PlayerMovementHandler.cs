@@ -64,7 +64,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     }
     private void Update()
     {
-        HandleUpdatingFlowField();
+        //HandleUpdatingFlowField();
     }
     private void FixedUpdate()
     {
@@ -145,7 +145,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     {
         if (zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
         {
-            flowFieldManager.UpdateFlowField(playerController.transform.position);
+            flowFieldManager.UpdateGlobalFlowField(playerController.GetPlayerPos()) ;
             flowFieldGenerationTimer = 0;
 
         }
