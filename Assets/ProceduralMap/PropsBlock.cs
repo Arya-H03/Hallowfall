@@ -24,7 +24,7 @@ public class PropsBlock : MonoBehaviour
     protected int blockWidth = 1;
     protected int blockHeight = 1;
 
-    private SubCellGrid subCellGrid;
+    protected SubCellGrid subCellGrid;
     protected CellGrid parentCellGrid;
 
     protected bool isPlayerOnThisBlock = false;

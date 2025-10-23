@@ -88,6 +88,28 @@ public class GridSystemDebugger : MonoBehaviour
         cellGrid.LoopOverGrid((i, j) =>
         {
             UpdateVisualForFlowDirection(cellGrid.Cells[j, i], visuals[i, j]);
+           
+          
+        });
+    }
+
+    public void VisualizePatrolCellFlowDirection(CellGrid cellGrid)
+    {
+  
+        CellDebugger[,] visuals = new CellDebugger[cellGrid.CellPerRow,cellGrid.CellPerCol];
+
+        cellGrid.LoopOverGrid((i, j) =>
+        {
+            visuals[i, j] = Instantiate(cellVisualPrefab, (Vector3Int)cellGrid.Cells[i, j].GlobalCellPos, Quaternion.identity).GetComponentInChildren<CellDebugger>();
+            visuals[i, j].gameObject.transform.parent.parent = this.transform;
+        });
+
+
+        cellGrid.LoopOverGrid((i, j) =>
+        {
+            UpdateVisualForFlowDirection(cellGrid.Cells[i, j], visuals[i, j]);
+            //UpdateVisualForFlowDirection(cellGrid.Cells[j, i], visuals[j, i]);
+
         });
     }
 

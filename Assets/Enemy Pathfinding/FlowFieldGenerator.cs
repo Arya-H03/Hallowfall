@@ -16,9 +16,9 @@ public class FlowFieldGenerator
 
         SetInitialBaseFlowCosts(cellGrid, currentFieldTargetCell, flowFieldCellQueue);
 
-        ApplyCostsForTargetZone(flowFieldCellQueue, currentFieldTargetCell);
+        FindCostInGridWithTarget(flowFieldCellQueue, currentFieldTargetCell,true);
 
-        AssignFlowAllDirectionsOnPlayerZone(cellGrid);
+        AssignFlowAllDirectionsOnGridWithTarget(cellGrid);
 
     }
 
@@ -28,9 +28,9 @@ public class FlowFieldGenerator
 
         FindAllEdgeCells(cellGrid, flowFieldCellQueue, dirToPlayerZone);
 
-        ApplyCostsForNonePlayerZone(flowFieldCellQueue);
+        FindCostInGridWithoutTarget(flowFieldCellQueue);
 
-        AssignFlowAllDirectionsOnNonePlayerZone(cellGrid, dirToPlayerZone);
+        AssignFlowAllDirectionsOnGridWithoutTarget(cellGrid, dirToPlayerZone);
     }
 
     public void GenerateFlowFieldForPatrol(CellGrid cellGrid)
@@ -39,7 +39,12 @@ public class FlowFieldGenerator
         Cell targetCell = null;
         while(targetCell == null)
         {
-            Cell checkToCheck = cellGrid.Cells[Random.Range(0, cellGrid.CellPerRow), Random.Range(0, cellGrid.CellPerCol)];
+            int x = Random.Range(1, cellGrid.CellPerRow - 1);
+            int y = Random.Range(1, cellGrid.CellPerCol - 1);
+          
+            Cell checkToCheck = cellGrid.Cells[x, y];
+            
+
             if (checkToCheck.IsWalkable)
             { 
                 targetCell = checkToCheck;
@@ -48,11 +53,10 @@ public class FlowFieldGenerator
         }
 
         SetInitialBaseFlowCosts(cellGrid, targetCell, flowFieldCellQueue);
-
-        ApplyCostsForTargetZone(flowFieldCellQueue, targetCell);
-
-        AssignFlowAllDirectionsOnPlayerZone(cellGrid);
-
+      
+        FindCostInGridWithTarget(flowFieldCellQueue, targetCell,false);
+        AssignFlowAllDirectionsOnGridWithTarget(cellGrid,false);
+        GridSystemDebugger.Instance.VisualizePatrolCellFlowDirection(cellGrid);
     }
 
     private void FindAllEdgeCells(CellGrid cellGrid, Queue<Cell> flowFieldCellQueue, DirectionEnum dirToPlayerZone)
@@ -114,30 +118,42 @@ public class FlowFieldGenerator
                 currentCell.BaseCost = COST_UNWALKABLE;
             }
             else
-            {
+            {           
                 currentCell.BaseCost = COST_UNVISITED;
-
             }
         }
         );
 
+        cellGrid.LoopOverGrid((i, j) =>
+        {
+            Cell currentCell = cellGrid.Cells[i, j];
+         
+        }
+       );
+
         targetCell.BaseCost = COST_TARGET;
         flowFieldCellQueue.Enqueue(targetCell);
+
     }
 
-    private void ApplyCostsForTargetZone(Queue<Cell> flowFieldCellQueue, Cell targetCell)
+    private void FindCostInGridWithTarget(Queue<Cell> flowFieldCellQueue, Cell targetCell, bool isGridGlobal = true)
     {
-        List<Cell> neighborList = new(8);
+        List<Cell> neighborList = new();
 
         while (flowFieldCellQueue.Count > 0)
         {
             Cell currentCell = flowFieldCellQueue.Dequeue();
             neighborList.Clear();
-            neighborList.AddRange(currentCell.GetAllNeighborCells());
+            if (isGridGlobal) neighborList.AddRange(currentCell.GetAllNeighborCellsAndSelfOnGlobalGrid());
+            else neighborList.AddRange(currentCell.GetAllNeighborCellsOnLocalGrid());
+
+           
             foreach (Cell neighbor in neighborList)
             {
+               
                 if (neighbor.IsWalkable && neighbor.BaseCost == COST_UNVISITED)
                 {
+                   
                     Vector2 toNeighbor = (Vector3)(neighbor.GlobalCellPos - targetCell.GlobalCellPos);
                     float angle = Mathf.Atan2(toNeighbor.y, toNeighbor.x);
 
@@ -151,7 +167,6 @@ public class FlowFieldGenerator
                     {
                         neighbor.BaseCost = currentCell.BaseCost + 1;
                     }
-
                     flowFieldCellQueue.Enqueue(neighbor);
 
                 }
@@ -159,7 +174,7 @@ public class FlowFieldGenerator
         }
     }
 
-    private void ApplyCostsForNonePlayerZone(Queue<Cell> flowFieldCellQueue)
+    private void FindCostInGridWithoutTarget(Queue<Cell> flowFieldCellQueue)
     {
         List<Cell> neighborList = new(4);
 
@@ -167,7 +182,7 @@ public class FlowFieldGenerator
         {
             Cell currentCell = flowFieldCellQueue.Dequeue();
             neighborList.Clear();
-            neighborList.AddRange(currentCell.GetAllNeighborCells());
+            neighborList.AddRange(currentCell.GetAllNeighborCellsOnGlobalGrid());
             foreach (Cell neighbor in neighborList)
             {
                 if (neighbor.IsWalkable && neighbor.BaseCost == COST_UNVISITED)
@@ -178,33 +193,37 @@ public class FlowFieldGenerator
             }
         }
     }
-    private void AssignFlowAllDirectionsOnPlayerZone(CellGrid cellGrid)
+    private void AssignFlowAllDirectionsOnGridWithTarget(CellGrid cellGrid, bool isGridGlobal = true)
     {
         cellGrid.LoopOverGrid((i, j) =>
         {
-            cellGrid.Cells[i, j].FlowDir = FindFlowForPlayerDirection(cellGrid.Cells[i, j]);
+            cellGrid.Cells[i, j].FlowDir = FindCellFlowDirectionOnGridWithTarget(cellGrid.Cells[i, j], isGridGlobal);
         }
         );
     }
 
-    private void AssignFlowAllDirectionsOnNonePlayerZone(CellGrid cellGrid, DirectionEnum directionEnum)
+    private void AssignFlowAllDirectionsOnGridWithoutTarget(CellGrid cellGrid, DirectionEnum directionEnum)
     {
         cellGrid.LoopOverGrid((i, j) =>
         {
-            cellGrid.Cells[i, j].FlowDir = FindFlowDirectionForNonePlayerZone(cellGrid.Cells[i, j], directionEnum);
+            cellGrid.Cells[i, j].FlowDir = FindCellFlowDirectionOnGridWithoutTarget(cellGrid.Cells[i, j], directionEnum);
 
         }
         );
     }
 
-    private DirectionEnum FindFlowForPlayerDirection(Cell currentCell)
+    private DirectionEnum FindCellFlowDirectionOnGridWithTarget(Cell currentCell, bool isGridGlobal = true)
     {
         if (currentCell.TotalCost == COST_TARGET) return DirectionEnum.None;
 
+        List<Cell> neighborList = new();
         List<Cell> cheapestNeighbors = new();
         int minCost = int.MaxValue;
 
-        foreach (Cell neighbor in currentCell.GetAllNeighborCells())
+        if (isGridGlobal) neighborList.AddRange(currentCell.GetAllNeighborCellsAndSelfOnGlobalGrid());
+        else neighborList.AddRange(currentCell.GetAllNeighborCellsOnLocalGrid());
+
+        foreach (Cell neighbor in neighborList)
         {
             if (!neighbor.IsWalkable) continue;
             if (neighbor.TotalCost < minCost)
@@ -228,14 +247,14 @@ public class FlowFieldGenerator
         return MyUtils.GetDirFromVector(dir);
     }
 
-    private DirectionEnum FindFlowDirectionForNonePlayerZone(Cell currentCell, DirectionEnum directionEnum)
+    private DirectionEnum FindCellFlowDirectionOnGridWithoutTarget(Cell currentCell, DirectionEnum directionEnum)
     {
         if (currentCell.TotalCost == COST_TARGET) return directionEnum;
 
         List<Cell> cheapestNeighbors = new();
         int minCost = int.MaxValue;
 
-        foreach (Cell neighbor in currentCell.GetAllNeighborCells())
+        foreach (Cell neighbor in currentCell.GetAllNeighborCellsOnGlobalGrid())
         {
             if (!neighbor.IsWalkable) continue;
             if (neighbor.TotalCost < minCost)

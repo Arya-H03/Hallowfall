@@ -76,4 +76,19 @@ public class EnemyDeathState : EnemyState
                 break;
         }
     }
+
+    public override void ExitState()
+    {
+        return;
+    }
+
+    public override void FrameUpdate()
+    {
+        return;
+    }
+
+    public override void PhysicsUpdate()
+    {
+        return;
+    }
 }

@@ -124,4 +124,14 @@ public class EnemyAttackState : EnemyState
     {
         return IsEnemyAbleToAttack() && currentAbility != null;
     }
+
+    public override void FrameUpdate()
+    {
+        return;
+    }
+
+    public override void PhysicsUpdate()
+    {
+        return;
+    }
 }

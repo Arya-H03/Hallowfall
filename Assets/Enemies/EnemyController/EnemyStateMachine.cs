@@ -9,6 +9,7 @@ public class EnemyStateMachine
     private EnemyAttackState attackState;
     private EnemyStunState stunState;
     private EnemyDeathState deathState;
+    private EnemyPatrolState patrolState;
 
 
     private bool canChangeState = true;
@@ -21,6 +22,7 @@ public class EnemyStateMachine
     public EnemyAttackState AttackState { get => attackState;}
     public EnemyStunState StunState { get => stunState; }
     public EnemyDeathState DeathState { get => deathState;}
+    public EnemyPatrolState PatrolState { get => patrolState; }
     public bool CanChangeState { get => canChangeState;}
     public EnemyStateEnum CurrentStateEnum { get => currentStateEnum; set => currentStateEnum = value; }
 
@@ -37,6 +39,7 @@ public class EnemyStateMachine
         attackState = new EnemyAttackState(enemyController, this, EnemyStateEnum.Attack);
         stunState = new EnemyStunState(enemyController, this, EnemyStateEnum.Stun);
         deathState = new EnemyDeathState(enemyController, this, EnemyStateEnum.Death);
+        patrolState = new EnemyPatrolState(enemyController, this, EnemyStateEnum.Patrol);
 
         currentState =  idleState;
         currentStateEnum = EnemyStateEnum.Idle;
@@ -63,6 +66,9 @@ public class EnemyStateMachine
                     break;
                 case EnemyStateEnum.Death:
                     currentState = deathState;
+                    break;
+                case EnemyStateEnum.Patrol:
+                    currentState = patrolState;
                     break;
             }
             currentStateEnum = stateEnum;

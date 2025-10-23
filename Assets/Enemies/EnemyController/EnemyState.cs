@@ -15,7 +15,7 @@ public enum EnemyStateEnum
 
 }
 
-public class EnemyState : IEntityState
+public abstract class EnemyState : IEntityState
 {
     protected EnemyStateEnum stateEnum;
     protected EnemyController enemyController;
@@ -30,8 +30,8 @@ public class EnemyState : IEntityState
         this.enemyConfig = enemyController.EnemyConfig;
 
     }
-    public virtual void EnterState() { }
-    public virtual void ExitState() { }
-    public virtual void FrameUpdate() { }
-    public virtual void PhysicsUpdate() { }
+    public abstract void EnterState();
+    public abstract void ExitState();
+    public abstract void FrameUpdate();
+    public abstract void PhysicsUpdate();
 }

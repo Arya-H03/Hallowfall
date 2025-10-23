@@ -168,7 +168,7 @@ public class EnemyController : EntityController
 
         signalHub.OnInitWithEnemyController?.Invoke(this);
 
-        stateMachine.ChangeState(EnemyStateEnum.Chase); 
+        stateMachine.ChangeState(EnemyStateEnum.Idle); 
     }
     private void InitializeEnemyStats()
     {
@@ -212,4 +212,15 @@ public class EnemyController : EntityController
 
     public Vector3 GetEnemyPos() => transform.position;
 
+    public void SetInitialBehvaiorToChasePlayer()
+    {
+        hasSeenPlayer = true;
+    }
+
+    public void SetInitialBehvaiorToPatrol(CellGrid patrolCellGrid)
+    {
+        hasSeenPlayer = false;
+      
+        stateMachine.PatrolState.PatrolCellGrid = patrolCellGrid;
+    }
 }

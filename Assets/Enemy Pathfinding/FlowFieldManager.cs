@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ public class FlowFieldManager : MonoBehaviour
     private bool canVisualizeFlowField = false;
 
     private readonly HashSet<Cell> cellsOccupiedByEnemy = new();
+    private HashSet<CellGrid> patrolCellGridSet = new();
 
     private void Awake()
     {
@@ -48,7 +50,29 @@ public class FlowFieldManager : MonoBehaviour
         return currentCell.FlowVect.normalized;
     }
 
- 
+    public Vector2 RequestNewPatrolFlowDir(CellGrid patrolCellGrid,Vector3 worldPos)
+    {
+        if (patrolCellGridSet.Add(patrolCellGrid))
+        {
+           
+            flowFieldGenerator.GenerateFlowFieldForPatrol(patrolCellGrid);
+            
+        }
+       
+        Cell currentCell = patrolCellGrid.GetCellFromWorldPos(worldPos);
+        
+        if (currentCell == null)
+        {
+            Debug.Log("Failed to find cell for patrol");
+            return Vector2.zero;
+        }
+
+        //
+
+        return currentCell.FlowVect.normalized;
+    }
+
+
     public void UpdateGlobalFlowField(Vector3 targetPos)
     {
         ZoneData zoneData = zoneManager.FindZoneDataFromWorldPos(targetPos);
@@ -94,5 +118,7 @@ public class FlowFieldManager : MonoBehaviour
             GridSystemDebugger.Instance.EnableAllVisuals();
         }
     }
+
+
    
 }

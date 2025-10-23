@@ -30,18 +30,37 @@ public class EnemyIdleState : EnemyState
         {
             stateMachine.ChangeState(EnemyStateEnum.Chase);
         }
+        else if(CanGoToPatrollState())
+        {
+            stateMachine.ChangeState(EnemyStateEnum.Patrol);
+        }
+    }
        
+    
+
+    public override void PhysicsUpdate()
+    {
+        return;
     }
 
     private bool CanGoToChaseState()
     {
-        return 
+        return
                !enemyController.PlayerController.IsDead &&
                enemyController.CanMove &&
                !enemyController.IsBeingknocked &&
-                stateMachine.AttackState.CanChasePlayerToAttack() &&
-               movementHandler.CanMoveToNextCell();
+               enemyController.HasSeenPlayer &&
+                stateMachine.AttackState.CanChasePlayerToAttack();
     }
 
+    private bool CanGoToPatrollState()
+    {
+        return
+               !enemyController.PlayerController.IsDead &&
+               enemyController.CanMove &&
+               !enemyController.IsBeingknocked &&
+               !enemyController.HasSeenPlayer &&
+                stateMachine.PatrolState.PatrolCellGrid != null;
+    }
 
 }

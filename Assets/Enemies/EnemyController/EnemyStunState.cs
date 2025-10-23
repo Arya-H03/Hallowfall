@@ -54,4 +54,9 @@ public class EnemyStunState : EnemyState
         }
 
     }
+
+    public override void PhysicsUpdate()
+    {
+        return;
+    }
 }

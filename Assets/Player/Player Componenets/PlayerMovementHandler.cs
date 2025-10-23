@@ -64,7 +64,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
     }
     private void Update()
     {
-        //HandleUpdatingFlowField();
+        //HandleUpdatingGlobalFlowField();
     }
     private void FixedUpdate()
     {
@@ -141,7 +141,7 @@ public class PlayerMovementHandler : MonoBehaviour, IInitializeable<PlayerContro
             TryToTurn(Vector2.left);
         }
     }
-    private void HandleUpdatingFlowField()
+    private void HandleUpdatingGlobalFlowField()
     {
         if (zoneManager && flowFieldGenerationTimer >= flowFieldGenerationDelay)
         {

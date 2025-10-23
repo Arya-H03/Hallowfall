@@ -50,9 +50,15 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
 
     public void MoveToPlayer(float speed)
     {
-        FindNextMovementDirection();
+        FindNextMovementDirectionForChasingPlayer();
         Move(nextMoveDir, speed);
         TryToTurn(enemyController.PlayerController.GetPlayerPos() - enemyController.GetEnemyPos());
+    }
+    public void MoveToPatrol(float speed,CellGrid patrolCellGrid)
+    {
+        FindNextMovementDirectionForPatrol(patrolCellGrid);
+        Move(nextMoveDir, speed);
+        TryToTurn(nextMoveDir);
     }
     private Vector2 CalculateRepulsionForce()
     {
@@ -75,7 +81,7 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
         return repulsion * repulsionStrength;
 
     }
-    private void FindNextMovementDirection()
+    private void FindNextMovementDirectionForChasingPlayer()
     {
         flowRequestTimer += Time.deltaTime;
         if (flowRequestTimer >= flowRequestDelay || hasNotBeenOnFlow)
@@ -94,6 +100,24 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
                 flowRequestTimer = 0;
             }
            
+        }
+    }
+
+    private void FindNextMovementDirectionForPatrol(CellGrid patrolCellGrid)
+    {
+        flowRequestTimer += Time.deltaTime;
+        if (flowRequestTimer >= flowRequestDelay || hasNotBeenOnFlow)
+        {       
+            Vector2 newDir = (flowFieldManager.RequestNewPatrolFlowDir(patrolCellGrid,enemyController.GetEnemyPos()) + CalculateRepulsionForce()).normalized;
+
+            if (newDir != Vector2.zero)
+            {
+                nextMoveDir = newDir;
+                lastPos = enemyTransform.position;
+                hasNotBeenOnFlow = false;
+                flowRequestTimer = 0;
+            }
+
         }
     }
     public void Move(Vector2 movementDirection, float speed)
@@ -120,12 +144,6 @@ public class EnemyMovementHandler : MonoBehaviour, IMoveable, IInitializeable<En
             this.transform.localScale = new Vector3(xDir, 1, 1);
         }
     }
-
-    public bool CanMoveToNextCell()
-    {      
-        return true;
-    }
-
     public void StartRunningSFX(AudioClip groundSFX, AudioClip grassSFX, AudioClip woodSFX)
     {
 

@@ -46,13 +46,14 @@ public class CellGrid
     {
         CellGrid clone = new CellGrid(cellSize, gridWidth, gridHeight);
         clone.blockPaintList = blockPaintList;
-        for (int j = 0; j < cells.Length; j++)
+        for (int i = 0; i < cellPerRow; i++)
         {
-            for(int i = 0; i < cellPerCol; i++)
+            for (int j = 0; j < cellPerCol; j++)
             {
-                clone.Cells[i,j] = cells[i,j].Clone();
+                clone.Cells[i, j] = cells[i, j].Clone(clone);
             }
         }
+       
         return clone;
     }
     public void InitializeGridCells(Vector3Int gridCenterWorldPos)

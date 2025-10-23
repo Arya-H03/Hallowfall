@@ -5,12 +5,10 @@ using UnityEngine;
 public class EnemyChaseState : EnemyState
 {
     private EnemyMovementHandler movementHandler;
-    private EnemyAnimationHandler animationManager;
+   
 
     private float chaseSpeed;
-  
-    private bool isInPlayerRange = false;
-
+ 
     public float ChaseSpeed { get => chaseSpeed; set => chaseSpeed = value; }
 
     public EnemyChaseState(EnemyController enemyController,EnemyStateMachine stateMachine, EnemyStateEnum stateEnum) : base(enemyController,stateMachine, stateEnum)
@@ -18,7 +16,6 @@ public class EnemyChaseState : EnemyState
         this.enemyController = enemyController;
         this.enemyConfig = enemyController.EnemyConfig;
         this.movementHandler = enemyController.EnemyMovementHandler;
-        this.animationManager = enemyController.EnemyAnimationHandler;
 
         chaseSpeed = Random.Range(enemyConfig.minChaseSpeed, enemyConfig.maxChaseSpeed + 0.1f);
      
@@ -38,7 +35,7 @@ public class EnemyChaseState : EnemyState
 
     public override void FrameUpdate()
     {
-        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead ||!movementHandler.CanMoveToNextCell())          
+        if (enemyController == null || enemyController.PlayerGO == null || enemyController.PlayerController.IsDead || enemyController.IsDead)          
         {
             stateMachine.ChangeState(EnemyStateEnum.Idle);
             return;
@@ -51,7 +48,7 @@ public class EnemyChaseState : EnemyState
 
     public override void PhysicsUpdate()
     {
-        if (!isInPlayerRange && enemyController.CanMove && !enemyController.IsBeingknocked)
+        if (enemyController.CanMove && !enemyController.IsBeingknocked)
         {
             movementHandler.MoveToPlayer(ChaseSpeed);
         }

@@ -108,12 +108,14 @@ public class Cell
         this.cellFlowData = new CellFlowData(true, false, DirectionEnum.None, Vector2.zero, 1, 0);
     }
 
-    public Cell Clone()
+    public Cell Clone(CellGrid clonedParentGrid)
     {
         
-        Cell clone = new Cell(parentGrid, globalCellCoord,
+        Cell clone = new Cell(clonedParentGrid, globalCellCoord,
             globalCellPos - new Vector3Int(globalCellCoord.x * cellSize, globalCellCoord.y * cellSize, 0),
             cellSize);
+
+        clone.localCellCoord = this.localCellCoord;
 
         clone.isOccupied = this.isOccupied;
         clone.isPartitioned = this.isPartitioned;
@@ -223,7 +225,7 @@ public class Cell
         cellPaintHashSet.Clear();
     }
 
-    public List<Cell> GetAllNeighborCells()
+    public List<Cell> GetAllNeighborCellsOnGlobalGrid()
     {
         List<Cell> result = new();
    
@@ -232,12 +234,31 @@ public class Cell
             Vector2Int neighborCoord = globalCellCoord + vect;
             if (MyUtils.IsWithinArrayBounds(parentGrid.Cells, neighborCoord))
                 result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
+            
+        }
+       
+        return result;
+    }
+
+    public List<Cell> GetAllNeighborCellsOnLocalGrid()
+    {
+        List<Cell> result = new();
+        foreach (var vect in MyUtils.GetAllDirectionsVectorList())
+        {
+            Vector2Int neighborCoord = localCellCoord + vect;
+            if (MyUtils.IsWithinArrayBounds(parentGrid.Cells, neighborCoord))
+            {
+                result.Add(parentGrid.Cells[neighborCoord.x, neighborCoord.y]);
+               
+            }
+            
+
         }
 
         return result;
     }
 
-    public List<Cell> GetAllNeighborCellsAndSelf()
+    public List<Cell> GetAllNeighborCellsAndSelfOnGlobalGrid()
     {
         List<Cell> result = new();
         foreach (var vect in MyUtils.GetAllDirectionsVectorList())
@@ -250,7 +271,7 @@ public class Cell
         return result;
     }
 
-    public List<Cell> GetCardinalNeighborCells()
+    public List<Cell> GetCardinalNeighborCellsOnGlobalGrid()
     {
         List<Cell> result = new();
       
